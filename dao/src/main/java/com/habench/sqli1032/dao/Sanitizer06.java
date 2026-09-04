@@ -1,0 +1,15 @@
+package com.habench.sqli1032.dao;
+
+import com.habench.sqli1032.dao.SinkHandler;
+import java.util.regex.Pattern;
+
+public final class Sanitizer06 {
+    private static final Pattern SAFE = Pattern.compile("^[A-Za-z0-9_]{1,64}$");
+
+    public static void apply(String value) {
+        if (!SAFE.matcher(value).matches()) {
+            throw new IllegalArgumentException("rejected input");
+        }
+        SinkHandler.execute(value);
+    }
+}

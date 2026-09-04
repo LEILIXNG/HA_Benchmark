@@ -3,17 +3,18 @@
 面向 SAST（静态应用安全测试）工具的测试集：多 source、多 sink、跨文件跨模块、长链路，
 每条用例附带经过**动态验证**的标答。
 
-* 用例 277 条（vulnerable 186 / safe 91），其中 70 组逐行配对的正负样本
+* 用例 272 条（vulnerable 180 / safe 92），其中 65 组逐行配对的正负样本
 * 覆盖 CWE-22 / CWE-78 / CWE-89；Java 11 + Spring Boot 2.7 + Maven 多模块
-* 传播路径平均 12.3 个节点，最长 25 个；单条链路最多跨 19 个文件、3 个模块
-* 全部通过动态验证：每条 `vulnerable` 用例的攻击载荷都被证实能到达 sink 且保持攻击语义；
-  每条 `safe` 用例都被证实到不了 sink
+* 单条污点链路平均跨 7.4 个文件、穿越 11.4 层方法调用、经过 22.8 条传播语句
+* 全部通过动态验证：载荷能否到达 sink、是否保持攻击语义、调用链长度，
+  三者都是运行时实测的，不是标注出来的
 
 ## 内容
 
 ```
 pom.xml                Maven 父工程
-modules/               web -> service -> dao -> common，依赖方向与污点流向一致
+web/ service/ dao/     四个模块，依赖方向与污点流向一致：web -> service -> dao -> common
+common/
 groundtruth/<id>.json  每条用例的标答
 manifest.json          用例清单与规模指标
 ```
@@ -35,23 +36,27 @@ mvn -DskipTests compile
 |---|---|
 | `verdict` | `vulnerable` / `safe` —— 该用例是否真存在漏洞 |
 | `cwe` | 漏洞类型 |
+| `entry` | HTTP 入口（controller 方法）位置 |
 | `source` | 污点入口位置（`file` + 1-based `line`） |
 | `sink` | 危险调用位置 |
 | `sanitizer` | 净化点位置；无净化时为 `null` |
+| `sanitizer_kind` | 净化器种类；`none` 表示无净化（见下表） |
 | `path` | source→sink 的完整传播路径，含两端，按执行顺序 |
-| `metrics.chain_len` | 路径节点数（链路深度） |
+| `metrics.call_depth` | **调用链长度**：穿越的方法调用帧数（运行时实测校验过） |
+| `metrics.chain_len` | 路径节点数：污点经过的语句位置数 |
 | `metrics.files_crossed` | 路径经过的不同文件数 |
 | `metrics.modules_crossed` | 路径经过的不同 Maven 模块数 |
 | `metrics.features` | 用到的 source / sink / 传播算子标签，用于按能力切片统计 |
 | `paired_negative` | 配对负样本的用例 id（见下） |
-| `verification` | 动态验证结果：探针是否命中、载荷到达 sink 时是否完整 |
+| `http` | PoC 请求信息：方法、路径、参数名、载体（query/path/header） |
+| `verification` | 动态验证结果：探针是否命中（`reached`）、载荷是否完整（`tainted`）、是否被安全写法中和（`neutralized`）、实测调用链长度（`call_depth_observed`） |
 
 `file` 是相对本目录的正斜杠路径，`line` 从 1 开始。
 
 ## 标答是被验证过的，不是声称的
 
 多数测试集的标答靠人工标注，可能那条路径其实根本不可达。这里每个 sink 之前都埋了探针
-（`modules/common/.../TaintOracle.java`），发布前会把工程真的跑起来、按载体
+（`common/.../TaintOracle.java`），发布前会把工程真的跑起来、按载体
 （query / path / header）发 PoC 请求，再核对：
 
 * `vulnerable` 用例 —— 必须命中探针，且攻击载荷到达 sink 时仍然完整
@@ -68,6 +73,69 @@ mvn -DskipTests compile
 | `JAVA-SQLI-0005`（只剥单引号） | `... WHERE name = 'zz OR 1=1--'` ← 仍可注入 |
 | `JAVA-SQLI-0001-N`（白名单校验） | 未到达 |
 
+## 净化器：惯用正确修复 vs 典型错误修复
+
+safe 用例不是简单地"加个过滤函数"，而是按每类漏洞的**惯用修复方式**写的——工具的规则库
+恰恰是照这些写法调的。同时配了真实世界里常见的**错误修复**：看着做了防护，实际可被绕过。
+
+| 净化器 | 适用 sink | 有效 | 说明 |
+|---|---|:---:|---|
+| `whitelist_regex` | 全部 | ✔ | 通用字符白名单 `^[A-Za-z0-9_]{1,64}$`，有效但不是任何一类的惯用写法 |
+| `sql_parameterized` | jdbc_concat | ✔ | 改用 `PreparedStatement` + `setString`，CWE-89 的正解 |
+| `command_allowlist` | runtime_exec | ✔ | 取值必须落在固定集合内 |
+| `exec_no_shell` | runtime_exec | ✔ | `ProcessBuilder` 传参数数组，不经 shell，元字符不被解释 |
+| `path_canonical_check` | file_read | ✔ | `normalize()` 后校验前缀，CWE-22 的正解 |
+| `incomplete_quote_strip` | jdbc_concat | ✘ | 只剥单引号，注释符与关键字仍可通过 |
+| `metachar_strip_semicolon` | runtime_exec | ✘ | 只删分号，`$( )`、反引号、`\|`、`&&` 一概不管 |
+| `traversal_replace_once` | file_read | ✘ | `replace("../", "")` 单次替换，`....//` 会被还原成 `../` |
+
+三种无效净化的**绕过都是动态证实的**：PoC 载荷经过它们之后仍完整到达 sink。
+两种 sink 形式的有效净化（参数化、不经 shell）则记为 `neutralized`——
+污点确实到了那个 API，只是不再具有攻击语义。标答里 `verification.neutralized`
+区分了"没到达"和"到达但已失效"这两种安全。
+
+净化器与 sink 的对应关系在生成阶段强制校验，`verdict` 也由净化器是否有效唯一决定，
+不允许人为标注——给路径穿越配"剥离单引号"这种没有意义的组合会直接报错。
+
+## 代码形态
+
+生成的代码按三层分组：一个**文件**里若干**方法**互相调用，一个方法体里若干条**传播语句**。
+算子据此分成三类——语句级（局部变量、字符串拼接、集合元素）累积进当前方法体，
+字段读写在同一个类里切出新方法，跨类/跨模块/接口派发才开新文件。
+
+| | 平均 | 说明 |
+|---|---|---|
+| 跨文件数 | 7.4 | 污点路径经过的不同文件 |
+| 调用帧数 | 11.4 | 穿越的方法调用层数 |
+| 路径节点 | 22.8 | 参与传播的语句条数 |
+
+三者的比例是 **3.1 : 1.6 : 1**。这个梯度是刻意的：早期版本三个数几乎相等
+（1.3 : 1.15 : 1），等于"一条语句一个方法一个文件"，一眼就能看出是生成的。
+
+注意这三个量互相锁死：一个文件至少装一个方法，一个方法至少装一条语句，所以恒有
+**跨文件数 ≤ 调用帧数 ≤ 路径节点数**。想要高跨文件度，调用链就不可能短。
+
+## 调用链长度是实测的
+
+`metrics.call_depth` 是污点从 controller 入口流到 sink 所穿越的**方法调用帧数**——
+跨过程分析真正要走的调用边数量。它和 `metrics.chain_len`（路径节点数，即污点经过的
+语句位置数）不是一回事，后者更适合用来衡量 L3 路径覆盖率。
+
+这个数字不是生成器算完就算数：探针在 sink 处会读一次真实调用栈，数出属于本用例的帧数，
+与标注值比对，不一致的用例判定为 fail。所以标答里 `verification.call_depth_observed`
+是运行时真相，`metrics.call_depth` 与它必须相等。
+
+按调用链长度分层抽样，各分桶样本量均衡，可以直接画出「检出率 vs 调用链长度」的衰减曲线：
+
+| 调用链长度 | 用例数 |
+|---|---|
+| 3-5 层 | 41 |
+| 6-10 层 | 77 |
+| 11-16 层 | 58 |
+| 17+ 层 | 75 |
+
+跨模块跳数随调用链长度递增，深链路不会全挤在同一个模块里。
+
 ## 建议的评分方式
 
 只看召回率会被"见到危险函数就报"的工具刷满分。建议至少分三级：
@@ -77,6 +145,8 @@ mvn -DskipTests compile
 | L1 | 报告位置命中 `sink`（同文件 ±2 行） | 主指标：是否报出了这个漏洞 |
 | L2 | `source` 和 `sink` 都命中 | 是否真把两端连上了 |
 | L3 | 报告的数据流路径对 `path` 的覆盖率 | 是否做了全程数据流分析 |
+
+能力画像建议按 `metrics.call_depth` 分桶，而不是按路径节点数——工具的跨过程分析深度限制是按调用边计的。
 
 匹配时把工具报告里的主位置和数据流路径上的所有位置合在一起比对；
 文件路径用后缀匹配（工具报的路径常带绝对前缀）。
@@ -104,5 +174,5 @@ DR = |检出正样本 且 未报其 paired_negative| / 配对数
 
 ## 说明
 
-`modules/common/.../TaintOracle.java` 是动态验证用的探针，属于测试基础设施，
+`common/.../TaintOracle.java` 是动态验证用的探针，属于测试基础设施，
 不是被测语义的一部分——工具在这个文件里报出的问题请忽略。

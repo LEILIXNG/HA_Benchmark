@@ -1,0 +1,153 @@
+{
+  "id": "JAVA-SQLI-1084",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "查询参数经 7 层调用、跨 1 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/sqli1084/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/sqli1084/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/sqli1084/web/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 17,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 18,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 19,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 24,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 27,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 28,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 29,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage00.java",
+      "line": 30,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Handler01Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Handler01Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage01.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage01.java",
+      "line": 9,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/Stage01.java",
+      "line": 10,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1084/web/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 18,
+    "files_crossed": 6,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1084",
+    "param": "query",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz' OR 1=1--;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T15:53:16+08:00"
+  }
+}

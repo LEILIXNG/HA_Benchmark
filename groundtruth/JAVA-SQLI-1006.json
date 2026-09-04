@@ -2,109 +2,294 @@
   "id": "JAVA-SQLI-1006",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "路径变量经 4 跳传播、跨 1 个模块流入JDBC 拼接",
+  "title": "查询参数经 18 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1006/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1006/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Spring 路径变量"
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/sqli1006/service/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1006/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Spring 路径变量"
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Step00.java",
-      "line": 6,
-      "note": "跨类调用"
+      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "line": 14,
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Step00Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
+      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "line": 15,
+      "note": "写入实例字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Step01.java",
+      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "line": 20,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "line": 21,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "line": 22,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "line": 23,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 17,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 18,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 23,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 24,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 25,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 30,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 33,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 34,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 35,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 36,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 41,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 42,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 43,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 48,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 51,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 52,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 53,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 54,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 59,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 62,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 63,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 64,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 69,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 70,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "line": 71,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Handler02Dispatcher.java",
       "line": 7,
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Handler01Impl00.java",
-      "line": 8,
+      "file": "service/src/main/java/com/habench/sqli1006/service/Handler02Impl00.java",
+      "line": 6,
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Step02.java",
-      "line": 6,
-      "note": "跨类调用"
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "line": 16,
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Step02Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "line": 17,
+      "note": "写入实例字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Step03.java",
-      "line": 12,
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "line": 22,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "line": 25,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/Step03.java",
-      "line": 13,
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "line": 26,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "line": 27,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "line": 28,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1006/service/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1006/web/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/sqli1006/service/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 11,
-    "files_crossed": 9,
-    "modules_crossed": 1,
+    "call_depth": 18,
+    "chain_len": 43,
+    "files_crossed": 7,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:spring_request_param",
       "sink:jdbc_concat",
-      "prop:cross_class",
-      "prop:interface_dispatch",
-      "prop:cross_class",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
       "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1006/{label}",
-    "param": "label",
-    "carrier": "path"
+    "path": "/case/java_sqli_1006",
+    "param": "resource",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 18,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:order:order:zz' OR 1=1--;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

@@ -1,0 +1,156 @@
+{
+  "id": "JAVA-SQLI-1077",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 8 层调用、跨 1 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/sqli1077/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/sqli1077/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/sqli1077/web/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage00.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage00.java",
+      "line": 9,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage00.java",
+      "line": 10,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage01.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage01.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage02.java",
+      "line": 10,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage02.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage02.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage02.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage03.java",
+      "line": 18,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage03.java",
+      "line": 19,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage03.java",
+      "line": 20,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage03.java",
+      "line": 25,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage03.java",
+      "line": 26,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/Stage03.java",
+      "line": 27,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1077/web/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 18,
+    "files_crossed": 6,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-1077-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1077/{keyword}",
+    "param": "keyword",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:zz' OR 1=1--;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T15:53:16+08:00"
+  }
+}

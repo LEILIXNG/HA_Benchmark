@@ -4,70 +4,77 @@
   "verdict": "vulnerable",
   "title": "不完整净化——只剥离单引号，注释符与关键字仍可通过，漏洞依然成立",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_0005/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli0005/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_0005/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli0005/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/sqli0005/service/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/Sanitizer03.java",
+    "file": "service/src/main/java/com/habench/sqli0005/service/Sanitizer02.java",
     "line": 9,
     "note": "SANITIZER: 不完整净化（无效）"
   },
+  "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_0005/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli0005/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_0005/web/Step00.java",
+      "file": "web/src/main/java/com/habench/sqli0005/web/Stage00.java",
       "line": 8,
       "note": "局部变量传递"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/Gateway01.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/sqli0005/web/Stage00.java",
+      "line": 9,
+      "note": "调用下一层"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/Step02.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/sqli0005/service/Stage01.java",
+      "line": 14,
       "note": "写入实例字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/Step02.java",
-      "line": 15,
+      "file": "service/src/main/java/com/habench/sqli0005/service/Stage01.java",
+      "line": 19,
       "note": "读取实例字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/Sanitizer03.java",
+      "file": "service/src/main/java/com/habench/sqli0005/service/Stage01.java",
+      "line": 20,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli0005/service/Sanitizer02.java",
       "line": 9,
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/sqli0005/service/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_0005/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/sqli0005/service/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 8,
-    "files_crossed": 6,
+    "call_depth": 7,
+    "chain_len": 9,
+    "files_crossed": 5,
     "modules_crossed": 2,
     "features": [
       "source:spring_request_param",
@@ -89,10 +96,12 @@
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

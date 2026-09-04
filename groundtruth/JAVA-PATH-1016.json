@@ -2,166 +2,131 @@
   "id": "JAVA-PATH-1016",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "请求头经 11 跳传播、跨 1 个模块流入文件读取",
+  "title": "查询参数经 6 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/path1016/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/path1016/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/path1016/web/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/path1016/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step00.java",
-      "line": 12,
-      "note": "存入集合元素"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step00.java",
-      "line": 13,
-      "note": "取出集合元素"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step01.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 17,
       "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step02.java",
-      "line": 8,
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step03.java",
-      "line": 12,
-      "note": "存入集合元素"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step03.java",
-      "line": 13,
-      "note": "取出集合元素"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step04.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step04Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step05.java",
-      "line": 7,
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Handler05Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step06.java",
-      "line": 7,
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Handler06Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step07.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 18,
       "note": "局部变量传递"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step08.java",
-      "line": 7,
-      "note": "接口多态派发（2 个实现）"
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 19,
+      "note": "写入静态字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Handler08Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 24,
+      "note": "读取静态字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step09.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 25,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 26,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 31,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 32,
       "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step10.java",
-      "line": 6,
-      "note": "跨类调用"
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 35,
+      "note": "存入集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/Step10Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 36,
+      "note": "取出集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "line": 37,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1016/web/SinkHandler.java",
       "line": 13,
       "note": "污点进入文件路径"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1016/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/path1016/web/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "chain_len": 21,
-    "files_crossed": 18,
+    "call_depth": 6,
+    "chain_len": 14,
+    "files_crossed": 3,
     "modules_crossed": 1,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:file_read",
-      "prop:map_element",
       "prop:string_concat",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:interface_dispatch",
-      "prop:interface_dispatch",
       "prop:assign_local",
-      "prop:interface_dispatch",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:store_field",
       "prop:string_concat",
-      "prop:cross_class",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-PATH-1016-N",
   "http": {
     "method": "GET",
     "path": "/case/java_path_1016",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "label",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 6,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:../../../etc/passwd;;;",
+    "payload_at_sink": "/var/lib/habench/data/order:order:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

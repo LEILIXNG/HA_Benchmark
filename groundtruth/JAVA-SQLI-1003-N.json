@@ -1,0 +1,178 @@
+{
+  "id": "JAVA-SQLI-1003-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1003 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/sqli1003n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/sqli1003n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/sqli1003n/web/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/sqli1003n/web/Sanitizer04.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage00.java",
+      "line": 10,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage00.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage00.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage00.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Handler01Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Handler01Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage01.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage01.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage01.java",
+      "line": 14,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage01.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Handler02Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Handler02Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage02.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage02.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Handler03Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Handler03Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage03.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Stage03.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/Sanitizer04.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1003n/web/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 13,
+    "chain_len": 22,
+    "files_crossed": 13,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1003_n/{keyword}",
+    "param": "keyword",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T15:53:16+08:00"
+  }
+}

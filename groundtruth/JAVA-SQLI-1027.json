@@ -2,136 +2,112 @@
   "id": "JAVA-SQLI-1027",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "请求头经 9 跳传播、跨 1 个模块流入JDBC 拼接",
+  "title": "查询参数经 7 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1027/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1027/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/sqli1027/web/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1027/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step00.java",
-      "line": 7,
-      "note": "接口多态派发（3 个实现）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Handler00Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step01.java",
-      "line": 7,
-      "note": "接口多态派发（3 个实现）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Handler01Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step02.java",
-      "line": 8,
-      "note": "局部变量传递"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step03.java",
-      "line": 7,
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Handler03Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step04.java",
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage00.java",
       "line": 9,
-      "note": "写入静态字段"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step04.java",
-      "line": 14,
-      "note": "读取静态字段"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step05.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step05Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step06.java",
-      "line": 9,
-      "note": "写入静态字段"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step06.java",
-      "line": 14,
-      "note": "读取静态字段"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step07.java",
-      "line": 8,
-      "note": "局部变量传递"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step08.java",
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage00.java",
       "line": 10,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage00.java",
+      "line": 11,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage00.java",
+      "line": 16,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage00.java",
+      "line": 17,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage00.java",
+      "line": 18,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage01.java",
+      "line": 14,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage01.java",
+      "line": 15,
       "note": "写入实例字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/Step08.java",
-      "line": 15,
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage01.java",
+      "line": 20,
       "note": "读取实例字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage01.java",
+      "line": 21,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/Stage01.java",
+      "line": 22,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1027/web/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1027/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1027/web/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 19,
-    "files_crossed": 15,
+    "call_depth": 7,
+    "chain_len": 14,
+    "files_crossed": 4,
     "modules_crossed": 1,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:jdbc_concat",
-      "prop:interface_dispatch",
-      "prop:interface_dispatch",
+      "prop:string_concat",
       "prop:assign_local",
-      "prop:interface_dispatch",
       "prop:static_field",
+      "prop:assign_local",
       "prop:cross_class",
-      "prop:static_field",
-      "prop:assign_local",
+      "prop:string_concat",
       "prop:store_field",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
@@ -139,17 +115,19 @@
   "http": {
     "method": "GET",
     "path": "/case/java_sqli_1027",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "orderNo",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

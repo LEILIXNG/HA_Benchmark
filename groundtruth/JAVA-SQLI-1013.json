@@ -2,127 +2,119 @@
   "id": "JAVA-SQLI-1013",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "请求头经 7 跳传播、跨 2 个模块流入JDBC 拼接，经无效净化（只剥单引号）",
+  "title": "请求头经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1013/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1013/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1013/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1013/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/sqli1013/web/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
-  "sanitizer": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Sanitizer07.java",
-    "line": 9,
-    "note": "SANITIZER: 不完整净化（无效）"
-  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1013/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1013/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Gateway00.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step01.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step01Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step02.java",
-      "line": 8,
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step03.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 19,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step03.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 20,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step04.java",
-      "line": 9,
-      "note": "写入静态字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step04.java",
-      "line": 14,
-      "note": "读取静态字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step05.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step05Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step06.java",
-      "line": 10,
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 21,
       "note": "写入实例字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Step06.java",
-      "line": 15,
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 26,
       "note": "读取实例字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/Sanitizer07.java",
-      "line": 9,
-      "note": "SANITIZER: 不完整净化（无效）"
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 29,
+      "note": "存入集合元素"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 30,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 31,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 36,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 39,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 40,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 41,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1013/web/Stage00.java",
+      "line": 42,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1013/web/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1013/service/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1013/web/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 16,
-    "files_crossed": 12,
-    "modules_crossed": 2,
+    "call_depth": 6,
+    "chain_len": 15,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
       "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:cross_module",
-      "prop:cross_class",
-      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
       "prop:map_element",
       "prop:static_field",
-      "prop:cross_class",
-      "prop:store_field",
-      "sanitizer:incomplete_quote_strip"
+      "prop:map_element",
+      "prop:string_concat",
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SQLI-1013-N",
   "http": {
     "method": "GET",
     "path": "/case/java_sqli_1013",
@@ -133,10 +125,12 @@
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz OR 1=1--;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

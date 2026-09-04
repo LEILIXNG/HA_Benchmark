@@ -4,75 +4,87 @@
   "verdict": "vulnerable",
   "title": "路径变量经接口多态与静态字段流入 Runtime.exec",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi0002/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi0002/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/cmdi0002/dao/SinkHandler.java",
     "line": 13,
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi0002/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002/web/Step00.java",
+      "file": "web/src/main/java/com/habench/cmdi0002/web/Stage00.java",
       "line": 8,
       "note": "字符串拼接传播"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_0002/service/Gateway01.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/cmdi0002/web/Stage00.java",
+      "line": 9,
+      "note": "调用下一层"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_0002/service/Step02.java",
+      "file": "service/src/main/java/com/habench/cmdi0002/service/Stage01.java",
+      "line": 8,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi0002/service/Handler02Dispatcher.java",
       "line": 7,
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_0002/service/Handler02Impl00.java",
-      "line": 8,
+      "file": "service/src/main/java/com/habench/cmdi0002/service/Handler02Impl00.java",
+      "line": 6,
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002/dao/Gateway03.java",
+      "file": "service/src/main/java/com/habench/cmdi0002/service/Stage02.java",
       "line": 8,
-      "note": "跨模块边界：进入 dao 模块"
+      "note": "调用下一层"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002/dao/Step04.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002/dao/Stage03.java",
       "line": 9,
       "note": "写入静态字段"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002/dao/Step04.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002/dao/Stage03.java",
       "line": 14,
       "note": "读取静态字段"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002/dao/Stage03.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi0002/dao/SinkHandler.java",
       "line": 9,
       "note": "污点进入命令行"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002/dao/SinkHandler.java",
       "line": 13,
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "chain_len": 10,
+    "call_depth": 9,
+    "chain_len": 12,
     "files_crossed": 8,
     "modules_crossed": 3,
     "features": [
@@ -97,10 +109,12 @@
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
     "payload_sent": "zz$(id)",
     "payload_at_sink": "echo order:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

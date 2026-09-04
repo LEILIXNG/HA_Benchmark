@@ -1,0 +1,244 @@
+{
+  "id": "JAVA-SQLI-1023-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1023 逐行相同，仅把净化改为 sql_parameterized",
+  "entry": {
+    "file": "web/src/main/java/com/habench/sqli1023n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/sqli1023n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/sqli1023n/dao/SinkHandler.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/sqli1023n/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/sqli1023n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1023n/web/Stage00.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1023n/web/Stage00.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage01.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage01.java",
+      "line": 9,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage01.java",
+      "line": 10,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 19,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 20,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 21,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 22,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 27,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 30,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 31,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 32,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 33,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 38,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 39,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 42,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 43,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1023n/service/Stage02.java",
+      "line": 44,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 17,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 18,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 19,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 24,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 27,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 28,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 29,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 34,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 35,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/Stage03.java",
+      "line": 36,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/SinkHandler.java",
+      "line": 13,
+      "note": "参数化占位符，值不参与 SQL 语法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1023n/dao/SinkHandler.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 33,
+    "files_crossed": 6,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "sanitizer:sql_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1023_n",
+    "param": "orderNo",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 12,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "order:order:order:order:order:order:zz' OR 1=1--;;;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T15:53:16+08:00"
+  }
+}

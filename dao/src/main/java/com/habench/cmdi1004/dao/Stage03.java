@@ -1,0 +1,11 @@
+package com.habench.cmdi1004.dao;
+
+import com.habench.cmdi1004.dao.SinkHandler;
+
+public final class Stage03 {
+
+    public static void handle(String value) {
+        String v301 = value;
+        SinkHandler.execute(v301);
+    }
+}

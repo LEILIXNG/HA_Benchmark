@@ -1,0 +1,158 @@
+{
+  "id": "JAVA-SQLI-1020-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1020 逐行相同，仅把净化改为 sql_parameterized",
+  "entry": {
+    "file": "web/src/main/java/com/habench/sqli1020n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/sqli1020n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/sqli1020n/dao/SinkHandler.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/sqli1020n/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/sqli1020n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1020n/web/Stage00.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1020n/web/Stage00.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 15,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 20,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 21,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 24,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 25,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1020n/service/Stage01.java",
+      "line": 26,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1020n/dao/Stage02.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1020n/dao/Stage02.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1020n/dao/Stage02.java",
+      "line": 14,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1020n/dao/Stage02.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1020n/dao/SinkHandler.java",
+      "line": 13,
+      "note": "参数化占位符，值不参与 SQL 语法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1020n/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1020n/dao/SinkHandler.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 18,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:assign_local",
+      "sanitizer:sql_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1020_n/{category}",
+    "param": "category",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 6,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "zz' OR 1=1--",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T15:53:16+08:00"
+  }
+}

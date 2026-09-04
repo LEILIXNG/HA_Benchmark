@@ -2,109 +2,159 @@
   "id": "JAVA-CMDI-1010",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 4 跳传播、跨 1 个模块流入命令执行",
+  "title": "查询参数经 8 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1010/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1010/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/cmdi1010/service/SinkHandler.java",
     "line": 13,
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi1010/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step00.java",
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage00.java",
+      "line": 9,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage00.java",
       "line": 10,
-      "note": "写入实例字段"
+      "note": "局部变量传递"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step00.java",
-      "line": 15,
-      "note": "读取实例字段"
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage00.java",
+      "line": 11,
+      "note": "写入静态字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step01.java",
-      "line": 10,
-      "note": "写入实例字段"
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage00.java",
+      "line": 16,
+      "note": "读取静态字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step01.java",
-      "line": 15,
-      "note": "读取实例字段"
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage00.java",
+      "line": 17,
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step02.java",
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage00.java",
+      "line": 18,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage00.java",
+      "line": 19,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Handler01Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Handler01Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage01.java",
       "line": 12,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step02.java",
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage01.java",
       "line": 13,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step03.java",
-      "line": 9,
-      "note": "写入静态字段"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/Step03.java",
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage01.java",
       "line": 14,
-      "note": "读取静态字段"
+      "note": "局部变量传递"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/cmdi1010/web/Stage01.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1010/service/Stage02.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1010/service/Stage02.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1010/service/Stage02.java",
+      "line": 14,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1010/service/SinkHandler.java",
       "line": 9,
       "note": "污点进入命令行"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1010/web/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/cmdi1010/service/SinkHandler.java",
       "line": 13,
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "chain_len": 11,
-    "files_crossed": 6,
-    "modules_crossed": 1,
+    "call_depth": 8,
+    "chain_len": 19,
+    "files_crossed": 7,
+    "modules_crossed": 2,
     "features": [
       "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:store_field",
-      "prop:store_field",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:assign_local",
       "prop:static_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1010-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/case/java_cmdi_1010",
-    "param": "label",
+    "param": "userName",
     "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo zz$(id)",
+    "payload_at_sink": "echo order:order:order:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

@@ -2,79 +2,125 @@
   "id": "JAVA-SQLI-1074-N",
   "cwe": "CWE-89",
   "verdict": "safe",
-  "title": "与 JAVA-SQLI-1074 逐行相同，仅在 sink 前插入有效白名单校验",
+  "title": "与 JAVA-SQLI-1074 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1074_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1074n/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1074_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1074n/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1074_n/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/sqli1074n/dao/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1074_n/dao/Sanitizer03.java",
+    "file": "web/src/main/java/com/habench/sqli1074n/web/Sanitizer00.java",
     "line": 10,
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1074_n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1074n/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1074_n/web/Step00.java",
-      "line": 10,
-      "note": "写入实例字段"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1074_n/web/Step00.java",
-      "line": 15,
-      "note": "读取实例字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1074_n/service/Gateway01.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
-    },
-    {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1074_n/dao/Gateway02.java",
-      "line": 8,
-      "note": "跨模块边界：进入 dao 模块"
-    },
-    {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1074_n/dao/Sanitizer03.java",
+      "file": "web/src/main/java/com/habench/sqli1074n/web/Sanitizer00.java",
       "line": 10,
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1074_n/dao/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1074n/web/Stage00.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1074n/web/Stage00.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1074n/web/Stage00.java",
+      "line": 14,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1074n/service/Stage01.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1074n/service/Stage01.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "line": 18,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "line": 19,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "line": 20,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "line": 25,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "line": 28,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "line": 29,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "line": 30,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1074_n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/sqli1074n/dao/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 8,
+    "call_depth": 8,
+    "chain_len": 16,
     "files_crossed": 6,
     "modules_crossed": 3,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
       "prop:store_field",
-      "prop:cross_module",
-      "prop:cross_module",
+      "prop:map_element",
       "sanitizer:whitelist_regex"
     ]
   },
@@ -82,17 +128,19 @@
   "http": {
     "method": "GET",
     "path": "/case/java_sqli_1074_n",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "query",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": false,
     "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "zz' OR 1=1--",
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

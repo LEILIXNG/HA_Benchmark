@@ -2,102 +2,181 @@
   "id": "JAVA-CMDI-1029",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "请求头经 3 跳传播、跨 2 个模块流入命令执行，经无效净化（只剥单引号）",
+  "title": "路径变量经 7 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1029/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1029/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1029/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1029/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1029/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/cmdi1029/service/SinkHandler.java",
     "line": 13,
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1029/service/Sanitizer03.java",
-    "line": 9,
-    "note": "SANITIZER: 不完整净化（无效）"
-  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1029/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi1029/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1029/web/Step00.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1029/web/Step00Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1029/web/Step01.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 13,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1029/web/Step01.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 14,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1029/service/Gateway02.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 15,
+      "note": "写入静态字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1029/service/Sanitizer03.java",
-      "line": 9,
-      "note": "SANITIZER: 不完整净化（无效）"
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 20,
+      "note": "读取静态字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1029/service/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 21,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 22,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 23,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 28,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 31,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 32,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 35,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 36,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1029/web/Stage00.java",
+      "line": 37,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/Stage01.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/Stage01.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/Stage01.java",
+      "line": 15,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/Stage01.java",
+      "line": 16,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/Stage01.java",
+      "line": 21,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/Stage01.java",
+      "line": 22,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/Stage01.java",
+      "line": 23,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1029/service/SinkHandler.java",
       "line": 9,
       "note": "污点进入命令行"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1029/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/cmdi1029/service/SinkHandler.java",
       "line": 13,
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "chain_len": 9,
-    "files_crossed": 7,
+    "call_depth": 7,
+    "chain_len": 23,
+    "files_crossed": 4,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_path_variable",
       "sink:runtime_exec",
-      "prop:cross_class",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
       "prop:map_element",
       "prop:cross_module",
-      "sanitizer:incomplete_quote_strip"
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1029",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "path": "/case/java_cmdi_1029/{query}",
+    "param": "query",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo zz$(id)",
+    "payload_at_sink": "echo order:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

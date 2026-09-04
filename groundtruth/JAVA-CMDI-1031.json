@@ -1,149 +1,117 @@
 {
   "id": "JAVA-CMDI-1031",
   "cwe": "CWE-78",
-  "verdict": "vulnerable",
-  "title": "请求头经 10 跳传播、跨 2 个模块流入命令执行",
+  "verdict": "safe",
+  "title": "请求头经 6 层调用、跨 2 个模块流入命令执行，经 exec_no_shell 净化",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1031/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1031/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/SinkHandler.java",
-    "line": 13,
-    "note": "SINK: CWE-78 命令注入"
+    "file": "service/src/main/java/com/habench/cmdi1031/service/SinkHandler.java",
+    "line": 14,
+    "note": "SINK 位置：CWE-78（未经 shell 解释）"
   },
-  "sanitizer": null,
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/cmdi1031/service/SinkHandler.java",
+    "line": 12,
+    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "exec_no_shell",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi1031/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/Step00.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/Step00Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/Step01.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/cmdi1031/web/Stage00.java",
+      "line": 18,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/Step01.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/cmdi1031/web/Stage00.java",
+      "line": 19,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/Step02.java",
-      "line": 9,
-      "note": "写入静态字段"
+      "file": "web/src/main/java/com/habench/cmdi1031/web/Stage00.java",
+      "line": 20,
+      "note": "局部变量传递"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/Step02.java",
-      "line": 14,
-      "note": "读取静态字段"
+      "file": "web/src/main/java/com/habench/cmdi1031/web/Stage00.java",
+      "line": 21,
+      "note": "写入实例字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1031/web/Step03.java",
+      "file": "web/src/main/java/com/habench/cmdi1031/web/Stage00.java",
+      "line": 26,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1031/web/Stage00.java",
+      "line": 27,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1031/web/Stage00.java",
+      "line": 28,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1031/service/Stage01.java",
       "line": 8,
       "note": "局部变量传递"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Gateway04.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step05.java",
+      "file": "service/src/main/java/com/habench/cmdi1031/service/Stage01.java",
       "line": 9,
-      "note": "写入静态字段"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step05.java",
-      "line": 14,
-      "note": "读取静态字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step06.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step06Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step07.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step07Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step08.java",
+      "file": "service/src/main/java/com/habench/cmdi1031/service/Stage01.java",
       "line": 10,
-      "note": "写入实例字段"
+      "note": "调用下一层"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step08.java",
-      "line": 15,
-      "note": "读取实例字段"
+      "file": "service/src/main/java/com/habench/cmdi1031/service/SinkHandler.java",
+      "line": 11,
+      "note": "参数以数组传递"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step09.java",
-      "line": 6,
-      "note": "跨类调用"
+      "file": "service/src/main/java/com/habench/cmdi1031/service/SinkHandler.java",
+      "line": 12,
+      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/Step09Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/SinkHandler.java",
-      "line": 9,
-      "note": "污点进入命令行"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1031/service/SinkHandler.java",
-      "line": 13,
-      "note": "SINK: CWE-78 命令注入"
+      "file": "service/src/main/java/com/habench/cmdi1031/service/SinkHandler.java",
+      "line": 14,
+      "note": "SINK 位置：CWE-78（未经 shell 解释）"
     }
   ],
   "metrics": {
-    "chain_len": 21,
-    "files_crossed": 16,
+    "call_depth": 6,
+    "chain_len": 14,
+    "files_crossed": 4,
     "modules_crossed": 2,
     "features": [
       "source:servlet_header",
       "sink:runtime_exec",
-      "prop:cross_class",
       "prop:map_element",
-      "prop:static_field",
       "prop:assign_local",
-      "prop:cross_module",
-      "prop:static_field",
-      "prop:cross_class",
-      "prop:cross_class",
       "prop:store_field",
-      "prop:cross_class",
-      "sanitizer:none"
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "sanitizer:exec_no_shell"
     ]
   },
   "paired_negative": null,
@@ -155,12 +123,14 @@
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 6,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo zz$(id)",
-    "http_status": 500,
+    "payload_at_sink": "order:order:zz$(id);;",
+    "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

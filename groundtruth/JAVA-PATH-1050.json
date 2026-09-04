@@ -2,71 +2,152 @@
   "id": "JAVA-PATH-1050",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "请求头经 1 跳传播、跨 2 个模块流入文件读取",
+  "title": "查询参数经 8 层调用、跨 2 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_1050/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/path1050/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_1050/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/path1050/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_path_1050/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/path1050/service/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-22 路径穿越"
   },
-  "sanitizer": null,
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/path1050/service/Sanitizer02.java",
+    "line": 9,
+    "note": "SANITIZER: 单次剥离 ../（无效）"
+  },
+  "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_1050/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/path1050/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_path_1050/service/Gateway00.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/path1050/web/Stage00.java",
+      "line": 13,
+      "note": "存入集合元素"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_path_1050/service/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/path1050/web/Stage00.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1050/web/Stage00.java",
+      "line": 15,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1050/web/Stage00.java",
+      "line": 20,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1050/web/Stage00.java",
+      "line": 21,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1050/web/Stage00.java",
+      "line": 22,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Stage01.java",
+      "line": 14,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Stage01.java",
+      "line": 15,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Stage01.java",
+      "line": 16,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Stage01.java",
+      "line": 21,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Stage01.java",
+      "line": 22,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Stage01.java",
+      "line": 23,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Stage01.java",
+      "line": 24,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/Sanitizer02.java",
+      "line": 9,
+      "note": "SANITIZER: 单次剥离 ../（无效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1050/service/SinkHandler.java",
       "line": 13,
       "note": "污点进入文件路径"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_path_1050/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/path1050/service/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "chain_len": 4,
-    "files_crossed": 3,
+    "call_depth": 8,
+    "chain_len": 17,
+    "files_crossed": 5,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:file_read",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
       "prop:cross_module",
-      "sanitizer:none"
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "sanitizer:traversal_replace_once"
     ]
   },
-  "paired_negative": "JAVA-PATH-1050-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/case/java_path_1050",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "label",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
-    "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "....//....//etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/order:../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

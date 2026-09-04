@@ -4,84 +4,96 @@
   "verdict": "safe",
   "title": "与 JAVA-CMDI-0002 逐行相同，仅插入有效白名单校验",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi0002n/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi0002n/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/cmdi0002n/dao/SinkHandler.java",
     "line": 13,
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/Sanitizer05.java",
+    "file": "dao/src/main/java/com/habench/cmdi0002n/dao/Sanitizer04.java",
     "line": 10,
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002_n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi0002n/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0002_n/web/Step00.java",
+      "file": "web/src/main/java/com/habench/cmdi0002n/web/Stage00.java",
       "line": 8,
       "note": "字符串拼接传播"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_0002_n/service/Gateway01.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/cmdi0002n/web/Stage00.java",
+      "line": 9,
+      "note": "调用下一层"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_0002_n/service/Step02.java",
+      "file": "service/src/main/java/com/habench/cmdi0002n/service/Stage01.java",
+      "line": 8,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi0002n/service/Handler02Dispatcher.java",
       "line": 7,
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_0002_n/service/Handler02Impl00.java",
-      "line": 8,
+      "file": "service/src/main/java/com/habench/cmdi0002n/service/Handler02Impl00.java",
+      "line": 6,
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/Gateway03.java",
+      "file": "service/src/main/java/com/habench/cmdi0002n/service/Stage02.java",
       "line": 8,
-      "note": "跨模块边界：进入 dao 模块"
+      "note": "调用下一层"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/Step04.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002n/dao/Stage03.java",
       "line": 9,
       "note": "写入静态字段"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/Step04.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002n/dao/Stage03.java",
       "line": 14,
       "note": "读取静态字段"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/Sanitizer05.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002n/dao/Stage03.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi0002n/dao/Sanitizer04.java",
       "line": 10,
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002n/dao/SinkHandler.java",
       "line": 9,
       "note": "污点进入命令行"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_0002_n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/cmdi0002n/dao/SinkHandler.java",
       "line": 13,
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "chain_len": 11,
+    "call_depth": 10,
+    "chain_len": 13,
     "files_crossed": 9,
     "modules_crossed": 3,
     "features": [
@@ -106,10 +118,12 @@
     "status": "pass",
     "reached": false,
     "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "zz$(id)",
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

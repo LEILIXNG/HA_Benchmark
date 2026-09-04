@@ -1,0 +1,203 @@
+{
+  "id": "JAVA-PATH-1046-N",
+  "cwe": "CWE-22",
+  "verdict": "safe",
+  "title": "与 JAVA-PATH-1046 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/path1046n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/path1046n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/path1046n/service/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/path1046n/service/Sanitizer02.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/path1046n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1046n/web/Stage00.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1046n/web/Stage00.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1046n/web/Stage00.java",
+      "line": 14,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/path1046n/web/Stage00.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 17,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 18,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 19,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 24,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 25,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 26,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 27,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 32,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 35,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 36,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 39,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 40,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 41,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 46,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 47,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 50,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 51,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Stage01.java",
+      "line": 52,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/Sanitizer02.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path1046n/service/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 26,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:file_read",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_1046_n",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T15:53:16+08:00"
+  }
+}

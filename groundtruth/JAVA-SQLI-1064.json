@@ -1,80 +1,119 @@
 {
   "id": "JAVA-SQLI-1064",
   "cwe": "CWE-89",
-  "verdict": "vulnerable",
-  "title": "请求头经 3 跳传播、跨 2 个模块流入JDBC 拼接",
+  "verdict": "safe",
+  "title": "请求头经 5 层调用、跨 1 个模块流入JDBC 拼接，经 sql_parameterized 净化",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1064/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1064/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1064/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1064/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1064/service/SinkHandler.java",
-    "line": 17,
-    "note": "SINK: CWE-89 SQL 注入"
+    "file": "web/src/main/java/com/habench/sqli1064/web/SinkHandler.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
-  "sanitizer": null,
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/sqli1064/web/SinkHandler.java",
+    "line": 17,
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1064/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1064/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1064/web/Step00.java",
-      "line": 6,
-      "note": "跨类调用"
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 11,
+      "note": "局部变量传递"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1064/web/Step00Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 12,
+      "note": "局部变量传递"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1064/web/Step01.java",
-      "line": 9,
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 13,
       "note": "写入静态字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1064/web/Step01.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 18,
       "note": "读取静态字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1064/service/Gateway02.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 19,
+      "note": "局部变量传递"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1064/service/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 20,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 25,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 28,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 29,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1064/web/Stage00.java",
+      "line": 30,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1064/web/SinkHandler.java",
       "line": 13,
-      "note": "污点进入 SQL 语句"
+      "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1064/service/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1064/web/SinkHandler.java",
       "line": 17,
-      "note": "SINK: CWE-89 SQL 注入"
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1064/web/SinkHandler.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
   ],
   "metrics": {
-    "chain_len": 8,
-    "files_crossed": 6,
-    "modules_crossed": 2,
+    "call_depth": 5,
+    "chain_len": 14,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
       "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:cross_class",
+      "prop:assign_local",
+      "prop:assign_local",
       "prop:static_field",
-      "prop:cross_module",
-      "sanitizer:none"
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "sanitizer:sql_parameterized"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1064-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/case/java_sqli_1064",
@@ -83,12 +122,14 @@
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 5,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "zz' OR 1=1--",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

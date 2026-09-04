@@ -2,97 +2,162 @@
   "id": "JAVA-SQLI-1069",
   "cwe": "CWE-89",
   "verdict": "safe",
-  "title": "路径变量经 3 跳传播、跨 3 个模块流入JDBC 拼接，经有效白名单校验",
+  "title": "请求头经 9 层调用、跨 2 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1069/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1069/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1069/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1069/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Spring 路径变量"
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1069/dao/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/sqli1069/service/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1069/dao/Sanitizer03.java",
+    "file": "web/src/main/java/com/habench/sqli1069/web/Sanitizer00.java",
     "line": 10,
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1069/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1069/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Spring 路径变量"
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1069/service/Gateway00.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1069/service/Step01.java",
-      "line": 10,
-      "note": "写入实例字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1069/service/Step01.java",
-      "line": 15,
-      "note": "读取实例字段"
-    },
-    {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1069/dao/Gateway02.java",
-      "line": 8,
-      "note": "跨模块边界：进入 dao 模块"
-    },
-    {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1069/dao/Sanitizer03.java",
+      "file": "web/src/main/java/com/habench/sqli1069/web/Sanitizer00.java",
       "line": 10,
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1069/dao/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "line": 15,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "line": 20,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "line": 21,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "line": 22,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "line": 23,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Stage01.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Stage01.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Handler02Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Handler02Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "line": 14,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "line": 15,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1069/service/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1069/dao/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/sqli1069/service/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 8,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "call_depth": 9,
+    "chain_len": 19,
+    "files_crossed": 8,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
       "prop:cross_module",
-      "prop:store_field",
-      "prop:cross_module",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:string_concat",
       "sanitizer:whitelist_regex"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1069/{tag}",
-    "param": "tag",
-    "carrier": "path"
+    "path": "/case/java_sqli_1069",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": false,
     "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "zz' OR 1=1--",
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

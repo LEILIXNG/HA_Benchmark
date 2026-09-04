@@ -4,85 +4,87 @@
   "verdict": "safe",
   "title": "入口处即净化——考验工具能否识别早期校验，避免误报",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/path0007/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/path0007/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/path0007/dao/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/Sanitizer00.java",
+    "file": "web/src/main/java/com/habench/path0007/web/Sanitizer00.java",
     "line": 10,
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/path0007/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/Sanitizer00.java",
+      "file": "web/src/main/java/com/habench/path0007/web/Sanitizer00.java",
       "line": 10,
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/Step00.java",
+      "file": "web/src/main/java/com/habench/path0007/web/Stage00.java",
       "line": 8,
       "note": "局部变量传递"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_path_0007/service/Gateway01.java",
+      "file": "web/src/main/java/com/habench/path0007/web/Stage00.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/path0007/service/Stage01.java",
       "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "note": "调用下一层"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_path_0007/service/Step02.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_path_0007/service/Step02Delegate.java",
+      "file": "service/src/main/java/com/habench/path0007/service/Stage02.java",
       "line": 8,
-      "note": "委托类转发"
+      "note": "调用下一层"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/Gateway03.java",
-      "line": 8,
-      "note": "跨模块边界：进入 dao 模块"
-    },
-    {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/Step04.java",
+      "file": "dao/src/main/java/com/habench/path0007/dao/Stage03.java",
       "line": 12,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/Step04.java",
+      "file": "dao/src/main/java/com/habench/path0007/dao/Stage03.java",
       "line": 13,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/path0007/dao/Stage03.java",
+      "line": 14,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/path0007/dao/SinkHandler.java",
       "line": 13,
       "note": "污点进入文件路径"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/path0007/dao/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
+    "call_depth": 7,
     "chain_len": 11,
-    "files_crossed": 9,
+    "files_crossed": 7,
     "modules_crossed": 3,
     "features": [
       "source:spring_request_param",
@@ -106,10 +108,12 @@
     "status": "pass",
     "reached": false,
     "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "../../../etc/passwd",
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

@@ -1,0 +1,129 @@
+{
+  "id": "JAVA-CMDI-1056-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1056 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/cmdi1056n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/cmdi1056n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/cmdi1056n/web/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/cmdi1056n/web/Sanitizer00.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Sanitizer00.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage00.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage00.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage00.java",
+      "line": 14,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage01.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage01.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Handler02Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Handler02Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage02.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage02.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1056n/web/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 13,
+    "files_crossed": 8,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1056_n/{filename}",
+    "param": "filename",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T15:53:16+08:00"
+  }
+}

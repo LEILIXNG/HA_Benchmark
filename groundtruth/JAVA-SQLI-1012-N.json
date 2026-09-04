@@ -2,147 +2,245 @@
   "id": "JAVA-SQLI-1012-N",
   "cwe": "CWE-89",
   "verdict": "safe",
-  "title": "与 JAVA-SQLI-1012 逐行相同，仅在 sink 前插入有效白名单校验",
+  "title": "与 JAVA-SQLI-1012 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1012n/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1012n/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/sqli1012n/service/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Sanitizer08.java",
+    "file": "service/src/main/java/com/habench/sqli1012n/service/Sanitizer03.java",
     "line": 10,
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012_n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1012n/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012_n/web/Step00.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage00.java",
+      "line": 18,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012_n/web/Step00.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage00.java",
+      "line": 19,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Gateway01.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage00.java",
+      "line": 20,
+      "note": "写入实例字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step02.java",
-      "line": 6,
-      "note": "跨类调用"
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage00.java",
+      "line": 25,
+      "note": "读取实例字段"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step02Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step03.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step03Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step04.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step04Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step05.java",
-      "line": 6,
-      "note": "跨类调用"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step05Delegate.java",
-      "line": 8,
-      "note": "委托类转发"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step06.java",
-      "line": 8,
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Step07.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage00.java",
+      "line": 26,
       "note": "局部变量传递"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/Sanitizer08.java",
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage00.java",
+      "line": 27,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage00.java",
+      "line": 28,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Handler01Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Handler01Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 16,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 19,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 20,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 21,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 26,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 27,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 28,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 33,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 36,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 37,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/sqli1012n/web/Stage01.java",
+      "line": 38,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 18,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 19,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 22,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 23,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 24,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 29,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 30,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 33,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 34,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Stage02.java",
+      "line": 35,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1012n/service/Sanitizer03.java",
       "line": 10,
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/sqli1012n/service/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012_n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/sqli1012n/service/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 17,
-    "files_crossed": 15,
+    "call_depth": 15,
+    "chain_len": 34,
+    "files_crossed": 8,
     "modules_crossed": 2,
     "features": [
       "source:spring_path_variable",
       "sink:jdbc_concat",
       "prop:map_element",
-      "prop:cross_module",
-      "prop:cross_class",
-      "prop:cross_class",
-      "prop:cross_class",
-      "prop:cross_class",
-      "prop:string_concat",
+      "prop:store_field",
       "prop:assign_local",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:map_element",
       "sanitizer:whitelist_regex"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1012_n/{orderNo}",
-    "param": "orderNo",
+    "path": "/case/java_sqli_1012_n/{target}",
+    "param": "target",
     "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": false,
     "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "zz' OR 1=1--",
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

@@ -1,72 +1,226 @@
 {
   "id": "JAVA-CMDI-1041",
   "cwe": "CWE-78",
-  "verdict": "vulnerable",
-  "title": "查询参数经 1 跳传播、跨 2 个模块流入命令执行",
+  "verdict": "safe",
+  "title": "请求头经 17 层调用、跨 2 个模块流入命令执行，经 command_allowlist 净化",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1041/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1041/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1041/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1041/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Spring 查询参数"
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1041/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/cmdi1041/service/SinkHandler.java",
     "line": 13,
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": null,
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/cmdi1041/service/Sanitizer04.java",
+    "line": 13,
+    "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1041/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi1041/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Spring 查询参数"
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1041/service/Gateway00.java",
+      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage00.java",
       "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "note": "局部变量传递"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1041/service/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage00.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage01.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage01.java",
+      "line": 9,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage01.java",
+      "line": 10,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 14,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 15,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 16,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 21,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 22,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 23,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 28,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 29,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "line": 30,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler03Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler03Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "line": 14,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "line": 15,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "line": 20,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "line": 21,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "line": 22,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Sanitizer04.java",
+      "line": 13,
+      "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler04Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler04Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage04.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage04.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage04.java",
+      "line": 14,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1041/service/SinkHandler.java",
       "line": 9,
       "note": "污点进入命令行"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1041/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/cmdi1041/service/SinkHandler.java",
       "line": 13,
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "chain_len": 4,
-    "files_crossed": 3,
+    "call_depth": 17,
+    "chain_len": 30,
+    "files_crossed": 12,
     "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
       "prop:cross_module",
-      "sanitizer:none"
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "sanitizer:command_allowlist"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/case/java_cmdi_1041",
-    "param": "target",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo zz$(id)",
+    "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

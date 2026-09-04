@@ -2,125 +2,306 @@
   "id": "JAVA-SQLI-1063",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "查询参数经 8 跳传播、跨 3 个模块流入JDBC 拼接",
+  "title": "请求头经 16 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1063/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/sqli1063/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Spring 查询参数"
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/sqli1063/dao/SinkHandler.java",
     "line": 17,
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/sqli1063/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Spring 查询参数"
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step00.java",
-      "line": 10,
-      "note": "写入实例字段"
+      "file": "web/src/main/java/com/habench/sqli1063/web/Stage00.java",
+      "line": 8,
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step00.java",
-      "line": 15,
-      "note": "读取实例字段"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step01.java",
+      "file": "web/src/main/java/com/habench/sqli1063/web/Stage00.java",
       "line": 9,
-      "note": "写入静态字段"
+      "note": "调用下一层"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step01.java",
+      "file": "service/src/main/java/com/habench/sqli1063/service/Stage01.java",
+      "line": 11,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1063/service/Stage01.java",
       "line": 14,
-      "note": "读取静态字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Gateway02.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Step03.java",
-      "line": 10,
-      "note": "写入实例字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Step03.java",
-      "line": 15,
-      "note": "读取实例字段"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Step04.java",
-      "line": 7,
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Handler04Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Gateway05.java",
-      "line": 8,
-      "note": "跨模块边界：进入 dao 模块"
-    },
-    {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step06.java",
-      "line": 12,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step06.java",
-      "line": 13,
+      "file": "service/src/main/java/com/habench/sqli1063/service/Stage01.java",
+      "line": 15,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step07.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/sqli1063/service/Stage01.java",
+      "line": 16,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1063/service/Stage01.java",
+      "line": 21,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1063/service/Stage01.java",
+      "line": 22,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/sqli1063/service/Stage01.java",
+      "line": 23,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 11,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 12,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 13,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 18,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 19,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 22,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 23,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage02.java",
+      "line": 24,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage03.java",
+      "line": 14,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage03.java",
+      "line": 15,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage03.java",
+      "line": 16,
       "note": "写入实例字段"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step07.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage03.java",
+      "line": 21,
       "note": "读取实例字段"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage03.java",
+      "line": 22,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage03.java",
+      "line": 23,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 15,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 16,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 21,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 22,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 23,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage04.java",
+      "line": 24,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 11,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 12,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 17,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 18,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 21,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 22,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 23,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 28,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 31,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 32,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 33,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 38,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 39,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/Stage05.java",
+      "line": 40,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/SinkHandler.java",
       "line": 13,
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/sqli1063/dao/SinkHandler.java",
       "line": 17,
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "chain_len": 17,
-    "files_crossed": 11,
+    "call_depth": 16,
+    "chain_len": 48,
+    "files_crossed": 8,
     "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:store_field",
-      "prop:static_field",
+      "prop:string_concat",
       "prop:cross_module",
-      "prop:store_field",
-      "prop:interface_dispatch",
-      "prop:cross_module",
+      "prop:assign_local",
       "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
       "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
       "sanitizer:none"
     ]
   },
@@ -128,17 +309,19 @@
   "http": {
     "method": "GET",
     "path": "/case/java_sqli_1063",
-    "param": "query",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 16,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:order:order:zz' OR 1=1--;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

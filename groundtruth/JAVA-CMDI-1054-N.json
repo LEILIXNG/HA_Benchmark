@@ -2,86 +2,150 @@
   "id": "JAVA-CMDI-1054-N",
   "cwe": "CWE-78",
   "verdict": "safe",
-  "title": "与 JAVA-CMDI-1054 逐行相同，仅在 sink 前插入有效白名单校验",
+  "title": "与 JAVA-CMDI-1054 逐行相同，仅把净化改为 command_allowlist",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1054_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1054n/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1054_n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1054n/web/EntryController.java",
     "line": 13,
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1054_n/dao/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/cmdi1054n/web/SinkHandler.java",
     "line": 13,
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1054_n/dao/Sanitizer02.java",
-    "line": 10,
-    "note": "SANITIZER: 严格白名单校验（有效）"
+    "file": "web/src/main/java/com/habench/cmdi1054n/web/Sanitizer01.java",
+    "line": 13,
+    "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
   },
+  "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1054_n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/EntryController.java",
       "line": 13,
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1054_n/service/Gateway00.java",
-      "line": 8,
-      "note": "跨模块边界：进入 service 模块"
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 19,
+      "note": "存入集合元素"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1054_n/dao/Gateway01.java",
-      "line": 8,
-      "note": "跨模块边界：进入 dao 模块"
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 20,
+      "note": "取出集合元素"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1054_n/dao/Sanitizer02.java",
-      "line": 10,
-      "note": "SANITIZER: 严格白名单校验（有效）"
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 21,
+      "note": "写入静态字段"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1054_n/dao/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 26,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 29,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 30,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 33,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 34,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 35,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 40,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 41,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 42,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Stage00.java",
+      "line": 43,
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/Sanitizer01.java",
+      "line": 13,
+      "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/SinkHandler.java",
       "line": 9,
       "note": "污点进入命令行"
     },
     {
-      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1054_n/dao/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/cmdi1054n/web/SinkHandler.java",
       "line": 13,
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "chain_len": 6,
-    "files_crossed": 5,
-    "modules_crossed": 3,
+    "call_depth": 7,
+    "chain_len": 17,
+    "files_crossed": 4,
+    "modules_crossed": 1,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:cross_module",
-      "prop:cross_module",
-      "sanitizer:whitelist_regex"
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:command_allowlist"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/case/java_cmdi_1054_n",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "filename",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": false,
     "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "zz$(id)",
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }

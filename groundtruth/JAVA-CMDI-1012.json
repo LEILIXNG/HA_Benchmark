@@ -1,130 +1,338 @@
 {
   "id": "JAVA-CMDI-1012",
   "cwe": "CWE-78",
-  "verdict": "safe",
-  "title": "查询参数经 5 跳传播、跨 1 个模块流入命令执行，经有效白名单校验",
+  "verdict": "vulnerable",
+  "title": "查询参数经 17 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1012/web/EntryController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cmdi1012/web/EntryController.java",
     "line": 13,
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/cmdi1012/dao/SinkHandler.java",
     "line": 13,
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Sanitizer05.java",
-    "line": 10,
-    "note": "SANITIZER: 严格白名单校验（有效）"
+    "file": "dao/src/main/java/com/habench/cmdi1012/dao/Sanitizer04.java",
+    "line": 9,
+    "note": "SANITIZER: 只剥离分号（无效）"
   },
+  "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cmdi1012/web/EntryController.java",
       "line": 13,
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step00.java",
-      "line": 7,
-      "note": "接口多态派发（2 个实现）"
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 17,
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Handler00Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 18,
+      "note": "写入实例字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step01.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 23,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 24,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 27,
       "note": "存入集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step01.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 28,
       "note": "取出集合元素"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step02.java",
-      "line": 7,
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Handler02Impl00.java",
-      "line": 8,
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step03.java",
-      "line": 12,
-      "note": "存入集合元素"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step03.java",
-      "line": 13,
-      "note": "取出集合元素"
-    },
-    {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step04.java",
-      "line": 9,
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 29,
       "note": "写入静态字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Step04.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 34,
       "note": "读取静态字段"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/Sanitizer05.java",
-      "line": 10,
-      "note": "SANITIZER: 严格白名单校验（有效）"
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 35,
+      "note": "字符串拼接传播"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 36,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 37,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 42,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 45,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 46,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 49,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 50,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 51,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 56,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 57,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 60,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 61,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 62,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 67,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 68,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 69,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 74,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 77,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 78,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 79,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/cmdi1012/web/Stage00.java",
+      "line": 80,
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1012/service/Stage01.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1012/service/Stage01.java",
+      "line": 9,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/cmdi1012/service/Stage01.java",
+      "line": 10,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 13,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 14,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 17,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 18,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 19,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 24,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 25,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 26,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage02.java",
+      "line": 27,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Handler03Dispatcher.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Handler03Impl00.java",
+      "line": 6,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage03.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Stage03.java",
+      "line": 9,
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/Sanitizer04.java",
+      "line": 9,
+      "note": "SANITIZER: 只剥离分号（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/SinkHandler.java",
       "line": 9,
       "note": "污点进入命令行"
     },
     {
-      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1012/web/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/cmdi1012/dao/SinkHandler.java",
       "line": 13,
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "chain_len": 14,
-    "files_crossed": 10,
-    "modules_crossed": 1,
+    "call_depth": 17,
+    "chain_len": 50,
+    "files_crossed": 9,
+    "modules_crossed": 3,
     "features": [
       "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:interface_dispatch",
-      "prop:map_element",
-      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
       "prop:map_element",
       "prop:static_field",
-      "sanitizer:whitelist_regex"
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:metachar_strip_semicolon"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/case/java_cmdi_1012",
-    "param": "query",
+    "param": "userName",
     "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 17,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": null,
+    "payload_at_sink": "echo order:order:order:order:order:order:order:order:order:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T11:38:14+08:00"
+    "checked_at": "2026-09-04T15:53:16+08:00"
   }
 }
