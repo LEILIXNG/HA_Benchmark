@@ -1,0 +1,106 @@
+{
+  "id": "JAVA-PATH-0003",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "请求头经跨类委托与集合元素流入文件读取",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_0003/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_0003/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_path_0003/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_0003/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_0003/web/Step00.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_0003/web/Step00Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_0003/service/Gateway01.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_0003/service/Step02.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_0003/service/Step02.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0003/dao/Gateway03.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0003/dao/Step04.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0003/dao/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0003/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 10,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:file_read",
+      "prop:cross_class",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-PATH-0003-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_0003",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:00:47+08:00"
+  }
+}

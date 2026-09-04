@@ -1,0 +1,72 @@
+{
+  "id": "JAVA-CMDI-0006",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "基线用例——单跳同文件，任何工具都应检出",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0006/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0006/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0006/web/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0006/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0006/web/Step00.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0006/web/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_0006/web/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 4,
+    "files_crossed": 3,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_0006",
+    "param": "cmd",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo zz$(id)",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:00:47+08:00"
+  }
+}

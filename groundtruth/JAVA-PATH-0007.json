@@ -1,0 +1,115 @@
+{
+  "id": "JAVA-PATH-0007",
+  "cwe": "CWE-22",
+  "verdict": "safe",
+  "title": "入口处即净化——考验工具能否识别早期校验，避免误报",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/Sanitizer00.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/Sanitizer00.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_0007/web/Step00.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_0007/service/Gateway01.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_0007/service/Step02.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_0007/service/Step02Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/Gateway03.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/Step04.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/Step04.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_0007/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 11,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:file_read",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:cross_class",
+      "prop:cross_module",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_0007",
+    "param": "file",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:00:47+08:00"
+  }
+}
