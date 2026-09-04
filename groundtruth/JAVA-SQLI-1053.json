@@ -4,100 +4,118 @@
   "verdict": "safe",
   "title": "查询参数经 8 层调用、跨 2 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1053/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendortrace/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1053/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendortrace/web/ManifestController.java",
     "line": 13,
+    "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1053/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/vendortrace/service/ManifestRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1053/service/Sanitizer02.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/vendortrace/service/ChannelScreen.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/ManifestController.java",
       "line": 13,
+      "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 15,
+      "expr": "receiptKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 16,
+      "expr": "accountRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 17,
+      "expr": "accountRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 22,
+      "expr": "voucherRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 23,
+      "expr": "paymentTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 24,
+      "expr": "paymentTag4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 29,
+      "expr": "refundCode5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 30,
+      "expr": "shipmentCode6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1053/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortrace/web/CatalogTranslator.java",
       "line": 31,
+      "expr": "shipmentCode6",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1053/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendortrace/service/ReceiptRegistry.java",
       "line": 8,
+      "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1053/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendortrace/service/ReceiptRegistry.java",
       "line": 9,
+      "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1053/service/Sanitizer02.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/vendortrace/service/ChannelScreen.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1053/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendortrace/service/ManifestRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1053/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendortrace/service/ManifestRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -123,7 +141,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1053",
+    "path": "/api/vendor/trace",
     "param": "reference",
     "carrier": "query"
   },
@@ -137,6 +155,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,246 +4,293 @@
   "verdict": "vulnerable",
   "title": "路径变量经 16 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1009/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendordraft/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1009/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendordraft/web/ManifestController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1009/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/vendordraft/service/ManifestRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 9,
+      "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 10,
+      "expr": "catalogKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 15,
+      "expr": "receiptKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 16,
+      "expr": "accountRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 17,
+      "expr": "accountRef3",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 22,
+      "expr": "voucherRef4",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 23,
+      "expr": "paymentTag5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1009/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
       "line": 24,
+      "expr": "paymentTag5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 20,
+      "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 21,
+      "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 22,
+      "expr": "quoteRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 27,
+      "expr": "tariffRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 28,
+      "expr": "ledgerEntry104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 29,
+      "expr": "channelTag105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 30,
+      "expr": "channelTag105",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 35,
+      "expr": "catalogKey106",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 38,
+      "expr": "catalogKey106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 39,
+      "expr": "receiptKey107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 40,
+      "expr": "receiptKey107",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 45,
+      "expr": "accountRef108",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 48,
+      "expr": "accountRef108",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 49,
+      "expr": "voucherRef109",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 50,
+      "expr": "voucherRef109",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 55,
+      "expr": "paymentTag110",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 56,
+      "expr": "refundCode111",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 57,
+      "expr": "shipmentCode112",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/VoucherFacade.java",
       "line": 58,
+      "expr": "shipmentCode112",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 17,
+      "expr": "refundCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 18,
+      "expr": "refundCode201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 23,
+      "expr": "shipmentCode202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 26,
+      "expr": "shipmentCode202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 27,
+      "expr": "manifestKey203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 28,
+      "expr": "manifestKey203",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 33,
+      "expr": "invoiceKey204",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 36,
+      "expr": "invoiceKey204",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 37,
+      "expr": "batchTag205",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/RefundResolver.java",
       "line": 38,
+      "expr": "batchTag205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/InvoiceBroker.java",
       "line": 10,
+      "expr": "catalogKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/InvoiceBroker.java",
       "line": 13,
+      "expr": "catalogKey301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/InvoiceBroker.java",
       "line": 14,
+      "expr": "receiptKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/InvoiceBroker.java",
       "line": 15,
+      "expr": "receiptKey302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/ManifestRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1009/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendordraft/service/ManifestRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -288,7 +335,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1009/{keyword}",
+    "path": "/api/vendor/draft/{keyword}",
     "param": "keyword",
     "carrier": "path"
   },
@@ -299,9 +346,9 @@
     "neutralized": false,
     "call_depth_observed": 16,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:zz' OR 1=1--;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

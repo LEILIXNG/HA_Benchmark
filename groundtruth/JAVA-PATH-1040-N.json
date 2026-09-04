@@ -4,155 +4,184 @@
   "verdict": "safe",
   "title": "与 JAVA-PATH-1040 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1040n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1040n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1040n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/catalogrevise/service/InvoiceLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/path1040n/service/Sanitizer03.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/catalogrevise/service/TariffValidator.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1040n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceFacade.java",
       "line": 9,
+      "expr": "paymentTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceFacade.java",
       "line": 10,
+      "expr": "paymentTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceFacade.java",
       "line": 15,
+      "expr": "refundCode2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceFacade.java",
       "line": 16,
+      "expr": "shipmentCode3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceFacade.java",
       "line": 17,
+      "expr": "manifestKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceFacade.java",
       "line": 18,
+      "expr": "manifestKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/ShipmentRouter.java",
       "line": 9,
+      "expr": "channelTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/ShipmentRouter.java",
       "line": 10,
+      "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/ShipmentRouter.java",
       "line": 11,
+      "expr": "catalogKey102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/ShipmentRouter.java",
       "line": 16,
+      "expr": "receiptKey103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/ShipmentRouter.java",
       "line": 17,
+      "expr": "accountRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/ShipmentRouter.java",
       "line": 18,
+      "expr": "accountRef104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/InvoiceRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/InvoiceRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 16,
+      "expr": "batchTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 19,
+      "expr": "batchTag201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 20,
+      "expr": "orderRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 21,
+      "expr": "orderRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 26,
+      "expr": "quoteRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 29,
+      "expr": "quoteRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 30,
+      "expr": "tariffRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/QuoteResolver.java",
       "line": 31,
+      "expr": "tariffRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/Sanitizer03.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/catalogrevise/service/TariffValidator.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/InvoiceLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/catalogrevise/service/InvoiceLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -184,7 +213,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1040_n",
+    "path": "/api/catalog/revise",
     "param": "query",
     "carrier": "query"
   },
@@ -198,6 +227,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

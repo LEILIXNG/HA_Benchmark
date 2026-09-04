@@ -4,266 +4,317 @@
   "verdict": "vulnerable",
   "title": "请求头经 18 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1072/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogreconcile/web/ShipmentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1072/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogreconcile/web/ShipmentController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1072/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/catalogreconcile/dao/ShipmentRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1072/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/catalogreconcile/web/ShipmentController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1072/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogreconcile/web/QuoteFacade.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1072/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogreconcile/web/QuoteFacade.java",
       "line": 13,
+      "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1072/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogreconcile/web/QuoteFacade.java",
       "line": 14,
+      "expr": "channelTag2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1072/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogreconcile/web/QuoteFacade.java",
       "line": 15,
+      "expr": "channelTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 15,
+      "expr": "invoiceKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 16,
+      "expr": "invoiceKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 21,
+      "expr": "batchTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 22,
+      "expr": "orderRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 23,
+      "expr": "quoteRef104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 24,
+      "expr": "quoteRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 29,
+      "expr": "tariffRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 30,
+      "expr": "ledgerEntry106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 31,
+      "expr": "channelTag107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/ChannelRouter.java",
       "line": 32,
+      "expr": "channelTag107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/OrderStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/OrderStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/InvoiceCollector.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/InvoiceCollector.java",
       "line": 13,
+      "expr": "voucherRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1072/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogreconcile/service/InvoiceCollector.java",
       "line": 14,
+      "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 17,
+      "expr": "ledgerEntry301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 18,
+      "expr": "channelTag302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 19,
+      "expr": "channelTag302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 24,
+      "expr": "catalogKey303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 25,
+      "expr": "receiptKey304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 28,
+      "expr": "receiptKey304",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 29,
+      "expr": "accountRef305",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 30,
+      "expr": "accountRef305",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 35,
+      "expr": "voucherRef306",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 36,
+      "expr": "paymentTag307",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 37,
+      "expr": "refundCode308",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 38,
+      "expr": "refundCode308",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 43,
+      "expr": "shipmentCode309",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 44,
+      "expr": "manifestKey310",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 45,
+      "expr": "invoiceKey311",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 46,
+      "expr": "invoiceKey311",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 51,
+      "expr": "batchTag312",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 52,
+      "expr": "orderRef313",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 53,
+      "expr": "quoteRef314",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 54,
+      "expr": "quoteRef314",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 59,
+      "expr": "tariffRef315",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 60,
+      "expr": "ledgerEntry316",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 61,
+      "expr": "ledgerEntry316",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 66,
+      "expr": "channelTag317",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 67,
+      "expr": "catalogKey318",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 68,
+      "expr": "receiptKey319",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/PaymentResolver.java",
       "line": 69,
+      "expr": "receiptKey319",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/ShipmentRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1072/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/catalogreconcile/dao/ShipmentRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -313,7 +364,7 @@
   "paired_negative": "JAVA-SQLI-1072-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1072",
+    "path": "/api/catalog/reconcile",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -324,9 +375,9 @@
     "neutralized": false,
     "call_depth_observed": 18,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:order:order:order:order:order:order:zz' OR 1=1--;;;;;;;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

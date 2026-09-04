@@ -4,251 +4,299 @@
   "verdict": "vulnerable",
   "title": "请求头经 16 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1011/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerrefund/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1011/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerrefund/web/TariffController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1011/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/customerrefund/dao/TariffExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/TariffController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/RefundAdapter.java",
       "line": 10,
+      "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/RefundAdapter.java",
       "line": 13,
+      "expr": "invoiceKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/RefundAdapter.java",
       "line": 14,
+      "expr": "batchTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/RefundAdapter.java",
       "line": 15,
+      "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/ContractEnricher.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/ContractEnricher.java",
       "line": 13,
+      "expr": "voucherRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1011/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerrefund/web/ContractEnricher.java",
       "line": 14,
+      "expr": "voucherRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 20,
+      "expr": "ledgerEntry201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 23,
+      "expr": "ledgerEntry201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 24,
+      "expr": "channelTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 25,
+      "expr": "channelTag202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 30,
+      "expr": "catalogKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 31,
+      "expr": "receiptKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 32,
+      "expr": "receiptKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 37,
+      "expr": "accountRef205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 38,
+      "expr": "voucherRef206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 41,
+      "expr": "voucherRef206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 42,
+      "expr": "paymentTag207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 43,
+      "expr": "paymentTag207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 48,
+      "expr": "refundCode208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 51,
+      "expr": "refundCode208",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 52,
+      "expr": "shipmentCode209",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 53,
+      "expr": "shipmentCode209",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 58,
+      "expr": "manifestKey210",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 61,
+      "expr": "manifestKey210",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 62,
+      "expr": "invoiceKey211",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 63,
+      "expr": "batchTag212",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1011/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelTranslator.java",
       "line": 64,
+      "expr": "batchTag212",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/AccountBuilder.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/AccountBuilder.java",
       "line": 13,
+      "expr": "invoiceKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/AccountBuilder.java",
       "line": 14,
+      "expr": "batchTag302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/AccountBuilder.java",
       "line": 15,
+      "expr": "batchTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Handler04Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/OrderStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Handler04Impl00.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/OrderStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 16,
+      "expr": "voucherRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 17,
+      "expr": "voucherRef401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 22,
+      "expr": "paymentTag402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 25,
+      "expr": "paymentTag402",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 26,
+      "expr": "refundCode403",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 29,
+      "expr": "refundCode403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 30,
+      "expr": "shipmentCode404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/LedgerCollector.java",
       "line": 31,
+      "expr": "shipmentCode404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/TariffExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1011/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customerrefund/dao/TariffExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -291,7 +339,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1011",
+    "path": "/api/customer/refund",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -302,9 +350,9 @@
     "neutralized": false,
     "call_depth_observed": 16,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:zz$(id);;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

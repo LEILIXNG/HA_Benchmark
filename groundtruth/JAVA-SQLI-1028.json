@@ -4,165 +4,196 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1028/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1028/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
     "line": 13,
+    "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1028/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/fulfilapprove/service/LedgerRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1028/service/Sanitizer02.java",
+    "file": "service/src/main/java/com/habench/fulfilapprove/service/ReceiptScreen.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
       "line": 13,
+      "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 17,
+      "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 20,
+      "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 21,
+      "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 22,
+      "expr": "quoteRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 27,
+      "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 30,
+      "expr": "tariffRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 31,
+      "expr": "ledgerEntry4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 32,
+      "expr": "channelTag5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 33,
+      "expr": "channelTag5",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 38,
+      "expr": "catalogKey6",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 39,
+      "expr": "receiptKey7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 40,
+      "expr": "receiptKey7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 45,
+      "expr": "accountRef8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 46,
+      "expr": "voucherRef9",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 47,
+      "expr": "paymentTag10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 48,
+      "expr": "paymentTag10",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 53,
+      "expr": "refundCode11",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 56,
+      "expr": "refundCode11",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 57,
+      "expr": "shipmentCode12",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 58,
+      "expr": "shipmentCode12",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1028/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceResolver.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1028/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceResolver.java",
       "line": 13,
+      "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1028/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceResolver.java",
       "line": 14,
+      "expr": "shipmentCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1028/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceResolver.java",
       "line": 15,
+      "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1028/service/Sanitizer02.java",
+      "file": "service/src/main/java/com/habench/fulfilapprove/service/ReceiptScreen.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1028/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilapprove/service/LedgerRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1028/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilapprove/service/LedgerRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -195,7 +226,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1028",
+    "path": "/api/fulfil/approve",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -206,9 +237,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz OR 1=1--;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

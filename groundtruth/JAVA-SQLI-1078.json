@@ -4,180 +4,214 @@
   "verdict": "vulnerable",
   "title": "路径变量经 12 层调用、跨 3 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1078/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentledger/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1078/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentledger/web/OrderController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1078/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/paymentledger/dao/OrderRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/sqli1078/dao/Sanitizer04.java",
+    "file": "dao/src/main/java/com/habench/paymentledger/dao/BundleFilter.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1078/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymentledger/web/OrderController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1078/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentledger/web/SessionRouter.java",
       "line": 8,
+      "expr": "invoiceKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1078/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentledger/web/SessionRouter.java",
       "line": 9,
+      "expr": "invoiceKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 17,
+      "expr": "voucherRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 18,
+      "expr": "voucherRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 23,
+      "expr": "paymentTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 24,
+      "expr": "refundCode103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 25,
+      "expr": "shipmentCode104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 26,
+      "expr": "shipmentCode104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 31,
+      "expr": "manifestKey105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 34,
+      "expr": "manifestKey105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 35,
+      "expr": "invoiceKey106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 38,
+      "expr": "invoiceKey106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 39,
+      "expr": "batchTag107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 40,
+      "expr": "batchTag107",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 45,
+      "expr": "orderRef108",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 46,
+      "expr": "quoteRef109",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 47,
+      "expr": "quoteRef109",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 52,
+      "expr": "tariffRef110",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 53,
+      "expr": "ledgerEntry111",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 54,
+      "expr": "channelTag112",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1078/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentledger/service/LedgerRegistry.java",
       "line": 55,
+      "expr": "channelTag112",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/VoucherComposer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/VoucherComposer.java",
       "line": 13,
+      "expr": "ledgerEntry201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/VoucherComposer.java",
       "line": 14,
+      "expr": "channelTag202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/VoucherComposer.java",
       "line": 15,
+      "expr": "channelTag202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/LedgerFacade.java",
       "line": 8,
+      "expr": "invoiceKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/LedgerFacade.java",
       "line": 9,
+      "expr": "invoiceKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/Sanitizer04.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/BundleFilter.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/OrderRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1078/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/paymentledger/dao/OrderRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -214,7 +248,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1078/{orderNo}",
+    "path": "/api/payment/ledger/{orderNo}",
     "param": "orderNo",
     "carrier": "path"
   },
@@ -225,9 +259,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:order:order:zz OR 1=1--;;;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:zz OR 1=1--;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

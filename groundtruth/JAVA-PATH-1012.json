@@ -4,86 +4,101 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1012/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderhold/web/BundleController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1012/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderhold/web/BundleController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1012/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/orderhold/service/BundleLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1012/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderhold/web/BundleController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1012/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderhold/web/PaymentNormalizer.java",
       "line": 8,
+      "expr": "channelTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1012/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderhold/web/PaymentNormalizer.java",
       "line": 9,
+      "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/TariffRouter.java",
       "line": 8,
+      "expr": "batchTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/TariffRouter.java",
       "line": 9,
+      "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoicePolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoicePolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
       "line": 10,
+      "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
       "line": 13,
+      "expr": "paymentTag201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
       "line": 14,
+      "expr": "refundCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
       "line": 15,
+      "expr": "refundCode202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/BundleLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1012/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/BundleLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -107,7 +122,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1012",
+    "path": "/api/order/hold",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -118,9 +133,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

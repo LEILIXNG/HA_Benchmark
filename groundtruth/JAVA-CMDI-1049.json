@@ -4,215 +4,256 @@
   "verdict": "safe",
   "title": "路径变量经 16 层调用、跨 2 个模块流入命令执行，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1049/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogmerge/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1049/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogmerge/web/ChannelController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1049/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/catalogmerge/service/ChannelExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/cmdi1049/service/Sanitizer01.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/catalogmerge/service/ContractScreen.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ChannelController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 14,
+      "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 17,
+      "expr": "catalogKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 18,
+      "expr": "receiptKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 19,
+      "expr": "receiptKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 24,
+      "expr": "accountRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 25,
+      "expr": "voucherRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1049/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogmerge/web/ReceiptCoordinator.java",
       "line": 26,
+      "expr": "voucherRef4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Sanitizer01.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/catalogmerge/service/ContractScreen.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 17,
+      "expr": "orderRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 18,
+      "expr": "orderRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 23,
+      "expr": "quoteRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 24,
+      "expr": "tariffRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 25,
+      "expr": "tariffRef103",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 30,
+      "expr": "ledgerEntry104",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 33,
+      "expr": "ledgerEntry104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 34,
+      "expr": "channelTag105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 35,
+      "expr": "channelTag105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 40,
+      "expr": "catalogKey106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 41,
+      "expr": "receiptKey107",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 42,
+      "expr": "accountRef108",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundComposer.java",
       "line": 43,
+      "expr": "accountRef108",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/AccountRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/AccountRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 16,
+      "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 17,
+      "expr": "refundCode201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 22,
+      "expr": "shipmentCode202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 23,
+      "expr": "manifestKey203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 24,
+      "expr": "invoiceKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 25,
+      "expr": "invoiceKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 30,
+      "expr": "batchTag205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 31,
+      "expr": "orderRef206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 34,
+      "expr": "orderRef206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 35,
+      "expr": "quoteRef207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/RefundFacade.java",
       "line": 36,
+      "expr": "quoteRef207",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/ChannelExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1049/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/catalogmerge/service/ChannelExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -251,7 +292,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1049/{userName}",
+    "path": "/api/catalog/merge/{userName}",
     "param": "userName",
     "carrier": "path"
   },
@@ -265,6 +306,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

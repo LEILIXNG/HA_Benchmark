@@ -4,71 +4,83 @@
   "verdict": "vulnerable",
   "title": "请求头经跨类委托与集合元素流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path0003/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilsync/web/ShipmentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path0003/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilsync/web/ShipmentController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/path0003/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/fulfilsync/dao/ShipmentLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path0003/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilsync/web/ShipmentController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path0003/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilsync/web/LedgerAdapter.java",
       "line": 8,
+      "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path0003/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilsync/web/CatalogTranslator.java",
       "line": 8,
+      "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path0003/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilsync/service/BundleAdapter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path0003/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilsync/service/BundleAdapter.java",
       "line": 13,
+      "expr": "channelTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path0003/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilsync/service/BundleAdapter.java",
       "line": 14,
+      "expr": "channelTag201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path0003/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilsync/dao/LedgerComposer.java",
       "line": 8,
+      "expr": "batchTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/path0003/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilsync/dao/LedgerComposer.java",
       "line": 9,
+      "expr": "batchTag301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path0003/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/fulfilsync/dao/ShipmentLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/path0003/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/fulfilsync/dao/ShipmentLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -91,7 +103,7 @@
   "paired_negative": "JAVA-PATH-0003-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_path_0003",
+    "path": "/api/fulfil/sync",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -105,6 +117,6 @@
     "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

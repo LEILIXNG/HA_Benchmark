@@ -4,160 +4,190 @@
   "verdict": "vulnerable",
   "title": "请求头经 11 层调用、跨 2 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1021/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderrevise/web/BundleController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1021/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderrevise/web/BundleController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1021/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/orderrevise/service/BundleExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/cmdi1021/service/Sanitizer03.java",
+    "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptGuard.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/BundleController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 17,
+      "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 18,
+      "expr": "catalogKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 23,
+      "expr": "receiptKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 26,
+      "expr": "receiptKey2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 27,
+      "expr": "accountRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 28,
+      "expr": "accountRef3",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 33,
+      "expr": "voucherRef4",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 34,
+      "expr": "paymentTag5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 37,
+      "expr": "paymentTag5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 38,
+      "expr": "refundCode6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/SessionRegistry.java",
       "line": 39,
+      "expr": "refundCode6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 16,
+      "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 19,
+      "expr": "orderRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 20,
+      "expr": "quoteRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 21,
+      "expr": "quoteRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 26,
+      "expr": "tariffRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 29,
+      "expr": "tariffRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 30,
+      "expr": "ledgerEntry104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 33,
+      "expr": "ledgerEntry104",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 34,
+      "expr": "channelTag105",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderrevise/web/RefundNormalizer.java",
       "line": 35,
+      "expr": "channelTag105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrevise/service/VoucherRegistry.java",
       "line": 8,
+      "expr": "refundCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrevise/service/VoucherRegistry.java",
       "line": 9,
+      "expr": "refundCode201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1021/service/Sanitizer03.java",
+      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptGuard.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1021/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderrevise/service/BundleExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1021/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderrevise/service/BundleExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -189,7 +219,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1021",
+    "path": "/api/order/revise",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -200,9 +230,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:zz$(id)",
+    "payload_at_sink": "echo ref:ref:ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

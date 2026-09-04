@@ -4,141 +4,167 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1004/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportgrant/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1004/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportgrant/web/OrderController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/path1004/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/reportgrant/dao/OrderLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1004/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reportgrant/web/OrderController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1004/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportgrant/web/RefundRegistry.java",
       "line": 8,
+      "expr": "channelTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1004/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportgrant/web/RefundRegistry.java",
       "line": 9,
+      "expr": "catalogKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1004/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportgrant/web/RefundRegistry.java",
       "line": 10,
+      "expr": "catalogKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 11,
+      "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 12,
+      "expr": "orderRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 13,
+      "expr": "orderRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 18,
+      "expr": "quoteRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 19,
+      "expr": "tariffRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 22,
+      "expr": "tariffRef104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 23,
+      "expr": "ledgerEntry105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportgrant/service/BundleService.java",
       "line": 24,
+      "expr": "ledgerEntry105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/QuoteRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/QuoteRouter.java",
       "line": 13,
+      "expr": "paymentTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/QuoteRouter.java",
       "line": 14,
+      "expr": "refundCode202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/QuoteRouter.java",
       "line": 15,
+      "expr": "refundCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Handler03Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/RefundPlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Handler03Impl00.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/RefundPlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/ChannelCollector.java",
       "line": 10,
+      "expr": "channelTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/ChannelCollector.java",
       "line": 13,
+      "expr": "channelTag301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/ChannelCollector.java",
       "line": 14,
+      "expr": "catalogKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/ChannelCollector.java",
       "line": 15,
+      "expr": "catalogKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/OrderLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1004/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportgrant/dao/OrderLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -170,7 +196,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1004",
+    "path": "/api/report/grant",
     "param": "userName",
     "carrier": "query"
   },
@@ -181,9 +207,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:order:../../../etc/passwd;;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:../../../etc/passwd;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

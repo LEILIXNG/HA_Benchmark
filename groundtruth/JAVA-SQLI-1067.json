@@ -4,76 +4,89 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1067/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderapprove/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1067/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderapprove/web/ChannelController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/sqli1067/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/orderapprove/web/ChannelRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/ChannelController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/BundleFacade.java",
       "line": 10,
+      "expr": "quoteRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/BundleFacade.java",
       "line": 13,
+      "expr": "quoteRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/BundleFacade.java",
       "line": 14,
+      "expr": "tariffRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/BundleFacade.java",
       "line": 15,
+      "expr": "tariffRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/ShipmentRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/ShipmentRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/RefundTranslator.java",
       "line": 8,
+      "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/RefundTranslator.java",
       "line": 9,
+      "expr": "shipmentCode101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/ChannelRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1067/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/orderapprove/web/ChannelRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -95,7 +108,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1067",
+    "path": "/api/order/approve",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -109,6 +122,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

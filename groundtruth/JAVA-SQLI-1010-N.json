@@ -4,160 +4,190 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1010 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1010n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountrollup/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1010n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountrollup/web/BatchController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1010n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/accountrollup/service/BatchRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1010n/service/Sanitizer04.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/accountrollup/service/PaymentPolicy.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1010n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/accountrollup/web/BatchController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1010n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrollup/web/BatchNormalizer.java",
       "line": 8,
+      "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1010n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrollup/web/BatchNormalizer.java",
       "line": 9,
+      "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 14,
+      "expr": "tariffRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 15,
+      "expr": "ledgerEntry102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 16,
+      "expr": "ledgerEntry102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 21,
+      "expr": "channelTag103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 24,
+      "expr": "channelTag103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 25,
+      "expr": "catalogKey104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionService.java",
       "line": 26,
+      "expr": "catalogKey104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/SessionPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/AccountBroker.java",
       "line": 16,
+      "expr": "manifestKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/AccountBroker.java",
       "line": 19,
+      "expr": "manifestKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/AccountBroker.java",
       "line": 20,
+      "expr": "invoiceKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/AccountBroker.java",
       "line": 21,
+      "expr": "invoiceKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/AccountBroker.java",
       "line": 26,
+      "expr": "batchTag203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/AccountBroker.java",
       "line": 27,
+      "expr": "orderRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/AccountBroker.java",
       "line": 28,
+      "expr": "orderRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Handler03Dispatcher.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/RefundStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Handler03Impl00.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/RefundStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/ManifestResolver.java",
       "line": 8,
+      "expr": "accountRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/ManifestResolver.java",
       "line": 9,
+      "expr": "accountRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/Sanitizer04.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/accountrollup/service/PaymentPolicy.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/BatchRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/accountrollup/service/BatchRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -188,7 +218,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1010_n/{userName}",
+    "path": "/api/account/rollup/{userName}",
     "param": "userName",
     "carrier": "path"
   },
@@ -202,6 +232,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

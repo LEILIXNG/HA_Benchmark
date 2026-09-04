@@ -4,201 +4,239 @@
   "verdict": "vulnerable",
   "title": "请求头经 15 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1020/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingdispatch/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1020/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingdispatch/web/ChannelController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/path1020/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/billingdispatch/dao/ChannelLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1020/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/ChannelController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 17,
+      "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 18,
+      "expr": "catalogKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 19,
+      "expr": "catalogKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 24,
+      "expr": "receiptKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 25,
+      "expr": "accountRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 26,
+      "expr": "voucherRef5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 27,
+      "expr": "voucherRef5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 32,
+      "expr": "paymentTag6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 35,
+      "expr": "paymentTag6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 36,
+      "expr": "refundCode7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 37,
+      "expr": "shipmentCode8",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdispatch/web/RefundFacade.java",
       "line": 38,
+      "expr": "shipmentCode8",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingdispatch/service/QuoteBroker.java",
       "line": 11,
+      "expr": "batchTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingdispatch/service/QuoteBroker.java",
       "line": 12,
+      "expr": "orderRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingdispatch/service/QuoteBroker.java",
       "line": 13,
+      "expr": "orderRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingdispatch/service/QuoteBroker.java",
       "line": 18,
+      "expr": "quoteRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingdispatch/service/QuoteBroker.java",
       "line": 21,
+      "expr": "quoteRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingdispatch/service/QuoteBroker.java",
       "line": 22,
+      "expr": "tariffRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingdispatch/service/QuoteBroker.java",
       "line": 23,
+      "expr": "tariffRef104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/RefundTranslator.java",
       "line": 8,
+      "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/RefundTranslator.java",
       "line": 9,
+      "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/CatalogRouter.java",
       "line": 8,
+      "expr": "channelTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/CatalogRouter.java",
       "line": 9,
+      "expr": "catalogKey302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/CatalogRouter.java",
       "line": 10,
+      "expr": "catalogKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Handler04Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/LedgerPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Handler04Impl00.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/LedgerPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ReceiptTranslator.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ReceiptTranslator.java",
       "line": 19,
+      "expr": "batchTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ReceiptTranslator.java",
       "line": 20,
+      "expr": "batchTag401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ReceiptTranslator.java",
       "line": 25,
+      "expr": "orderRef402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ReceiptTranslator.java",
       "line": 28,
+      "expr": "orderRef402",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ReceiptTranslator.java",
       "line": 29,
+      "expr": "quoteRef403",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ReceiptTranslator.java",
       "line": 30,
+      "expr": "quoteRef403",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ChannelLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1020/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/billingdispatch/dao/ChannelLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -238,7 +276,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1020",
+    "path": "/api/billing/dispatch",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -249,9 +287,9 @@
     "neutralized": false,
     "call_depth_observed": 15,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:order:order:../../../etc/passwd;;;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:../../../etc/passwd;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

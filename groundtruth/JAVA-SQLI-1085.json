@@ -4,206 +4,245 @@
   "verdict": "vulnerable",
   "title": "查询参数经 17 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1085/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentsettle/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1085/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentsettle/web/TariffController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1085/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/paymentsettle/service/TariffRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/TariffController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 19,
+      "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 20,
+      "expr": "channelTag2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 21,
+      "expr": "channelTag2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 26,
+      "expr": "catalogKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 29,
+      "expr": "catalogKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 30,
+      "expr": "receiptKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/InvoiceBroker.java",
       "line": 31,
+      "expr": "receiptKey4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuoteCollector.java",
       "line": 16,
+      "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuoteCollector.java",
       "line": 17,
+      "expr": "invoiceKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuoteCollector.java",
       "line": 22,
+      "expr": "batchTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuoteCollector.java",
       "line": 23,
+      "expr": "orderRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuoteCollector.java",
       "line": 26,
+      "expr": "orderRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuoteCollector.java",
       "line": 27,
+      "expr": "quoteRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuoteCollector.java",
       "line": 28,
+      "expr": "quoteRef104",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Handler02Dispatcher.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/SessionPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Handler02Impl00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/SessionPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 16,
+      "expr": "voucherRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 19,
+      "expr": "voucherRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 20,
+      "expr": "paymentTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 21,
+      "expr": "paymentTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 26,
+      "expr": "refundCode203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 29,
+      "expr": "refundCode203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 30,
+      "expr": "shipmentCode204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ManifestComposer.java",
       "line": 31,
+      "expr": "shipmentCode204",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Handler03Dispatcher.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuotePolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Handler03Impl00.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/QuotePolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ContractAssembler.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ContractAssembler.java",
       "line": 13,
+      "expr": "ledgerEntry301",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1085/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/paymentsettle/web/ContractAssembler.java",
       "line": 14,
+      "expr": "ledgerEntry301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1085/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/paymentsettle/service/SessionAdapter.java",
       "line": 10,
+      "expr": "invoiceKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1085/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/paymentsettle/service/SessionAdapter.java",
       "line": 13,
+      "expr": "invoiceKey401",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1085/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/paymentsettle/service/SessionAdapter.java",
       "line": 14,
+      "expr": "batchTag402",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1085/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/paymentsettle/service/SessionAdapter.java",
       "line": 15,
+      "expr": "batchTag402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1085/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/paymentsettle/service/TariffRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1085/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/paymentsettle/service/TariffRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -240,7 +279,7 @@
   "paired_negative": "JAVA-SQLI-1085-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1085",
+    "path": "/api/payment/settle",
     "param": "label",
     "carrier": "query"
   },
@@ -251,9 +290,9 @@
     "neutralized": false,
     "call_depth_observed": 17,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:zz' OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

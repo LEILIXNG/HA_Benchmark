@@ -4,116 +4,137 @@
   "verdict": "vulnerable",
   "title": "路径变量经 10 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1011/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountsettle/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1011/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountsettle/web/SessionController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1011/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/accountsettle/dao/SessionRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1011/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/accountsettle/web/SessionController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountsettle/web/CatalogFacade.java",
       "line": 14,
+      "expr": "batchTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountsettle/web/CatalogFacade.java",
       "line": 15,
+      "expr": "batchTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountsettle/web/CatalogFacade.java",
       "line": 20,
+      "expr": "orderRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountsettle/web/CatalogFacade.java",
       "line": 21,
+      "expr": "quoteRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountsettle/web/CatalogFacade.java",
       "line": 22,
+      "expr": "tariffRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1011/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountsettle/web/CatalogFacade.java",
       "line": 23,
+      "expr": "tariffRef4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1011/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountsettle/service/ReceiptNormalizer.java",
       "line": 8,
+      "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1011/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountsettle/service/ReceiptNormalizer.java",
       "line": 9,
+      "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/PaymentCollector.java",
       "line": 10,
+      "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/PaymentCollector.java",
       "line": 13,
+      "expr": "channelTag201",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/PaymentCollector.java",
       "line": 14,
+      "expr": "catalogKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/PaymentCollector.java",
       "line": 15,
+      "expr": "catalogKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Handler03Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/VoucherPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Handler03Impl00.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/VoucherPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/CatalogRegistry.java",
       "line": 8,
+      "expr": "batchTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/CatalogRegistry.java",
       "line": 9,
+      "expr": "batchTag301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/SessionRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1011/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/accountsettle/dao/SessionRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -142,7 +163,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1011/{userName}",
+    "path": "/api/account/settle/{userName}",
     "param": "userName",
     "carrier": "path"
   },
@@ -153,9 +174,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:zz' OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

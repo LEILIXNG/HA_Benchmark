@@ -4,269 +4,318 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1063 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1063n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderassign/web/ReceiptController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1063n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderassign/web/ReceiptController.java",
     "line": 13,
+    "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1063n/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/orderassign/dao/ReceiptRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/sqli1063n/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/orderassign/dao/ReceiptRepository.java",
     "line": 17,
+    "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1063n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderassign/web/ReceiptController.java",
       "line": 13,
+      "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1063n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderassign/web/TariffBuilder.java",
       "line": 8,
+      "expr": "batchTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1063n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderassign/web/TariffBuilder.java",
       "line": 9,
+      "expr": "batchTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1063n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderassign/service/TariffAssembler.java",
       "line": 11,
+      "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1063n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderassign/service/TariffAssembler.java",
       "line": 14,
+      "expr": "paymentTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1063n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderassign/service/TariffAssembler.java",
       "line": 15,
+      "expr": "refundCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1063n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderassign/service/TariffAssembler.java",
       "line": 16,
+      "expr": "refundCode102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1063n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderassign/service/TariffAssembler.java",
       "line": 21,
+      "expr": "shipmentCode103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1063n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderassign/service/TariffAssembler.java",
       "line": 22,
+      "expr": "manifestKey104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1063n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderassign/service/TariffAssembler.java",
       "line": 23,
+      "expr": "manifestKey104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 11,
+      "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 12,
+      "expr": "catalogKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 13,
+      "expr": "catalogKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 18,
+      "expr": "receiptKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 19,
+      "expr": "accountRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 22,
+      "expr": "accountRef204",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 23,
+      "expr": "voucherRef205",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ManifestFacade.java",
       "line": 24,
+      "expr": "voucherRef205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/InvoiceNormalizer.java",
       "line": 14,
+      "expr": "batchTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/InvoiceNormalizer.java",
       "line": 15,
+      "expr": "orderRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/InvoiceNormalizer.java",
       "line": 16,
+      "expr": "orderRef302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/InvoiceNormalizer.java",
       "line": 21,
+      "expr": "quoteRef303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/InvoiceNormalizer.java",
       "line": 22,
+      "expr": "tariffRef304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/InvoiceNormalizer.java",
       "line": 23,
+      "expr": "tariffRef304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 14,
+      "expr": "paymentTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 15,
+      "expr": "refundCode402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 16,
+      "expr": "refundCode402",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 21,
+      "expr": "shipmentCode403",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 22,
+      "expr": "manifestKey404",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 23,
+      "expr": "invoiceKey405",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/RefundRegistry.java",
       "line": 24,
+      "expr": "invoiceKey405",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 11,
+      "expr": "channelTag501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 12,
+      "expr": "channelTag501",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 17,
+      "expr": "catalogKey502",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 18,
+      "expr": "receiptKey503",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 21,
+      "expr": "receiptKey503",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 22,
+      "expr": "accountRef504",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 23,
+      "expr": "accountRef504",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 28,
+      "expr": "voucherRef505",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 31,
+      "expr": "voucherRef505",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 32,
+      "expr": "paymentTag506",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 33,
+      "expr": "paymentTag506",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 38,
+      "expr": "refundCode507",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 39,
+      "expr": "shipmentCode508",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ContractTranslator.java",
       "line": 40,
+      "expr": "shipmentCode508",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ReceiptRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ReceiptRepository.java",
       "line": 17,
+      "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1063n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/orderassign/dao/ReceiptRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -317,7 +366,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1063_n",
+    "path": "/api/order/assign",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -328,9 +377,9 @@
     "neutralized": true,
     "call_depth_observed": 16,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "order:order:order:order:order:order:order:zz' OR 1=1--;;;;;;;",
+    "payload_at_sink": "ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

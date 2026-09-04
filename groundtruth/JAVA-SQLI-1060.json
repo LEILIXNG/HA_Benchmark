@@ -4,155 +4,184 @@
   "verdict": "vulnerable",
   "title": "查询参数经 11 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1060/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/shippingtransfer/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1060/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/shippingtransfer/web/TariffController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1060/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/shippingtransfer/service/TariffRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1060/service/Sanitizer02.java",
+    "file": "service/src/main/java/com/habench/shippingtransfer/service/BundleScreen.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1060/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/shippingtransfer/web/TariffController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1060/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingtransfer/web/BundleResolver.java",
       "line": 14,
+      "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1060/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingtransfer/web/BundleResolver.java",
       "line": 15,
+      "expr": "invoiceKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1060/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingtransfer/web/BundleResolver.java",
       "line": 20,
+      "expr": "batchTag2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1060/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingtransfer/web/BundleResolver.java",
       "line": 21,
+      "expr": "orderRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1060/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingtransfer/web/BundleResolver.java",
       "line": 22,
+      "expr": "quoteRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1060/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingtransfer/web/BundleResolver.java",
       "line": 23,
+      "expr": "quoteRef4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 20,
+      "expr": "voucherRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 23,
+      "expr": "voucherRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 24,
+      "expr": "paymentTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 25,
+      "expr": "paymentTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 30,
+      "expr": "refundCode103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 31,
+      "expr": "shipmentCode104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 32,
+      "expr": "shipmentCode104",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 37,
+      "expr": "manifestKey105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 38,
+      "expr": "invoiceKey106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 39,
+      "expr": "batchTag107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 40,
+      "expr": "batchTag107",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 45,
+      "expr": "orderRef108",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 46,
+      "expr": "quoteRef109",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 47,
+      "expr": "tariffRef110",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/CatalogAssembler.java",
       "line": 48,
+      "expr": "tariffRef110",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/Sanitizer02.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/BundleScreen.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/TariffRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1060/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/shippingtransfer/service/TariffRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -185,7 +214,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1060",
+    "path": "/api/shipping/transfer",
     "param": "resource",
     "carrier": "query"
   },
@@ -196,9 +225,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:zz OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

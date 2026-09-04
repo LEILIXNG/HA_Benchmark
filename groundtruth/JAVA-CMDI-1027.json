@@ -4,125 +4,148 @@
   "verdict": "vulnerable",
   "title": "查询参数经 11 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1027/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingreconcile/web/VoucherController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1027/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingreconcile/web/VoucherController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1027/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/pricingreconcile/dao/VoucherExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/cmdi1027/dao/Sanitizer04.java",
+    "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundGuard.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/VoucherController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/RefundRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/RefundRouter.java",
       "line": 13,
+      "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/RefundRouter.java",
       "line": 14,
+      "expr": "tariffRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/ChannelStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/ChannelStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/ShipmentBuilder.java",
       "line": 8,
+      "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1027/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/ShipmentBuilder.java",
       "line": 9,
+      "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1027/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/AccountResolver.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1027/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/AccountResolver.java",
       "line": 19,
+      "expr": "accountRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1027/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/AccountResolver.java",
       "line": 20,
+      "expr": "accountRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1027/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/AccountResolver.java",
       "line": 25,
+      "expr": "voucherRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1027/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/AccountResolver.java",
       "line": 26,
+      "expr": "paymentTag203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1027/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/AccountResolver.java",
       "line": 27,
+      "expr": "paymentTag203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1027/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/BatchAssembler.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1027/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/BatchAssembler.java",
       "line": 13,
+      "expr": "tariffRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1027/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/BatchAssembler.java",
       "line": 14,
+      "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1027/dao/Sanitizer04.java",
+      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundGuard.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1027/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/VoucherExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1027/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/VoucherExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -149,7 +172,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1027",
+    "path": "/api/pricing/reconcile",
     "param": "label",
     "carrier": "query"
   },
@@ -163,6 +186,6 @@
     "payload_at_sink": "echo zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,76 +4,89 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1030/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymenthold/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1030/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymenthold/web/BatchController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/path1030/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/paymenthold/web/BatchLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1030/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/BatchController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/SessionComposer.java",
       "line": 14,
+      "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/SessionComposer.java",
       "line": 15,
+      "expr": "voucherRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/SessionComposer.java",
       "line": 16,
+      "expr": "voucherRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/SessionComposer.java",
       "line": 21,
+      "expr": "paymentTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/SessionComposer.java",
       "line": 22,
+      "expr": "refundCode4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/SessionComposer.java",
       "line": 23,
+      "expr": "refundCode4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/ShipmentBroker.java",
       "line": 8,
+      "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/ShipmentBroker.java",
       "line": 9,
+      "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/BatchLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/path1030/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/paymenthold/web/BatchLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -97,7 +110,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1030",
+    "path": "/api/payment/hold",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -108,9 +121,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

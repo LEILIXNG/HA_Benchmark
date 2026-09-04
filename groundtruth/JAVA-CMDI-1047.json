@@ -4,116 +4,137 @@
   "verdict": "vulnerable",
   "title": "请求头经 9 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1047/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cataloglookup/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1047/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/cataloglookup/web/AccountController.java",
     "line": 13,
+    "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1047/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/cataloglookup/service/AccountExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1047/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/AccountController.java",
       "line": 13,
+      "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/SessionRegistry.java",
       "line": 8,
+      "expr": "accountRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/SessionRegistry.java",
       "line": 9,
+      "expr": "voucherRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/SessionRegistry.java",
       "line": 10,
+      "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
       "line": 19,
+      "expr": "tariffRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
       "line": 20,
+      "expr": "tariffRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
       "line": 25,
+      "expr": "ledgerEntry102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
       "line": 26,
+      "expr": "channelTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
       "line": 27,
+      "expr": "catalogKey104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
       "line": 28,
+      "expr": "catalogKey104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/TariffPlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/TariffPlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
       "line": 13,
+      "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
       "line": 14,
+      "expr": "invoiceKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
       "line": 15,
+      "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1047/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -141,7 +162,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1047",
+    "path": "/api/catalog/lookup",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -152,9 +173,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:zz$(id);;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

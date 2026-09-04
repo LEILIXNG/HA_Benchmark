@@ -4,75 +4,88 @@
   "verdict": "vulnerable",
   "title": "路径变量经 7 层调用、跨 1 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1028/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1028/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi1028/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/cmdi1028/web/Sanitizer02.java",
+    "file": "web/src/main/java/com/habench/fulfilimport/web/ChannelValidator.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/BatchComposer.java",
       "line": 8,
+      "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/BatchComposer.java",
       "line": 9,
+      "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/InvoiceCollector.java",
       "line": 8,
+      "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/InvoiceCollector.java",
       "line": 9,
+      "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/Sanitizer02.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/ChannelValidator.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1028/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -93,7 +106,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1028/{query}",
+    "path": "/api/fulfil/import/{query}",
     "param": "query",
     "carrier": "path"
   },
@@ -104,9 +117,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:zz$(id)",
+    "payload_at_sink": "echo ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

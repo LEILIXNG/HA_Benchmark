@@ -25,16 +25,16 @@ public final class TaintOracle {
     }
 
     /** 污点到达了危险调用，且仍具攻击语义。 */
-    public static synchronized void reached(String caseId, String payload) {
-        record(caseId, payload, false);
+    public static synchronized void reached(String payload) {
+        record(payload, false);
     }
 
     /**
      * 污点到达了那个 API，但走的是安全写法（参数化绑定、不经 shell 等），
      * 已不具攻击语义。动态验证据此区分"没到达"与"到达但已失效"。
      */
-    public static synchronized void neutralized(String caseId, String payload) {
-        record(caseId, payload, true);
+    public static synchronized void neutralized(String payload) {
+        record(payload, true);
     }
 
     /**
@@ -57,7 +57,28 @@ public final class TaintOracle {
         return n;
     }
 
-    private static void record(String caseId, String payload, boolean neutralized) {
+    /**
+     * 从调用栈取出用例所在的包段作为标识。
+     *
+     * <p>此前是把用例 id 作为字符串字面量传进来，等于每个 sink 都写着自己是哪条用例——
+     * 工具不用分析数据流就能定位漏洞。改成运行时自取，生成的代码里不再出现用例 id。
+     */
+    private static String caseKey() {
+        for (StackTraceElement e : Thread.currentThread().getStackTrace()) {
+            String cn = e.getClassName();
+            if (cn.startsWith("com.habench.")
+                    && !cn.startsWith("com.habench.common.")
+                    && !cn.startsWith("com.habench.HaBench")) {
+                String rest = cn.substring("com.habench.".length());
+                int dot = rest.indexOf('.');
+                return dot < 0 ? rest : rest.substring(0, dot);
+            }
+        }
+        return "unknown";
+    }
+
+    private static void record(String payload, boolean neutralized) {
+        String caseId = caseKey();
         String line = "{\"case\":\"" + caseId + "\",\"payload\":\"" + escape(payload)
                 + "\",\"neutralized\":" + neutralized
                 + ",\"depth\":" + chainDepth() + "}";

@@ -4,166 +4,197 @@
   "verdict": "vulnerable",
   "title": "查询参数经 14 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1038/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendorverify/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1038/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendorverify/web/ManifestController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1038/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/vendorverify/service/ManifestRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/ManifestController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/QuoteRouter.java",
       "line": 8,
+      "expr": "tariffRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/QuoteRouter.java",
       "line": 9,
+      "expr": "tariffRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/InvoicePolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/InvoicePolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 11,
+      "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 12,
+      "expr": "invoiceKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 13,
+      "expr": "invoiceKey102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 18,
+      "expr": "batchTag103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 21,
+      "expr": "batchTag103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 22,
+      "expr": "orderRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 25,
+      "expr": "orderRef104",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 26,
+      "expr": "quoteRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/LedgerAssembler.java",
       "line": 27,
+      "expr": "quoteRef105",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Handler02Dispatcher.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/InvoicePlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Handler02Impl00.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/InvoicePlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/ShipmentEnricher.java",
       "line": 10,
+      "expr": "accountRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/ShipmentEnricher.java",
       "line": 13,
+      "expr": "accountRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/ShipmentEnricher.java",
       "line": 14,
+      "expr": "voucherRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorverify/web/ShipmentEnricher.java",
       "line": 15,
+      "expr": "voucherRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/CatalogAdapter.java",
       "line": 8,
+      "expr": "tariffRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/CatalogAdapter.java",
       "line": 9,
+      "expr": "ledgerEntry302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/CatalogAdapter.java",
       "line": 10,
+      "expr": "ledgerEntry302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/Handler04Dispatcher.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/QuoteStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/Handler04Impl00.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/QuoteStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/BundleAssembler.java",
       "line": 8,
+      "expr": "manifestKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/BundleAssembler.java",
       "line": 9,
+      "expr": "manifestKey401",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/ManifestRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendorverify/service/ManifestRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -196,7 +227,7 @@
   "paired_negative": "JAVA-SQLI-1038-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1038",
+    "path": "/api/vendor/verify",
     "param": "label",
     "carrier": "query"
   },
@@ -207,9 +238,9 @@
     "neutralized": false,
     "call_depth_observed": 14,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

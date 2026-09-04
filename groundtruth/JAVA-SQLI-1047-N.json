@@ -4,149 +4,174 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1047 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1047n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventorymerge/web/RefundController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1047n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventorymerge/web/RefundController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1047n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/inventorymerge/service/RefundRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1047n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/inventorymerge/service/RefundRepository.java",
     "line": 17,
+    "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1047n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/RefundController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/CatalogAssembler.java",
       "line": 9,
+      "expr": "quoteRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/CatalogAssembler.java",
       "line": 10,
+      "expr": "quoteRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/CatalogAssembler.java",
       "line": 15,
+      "expr": "tariffRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/CatalogAssembler.java",
       "line": 16,
+      "expr": "ledgerEntry3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/CatalogAssembler.java",
       "line": 17,
+      "expr": "channelTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/CatalogAssembler.java",
       "line": 18,
+      "expr": "channelTag4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/BundleService.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/BundleService.java",
       "line": 13,
+      "expr": "shipmentCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/BundleService.java",
       "line": 14,
+      "expr": "shipmentCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/BatchRegistry.java",
       "line": 8,
+      "expr": "receiptKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/BatchRegistry.java",
       "line": 9,
+      "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Handler03Dispatcher.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/OrderStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Handler03Impl00.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/OrderStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/ChannelNormalizer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/ChannelNormalizer.java",
       "line": 13,
+      "expr": "quoteRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/ChannelNormalizer.java",
       "line": 14,
+      "expr": "quoteRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Handler04Dispatcher.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/BatchPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Handler04Impl00.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/BatchPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/CatalogRegistry.java",
       "line": 8,
+      "expr": "shipmentCode401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/CatalogRegistry.java",
       "line": 9,
+      "expr": "manifestKey402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/CatalogRegistry.java",
       "line": 10,
+      "expr": "manifestKey402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/RefundRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/RefundRepository.java",
       "line": 17,
+      "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventorymerge/service/RefundRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -178,7 +203,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1047_n",
+    "path": "/api/inventory/merge",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -189,9 +214,9 @@
     "neutralized": true,
     "call_depth_observed": 12,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "order:order:order:order:zz' OR 1=1--;;;;",
+    "payload_at_sink": "ref:ref:ref:ref:zz' OR 1=1--;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

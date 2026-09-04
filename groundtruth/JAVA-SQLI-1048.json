@@ -4,121 +4,143 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1048/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilrefund/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1048/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilrefund/web/ContractController.java",
     "line": 13,
+    "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1048/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/fulfilrefund/service/ContractRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1048/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilrefund/web/ContractController.java",
       "line": 13,
+      "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1048/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrefund/web/InvoiceFacade.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1048/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrefund/web/InvoiceFacade.java",
       "line": 13,
+      "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1048/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrefund/web/InvoiceFacade.java",
       "line": 14,
+      "expr": "paymentTag2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1048/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrefund/web/InvoiceFacade.java",
       "line": 15,
+      "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/CatalogBuilder.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/CatalogBuilder.java",
       "line": 13,
+      "expr": "ledgerEntry101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/CatalogBuilder.java",
       "line": 14,
+      "expr": "channelTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/CatalogBuilder.java",
       "line": 15,
+      "expr": "channelTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/OrderRouter.java",
       "line": 8,
+      "expr": "invoiceKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/OrderRouter.java",
       "line": 9,
+      "expr": "invoiceKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/InvoiceCollector.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/InvoiceCollector.java",
       "line": 13,
+      "expr": "voucherRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/InvoiceCollector.java",
       "line": 14,
+      "expr": "voucherRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/BatchService.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/BatchService.java",
       "line": 13,
+      "expr": "ledgerEntry401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/BatchService.java",
       "line": 14,
+      "expr": "channelTag402",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/BatchService.java",
       "line": 15,
+      "expr": "channelTag402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/ContractRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1048/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilrefund/service/ContractRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -148,7 +170,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1048",
+    "path": "/api/fulfil/refund",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -159,9 +181,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

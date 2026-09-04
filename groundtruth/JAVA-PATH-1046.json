@@ -4,146 +4,173 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1046/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportrollup/web/BundleController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1046/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportrollup/web/BundleController.java",
     "line": 13,
+    "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1046/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/reportrollup/service/BundleLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1046/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reportrollup/web/BundleController.java",
       "line": 13,
+      "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportrollup/web/VoucherComposer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportrollup/web/VoucherComposer.java",
       "line": 13,
+      "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportrollup/web/VoucherComposer.java",
       "line": 14,
+      "expr": "receiptKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportrollup/web/VoucherComposer.java",
       "line": 15,
+      "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 17,
+      "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 18,
+      "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 19,
+      "expr": "quoteRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 24,
+      "expr": "tariffRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 25,
+      "expr": "ledgerEntry104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 26,
+      "expr": "channelTag105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 27,
+      "expr": "channelTag105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 32,
+      "expr": "catalogKey106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 35,
+      "expr": "catalogKey106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 36,
+      "expr": "receiptKey107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 39,
+      "expr": "receiptKey107",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 40,
+      "expr": "accountRef108",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 41,
+      "expr": "accountRef108",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 46,
+      "expr": "voucherRef109",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 47,
+      "expr": "paymentTag110",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 50,
+      "expr": "paymentTag110",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 51,
+      "expr": "refundCode111",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/RefundFacade.java",
       "line": 52,
+      "expr": "refundCode111",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/BundleLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1046/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/reportrollup/service/BundleLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -175,7 +202,7 @@
   "paired_negative": "JAVA-PATH-1046-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1046",
+    "path": "/api/report/rollup",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -186,9 +213,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:../../../etc/passwd;",
+    "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

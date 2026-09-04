@@ -4,156 +4,185 @@
   "verdict": "vulnerable",
   "title": "请求头经 11 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1055/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportsubmit/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1055/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportsubmit/web/SessionController.java",
     "line": 13,
+    "expr": "filename",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1055/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/reportsubmit/dao/SessionRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1055/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reportsubmit/web/SessionController.java",
       "line": 13,
+      "expr": "filename",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportsubmit/web/RefundResolver.java",
       "line": 8,
+      "expr": "receiptKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportsubmit/web/RefundResolver.java",
       "line": 9,
+      "expr": "receiptKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1055/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reportsubmit/web/RefundCollector.java",
       "line": 8,
+      "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1055/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reportsubmit/web/RefundCollector.java",
       "line": 9,
+      "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1055/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceCoordinator.java",
       "line": 10,
+      "expr": "shipmentCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1055/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceCoordinator.java",
       "line": 13,
+      "expr": "shipmentCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1055/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceCoordinator.java",
       "line": 14,
+      "expr": "manifestKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1055/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceCoordinator.java",
       "line": 15,
+      "expr": "manifestKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/BundleTranslator.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/BundleTranslator.java",
       "line": 13,
+      "expr": "receiptKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/BundleTranslator.java",
       "line": 14,
+      "expr": "accountRef302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/BundleTranslator.java",
       "line": 15,
+      "expr": "accountRef302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/QuoteBuilder.java",
       "line": 9,
+      "expr": "quoteRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/QuoteBuilder.java",
       "line": 10,
+      "expr": "quoteRef401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/QuoteBuilder.java",
       "line": 15,
+      "expr": "tariffRef402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/QuoteBuilder.java",
       "line": 16,
+      "expr": "ledgerEntry403",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/QuoteBuilder.java",
       "line": 17,
+      "expr": "channelTag404",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/QuoteBuilder.java",
       "line": 18,
+      "expr": "channelTag404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Handler05Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/LedgerPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Handler05Impl00.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/LedgerPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/ManifestRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/ManifestRouter.java",
       "line": 13,
+      "expr": "shipmentCode501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/ManifestRouter.java",
       "line": 14,
+      "expr": "manifestKey502",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/Stage05.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/ManifestRouter.java",
       "line": 15,
+      "expr": "manifestKey502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/SessionRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1055/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportsubmit/dao/SessionRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -188,7 +217,7 @@
   "paired_negative": "JAVA-SQLI-1055-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1055",
+    "path": "/api/report/submit",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -199,9 +228,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

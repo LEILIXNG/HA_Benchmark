@@ -4,180 +4,214 @@
   "verdict": "safe",
   "title": "请求头经 13 层调用、跨 3 个模块流入命令执行，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1055/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingreopen/web/LedgerController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1055/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingreopen/web/LedgerController.java",
     "line": 13,
+    "expr": "filename",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1055/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/billingreopen/dao/LedgerExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/cmdi1055/dao/Sanitizer03.java",
-    "line": 10,
+    "file": "dao/src/main/java/com/habench/billingreopen/dao/ContractFilter.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/LedgerController.java",
       "line": 13,
+      "expr": "filename",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 17,
+      "expr": "manifestKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 18,
+      "expr": "manifestKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 23,
+      "expr": "invoiceKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 26,
+      "expr": "invoiceKey2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 27,
+      "expr": "batchTag3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 28,
+      "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 29,
+      "expr": "orderRef4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 34,
+      "expr": "quoteRef5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 37,
+      "expr": "quoteRef5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 38,
+      "expr": "tariffRef6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1055/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingreopen/web/ShipmentAdapter.java",
       "line": 39,
+      "expr": "tariffRef6",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 17,
+      "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 18,
+      "expr": "accountRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 23,
+      "expr": "voucherRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 24,
+      "expr": "paymentTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 25,
+      "expr": "paymentTag103",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 30,
+      "expr": "refundCode104",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 33,
+      "expr": "refundCode104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 34,
+      "expr": "shipmentCode105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 35,
+      "expr": "manifestKey106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 36,
+      "expr": "manifestKey106",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 41,
+      "expr": "invoiceKey107",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 44,
+      "expr": "invoiceKey107",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 45,
+      "expr": "batchTag108",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1055/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingreopen/service/VoucherRouter.java",
       "line": 46,
+      "expr": "batchTag108",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1055/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/billingreopen/dao/QuoteService.java",
       "line": 8,
+      "expr": "tariffRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1055/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/billingreopen/dao/QuoteService.java",
       "line": 9,
+      "expr": "tariffRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1055/dao/Sanitizer03.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/habench/billingreopen/dao/ContractFilter.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1055/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/billingreopen/dao/LedgerExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1055/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/billingreopen/dao/LedgerExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -212,7 +246,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1055",
+    "path": "/api/billing/reopen",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -226,6 +260,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

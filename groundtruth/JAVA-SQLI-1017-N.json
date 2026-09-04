@@ -4,154 +4,180 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1017 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1017n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilmanifest/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1017n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilmanifest/web/ContractController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1017n/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ContractRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/sqli1017n/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ContractRepository.java",
     "line": 17,
+    "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1017n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ContractController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1017n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/AccountCoordinator.java",
       "line": 10,
+      "expr": "accountRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1017n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/AccountCoordinator.java",
       "line": 13,
+      "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1017n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/AccountCoordinator.java",
       "line": 14,
+      "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1017n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/AccountCoordinator.java",
       "line": 15,
+      "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1017n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/BatchAssembler.java",
       "line": 8,
+      "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1017n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/BatchAssembler.java",
       "line": 9,
+      "expr": "ledgerEntry102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1017n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/BatchAssembler.java",
       "line": 10,
+      "expr": "ledgerEntry102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/PaymentCoordinator.java",
       "line": 11,
+      "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/PaymentCoordinator.java",
       "line": 12,
+      "expr": "invoiceKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/PaymentCoordinator.java",
       "line": 13,
+      "expr": "invoiceKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/PaymentCoordinator.java",
       "line": 18,
+      "expr": "batchTag203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/PaymentCoordinator.java",
       "line": 21,
+      "expr": "batchTag203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/PaymentCoordinator.java",
       "line": 22,
+      "expr": "orderRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/PaymentCoordinator.java",
       "line": 23,
+      "expr": "orderRef204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Handler03Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/VoucherPlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Handler03Impl00.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/VoucherPlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ReceiptBroker.java",
       "line": 9,
+      "expr": "accountRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ReceiptBroker.java",
       "line": 10,
+      "expr": "voucherRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ReceiptBroker.java",
       "line": 11,
+      "expr": "voucherRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ReceiptBroker.java",
       "line": 16,
+      "expr": "paymentTag303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ReceiptBroker.java",
       "line": 17,
+      "expr": "refundCode304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ReceiptBroker.java",
       "line": 18,
+      "expr": "refundCode304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ContractRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ContractRepository.java",
       "line": 17,
+      "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1017n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/fulfilmanifest/dao/ContractRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -185,7 +211,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1017_n",
+    "path": "/api/fulfil/manifest",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -196,9 +222,9 @@
     "neutralized": true,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "order:order:order:zz' OR 1=1--;;;",
+    "payload_at_sink": "ref:ref:ref:zz' OR 1=1--;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

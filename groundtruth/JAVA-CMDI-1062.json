@@ -4,221 +4,263 @@
   "verdict": "vulnerable",
   "title": "请求头经 16 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1062/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customersettle/web/BundleController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1062/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customersettle/web/BundleController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1062/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/customersettle/dao/BundleExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1062/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BundleController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1062/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BundleTranslator.java",
       "line": 8,
+      "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1062/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BundleTranslator.java",
       "line": 9,
+      "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/SessionEnricher.java",
       "line": 8,
+      "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/SessionEnricher.java",
       "line": 9,
+      "expr": "accountRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/SessionEnricher.java",
       "line": 10,
+      "expr": "accountRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/OrderRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/OrderRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/VoucherRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/VoucherRouter.java",
       "line": 13,
+      "expr": "quoteRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1062/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/VoucherRouter.java",
       "line": 14,
+      "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 17,
+      "expr": "shipmentCode301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 18,
+      "expr": "manifestKey302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 19,
+      "expr": "manifestKey302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 24,
+      "expr": "invoiceKey303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 25,
+      "expr": "batchTag304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 26,
+      "expr": "batchTag304",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 31,
+      "expr": "orderRef305",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 32,
+      "expr": "quoteRef306",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 33,
+      "expr": "tariffRef307",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 34,
+      "expr": "tariffRef307",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 39,
+      "expr": "ledgerEntry308",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 42,
+      "expr": "ledgerEntry308",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 43,
+      "expr": "channelTag309",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 46,
+      "expr": "channelTag309",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 47,
+      "expr": "catalogKey310",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 48,
+      "expr": "catalogKey310",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 53,
+      "expr": "receiptKey311",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 56,
+      "expr": "receiptKey311",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 57,
+      "expr": "accountRef312",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 60,
+      "expr": "accountRef312",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 61,
+      "expr": "voucherRef313",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/ChannelResolver.java",
       "line": 62,
+      "expr": "voucherRef313",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Handler04Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/InvoicePlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Handler04Impl00.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/InvoicePlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/PaymentComposer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/PaymentComposer.java",
       "line": 13,
+      "expr": "receiptKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/PaymentComposer.java",
       "line": 14,
+      "expr": "receiptKey401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/BundleExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1062/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/BundleExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -258,7 +300,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1062",
+    "path": "/api/customer/settle",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -269,9 +311,9 @@
     "neutralized": false,
     "call_depth_observed": 16,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:order:order:order:zz$(id);;;;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,121 +4,143 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1013/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1013/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
     "line": 13,
+    "expr": "tag",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1013/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/billingnotice/service/QuoteLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1013/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
       "line": 13,
+      "expr": "tag",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1013/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
       "line": 8,
+      "expr": "tariffRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1013/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
       "line": 9,
+      "expr": "ledgerEntry2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1013/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
       "line": 10,
+      "expr": "ledgerEntry2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 17,
+      "expr": "manifestKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 18,
+      "expr": "manifestKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 23,
+      "expr": "invoiceKey102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 26,
+      "expr": "invoiceKey102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 27,
+      "expr": "batchTag103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 28,
+      "expr": "orderRef104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 29,
+      "expr": "orderRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 34,
+      "expr": "quoteRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 37,
+      "expr": "quoteRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 38,
+      "expr": "tariffRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 39,
+      "expr": "tariffRef106",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 44,
+      "expr": "ledgerEntry107",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 45,
+      "expr": "channelTag108",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 46,
+      "expr": "channelTag108",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/QuoteLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1013/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billingnotice/service/QuoteLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -147,7 +169,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1013",
+    "path": "/api/billing/notice",
     "param": "tag",
     "carrier": "query"
   },
@@ -158,9 +180,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:../../../etc/passwd;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

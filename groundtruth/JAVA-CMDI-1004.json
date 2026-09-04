@@ -4,131 +4,155 @@
   "verdict": "vulnerable",
   "title": "请求头经 9 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1004/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentsettlequeue/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1004/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentsettlequeue/web/SessionController.java",
     "line": 13,
+    "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1004/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/SessionExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1004/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/SessionController.java",
       "line": 13,
+      "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1004/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/ReceiptComposer.java",
       "line": 10,
+      "expr": "refundCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1004/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/ReceiptComposer.java",
       "line": 13,
+      "expr": "refundCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1004/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/ReceiptComposer.java",
       "line": 14,
+      "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1004/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/ReceiptComposer.java",
       "line": 15,
+      "expr": "shipmentCode2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 14,
+      "expr": "catalogKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 15,
+      "expr": "catalogKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 20,
+      "expr": "receiptKey102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 21,
+      "expr": "accountRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 24,
+      "expr": "accountRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 25,
+      "expr": "voucherRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1004/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/RefundBroker.java",
       "line": 26,
+      "expr": "voucherRef104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/PaymentCollector.java",
       "line": 8,
+      "expr": "orderRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/PaymentCollector.java",
       "line": 9,
+      "expr": "quoteRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/PaymentCollector.java",
       "line": 10,
+      "expr": "quoteRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/Handler03Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/CatalogRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/Handler03Impl00.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/CatalogRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/VoucherTranslator.java",
       "line": 8,
+      "expr": "refundCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/VoucherTranslator.java",
       "line": 9,
+      "expr": "refundCode301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/SessionExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1004/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/SessionExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -158,7 +182,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1004",
+    "path": "/api/payment/settlequeue",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -169,9 +193,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:zz$(id);;;",
+    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

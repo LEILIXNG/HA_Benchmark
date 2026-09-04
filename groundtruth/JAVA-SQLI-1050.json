@@ -4,150 +4,178 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1050/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingsubmit/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1050/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingsubmit/web/TariffController.java",
     "line": 13,
+    "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1050/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/pricingsubmit/service/TariffRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1050/service/Sanitizer03.java",
+    "file": "service/src/main/java/com/habench/pricingsubmit/service/QuoteFilter.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1050/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricingsubmit/web/TariffController.java",
       "line": 13,
+      "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1050/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingsubmit/web/QuoteNormalizer.java",
       "line": 11,
+      "expr": "ledgerEntry1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1050/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingsubmit/web/QuoteNormalizer.java",
       "line": 12,
+      "expr": "ledgerEntry1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1050/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingsubmit/web/QuoteNormalizer.java",
       "line": 17,
+      "expr": "channelTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1050/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingsubmit/web/QuoteNormalizer.java",
       "line": 20,
+      "expr": "channelTag2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1050/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingsubmit/web/QuoteNormalizer.java",
       "line": 21,
+      "expr": "catalogKey3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1050/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingsubmit/web/QuoteNormalizer.java",
       "line": 22,
+      "expr": "catalogKey3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/CatalogRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/CatalogRouter.java",
       "line": 13,
+      "expr": "invoiceKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/CatalogRouter.java",
       "line": 14,
+      "expr": "invoiceKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/BundlePlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/BundlePlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 17,
+      "expr": "voucherRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 18,
+      "expr": "paymentTag202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 19,
+      "expr": "paymentTag202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 24,
+      "expr": "refundCode203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 25,
+      "expr": "shipmentCode204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 26,
+      "expr": "shipmentCode204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 31,
+      "expr": "manifestKey205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 34,
+      "expr": "manifestKey205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 35,
+      "expr": "invoiceKey206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/PaymentRouter.java",
       "line": 36,
+      "expr": "invoiceKey206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/Sanitizer03.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/QuoteFilter.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/TariffRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1050/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricingsubmit/service/TariffRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -177,7 +205,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1050",
+    "path": "/api/pricing/submit",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -188,9 +216,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:zz OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

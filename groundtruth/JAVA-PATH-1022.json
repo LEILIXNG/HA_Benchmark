@@ -4,71 +4,83 @@
   "verdict": "vulnerable",
   "title": "查询参数经 5 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1022/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogsplit/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1022/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogsplit/web/AccountController.java",
     "line": 13,
+    "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/path1022/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/catalogsplit/web/AccountLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1022/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/AccountController.java",
       "line": 13,
+      "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/SessionRouter.java",
       "line": 16,
+      "expr": "channelTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/SessionRouter.java",
       "line": 17,
+      "expr": "catalogKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/SessionRouter.java",
       "line": 18,
+      "expr": "catalogKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/SessionRouter.java",
       "line": 23,
+      "expr": "receiptKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/SessionRouter.java",
       "line": 26,
+      "expr": "receiptKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/SessionRouter.java",
       "line": 27,
+      "expr": "accountRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/SessionRouter.java",
       "line": 28,
+      "expr": "accountRef4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/AccountLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/path1022/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/catalogsplit/web/AccountLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -90,7 +102,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1022",
+    "path": "/api/catalog/split",
     "param": "filename",
     "carrier": "query"
   },
@@ -101,9 +113,9 @@
     "neutralized": false,
     "call_depth_observed": 5,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

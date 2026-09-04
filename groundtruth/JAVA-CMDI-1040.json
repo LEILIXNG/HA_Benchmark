@@ -4,96 +4,113 @@
   "verdict": "vulnerable",
   "title": "查询参数经 5 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1040/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reporttrace/web/PaymentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1040/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reporttrace/web/PaymentController.java",
     "line": 13,
+    "expr": "category",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi1040/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/reporttrace/web/PaymentExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/PaymentController.java",
       "line": 13,
+      "expr": "category",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ContractEnricher.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ContractEnricher.java",
       "line": 13,
+      "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ContractEnricher.java",
       "line": 14,
+      "expr": "quoteRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ContractEnricher.java",
       "line": 15,
+      "expr": "quoteRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 14,
+      "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 15,
+      "expr": "refundCode101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 20,
+      "expr": "shipmentCode102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 21,
+      "expr": "manifestKey103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 24,
+      "expr": "manifestKey103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 25,
+      "expr": "invoiceKey104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/ManifestRegistry.java",
       "line": 26,
+      "expr": "invoiceKey104",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/PaymentExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1040/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/reporttrace/web/PaymentExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -118,7 +135,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1040",
+    "path": "/api/report/trace",
     "param": "category",
     "carrier": "query"
   },
@@ -129,9 +146,9 @@
     "neutralized": false,
     "call_depth_observed": 5,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:zz$(id);;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

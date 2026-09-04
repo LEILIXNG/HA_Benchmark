@@ -4,96 +4,113 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1051/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryrevise/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1051/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryrevise/web/ChannelController.java",
     "line": 13,
+    "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1051/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/inventoryrevise/dao/ChannelExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1051/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/ChannelController.java",
       "line": 13,
+      "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1051/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/RefundResolver.java",
       "line": 14,
+      "expr": "channelTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1051/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/RefundResolver.java",
       "line": 15,
+      "expr": "channelTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1051/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/RefundResolver.java",
       "line": 20,
+      "expr": "catalogKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1051/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/RefundResolver.java",
       "line": 21,
+      "expr": "receiptKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1051/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/RefundResolver.java",
       "line": 22,
+      "expr": "receiptKey3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1051/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryrevise/service/LedgerNormalizer.java",
       "line": 8,
+      "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1051/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryrevise/service/LedgerNormalizer.java",
       "line": 9,
+      "expr": "orderRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1051/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryrevise/service/LedgerNormalizer.java",
       "line": 10,
+      "expr": "orderRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1051/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/ShipmentEnricher.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1051/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/ShipmentEnricher.java",
       "line": 13,
+      "expr": "paymentTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1051/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/ShipmentEnricher.java",
       "line": 14,
+      "expr": "refundCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1051/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/ShipmentEnricher.java",
       "line": 15,
+      "expr": "refundCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1051/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/ChannelExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1051/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/ChannelExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -120,7 +137,7 @@
   "paired_negative": "JAVA-CMDI-1051-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1051",
+    "path": "/api/inventory/revise",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -131,9 +148,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:zz$(id);;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

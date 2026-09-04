@@ -4,266 +4,317 @@
   "verdict": "vulnerable",
   "title": "请求头经 17 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1073/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryreview/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1073/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryreview/web/ManifestController.java",
     "line": 13,
+    "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1073/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/inventoryreview/dao/ManifestRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1073/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/inventoryreview/web/ManifestController.java",
       "line": 13,
+      "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1073/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryreview/web/PaymentAssembler.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1073/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryreview/web/PaymentAssembler.java",
       "line": 13,
+      "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1073/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryreview/web/PaymentAssembler.java",
       "line": 16,
+      "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1073/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryreview/web/PaymentAssembler.java",
       "line": 17,
+      "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1073/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryreview/web/PaymentAssembler.java",
       "line": 18,
+      "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1073/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryreview/service/LedgerComposer.java",
       "line": 8,
+      "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1073/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryreview/service/LedgerComposer.java",
       "line": 9,
+      "expr": "ledgerEntry102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1073/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryreview/service/LedgerComposer.java",
       "line": 10,
+      "expr": "ledgerEntry102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/ReceiptAssembler.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/ReceiptAssembler.java",
       "line": 13,
+      "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/ReceiptAssembler.java",
       "line": 14,
+      "expr": "manifestKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Handler03Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/BundlePlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Handler03Impl00.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/BundlePlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 17,
+      "expr": "accountRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 20,
+      "expr": "accountRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 21,
+      "expr": "voucherRef302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 22,
+      "expr": "voucherRef302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 27,
+      "expr": "paymentTag303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 28,
+      "expr": "refundCode304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 29,
+      "expr": "shipmentCode305",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 30,
+      "expr": "shipmentCode305",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 35,
+      "expr": "manifestKey306",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 36,
+      "expr": "invoiceKey307",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 37,
+      "expr": "batchTag308",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 38,
+      "expr": "batchTag308",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 43,
+      "expr": "orderRef309",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 46,
+      "expr": "orderRef309",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 47,
+      "expr": "quoteRef310",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 48,
+      "expr": "tariffRef311",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 49,
+      "expr": "tariffRef311",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 54,
+      "expr": "ledgerEntry312",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 57,
+      "expr": "ledgerEntry312",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 58,
+      "expr": "channelTag313",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 59,
+      "expr": "catalogKey314",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 60,
+      "expr": "catalogKey314",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 65,
+      "expr": "receiptKey315",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 66,
+      "expr": "accountRef316",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 69,
+      "expr": "accountRef316",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 70,
+      "expr": "voucherRef317",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/VoucherFacade.java",
       "line": 71,
+      "expr": "voucherRef317",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Handler04Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/PaymentStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Handler04Impl00.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/PaymentStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/AccountRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/AccountRouter.java",
       "line": 13,
+      "expr": "tariffRef401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/AccountRouter.java",
       "line": 14,
+      "expr": "ledgerEntry402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/AccountRouter.java",
       "line": 15,
+      "expr": "ledgerEntry402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/ManifestRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1073/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/inventoryreview/dao/ManifestRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -309,7 +360,7 @@
   "paired_negative": "JAVA-SQLI-1073-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1073",
+    "path": "/api/inventory/review",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -320,9 +371,9 @@
     "neutralized": false,
     "call_depth_observed": 17,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:order:zz' OR 1=1--;;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

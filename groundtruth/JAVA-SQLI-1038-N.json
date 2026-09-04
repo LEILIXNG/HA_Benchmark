@@ -4,174 +4,204 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1038 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1038n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingledger/web/BundleController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1038n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingledger/web/BundleController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1038n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/billingledger/service/BundleRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1038n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/billingledger/service/BundleRepository.java",
     "line": 17,
+    "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/BundleController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/SessionNormalizer.java",
       "line": 8,
+      "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/SessionNormalizer.java",
       "line": 9,
+      "expr": "catalogKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/ChannelPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/ChannelPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 11,
+      "expr": "orderRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 12,
+      "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 13,
+      "expr": "quoteRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 18,
+      "expr": "tariffRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 21,
+      "expr": "tariffRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 22,
+      "expr": "ledgerEntry104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 25,
+      "expr": "ledgerEntry104",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 26,
+      "expr": "channelTag105",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/LedgerBroker.java",
       "line": 27,
+      "expr": "channelTag105",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Handler02Dispatcher.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/VoucherPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Handler02Impl00.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/VoucherPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/VoucherResolver.java",
       "line": 10,
+      "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/VoucherResolver.java",
       "line": 13,
+      "expr": "refundCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/VoucherResolver.java",
       "line": 14,
+      "expr": "shipmentCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1038n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/billingledger/web/VoucherResolver.java",
       "line": 15,
+      "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/CatalogBuilder.java",
       "line": 8,
+      "expr": "catalogKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/CatalogBuilder.java",
       "line": 9,
+      "expr": "receiptKey302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/CatalogBuilder.java",
       "line": 10,
+      "expr": "receiptKey302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/Handler04Dispatcher.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/ChannelRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/Handler04Impl00.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/ChannelRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/SessionBuilder.java",
       "line": 8,
+      "expr": "orderRef401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/SessionBuilder.java",
       "line": 9,
+      "expr": "orderRef401",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/BundleRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/BundleRepository.java",
       "line": 17,
+      "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1038n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billingledger/service/BundleRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -205,7 +235,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1038_n",
+    "path": "/api/billing/ledger",
     "param": "label",
     "carrier": "query"
   },
@@ -216,9 +246,9 @@
     "neutralized": true,
     "call_depth_observed": 14,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "order:order:zz' OR 1=1--;;",
+    "payload_at_sink": "ref:ref:zz' OR 1=1--;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

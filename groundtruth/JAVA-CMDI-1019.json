@@ -4,131 +4,155 @@
   "verdict": "vulnerable",
   "title": "路径变量经 9 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1019/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1019/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1019/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ShipmentBuilder.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ShipmentBuilder.java",
       "line": 13,
+      "expr": "refundCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ShipmentBuilder.java",
       "line": 14,
+      "expr": "shipmentCode2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ShipmentBuilder.java",
       "line": 15,
+      "expr": "shipmentCode2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptService.java",
       "line": 8,
+      "expr": "catalogKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptService.java",
       "line": 9,
+      "expr": "receiptKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptService.java",
       "line": 10,
+      "expr": "receiptKey102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/LedgerService.java",
       "line": 8,
+      "expr": "orderRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/LedgerService.java",
       "line": 9,
+      "expr": "quoteRef202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/LedgerService.java",
       "line": 10,
+      "expr": "quoteRef202",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Handler03Dispatcher.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Handler03Impl00.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ReceiptPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/BatchResolver.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/BatchResolver.java",
       "line": 13,
+      "expr": "refundCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/BatchResolver.java",
       "line": 14,
+      "expr": "shipmentCode302",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1019/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/fulfilposting/web/BatchResolver.java",
       "line": 15,
+      "expr": "shipmentCode302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1019/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/fulfilposting/service/QuoteComposer.java",
       "line": 8,
+      "expr": "catalogKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1019/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/fulfilposting/service/QuoteComposer.java",
       "line": 9,
+      "expr": "receiptKey402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1019/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/fulfilposting/service/QuoteComposer.java",
       "line": 10,
+      "expr": "receiptKey402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1019/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1019/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -160,7 +184,7 @@
   "paired_negative": "JAVA-CMDI-1019-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1019/{label}",
+    "path": "/api/fulfil/posting/{label}",
     "param": "label",
     "carrier": "path"
   },
@@ -171,9 +195,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:order:zz$(id);;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:zz$(id);;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

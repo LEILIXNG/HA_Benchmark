@@ -4,101 +4,119 @@
   "verdict": "vulnerable",
   "title": "查询参数经 6 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1054/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1054/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerController.java",
     "line": 13,
+    "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi1054/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerController.java",
       "line": 13,
+      "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 20,
+      "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 21,
+      "expr": "manifestKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 26,
+      "expr": "invoiceKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 29,
+      "expr": "invoiceKey2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 30,
+      "expr": "batchTag3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 33,
+      "expr": "batchTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 34,
+      "expr": "orderRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 35,
+      "expr": "orderRef4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 40,
+      "expr": "quoteRef5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 41,
+      "expr": "tariffRef6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 42,
+      "expr": "ledgerEntry7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerTranslator.java",
       "line": 43,
+      "expr": "ledgerEntry7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1054/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/vendortransfer/web/LedgerExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -123,7 +141,7 @@
   "paired_negative": "JAVA-CMDI-1054-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1054",
+    "path": "/api/vendor/transfer",
     "param": "filename",
     "carrier": "query"
   },
@@ -134,9 +152,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:zz$(id);",
+    "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

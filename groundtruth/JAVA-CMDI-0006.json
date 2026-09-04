@@ -4,46 +4,53 @@
   "verdict": "vulnerable",
   "title": "基线用例——单跳同文件，任何工具都应检出",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi0006/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentclose/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi0006/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentclose/web/TariffController.java",
     "line": 13,
+    "expr": "cmd",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi0006/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/paymentclose/web/TariffExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi0006/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymentclose/web/TariffController.java",
       "line": 13,
+      "expr": "cmd",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi0006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentclose/web/AccountRouter.java",
       "line": 8,
+      "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi0006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentclose/web/AccountRouter.java",
       "line": 9,
+      "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi0006/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/paymentclose/web/TariffExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi0006/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/paymentclose/web/TariffExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -62,7 +69,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_0006",
+    "path": "/api/payment/close",
     "param": "cmd",
     "carrier": "query"
   },
@@ -76,6 +83,6 @@
     "payload_at_sink": "echo zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

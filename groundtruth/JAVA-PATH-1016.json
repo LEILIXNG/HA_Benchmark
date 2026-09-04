@@ -4,91 +4,107 @@
   "verdict": "vulnerable",
   "title": "查询参数经 6 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1016/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1016/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/path1016/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1016/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 17,
+      "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 18,
+      "expr": "ledgerEntry2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 19,
+      "expr": "ledgerEntry2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 24,
+      "expr": "channelTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 25,
+      "expr": "catalogKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 26,
+      "expr": "catalogKey4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 31,
+      "expr": "receiptKey5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 32,
+      "expr": "accountRef6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 35,
+      "expr": "accountRef6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 36,
+      "expr": "voucherRef7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
       "line": 37,
+      "expr": "voucherRef7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/path1016/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -113,7 +129,7 @@
   "paired_negative": "JAVA-PATH-1016-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1016",
+    "path": "/api/inventory/adjust",
     "param": "label",
     "carrier": "query"
   },
@@ -124,9 +140,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

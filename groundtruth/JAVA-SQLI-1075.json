@@ -4,205 +4,244 @@
   "verdict": "safe",
   "title": "查询参数经 15 层调用、跨 3 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1075/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingtransfer/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1075/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingtransfer/web/BatchController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1075/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/billingtransfer/dao/BatchRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/sqli1075/dao/Sanitizer04.java",
-    "line": 10,
+    "file": "dao/src/main/java/com/habench/billingtransfer/dao/ChannelPolicy.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1075/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billingtransfer/web/BatchController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1075/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingtransfer/web/ChannelNormalizer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1075/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingtransfer/web/ChannelNormalizer.java",
       "line": 13,
+      "expr": "channelTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1075/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingtransfer/web/ChannelNormalizer.java",
       "line": 14,
+      "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 16,
+      "expr": "batchTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 17,
+      "expr": "orderRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 18,
+      "expr": "orderRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 23,
+      "expr": "quoteRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 26,
+      "expr": "quoteRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 27,
+      "expr": "tariffRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 28,
+      "expr": "ledgerEntry105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/AccountTranslator.java",
       "line": 29,
+      "expr": "ledgerEntry105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 19,
+      "expr": "paymentTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 20,
+      "expr": "refundCode202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 21,
+      "expr": "refundCode202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 26,
+      "expr": "shipmentCode203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 27,
+      "expr": "manifestKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 28,
+      "expr": "manifestKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 33,
+      "expr": "invoiceKey205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 34,
+      "expr": "batchTag206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 35,
+      "expr": "orderRef207",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1075/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billingtransfer/service/InvoiceService.java",
       "line": 36,
+      "expr": "orderRef207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 17,
+      "expr": "channelTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 18,
+      "expr": "channelTag301",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 23,
+      "expr": "catalogKey302",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 26,
+      "expr": "catalogKey302",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 27,
+      "expr": "receiptKey303",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 28,
+      "expr": "accountRef304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 29,
+      "expr": "accountRef304",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 34,
+      "expr": "voucherRef305",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 35,
+      "expr": "paymentTag306",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogAdapter.java",
       "line": 36,
+      "expr": "paymentTag306",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/Sanitizer04.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/ChannelPolicy.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/BatchRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1075/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/BatchRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -242,7 +281,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1075",
+    "path": "/api/billing/transfer",
     "param": "userName",
     "carrier": "query"
   },
@@ -256,6 +295,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

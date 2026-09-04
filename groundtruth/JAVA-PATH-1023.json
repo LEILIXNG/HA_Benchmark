@@ -4,170 +4,202 @@
   "verdict": "safe",
   "title": "请求头经 13 层调用、跨 2 个模块流入文件读取，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1023/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/shippingverify/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1023/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/shippingverify/web/OrderController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1023/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/shippingverify/service/OrderLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/path1023/service/Sanitizer03.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/shippingverify/service/CatalogPolicy.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1023/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/OrderController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/TariffRegistry.java",
       "line": 8,
+      "expr": "voucherRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/TariffRegistry.java",
       "line": 9,
+      "expr": "paymentTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/TariffRegistry.java",
       "line": 10,
+      "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/VoucherRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/VoucherRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 16,
+      "expr": "ledgerEntry101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 17,
+      "expr": "ledgerEntry101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 22,
+      "expr": "channelTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 25,
+      "expr": "channelTag102",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 26,
+      "expr": "catalogKey103",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 27,
+      "expr": "catalogKey103",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 32,
+      "expr": "receiptKey104",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 35,
+      "expr": "receiptKey104",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 36,
+      "expr": "accountRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 39,
+      "expr": "accountRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 40,
+      "expr": "voucherRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/shippingverify/web/ContractBroker.java",
       "line": 41,
+      "expr": "voucherRef106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 19,
+      "expr": "invoiceKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 22,
+      "expr": "invoiceKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 23,
+      "expr": "batchTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 24,
+      "expr": "batchTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 29,
+      "expr": "orderRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 30,
+      "expr": "quoteRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderResolver.java",
       "line": 31,
+      "expr": "quoteRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/Sanitizer03.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/shippingverify/service/CatalogPolicy.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1023/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/shippingverify/service/OrderLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -199,7 +231,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1023",
+    "path": "/api/shipping/verify",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -213,6 +245,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

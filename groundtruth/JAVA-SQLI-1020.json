@@ -4,106 +4,125 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1020/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogverify/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1020/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogverify/web/ChannelController.java",
     "line": 13,
+    "expr": "category",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1020/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/catalogverify/dao/ChannelRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1020/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/catalogverify/web/ChannelController.java",
       "line": 13,
+      "expr": "category",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogverify/web/ChannelService.java",
       "line": 8,
+      "expr": "refundCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1020/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogverify/web/ChannelService.java",
       "line": 9,
+      "expr": "refundCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 14,
+      "expr": "catalogKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 15,
+      "expr": "catalogKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 20,
+      "expr": "receiptKey102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 21,
+      "expr": "accountRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 24,
+      "expr": "accountRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 25,
+      "expr": "voucherRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1020/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogverify/service/ContractRouter.java",
       "line": 26,
+      "expr": "voucherRef104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1020/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalogverify/dao/BundleService.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1020/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalogverify/dao/BundleService.java",
       "line": 13,
+      "expr": "orderRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1020/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalogverify/dao/BundleService.java",
       "line": 14,
+      "expr": "quoteRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1020/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalogverify/dao/BundleService.java",
       "line": 15,
+      "expr": "quoteRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1020/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/catalogverify/dao/ChannelRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1020/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/catalogverify/dao/ChannelRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -130,7 +149,7 @@
   "paired_negative": "JAVA-SQLI-1020-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1020/{category}",
+    "path": "/api/catalog/verify/{category}",
     "param": "category",
     "carrier": "path"
   },
@@ -144,6 +163,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

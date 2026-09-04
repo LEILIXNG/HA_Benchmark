@@ -4,95 +4,112 @@
   "verdict": "safe",
   "title": "与 JAVA-PATH-1038 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1038n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderissue/web/LedgerController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1038n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderissue/web/LedgerController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1038n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/orderissue/service/LedgerLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/path1038n/service/Sanitizer01.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/orderissue/service/ChannelValidator.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1038n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderissue/web/LedgerController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1038n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderissue/web/SessionBuilder.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1038n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderissue/web/SessionBuilder.java",
       "line": 13,
+      "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1038n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderissue/web/SessionBuilder.java",
       "line": 14,
+      "expr": "receiptKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Sanitizer01.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/orderissue/service/ChannelValidator.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/ContractService.java",
       "line": 8,
+      "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/ContractService.java",
       "line": 9,
+      "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/ContractPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/ContractPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/QuoteAdapter.java",
       "line": 8,
+      "expr": "shipmentCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/QuoteAdapter.java",
       "line": 9,
+      "expr": "manifestKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/QuoteAdapter.java",
       "line": 10,
+      "expr": "manifestKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/LedgerLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1038n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderissue/service/LedgerLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -116,7 +133,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1038_n",
+    "path": "/api/order/issue",
     "param": "userName",
     "carrier": "query"
   },
@@ -130,6 +147,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

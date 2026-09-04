@@ -4,144 +4,168 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1061 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1061n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billinggrant/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1061n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billinggrant/web/ChannelController.java",
     "line": 13,
+    "expr": "token",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1061n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/billinggrant/service/ChannelRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1061n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/billinggrant/service/ChannelRepository.java",
     "line": 17,
+    "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/ChannelController.java",
       "line": 13,
+      "expr": "token",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 11,
+      "expr": "accountRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 12,
+      "expr": "voucherRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 13,
+      "expr": "voucherRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 18,
+      "expr": "paymentTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 21,
+      "expr": "paymentTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 22,
+      "expr": "refundCode4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 25,
+      "expr": "refundCode4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 26,
+      "expr": "shipmentCode5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/OrderResolver.java",
       "line": 27,
+      "expr": "shipmentCode5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/RefundCoordinator.java",
       "line": 8,
+      "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/RefundCoordinator.java",
       "line": 9,
+      "expr": "ledgerEntry102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1061n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinggrant/web/RefundCoordinator.java",
       "line": 10,
+      "expr": "ledgerEntry102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/PaymentBuilder.java",
       "line": 8,
+      "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/PaymentBuilder.java",
       "line": 9,
+      "expr": "manifestKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Handler03Dispatcher.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/VoucherPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Handler03Impl00.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/VoucherPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/ManifestRouter.java",
       "line": 10,
+      "expr": "accountRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/ManifestRouter.java",
       "line": 13,
+      "expr": "accountRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/ManifestRouter.java",
       "line": 14,
+      "expr": "voucherRef302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/ManifestRouter.java",
       "line": 15,
+      "expr": "voucherRef302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/ChannelRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/ChannelRepository.java",
       "line": 17,
+      "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1061n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billinggrant/service/ChannelRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -173,7 +197,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1061_n/{token}",
+    "path": "/api/billing/grant/{token}",
     "param": "token",
     "carrier": "path"
   },
@@ -184,9 +208,9 @@
     "neutralized": true,
     "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "order:order:order:zz' OR 1=1--;;;",
+    "payload_at_sink": "ref:ref:ref:zz' OR 1=1--;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

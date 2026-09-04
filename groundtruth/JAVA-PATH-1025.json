@@ -4,241 +4,287 @@
   "verdict": "vulnerable",
   "title": "请求头经 15 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1025/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendorissue/web/PaymentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1025/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendorissue/web/PaymentController.java",
     "line": 13,
+    "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/path1025/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/vendorissue/dao/PaymentLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1025/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/PaymentController.java",
       "line": 13,
+      "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 11,
+      "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 12,
+      "expr": "paymentTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 17,
+      "expr": "refundCode2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 20,
+      "expr": "refundCode2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 21,
+      "expr": "shipmentCode3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 22,
+      "expr": "manifestKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 23,
+      "expr": "manifestKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 28,
+      "expr": "invoiceKey5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 29,
+      "expr": "batchTag6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 30,
+      "expr": "orderRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 31,
+      "expr": "orderRef7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 36,
+      "expr": "quoteRef8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 39,
+      "expr": "quoteRef8",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 40,
+      "expr": "tariffRef9",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 41,
+      "expr": "ledgerEntry10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/OrderBuilder.java",
       "line": 42,
+      "expr": "ledgerEntry10",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/BundlePlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/BundlePlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/ChannelAdapter.java",
       "line": 8,
+      "expr": "channelTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/ChannelAdapter.java",
       "line": 9,
+      "expr": "catalogKey102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/ChannelAdapter.java",
       "line": 10,
+      "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 19,
+      "expr": "batchTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 20,
+      "expr": "batchTag201",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 25,
+      "expr": "orderRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 28,
+      "expr": "orderRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 29,
+      "expr": "quoteRef203",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 30,
+      "expr": "tariffRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1025/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorissue/web/InvoiceTranslator.java",
       "line": 31,
+      "expr": "tariffRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1025/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorissue/service/TariffNormalizer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1025/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorissue/service/TariffNormalizer.java",
       "line": 13,
+      "expr": "paymentTag301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1025/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorissue/service/TariffNormalizer.java",
       "line": 14,
+      "expr": "refundCode302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1025/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorissue/service/TariffNormalizer.java",
       "line": 15,
+      "expr": "refundCode302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 14,
+      "expr": "channelTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 15,
+      "expr": "channelTag401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 20,
+      "expr": "catalogKey402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 21,
+      "expr": "receiptKey403",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 24,
+      "expr": "receiptKey403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 25,
+      "expr": "accountRef404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/TariffTranslator.java",
       "line": 26,
+      "expr": "accountRef404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/PaymentLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/path1025/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/vendorissue/dao/PaymentLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -282,7 +328,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1025",
+    "path": "/api/vendor/issue",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -293,9 +339,9 @@
     "neutralized": false,
     "call_depth_observed": 15,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:order:order:order:../../../etc/passwd;;;;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,175 +4,208 @@
   "verdict": "safe",
   "title": "查询参数经 16 层调用、跨 3 个模块流入命令执行，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1046/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderreview/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1046/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderreview/web/SessionController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1046/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/orderreview/dao/SessionExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/cmdi1046/dao/Sanitizer05.java",
-    "line": 10,
+    "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentGuard.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/SessionController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
       "line": 16,
+      "expr": "receiptKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
       "line": 17,
+      "expr": "receiptKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
       "line": 22,
+      "expr": "accountRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
       "line": 25,
+      "expr": "accountRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
       "line": 26,
+      "expr": "voucherRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
       "line": 27,
+      "expr": "paymentTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
       "line": 28,
+      "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
       "line": 16,
+      "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
       "line": 19,
+      "expr": "quoteRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
       "line": 20,
+      "expr": "tariffRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
       "line": 21,
+      "expr": "tariffRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
       "line": 26,
+      "expr": "ledgerEntry103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
       "line": 27,
+      "expr": "channelTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
       "line": 28,
+      "expr": "channelTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1046/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/ManifestService.java",
       "line": 8,
+      "expr": "shipmentCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1046/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/ManifestService.java",
       "line": 9,
+      "expr": "shipmentCode201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/TariffCoordinator.java",
       "line": 8,
+      "expr": "receiptKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/TariffCoordinator.java",
       "line": 9,
+      "expr": "receiptKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Handler04Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ReceiptPlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Handler04Impl00.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ReceiptPlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
       "line": 19,
+      "expr": "quoteRef401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
       "line": 20,
+      "expr": "quoteRef401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
       "line": 25,
+      "expr": "tariffRef402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
       "line": 26,
+      "expr": "ledgerEntry403",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
       "line": 27,
+      "expr": "ledgerEntry403",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/Sanitizer05.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentGuard.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/SessionExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1046/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/orderreview/dao/SessionExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -207,7 +240,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1046",
+    "path": "/api/order/review",
     "param": "keyword",
     "carrier": "query"
   },
@@ -221,6 +254,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,91 +4,107 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1068/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountquote/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1068/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountquote/web/ManifestController.java",
     "line": 13,
+    "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/sqli1068/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/accountquote/web/ManifestRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/ManifestController.java",
       "line": 13,
+      "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 17,
+      "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 18,
+      "expr": "shipmentCode1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 23,
+      "expr": "manifestKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 26,
+      "expr": "manifestKey2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 27,
+      "expr": "invoiceKey3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 28,
+      "expr": "batchTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 29,
+      "expr": "batchTag4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 34,
+      "expr": "orderRef5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 35,
+      "expr": "quoteRef6",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 36,
+      "expr": "tariffRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/CatalogTranslator.java",
       "line": 37,
+      "expr": "tariffRef7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/ManifestRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1068/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/accountquote/web/ManifestRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -113,7 +129,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1068/{target}",
+    "path": "/api/account/quote/{target}",
     "param": "target",
     "carrier": "path"
   },
@@ -127,6 +143,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

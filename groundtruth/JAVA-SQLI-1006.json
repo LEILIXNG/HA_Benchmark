@@ -4,236 +4,281 @@
   "verdict": "vulnerable",
   "title": "查询参数经 18 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1006/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendoradjust/web/ShipmentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1006/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendoradjust/web/ShipmentController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1006/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/vendoradjust/service/ShipmentRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1006/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/vendoradjust/web/ShipmentController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptAdapter.java",
       "line": 14,
+      "expr": "batchTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptAdapter.java",
       "line": 15,
+      "expr": "batchTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptAdapter.java",
       "line": 20,
+      "expr": "orderRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptAdapter.java",
       "line": 21,
+      "expr": "quoteRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptAdapter.java",
       "line": 22,
+      "expr": "tariffRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1006/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptAdapter.java",
       "line": 23,
+      "expr": "tariffRef4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 17,
+      "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 18,
+      "expr": "paymentTag101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 23,
+      "expr": "refundCode102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 24,
+      "expr": "shipmentCode103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 25,
+      "expr": "shipmentCode103",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 30,
+      "expr": "manifestKey104",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 33,
+      "expr": "manifestKey104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 34,
+      "expr": "invoiceKey105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 35,
+      "expr": "batchTag106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 36,
+      "expr": "batchTag106",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 41,
+      "expr": "orderRef107",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 42,
+      "expr": "quoteRef108",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 43,
+      "expr": "quoteRef108",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 48,
+      "expr": "tariffRef109",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 51,
+      "expr": "tariffRef109",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 52,
+      "expr": "ledgerEntry110",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 53,
+      "expr": "channelTag111",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 54,
+      "expr": "channelTag111",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 59,
+      "expr": "catalogKey112",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 62,
+      "expr": "catalogKey112",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 63,
+      "expr": "receiptKey113",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 64,
+      "expr": "receiptKey113",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 69,
+      "expr": "accountRef114",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 70,
+      "expr": "voucherRef115",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceNormalizer.java",
       "line": 71,
+      "expr": "voucherRef115",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/TariffPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/TariffPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/RefundComposer.java",
       "line": 16,
+      "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/RefundComposer.java",
       "line": 17,
+      "expr": "channelTag201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/RefundComposer.java",
       "line": 22,
+      "expr": "catalogKey202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/RefundComposer.java",
       "line": 25,
+      "expr": "catalogKey202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/RefundComposer.java",
       "line": 26,
+      "expr": "receiptKey203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/RefundComposer.java",
       "line": 27,
+      "expr": "accountRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/RefundComposer.java",
       "line": 28,
+      "expr": "accountRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/ShipmentRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1006/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/vendoradjust/service/ShipmentRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -276,7 +321,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1006",
+    "path": "/api/vendor/adjust",
     "param": "resource",
     "carrier": "query"
   },
@@ -287,9 +332,9 @@
     "neutralized": false,
     "call_depth_observed": 18,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:order:order:zz' OR 1=1--;;;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

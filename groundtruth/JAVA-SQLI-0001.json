@@ -4,81 +4,95 @@
   "verdict": "vulnerable",
   "title": "查询参数经字段/集合跨三模块流入 JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli0001/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/shippingassign/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli0001/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/shippingassign/web/ContractController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli0001/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/shippingassign/dao/ContractRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli0001/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/shippingassign/web/ContractController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli0001/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingassign/web/SessionAssembler.java",
       "line": 8,
+      "expr": "ledgerEntry1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli0001/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/shippingassign/web/SessionAssembler.java",
       "line": 9,
+      "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli0001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/shippingassign/service/ShipmentRouter.java",
       "line": 8,
+      "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli0001/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingassign/service/VoucherEnricher.java",
       "line": 14,
+      "expr": "value",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli0001/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingassign/service/VoucherEnricher.java",
       "line": 19,
+      "expr": "voucherRef201",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli0001/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/shippingassign/service/VoucherEnricher.java",
       "line": 20,
+      "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli0001/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/shippingassign/dao/LedgerCoordinator.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli0001/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/shippingassign/dao/LedgerCoordinator.java",
       "line": 13,
+      "expr": "ledgerEntry301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli0001/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/shippingassign/dao/LedgerCoordinator.java",
       "line": 14,
+      "expr": "ledgerEntry301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli0001/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/shippingassign/dao/ContractRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli0001/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/shippingassign/dao/ContractRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -102,7 +116,7 @@
   "paired_negative": "JAVA-SQLI-0001-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_0001",
+    "path": "/api/shipping/assign",
     "param": "keyword",
     "carrier": "query"
   },
@@ -116,6 +130,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

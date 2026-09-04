@@ -4,100 +4,118 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 1 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1030/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingdraft/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1030/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingdraft/web/ChannelController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi1030/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/billingdraft/web/ChannelExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/cmdi1030/web/Sanitizer01.java",
+    "file": "web/src/main/java/com/habench/billingdraft/web/ManifestValidator.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ChannelController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 14,
+      "expr": "channelTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 15,
+      "expr": "channelTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 20,
+      "expr": "catalogKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 21,
+      "expr": "receiptKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 24,
+      "expr": "receiptKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 25,
+      "expr": "accountRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 26,
+      "expr": "accountRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 31,
+      "expr": "voucherRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 32,
+      "expr": "paymentTag6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
       "line": 33,
+      "expr": "paymentTag6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/Sanitizer01.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ManifestValidator.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ChannelExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1030/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ChannelExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -121,7 +139,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1030/{label}",
+    "path": "/api/billing/draft/{label}",
     "param": "label",
     "carrier": "path"
   },
@@ -132,9 +150,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:zz$(id)",
+    "payload_at_sink": "echo ref:ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

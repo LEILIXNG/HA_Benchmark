@@ -4,201 +4,239 @@
   "verdict": "vulnerable",
   "title": "查询参数经 11 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1005/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerbatch/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1005/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerbatch/web/BatchController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1005/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/customerbatch/service/BatchLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1005/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/BatchController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 14,
+      "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 15,
+      "expr": "accountRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 16,
+      "expr": "accountRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 21,
+      "expr": "voucherRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 22,
+      "expr": "paymentTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 23,
+      "expr": "paymentTag4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 28,
+      "expr": "refundCode5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 31,
+      "expr": "refundCode5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 32,
+      "expr": "shipmentCode6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/RefundCollector.java",
       "line": 33,
+      "expr": "shipmentCode6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 20,
+      "expr": "quoteRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 23,
+      "expr": "quoteRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 24,
+      "expr": "tariffRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 25,
+      "expr": "tariffRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 30,
+      "expr": "ledgerEntry103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 33,
+      "expr": "ledgerEntry103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 34,
+      "expr": "channelTag104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 35,
+      "expr": "catalogKey105",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 36,
+      "expr": "catalogKey105",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 41,
+      "expr": "receiptKey106",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 42,
+      "expr": "accountRef107",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 43,
+      "expr": "accountRef107",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 48,
+      "expr": "voucherRef108",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 51,
+      "expr": "voucherRef108",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 52,
+      "expr": "paymentTag109",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 53,
+      "expr": "refundCode110",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerbatch/web/VoucherComposer.java",
       "line": 54,
+      "expr": "refundCode110",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1005/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1005/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
       "line": 13,
+      "expr": "shipmentCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1005/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
       "line": 14,
+      "expr": "manifestKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1005/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
       "line": 15,
+      "expr": "manifestKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1005/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerbatch/service/BatchLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1005/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerbatch/service/BatchLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -236,7 +274,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1005",
+    "path": "/api/customer/batch",
     "param": "userName",
     "carrier": "query"
   },
@@ -247,9 +285,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:order:../../../etc/passwd;;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:../../../etc/passwd;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

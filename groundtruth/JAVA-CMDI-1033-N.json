@@ -4,145 +4,172 @@
   "verdict": "safe",
   "title": "与 JAVA-CMDI-1033 逐行相同，仅把净化改为 command_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1033n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderrollup/web/PaymentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1033n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderrollup/web/PaymentController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1033n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/orderrollup/service/PaymentExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/cmdi1033n/web/Sanitizer00.java",
+    "file": "web/src/main/java/com/habench/orderrollup/web/ReceiptGuard.java",
     "line": 13,
+    "expr": "value",
     "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
   },
   "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1033n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderrollup/web/PaymentController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033n/web/Sanitizer00.java",
+      "file": "web/src/main/java/com/habench/orderrollup/web/ReceiptGuard.java",
       "line": 13,
+      "expr": "value",
       "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrollup/web/ChannelRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrollup/web/ChannelRouter.java",
       "line": 13,
+      "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrollup/web/ChannelRouter.java",
       "line": 16,
+      "expr": "tariffRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrollup/web/ChannelRouter.java",
       "line": 17,
+      "expr": "ledgerEntry2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderrollup/web/ChannelRouter.java",
       "line": 18,
+      "expr": "ledgerEntry2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/InvoiceResolver.java",
       "line": 10,
+      "expr": "manifestKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/InvoiceResolver.java",
       "line": 13,
+      "expr": "manifestKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/InvoiceResolver.java",
       "line": 14,
+      "expr": "invoiceKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/InvoiceResolver.java",
       "line": 15,
+      "expr": "invoiceKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/SessionPlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/SessionPlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 11,
+      "expr": "accountRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 14,
+      "expr": "accountRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 15,
+      "expr": "voucherRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 16,
+      "expr": "voucherRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 21,
+      "expr": "paymentTag203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 24,
+      "expr": "paymentTag203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 25,
+      "expr": "refundCode204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 26,
+      "expr": "shipmentCode205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/ContractRouter.java",
       "line": 27,
+      "expr": "shipmentCode205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/PaymentExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderrollup/service/PaymentExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -171,7 +198,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1033_n",
+    "path": "/api/order/rollup",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -185,6 +212,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

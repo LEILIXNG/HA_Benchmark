@@ -4,119 +4,138 @@
   "verdict": "safe",
   "title": "请求头经 7 层调用、跨 3 个模块流入JDBC 拼接，经 sql_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1001/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1001/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
     "line": 13,
+    "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1001/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/sqli1001/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
     "line": 17,
+    "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1001/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
       "line": 13,
+      "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1001/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalognotice/web/CatalogResolver.java",
       "line": 8,
+      "expr": "quoteRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1001/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalognotice/web/CatalogResolver.java",
       "line": 9,
+      "expr": "quoteRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 16,
+      "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 17,
+      "expr": "manifestKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 18,
+      "expr": "manifestKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 23,
+      "expr": "invoiceKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 24,
+      "expr": "batchTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 27,
+      "expr": "batchTag104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 28,
+      "expr": "orderRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1001/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
       "line": 29,
+      "expr": "orderRef105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
       "line": 13,
+      "expr": "receiptKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
       "line": 16,
+      "expr": "receiptKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
       "line": 17,
+      "expr": "accountRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
       "line": 18,
+      "expr": "accountRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
       "line": 17,
+      "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1001/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -145,7 +164,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1001",
+    "path": "/api/catalog/notice",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -159,6 +178,6 @@
     "payload_at_sink": "zz' OR 1=1--",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

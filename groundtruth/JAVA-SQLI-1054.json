@@ -4,206 +4,245 @@
   "verdict": "vulnerable",
   "title": "请求头经 13 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1054/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderbatch/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1054/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/orderbatch/web/SessionController.java",
     "line": 13,
+    "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1054/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/orderbatch/service/SessionRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/SessionController.java",
       "line": 13,
+      "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 19,
+      "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 22,
+      "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 23,
+      "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 24,
+      "expr": "invoiceKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 29,
+      "expr": "batchTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 32,
+      "expr": "batchTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 33,
+      "expr": "orderRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 36,
+      "expr": "orderRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 37,
+      "expr": "quoteRef5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1054/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/orderbatch/web/ChannelAssembler.java",
       "line": 38,
+      "expr": "quoteRef5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/QuoteComposer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/QuoteComposer.java",
       "line": 13,
+      "expr": "accountRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/QuoteComposer.java",
       "line": 14,
+      "expr": "voucherRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/QuoteComposer.java",
       "line": 15,
+      "expr": "voucherRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/LedgerPlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/LedgerPlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 17,
+      "expr": "tariffRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 18,
+      "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 23,
+      "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 24,
+      "expr": "channelTag203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 25,
+      "expr": "catalogKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 26,
+      "expr": "catalogKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 31,
+      "expr": "receiptKey205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 34,
+      "expr": "receiptKey205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 35,
+      "expr": "accountRef206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 38,
+      "expr": "accountRef206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 39,
+      "expr": "voucherRef207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 40,
+      "expr": "voucherRef207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 45,
+      "expr": "paymentTag208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 48,
+      "expr": "paymentTag208",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 49,
+      "expr": "refundCode209",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 50,
+      "expr": "shipmentCode210",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ReceiptAdapter.java",
       "line": 51,
+      "expr": "shipmentCode210",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/SessionRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1054/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/SessionRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -240,7 +279,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1054",
+    "path": "/api/order/batch",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -251,9 +290,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

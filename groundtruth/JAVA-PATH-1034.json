@@ -4,95 +4,112 @@
   "verdict": "safe",
   "title": "请求头经 7 层调用、跨 2 个模块流入文件读取，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1034/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingassign/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1034/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billingassign/web/TariffController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1034/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/billingassign/service/TariffLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/path1034/service/Sanitizer02.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/billingassign/service/ContractGuard.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1034/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billingassign/web/TariffController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingassign/web/SessionResolver.java",
       "line": 10,
+      "expr": "ledgerEntry1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingassign/web/SessionResolver.java",
       "line": 13,
+      "expr": "ledgerEntry1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingassign/web/SessionResolver.java",
       "line": 14,
+      "expr": "channelTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billingassign/web/SessionResolver.java",
       "line": 15,
+      "expr": "channelTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/SessionComposer.java",
       "line": 14,
+      "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/SessionComposer.java",
       "line": 15,
+      "expr": "invoiceKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/SessionComposer.java",
       "line": 20,
+      "expr": "batchTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/SessionComposer.java",
       "line": 21,
+      "expr": "orderRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/SessionComposer.java",
       "line": 22,
+      "expr": "quoteRef104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/SessionComposer.java",
       "line": 23,
+      "expr": "quoteRef104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/Sanitizer02.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/billingassign/service/ContractGuard.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/TariffLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1034/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billingassign/service/TariffLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -117,7 +134,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1034",
+    "path": "/api/billing/assign",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -131,6 +148,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

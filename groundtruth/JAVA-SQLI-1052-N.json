@@ -4,115 +4,136 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1052 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1052n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportimport/web/PaymentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1052n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportimport/web/PaymentController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1052n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/reportimport/service/PaymentRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1052n/service/Sanitizer03.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/reportimport/service/VoucherPolicy.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/PaymentController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/InvoiceAdapter.java",
       "line": 10,
+      "expr": "manifestKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/InvoiceAdapter.java",
       "line": 13,
+      "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/InvoiceAdapter.java",
       "line": 14,
+      "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/InvoiceAdapter.java",
       "line": 15,
+      "expr": "invoiceKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/OrderPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/OrderPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/InvoiceCoordinator.java",
       "line": 8,
+      "expr": "accountRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1052n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/InvoiceCoordinator.java",
       "line": 9,
+      "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/CatalogTranslator.java",
       "line": 14,
+      "expr": "tariffRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/CatalogTranslator.java",
       "line": 15,
+      "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/CatalogTranslator.java",
       "line": 20,
+      "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/CatalogTranslator.java",
       "line": 21,
+      "expr": "channelTag203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/CatalogTranslator.java",
       "line": 22,
+      "expr": "catalogKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/CatalogTranslator.java",
       "line": 23,
+      "expr": "catalogKey204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/Sanitizer03.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/reportimport/service/VoucherPolicy.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/PaymentRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1052n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/reportimport/service/PaymentRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -139,7 +160,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1052_n/{userName}",
+    "path": "/api/report/import/{userName}",
     "param": "userName",
     "carrier": "path"
   },
@@ -153,6 +174,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

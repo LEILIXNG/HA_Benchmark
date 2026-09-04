@@ -4,151 +4,179 @@
   "verdict": "vulnerable",
   "title": "请求头经 11 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1030/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportposting/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1030/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportposting/web/ManifestController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1030/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/reportposting/dao/ManifestRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1030/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reportposting/web/ManifestController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportposting/web/TariffEnricher.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportposting/web/TariffEnricher.java",
       "line": 13,
+      "expr": "batchTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1030/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportposting/web/TariffEnricher.java",
       "line": 14,
+      "expr": "batchTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ManifestComposer.java",
       "line": 9,
+      "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ManifestComposer.java",
       "line": 10,
+      "expr": "paymentTag101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ManifestComposer.java",
       "line": 15,
+      "expr": "refundCode102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ManifestComposer.java",
       "line": 16,
+      "expr": "shipmentCode103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ManifestComposer.java",
       "line": 17,
+      "expr": "shipmentCode103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 19,
+      "expr": "channelTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 20,
+      "expr": "catalogKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 21,
+      "expr": "catalogKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 26,
+      "expr": "receiptKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 27,
+      "expr": "accountRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 28,
+      "expr": "voucherRef205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1030/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/reportposting/service/ContractRouter.java",
       "line": 29,
+      "expr": "voucherRef205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/RefundCoordinator.java",
       "line": 16,
+      "expr": "batchTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/RefundCoordinator.java",
       "line": 17,
+      "expr": "batchTag301",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/RefundCoordinator.java",
       "line": 22,
+      "expr": "orderRef302",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/RefundCoordinator.java",
       "line": 23,
+      "expr": "quoteRef303",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/RefundCoordinator.java",
       "line": 26,
+      "expr": "quoteRef303",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/RefundCoordinator.java",
       "line": 27,
+      "expr": "tariffRef304",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/RefundCoordinator.java",
       "line": 28,
+      "expr": "tariffRef304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/ManifestRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1030/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportposting/dao/ManifestRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -182,7 +210,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1030",
+    "path": "/api/report/posting",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -193,9 +221,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:order:order:order:zz' OR 1=1--;;;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

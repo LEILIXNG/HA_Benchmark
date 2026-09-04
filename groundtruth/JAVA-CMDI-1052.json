@@ -4,191 +4,227 @@
   "verdict": "vulnerable",
   "title": "路径变量经 15 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1052/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customercapture/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1052/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customercapture/web/AccountController.java",
     "line": 13,
+    "expr": "tag",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1052/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/customercapture/dao/AccountExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1052/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customercapture/web/AccountController.java",
       "line": 13,
+      "expr": "tag",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1052/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customercapture/web/ReceiptCollector.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1052/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customercapture/web/ReceiptCollector.java",
       "line": 13,
+      "expr": "batchTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1052/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customercapture/web/ReceiptCollector.java",
       "line": 14,
+      "expr": "batchTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1052/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customercapture/web/VoucherNormalizer.java",
       "line": 8,
+      "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1052/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customercapture/web/VoucherNormalizer.java",
       "line": 9,
+      "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 17,
+      "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 18,
+      "expr": "channelTag201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 23,
+      "expr": "catalogKey202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 24,
+      "expr": "receiptKey203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 25,
+      "expr": "receiptKey203",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 30,
+      "expr": "accountRef204",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 31,
+      "expr": "voucherRef205",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 32,
+      "expr": "voucherRef205",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 37,
+      "expr": "paymentTag206",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 38,
+      "expr": "refundCode207",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 41,
+      "expr": "refundCode207",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 42,
+      "expr": "shipmentCode208",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1052/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customercapture/service/ManifestRegistry.java",
       "line": 43,
+      "expr": "shipmentCode208",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 11,
+      "expr": "batchTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 12,
+      "expr": "batchTag301",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 17,
+      "expr": "orderRef302",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 18,
+      "expr": "quoteRef303",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 19,
+      "expr": "quoteRef303",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 24,
+      "expr": "tariffRef304",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 27,
+      "expr": "tariffRef304",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 28,
+      "expr": "ledgerEntry305",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/PaymentService.java",
       "line": 29,
+      "expr": "ledgerEntry305",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Handler04Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/ShipmentRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Handler04Impl00.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/ShipmentRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/VoucherRouter.java",
       "line": 8,
+      "expr": "paymentTag401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/VoucherRouter.java",
       "line": 9,
+      "expr": "paymentTag401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/AccountExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1052/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customercapture/dao/AccountExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -226,7 +262,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1052/{tag}",
+    "path": "/api/customer/capture/{tag}",
     "param": "tag",
     "carrier": "path"
   },
@@ -237,9 +273,9 @@
     "neutralized": false,
     "call_depth_observed": 15,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:order:order:zz$(id);;;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:zz$(id);;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

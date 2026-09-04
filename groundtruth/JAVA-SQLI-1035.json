@@ -4,100 +4,118 @@
   "verdict": "vulnerable",
   "title": "查询参数经 6 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1035/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountgrant/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1035/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountgrant/web/TariffController.java",
     "line": 13,
+    "expr": "target",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1035/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/accountgrant/service/TariffRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1035/service/Sanitizer03.java",
+    "file": "service/src/main/java/com/habench/accountgrant/service/ManifestGuard.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/TariffController.java",
       "line": 13,
+      "expr": "target",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/OrderAssembler.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/OrderAssembler.java",
       "line": 13,
+      "expr": "batchTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/OrderAssembler.java",
       "line": 16,
+      "expr": "batchTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/OrderAssembler.java",
       "line": 17,
+      "expr": "orderRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/OrderAssembler.java",
       "line": 18,
+      "expr": "orderRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/QuoteTranslator.java",
       "line": 8,
+      "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/accountgrant/web/QuoteTranslator.java",
       "line": 9,
+      "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1035/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountgrant/service/ChannelComposer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1035/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountgrant/service/ChannelComposer.java",
       "line": 13,
+      "expr": "channelTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1035/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountgrant/service/ChannelComposer.java",
       "line": 14,
+      "expr": "catalogKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1035/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountgrant/service/ChannelComposer.java",
       "line": 15,
+      "expr": "catalogKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1035/service/Sanitizer03.java",
+      "file": "service/src/main/java/com/habench/accountgrant/service/ManifestGuard.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1035/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/accountgrant/service/TariffRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1035/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/accountgrant/service/TariffRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -122,7 +140,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1035",
+    "path": "/api/account/grant",
     "param": "target",
     "carrier": "query"
   },
@@ -133,9 +151,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz OR 1=1--;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

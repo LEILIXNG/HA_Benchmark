@@ -4,141 +4,167 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1047/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customertransfer/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1047/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customertransfer/web/AccountController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1047/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/customertransfer/service/AccountRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1047/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customertransfer/web/AccountController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customertransfer/web/VoucherRegistry.java",
       "line": 9,
+      "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customertransfer/web/VoucherRegistry.java",
       "line": 10,
+      "expr": "tariffRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customertransfer/web/VoucherRegistry.java",
       "line": 15,
+      "expr": "ledgerEntry2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customertransfer/web/VoucherRegistry.java",
       "line": 16,
+      "expr": "channelTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customertransfer/web/VoucherRegistry.java",
       "line": 17,
+      "expr": "catalogKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1047/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customertransfer/web/VoucherRegistry.java",
       "line": 18,
+      "expr": "catalogKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/LedgerBroker.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/LedgerBroker.java",
       "line": 13,
+      "expr": "manifestKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/LedgerBroker.java",
       "line": 14,
+      "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/BatchComposer.java",
       "line": 8,
+      "expr": "accountRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/BatchComposer.java",
       "line": 9,
+      "expr": "accountRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Handler03Dispatcher.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/BatchPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Handler03Impl00.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/BatchPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/QuoteEnricher.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/QuoteEnricher.java",
       "line": 13,
+      "expr": "tariffRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/QuoteEnricher.java",
       "line": 14,
+      "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Handler04Dispatcher.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/BundleRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Handler04Impl00.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/BundleRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/VoucherBroker.java",
       "line": 8,
+      "expr": "manifestKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/VoucherBroker.java",
       "line": 9,
+      "expr": "invoiceKey402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/VoucherBroker.java",
       "line": 10,
+      "expr": "invoiceKey402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/AccountRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1047/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customertransfer/service/AccountRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -169,7 +195,7 @@
   "paired_negative": "JAVA-SQLI-1047-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1047",
+    "path": "/api/customer/transfer",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -180,9 +206,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

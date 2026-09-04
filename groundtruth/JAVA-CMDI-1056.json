@@ -4,81 +4,95 @@
   "verdict": "vulnerable",
   "title": "路径变量经 7 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1056/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventorydigest/web/InvoiceController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1056/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventorydigest/web/InvoiceController.java",
     "line": 13,
+    "expr": "filename",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi1056/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/inventorydigest/web/InvoiceExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/InvoiceController.java",
       "line": 13,
+      "expr": "filename",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/SessionEnricher.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/SessionEnricher.java",
       "line": 13,
+      "expr": "channelTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/SessionEnricher.java",
       "line": 14,
+      "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentAdapter.java",
       "line": 8,
+      "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentAdapter.java",
       "line": 9,
+      "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Handler02Dispatcher.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/BatchStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Handler02Impl00.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/BatchStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/TariffEnricher.java",
       "line": 8,
+      "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/TariffEnricher.java",
       "line": 9,
+      "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/InvoiceExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/InvoiceExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -101,7 +115,7 @@
   "paired_negative": "JAVA-CMDI-1056-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1056/{filename}",
+    "path": "/api/inventory/digest/{filename}",
     "param": "filename",
     "carrier": "path"
   },
@@ -115,6 +129,6 @@
     "payload_at_sink": "echo zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

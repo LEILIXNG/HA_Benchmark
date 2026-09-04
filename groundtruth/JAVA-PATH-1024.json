@@ -4,161 +4,191 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1024/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerhold/web/QuoteController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1024/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerhold/web/QuoteController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1024/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/customerhold/service/QuoteLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1024/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/QuoteController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
       "line": 11,
+      "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
       "line": 14,
+      "expr": "shipmentCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
       "line": 15,
+      "expr": "manifestKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
       "line": 16,
+      "expr": "manifestKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
       "line": 21,
+      "expr": "invoiceKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
       "line": 22,
+      "expr": "batchTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
       "line": 23,
+      "expr": "batchTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/SessionCoordinator.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/SessionCoordinator.java",
       "line": 13,
+      "expr": "receiptKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/SessionCoordinator.java",
       "line": 14,
+      "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/SessionRouter.java",
       "line": 8,
+      "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1024/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/SessionRouter.java",
       "line": 9,
+      "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 20,
+      "expr": "shipmentCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 23,
+      "expr": "shipmentCode301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 24,
+      "expr": "manifestKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 25,
+      "expr": "manifestKey302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 30,
+      "expr": "invoiceKey303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 31,
+      "expr": "batchTag304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 32,
+      "expr": "batchTag304",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 37,
+      "expr": "orderRef305",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 38,
+      "expr": "quoteRef306",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 41,
+      "expr": "quoteRef306",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 42,
+      "expr": "tariffRef307",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
       "line": 43,
+      "expr": "tariffRef307",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/QuoteLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1024/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/QuoteLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -192,7 +222,7 @@
   "paired_negative": "JAVA-PATH-1024-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1024",
+    "path": "/api/customer/hold",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -203,9 +233,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:../../../etc/passwd;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

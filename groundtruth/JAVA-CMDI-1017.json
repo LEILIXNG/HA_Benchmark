@@ -4,155 +4,184 @@
   "verdict": "safe",
   "title": "路径变量经 12 层调用、跨 2 个模块流入命令执行，经 exec_no_shell 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1017/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1017/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1017/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/inventoryassign/service/ManifestExecutor.java",
     "line": 14,
+    "expr": "builder",
     "note": "SINK 位置：CWE-78（未经 shell 解释）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/cmdi1017/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/inventoryassign/service/ManifestExecutor.java",
     "line": 12,
+    "expr": "argv",
     "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
   },
   "sanitizer_kind": "exec_no_shell",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/TariffRouter.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/TariffRouter.java",
       "line": 19,
+      "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/TariffRouter.java",
       "line": 20,
+      "expr": "receiptKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/TariffRouter.java",
       "line": 25,
+      "expr": "accountRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/TariffRouter.java",
       "line": 26,
+      "expr": "voucherRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/TariffRouter.java",
       "line": 27,
+      "expr": "paymentTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1017/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventoryassign/web/TariffRouter.java",
       "line": 28,
+      "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 16,
+      "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 17,
+      "expr": "tariffRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 18,
+      "expr": "tariffRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 23,
+      "expr": "ledgerEntry103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 24,
+      "expr": "channelTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 25,
+      "expr": "channelTag104",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 30,
+      "expr": "catalogKey105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 31,
+      "expr": "receiptKey106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 34,
+      "expr": "receiptKey106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 35,
+      "expr": "accountRef107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/InvoiceRegistry.java",
       "line": 36,
+      "expr": "accountRef107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/VoucherPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/VoucherPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/AccountEnricher.java",
       "line": 8,
+      "expr": "shipmentCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/AccountEnricher.java",
       "line": 9,
+      "expr": "shipmentCode201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/ManifestExecutor.java",
       "line": 11,
+      "expr": "value",
       "note": "参数以数组传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/ManifestExecutor.java",
       "line": 12,
+      "expr": "argv",
       "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1017/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventoryassign/service/ManifestExecutor.java",
       "line": 14,
+      "expr": "builder",
       "note": "SINK 位置：CWE-78（未经 shell 解释）"
     }
   ],
@@ -184,7 +213,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1017/{keyword}",
+    "path": "/api/inventory/assign/{keyword}",
     "param": "keyword",
     "carrier": "path"
   },
@@ -195,9 +224,9 @@
     "neutralized": true,
     "call_depth_observed": 12,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "order:order:order:zz$(id);;;",
+    "payload_at_sink": "ref:ref:ref:zz$(id);;;",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

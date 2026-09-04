@@ -4,235 +4,280 @@
   "verdict": "vulnerable",
   "title": "请求头经 17 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1038/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1038/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1038/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/customernotice/dao/RefundExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/cmdi1038/dao/Sanitizer05.java",
+    "file": "dao/src/main/java/com/habench/customernotice/dao/VoucherScreen.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1038/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1038/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customernotice/web/OrderNormalizer.java",
       "line": 8,
+      "expr": "orderRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1038/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customernotice/web/OrderNormalizer.java",
       "line": 9,
+      "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/OrderFacade.java",
       "line": 8,
+      "expr": "refundCode101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/OrderFacade.java",
       "line": 9,
+      "expr": "shipmentCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/OrderFacade.java",
       "line": 10,
+      "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 17,
+      "expr": "catalogKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 18,
+      "expr": "receiptKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 19,
+      "expr": "receiptKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 24,
+      "expr": "accountRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 25,
+      "expr": "voucherRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 26,
+      "expr": "paymentTag205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 27,
+      "expr": "paymentTag205",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 32,
+      "expr": "refundCode206",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 33,
+      "expr": "shipmentCode207",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 34,
+      "expr": "manifestKey208",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 35,
+      "expr": "manifestKey208",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 40,
+      "expr": "invoiceKey209",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 43,
+      "expr": "invoiceKey209",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 44,
+      "expr": "batchTag210",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 45,
+      "expr": "orderRef211",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 46,
+      "expr": "orderRef211",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 51,
+      "expr": "quoteRef212",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 52,
+      "expr": "tariffRef213",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 53,
+      "expr": "ledgerEntry214",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1038/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customernotice/service/RefundNormalizer.java",
       "line": 54,
+      "expr": "ledgerEntry214",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/BundleAdapter.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/BundleAdapter.java",
       "line": 19,
+      "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/BundleAdapter.java",
       "line": 20,
+      "expr": "orderRef301",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/BundleAdapter.java",
       "line": 25,
+      "expr": "quoteRef302",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/BundleAdapter.java",
       "line": 28,
+      "expr": "quoteRef302",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/BundleAdapter.java",
       "line": 29,
+      "expr": "tariffRef303",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/BundleAdapter.java",
       "line": 30,
+      "expr": "tariffRef303",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Handler04Dispatcher.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/TariffPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Handler04Impl00.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/TariffPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/ReceiptRegistry.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/ReceiptRegistry.java",
       "line": 13,
+      "expr": "refundCode401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/ReceiptRegistry.java",
       "line": 14,
+      "expr": "shipmentCode402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/ReceiptRegistry.java",
       "line": 15,
+      "expr": "shipmentCode402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/Sanitizer05.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/VoucherScreen.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/RefundExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1038/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/customernotice/dao/RefundExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -276,7 +321,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1038",
+    "path": "/api/customer/notice",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -287,9 +332,9 @@
     "neutralized": false,
     "call_depth_observed": 17,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:order:order:order:order:zz$(id)",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

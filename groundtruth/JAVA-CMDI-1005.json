@@ -4,265 +4,316 @@
   "verdict": "vulnerable",
   "title": "请求头经 16 层调用、跨 2 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1005/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billinghold/web/ReceiptController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1005/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/billinghold/web/ReceiptController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1005/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/billinghold/service/ReceiptExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/cmdi1005/service/Sanitizer03.java",
+    "file": "service/src/main/java/com/habench/billinghold/service/ContractScreen.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ReceiptController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 17,
+      "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 20,
+      "expr": "tariffRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 21,
+      "expr": "ledgerEntry2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 22,
+      "expr": "ledgerEntry2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 27,
+      "expr": "channelTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 30,
+      "expr": "channelTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 31,
+      "expr": "catalogKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 34,
+      "expr": "catalogKey4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 35,
+      "expr": "receiptKey5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 36,
+      "expr": "receiptKey5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 41,
+      "expr": "accountRef6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 42,
+      "expr": "voucherRef7",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 45,
+      "expr": "voucherRef7",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 46,
+      "expr": "paymentTag8",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 47,
+      "expr": "paymentTag8",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 52,
+      "expr": "refundCode9",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 53,
+      "expr": "shipmentCode10",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 54,
+      "expr": "shipmentCode10",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 59,
+      "expr": "manifestKey11",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 60,
+      "expr": "invoiceKey12",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 61,
+      "expr": "batchTag13",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/ManifestTranslator.java",
       "line": 62,
+      "expr": "batchTag13",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 17,
+      "expr": "manifestKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 20,
+      "expr": "manifestKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 21,
+      "expr": "invoiceKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 22,
+      "expr": "invoiceKey102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 27,
+      "expr": "batchTag103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 30,
+      "expr": "batchTag103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 31,
+      "expr": "orderRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 32,
+      "expr": "orderRef104",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 37,
+      "expr": "quoteRef105",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 40,
+      "expr": "quoteRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 41,
+      "expr": "tariffRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 42,
+      "expr": "tariffRef106",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 47,
+      "expr": "ledgerEntry107",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 50,
+      "expr": "ledgerEntry107",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 51,
+      "expr": "channelTag108",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 52,
+      "expr": "channelTag108",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 57,
+      "expr": "catalogKey109",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 58,
+      "expr": "receiptKey110",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1005/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/billinghold/web/LedgerRouter.java",
       "line": 59,
+      "expr": "receiptKey110",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1005/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billinghold/service/ManifestEnricher.java",
       "line": 8,
+      "expr": "accountRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1005/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billinghold/service/ManifestEnricher.java",
       "line": 9,
+      "expr": "voucherRef202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1005/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/billinghold/service/ManifestEnricher.java",
       "line": 10,
+      "expr": "voucherRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1005/service/Sanitizer03.java",
+      "file": "service/src/main/java/com/habench/billinghold/service/ContractScreen.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1005/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billinghold/service/ReceiptExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1005/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/billinghold/service/ReceiptExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -307,7 +358,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1005",
+    "path": "/api/billing/hold",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -318,9 +369,9 @@
     "neutralized": false,
     "call_depth_observed": 16,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:order:order:order:zz$(id)",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

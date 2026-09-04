@@ -4,86 +4,101 @@
   "verdict": "vulnerable",
   "title": "查询参数经 7 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1081/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerdraft/web/ReceiptController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1081/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerdraft/web/ReceiptController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1081/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/customerdraft/service/ReceiptRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1081/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customerdraft/web/ReceiptController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1081/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerdraft/web/PaymentAdapter.java",
       "line": 8,
+      "expr": "batchTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1081/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerdraft/web/PaymentAdapter.java",
       "line": 9,
+      "expr": "batchTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1081/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/customerdraft/web/ShipmentStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1081/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/customerdraft/web/ShipmentStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1081/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerdraft/web/ShipmentEnricher.java",
       "line": 8,
+      "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1081/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/customerdraft/web/ShipmentEnricher.java",
       "line": 9,
+      "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1081/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerdraft/service/RefundAssembler.java",
       "line": 10,
+      "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1081/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerdraft/service/RefundAssembler.java",
       "line": 13,
+      "expr": "channelTag201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1081/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerdraft/service/RefundAssembler.java",
       "line": 14,
+      "expr": "catalogKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1081/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/customerdraft/service/RefundAssembler.java",
       "line": 15,
+      "expr": "catalogKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1081/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerdraft/service/ReceiptRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1081/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerdraft/service/ReceiptRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -107,7 +122,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1081",
+    "path": "/api/customer/draft",
     "param": "resource",
     "carrier": "query"
   },
@@ -118,9 +133,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz' OR 1=1--;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

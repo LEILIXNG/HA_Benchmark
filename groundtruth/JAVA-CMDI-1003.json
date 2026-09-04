@@ -4,71 +4,83 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1003/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1003/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
     "line": 13,
+    "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi1003/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/pricinggrant/web/AccountExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
       "line": 13,
+      "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/BundleAdapter.java",
       "line": 8,
+      "expr": "manifestKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/BundleAdapter.java",
       "line": 9,
+      "expr": "manifestKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountResolver.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountResolver.java",
       "line": 13,
+      "expr": "accountRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountResolver.java",
       "line": 14,
+      "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1003/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -89,7 +101,7 @@
   "paired_negative": "JAVA-CMDI-1003-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1003/{target}",
+    "path": "/api/pricing/grant/{target}",
     "param": "target",
     "carrier": "path"
   },
@@ -100,9 +112,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:zz$(id);",
+    "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

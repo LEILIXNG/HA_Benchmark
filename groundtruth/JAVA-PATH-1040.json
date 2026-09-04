@@ -4,146 +4,173 @@
   "verdict": "vulnerable",
   "title": "查询参数经 11 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1040/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/ordersettle/web/PaymentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1040/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/ordersettle/web/PaymentController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1040/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/ordersettle/service/PaymentLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1040/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/ordersettle/web/PaymentController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordersettle/web/QuoteAssembler.java",
       "line": 9,
+      "expr": "paymentTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordersettle/web/QuoteAssembler.java",
       "line": 10,
+      "expr": "paymentTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordersettle/web/QuoteAssembler.java",
       "line": 15,
+      "expr": "refundCode2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordersettle/web/QuoteAssembler.java",
       "line": 16,
+      "expr": "shipmentCode3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordersettle/web/QuoteAssembler.java",
       "line": 17,
+      "expr": "manifestKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1040/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordersettle/web/QuoteAssembler.java",
       "line": 18,
+      "expr": "manifestKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/ChannelRegistry.java",
       "line": 9,
+      "expr": "channelTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/ChannelRegistry.java",
       "line": 10,
+      "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/ChannelRegistry.java",
       "line": 11,
+      "expr": "catalogKey102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/ChannelRegistry.java",
       "line": 16,
+      "expr": "receiptKey103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/ChannelRegistry.java",
       "line": 17,
+      "expr": "accountRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/ChannelRegistry.java",
       "line": 18,
+      "expr": "accountRef104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/BatchRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/BatchRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 16,
+      "expr": "batchTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 19,
+      "expr": "batchTag201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 20,
+      "expr": "orderRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 21,
+      "expr": "orderRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 26,
+      "expr": "quoteRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 29,
+      "expr": "quoteRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 30,
+      "expr": "tariffRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentFacade.java",
       "line": 31,
+      "expr": "tariffRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1040/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/ordersettle/service/PaymentLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -175,7 +202,7 @@
   "paired_negative": "JAVA-PATH-1040-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1040",
+    "path": "/api/order/settle",
     "param": "query",
     "carrier": "query"
   },
@@ -186,9 +213,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:../../../etc/passwd;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

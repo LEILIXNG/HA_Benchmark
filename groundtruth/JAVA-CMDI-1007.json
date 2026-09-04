@@ -4,176 +4,209 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1007/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accounttrace/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1007/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accounttrace/web/BatchController.java",
     "line": 13,
+    "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1007/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/accounttrace/dao/BatchExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/BatchController.java",
       "line": 13,
+      "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 20,
+      "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 23,
+      "expr": "catalogKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 24,
+      "expr": "receiptKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 25,
+      "expr": "receiptKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 30,
+      "expr": "accountRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 31,
+      "expr": "voucherRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 32,
+      "expr": "paymentTag5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 33,
+      "expr": "paymentTag5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 38,
+      "expr": "refundCode6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 39,
+      "expr": "shipmentCode7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1007/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accounttrace/web/RefundCollector.java",
       "line": 40,
+      "expr": "shipmentCode7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1007/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accounttrace/service/BundleTranslator.java",
       "line": 10,
+      "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1007/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accounttrace/service/BundleTranslator.java",
       "line": 13,
+      "expr": "orderRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1007/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accounttrace/service/BundleTranslator.java",
       "line": 14,
+      "expr": "quoteRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1007/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accounttrace/service/BundleTranslator.java",
       "line": 15,
+      "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 15,
+      "expr": "refundCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 16,
+      "expr": "shipmentCode202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 17,
+      "expr": "shipmentCode202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 22,
+      "expr": "manifestKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 23,
+      "expr": "invoiceKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 24,
+      "expr": "invoiceKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 29,
+      "expr": "batchTag205",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 30,
+      "expr": "orderRef206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 31,
+      "expr": "orderRef206",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 36,
+      "expr": "quoteRef207",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 37,
+      "expr": "tariffRef208",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/ReceiptBuilder.java",
       "line": 38,
+      "expr": "tariffRef208",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/BatchExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1007/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/accounttrace/dao/BatchExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -210,7 +243,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1007",
+    "path": "/api/account/trace",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -221,9 +254,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:order:order:order:zz$(id);;;;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

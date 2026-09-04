@@ -4,171 +4,203 @@
   "verdict": "vulnerable",
   "title": "查询参数经 12 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1018/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountrelease/web/RefundController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1018/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountrelease/web/RefundController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1018/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/accountrelease/service/RefundLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1018/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/RefundController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1018/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/PaymentBroker.java",
       "line": 11,
+      "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1018/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/PaymentBroker.java",
       "line": 12,
+      "expr": "catalogKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1018/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/PaymentBroker.java",
       "line": 17,
+      "expr": "receiptKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1018/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/PaymentBroker.java",
       "line": 18,
+      "expr": "accountRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1018/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/PaymentBroker.java",
       "line": 21,
+      "expr": "accountRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1018/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/PaymentBroker.java",
       "line": 22,
+      "expr": "voucherRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1018/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountrelease/web/PaymentBroker.java",
       "line": 23,
+      "expr": "voucherRef4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 14,
+      "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 15,
+      "expr": "orderRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 20,
+      "expr": "quoteRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 23,
+      "expr": "quoteRef102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 24,
+      "expr": "tariffRef103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 25,
+      "expr": "ledgerEntry104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/TariffCoordinator.java",
       "line": 26,
+      "expr": "ledgerEntry104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/ChannelPlanSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/ChannelPlanStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 17,
+      "expr": "refundCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 18,
+      "expr": "refundCode201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 23,
+      "expr": "shipmentCode202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 24,
+      "expr": "manifestKey203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 25,
+      "expr": "manifestKey203",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 30,
+      "expr": "invoiceKey204",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 33,
+      "expr": "invoiceKey204",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 34,
+      "expr": "batchTag205",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 35,
+      "expr": "orderRef206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/OrderComposer.java",
       "line": 36,
+      "expr": "orderRef206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/RefundLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1018/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/accountrelease/service/RefundLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -202,7 +234,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1018",
+    "path": "/api/account/release",
     "param": "resource",
     "carrier": "query"
   },
@@ -213,9 +245,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:order:order:../../../etc/passwd;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

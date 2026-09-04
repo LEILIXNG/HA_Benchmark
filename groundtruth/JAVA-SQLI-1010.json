@@ -4,151 +4,179 @@
   "verdict": "vulnerable",
   "title": "路径变量经 13 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1010/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1010/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1010/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/fulfilrenewal/service/ContractRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1010/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1010/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
       "line": 8,
+      "expr": "ledgerEntry1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1010/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
       "line": 9,
+      "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 14,
+      "expr": "invoiceKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 15,
+      "expr": "batchTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 16,
+      "expr": "batchTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 21,
+      "expr": "orderRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 24,
+      "expr": "orderRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 25,
+      "expr": "quoteRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ReceiptBroker.java",
       "line": 26,
+      "expr": "quoteRef104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/InvoicePolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/InvoicePolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ManifestNormalizer.java",
       "line": 16,
+      "expr": "voucherRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ManifestNormalizer.java",
       "line": 19,
+      "expr": "voucherRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ManifestNormalizer.java",
       "line": 20,
+      "expr": "paymentTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ManifestNormalizer.java",
       "line": 21,
+      "expr": "paymentTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ManifestNormalizer.java",
       "line": 26,
+      "expr": "refundCode203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ManifestNormalizer.java",
       "line": 27,
+      "expr": "shipmentCode204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ManifestNormalizer.java",
       "line": 28,
+      "expr": "shipmentCode204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Handler03Dispatcher.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Handler03Impl00.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/OrderComposer.java",
       "line": 8,
+      "expr": "ledgerEntry301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/OrderComposer.java",
       "line": 9,
+      "expr": "ledgerEntry301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ContractRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1010/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/ContractRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -179,7 +207,7 @@
   "paired_negative": "JAVA-SQLI-1010-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1010/{userName}",
+    "path": "/api/fulfil/renewal/{userName}",
     "param": "userName",
     "carrier": "path"
   },
@@ -190,9 +218,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz' OR 1=1--;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

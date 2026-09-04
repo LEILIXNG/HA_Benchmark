@@ -4,330 +4,394 @@
   "verdict": "safe",
   "title": "请求头经 21 层调用、跨 2 个模块流入文件读取，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1021/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventorytrace/web/InvoiceController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1021/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/inventorytrace/web/InvoiceController.java",
     "line": 13,
+    "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1021/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/inventorytrace/service/InvoiceLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/path1021/service/Sanitizer04.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/inventorytrace/service/ReceiptGuard.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1021/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/InvoiceController.java",
       "line": 13,
+      "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 11,
+      "expr": "accountRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 12,
+      "expr": "voucherRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 13,
+      "expr": "voucherRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 18,
+      "expr": "paymentTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 21,
+      "expr": "paymentTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 22,
+      "expr": "refundCode4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 23,
+      "expr": "shipmentCode5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/ContractAdapter.java",
       "line": 24,
+      "expr": "shipmentCode5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 11,
+      "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 12,
+      "expr": "tariffRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 17,
+      "expr": "ledgerEntry102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 20,
+      "expr": "ledgerEntry102",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 21,
+      "expr": "channelTag103",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 22,
+      "expr": "channelTag103",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 27,
+      "expr": "catalogKey104",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 28,
+      "expr": "receiptKey105",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 29,
+      "expr": "receiptKey105",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 34,
+      "expr": "accountRef106",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 35,
+      "expr": "voucherRef107",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 36,
+      "expr": "paymentTag108",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 37,
+      "expr": "paymentTag108",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 42,
+      "expr": "refundCode109",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 43,
+      "expr": "shipmentCode110",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 44,
+      "expr": "manifestKey111",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 45,
+      "expr": "manifestKey111",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 50,
+      "expr": "invoiceKey112",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 51,
+      "expr": "batchTag113",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1021/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/inventorytrace/web/CatalogFacade.java",
       "line": 52,
+      "expr": "batchTag113",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 17,
+      "expr": "manifestKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 18,
+      "expr": "manifestKey201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 23,
+      "expr": "invoiceKey202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 26,
+      "expr": "invoiceKey202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 27,
+      "expr": "batchTag203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 28,
+      "expr": "orderRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 29,
+      "expr": "orderRef204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 34,
+      "expr": "quoteRef205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 35,
+      "expr": "tariffRef206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 36,
+      "expr": "tariffRef206",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 41,
+      "expr": "ledgerEntry207",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 42,
+      "expr": "channelTag208",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 43,
+      "expr": "catalogKey209",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 44,
+      "expr": "catalogKey209",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 49,
+      "expr": "receiptKey210",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 52,
+      "expr": "receiptKey210",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 53,
+      "expr": "accountRef211",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 54,
+      "expr": "accountRef211",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 59,
+      "expr": "voucherRef212",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 62,
+      "expr": "voucherRef212",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 63,
+      "expr": "paymentTag213",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 66,
+      "expr": "paymentTag213",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 67,
+      "expr": "refundCode214",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BundleCoordinator.java",
       "line": 68,
+      "expr": "refundCode214",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Handler03Dispatcher.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/VoucherStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Handler03Impl00.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/VoucherStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BatchTranslator.java",
       "line": 8,
+      "expr": "accountRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BatchTranslator.java",
       "line": 9,
+      "expr": "voucherRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/BatchTranslator.java",
       "line": 10,
+      "expr": "voucherRef302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/Sanitizer04.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/inventorytrace/service/ReceiptGuard.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/InvoiceLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1021/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/inventorytrace/service/InvoiceLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -382,7 +446,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1021",
+    "path": "/api/inventory/trace",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -396,6 +460,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

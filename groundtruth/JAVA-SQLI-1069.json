@@ -4,120 +4,142 @@
   "verdict": "safe",
   "title": "请求头经 9 层调用、跨 2 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1069/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogdraft/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1069/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/catalogdraft/web/OrderController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1069/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/catalogdraft/service/OrderRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/sqli1069/web/Sanitizer00.java",
-    "line": 10,
+    "file": "web/src/main/java/com/habench/catalogdraft/web/OrderScreen.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/OrderController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Sanitizer00.java",
-      "line": 10,
+      "file": "web/src/main/java/com/habench/catalogdraft/web/OrderScreen.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/BundleFacade.java",
       "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/BundleFacade.java",
       "line": 14,
+      "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/BundleFacade.java",
       "line": 15,
+      "expr": "receiptKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/BundleFacade.java",
       "line": 20,
+      "expr": "accountRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/BundleFacade.java",
       "line": 21,
+      "expr": "voucherRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/BundleFacade.java",
       "line": 22,
+      "expr": "paymentTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1069/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/BundleFacade.java",
       "line": 23,
+      "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ShipmentService.java",
       "line": 8,
+      "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ShipmentService.java",
       "line": 9,
+      "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ReceiptPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ReceiptPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ContractComposer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ContractComposer.java",
       "line": 13,
+      "expr": "shipmentCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ContractComposer.java",
       "line": 14,
+      "expr": "manifestKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ContractComposer.java",
       "line": 15,
+      "expr": "manifestKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/OrderRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1069/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/OrderRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -144,7 +166,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1069",
+    "path": "/api/catalog/draft",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -158,6 +180,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

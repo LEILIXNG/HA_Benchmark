@@ -4,120 +4,142 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 3 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1043/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportclose/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1043/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportclose/web/ChannelController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1043/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/reportclose/dao/ChannelRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/sqli1043/dao/Sanitizer03.java",
+    "file": "dao/src/main/java/com/habench/reportclose/dao/BatchValidator.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1043/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/ChannelController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1043/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/ContractEnricher.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1043/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/ContractEnricher.java",
       "line": 13,
+      "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1043/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/ContractEnricher.java",
       "line": 14,
+      "expr": "voucherRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1043/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/ContractEnricher.java",
       "line": 15,
+      "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 15,
+      "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 16,
+      "expr": "tariffRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 21,
+      "expr": "ledgerEntry102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 22,
+      "expr": "channelTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 23,
+      "expr": "channelTag103",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 28,
+      "expr": "catalogKey104",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 29,
+      "expr": "receiptKey105",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1043/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ManifestService.java",
       "line": 30,
+      "expr": "receiptKey105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1043/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/reportclose/dao/VoucherAssembler.java",
       "line": 8,
+      "expr": "manifestKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1043/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/reportclose/dao/VoucherAssembler.java",
       "line": 9,
+      "expr": "invoiceKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1043/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/reportclose/dao/VoucherAssembler.java",
       "line": 10,
+      "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1043/dao/Sanitizer03.java",
+      "file": "dao/src/main/java/com/habench/reportclose/dao/BatchValidator.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1043/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportclose/dao/ChannelRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1043/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/reportclose/dao/ChannelRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -146,7 +168,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1043",
+    "path": "/api/report/close",
     "param": "label",
     "carrier": "query"
   },
@@ -157,9 +179,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:zz OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

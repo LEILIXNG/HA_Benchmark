@@ -4,116 +4,137 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1046/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1046/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractController.java",
     "line": 13,
+    "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1046/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/pricingmanifest/service/ContractRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractController.java",
       "line": 13,
+      "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractResolver.java",
       "line": 9,
+      "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractResolver.java",
       "line": 10,
+      "expr": "shipmentCode1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractResolver.java",
       "line": 15,
+      "expr": "manifestKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractResolver.java",
       "line": 16,
+      "expr": "invoiceKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractResolver.java",
       "line": 17,
+      "expr": "batchTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractResolver.java",
       "line": 18,
+      "expr": "batchTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 11,
+      "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 12,
+      "expr": "accountRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 13,
+      "expr": "accountRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 18,
+      "expr": "voucherRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 19,
+      "expr": "paymentTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 22,
+      "expr": "paymentTag104",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 23,
+      "expr": "refundCode105",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1046/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingmanifest/web/ShipmentEnricher.java",
       "line": 24,
+      "expr": "refundCode105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1046/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingmanifest/service/ReceiptComposer.java",
       "line": 8,
+      "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1046/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingmanifest/service/ReceiptComposer.java",
       "line": 9,
+      "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1046/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricingmanifest/service/ContractRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1046/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricingmanifest/service/ContractRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -143,7 +164,7 @@
   "paired_negative": "JAVA-SQLI-1046-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1046",
+    "path": "/api/pricing/manifest",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -154,9 +175,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,126 +4,149 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1034/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilrollup/web/QuoteController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1034/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/fulfilrollup/web/QuoteController.java",
     "line": 13,
+    "expr": "orderNo",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1034/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/fulfilrollup/service/QuoteRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/QuoteController.java",
       "line": 13,
+      "expr": "orderNo",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ContractFacade.java",
       "line": 11,
+      "expr": "invoiceKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ContractFacade.java",
       "line": 14,
+      "expr": "invoiceKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ContractFacade.java",
       "line": 15,
+      "expr": "batchTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ContractFacade.java",
       "line": 16,
+      "expr": "batchTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ContractFacade.java",
       "line": 21,
+      "expr": "orderRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ContractFacade.java",
       "line": 22,
+      "expr": "quoteRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ContractFacade.java",
       "line": 23,
+      "expr": "quoteRef4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ShipmentCollector.java",
       "line": 8,
+      "expr": "voucherRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ShipmentCollector.java",
       "line": 9,
+      "expr": "paymentTag102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/ShipmentCollector.java",
       "line": 10,
+      "expr": "paymentTag102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Handler02Dispatcher.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/BatchPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Handler02Impl00.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/BatchPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/OrderBroker.java",
       "line": 8,
+      "expr": "ledgerEntry201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/OrderBroker.java",
       "line": 9,
+      "expr": "channelTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1034/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/fulfilrollup/web/OrderBroker.java",
       "line": 10,
+      "expr": "channelTag202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1034/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrollup/service/PaymentCollector.java",
       "line": 8,
+      "expr": "invoiceKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1034/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrollup/service/PaymentCollector.java",
       "line": 9,
+      "expr": "batchTag302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1034/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/fulfilrollup/service/PaymentCollector.java",
       "line": 10,
+      "expr": "batchTag302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1034/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilrollup/service/QuoteRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1034/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/fulfilrollup/service/QuoteRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -154,7 +177,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1034",
+    "path": "/api/fulfil/rollup",
     "param": "orderNo",
     "carrier": "query"
   },
@@ -165,9 +188,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:order:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

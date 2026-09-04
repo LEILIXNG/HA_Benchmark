@@ -4,180 +4,214 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1056 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1056n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentnotice/web/CatalogController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1056n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentnotice/web/CatalogController.java",
     "line": 13,
+    "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1056n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/paymentnotice/service/CatalogRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/sqli1056n/service/Sanitizer06.java",
-    "line": 10,
+    "file": "service/src/main/java/com/habench/paymentnotice/service/ChannelScreen.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/CatalogController.java",
       "line": 13,
+      "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/ChannelResolver.java",
       "line": 10,
+      "expr": "orderRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/ChannelResolver.java",
       "line": 13,
+      "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/ChannelResolver.java",
       "line": 14,
+      "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/ChannelResolver.java",
       "line": 15,
+      "expr": "quoteRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/ShipmentStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/ShipmentStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/OrderRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/OrderRouter.java",
       "line": 13,
+      "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/OrderRouter.java",
       "line": 14,
+      "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/TariffResolver.java",
       "line": 8,
+      "expr": "catalogKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1056n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentnotice/web/TariffResolver.java",
       "line": 9,
+      "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/TariffCollector.java",
       "line": 14,
+      "expr": "orderRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/TariffCollector.java",
       "line": 15,
+      "expr": "quoteRef302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/TariffCollector.java",
       "line": 16,
+      "expr": "quoteRef302",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/TariffCollector.java",
       "line": 21,
+      "expr": "tariffRef303",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/TariffCollector.java",
       "line": 22,
+      "expr": "ledgerEntry304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/TariffCollector.java",
       "line": 23,
+      "expr": "channelTag305",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/TariffCollector.java",
       "line": 24,
+      "expr": "channelTag305",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/AccountService.java",
       "line": 8,
+      "expr": "refundCode401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/AccountService.java",
       "line": 9,
+      "expr": "refundCode401",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Handler05Dispatcher.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/QuotePolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Handler05Impl00.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/QuotePolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage05.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/SessionNormalizer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage05.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/SessionNormalizer.java",
       "line": 13,
+      "expr": "catalogKey501",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage05.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/SessionNormalizer.java",
       "line": 16,
+      "expr": "catalogKey501",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage05.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/SessionNormalizer.java",
       "line": 17,
+      "expr": "receiptKey502",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Stage05.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/SessionNormalizer.java",
       "line": 18,
+      "expr": "receiptKey502",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/Sanitizer06.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/paymentnotice/service/ChannelScreen.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/CatalogRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1056n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/paymentnotice/service/CatalogRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -212,7 +246,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1056_n",
+    "path": "/api/payment/notice",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -226,6 +260,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

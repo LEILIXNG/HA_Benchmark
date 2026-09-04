@@ -4,166 +4,197 @@
   "verdict": "vulnerable",
   "title": "路径变量经 13 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1066/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricinglookup/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1066/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricinglookup/web/ManifestController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1066/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/pricinglookup/service/ManifestRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/ManifestController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 15,
+      "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 16,
+      "expr": "orderRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 21,
+      "expr": "quoteRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 22,
+      "expr": "tariffRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 23,
+      "expr": "tariffRef3",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 28,
+      "expr": "ledgerEntry4",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 29,
+      "expr": "channelTag5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/BundleAdapter.java",
       "line": 30,
+      "expr": "channelTag5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/OrderStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/OrderStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/ContractCoordinator.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/ContractCoordinator.java",
       "line": 13,
+      "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1066/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricinglookup/web/ContractCoordinator.java",
       "line": 14,
+      "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 20,
+      "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 23,
+      "expr": "catalogKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 24,
+      "expr": "receiptKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 25,
+      "expr": "receiptKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 30,
+      "expr": "accountRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 33,
+      "expr": "accountRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 34,
+      "expr": "voucherRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 35,
+      "expr": "voucherRef204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 40,
+      "expr": "paymentTag205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 43,
+      "expr": "paymentTag205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 44,
+      "expr": "refundCode206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ReceiptRegistry.java",
       "line": 45,
+      "expr": "refundCode206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ManifestRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1066/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricinglookup/service/ManifestRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -195,7 +226,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1066/{keyword}",
+    "path": "/api/pricing/lookup/{keyword}",
     "param": "keyword",
     "carrier": "path"
   },
@@ -206,9 +237,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

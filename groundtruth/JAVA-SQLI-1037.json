@@ -4,196 +4,233 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1037/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingledger/web/BundleController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1037/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingledger/web/BundleController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1037/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/pricingledger/dao/BundleRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 17,
+      "expr": "orderRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 20,
+      "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 21,
+      "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 22,
+      "expr": "quoteRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 27,
+      "expr": "tariffRef3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 28,
+      "expr": "ledgerEntry4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 29,
+      "expr": "ledgerEntry4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 34,
+      "expr": "channelTag5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 37,
+      "expr": "channelTag5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 38,
+      "expr": "catalogKey6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 41,
+      "expr": "catalogKey6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 42,
+      "expr": "receiptKey7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 43,
+      "expr": "receiptKey7",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 48,
+      "expr": "accountRef8",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 51,
+      "expr": "accountRef8",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 52,
+      "expr": "voucherRef9",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 53,
+      "expr": "voucherRef9",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 58,
+      "expr": "paymentTag10",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 61,
+      "expr": "paymentTag10",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 62,
+      "expr": "refundCode11",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 63,
+      "expr": "shipmentCode12",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1037/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
       "line": 64,
+      "expr": "shipmentCode12",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/RefundRouter.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/RefundRouter.java",
       "line": 13,
+      "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/RefundRouter.java",
       "line": 14,
+      "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/RefundPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/RefundPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/QuoteNormalizer.java",
       "line": 8,
+      "expr": "catalogKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/QuoteNormalizer.java",
       "line": 9,
+      "expr": "receiptKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1037/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingledger/service/QuoteNormalizer.java",
       "line": 10,
+      "expr": "receiptKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1037/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
       "line": 8,
+      "expr": "orderRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1037/dao/Stage03.java",
+      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
       "line": 9,
+      "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1037/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/pricingledger/dao/BundleRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1037/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/pricingledger/dao/BundleRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -230,7 +267,7 @@
   "paired_negative": "JAVA-SQLI-1037-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1037",
+    "path": "/api/pricing/ledger",
     "param": "query",
     "carrier": "query"
   },
@@ -241,9 +278,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:order:zz' OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

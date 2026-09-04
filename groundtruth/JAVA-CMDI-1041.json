@@ -4,175 +4,208 @@
   "verdict": "safe",
   "title": "请求头经 17 层调用、跨 2 个模块流入命令执行，经 command_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1041/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingtransfer/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1041/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingtransfer/web/SessionController.java",
     "line": 13,
+    "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1041/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/pricingtransfer/service/SessionExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/cmdi1041/service/Sanitizer04.java",
+    "file": "service/src/main/java/com/habench/pricingtransfer/service/ManifestPolicy.java",
     "line": 13,
+    "expr": "value",
     "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
   },
   "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1041/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricingtransfer/web/SessionController.java",
       "line": 13,
+      "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingtransfer/web/OrderCoordinator.java",
       "line": 8,
+      "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingtransfer/web/OrderCoordinator.java",
       "line": 9,
+      "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingtransfer/web/PaymentFacade.java",
       "line": 8,
+      "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingtransfer/web/PaymentFacade.java",
       "line": 9,
+      "expr": "orderRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1041/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/pricingtransfer/web/PaymentFacade.java",
       "line": 10,
+      "expr": "orderRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 14,
+      "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 15,
+      "expr": "refundCode202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 16,
+      "expr": "refundCode202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 21,
+      "expr": "shipmentCode203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 22,
+      "expr": "manifestKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 23,
+      "expr": "manifestKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 28,
+      "expr": "invoiceKey205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 29,
+      "expr": "batchTag206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/RefundRouter.java",
       "line": 30,
+      "expr": "batchTag206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler03Dispatcher.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/TariffRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler03Impl00.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/TariffRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ReceiptAdapter.java",
       "line": 14,
+      "expr": "channelTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ReceiptAdapter.java",
       "line": 15,
+      "expr": "channelTag301",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ReceiptAdapter.java",
       "line": 20,
+      "expr": "catalogKey302",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ReceiptAdapter.java",
       "line": 21,
+      "expr": "receiptKey303",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ReceiptAdapter.java",
       "line": 22,
+      "expr": "receiptKey303",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Sanitizer04.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ManifestPolicy.java",
       "line": 13,
+      "expr": "value",
       "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler04Dispatcher.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ShipmentRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Handler04Impl00.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/ShipmentRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/AccountCoordinator.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/AccountCoordinator.java",
       "line": 13,
+      "expr": "batchTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/AccountCoordinator.java",
       "line": 14,
+      "expr": "batchTag401",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/SessionExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1041/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/pricingtransfer/service/SessionExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -207,7 +240,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1041",
+    "path": "/api/pricing/transfer",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -221,6 +254,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

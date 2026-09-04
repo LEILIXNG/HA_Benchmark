@@ -4,136 +4,161 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1033/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentdraft/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1033/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentdraft/web/BatchController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1033/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/paymentdraft/service/BatchExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1033/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymentdraft/web/BatchController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
       "line": 13,
+      "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
       "line": 16,
+      "expr": "receiptKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
       "line": 17,
+      "expr": "accountRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1033/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
       "line": 18,
+      "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
       "line": 10,
+      "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
       "line": 13,
+      "expr": "quoteRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
       "line": 14,
+      "expr": "tariffRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
       "line": 15,
+      "expr": "tariffRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Handler02Dispatcher.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/ShipmentRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Handler02Impl00.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/ShipmentRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 11,
+      "expr": "shipmentCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 14,
+      "expr": "shipmentCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 15,
+      "expr": "manifestKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 16,
+      "expr": "manifestKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 21,
+      "expr": "invoiceKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 24,
+      "expr": "invoiceKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 25,
+      "expr": "batchTag204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 26,
+      "expr": "orderRef205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/Stage02.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
       "line": 27,
+      "expr": "orderRef205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1033/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -162,7 +187,7 @@
   "paired_negative": "JAVA-CMDI-1033-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1033",
+    "path": "/api/payment/draft",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -173,9 +198,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:zz$(id);;;",
+    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,96 +4,113 @@
   "verdict": "vulnerable",
   "title": "查询参数经 7 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1074/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingassign/web/PaymentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1074/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/pricingassign/web/PaymentController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1074/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/pricingassign/dao/PaymentRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1074/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/PaymentController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1074/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/LedgerNormalizer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1074/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/LedgerNormalizer.java",
       "line": 13,
+      "expr": "invoiceKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1074/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/LedgerNormalizer.java",
       "line": 14,
+      "expr": "invoiceKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1074/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingassign/service/ContractNormalizer.java",
       "line": 8,
+      "expr": "voucherRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1074/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/pricingassign/service/ContractNormalizer.java",
       "line": 9,
+      "expr": "voucherRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/VoucherAssembler.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/VoucherAssembler.java",
       "line": 19,
+      "expr": "ledgerEntry201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/VoucherAssembler.java",
       "line": 20,
+      "expr": "ledgerEntry201",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/VoucherAssembler.java",
       "line": 25,
+      "expr": "channelTag202",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/VoucherAssembler.java",
       "line": 28,
+      "expr": "channelTag202",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/VoucherAssembler.java",
       "line": 29,
+      "expr": "catalogKey203",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/VoucherAssembler.java",
       "line": 30,
+      "expr": "catalogKey203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/PaymentRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/pricingassign/dao/PaymentRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -118,7 +135,7 @@
   "paired_negative": "JAVA-SQLI-1074-N",
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1074",
+    "path": "/api/pricing/assign",
     "param": "query",
     "carrier": "query"
   },
@@ -132,6 +149,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

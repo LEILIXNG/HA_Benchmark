@@ -4,266 +4,317 @@
   "verdict": "vulnerable",
   "title": "路径变量经 19 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1059/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportissue/web/CatalogController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1059/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/reportissue/web/CatalogController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cmdi1059/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/reportissue/service/CatalogExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/CatalogController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ContractNormalizer.java",
       "line": 8,
+      "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ContractNormalizer.java",
       "line": 9,
+      "expr": "catalogKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ContractNormalizer.java",
       "line": 10,
+      "expr": "catalogKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/CatalogStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/CatalogStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/BundleBroker.java",
       "line": 8,
+      "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/BundleBroker.java",
       "line": 9,
+      "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 17,
+      "expr": "paymentTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 18,
+      "expr": "paymentTag201",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 23,
+      "expr": "refundCode202",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 26,
+      "expr": "refundCode202",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 27,
+      "expr": "shipmentCode203",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 30,
+      "expr": "shipmentCode203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 31,
+      "expr": "manifestKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 32,
+      "expr": "manifestKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 37,
+      "expr": "invoiceKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 38,
+      "expr": "batchTag206",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 39,
+      "expr": "batchTag206",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 44,
+      "expr": "orderRef207",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 45,
+      "expr": "quoteRef208",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 46,
+      "expr": "tariffRef209",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 47,
+      "expr": "tariffRef209",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 52,
+      "expr": "ledgerEntry210",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 53,
+      "expr": "channelTag211",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 56,
+      "expr": "channelTag211",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 57,
+      "expr": "catalogKey212",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1059/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/reportissue/web/ReceiptBuilder.java",
       "line": 58,
+      "expr": "catalogKey212",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 17,
+      "expr": "channelTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 18,
+      "expr": "channelTag301",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 23,
+      "expr": "catalogKey302",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 24,
+      "expr": "receiptKey303",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 25,
+      "expr": "accountRef304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 26,
+      "expr": "accountRef304",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 31,
+      "expr": "voucherRef305",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 34,
+      "expr": "voucherRef305",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 35,
+      "expr": "paymentTag306",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 36,
+      "expr": "refundCode307",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/SessionFacade.java",
       "line": 37,
+      "expr": "refundCode307",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 19,
+      "expr": "batchTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 20,
+      "expr": "orderRef402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 21,
+      "expr": "orderRef402",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 26,
+      "expr": "quoteRef403",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 27,
+      "expr": "tariffRef404",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 28,
+      "expr": "ledgerEntry405",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogCoordinator.java",
       "line": 29,
+      "expr": "ledgerEntry405",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1059/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/reportissue/service/CatalogExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -312,7 +363,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1059/{resource}",
+    "path": "/api/report/issue/{resource}",
     "param": "resource",
     "carrier": "path"
   },
@@ -323,9 +374,9 @@
     "neutralized": false,
     "call_depth_observed": 19,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:order:order:order:order:zz$(id);;;;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

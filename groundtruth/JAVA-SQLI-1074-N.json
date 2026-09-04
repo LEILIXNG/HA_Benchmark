@@ -4,105 +4,124 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1074 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1074n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountmerge/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1074n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/accountmerge/web/OrderController.java",
     "line": 13,
+    "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/sqli1074n/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/accountmerge/dao/OrderRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/sqli1074n/web/Sanitizer00.java",
-    "line": 10,
+    "file": "web/src/main/java/com/habench/accountmerge/web/RefundGuard.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1074n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/OrderController.java",
       "line": 13,
+      "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1074n/web/Sanitizer00.java",
-      "line": 10,
+      "file": "web/src/main/java/com/habench/accountmerge/web/RefundGuard.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1074n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/CatalogNormalizer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1074n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/CatalogNormalizer.java",
       "line": 13,
+      "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1074n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/CatalogNormalizer.java",
       "line": 14,
+      "expr": "manifestKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1074n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/QuoteEnricher.java",
       "line": 8,
+      "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1074n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/QuoteEnricher.java",
       "line": 9,
+      "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/BundleCoordinator.java",
       "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/BundleCoordinator.java",
       "line": 19,
+      "expr": "tariffRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/BundleCoordinator.java",
       "line": 20,
+      "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/BundleCoordinator.java",
       "line": 25,
+      "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/BundleCoordinator.java",
       "line": 28,
+      "expr": "ledgerEntry202",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/BundleCoordinator.java",
       "line": 29,
+      "expr": "channelTag203",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/Stage02.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/BundleCoordinator.java",
       "line": 30,
+      "expr": "channelTag203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/OrderRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/sqli1074n/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/accountmerge/dao/OrderRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -127,7 +146,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1074_n",
+    "path": "/api/account/merge",
     "param": "query",
     "carrier": "query"
   },
@@ -141,6 +160,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

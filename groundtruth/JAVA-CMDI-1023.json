@@ -4,171 +4,203 @@
   "verdict": "vulnerable",
   "title": "查询参数经 11 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1023/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendorgrant/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1023/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/vendorgrant/web/OrderController.java",
     "line": 13,
+    "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/cmdi1023/dao/SinkHandler.java",
+    "file": "dao/src/main/java/com/habench/vendorgrant/dao/OrderExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/OrderController.java",
       "line": 13,
+      "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/BundleResolver.java",
       "line": 11,
+      "expr": "batchTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/BundleResolver.java",
       "line": 14,
+      "expr": "batchTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/BundleResolver.java",
       "line": 15,
+      "expr": "orderRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/BundleResolver.java",
       "line": 16,
+      "expr": "orderRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/BundleResolver.java",
       "line": 21,
+      "expr": "quoteRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/BundleResolver.java",
       "line": 22,
+      "expr": "tariffRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/BundleResolver.java",
       "line": 23,
+      "expr": "tariffRef4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/ContractBroker.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/ContractBroker.java",
       "line": 13,
+      "expr": "paymentTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/ContractBroker.java",
       "line": 16,
+      "expr": "paymentTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/ContractBroker.java",
       "line": 17,
+      "expr": "refundCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/ContractBroker.java",
       "line": 18,
+      "expr": "refundCode102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/InvoiceEnricher.java",
       "line": 8,
+      "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1023/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/vendorgrant/web/InvoiceEnricher.java",
       "line": 9,
+      "expr": "channelTag201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1023/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorgrant/service/QuoteRegistry.java",
       "line": 8,
+      "expr": "batchTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cmdi1023/service/Stage03.java",
+      "file": "service/src/main/java/com/habench/vendorgrant/service/QuoteRegistry.java",
       "line": 9,
+      "expr": "batchTag301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 17,
+      "expr": "paymentTag401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 18,
+      "expr": "paymentTag401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 23,
+      "expr": "refundCode402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 24,
+      "expr": "shipmentCode403",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 27,
+      "expr": "shipmentCode403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 28,
+      "expr": "manifestKey404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 29,
+      "expr": "manifestKey404",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 34,
+      "expr": "invoiceKey405",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 37,
+      "expr": "invoiceKey405",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 38,
+      "expr": "batchTag406",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/Stage04.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/QuoteNormalizer.java",
       "line": 39,
+      "expr": "batchTag406",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/OrderExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/cmdi1023/dao/SinkHandler.java",
+      "file": "dao/src/main/java/com/habench/vendorgrant/dao/OrderExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -204,7 +236,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1023",
+    "path": "/api/vendor/grant",
     "param": "keyword",
     "carrier": "query"
   },
@@ -215,9 +247,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo order:order:zz$(id);;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

@@ -4,160 +4,190 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 2 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/path1035/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/ordertrace/web/ReceiptController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/path1035/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/ordertrace/web/ReceiptController.java",
     "line": 13,
+    "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/path1035/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/ordertrace/service/ReceiptLoader.java",
     "line": 17,
+    "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/path1035/service/Sanitizer05.java",
+    "file": "service/src/main/java/com/habench/ordertrace/service/AccountScreen.java",
     "line": 9,
+    "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 ../（无效）"
   },
   "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/path1035/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/ReceiptController.java",
       "line": 13,
+      "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/SessionEnricher.java",
       "line": 8,
+      "expr": "voucherRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/SessionEnricher.java",
       "line": 9,
+      "expr": "voucherRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Handler01Dispatcher.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/QuoteStrategySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Handler01Impl00.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/QuoteStrategyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderTranslator.java",
       "line": 11,
+      "expr": "ledgerEntry101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderTranslator.java",
       "line": 12,
+      "expr": "ledgerEntry101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderTranslator.java",
       "line": 17,
+      "expr": "channelTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderTranslator.java",
       "line": 20,
+      "expr": "channelTag102",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderTranslator.java",
       "line": 21,
+      "expr": "catalogKey103",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderTranslator.java",
       "line": 22,
+      "expr": "catalogKey103",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderBroker.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderBroker.java",
       "line": 13,
+      "expr": "invoiceKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderBroker.java",
       "line": 14,
+      "expr": "batchTag202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/OrderBroker.java",
       "line": 15,
+      "expr": "batchTag202",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Handler03Dispatcher.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/InvoiceRuleSelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Handler03Impl00.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/InvoiceRuleStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/BatchCoordinator.java",
       "line": 10,
+      "expr": "voucherRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/BatchCoordinator.java",
       "line": 13,
+      "expr": "voucherRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/BatchCoordinator.java",
       "line": 14,
+      "expr": "paymentTag302",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/path1035/web/Stage03.java",
+      "file": "web/src/main/java/com/habench/ordertrace/web/BatchCoordinator.java",
       "line": 15,
+      "expr": "paymentTag302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1035/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/ordertrace/service/ManifestFacade.java",
       "line": 8,
+      "expr": "ledgerEntry401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1035/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/ordertrace/service/ManifestFacade.java",
       "line": 9,
+      "expr": "channelTag402",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/path1035/service/Stage04.java",
+      "file": "service/src/main/java/com/habench/ordertrace/service/ManifestFacade.java",
       "line": 10,
+      "expr": "channelTag402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/path1035/service/Sanitizer05.java",
+      "file": "service/src/main/java/com/habench/ordertrace/service/AccountScreen.java",
       "line": 9,
+      "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 ../（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/path1035/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/ordertrace/service/ReceiptLoader.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/path1035/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/ordertrace/service/ReceiptLoader.java",
       "line": 17,
+      "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
@@ -189,7 +219,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_path_1035",
+    "path": "/api/order/trace",
     "param": "resource",
     "carrier": "query"
   },
@@ -200,9 +230,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "....//....//etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/order:../../etc/passwd;",
+    "payload_at_sink": "/var/lib/habench/data/ref:../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

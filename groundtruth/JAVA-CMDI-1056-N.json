@@ -4,90 +4,106 @@
   "verdict": "safe",
   "title": "与 JAVA-CMDI-1056 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/cmdi1056n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentrelease/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cmdi1056n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/paymentrelease/web/ContractController.java",
     "line": 13,
+    "expr": "filename",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/cmdi1056n/web/SinkHandler.java",
+    "file": "web/src/main/java/com/habench/paymentrelease/web/ContractExecutor.java",
     "line": 13,
+    "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/cmdi1056n/web/Sanitizer00.java",
-    "line": 10,
+    "file": "web/src/main/java/com/habench/paymentrelease/web/QuoteScreen.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ContractController.java",
       "line": 13,
+      "expr": "filename",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Sanitizer00.java",
-      "line": 10,
+      "file": "web/src/main/java/com/habench/paymentrelease/web/QuoteScreen.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ManifestComposer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ManifestComposer.java",
       "line": 13,
+      "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ManifestComposer.java",
       "line": 14,
+      "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/VoucherRegistry.java",
       "line": 8,
+      "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage01.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/VoucherRegistry.java",
       "line": 9,
+      "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Handler02Dispatcher.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/AccountPolicySelector.java",
       "line": 7,
+      "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Handler02Impl00.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/AccountPolicyStandard.java",
       "line": 6,
+      "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ShipmentTranslator.java",
       "line": 8,
+      "expr": "catalogKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/Stage02.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ShipmentTranslator.java",
       "line": 9,
+      "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ContractExecutor.java",
       "line": 9,
+      "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/cmdi1056n/web/SinkHandler.java",
+      "file": "web/src/main/java/com/habench/paymentrelease/web/ContractExecutor.java",
       "line": 13,
+      "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
@@ -110,7 +126,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_cmdi_1056_n/{filename}",
+    "path": "/api/payment/release/{filename}",
     "param": "filename",
     "carrier": "path"
   },
@@ -124,6 +140,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }

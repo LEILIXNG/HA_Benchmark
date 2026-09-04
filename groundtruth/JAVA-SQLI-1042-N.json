@@ -4,100 +4,118 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1042 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/sqli1042n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerintake/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/sqli1042n/web/EntryController.java",
+    "file": "web/src/main/java/com/habench/customerintake/web/TariffController.java",
     "line": 13,
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/sqli1042n/service/SinkHandler.java",
+    "file": "service/src/main/java/com/habench/customerintake/service/TariffRepository.java",
     "line": 17,
+    "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/sqli1042n/web/Sanitizer00.java",
-    "line": 10,
+    "file": "web/src/main/java/com/habench/customerintake/web/ManifestGuard.java",
+    "line": 11,
+    "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/sqli1042n/web/EntryController.java",
+      "file": "web/src/main/java/com/habench/customerintake/web/TariffController.java",
       "line": 13,
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1042n/web/Sanitizer00.java",
-      "line": 10,
+      "file": "web/src/main/java/com/habench/customerintake/web/ManifestGuard.java",
+      "line": 11,
+      "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1042n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerintake/web/VoucherNormalizer.java",
       "line": 12,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1042n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerintake/web/VoucherNormalizer.java",
       "line": 13,
+      "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1042n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerintake/web/VoucherNormalizer.java",
       "line": 14,
+      "expr": "accountRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/sqli1042n/web/Stage00.java",
+      "file": "web/src/main/java/com/habench/customerintake/web/VoucherNormalizer.java",
       "line": 15,
+      "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/ShipmentAssembler.java",
       "line": 16,
+      "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/ShipmentAssembler.java",
       "line": 19,
+      "expr": "quoteRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/ShipmentAssembler.java",
       "line": 20,
+      "expr": "tariffRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/ShipmentAssembler.java",
       "line": 21,
+      "expr": "tariffRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/ShipmentAssembler.java",
       "line": 26,
+      "expr": "ledgerEntry103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/ShipmentAssembler.java",
       "line": 27,
+      "expr": "channelTag104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/Stage01.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/ShipmentAssembler.java",
       "line": 28,
+      "expr": "channelTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/TariffRepository.java",
       "line": 13,
+      "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/sqli1042n/service/SinkHandler.java",
+      "file": "service/src/main/java/com/habench/customerintake/service/TariffRepository.java",
       "line": 17,
+      "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
@@ -122,7 +140,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/case/java_sqli_1042_n/{userName}",
+    "path": "/api/customer/intake/{userName}",
     "param": "userName",
     "carrier": "path"
   },
@@ -136,6 +154,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T15:53:16+08:00"
+    "checked_at": "2026-09-04T17:09:28+08:00"
   }
 }
