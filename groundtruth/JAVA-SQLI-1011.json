@@ -1,0 +1,149 @@
+{
+  "id": "JAVA-SQLI-1011",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "请求头经 9 跳传播、跨 3 个模块流入JDBC 拼接，经无效净化（只剥单引号）",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1011/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1011/dao/Sanitizer09.java",
+    "line": 9,
+    "note": "SANITIZER: 不完整净化（无效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/Step00.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/Step00.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/Step01.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/Step01.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/Step02.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1011/web/Step02Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1011/service/Gateway03.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1011/service/Step04.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1011/service/Step04.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1011/service/Step05.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1011/service/Step06.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1011/service/Step07.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1011/dao/Gateway08.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1011/dao/Sanitizer09.java",
+      "line": 9,
+      "note": "SANITIZER: 不完整净化（无效）"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1011/dao/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1011/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 17,
+    "files_crossed": 13,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:cross_class",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "sanitizer:incomplete_quote_strip"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1011",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:order:zz OR 1=1--;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

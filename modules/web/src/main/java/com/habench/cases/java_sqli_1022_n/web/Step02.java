@@ -1,0 +1,13 @@
+package com.habench.cases.java_sqli_1022_n.web;
+
+public final class Step02 {
+
+    public static void apply(String value) {
+        Handler02 handler = select();
+        handler.handle(value);
+    }
+
+    private static Handler02 select() {
+        return new Handler02Impl00();
+    }
+}

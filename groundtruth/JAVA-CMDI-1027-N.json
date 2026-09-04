@@ -1,0 +1,149 @@
+{
+  "id": "JAVA-CMDI-1027-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1027 逐行相同，仅在 sink 前插入有效白名单校验",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1027_n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1027_n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Sanitizer09.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1027_n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1027_n/web/Step00.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1027_n/web/Step01.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1027_n/service/Gateway02.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1027_n/service/Step03.java",
+      "line": 9,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1027_n/service/Step03.java",
+      "line": 14,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1027_n/service/Step04.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1027_n/service/Step04.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Gateway05.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Step06.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Step06Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Step07.java",
+      "line": 7,
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Handler07Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Step08.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/Sanitizer09.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1027_n/dao/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 17,
+    "files_crossed": 14,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:static_field",
+      "prop:store_field",
+      "prop:cross_module",
+      "prop:cross_class",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1027_n",
+    "param": "category",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

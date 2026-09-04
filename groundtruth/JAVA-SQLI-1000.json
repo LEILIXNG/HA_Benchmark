@@ -1,0 +1,81 @@
+{
+  "id": "JAVA-SQLI-1000",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "路径变量经 1 跳传播、跨 2 个模块流入JDBC 拼接，经有效白名单校验",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1000/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1000/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1000/service/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1000/service/Sanitizer00.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1000/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1000/service/Sanitizer00.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1000/service/Gateway00.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1000/service/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1000/service/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 5,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:cross_module",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1000/{keyword}",
+    "param": "keyword",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

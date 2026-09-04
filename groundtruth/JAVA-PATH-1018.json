@@ -1,0 +1,77 @@
+{
+  "id": "JAVA-PATH-1018",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "查询参数经 1 跳传播、跨 1 个模块流入文件读取",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/Step00.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/Step00.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1018/web/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 5,
+    "files_crossed": 3,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:file_read",
+      "prop:store_field",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-PATH-1018-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_1018",
+    "param": "token",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

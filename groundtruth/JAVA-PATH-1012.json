@@ -1,0 +1,78 @@
+{
+  "id": "JAVA-PATH-1012",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "查询参数经 2 跳传播、跨 3 个模块流入文件读取",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1012/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1012/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_path_1012/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1012/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1012/service/Gateway00.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1012/dao/Gateway01.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1012/dao/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1012/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 5,
+    "files_crossed": 4,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:file_read",
+      "prop:cross_module",
+      "prop:cross_module",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_1012",
+    "param": "reference",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "id": "JAVA-PATH-1004",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "查询参数经 5 跳传播、跨 2 个模块流入文件读取",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1004/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1004/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_path_1004/service/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1004/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1004/web/Step00.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1004/web/Handler00Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1004/web/Step01.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1004/web/Step01Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1004/service/Gateway02.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1004/service/Step03.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1004/service/Step04.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1004/service/Step04.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1004/service/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1004/service/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 11,
+    "files_crossed": 9,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:file_read",
+      "prop:interface_dispatch",
+      "prop:cross_class",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_1004",
+    "param": "label",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/order:../../../etc/passwd;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

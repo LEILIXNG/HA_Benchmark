@@ -1,0 +1,83 @@
+{
+  "id": "JAVA-PATH-1022",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "请求头经 2 跳传播、跨 1 个模块流入文件读取",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/Step00.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/Step01.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/Step01.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1022/web/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 6,
+    "files_crossed": 4,
+    "modules_crossed": 1,
+    "features": [
+      "source:servlet_header",
+      "sink:file_read",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-PATH-1022-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_1022",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/order:../../../etc/passwd;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

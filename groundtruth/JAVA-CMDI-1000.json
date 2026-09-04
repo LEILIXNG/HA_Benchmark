@@ -1,0 +1,72 @@
+{
+  "id": "JAVA-CMDI-1000",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "路径变量经 1 跳传播、跨 2 个模块流入命令执行",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1000/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1000/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1000/service/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1000/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1000/service/Gateway00.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1000/service/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1000/service/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 4,
+    "files_crossed": 3,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:runtime_exec",
+      "prop:cross_module",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-CMDI-1000-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1000/{query}",
+    "param": "query",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo zz$(id)",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

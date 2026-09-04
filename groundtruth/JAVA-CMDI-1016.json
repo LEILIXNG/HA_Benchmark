@@ -1,0 +1,88 @@
+{
+  "id": "JAVA-CMDI-1016",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "查询参数经 2 跳传播、跨 1 个模块流入命令执行",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/Step00.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/Handler00Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/Step01.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/Step01.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1016/web/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 7,
+    "files_crossed": 5,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:interface_dispatch",
+      "prop:store_field",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-CMDI-1016-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1016",
+    "param": "target",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo zz$(id)",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

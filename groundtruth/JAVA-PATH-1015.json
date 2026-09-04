@@ -1,0 +1,143 @@
+{
+  "id": "JAVA-PATH-1015",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "请求头经 8 跳传播、跨 3 个模块流入文件读取，经无效净化（只剥单引号）",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_path_1015/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_path_1015/dao/Sanitizer08.java",
+    "line": 9,
+    "note": "SANITIZER: 不完整净化（无效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/Step00.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/Step00Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/Step01.java",
+      "line": 9,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/Step01.java",
+      "line": 14,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1015/web/Step02.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1015/service/Gateway03.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1015/service/Step04.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1015/service/Step04.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1015/service/Step05.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1015/service/Step05.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1015/service/Step06.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1015/dao/Gateway07.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1015/dao/Sanitizer08.java",
+      "line": 9,
+      "note": "SANITIZER: 不完整净化（无效）"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1015/dao/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1015/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 16,
+    "files_crossed": 12,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:file_read",
+      "prop:cross_class",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "sanitizer:incomplete_quote_strip"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_1015",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/order:../../../etc/passwd;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

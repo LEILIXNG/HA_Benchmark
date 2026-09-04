@@ -1,0 +1,144 @@
+{
+  "id": "JAVA-SQLI-1063",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "查询参数经 8 跳传播、跨 3 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step00.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step00.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step01.java",
+      "line": 9,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1063/web/Step01.java",
+      "line": 14,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Gateway02.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Step03.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Step03.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Step04.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1063/service/Handler04Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Gateway05.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step06.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step06.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step07.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/Step07.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_sqli_1063/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 17,
+    "files_crossed": 11,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:jdbc_concat",
+      "prop:store_field",
+      "prop:static_field",
+      "prop:cross_module",
+      "prop:store_field",
+      "prop:interface_dispatch",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-1063-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1063",
+    "param": "query",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

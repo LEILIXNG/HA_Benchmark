@@ -1,0 +1,117 @@
+{
+  "id": "JAVA-CMDI-1043",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "请求头经 6 跳传播、跨 3 个模块流入命令执行",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1043/dao/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/Step00.java",
+      "line": 7,
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/Handler00Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/Step01.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/Step01.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/Step02.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1043/web/Handler02Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1043/service/Gateway03.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1043/dao/Gateway04.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1043/dao/Step05.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1043/dao/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_cmdi_1043/dao/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 12,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:runtime_exec",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:cross_module",
+      "prop:cross_module",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-CMDI-1043-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1043",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo order:zz$(id);",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

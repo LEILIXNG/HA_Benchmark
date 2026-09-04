@@ -1,0 +1,106 @@
+{
+  "id": "JAVA-CMDI-1062",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "路径变量经 5 跳传播、跨 2 个模块流入命令执行",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1062/service/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/Step00.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/Step01.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/Step01.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/Step02.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1062/web/Step02.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1062/service/Gateway03.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1062/service/Step04.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1062/service/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1062/service/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 10,
+    "files_crossed": 7,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-CMDI-1062-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1062/{keyword}",
+    "param": "keyword",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo zz$(id)",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

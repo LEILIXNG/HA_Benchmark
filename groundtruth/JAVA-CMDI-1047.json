@@ -1,0 +1,127 @@
+{
+  "id": "JAVA-CMDI-1047",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "查询参数经 6 跳传播、跨 1 个模块流入命令执行",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step00.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step00Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step01.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step01.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step02.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step03.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step03Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step04.java",
+      "line": 9,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step04.java",
+      "line": 14,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step05.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/Step05.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1047/web/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 14,
+    "files_crossed": 10,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:cross_class",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:static_field",
+      "prop:store_field",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1047",
+    "param": "filename",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo order:zz$(id);",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

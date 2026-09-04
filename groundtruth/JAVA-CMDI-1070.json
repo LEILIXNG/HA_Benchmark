@@ -1,0 +1,111 @@
+{
+  "id": "JAVA-CMDI-1070",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "请求头经 5 跳传播、跨 2 个模块流入命令执行",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1070/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1070/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1070/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1070/web/Step00.java",
+      "line": 9,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1070/web/Step00.java",
+      "line": 14,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/Gateway01.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/Step02.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/Step03.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/Step03Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/Step04.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/Step04.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1070/service/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 11,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:runtime_exec",
+      "prop:static_field",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:store_field",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1070",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo order:zz$(id);",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

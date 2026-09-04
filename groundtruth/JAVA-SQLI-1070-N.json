@@ -1,0 +1,182 @@
+{
+  "id": "JAVA-SQLI-1070-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1070 逐行相同，仅在 sink 前插入有效白名单校验",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Sanitizer12.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step00.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step01.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step02.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step03.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step03.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step04.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step04Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step05.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step05.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step06.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1070_n/web/Step06.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Gateway07.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Step08.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Handler08Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Step09.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Handler09Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Step10.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Step11.java",
+      "line": 7,
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Handler11Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/Sanitizer12.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1070_n/service/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 23,
+    "files_crossed": 19,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:jdbc_concat",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:cross_module",
+      "prop:interface_dispatch",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1070_n",
+    "param": "token",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

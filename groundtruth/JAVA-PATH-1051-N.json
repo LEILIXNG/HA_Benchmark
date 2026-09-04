@@ -1,0 +1,176 @@
+{
+  "id": "JAVA-PATH-1051-N",
+  "cwe": "CWE-22",
+  "verdict": "safe",
+  "title": "与 JAVA-PATH-1051 逐行相同，仅在 sink 前插入有效白名单校验",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1051_n/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_path_1051_n/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Sanitizer11.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1051_n/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_path_1051_n/web/Step00.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Gateway01.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Step02.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Step03.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Step03.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Step04.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Step04.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Step05.java",
+      "line": 9,
+      "note": "写入静态字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_path_1051_n/service/Step05.java",
+      "line": 14,
+      "note": "读取静态字段"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Gateway06.java",
+      "line": 8,
+      "note": "跨模块边界：进入 dao 模块"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step07.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step07.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step08.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step08Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step09.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step09Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step10.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Step10.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/Sanitizer11.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "modules/dao/src/main/java/com/habench/cases/java_path_1051_n/dao/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "chain_len": 22,
+    "files_crossed": 16,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:file_read",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:store_field",
+      "prop:static_field",
+      "prop:cross_module",
+      "prop:store_field",
+      "prop:cross_class",
+      "prop:cross_class",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_path_1051_n",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

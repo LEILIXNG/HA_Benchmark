@@ -1,0 +1,78 @@
+{
+  "id": "JAVA-SQLI-1029",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 2 跳传播、跨 1 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/Step00.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/Step01.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1029/web/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 5,
+    "files_crossed": 4,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-1029-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1029/{tag}",
+    "param": "tag",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz' OR 1=1--;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "id": "JAVA-CMDI-1011",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "请求头经 4 跳传播、跨 2 个模块流入命令执行，经无效净化（只剥单引号）",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1011/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1011/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/Sanitizer04.java",
+    "line": 9,
+    "note": "SANITIZER: 不完整净化（无效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1011/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1011/web/Step00.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1011/web/Step01.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1011/web/Step01Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/Gateway02.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/Step03.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/Handler03Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/Sanitizer04.java",
+      "line": 9,
+      "note": "SANITIZER: 不完整净化（无效）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1011/service/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 10,
+    "files_crossed": 9,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:runtime_exec",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:cross_module",
+      "prop:interface_dispatch",
+      "sanitizer:incomplete_quote_strip"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1011",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo order:zz$(id);",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

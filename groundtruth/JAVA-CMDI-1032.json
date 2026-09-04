@@ -1,0 +1,175 @@
+{
+  "id": "JAVA-CMDI-1032",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "请求头经 10 跳传播、跨 2 个模块流入命令执行，经有效白名单校验",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/SinkHandler.java",
+    "line": 13,
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Sanitizer04.java",
+    "line": 10,
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Step00.java",
+      "line": 7,
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Handler00Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Step01.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Handler01Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Step02.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Step02Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Step03.java",
+      "line": 7,
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_cmdi_1032/web/Handler03Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Sanitizer04.java",
+      "line": 10,
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Gateway04.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step05.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step05.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step06.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step07.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step07Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step08.java",
+      "line": 10,
+      "note": "写入实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step08.java",
+      "line": 15,
+      "note": "读取实例字段"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Step09.java",
+      "line": 7,
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/Handler09Impl00.java",
+      "line": 8,
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/SinkHandler.java",
+      "line": 9,
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_cmdi_1032/service/SinkHandler.java",
+      "line": 13,
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 22,
+    "files_crossed": 19,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:runtime_exec",
+      "prop:interface_dispatch",
+      "prop:interface_dispatch",
+      "prop:cross_class",
+      "prop:interface_dispatch",
+      "prop:cross_module",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:store_field",
+      "prop:interface_dispatch",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/case/java_cmdi_1032",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}

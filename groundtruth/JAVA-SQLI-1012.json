@@ -1,0 +1,139 @@
+{
+  "id": "JAVA-SQLI-1012",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 8 跳传播、跨 2 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012/web/EntryController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012/web/EntryController.java",
+    "line": 13,
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/SinkHandler.java",
+    "line": 17,
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "path": [
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012/web/EntryController.java",
+      "line": 13,
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012/web/Step00.java",
+      "line": 12,
+      "note": "存入集合元素"
+    },
+    {
+      "file": "modules/web/src/main/java/com/habench/cases/java_sqli_1012/web/Step00.java",
+      "line": 13,
+      "note": "取出集合元素"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Gateway01.java",
+      "line": 8,
+      "note": "跨模块边界：进入 service 模块"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step02.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step02Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step03.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step03Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step04.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step04Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step05.java",
+      "line": 6,
+      "note": "跨类调用"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step05Delegate.java",
+      "line": 8,
+      "note": "委托类转发"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step06.java",
+      "line": 8,
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/Step07.java",
+      "line": 8,
+      "note": "局部变量传递"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/SinkHandler.java",
+      "line": 13,
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "modules/service/src/main/java/com/habench/cases/java_sqli_1012/service/SinkHandler.java",
+      "line": 17,
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "chain_len": 16,
+    "files_crossed": 14,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:cross_class",
+      "prop:cross_class",
+      "prop:cross_class",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-1012-N",
+  "http": {
+    "method": "GET",
+    "path": "/case/java_sqli_1012/{orderNo}",
+    "param": "orderNo",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'order:zz' OR 1=1--;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-04T11:38:14+08:00"
+  }
+}
