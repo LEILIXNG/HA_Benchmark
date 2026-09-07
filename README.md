@@ -1,4 +1,4 @@
-# Ha_benchmark
+# HA_benchmark
 
 面向 SAST（静态应用安全测试）工具的测试集：多 source、多 sink、跨文件跨模块、长链路，
 每条用例附带经过**动态验证**的标答。
