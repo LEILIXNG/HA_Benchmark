@@ -1,0 +1,156 @@
+{
+  "id": "JAVA-SPEL-1031",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "请求头经 7 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountrollup/web/ContractController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountrollup/web/ContractController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/accountrollup/dao/ContractEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountrollup/web/ContractController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrollup/web/ManifestBroker.java",
+      "line": 14,
+      "expr": "ledgerEntry1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrollup/web/ManifestBroker.java",
+      "line": 15,
+      "expr": "channelTag2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrollup/web/ManifestBroker.java",
+      "line": 16,
+      "expr": "channelTag2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrollup/web/ManifestBroker.java",
+      "line": 21,
+      "expr": "catalogKey3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrollup/web/ManifestBroker.java",
+      "line": 22,
+      "expr": "receiptKey4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrollup/web/ManifestBroker.java",
+      "line": 23,
+      "expr": "receiptKey4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter2.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter2.java",
+      "line": 13,
+      "expr": "invoiceKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter2.java",
+      "line": 14,
+      "expr": "invoiceKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrollup/dao/BundleAdapter.java",
+      "line": 8,
+      "expr": "voucherRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrollup/dao/BundleAdapter.java",
+      "line": 9,
+      "expr": "paymentTag202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrollup/dao/BundleAdapter.java",
+      "line": 10,
+      "expr": "paymentTag202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrollup/dao/ContractEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrollup/dao/ContractEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 15,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/rollup",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

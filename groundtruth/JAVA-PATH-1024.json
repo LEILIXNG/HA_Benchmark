@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1024",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "请求头经 10 层调用、跨 2 个模块流入文件读取",
+  "title": "查询参数经 8 层调用、跨 3 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/customerhold/web/QuoteController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/customerhold/web/QuoteController.java",
     "line": 13,
-    "expr": "label",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "reference",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/customerhold/service/QuoteLoader.java",
+    "file": "dao/src/main/java/com/habench/customerhold/dao/QuoteLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,196 +26,130 @@
     {
       "file": "web/src/main/java/com/habench/customerhold/web/QuoteController.java",
       "line": 13,
-      "expr": "label",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "reference",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
-      "line": 11,
-      "expr": "shipmentCode1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
-      "line": 14,
-      "expr": "shipmentCode1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
-      "line": 15,
-      "expr": "manifestKey2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
-      "line": 16,
-      "expr": "manifestKey2",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
-      "line": 21,
-      "expr": "invoiceKey3",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
-      "line": 22,
-      "expr": "batchTag4",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/LedgerCoordinator.java",
-      "line": 23,
-      "expr": "batchTag4",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/TariffBroker2.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerhold/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/TariffBroker2.java",
       "line": 13,
-      "expr": "receiptKey101",
+      "expr": "channelTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerhold/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/customerhold/web/TariffBroker2.java",
       "line": 14,
-      "expr": "receiptKey101",
+      "expr": "catalogKey2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerhold/web/TariffBroker2.java",
+      "line": 15,
+      "expr": "catalogKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerhold/web/SessionRouter.java",
-      "line": 8,
-      "expr": "quoteRef201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerhold/web/SessionRouter.java",
-      "line": 9,
-      "expr": "quoteRef201",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/com/habench/customerhold/service/BatchRegistry.java",
+      "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 20,
-      "expr": "shipmentCode301",
+      "file": "service/src/main/java/com/habench/customerhold/service/BatchRegistry.java",
+      "line": 13,
+      "expr": "batchTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 23,
-      "expr": "shipmentCode301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 24,
-      "expr": "manifestKey302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 25,
-      "expr": "manifestKey302",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 30,
-      "expr": "invoiceKey303",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 31,
-      "expr": "batchTag304",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 32,
-      "expr": "batchTag304",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 37,
-      "expr": "orderRef305",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 38,
-      "expr": "quoteRef306",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 41,
-      "expr": "quoteRef306",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 42,
-      "expr": "tariffRef307",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerhold/service/ChannelBuilder.java",
-      "line": 43,
-      "expr": "tariffRef307",
+      "file": "service/src/main/java/com/habench/customerhold/service/BatchRegistry.java",
+      "line": 14,
+      "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerhold/service/QuoteLoader.java",
+      "file": "service/src/main/java/com/habench/customerhold/service/TariffBroker.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerhold/service/TariffBroker.java",
+      "line": 13,
+      "expr": "paymentTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerhold/service/TariffBroker.java",
+      "line": 14,
+      "expr": "paymentTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerhold/dao/ChannelBuilder.java",
+      "line": 14,
+      "expr": "channelTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerhold/dao/ChannelBuilder.java",
+      "line": 15,
+      "expr": "channelTag301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerhold/dao/ChannelBuilder.java",
+      "line": 20,
+      "expr": "catalogKey302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerhold/dao/ChannelBuilder.java",
+      "line": 21,
+      "expr": "receiptKey303",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerhold/dao/ChannelBuilder.java",
+      "line": 22,
+      "expr": "receiptKey303",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerhold/dao/QuoteLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/customerhold/service/QuoteLoader.java",
+      "file": "dao/src/main/java/com/habench/customerhold/dao/QuoteLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 10,
-    "chain_len": 28,
+    "call_depth": 8,
+    "chain_len": 18,
     "files_crossed": 6,
-    "modules_crossed": 2,
+    "modules_crossed": 3,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:file_read",
+      "prop:map_element",
       "prop:string_concat",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:assign_local",
       "prop:cross_module",
       "prop:map_element",
+      "prop:cross_class",
       "prop:map_element",
-      "prop:static_field",
+      "prop:cross_module",
       "prop:string_concat",
       "prop:store_field",
-      "prop:string_concat",
-      "prop:map_element",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
@@ -223,19 +157,19 @@
   "http": {
     "method": "GET",
     "path": "/api/customer/hold",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "reference",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 10,
+    "call_depth_observed": 8,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

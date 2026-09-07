@@ -1,6 +1,6 @@
 package com.habench.reporttransfer.web;
 
-import com.habench.reporttransfer.web.CatalogAssembler;
+import com.habench.reporttransfer.web.BundleFacade;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class BatchController {
 
     @GetMapping("/api/report/transfer")
-    public String refine(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
-        CatalogAssembler.submit(target);
+    public String attach(HttpServletRequest request) {
+        String keyword = request.getHeader("X-Ha-Payload");
+        BundleFacade.compose(keyword);
         return "ok";
     }
 }

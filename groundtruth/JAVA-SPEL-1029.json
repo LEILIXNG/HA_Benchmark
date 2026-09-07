@@ -1,0 +1,241 @@
+{
+  "id": "JAVA-SPEL-1029",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "请求头经 10 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountreopen/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountreopen/web/SessionController.java",
+    "line": 13,
+    "expr": "token",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/accountreopen/service/SessionEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountreopen/web/SessionController.java",
+      "line": 13,
+      "expr": "token",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountreopen/web/ShipmentAssembler.java",
+      "line": 8,
+      "expr": "invoiceKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountreopen/web/ShipmentAssembler.java",
+      "line": 9,
+      "expr": "batchTag2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountreopen/web/ShipmentAssembler.java",
+      "line": 10,
+      "expr": "batchTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountreopen/web/BundleAdapter.java",
+      "line": 8,
+      "expr": "voucherRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountreopen/web/BundleAdapter.java",
+      "line": 9,
+      "expr": "paymentTag102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountreopen/web/BundleAdapter.java",
+      "line": 10,
+      "expr": "paymentTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 11,
+      "expr": "ledgerEntry201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 14,
+      "expr": "ledgerEntry201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 15,
+      "expr": "channelTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 16,
+      "expr": "channelTag202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 21,
+      "expr": "catalogKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 24,
+      "expr": "catalogKey203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 25,
+      "expr": "receiptKey204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 26,
+      "expr": "accountRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/PaymentRouter.java",
+      "line": 27,
+      "expr": "accountRef205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/InvoiceRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/InvoiceRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 14,
+      "expr": "invoiceKey301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 17,
+      "expr": "invoiceKey301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 18,
+      "expr": "batchTag302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 19,
+      "expr": "batchTag302",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 24,
+      "expr": "orderRef303",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 25,
+      "expr": "quoteRef304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionNormalizer.java",
+      "line": 26,
+      "expr": "quoteRef304",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountreopen/service/SessionEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 28,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:spel_eval",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/reopen",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 10,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

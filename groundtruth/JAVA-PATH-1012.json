@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1012",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "请求头经 7 层调用、跨 2 个模块流入文件读取",
+  "title": "请求头经 11 层调用、跨 3 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/orderhold/web/BundleController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/orderhold/web/BundleController.java",
     "line": 13,
-    "expr": "keyword",
+    "expr": "tag",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/orderhold/service/BundleLoader.java",
+    "file": "dao/src/main/java/com/habench/orderhold/dao/BundleLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,96 +26,182 @@
     {
       "file": "web/src/main/java/com/habench/orderhold/web/BundleController.java",
       "line": 13,
-      "expr": "keyword",
+      "expr": "tag",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/orderhold/web/PaymentNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderhold/web/QuoteNormalizer.java",
       "line": 8,
-      "expr": "channelTag1",
+      "expr": "paymentTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderhold/web/PaymentNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderhold/web/QuoteNormalizer.java",
       "line": 9,
-      "expr": "channelTag1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderhold/service/TariffRouter.java",
-      "line": 8,
-      "expr": "batchTag101",
+      "expr": "refundCode2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/TariffRouter.java",
-      "line": 9,
-      "expr": "batchTag101",
+      "file": "web/src/main/java/com/habench/orderhold/web/QuoteNormalizer.java",
+      "line": 10,
+      "expr": "refundCode2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/InvoicePolicySelector.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/PaymentNormalizer.java",
+      "line": 8,
+      "expr": "channelTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/PaymentNormalizer.java",
+      "line": 9,
+      "expr": "channelTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/TariffStrategySelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（4 个实现）"
+      "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/InvoicePolicyStandard.java",
+      "file": "service/src/main/java/com/habench/orderhold/service/TariffStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
-      "line": 10,
-      "expr": "paymentTag201",
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 16,
+      "expr": "batchTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
-      "line": 13,
-      "expr": "paymentTag201",
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 17,
+      "expr": "batchTag201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 22,
+      "expr": "orderRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 25,
+      "expr": "orderRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
-      "line": 14,
-      "expr": "refundCode202",
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 26,
+      "expr": "quoteRef203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/ShipmentService.java",
-      "line": 15,
-      "expr": "refundCode202",
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 29,
+      "expr": "quoteRef203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 30,
+      "expr": "tariffRef204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 31,
+      "expr": "tariffRef204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 36,
+      "expr": "ledgerEntry205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 39,
+      "expr": "ledgerEntry205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 40,
+      "expr": "channelTag206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 43,
+      "expr": "channelTag206",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 44,
+      "expr": "catalogKey207",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderhold/service/InvoiceCollector.java",
+      "line": 45,
+      "expr": "catalogKey207",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/BundleLoader.java",
+      "file": "dao/src/main/java/com/habench/orderhold/dao/ShipmentService.java",
+      "line": 8,
+      "expr": "paymentTag301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderhold/dao/ShipmentService.java",
+      "line": 9,
+      "expr": "paymentTag301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderhold/dao/BundleLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/orderhold/service/BundleLoader.java",
+      "file": "dao/src/main/java/com/habench/orderhold/dao/BundleLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 13,
-    "files_crossed": 7,
-    "modules_crossed": 2,
+    "call_depth": 11,
+    "chain_len": 26,
+    "files_crossed": 8,
+    "modules_crossed": 3,
     "features": [
       "source:servlet_header",
       "sink:file_read",
+      "prop:string_concat",
       "prop:string_concat",
       "prop:cross_module",
       "prop:string_concat",
       "prop:interface_dispatch",
       "prop:assign_local",
+      "prop:store_field",
       "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
@@ -131,11 +217,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 7,
+    "call_depth_observed": 11,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

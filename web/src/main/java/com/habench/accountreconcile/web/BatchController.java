@@ -1,6 +1,6 @@
 package com.habench.accountreconcile.web;
 
-import com.habench.accountreconcile.web.ManifestService;
+import com.habench.accountreconcile.web.CatalogFacade;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class BatchController {
 
     @GetMapping("/api/account/reconcile")
-    public String stage(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
-        ManifestService.expand(target);
+    public String route(HttpServletRequest request) {
+        String keyword = request.getHeader("X-Ha-Payload");
+        CatalogFacade.assemble(keyword);
         return "ok";
     }
 }

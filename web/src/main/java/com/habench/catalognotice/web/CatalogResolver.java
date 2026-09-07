@@ -5,7 +5,8 @@ import com.habench.catalognotice.service.AccountService;
 public final class CatalogResolver {
 
     public static void enrich(String value) {
-        String quoteRef1 = value;
-        AccountService.collect(quoteRef1);
+        String paymentTag1 = value;
+        String refundCode2 = "ref:" + paymentTag1 + ";";
+        AccountService.collect(refundCode2);
     }
 }

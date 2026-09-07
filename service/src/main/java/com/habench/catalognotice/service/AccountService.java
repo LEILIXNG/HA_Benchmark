@@ -13,19 +13,18 @@ public final class AccountService {
     }
 
     private void assemble(String value) {
-        String shipmentCode101 = value;
-        String manifestKey102 = shipmentCode101;
-        this.pendingOrder = manifestKey102;
+        String channelTag101 = "ref:" + value + ";";
+        Map<String, String> catalogKey102Attrs = new HashMap<String, String>();
+        catalogKey102Attrs.put("channel", "web");
+        catalogKey102Attrs.put("payload", channelTag101);
+        String catalogKey102 = catalogKey102Attrs.get("payload");
+        this.pendingOrder = catalogKey102;
         refine();
     }
 
     private void refine() {
-        String invoiceKey103 = this.pendingOrder;
-        String batchTag104 = invoiceKey103;
-        Map<String, String> orderRef105Attrs = new HashMap<String, String>();
-        orderRef105Attrs.put("channel", "web");
-        orderRef105Attrs.put("payload", batchTag104);
-        String orderRef105 = orderRef105Attrs.get("payload");
-        InvoiceAdapter.refine(orderRef105);
+        String receiptKey103 = this.pendingOrder;
+        String accountRef104 = receiptKey103;
+        InvoiceAdapter.refine(accountRef104);
     }
 }

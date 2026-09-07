@@ -1,0 +1,345 @@
+{
+  "id": "JAVA-SPEL-1021-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-1021 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/paymentmerge/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/paymentmerge/web/SessionController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/paymentmerge/dao/SessionEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/paymentmerge/dao/BatchPolicy.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/paymentmerge/web/SessionController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentmerge/web/BundleComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentmerge/web/BundleComposer.java",
+      "line": 13,
+      "expr": "orderRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentmerge/web/BundleComposer.java",
+      "line": 14,
+      "expr": "quoteRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentmerge/web/BundleComposer.java",
+      "line": 15,
+      "expr": "quoteRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 20,
+      "expr": "refundCode101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 21,
+      "expr": "shipmentCode102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 22,
+      "expr": "shipmentCode102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 27,
+      "expr": "manifestKey103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 28,
+      "expr": "invoiceKey104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 29,
+      "expr": "invoiceKey104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 34,
+      "expr": "batchTag105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 37,
+      "expr": "batchTag105",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 38,
+      "expr": "orderRef106",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 39,
+      "expr": "orderRef106",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 44,
+      "expr": "quoteRef107",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 45,
+      "expr": "tariffRef108",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentmerge/service/QuoteCollector.java",
+      "line": 46,
+      "expr": "tariffRef108",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ChannelRouter.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ChannelRouter.java",
+      "line": 14,
+      "expr": "catalogKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ChannelRouter.java",
+      "line": 15,
+      "expr": "catalogKey201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ChannelRouter.java",
+      "line": 20,
+      "expr": "receiptKey202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ChannelRouter.java",
+      "line": 21,
+      "expr": "accountRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ChannelRouter.java",
+      "line": 22,
+      "expr": "accountRef203",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/BatchPolicy.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/SessionStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/SessionStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 11,
+      "expr": "orderRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 12,
+      "expr": "quoteRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 13,
+      "expr": "quoteRef302",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 18,
+      "expr": "tariffRef303",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 19,
+      "expr": "ledgerEntry304",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 20,
+      "expr": "ledgerEntry304",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 25,
+      "expr": "channelTag305",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 28,
+      "expr": "channelTag305",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 29,
+      "expr": "catalogKey306",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 30,
+      "expr": "receiptKey307",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/CatalogCoordinator.java",
+      "line": 31,
+      "expr": "receiptKey307",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ContractBroker.java",
+      "line": 8,
+      "expr": "refundCode401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/ContractBroker.java",
+      "line": 9,
+      "expr": "refundCode401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/SessionEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentmerge/dao/SessionEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 17,
+    "chain_len": 43,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/payment/merge",
+    "param": "reference",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

@@ -1,8 +1,8 @@
 {
   "id": "JAVA-CMDI-1046",
   "cwe": "CWE-78",
-  "verdict": "safe",
-  "title": "查询参数经 16 层调用、跨 3 个模块流入命令执行，经 whitelist_regex 净化",
+  "verdict": "vulnerable",
+  "title": "请求头经 7 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/orderreview/web/SessionController.java",
     "line": 11,
@@ -11,249 +11,158 @@
   "source": {
     "file": "web/src/main/java/com/habench/orderreview/web/SessionController.java",
     "line": 13,
-    "expr": "keyword",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "reference",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/orderreview/dao/SessionExecutor.java",
+    "file": "service/src/main/java/com/habench/orderreview/service/SessionExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": {
-    "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentGuard.java",
-    "line": 11,
-    "expr": "value",
-    "note": "SANITIZER: 严格白名单校验（有效）"
-  },
-  "sanitizer_kind": "whitelist_regex",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/orderreview/web/SessionController.java",
       "line": 13,
-      "expr": "keyword",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "reference",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
-      "line": 16,
-      "expr": "receiptKey1",
+      "file": "web/src/main/java/com/habench/orderreview/web/LedgerBuilder.java",
+      "line": 8,
+      "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
-      "line": 17,
-      "expr": "receiptKey1",
-      "note": "写入实例字段"
+      "file": "web/src/main/java/com/habench/orderreview/web/LedgerBuilder.java",
+      "line": 9,
+      "expr": "orderRef1",
+      "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
-      "line": 22,
-      "expr": "accountRef2",
-      "note": "读取实例字段"
+      "file": "web/src/main/java/com/habench/orderreview/web/TariffTranslator.java",
+      "line": 8,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
-      "line": 25,
-      "expr": "accountRef2",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
-      "line": 26,
-      "expr": "voucherRef3",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
-      "line": 27,
-      "expr": "paymentTag4",
+      "file": "web/src/main/java/com/habench/orderreview/web/TariffTranslator.java",
+      "line": 9,
+      "expr": "shipmentCode102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/QuoteRouter.java",
-      "line": 28,
-      "expr": "paymentTag4",
+      "file": "web/src/main/java/com/habench/orderreview/web/TariffTranslator.java",
+      "line": 10,
+      "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
-      "line": 16,
-      "expr": "quoteRef101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
-      "line": 19,
-      "expr": "quoteRef101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
-      "line": 20,
-      "expr": "tariffRef102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
-      "line": 21,
-      "expr": "tariffRef102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
-      "line": 26,
-      "expr": "ledgerEntry103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
-      "line": 27,
-      "expr": "channelTag104",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderreview/web/ReceiptEnricher.java",
-      "line": 28,
-      "expr": "channelTag104",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderreview/service/ManifestService.java",
-      "line": 8,
-      "expr": "shipmentCode201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderreview/service/ManifestService.java",
-      "line": 9,
-      "expr": "shipmentCode201",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/TariffCoordinator.java",
-      "line": 8,
-      "expr": "receiptKey301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/TariffCoordinator.java",
-      "line": 9,
-      "expr": "receiptKey301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ReceiptPlanSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ReceiptPlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
       "line": 19,
-      "expr": "quoteRef401",
+      "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
       "line": 20,
-      "expr": "quoteRef401",
+      "expr": "catalogKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
       "line": 25,
-      "expr": "tariffRef402",
+      "expr": "receiptKey202",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
-      "line": 26,
-      "expr": "ledgerEntry403",
-      "note": "局部变量传递"
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
+      "line": 28,
+      "expr": "receiptKey202",
+      "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/ContractCollector.java",
-      "line": 27,
-      "expr": "ledgerEntry403",
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
+      "line": 29,
+      "expr": "accountRef203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
+      "line": 32,
+      "expr": "accountRef203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
+      "line": 33,
+      "expr": "voucherRef204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreview/service/PaymentComposer.java",
+      "line": 34,
+      "expr": "voucherRef204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentGuard.java",
-      "line": 11,
-      "expr": "value",
-      "note": "SANITIZER: 严格白名单校验（有效）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/SessionExecutor.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/SessionExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/SessionExecutor.java",
+      "file": "service/src/main/java/com/habench/orderreview/service/SessionExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 16,
-    "chain_len": 30,
-    "files_crossed": 10,
-    "modules_crossed": 3,
+    "call_depth": 7,
+    "chain_len": 17,
+    "files_crossed": 5,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:runtime_exec",
       "prop:assign_local",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:string_concat",
       "prop:cross_class",
       "prop:assign_local",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:cross_module",
       "prop:string_concat",
       "prop:cross_module",
-      "prop:assign_local",
-      "prop:interface_dispatch",
       "prop:map_element",
       "prop:store_field",
-      "prop:assign_local",
-      "sanitizer:whitelist_regex"
+      "prop:map_element",
+      "prop:map_element",
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-CMDI-1046-N",
   "http": {
     "method": "GET",
     "path": "/api/order/review",
-    "param": "keyword",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
+    "reached": true,
+    "tainted": true,
     "neutralized": false,
-    "call_depth_observed": null,
+    "call_depth_observed": 7,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": null,
+    "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

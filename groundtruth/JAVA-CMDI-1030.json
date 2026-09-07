@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1030",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 6 层调用、跨 1 个模块流入命令执行，经 metachar_strip_semicolon 净化",
+  "title": "请求头经 11 层调用、跨 3 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/billingdraft/web/ChannelController.java",
     "line": 11,
@@ -11,148 +11,226 @@
   "source": {
     "file": "web/src/main/java/com/habench/billingdraft/web/ChannelController.java",
     "line": 13,
-    "expr": "label",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "filename",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/billingdraft/web/ChannelExecutor.java",
+    "file": "dao/src/main/java/com/habench/billingdraft/dao/ChannelExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": {
-    "file": "web/src/main/java/com/habench/billingdraft/web/ManifestValidator.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 只剥离分号（无效）"
-  },
-  "sanitizer_kind": "metachar_strip_semicolon",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/billingdraft/web/ChannelController.java",
       "line": 13,
-      "expr": "label",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "filename",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
+      "file": "web/src/main/java/com/habench/billingdraft/web/ManifestCollector.java",
+      "line": 8,
+      "expr": "ledgerEntry1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingdraft/web/ManifestCollector.java",
+      "line": 9,
+      "expr": "ledgerEntry1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingdraft/web/PaymentComposer.java",
+      "line": 8,
+      "expr": "invoiceKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingdraft/web/PaymentComposer.java",
+      "line": 9,
+      "expr": "invoiceKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingdraft/service/ChannelResolver.java",
+      "line": 10,
+      "expr": "voucherRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingdraft/service/ChannelResolver.java",
       "line": 13,
+      "expr": "voucherRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingdraft/service/ChannelResolver.java",
+      "line": 14,
+      "expr": "paymentTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingdraft/service/ChannelResolver.java",
+      "line": 15,
+      "expr": "paymentTag202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/OrderBuilder.java",
+      "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/OrderBuilder.java",
+      "line": 13,
+      "expr": "ledgerEntry301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/OrderBuilder.java",
       "line": 14,
-      "expr": "channelTag1",
-      "note": "取出集合元素"
+      "expr": "channelTag302",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/OrderBuilder.java",
       "line": 15,
-      "expr": "channelTag1",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 20,
-      "expr": "catalogKey2",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 21,
-      "expr": "receiptKey3",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 24,
-      "expr": "receiptKey3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 25,
-      "expr": "accountRef4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 26,
-      "expr": "accountRef4",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 31,
-      "expr": "voucherRef5",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 32,
-      "expr": "paymentTag6",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ShipmentBroker.java",
-      "line": 33,
-      "expr": "paymentTag6",
+      "expr": "channelTag302",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ManifestValidator.java",
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/BundleBroker.java",
       "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 只剥离分号（无效）"
+      "expr": "invoiceKey401",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ChannelExecutor.java",
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/BundleBroker.java",
+      "line": 10,
+      "expr": "invoiceKey401",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/BundleBroker.java",
+      "line": 15,
+      "expr": "batchTag402",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/BundleBroker.java",
+      "line": 16,
+      "expr": "orderRef403",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/BundleBroker.java",
+      "line": 17,
+      "expr": "quoteRef404",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/BundleBroker.java",
+      "line": 18,
+      "expr": "quoteRef404",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ManifestPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ManifestPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ManifestService.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ManifestService.java",
+      "line": 13,
+      "expr": "voucherRef501",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ManifestService.java",
+      "line": 14,
+      "expr": "paymentTag502",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ManifestService.java",
+      "line": 15,
+      "expr": "paymentTag502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ChannelExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdraft/web/ChannelExecutor.java",
+      "file": "dao/src/main/java/com/habench/billingdraft/dao/ChannelExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 6,
-    "chain_len": 15,
-    "files_crossed": 4,
-    "modules_crossed": 1,
+    "call_depth": 11,
+    "chain_len": 27,
+    "files_crossed": 10,
+    "modules_crossed": 3,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
       "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
       "prop:static_field",
       "prop:string_concat",
+      "prop:assign_local",
+      "prop:interface_dispatch",
       "prop:map_element",
-      "prop:static_field",
-      "prop:string_concat",
-      "sanitizer:metachar_strip_semicolon"
+      "prop:assign_local",
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-CMDI-1030-N",
   "http": {
     "method": "GET",
-    "path": "/api/billing/draft/{label}",
-    "param": "label",
-    "carrier": "path"
+    "path": "/api/billing/draft",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 6,
+    "call_depth_observed": 11,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:zz$(id)",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

@@ -1,0 +1,168 @@
+{
+  "id": "JAVA-SPEL-1032",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "请求头经 8 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/reportarchive/service/SessionEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 9,
+      "expr": "accountRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 10,
+      "expr": "accountRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 15,
+      "expr": "voucherRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 16,
+      "expr": "paymentTag3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 17,
+      "expr": "paymentTag3",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 22,
+      "expr": "refundCode4",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 23,
+      "expr": "shipmentCode5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "line": 24,
+      "expr": "shipmentCode5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
+      "line": 19,
+      "expr": "tariffRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
+      "line": 20,
+      "expr": "tariffRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
+      "line": 25,
+      "expr": "ledgerEntry102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
+      "line": 26,
+      "expr": "channelTag103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
+      "line": 27,
+      "expr": "channelTag103",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/SessionEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/SessionEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 17,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:spel_eval",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/report/archive",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

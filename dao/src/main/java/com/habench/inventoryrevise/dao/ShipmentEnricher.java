@@ -1,17 +1,26 @@
 package com.habench.inventoryrevise.dao;
 
 import com.habench.inventoryrevise.dao.ChannelExecutor;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class ShipmentEnricher {
+    private String pendingChannel;
 
-    public static void refine(String value) {
-        Map<String, String> paymentTag201Attrs = new HashMap<String, String>();
-        paymentTag201Attrs.put("channel", "web");
-        paymentTag201Attrs.put("payload", value);
-        String paymentTag201 = paymentTag201Attrs.get("payload");
-        String refundCode202 = paymentTag201;
-        ChannelExecutor.submit(refundCode202);
+    public static void dispatch(String value) {
+        ShipmentEnricher self = new ShipmentEnricher();
+        self.refine(value);
+    }
+
+    private void refine(String value) {
+        String accountRef201 = "ref:" + value + ";";
+        String voucherRef202 = accountRef201;
+        this.pendingChannel = voucherRef202;
+        collect();
+    }
+
+    private void collect() {
+        String paymentTag203 = this.pendingChannel;
+        String refundCode204 = paymentTag203;
+        String shipmentCode205 = refundCode204;
+        ChannelExecutor.submit(shipmentCode205);
     }
 }

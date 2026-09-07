@@ -1,17 +1,17 @@
 package com.habench.accountgrant.web;
 
-import com.habench.accountgrant.web.OrderAssembler;
+import com.habench.accountgrant.web.ManifestRouter;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("accountgrantController")
 public class TariffController {
 
-    @GetMapping("/api/account/grant")
-    public String resolve(
-            @RequestParam("target") String target) {
-        OrderAssembler.enrich(target);
+    @GetMapping("/api/account/grant/{userName}")
+    public String route(
+            @PathVariable("userName") String userName) {
+        ManifestRouter.stage(userName);
         return "ok";
     }
 }

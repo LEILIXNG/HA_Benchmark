@@ -1,0 +1,145 @@
+{
+  "id": "JAVA-SPEL-1056-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-1056 逐行相同，仅把净化改为 spel_restricted_context",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendordispatch/web/AccountController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendordispatch/web/AccountController.java",
+    "line": 13,
+    "expr": "filename",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/vendordispatch/web/AccountEvaluator.java",
+    "line": 17,
+    "expr": "template",
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/vendordispatch/web/AccountEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/AccountController.java",
+      "line": 13,
+      "expr": "filename",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/OrderCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/OrderCoordinator.java",
+      "line": 13,
+      "expr": "batchTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/OrderCoordinator.java",
+      "line": 14,
+      "expr": "batchTag1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/ContractCoordinator.java",
+      "line": 8,
+      "expr": "paymentTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/ContractCoordinator.java",
+      "line": 9,
+      "expr": "paymentTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/TariffPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/TariffPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/CatalogAdapter.java",
+      "line": 8,
+      "expr": "channelTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/CatalogAdapter.java",
+      "line": 9,
+      "expr": "channelTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/AccountEvaluator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/AccountEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendordispatch/web/AccountEvaluator.java",
+      "line": 17,
+      "expr": "template",
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 13,
+    "files_crossed": 7,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:spel_restricted_context"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/dispatch/{filename}",
+    "param": "filename",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 7,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'zz' + T(java.lang.Runtime) + 'zz'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

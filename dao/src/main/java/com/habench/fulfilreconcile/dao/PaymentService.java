@@ -11,7 +11,7 @@ public final class PaymentService {
     }
 
     private static void reconcile() {
-        String paymentTag301 = cachedRefund;
-        RefundValidator.refine(paymentTag301);
+        String orderRef301 = cachedRefund;
+        RefundValidator.refine(orderRef301);
     }
 }

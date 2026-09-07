@@ -1,0 +1,233 @@
+{
+  "id": "JAVA-SPEL-1037-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-1037 逐行相同，仅把净化改为 spel_restricted_context",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountlookup/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountlookup/web/ReceiptController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/accountlookup/service/ReceiptEvaluator.java",
+    "line": 17,
+    "expr": "template",
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/accountlookup/service/ReceiptEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountlookup/web/ReceiptController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountlookup/web/LedgerResolver.java",
+      "line": 14,
+      "expr": "voucherRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountlookup/web/LedgerResolver.java",
+      "line": 15,
+      "expr": "paymentTag2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountlookup/web/LedgerResolver.java",
+      "line": 16,
+      "expr": "paymentTag2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountlookup/web/LedgerResolver.java",
+      "line": 21,
+      "expr": "refundCode3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountlookup/web/LedgerResolver.java",
+      "line": 22,
+      "expr": "shipmentCode4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountlookup/web/LedgerResolver.java",
+      "line": 23,
+      "expr": "shipmentCode4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/ChannelResolver.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/ChannelResolver.java",
+      "line": 13,
+      "expr": "ledgerEntry101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/ChannelResolver.java",
+      "line": 14,
+      "expr": "ledgerEntry101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 17,
+      "expr": "invoiceKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 18,
+      "expr": "invoiceKey201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 23,
+      "expr": "batchTag202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 24,
+      "expr": "orderRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 25,
+      "expr": "orderRef203",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 30,
+      "expr": "quoteRef204",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 33,
+      "expr": "quoteRef204",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 34,
+      "expr": "tariffRef205",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 35,
+      "expr": "ledgerEntry206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 36,
+      "expr": "ledgerEntry206",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 41,
+      "expr": "channelTag207",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 42,
+      "expr": "catalogKey208",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/OrderEnricher.java",
+      "line": 43,
+      "expr": "catalogKey208",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/ReceiptEvaluator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/ReceiptEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountlookup/service/ReceiptEvaluator.java",
+      "line": 17,
+      "expr": "template",
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 26,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "sanitizer:spel_restricted_context"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/lookup",
+    "param": "orderNo",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 11,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

@@ -1,8 +1,8 @@
 {
   "id": "JAVA-CMDI-1048",
   "cwe": "CWE-78",
-  "verdict": "safe",
-  "title": "查询参数经 7 层调用、跨 2 个模块流入命令执行，经 whitelist_regex 净化",
+  "verdict": "vulnerable",
+  "title": "查询参数经 6 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfilgrant/web/ChannelController.java",
     "line": 11,
@@ -11,148 +11,132 @@
   "source": {
     "file": "web/src/main/java/com/habench/fulfilgrant/web/ChannelController.java",
     "line": 13,
-    "expr": "target",
+    "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/fulfilgrant/service/ChannelExecutor.java",
+    "file": "web/src/main/java/com/habench/fulfilgrant/web/ChannelExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionGuard.java",
-    "line": 11,
-    "expr": "value",
-    "note": "SANITIZER: 严格白名单校验（有效）"
-  },
-  "sanitizer_kind": "whitelist_regex",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/fulfilgrant/web/ChannelController.java",
       "line": 13,
-      "expr": "target",
+      "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherFacade.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionBroker.java",
+      "line": 8,
+      "expr": "paymentTag1",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherFacade.java",
-      "line": 13,
-      "expr": "tariffRef1",
-      "note": "取出集合元素"
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionBroker.java",
+      "line": 9,
+      "expr": "paymentTag1",
+      "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherFacade.java",
-      "line": 14,
-      "expr": "ledgerEntry2",
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 9,
+      "expr": "channelTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 10,
+      "expr": "channelTag101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 15,
+      "expr": "catalogKey102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 16,
+      "expr": "receiptKey103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 17,
+      "expr": "receiptKey103",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 22,
+      "expr": "accountRef104",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 23,
+      "expr": "voucherRef105",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherFacade.java",
-      "line": 15,
-      "expr": "ledgerEntry2",
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionResolver.java",
+      "line": 24,
+      "expr": "voucherRef105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/CatalogNormalizer.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/CatalogNormalizer.java",
-      "line": 19,
-      "expr": "manifestKey101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/CatalogNormalizer.java",
-      "line": 20,
-      "expr": "manifestKey101",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/CatalogNormalizer.java",
-      "line": 25,
-      "expr": "invoiceKey102",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/CatalogNormalizer.java",
-      "line": 28,
-      "expr": "invoiceKey102",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/CatalogNormalizer.java",
-      "line": 29,
-      "expr": "batchTag103",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/CatalogNormalizer.java",
-      "line": 30,
-      "expr": "batchTag103",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionGuard.java",
-      "line": 11,
-      "expr": "value",
-      "note": "SANITIZER: 严格白名单校验（有效）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/ChannelExecutor.java",
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/ChannelExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/ChannelExecutor.java",
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/ChannelExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 15,
-    "files_crossed": 5,
-    "modules_crossed": 2,
+    "call_depth": 6,
+    "chain_len": 13,
+    "files_crossed": 4,
+    "modules_crossed": 1,
     "features": [
       "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
       "prop:assign_local",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
-      "sanitizer:whitelist_regex"
+      "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/fulfil/grant",
-    "param": "target",
+    "param": "userName",
     "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
+    "reached": true,
+    "tainted": true,
     "neutralized": false,
-    "call_depth_observed": null,
+    "call_depth_observed": 6,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": null,
+    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

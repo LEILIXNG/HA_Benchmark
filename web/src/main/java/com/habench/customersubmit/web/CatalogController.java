@@ -1,17 +1,17 @@
 package com.habench.customersubmit.web;
 
-import com.habench.customersubmit.web.TariffComposer;
+import com.habench.customersubmit.web.ReceiptEnricher;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("customersubmitController")
 public class CatalogController {
 
-    @GetMapping("/api/customer/submit")
-    public String assemble(
-            @RequestParam("keyword") String keyword) {
-        TariffComposer.prepare(keyword);
+    @GetMapping("/api/customer/submit/{keyword}")
+    public String stage(
+            @PathVariable("keyword") String keyword) {
+        ReceiptEnricher.merge(keyword);
         return "ok";
     }
 }

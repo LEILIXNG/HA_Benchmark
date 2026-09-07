@@ -1,148 +1,283 @@
 {
   "id": "JAVA-PATH-1016",
   "cwe": "CWE-22",
-  "verdict": "vulnerable",
-  "title": "查询参数经 6 层调用、跨 1 个模块流入文件读取",
+  "verdict": "safe",
+  "title": "查询参数经 13 层调用、跨 2 个模块流入文件读取，经 path_canonical_check 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
+    "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
+    "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
     "line": 13,
-    "expr": "label",
+    "expr": "orderNo",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountLoader.java",
-    "line": 17,
-    "expr": "path",
-    "note": "SINK: CWE-22 路径穿越"
+    "file": "service/src/main/java/com/habench/customerquote/service/AccountLoader.java",
+    "line": 20,
+    "expr": "resolved",
+    "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/customerquote/service/AccountLoader.java",
+    "line": 15,
+    "expr": "resolved",
+    "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
+  },
+  "sanitizer_kind": "path_canonical_check",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
+      "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
       "line": 13,
-      "expr": "label",
+      "expr": "orderNo",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 17,
-      "expr": "tariffRef1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 18,
-      "expr": "ledgerEntry2",
+      "file": "web/src/main/java/com/habench/customerquote/web/InvoiceComposer.java",
+      "line": 10,
+      "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 19,
-      "expr": "ledgerEntry2",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 24,
-      "expr": "channelTag3",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 25,
-      "expr": "catalogKey4",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 26,
-      "expr": "catalogKey4",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 31,
-      "expr": "receiptKey5",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 32,
-      "expr": "accountRef6",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 35,
-      "expr": "accountRef6",
+      "file": "web/src/main/java/com/habench/customerquote/web/InvoiceComposer.java",
+      "line": 13,
+      "expr": "shipmentCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 36,
-      "expr": "voucherRef7",
+      "file": "web/src/main/java/com/habench/customerquote/web/InvoiceComposer.java",
+      "line": 14,
+      "expr": "manifestKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
-      "line": 37,
-      "expr": "voucherRef7",
+      "file": "web/src/main/java/com/habench/customerquote/web/InvoiceComposer.java",
+      "line": 15,
+      "expr": "manifestKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountLoader.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/customerquote/web/AccountPolicySelector.java",
+      "line": 7,
       "expr": "value",
-      "note": "污点进入文件路径"
+      "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountLoader.java",
+      "file": "web/src/main/java/com/habench/customerquote/web/AccountPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
       "line": 17,
-      "expr": "path",
-      "note": "SINK: CWE-22 路径穿越"
+      "expr": "receiptKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 20,
+      "expr": "receiptKey101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 21,
+      "expr": "accountRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 22,
+      "expr": "accountRef102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 27,
+      "expr": "voucherRef103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 28,
+      "expr": "paymentTag104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 31,
+      "expr": "paymentTag104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 32,
+      "expr": "refundCode105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 33,
+      "expr": "refundCode105",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 38,
+      "expr": "shipmentCode106",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 39,
+      "expr": "manifestKey107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 42,
+      "expr": "manifestKey107",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 43,
+      "expr": "invoiceKey108",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentService.java",
+      "line": 44,
+      "expr": "invoiceKey108",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 17,
+      "expr": "quoteRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 18,
+      "expr": "quoteRef201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 23,
+      "expr": "tariffRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 26,
+      "expr": "tariffRef202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 27,
+      "expr": "ledgerEntry203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 28,
+      "expr": "ledgerEntry203",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 33,
+      "expr": "channelTag204",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 36,
+      "expr": "channelTag204",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 37,
+      "expr": "catalogKey205",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/ReceiptCollector.java",
+      "line": 38,
+      "expr": "catalogKey205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountLoader.java",
+      "line": 14,
+      "expr": "value",
+      "note": "解析并规范化路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountLoader.java",
+      "line": 15,
+      "expr": "resolved",
+      "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountLoader.java",
+      "line": 20,
+      "expr": "resolved",
+      "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
     }
   ],
   "metrics": {
-    "call_depth": 6,
-    "chain_len": 14,
-    "files_crossed": 3,
-    "modules_crossed": 1,
+    "call_depth": 13,
+    "chain_len": 34,
+    "files_crossed": 7,
+    "modules_crossed": 2,
     "features": [
       "source:spring_request_param",
       "sink:file_read",
-      "prop:string_concat",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:store_field",
+      "prop:map_element",
+      "prop:interface_dispatch",
       "prop:string_concat",
       "prop:map_element",
-      "sanitizer:none"
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "sanitizer:path_canonical_check"
     ]
   },
-  "paired_negative": "JAVA-PATH-1016-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/inventory/adjust",
-    "param": "label",
+    "path": "/api/customer/quote",
+    "param": "orderNo",
     "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
     "neutralized": false,
-    "call_depth_observed": 6,
+    "call_depth_observed": null,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

@@ -1,0 +1,260 @@
+{
+  "id": "JAVA-SPEL-1017",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "查询参数经 14 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/ordersubmit/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/ordersubmit/web/InvoiceController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/ordersubmit/web/InvoiceController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersubmit/web/ContractCoordinator.java",
+      "line": 8,
+      "expr": "catalogKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersubmit/web/ContractCoordinator.java",
+      "line": 9,
+      "expr": "receiptKey2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersubmit/web/ContractCoordinator.java",
+      "line": 10,
+      "expr": "receiptKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 17,
+      "expr": "orderRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 18,
+      "expr": "orderRef101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 23,
+      "expr": "quoteRef102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 26,
+      "expr": "quoteRef102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 27,
+      "expr": "tariffRef103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 28,
+      "expr": "ledgerEntry104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 29,
+      "expr": "ledgerEntry104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 34,
+      "expr": "channelTag105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 35,
+      "expr": "catalogKey106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersubmit/service/ManifestTranslator.java",
+      "line": 36,
+      "expr": "catalogKey106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/BundleCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/BundleCollector.java",
+      "line": 13,
+      "expr": "refundCode201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/BundleCollector.java",
+      "line": 16,
+      "expr": "refundCode201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/BundleCollector.java",
+      "line": 17,
+      "expr": "shipmentCode202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/BundleCollector.java",
+      "line": 18,
+      "expr": "shipmentCode202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/ReceiptPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/ReceiptPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceRouter.java",
+      "line": 8,
+      "expr": "catalogKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceRouter.java",
+      "line": 9,
+      "expr": "catalogKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/PaymentPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/PaymentPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/SessionBuilder.java",
+      "line": 10,
+      "expr": "orderRef401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/SessionBuilder.java",
+      "line": 13,
+      "expr": "orderRef401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/SessionBuilder.java",
+      "line": 14,
+      "expr": "quoteRef402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/SessionBuilder.java",
+      "line": 15,
+      "expr": "quoteRef402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 14,
+    "chain_len": 31,
+    "files_crossed": 11,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SPEL-1017-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/order/submit",
+    "param": "resource",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 14,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

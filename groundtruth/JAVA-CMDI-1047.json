@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1047",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "请求头经 9 层调用、跨 2 个模块流入命令执行",
+  "title": "查询参数经 5 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/cataloglookup/web/AccountController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/cataloglookup/web/AccountController.java",
     "line": 13,
-    "expr": "target",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "label",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cataloglookup/service/AccountExecutor.java",
+    "file": "web/src/main/java/com/habench/cataloglookup/web/AccountExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,136 +26,83 @@
     {
       "file": "web/src/main/java/com/habench/cataloglookup/web/AccountController.java",
       "line": 13,
-      "expr": "target",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "label",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/SessionRegistry.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 16,
       "expr": "accountRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/SessionRegistry.java",
-      "line": 9,
-      "expr": "voucherRef2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/SessionRegistry.java",
-      "line": 10,
-      "expr": "voucherRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
-      "line": 18,
-      "expr": "value",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 19,
+      "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
-      "line": 19,
-      "expr": "tariffRef101",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 20,
+      "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
-      "line": 20,
-      "expr": "tariffRef101",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 21,
+      "expr": "voucherRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
-      "line": 25,
-      "expr": "ledgerEntry102",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 26,
+      "expr": "paymentTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
-      "line": 26,
-      "expr": "channelTag103",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 27,
+      "expr": "refundCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
-      "line": 27,
-      "expr": "catalogKey104",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 28,
+      "expr": "shipmentCode5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountResolver.java",
-      "line": 28,
-      "expr": "catalogKey104",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/VoucherCoordinator.java",
+      "line": 29,
+      "expr": "shipmentCode5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/TariffPlanSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/TariffPlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
-      "line": 13,
-      "expr": "manifestKey201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
-      "line": 14,
-      "expr": "invoiceKey202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/VoucherCoordinator.java",
-      "line": 15,
-      "expr": "invoiceKey202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountExecutor.java",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/AccountExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/AccountExecutor.java",
+      "file": "web/src/main/java/com/habench/cataloglookup/web/AccountExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 9,
-    "chain_len": 19,
-    "files_crossed": 7,
-    "modules_crossed": 2,
+    "call_depth": 5,
+    "chain_len": 11,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:runtime_exec",
       "prop:string_concat",
-      "prop:assign_local",
-      "prop:cross_module",
       "prop:map_element",
       "prop:store_field",
       "prop:assign_local",
       "prop:string_concat",
-      "prop:interface_dispatch",
-      "prop:map_element",
-      "prop:assign_local",
       "sanitizer:none"
     ]
   },
@@ -163,19 +110,19 @@
   "http": {
     "method": "GET",
     "path": "/api/catalog/lookup",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "label",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 9,
+    "call_depth_observed": 5,
     "payload_sent": "zz$(id)",
     "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

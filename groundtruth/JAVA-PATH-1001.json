@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1001",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "查询参数经 14 层调用、跨 3 个模块流入文件读取",
+  "title": "请求头经 8 层调用、跨 2 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/pricingcapture/web/BatchController.java",
     "line": 11,
@@ -11,253 +11,129 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricingcapture/web/BatchController.java",
     "line": 13,
-    "expr": "orderNo",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "token",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingcapture/dao/BatchLoader.java",
+    "file": "service/src/main/java/com/habench/pricingcapture/service/BatchLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/pricingcapture/service/PaymentGuard.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 单次剥离 ../（无效）"
+  },
+  "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
       "file": "web/src/main/java/com/habench/pricingcapture/web/BatchController.java",
       "line": 13,
-      "expr": "orderNo",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "token",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/ChannelAdapter.java",
+      "file": "web/src/main/java/com/habench/pricingcapture/web/CatalogAssembler.java",
       "line": 8,
-      "expr": "manifestKey1",
-      "note": "字符串拼接传播"
+      "expr": "accountRef1",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/ChannelAdapter.java",
+      "file": "web/src/main/java/com/habench/pricingcapture/web/CatalogAssembler.java",
       "line": 9,
-      "expr": "manifestKey1",
+      "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 17,
-      "expr": "accountRef101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 18,
-      "expr": "accountRef101",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 23,
-      "expr": "voucherRef102",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 24,
-      "expr": "paymentTag103",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 25,
-      "expr": "paymentTag103",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 30,
-      "expr": "refundCode104",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 33,
-      "expr": "refundCode104",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 34,
-      "expr": "shipmentCode105",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
-      "line": 35,
-      "expr": "shipmentCode105",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/RefundCoordinator.java",
-      "line": 14,
-      "expr": "tariffRef201",
+      "line": 8,
+      "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/RefundCoordinator.java",
-      "line": 15,
-      "expr": "tariffRef201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/RefundCoordinator.java",
-      "line": 20,
-      "expr": "ledgerEntry202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/RefundCoordinator.java",
-      "line": 21,
-      "expr": "channelTag203",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/RefundCoordinator.java",
-      "line": 22,
-      "expr": "catalogKey204",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/RefundCoordinator.java",
-      "line": 23,
-      "expr": "catalogKey204",
+      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderService.java",
+      "line": 9,
+      "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 19,
+      "file": "service/src/main/java/com/habench/pricingcapture/service/RefundRuleSelector.java",
+      "line": 7,
       "expr": "value",
-      "note": "存入集合元素"
+      "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 20,
-      "expr": "manifestKey301",
-      "note": "取出集合元素"
+      "file": "service/src/main/java/com/habench/pricingcapture/service/RefundRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 21,
-      "expr": "manifestKey301",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 26,
-      "expr": "invoiceKey302",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 27,
-      "expr": "batchTag303",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 28,
-      "expr": "orderRef304",
+      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderAdapter.java",
+      "line": 8,
+      "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 29,
-      "expr": "orderRef304",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 34,
-      "expr": "quoteRef305",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 35,
-      "expr": "tariffRef306",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 36,
-      "expr": "ledgerEntry307",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentComposer.java",
-      "line": 37,
-      "expr": "ledgerEntry307",
+      "file": "service/src/main/java/com/habench/pricingcapture/service/OrderAdapter.java",
+      "line": 9,
+      "expr": "manifestKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/BatchLoader.java",
+      "file": "service/src/main/java/com/habench/pricingcapture/service/PaymentGuard.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 单次剥离 ../（无效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/BatchLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingcapture/dao/BatchLoader.java",
+      "file": "service/src/main/java/com/habench/pricingcapture/service/BatchLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 31,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "call_depth": 8,
+    "chain_len": 12,
+    "files_crossed": 8,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:file_read",
-      "prop:string_concat",
-      "prop:cross_module",
       "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
       "prop:cross_module",
       "prop:string_concat",
-      "prop:store_field",
+      "prop:interface_dispatch",
       "prop:string_concat",
-      "prop:assign_local",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "sanitizer:none"
+      "sanitizer:traversal_replace_once"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/pricing/capture",
-    "param": "orderNo",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 14,
-    "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:../../../etc/passwd;;;;",
+    "call_depth_observed": 8,
+    "payload_sent": "....//....//etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

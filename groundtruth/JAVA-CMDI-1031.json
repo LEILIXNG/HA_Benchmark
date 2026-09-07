@@ -1,8 +1,8 @@
 {
   "id": "JAVA-CMDI-1031",
   "cwe": "CWE-78",
-  "verdict": "safe",
-  "title": "请求头经 6 层调用、跨 2 个模块流入命令执行，经 exec_no_shell 净化",
+  "verdict": "vulnerable",
+  "title": "请求头经 9 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfilnotice/web/RefundController.java",
     "line": 11,
@@ -16,17 +16,12 @@
   },
   "sink": {
     "file": "service/src/main/java/com/habench/fulfilnotice/service/RefundExecutor.java",
-    "line": 14,
-    "expr": "builder",
-    "note": "SINK 位置：CWE-78（未经 shell 解释）"
-  },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/fulfilnotice/service/RefundExecutor.java",
-    "line": 12,
+    "line": 13,
     "expr": "argv",
-    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+    "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer_kind": "exec_no_shell",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/fulfilnotice/web/RefundController.java",
@@ -35,100 +30,146 @@
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
-      "line": 18,
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 16,
+      "expr": "voucherRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 19,
+      "expr": "voucherRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 20,
+      "expr": "paymentTag2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 21,
+      "expr": "paymentTag2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 26,
+      "expr": "refundCode3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 27,
+      "expr": "shipmentCode4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 28,
+      "expr": "manifestKey5",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/CatalogCollector.java",
+      "line": 29,
+      "expr": "manifestKey5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/RefundPolicySelector.java",
+      "line": 7,
       "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/RefundPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
+      "line": 10,
+      "expr": "ledgerEntry101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
+      "line": 13,
+      "expr": "ledgerEntry101",
       "note": "存入集合元素"
     },
     {
       "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
-      "line": 19,
-      "expr": "catalogKey1",
+      "line": 14,
+      "expr": "channelTag102",
       "note": "取出集合元素"
     },
     {
       "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
-      "line": 20,
-      "expr": "receiptKey2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
-      "line": 21,
-      "expr": "receiptKey2",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
-      "line": 26,
-      "expr": "accountRef3",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
-      "line": 27,
-      "expr": "voucherRef4",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilnotice/web/BundleAdapter.java",
-      "line": 28,
-      "expr": "voucherRef4",
+      "line": 15,
+      "expr": "channelTag102",
       "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/fulfilnotice/service/InvoiceRegistry.java",
-      "line": 8,
-      "expr": "orderRef101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilnotice/service/InvoiceRegistry.java",
-      "line": 9,
-      "expr": "quoteRef102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilnotice/service/InvoiceRegistry.java",
-      "line": 10,
-      "expr": "quoteRef102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilnotice/service/RefundExecutor.java",
-      "line": 11,
-      "expr": "value",
-      "note": "参数以数组传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilnotice/service/RefundExecutor.java",
       "line": 12,
-      "expr": "argv",
-      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilnotice/service/InvoiceRegistry.java",
+      "line": 13,
+      "expr": "invoiceKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilnotice/service/InvoiceRegistry.java",
+      "line": 14,
+      "expr": "batchTag202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilnotice/service/InvoiceRegistry.java",
+      "line": 15,
+      "expr": "batchTag202",
+      "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/fulfilnotice/service/RefundExecutor.java",
-      "line": 14,
-      "expr": "builder",
-      "note": "SINK 位置：CWE-78（未经 shell 解释）"
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilnotice/service/RefundExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 6,
-    "chain_len": 14,
-    "files_crossed": 4,
+    "call_depth": 9,
+    "chain_len": 21,
+    "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
       "source:servlet_header",
       "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
       "prop:map_element",
       "prop:assign_local",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:string_concat",
-      "sanitizer:exec_no_shell"
+      "sanitizer:none"
     ]
   },
   "paired_negative": null,
@@ -140,14 +181,14 @@
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
-    "neutralized": true,
-    "call_depth_observed": 6,
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "ref:ref:zz$(id);;",
-    "http_status": 200,
+    "payload_at_sink": "echo ref:zz$(id);",
+    "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

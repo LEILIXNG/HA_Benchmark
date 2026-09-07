@@ -1,0 +1,396 @@
+{
+  "id": "JAVA-SQLI-1008-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1008 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorrenewal/web/QuoteController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorrenewal/web/QuoteController.java",
+    "line": 13,
+    "expr": "token",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/vendorrenewal/service/QuoteRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/vendorrenewal/service/CatalogFilter.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/QuoteController.java",
+      "line": 13,
+      "expr": "token",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 20,
+      "expr": "accountRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 21,
+      "expr": "voucherRef2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 22,
+      "expr": "voucherRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 27,
+      "expr": "paymentTag3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 28,
+      "expr": "refundCode4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 31,
+      "expr": "refundCode4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 32,
+      "expr": "shipmentCode5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 33,
+      "expr": "shipmentCode5",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 38,
+      "expr": "manifestKey6",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 39,
+      "expr": "invoiceKey7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 40,
+      "expr": "batchTag8",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 41,
+      "expr": "batchTag8",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 46,
+      "expr": "orderRef9",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 49,
+      "expr": "orderRef9",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 50,
+      "expr": "quoteRef10",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 53,
+      "expr": "quoteRef10",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 54,
+      "expr": "tariffRef11",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 55,
+      "expr": "tariffRef11",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 60,
+      "expr": "ledgerEntry12",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 61,
+      "expr": "channelTag13",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 64,
+      "expr": "channelTag13",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 65,
+      "expr": "catalogKey14",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 66,
+      "expr": "catalogKey14",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 71,
+      "expr": "receiptKey15",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 72,
+      "expr": "accountRef16",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 73,
+      "expr": "accountRef16",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 78,
+      "expr": "voucherRef17",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 81,
+      "expr": "voucherRef17",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 82,
+      "expr": "paymentTag18",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 83,
+      "expr": "refundCode19",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrenewal/web/LedgerService.java",
+      "line": 84,
+      "expr": "refundCode19",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/ShipmentBuilder.java",
+      "line": 8,
+      "expr": "tariffRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/ShipmentBuilder.java",
+      "line": 9,
+      "expr": "ledgerEntry102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/ShipmentBuilder.java",
+      "line": 10,
+      "expr": "ledgerEntry102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/BundlePolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/BundlePolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/RefundCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/RefundCollector.java",
+      "line": 13,
+      "expr": "manifestKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/RefundCollector.java",
+      "line": 16,
+      "expr": "manifestKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/RefundCollector.java",
+      "line": 17,
+      "expr": "invoiceKey202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/RefundCollector.java",
+      "line": 18,
+      "expr": "invoiceKey202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/TariffPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/TariffPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/BundleTranslator.java",
+      "line": 8,
+      "expr": "accountRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/BundleTranslator.java",
+      "line": 9,
+      "expr": "voucherRef302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/BundleTranslator.java",
+      "line": 10,
+      "expr": "voucherRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/CatalogFilter.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/QuoteRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrenewal/service/QuoteRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 51,
+    "files_crossed": 11,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/renewal/{token}",
+    "param": "token",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

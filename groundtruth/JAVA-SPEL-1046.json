@@ -1,0 +1,214 @@
+{
+  "id": "JAVA-SPEL-1046",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "路径变量经 12 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilreopen/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilreopen/web/RefundController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/fulfilreopen/dao/RefundEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilreopen/web/RefundController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreopen/web/VoucherResolver.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreopen/web/VoucherResolver.java",
+      "line": 13,
+      "expr": "batchTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreopen/web/VoucherResolver.java",
+      "line": 14,
+      "expr": "batchTag1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreopen/service/ContractRouter.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreopen/service/ContractRouter.java",
+      "line": 19,
+      "expr": "paymentTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreopen/service/ContractRouter.java",
+      "line": 20,
+      "expr": "paymentTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreopen/service/ContractRouter.java",
+      "line": 25,
+      "expr": "refundCode102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreopen/service/ContractRouter.java",
+      "line": 26,
+      "expr": "shipmentCode103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreopen/service/ContractRouter.java",
+      "line": 27,
+      "expr": "shipmentCode103",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/InvoiceComposer.java",
+      "line": 8,
+      "expr": "channelTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/InvoiceComposer.java",
+      "line": 9,
+      "expr": "channelTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/OrderStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/OrderStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 19,
+      "expr": "batchTag301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 20,
+      "expr": "orderRef302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 21,
+      "expr": "orderRef302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 26,
+      "expr": "quoteRef303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 27,
+      "expr": "tariffRef304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 28,
+      "expr": "ledgerEntry305",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/BatchBuilder.java",
+      "line": 29,
+      "expr": "ledgerEntry305",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/RefundEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreopen/dao/RefundEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 24,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/reopen/{target}",
+    "param": "target",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

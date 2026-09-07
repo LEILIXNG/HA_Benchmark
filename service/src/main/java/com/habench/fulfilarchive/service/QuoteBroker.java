@@ -18,11 +18,11 @@ public final class QuoteBroker {
     }
 
     private void forward() {
-        String batchTag201 = this.pendingInvoice;
-        Map<String, String> orderRef202Attrs = new HashMap<String, String>();
-        orderRef202Attrs.put("channel", "web");
-        orderRef202Attrs.put("payload", batchTag201);
-        String orderRef202 = orderRef202Attrs.get("payload");
-        LedgerStrategySelector.register(orderRef202);
+        String tariffRef201 = this.pendingInvoice;
+        Map<String, String> ledgerEntry202Attrs = new HashMap<String, String>();
+        ledgerEntry202Attrs.put("channel", "web");
+        ledgerEntry202Attrs.put("payload", tariffRef201);
+        String ledgerEntry202 = ledgerEntry202Attrs.get("payload");
+        LedgerStrategySelector.register(ledgerEntry202);
     }
 }

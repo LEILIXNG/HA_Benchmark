@@ -1,8 +1,8 @@
 {
   "id": "JAVA-PATH-1000",
   "cwe": "CWE-22",
-  "verdict": "vulnerable",
-  "title": "请求头经 13 层调用、跨 3 个模块流入文件读取",
+  "verdict": "safe",
+  "title": "查询参数经 15 层调用、跨 3 个模块流入文件读取，经 whitelist_regex 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/customerrenewal/web/QuoteController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/customerrenewal/web/QuoteController.java",
     "line": 13,
-    "expr": "category",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "userName",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
     "file": "dao/src/main/java/com/habench/customerrenewal/dao/QuoteLoader.java",
@@ -20,164 +20,241 @@
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/customerrenewal/dao/ContractGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
       "file": "web/src/main/java/com/habench/customerrenewal/web/QuoteController.java",
       "line": 13,
-      "expr": "category",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "userName",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 15,
-      "expr": "quoteRef1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 16,
-      "expr": "quoteRef1",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 21,
-      "expr": "tariffRef2",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 22,
-      "expr": "ledgerEntry3",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 23,
-      "expr": "ledgerEntry3",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 28,
-      "expr": "channelTag4",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 29,
-      "expr": "catalogKey5",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerAdapter.java",
-      "line": 30,
-      "expr": "catalogKey5",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/QuoteFacade.java",
-      "line": 10,
-      "expr": "shipmentCode101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/QuoteFacade.java",
-      "line": 13,
-      "expr": "shipmentCode101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/QuoteFacade.java",
-      "line": 14,
-      "expr": "manifestKey102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/QuoteFacade.java",
-      "line": 15,
-      "expr": "manifestKey102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/CatalogPolicySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/CatalogPolicyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/LedgerNormalizer.java",
-      "line": 14,
-      "expr": "receiptKey201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/LedgerNormalizer.java",
-      "line": 15,
-      "expr": "accountRef202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/LedgerNormalizer.java",
-      "line": 16,
-      "expr": "accountRef202",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/LedgerNormalizer.java",
-      "line": 21,
-      "expr": "voucherRef203",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/LedgerNormalizer.java",
-      "line": 22,
-      "expr": "paymentTag204",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/LedgerNormalizer.java",
-      "line": 23,
-      "expr": "paymentTag204",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrenewal/dao/ContractComposer.java",
+      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerEnricher.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrenewal/dao/ContractComposer.java",
+      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerEnricher.java",
       "line": 13,
-      "expr": "quoteRef301",
+      "expr": "quoteRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrenewal/dao/ContractComposer.java",
-      "line": 16,
-      "expr": "quoteRef301",
+      "file": "web/src/main/java/com/habench/customerrenewal/web/LedgerEnricher.java",
+      "line": 14,
+      "expr": "quoteRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 17,
+      "expr": "shipmentCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 18,
+      "expr": "shipmentCode101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 23,
+      "expr": "manifestKey102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 26,
+      "expr": "manifestKey102",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrenewal/dao/ContractComposer.java",
-      "line": 17,
-      "expr": "tariffRef302",
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 27,
+      "expr": "invoiceKey103",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrenewal/dao/ContractComposer.java",
-      "line": 18,
-      "expr": "tariffRef302",
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 28,
+      "expr": "batchTag104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 29,
+      "expr": "batchTag104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 34,
+      "expr": "orderRef105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 35,
+      "expr": "quoteRef106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 36,
+      "expr": "tariffRef107",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 37,
+      "expr": "tariffRef107",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 42,
+      "expr": "ledgerEntry108",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 45,
+      "expr": "ledgerEntry108",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 46,
+      "expr": "channelTag109",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 49,
+      "expr": "channelTag109",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 50,
+      "expr": "catalogKey110",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrenewal/web/InvoiceComposer.java",
+      "line": 51,
+      "expr": "catalogKey110",
       "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 20,
+      "expr": "receiptKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 21,
+      "expr": "receiptKey201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 26,
+      "expr": "accountRef202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 29,
+      "expr": "accountRef202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 30,
+      "expr": "voucherRef203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 31,
+      "expr": "paymentTag204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 32,
+      "expr": "paymentTag204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 37,
+      "expr": "refundCode205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 38,
+      "expr": "shipmentCode206",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 39,
+      "expr": "shipmentCode206",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 44,
+      "expr": "manifestKey207",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 45,
+      "expr": "invoiceKey208",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrenewal/service/ShipmentBuilder.java",
+      "line": 46,
+      "expr": "invoiceKey208",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerrenewal/dao/CatalogEnricher.java",
+      "line": 8,
+      "expr": "quoteRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerrenewal/dao/CatalogEnricher.java",
+      "line": 9,
+      "expr": "quoteRef301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerrenewal/dao/ContractGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
       "file": "dao/src/main/java/com/habench/customerrenewal/dao/QuoteLoader.java",
@@ -193,49 +270,56 @@
     }
   ],
   "metrics": {
-    "call_depth": 13,
-    "chain_len": 28,
-    "files_crossed": 8,
+    "call_depth": 15,
+    "chain_len": 40,
+    "files_crossed": 7,
     "modules_crossed": 3,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:file_read",
-      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
       "prop:store_field",
       "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
       "prop:static_field",
       "prop:string_concat",
       "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:map_element",
-      "sanitizer:none"
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
     ]
   },
-  "paired_negative": "JAVA-PATH-1000-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/customer/renewal",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "userName",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
     "neutralized": false,
-    "call_depth_observed": 13,
+    "call_depth_observed": null,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

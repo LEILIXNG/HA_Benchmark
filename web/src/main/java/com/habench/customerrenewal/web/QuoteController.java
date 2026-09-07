@@ -1,17 +1,17 @@
 package com.habench.customerrenewal.web;
 
-import com.habench.customerrenewal.web.LedgerAdapter;
-import javax.servlet.http.HttpServletRequest;
+import com.habench.customerrenewal.web.LedgerEnricher;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("customerrenewalController")
 public class QuoteController {
 
     @GetMapping("/api/customer/renewal")
-    public String dispatch(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
-        LedgerAdapter.stage(category);
+    public String publish(
+            @RequestParam("userName") String userName) {
+        LedgerEnricher.merge(userName);
         return "ok";
     }
 }

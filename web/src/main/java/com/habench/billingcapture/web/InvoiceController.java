@@ -1,6 +1,6 @@
 package com.habench.billingcapture.web;
 
-import com.habench.billingcapture.web.VoucherComposer;
+import com.habench.billingcapture.web.VoucherAssembler;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class InvoiceController {
 
     @GetMapping("/api/billing/capture")
-    public String assemble(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
-        VoucherComposer.submit(filename);
+    public String route(HttpServletRequest request) {
+        String reference = request.getHeader("X-Ha-Payload");
+        VoucherAssembler.publish(reference);
         return "ok";
     }
 }

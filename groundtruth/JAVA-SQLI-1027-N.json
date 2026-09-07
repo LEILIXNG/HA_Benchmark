@@ -1,0 +1,131 @@
+{
+  "id": "JAVA-SQLI-1027-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1027 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountcapture/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountcapture/web/RefundController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/accountcapture/web/RefundRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/accountcapture/web/InvoiceFilter.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/RefundController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/ChannelBuilder.java",
+      "line": 8,
+      "expr": "quoteRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/ChannelBuilder.java",
+      "line": 9,
+      "expr": "quoteRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/InvoiceFilter.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/ChannelStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/ChannelStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/ShipmentBroker.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/ShipmentBroker.java",
+      "line": 13,
+      "expr": "shipmentCode101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/ShipmentBroker.java",
+      "line": 14,
+      "expr": "shipmentCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/RefundRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountcapture/web/RefundRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 11,
+    "files_crossed": 7,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:jdbc_concat",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/capture",
+    "param": "category",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "id": "JAVA-SPEL-1012",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "路径变量经 8 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportreopen/web/VoucherController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportreopen/web/VoucherController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/reportreopen/dao/VoucherEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportreopen/web/VoucherController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportreopen/web/BundleBuilder.java",
+      "line": 9,
+      "expr": "batchTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportreopen/web/BundleBuilder.java",
+      "line": 10,
+      "expr": "batchTag1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportreopen/web/BundleBuilder.java",
+      "line": 15,
+      "expr": "orderRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportreopen/web/BundleBuilder.java",
+      "line": 16,
+      "expr": "quoteRef3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportreopen/web/BundleBuilder.java",
+      "line": 17,
+      "expr": "quoteRef3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportreopen/service/OrderService.java",
+      "line": 16,
+      "expr": "paymentTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportreopen/service/OrderService.java",
+      "line": 17,
+      "expr": "paymentTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportreopen/service/OrderService.java",
+      "line": 22,
+      "expr": "refundCode102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportreopen/service/OrderService.java",
+      "line": 25,
+      "expr": "refundCode102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportreopen/service/OrderService.java",
+      "line": 26,
+      "expr": "shipmentCode103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportreopen/service/OrderService.java",
+      "line": 27,
+      "expr": "manifestKey104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportreopen/service/OrderService.java",
+      "line": 28,
+      "expr": "manifestKey104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportreopen/dao/RefundComposer.java",
+      "line": 8,
+      "expr": "channelTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportreopen/dao/RefundComposer.java",
+      "line": 9,
+      "expr": "channelTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportreopen/dao/VoucherEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportreopen/dao/VoucherEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 17,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SPEL-1012-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/report/reopen/{category}",
+    "param": "category",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

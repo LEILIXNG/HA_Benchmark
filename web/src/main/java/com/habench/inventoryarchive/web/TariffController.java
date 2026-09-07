@@ -1,6 +1,6 @@
 package com.habench.inventoryarchive.web;
 
-import com.habench.inventoryarchive.web.ContractBroker;
+import com.habench.inventoryarchive.web.ContractTranslator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TariffController {
 
     @GetMapping("/api/inventory/archive")
-    public String merge(
+    public String expand(
             @RequestParam("label") String label) {
-        ContractBroker.attach(label);
+        ContractTranslator.reconcile(label);
         return "ok";
     }
 }

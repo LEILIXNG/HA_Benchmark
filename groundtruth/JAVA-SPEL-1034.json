@@ -1,0 +1,181 @@
+{
+  "id": "JAVA-SPEL-1034",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "查询参数经 8 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingrevise/web/ChannelController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingrevise/web/ChannelController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/billingrevise/dao/ChannelEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/ChannelController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/TariffBroker.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/TariffBroker.java",
+      "line": 13,
+      "expr": "batchTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/TariffBroker.java",
+      "line": 14,
+      "expr": "orderRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/TariffBroker.java",
+      "line": 15,
+      "expr": "orderRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/CatalogPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/CatalogPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/ShipmentEnricher.java",
+      "line": 10,
+      "expr": "paymentTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/ShipmentEnricher.java",
+      "line": 13,
+      "expr": "paymentTag101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/ShipmentEnricher.java",
+      "line": 14,
+      "expr": "refundCode102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrevise/web/ShipmentEnricher.java",
+      "line": 15,
+      "expr": "refundCode102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingrevise/service/PaymentAdapter.java",
+      "line": 8,
+      "expr": "channelTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingrevise/service/PaymentAdapter.java",
+      "line": 9,
+      "expr": "channelTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingrevise/dao/ChannelComposer.java",
+      "line": 10,
+      "expr": "batchTag301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingrevise/dao/ChannelComposer.java",
+      "line": 13,
+      "expr": "batchTag301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingrevise/dao/ChannelComposer.java",
+      "line": 14,
+      "expr": "orderRef302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingrevise/dao/ChannelComposer.java",
+      "line": 15,
+      "expr": "orderRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingrevise/dao/ChannelEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingrevise/dao/ChannelEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 19,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SPEL-1034-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/revise",
+    "param": "userName",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

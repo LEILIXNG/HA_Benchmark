@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1006",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "请求头经 18 层调用、跨 3 个模块流入文件读取",
+  "title": "请求头经 6 层调用、跨 1 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/customerrollup/web/ChannelController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/customerrollup/web/ChannelController.java",
     "line": 13,
-    "expr": "tag",
+    "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customerrollup/dao/ChannelLoader.java",
+    "file": "web/src/main/java/com/habench/customerrollup/web/ChannelLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,309 +26,114 @@
     {
       "file": "web/src/main/java/com/habench/customerrollup/web/ChannelController.java",
       "line": 13,
-      "expr": "tag",
+      "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ShipmentAssembler.java",
-      "line": 8,
-      "expr": "refundCode1",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ShipmentAssembler.java",
-      "line": 9,
-      "expr": "shipmentCode2",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "line": 20,
+      "expr": "voucherRef1",
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ShipmentAssembler.java",
-      "line": 10,
-      "expr": "shipmentCode2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
-      "line": 17,
-      "expr": "catalogKey101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
-      "line": 18,
-      "expr": "catalogKey101",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
       "line": 23,
-      "expr": "receiptKey102",
-      "note": "读取实例字段"
+      "expr": "voucherRef1",
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
       "line": 24,
-      "expr": "accountRef103",
-      "note": "局部变量传递"
+      "expr": "paymentTag2",
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
       "line": 25,
-      "expr": "voucherRef104",
-      "note": "局部变量传递"
+      "expr": "paymentTag2",
+      "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
-      "line": 26,
-      "expr": "voucherRef104",
-      "note": "写入静态字段"
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "line": 30,
+      "expr": "refundCode3",
+      "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
       "line": 31,
-      "expr": "paymentTag105",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
-      "line": 32,
-      "expr": "refundCode106",
+      "expr": "shipmentCode4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
-      "line": 33,
-      "expr": "refundCode106",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "line": 32,
+      "expr": "shipmentCode4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "line": 37,
+      "expr": "manifestKey5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
       "line": 38,
-      "expr": "shipmentCode107",
-      "note": "读取静态字段"
+      "expr": "invoiceKey6",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
-      "line": 39,
-      "expr": "manifestKey108",
-      "note": "字符串拼接传播"
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "line": 41,
+      "expr": "invoiceKey6",
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
       "line": 42,
-      "expr": "manifestKey108",
-      "note": "存入集合元素"
+      "expr": "batchTag7",
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
       "line": 43,
-      "expr": "invoiceKey109",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchBuilder.java",
-      "line": 44,
-      "expr": "invoiceKey109",
+      "expr": "batchTag7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/LedgerCoordinator.java",
-      "line": 10,
-      "expr": "orderRef201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/LedgerCoordinator.java",
-      "line": 13,
-      "expr": "orderRef201",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/LedgerCoordinator.java",
-      "line": 14,
-      "expr": "quoteRef202",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/LedgerCoordinator.java",
-      "line": 15,
-      "expr": "quoteRef202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 16,
-      "expr": "refundCode301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 19,
-      "expr": "refundCode301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 20,
-      "expr": "shipmentCode302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 21,
-      "expr": "shipmentCode302",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 26,
-      "expr": "manifestKey303",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 29,
-      "expr": "manifestKey303",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 30,
-      "expr": "invoiceKey304",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 31,
-      "expr": "batchTag305",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceBuilder.java",
-      "line": 32,
-      "expr": "batchTag305",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/ManifestStrategySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/ManifestStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/BatchTranslator.java",
-      "line": 8,
-      "expr": "catalogKey401",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/BatchTranslator.java",
-      "line": 9,
-      "expr": "receiptKey402",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/BatchTranslator.java",
-      "line": 10,
-      "expr": "receiptKey402",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ManifestAdapter.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ManifestAdapter.java",
-      "line": 19,
-      "expr": "orderRef501",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ManifestAdapter.java",
-      "line": 20,
-      "expr": "orderRef501",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ManifestAdapter.java",
-      "line": 25,
-      "expr": "quoteRef502",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ManifestAdapter.java",
-      "line": 28,
-      "expr": "quoteRef502",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ManifestAdapter.java",
-      "line": 29,
-      "expr": "tariffRef503",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ManifestAdapter.java",
-      "line": 30,
-      "expr": "tariffRef503",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ChannelLoader.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ChannelLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ChannelLoader.java",
+      "file": "web/src/main/java/com/habench/customerrollup/web/ChannelLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 18,
-    "chain_len": 45,
-    "files_crossed": 10,
-    "modules_crossed": 3,
+    "call_depth": 6,
+    "chain_len": 16,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
       "source:servlet_header",
       "sink:file_read",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_class",
-      "prop:assign_local",
+      "prop:map_element",
+      "prop:map_element",
       "prop:store_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:static_field",
       "prop:string_concat",
       "prop:static_field",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
       "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:store_field",
       "prop:map_element",
       "sanitizer:none"
     ]
@@ -345,11 +150,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 18,
+    "call_depth_observed": 6,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:../../../etc/passwd;;;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

@@ -1,17 +1,17 @@
 package com.habench.orderrevise.web;
 
-import com.habench.orderrevise.web.SessionRegistry;
-import javax.servlet.http.HttpServletRequest;
+import com.habench.orderrevise.web.PaymentTranslator;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("orderreviseController")
 public class BundleController {
 
-    @GetMapping("/api/order/revise")
-    public String resolve(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
-        SessionRegistry.compose(keyword);
+    @GetMapping("/api/order/revise/{resource}")
+    public String publish(
+            @PathVariable("resource") String resource) {
+        PaymentTranslator.attach(resource);
         return "ok";
     }
 }

@@ -11,7 +11,7 @@ public final class VoucherBroker {
     }
 
     private static void prepare() {
-        String paymentTag301 = cachedBundle;
-        BundleExecutor.expand(paymentTag301);
+        String quoteRef301 = cachedBundle;
+        BundleExecutor.expand(quoteRef301);
     }
 }

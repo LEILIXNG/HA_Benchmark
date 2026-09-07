@@ -1,0 +1,153 @@
+{
+  "id": "JAVA-SPEL-1001",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "路径变量经 6 层调用、跨 1 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/orderissue/web/LedgerController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/orderissue/web/LedgerController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/orderissue/web/LedgerEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/orderissue/web/OrderValidator.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/LedgerController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/OrderValidator.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/CatalogComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/CatalogComposer.java",
+      "line": 13,
+      "expr": "paymentTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/CatalogComposer.java",
+      "line": 16,
+      "expr": "paymentTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/CatalogComposer.java",
+      "line": 17,
+      "expr": "refundCode2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/CatalogComposer.java",
+      "line": 18,
+      "expr": "refundCode2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/VoucherTranslator.java",
+      "line": 8,
+      "expr": "channelTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/VoucherTranslator.java",
+      "line": 9,
+      "expr": "catalogKey102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/VoucherTranslator.java",
+      "line": 10,
+      "expr": "catalogKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/TariffResolver.java",
+      "line": 8,
+      "expr": "batchTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/TariffResolver.java",
+      "line": 9,
+      "expr": "batchTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/LedgerEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderissue/web/LedgerEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 14,
+    "files_crossed": 6,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/order/issue/{category}",
+    "param": "category",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

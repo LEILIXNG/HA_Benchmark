@@ -5,7 +5,7 @@ import com.habench.shippingassign.service.ShipmentRouter;
 public final class SessionAssembler {
 
     public static void compose(String value) {
-        String ledgerEntry1 = value;
-        ShipmentRouter.merge(ledgerEntry1);
+        String accountRef1 = value;
+        ShipmentRouter.merge(accountRef1);
     }
 }

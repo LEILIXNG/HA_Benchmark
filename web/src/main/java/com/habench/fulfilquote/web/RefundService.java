@@ -1,19 +1,17 @@
 package com.habench.fulfilquote.web;
 
 import com.habench.fulfilquote.service.ManifestEnricher;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class RefundService {
-    private static String cachedTariff;
 
     public static void attach(String value) {
-        String receiptKey1 = "ref:" + value + ";";
-        cachedTariff = receiptKey1;
-        forward();
-    }
-
-    private static void forward() {
-        String accountRef2 = cachedTariff;
-        String voucherRef3 = accountRef2;
-        ManifestEnricher.prepare(voucherRef3);
+        Map<String, String> manifestKey1Attrs = new HashMap<String, String>();
+        manifestKey1Attrs.put("channel", "web");
+        manifestKey1Attrs.put("payload", value);
+        String manifestKey1 = manifestKey1Attrs.get("payload");
+        String invoiceKey2 = manifestKey1;
+        ManifestEnricher.prepare(invoiceKey2);
     }
 }

@@ -1,0 +1,231 @@
+{
+  "id": "JAVA-SPEL-1058",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "查询参数经 10 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/orderposting/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/orderposting/web/OrderController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/orderposting/service/OrderEvaluator.java",
+    "line": 17,
+    "expr": "template",
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/orderposting/service/OrderEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/OrderController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 17,
+      "expr": "paymentTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 20,
+      "expr": "paymentTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 21,
+      "expr": "refundCode2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 22,
+      "expr": "refundCode2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 27,
+      "expr": "shipmentCode3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 28,
+      "expr": "manifestKey4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 29,
+      "expr": "manifestKey4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 34,
+      "expr": "invoiceKey5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 37,
+      "expr": "invoiceKey5",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 38,
+      "expr": "batchTag6",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 39,
+      "expr": "orderRef7",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/ContractCoordinator.java",
+      "line": 40,
+      "expr": "orderRef7",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/AccountPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/AccountPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/OrderBroker.java",
+      "line": 8,
+      "expr": "channelTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/OrderBroker.java",
+      "line": 9,
+      "expr": "catalogKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderposting/web/OrderBroker.java",
+      "line": 10,
+      "expr": "catalogKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/ManifestCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/ManifestCollector.java",
+      "line": 13,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/ManifestCollector.java",
+      "line": 16,
+      "expr": "batchTag201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/ManifestCollector.java",
+      "line": 17,
+      "expr": "orderRef202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/ManifestCollector.java",
+      "line": 18,
+      "expr": "orderRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/OrderEvaluator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/OrderEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderposting/service/OrderEvaluator.java",
+      "line": 17,
+      "expr": "template",
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 26,
+    "files_crossed": 7,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "sanitizer:spel_restricted_context"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/order/posting",
+    "param": "query",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 10,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

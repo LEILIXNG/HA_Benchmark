@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1010",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 8 层调用、跨 2 个模块流入命令执行",
+  "title": "路径变量经 16 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfillookup/web/PaymentController.java",
     "line": 11,
@@ -11,171 +11,323 @@
   "source": {
     "file": "web/src/main/java/com/habench/fulfillookup/web/PaymentController.java",
     "line": 13,
-    "expr": "userName",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "category",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/fulfillookup/service/PaymentExecutor.java",
+    "file": "dao/src/main/java/com/habench/fulfillookup/dao/PaymentExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/fulfillookup/dao/VoucherFilter.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 只剥离分号（无效）"
+  },
+  "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
       "file": "web/src/main/java/com/habench/fulfillookup/web/PaymentController.java",
       "line": 13,
-      "expr": "userName",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "category",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/OrderNormalizer.java",
-      "line": 9,
-      "expr": "channelTag1",
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 16,
+      "expr": "invoiceKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/OrderNormalizer.java",
-      "line": 10,
-      "expr": "catalogKey2",
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 17,
+      "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/OrderNormalizer.java",
-      "line": 11,
-      "expr": "catalogKey2",
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 18,
+      "expr": "batchTag2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 23,
+      "expr": "orderRef3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 24,
+      "expr": "quoteRef4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 25,
+      "expr": "quoteRef4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 30,
+      "expr": "tariffRef5",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 31,
+      "expr": "ledgerEntry6",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 34,
+      "expr": "ledgerEntry6",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 35,
+      "expr": "channelTag7",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfillookup/web/BundleBuilder.java",
+      "line": 36,
+      "expr": "channelTag7",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 17,
+      "expr": "voucherRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 18,
+      "expr": "voucherRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 23,
+      "expr": "paymentTag102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 24,
+      "expr": "refundCode103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 25,
+      "expr": "refundCode103",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/OrderNormalizer.java",
-      "line": 16,
-      "expr": "receiptKey3",
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 30,
+      "expr": "shipmentCode104",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/OrderNormalizer.java",
-      "line": 17,
-      "expr": "accountRef4",
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 31,
+      "expr": "manifestKey105",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/OrderNormalizer.java",
-      "line": 18,
-      "expr": "voucherRef5",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/OrderNormalizer.java",
-      "line": 19,
-      "expr": "voucherRef5",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/ContractRuleSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/ContractRuleStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/CatalogResolver.java",
-      "line": 12,
-      "expr": "value",
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 34,
+      "expr": "manifestKey105",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/CatalogResolver.java",
-      "line": 13,
-      "expr": "batchTag101",
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 35,
+      "expr": "invoiceKey106",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/CatalogResolver.java",
-      "line": 14,
-      "expr": "orderRef102",
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 36,
+      "expr": "invoiceKey106",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 41,
+      "expr": "batchTag107",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 42,
+      "expr": "orderRef108",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfillookup/web/CatalogResolver.java",
-      "line": 15,
-      "expr": "orderRef102",
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 43,
+      "expr": "quoteRef109",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 44,
+      "expr": "quoteRef109",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 49,
+      "expr": "tariffRef110",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 50,
+      "expr": "ledgerEntry111",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfillookup/service/ContractAdapter.java",
+      "line": 51,
+      "expr": "ledgerEntry111",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfillookup/service/VoucherBroker.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfillookup/service/VoucherBroker.java",
-      "line": 13,
-      "expr": "paymentTag201",
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 19,
+      "expr": "ledgerEntry201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfillookup/service/VoucherBroker.java",
-      "line": 14,
-      "expr": "paymentTag201",
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 22,
+      "expr": "ledgerEntry201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 23,
+      "expr": "channelTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 24,
+      "expr": "channelTag202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 29,
+      "expr": "catalogKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 30,
+      "expr": "receiptKey204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 31,
+      "expr": "accountRef205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/TariffResolver.java",
+      "line": 32,
+      "expr": "accountRef205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfillookup/service/PaymentExecutor.java",
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/VoucherFilter.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 只剥离分号（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/PaymentExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfillookup/service/PaymentExecutor.java",
+      "file": "dao/src/main/java/com/habench/fulfillookup/dao/PaymentExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 19,
-    "files_crossed": 7,
-    "modules_crossed": 2,
+    "call_depth": 16,
+    "chain_len": 41,
+    "files_crossed": 6,
+    "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:runtime_exec",
       "prop:string_concat",
       "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
       "prop:static_field",
       "prop:string_concat",
-      "prop:string_concat",
-      "prop:interface_dispatch",
       "prop:map_element",
+      "prop:static_field",
       "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
       "prop:cross_module",
       "prop:map_element",
-      "sanitizer:none"
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:metachar_strip_semicolon"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/fulfil/lookup",
-    "param": "userName",
-    "carrier": "query"
+    "path": "/api/fulfil/lookup/{category}",
+    "param": "category",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 8,
+    "call_depth_observed": 16,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

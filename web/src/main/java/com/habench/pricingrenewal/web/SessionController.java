@@ -1,6 +1,6 @@
 package com.habench.pricingrenewal.web;
 
-import com.habench.pricingrenewal.web.ChannelCoordinator;
+import com.habench.pricingrenewal.web.AccountRouter;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class SessionController {
 
     @GetMapping("/api/pricing/renewal")
-    public String collect(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
-        ChannelCoordinator.enrich(userName);
+    public String enrich(HttpServletRequest request) {
+        String orderNo = request.getHeader("X-Ha-Payload");
+        AccountRouter.assemble(orderNo);
         return "ok";
     }
 }

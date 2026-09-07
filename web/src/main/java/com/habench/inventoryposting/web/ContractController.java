@@ -1,6 +1,6 @@
 package com.habench.inventoryposting.web;
 
-import com.habench.inventoryposting.web.ContractResolver;
+import com.habench.inventoryposting.web.ManifestComposer;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ContractController {
 
     @GetMapping("/api/inventory/posting")
-    public String submit(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
-        ContractResolver.publish(reference);
+    public String resolve(HttpServletRequest request) {
+        String keyword = request.getHeader("X-Ha-Payload");
+        ManifestComposer.submit(keyword);
         return "ok";
     }
 }

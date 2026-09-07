@@ -1,25 +1,17 @@
 package com.habench.catalogbatch.web;
 
-import com.habench.catalogbatch.web.TariffCoordinator;
+import com.habench.catalogbatch.service.BatchCoordinator;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class ChannelBroker {
-    private String pendingAccount;
 
-    public static void publish(String value) {
-        ChannelBroker self = new ChannelBroker();
-        self.resolve(value);
-    }
-
-    private void resolve(String value) {
-        String ledgerEntry1 = "ref:" + value + ";";
-        this.pendingAccount = ledgerEntry1;
-        compose();
-    }
-
-    private void compose() {
-        String channelTag2 = this.pendingAccount;
-        String catalogKey3 = channelTag2;
-        String receiptKey4 = catalogKey3;
-        TariffCoordinator.publish(receiptKey4);
+    public static void resolve(String value) {
+        Map<String, String> refundCode1Attrs = new HashMap<String, String>();
+        refundCode1Attrs.put("channel", "web");
+        refundCode1Attrs.put("payload", value);
+        String refundCode1 = refundCode1Attrs.get("payload");
+        String shipmentCode2 = refundCode1;
+        BatchCoordinator.publish(shipmentCode2);
     }
 }

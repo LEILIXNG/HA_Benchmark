@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1028",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 7 层调用、跨 1 个模块流入命令执行，经 metachar_strip_semicolon 净化",
+  "title": "查询参数经 16 层调用、跨 2 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
     "line": 11,
@@ -11,17 +11,17 @@
   "source": {
     "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
     "line": 13,
-    "expr": "query",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "reference",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogExecutor.java",
+    "file": "service/src/main/java/com/habench/fulfilimport/service/CatalogExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/fulfilimport/web/ChannelValidator.java",
+    "file": "service/src/main/java/com/habench/fulfilimport/service/ChannelValidator.java",
     "line": 9,
     "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
@@ -31,95 +31,289 @@
     {
       "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
       "line": 13,
-      "expr": "query",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "reference",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/BatchComposer.java",
-      "line": 8,
-      "expr": "shipmentCode1",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 17,
+      "expr": "batchTag1",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/BatchComposer.java",
-      "line": 9,
-      "expr": "shipmentCode1",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 20,
+      "expr": "batchTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 21,
+      "expr": "orderRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 22,
+      "expr": "orderRef2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 27,
+      "expr": "quoteRef3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 28,
+      "expr": "tariffRef4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 31,
+      "expr": "tariffRef4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 32,
+      "expr": "ledgerEntry5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 33,
+      "expr": "ledgerEntry5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 38,
+      "expr": "channelTag6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 39,
+      "expr": "catalogKey7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 42,
+      "expr": "catalogKey7",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 43,
+      "expr": "receiptKey8",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffCoordinator.java",
+      "line": 44,
+      "expr": "receiptKey8",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffStrategySelector.java",
+      "file": "web/src/main/java/com/habench/fulfilimport/web/BundleAdapter.java",
+      "line": 8,
+      "expr": "paymentTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/BundleAdapter.java",
+      "line": 9,
+      "expr": "paymentTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 11,
+      "expr": "channelTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 12,
+      "expr": "catalogKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 13,
+      "expr": "catalogKey202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 18,
+      "expr": "receiptKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 19,
+      "expr": "accountRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 22,
+      "expr": "accountRef204",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 23,
+      "expr": "voucherRef205",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilimport/web/QuoteRegistry.java",
+      "line": 24,
+      "expr": "voucherRef205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/BatchComposer.java",
+      "line": 16,
+      "expr": "batchTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/BatchComposer.java",
+      "line": 17,
+      "expr": "batchTag301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/BatchComposer.java",
+      "line": 22,
+      "expr": "orderRef302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/BatchComposer.java",
+      "line": 25,
+      "expr": "orderRef302",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/BatchComposer.java",
+      "line": 26,
+      "expr": "quoteRef303",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/BatchComposer.java",
+      "line": 27,
+      "expr": "quoteRef303",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/TariffStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/TariffStrategyStandard.java",
+      "file": "service/src/main/java/com/habench/fulfilimport/service/TariffStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/InvoiceCollector.java",
+      "file": "service/src/main/java/com/habench/fulfilimport/service/InvoiceCollector.java",
       "line": 8,
-      "expr": "receiptKey101",
-      "note": "字符串拼接传播"
+      "expr": "paymentTag401",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/InvoiceCollector.java",
+      "file": "service/src/main/java/com/habench/fulfilimport/service/InvoiceCollector.java",
       "line": 9,
-      "expr": "receiptKey101",
+      "expr": "refundCode402",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilimport/service/InvoiceCollector.java",
+      "line": 10,
+      "expr": "refundCode402",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/ChannelValidator.java",
+      "file": "service/src/main/java/com/habench/fulfilimport/service/ChannelValidator.java",
       "line": 9,
       "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogExecutor.java",
+      "file": "service/src/main/java/com/habench/fulfilimport/service/CatalogExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogExecutor.java",
+      "file": "service/src/main/java/com/habench/fulfilimport/service/CatalogExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 10,
-    "files_crossed": 7,
-    "modules_crossed": 1,
+    "call_depth": 16,
+    "chain_len": 39,
+    "files_crossed": 10,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:assign_local",
-      "prop:interface_dispatch",
       "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:assign_local",
       "sanitizer:metachar_strip_semicolon"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/fulfil/import/{query}",
-    "param": "query",
-    "carrier": "path"
+    "path": "/api/fulfil/import",
+    "param": "reference",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 7,
+    "call_depth_observed": 16,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id)",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

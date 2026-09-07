@@ -1,0 +1,17 @@
+package com.habench.customersettle.web;
+
+import com.habench.customersettle.web.ReceiptAdapter;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController("customersettleController")
+public class ShipmentController {
+
+    @GetMapping("/api/customer/settle/{target}")
+    public String collect(
+            @PathVariable("target") String target) {
+        ReceiptAdapter.attach(target);
+        return "ok";
+    }
+}

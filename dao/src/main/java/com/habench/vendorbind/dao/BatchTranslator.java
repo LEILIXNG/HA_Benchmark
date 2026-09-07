@@ -1,25 +1,17 @@
 package com.habench.vendorbind.dao;
 
 import com.habench.vendorbind.dao.RefundExecutor;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class BatchTranslator {
-    private String pendingRefund;
 
-    public static void register(String value) {
-        BatchTranslator self = new BatchTranslator();
-        self.stage(value);
-    }
-
-    private void stage(String value) {
-        String paymentTag201 = value;
-        String refundCode202 = "ref:" + paymentTag201 + ";";
-        this.pendingRefund = refundCode202;
-        enrich();
-    }
-
-    private void enrich() {
-        String shipmentCode203 = this.pendingRefund;
-        String manifestKey204 = "ref:" + shipmentCode203 + ";";
-        RefundExecutor.translate(manifestKey204);
+    public static void stage(String value) {
+        String refundCode201 = value;
+        Map<String, String> shipmentCode202Attrs = new HashMap<String, String>();
+        shipmentCode202Attrs.put("channel", "web");
+        shipmentCode202Attrs.put("payload", refundCode201);
+        String shipmentCode202 = shipmentCode202Attrs.get("payload");
+        RefundExecutor.translate(shipmentCode202);
     }
 }

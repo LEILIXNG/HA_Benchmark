@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1016",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 13 层调用、跨 3 个模块流入命令执行",
+  "title": "查询参数经 5 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/shippingbind/web/OrderController.java",
     "line": 11,
@@ -15,7 +15,7 @@
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingbind/dao/OrderExecutor.java",
+    "file": "web/src/main/java/com/habench/shippingbind/web/OrderExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -30,264 +30,100 @@
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ReceiptAssembler.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ReceiptAssembler.java",
-      "line": 13,
-      "expr": "batchTag1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ReceiptAssembler.java",
-      "line": 16,
-      "expr": "batchTag1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ReceiptAssembler.java",
-      "line": 17,
-      "expr": "orderRef2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ReceiptAssembler.java",
-      "line": 18,
-      "expr": "orderRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ChannelTranslator.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ChannelTranslator.java",
-      "line": 13,
-      "expr": "paymentTag101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbind/web/ChannelTranslator.java",
-      "line": 14,
-      "expr": "paymentTag101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherService.java",
-      "line": 8,
-      "expr": "channelTag201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
       "line": 9,
-      "expr": "channelTag201",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 20,
-      "expr": "batchTag301",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 21,
-      "expr": "batchTag301",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 26,
-      "expr": "orderRef302",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 29,
-      "expr": "orderRef302",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 30,
-      "expr": "quoteRef303",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 31,
-      "expr": "quoteRef303",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 36,
-      "expr": "tariffRef304",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 37,
-      "expr": "ledgerEntry305",
+      "expr": "receiptKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 38,
-      "expr": "ledgerEntry305",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 43,
-      "expr": "channelTag306",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 44,
-      "expr": "catalogKey307",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 47,
-      "expr": "catalogKey307",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 48,
-      "expr": "receiptKey308",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 49,
-      "expr": "receiptKey308",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 54,
-      "expr": "accountRef309",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 55,
-      "expr": "voucherRef310",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 56,
-      "expr": "voucherRef310",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 61,
-      "expr": "paymentTag311",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 62,
-      "expr": "refundCode312",
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
+      "line": 10,
+      "expr": "accountRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingbind/service/VoucherBroker.java",
-      "line": 63,
-      "expr": "refundCode312",
-      "note": "调用下一层"
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
+      "line": 11,
+      "expr": "accountRef2",
+      "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbind/dao/CatalogCollector.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingbind/dao/CatalogCollector.java",
-      "line": 13,
-      "expr": "paymentTag401",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingbind/dao/CatalogCollector.java",
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
       "line": 16,
-      "expr": "paymentTag401",
-      "note": "存入集合元素"
+      "expr": "voucherRef3",
+      "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbind/dao/CatalogCollector.java",
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
       "line": 17,
-      "expr": "refundCode402",
-      "note": "取出集合元素"
+      "expr": "paymentTag4",
+      "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbind/dao/CatalogCollector.java",
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
       "line": 18,
-      "expr": "refundCode402",
+      "expr": "refundCode5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
+      "line": 19,
+      "expr": "refundCode5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
+      "line": 24,
+      "expr": "shipmentCode6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
+      "line": 25,
+      "expr": "manifestKey7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
+      "line": 26,
+      "expr": "invoiceKey8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbind/web/CatalogCollector.java",
+      "line": 27,
+      "expr": "invoiceKey8",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbind/dao/OrderExecutor.java",
+      "file": "web/src/main/java/com/habench/shippingbind/web/OrderExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbind/dao/OrderExecutor.java",
+      "file": "web/src/main/java/com/habench/shippingbind/web/OrderExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 13,
-    "chain_len": 39,
-    "files_crossed": 7,
-    "modules_crossed": 3,
+    "call_depth": 5,
+    "chain_len": 14,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
       "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:cross_module",
+      "prop:string_concat",
       "prop:assign_local",
-      "prop:cross_class",
-      "prop:map_element",
       "prop:static_field",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:store_field",
       "prop:assign_local",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
@@ -303,11 +139,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 13,
+    "call_depth_observed": 5,
     "payload_sent": "zz$(id)",
     "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

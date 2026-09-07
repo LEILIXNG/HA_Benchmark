@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1026",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "查询参数经 14 层调用、跨 3 个模块流入文件读取",
+  "title": "请求头经 11 层调用、跨 2 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfiladjust/web/OrderController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/fulfiladjust/web/OrderController.java",
     "line": 13,
-    "expr": "tag",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "reference",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfiladjust/dao/OrderLoader.java",
+    "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,290 +26,222 @@
     {
       "file": "web/src/main/java/com/habench/fulfiladjust/web/OrderController.java",
       "line": 13,
-      "expr": "tag",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "reference",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfiladjust/web/VoucherCoordinator.java",
-      "line": 10,
-      "expr": "invoiceKey1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfiladjust/web/VoucherCoordinator.java",
-      "line": 13,
-      "expr": "invoiceKey1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfiladjust/web/VoucherCoordinator.java",
-      "line": 14,
-      "expr": "batchTag2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfiladjust/web/VoucherCoordinator.java",
-      "line": 15,
-      "expr": "batchTag2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderTranslator.java",
-      "line": 11,
-      "expr": "voucherRef101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderTranslator.java",
-      "line": 12,
-      "expr": "voucherRef101",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderTranslator.java",
-      "line": 17,
-      "expr": "paymentTag102",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderTranslator.java",
-      "line": 18,
-      "expr": "refundCode103",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderTranslator.java",
-      "line": 21,
-      "expr": "refundCode103",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderTranslator.java",
-      "line": 22,
-      "expr": "shipmentCode104",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderTranslator.java",
-      "line": 23,
-      "expr": "shipmentCode104",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 17,
-      "expr": "ledgerEntry201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 18,
-      "expr": "channelTag202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 19,
-      "expr": "channelTag202",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 24,
-      "expr": "catalogKey203",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 25,
-      "expr": "receiptKey204",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 28,
-      "expr": "receiptKey204",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 29,
-      "expr": "accountRef205",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 30,
-      "expr": "accountRef205",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 35,
-      "expr": "voucherRef206",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 38,
-      "expr": "voucherRef206",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 39,
-      "expr": "paymentTag207",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator2.java",
-      "line": 40,
-      "expr": "paymentTag207",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
       "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
       "line": 20,
-      "expr": "invoiceKey301",
+      "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
       "line": 21,
-      "expr": "invoiceKey301",
+      "expr": "shipmentCode1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 26,
+      "expr": "manifestKey2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 29,
+      "expr": "manifestKey2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 30,
+      "expr": "invoiceKey3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 31,
+      "expr": "invoiceKey3",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 26,
-      "expr": "batchTag302",
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 36,
+      "expr": "batchTag4",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 27,
-      "expr": "orderRef303",
-      "note": "字符串拼接传播"
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 39,
+      "expr": "batchTag4",
+      "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 28,
-      "expr": "orderRef303",
-      "note": "写入静态字段"
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 40,
+      "expr": "orderRef5",
+      "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 33,
-      "expr": "quoteRef304",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 34,
-      "expr": "tariffRef305",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 35,
-      "expr": "ledgerEntry306",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 36,
-      "expr": "ledgerEntry306",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
       "line": 41,
-      "expr": "channelTag307",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 42,
-      "expr": "catalogKey308",
+      "expr": "quoteRef6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogTranslator.java",
-      "line": 43,
-      "expr": "catalogKey308",
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 42,
+      "expr": "quoteRef6",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 47,
+      "expr": "tariffRef7",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 48,
+      "expr": "ledgerEntry8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 51,
+      "expr": "ledgerEntry8",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 52,
+      "expr": "channelTag9",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/BatchEnricher.java",
+      "line": 53,
+      "expr": "channelTag9",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/OrderLoader.java",
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/QuoteService.java",
+      "line": 8,
+      "expr": "receiptKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiladjust/web/QuoteService.java",
+      "line": 9,
+      "expr": "receiptKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator.java",
+      "line": 16,
+      "expr": "quoteRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator.java",
+      "line": 17,
+      "expr": "quoteRef201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator.java",
+      "line": 22,
+      "expr": "tariffRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator.java",
+      "line": 23,
+      "expr": "ledgerEntry203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator.java",
+      "line": 26,
+      "expr": "ledgerEntry203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator.java",
+      "line": 27,
+      "expr": "channelTag204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/CatalogTranslator.java",
+      "line": 28,
+      "expr": "channelTag204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/OrderLoader.java",
+      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 39,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "call_depth": 11,
+    "chain_len": 29,
+    "files_crossed": 5,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:file_read",
-      "prop:string_concat",
       "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
       "prop:static_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
       "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
       "prop:map_element",
       "prop:cross_class",
       "prop:string_concat",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
       "prop:cross_module",
-      "prop:map_element",
+      "prop:assign_local",
       "prop:store_field",
-      "prop:string_concat",
-      "prop:static_field",
       "prop:assign_local",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:string_concat",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-PATH-1026-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/fulfil/adjust",
-    "param": "tag",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 14,
+    "call_depth_observed": 11,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

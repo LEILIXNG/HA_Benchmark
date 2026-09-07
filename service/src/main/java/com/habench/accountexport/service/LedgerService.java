@@ -6,34 +6,45 @@ import java.util.Map;
 
 public final class LedgerService {
     private String pendingPayment;
+    private static String cachedPayment;
 
-    public static void attach(String value) {
+    public static void register(String value) {
         LedgerService self = new LedgerService();
         self.assemble(value);
     }
 
     private void assemble(String value) {
-        String catalogKey101 = value;
-        this.pendingPayment = catalogKey101;
+        Map<String, String> voucherRef201Attrs = new HashMap<String, String>();
+        voucherRef201Attrs.put("channel", "web");
+        voucherRef201Attrs.put("payload", value);
+        String voucherRef201 = voucherRef201Attrs.get("payload");
+        String paymentTag202 = "ref:" + voucherRef201 + ";";
+        this.pendingPayment = paymentTag202;
         forward();
     }
 
     private void forward() {
-        String receiptKey102 = this.pendingPayment;
-        Map<String, String> accountRef103Attrs = new HashMap<String, String>();
-        accountRef103Attrs.put("channel", "web");
-        accountRef103Attrs.put("payload", receiptKey102);
-        String accountRef103 = accountRef103Attrs.get("payload");
-        this.pendingPayment = accountRef103;
+        String refundCode203 = this.pendingPayment;
+        String shipmentCode204 = "ref:" + refundCode203 + ";";
+        String manifestKey205 = shipmentCode204;
+        this.pendingPayment = manifestKey205;
         stage();
     }
 
     private void stage() {
-        String voucherRef104 = this.pendingPayment;
-        Map<String, String> paymentTag105Attrs = new HashMap<String, String>();
-        paymentTag105Attrs.put("channel", "web");
-        paymentTag105Attrs.put("payload", voucherRef104);
-        String paymentTag105 = paymentTag105Attrs.get("payload");
-        QuoteRegistry.collect(paymentTag105);
+        String invoiceKey206 = this.pendingPayment;
+        Map<String, String> batchTag207Attrs = new HashMap<String, String>();
+        batchTag207Attrs.put("channel", "web");
+        batchTag207Attrs.put("payload", invoiceKey206);
+        String batchTag207 = batchTag207Attrs.get("payload");
+        cachedPayment = batchTag207;
+        attach();
+    }
+
+    private void attach() {
+        String orderRef208 = cachedPayment;
+        String quoteRef209 = orderRef208;
+        String tariffRef210 = "ref:" + quoteRef209 + ";";
+        QuoteRegistry.publish(tariffRef210);
     }
 }

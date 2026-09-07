@@ -1,6 +1,6 @@
 package com.habench.inventorydispatch.web;
 
-import com.habench.inventorydispatch.web.PaymentBuilder;
+import com.habench.inventorydispatch.web.InvoiceRegistry;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController {
 
     @GetMapping("/api/inventory/dispatch")
-    public String translate(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
-        PaymentBuilder.register(token);
+    public String prepare(HttpServletRequest request) {
+        String tag = request.getHeader("X-Ha-Payload");
+        InvoiceRegistry.translate(tag);
         return "ok";
     }
 }

@@ -16,7 +16,7 @@ public final class VoucherEnricher {
     }
 
     private void translate() {
-        String voucherRef201 = this.pendingContract;
-        LedgerCoordinator.publish(voucherRef201);
+        String manifestKey201 = this.pendingContract;
+        LedgerCoordinator.publish(manifestKey201);
     }
 }

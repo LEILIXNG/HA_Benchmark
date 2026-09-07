@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1033",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "请求头经 8 层调用、跨 2 个模块流入命令执行",
+  "title": "路径变量经 7 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/paymentdraft/web/BatchController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/paymentdraft/web/BatchController.java",
     "line": 13,
-    "expr": "keyword",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "resource",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/paymentdraft/service/BatchExecutor.java",
@@ -26,127 +26,73 @@
     {
       "file": "web/src/main/java/com/habench/paymentdraft/web/BatchController.java",
       "line": 13,
-      "expr": "keyword",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "resource",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
       "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
+      "line": 8,
+      "expr": "ledgerEntry1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
+      "line": 9,
+      "expr": "channelTag2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
+      "line": 10,
+      "expr": "channelTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentdraft/service/LedgerService.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/LedgerService.java",
       "line": 13,
-      "expr": "receiptKey1",
+      "expr": "invoiceKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
-      "line": 16,
-      "expr": "receiptKey1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
-      "line": 17,
-      "expr": "accountRef2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentdraft/web/LedgerTranslator.java",
-      "line": 18,
-      "expr": "accountRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
-      "line": 10,
-      "expr": "quoteRef101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
-      "line": 13,
-      "expr": "quoteRef101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/LedgerService.java",
       "line": 14,
-      "expr": "tariffRef102",
-      "note": "取出集合元素"
+      "expr": "batchTag102",
+      "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/InvoiceFacade.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/LedgerService.java",
       "line": 15,
-      "expr": "tariffRef102",
+      "expr": "batchTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/ShipmentRuleSelector.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/RefundStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/ShipmentRuleStandard.java",
+      "file": "service/src/main/java/com/habench/paymentdraft/service/RefundStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
       "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 11,
-      "expr": "shipmentCode201",
-      "note": "字符串拼接传播"
+      "line": 8,
+      "expr": "voucherRef201",
+      "note": "局部变量传递"
     },
     {
       "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 14,
-      "expr": "shipmentCode201",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 15,
-      "expr": "manifestKey202",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 16,
-      "expr": "manifestKey202",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 21,
-      "expr": "invoiceKey203",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 24,
-      "expr": "invoiceKey203",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 25,
-      "expr": "batchTag204",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 26,
-      "expr": "orderRef205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdraft/service/BatchCoordinator.java",
-      "line": 27,
-      "expr": "orderRef205",
+      "line": 9,
+      "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
@@ -163,44 +109,40 @@
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 23,
+    "call_depth": 7,
+    "chain_len": 14,
     "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_path_variable",
       "sink:runtime_exec",
-      "prop:map_element",
-      "prop:map_element",
+      "prop:assign_local",
+      "prop:assign_local",
       "prop:cross_module",
-      "prop:string_concat",
       "prop:map_element",
+      "prop:assign_local",
       "prop:interface_dispatch",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:string_concat",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1033-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/payment/draft",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "path": "/api/payment/draft/{resource}",
+    "param": "resource",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 8,
+    "call_depth_observed": 7,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
+    "payload_at_sink": "echo zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

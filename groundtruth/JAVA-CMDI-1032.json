@@ -1,8 +1,8 @@
 {
   "id": "JAVA-CMDI-1032",
   "cwe": "CWE-78",
-  "verdict": "vulnerable",
-  "title": "查询参数经 10 层调用、跨 2 个模块流入命令执行",
+  "verdict": "safe",
+  "title": "查询参数经 11 层调用、跨 3 个模块流入命令执行，经 exec_no_shell 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/accountposting/web/TariffController.java",
     "line": 11,
@@ -11,251 +11,245 @@
   "source": {
     "file": "web/src/main/java/com/habench/accountposting/web/TariffController.java",
     "line": 13,
-    "expr": "token",
+    "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/accountposting/service/TariffExecutor.java",
-    "line": 13,
-    "expr": "argv",
-    "note": "SINK: CWE-78 命令注入"
+    "file": "dao/src/main/java/com/habench/accountposting/dao/TariffExecutor.java",
+    "line": 14,
+    "expr": "builder",
+    "note": "SINK 位置：CWE-78（未经 shell 解释）"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/accountposting/dao/TariffExecutor.java",
+    "line": 12,
+    "expr": "argv",
+    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "exec_no_shell",
   "path": [
     {
       "file": "web/src/main/java/com/habench/accountposting/web/TariffController.java",
       "line": 13,
-      "expr": "token",
+      "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffService.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffService.java",
-      "line": 13,
-      "expr": "tariffRef1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffService.java",
-      "line": 14,
-      "expr": "ledgerEntry2",
+      "file": "web/src/main/java/com/habench/accountposting/web/PaymentBuilder.java",
+      "line": 8,
+      "expr": "orderRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffService.java",
-      "line": 15,
-      "expr": "ledgerEntry2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 13,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 14,
-      "expr": "manifestKey101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 15,
-      "expr": "manifestKey101",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 20,
-      "expr": "invoiceKey102",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 23,
-      "expr": "invoiceKey102",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 24,
-      "expr": "batchTag103",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 25,
-      "expr": "batchTag103",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 30,
-      "expr": "orderRef104",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 31,
-      "expr": "quoteRef105",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 32,
-      "expr": "quoteRef105",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 37,
-      "expr": "tariffRef106",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 38,
-      "expr": "ledgerEntry107",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 39,
-      "expr": "channelTag108",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountposting/web/TariffCoordinator.java",
-      "line": 40,
-      "expr": "channelTag108",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 11,
-      "expr": "accountRef201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 12,
-      "expr": "accountRef201",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 17,
-      "expr": "voucherRef202",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 20,
-      "expr": "voucherRef202",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 21,
-      "expr": "paymentTag203",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 22,
-      "expr": "refundCode204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 23,
-      "expr": "refundCode204",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 28,
-      "expr": "shipmentCode205",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 29,
-      "expr": "manifestKey206",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffBroker.java",
-      "line": 30,
-      "expr": "manifestKey206",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffExecutor.java",
+      "file": "web/src/main/java/com/habench/accountposting/web/PaymentBuilder.java",
       "line": 9,
-      "expr": "value",
-      "note": "污点进入命令行"
+      "expr": "orderRef1",
+      "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountposting/service/TariffExecutor.java",
+      "file": "web/src/main/java/com/habench/accountposting/web/OrderNormalizer.java",
+      "line": 8,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountposting/web/OrderNormalizer.java",
+      "line": 9,
+      "expr": "refundCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/BatchBuilder.java",
+      "line": 14,
+      "expr": "catalogKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/BatchBuilder.java",
+      "line": 15,
+      "expr": "catalogKey201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/BatchBuilder.java",
+      "line": 20,
+      "expr": "receiptKey202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/BatchBuilder.java",
+      "line": 21,
+      "expr": "accountRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/BatchBuilder.java",
+      "line": 22,
+      "expr": "voucherRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/BatchBuilder.java",
+      "line": 23,
+      "expr": "voucherRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/QuoteBroker.java",
+      "line": 11,
+      "expr": "orderRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/QuoteBroker.java",
+      "line": 12,
+      "expr": "orderRef301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/QuoteBroker.java",
+      "line": 17,
+      "expr": "quoteRef302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/QuoteBroker.java",
+      "line": 18,
+      "expr": "tariffRef303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/QuoteBroker.java",
+      "line": 21,
+      "expr": "tariffRef303",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/QuoteBroker.java",
+      "line": 22,
+      "expr": "ledgerEntry304",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountposting/service/QuoteBroker.java",
+      "line": 23,
+      "expr": "ledgerEntry304",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
       "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
+      "line": 14,
+      "expr": "refundCode401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
+      "line": 15,
+      "expr": "shipmentCode402",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
+      "line": 16,
+      "expr": "shipmentCode402",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
+      "line": 21,
+      "expr": "manifestKey403",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
+      "line": 22,
+      "expr": "invoiceKey404",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
+      "line": 23,
+      "expr": "batchTag405",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffBroker.java",
+      "line": 24,
+      "expr": "batchTag405",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffExecutor.java",
+      "line": 11,
+      "expr": "value",
+      "note": "参数以数组传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffExecutor.java",
+      "line": 12,
       "expr": "argv",
-      "note": "SINK: CWE-78 命令注入"
+      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountposting/dao/TariffExecutor.java",
+      "line": 14,
+      "expr": "builder",
+      "note": "SINK 位置：CWE-78（未经 shell 解释）"
     }
   ],
   "metrics": {
-    "call_depth": 10,
-    "chain_len": 31,
-    "files_crossed": 5,
-    "modules_crossed": 2,
+    "call_depth": 11,
+    "chain_len": 29,
+    "files_crossed": 7,
+    "modules_crossed": 3,
     "features": [
       "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:map_element",
       "prop:string_concat",
       "prop:cross_class",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:static_field",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:string_concat",
       "prop:cross_module",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
       "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:assign_local",
       "prop:static_field",
       "prop:assign_local",
-      "sanitizer:none"
+      "prop:string_concat",
+      "sanitizer:exec_no_shell"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/account/posting",
-    "param": "token",
+    "param": "label",
     "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
-    "neutralized": false,
-    "call_depth_observed": 10,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 11,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:zz$(id);;;;",
-    "http_status": 500,
+    "payload_at_sink": "ref:ref:ref:ref:zz$(id);;;;",
+    "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

@@ -1,6 +1,8 @@
 package com.habench.inventoryrenewal.web;
 
 import com.habench.inventoryrenewal.web.LedgerLoader;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class RefundCoordinator {
     private String pendingLedger;
@@ -11,16 +13,21 @@ public final class RefundCoordinator {
     }
 
     private void collect(String value) {
-        String accountRef101 = value;
-        String voucherRef102 = "ref:" + accountRef101 + ";";
-        this.pendingLedger = voucherRef102;
+        Map<String, String> manifestKey201Attrs = new HashMap<String, String>();
+        manifestKey201Attrs.put("channel", "web");
+        manifestKey201Attrs.put("payload", value);
+        String manifestKey201 = manifestKey201Attrs.get("payload");
+        this.pendingLedger = manifestKey201;
         compose();
     }
 
     private void compose() {
-        String paymentTag103 = this.pendingLedger;
-        String refundCode104 = "ref:" + paymentTag103 + ";";
-        String shipmentCode105 = refundCode104;
-        LedgerLoader.route(shipmentCode105);
+        String invoiceKey202 = this.pendingLedger;
+        String batchTag203 = "ref:" + invoiceKey202 + ";";
+        Map<String, String> orderRef204Attrs = new HashMap<String, String>();
+        orderRef204Attrs.put("channel", "web");
+        orderRef204Attrs.put("payload", batchTag203);
+        String orderRef204 = orderRef204Attrs.get("payload");
+        LedgerLoader.route(orderRef204);
     }
 }

@@ -16,7 +16,7 @@ public final class BundleCoordinator {
     }
 
     private void route() {
-        String orderRef101 = this.pendingChannel;
-        BatchPolicy.refine(orderRef101);
+        String catalogKey101 = this.pendingChannel;
+        BatchPolicy.refine(catalogKey101);
     }
 }

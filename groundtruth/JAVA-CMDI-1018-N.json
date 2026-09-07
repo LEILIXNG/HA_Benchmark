@@ -1,0 +1,227 @@
+{
+  "id": "JAVA-CMDI-1018-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1018 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilposting/web/ChannelController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilposting/web/ChannelController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/fulfilposting/dao/ChannelExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/fulfilposting/dao/RefundPolicy.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilposting/web/ChannelController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilposting/web/RefundTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilposting/web/RefundTranslator.java",
+      "line": 13,
+      "expr": "invoiceKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilposting/web/RefundTranslator.java",
+      "line": 14,
+      "expr": "batchTag2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilposting/web/RefundTranslator.java",
+      "line": 15,
+      "expr": "batchTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/RefundAdapter.java",
+      "line": 8,
+      "expr": "voucherRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/RefundAdapter.java",
+      "line": 9,
+      "expr": "paymentTag102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/RefundAdapter.java",
+      "line": 10,
+      "expr": "paymentTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 17,
+      "expr": "ledgerEntry201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 18,
+      "expr": "ledgerEntry201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 23,
+      "expr": "channelTag202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 24,
+      "expr": "catalogKey203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 27,
+      "expr": "catalogKey203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 28,
+      "expr": "receiptKey204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 29,
+      "expr": "receiptKey204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 34,
+      "expr": "accountRef205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 37,
+      "expr": "accountRef205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 38,
+      "expr": "voucherRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 39,
+      "expr": "paymentTag207",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilposting/service/ReceiptBroker.java",
+      "line": 40,
+      "expr": "paymentTag207",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilposting/dao/ContractTranslator.java",
+      "line": 8,
+      "expr": "invoiceKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilposting/dao/ContractTranslator.java",
+      "line": 9,
+      "expr": "invoiceKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilposting/dao/RefundPolicy.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilposting/dao/ChannelExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilposting/dao/ChannelExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 25,
+    "files_crossed": 7,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/posting",
+    "param": "query",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

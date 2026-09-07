@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1042",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 10 层调用、跨 2 个模块流入命令执行，经 metachar_strip_semicolon 净化",
+  "title": "请求头经 8 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfilreview/web/OrderController.java",
     "line": 11,
@@ -11,207 +11,176 @@
   "source": {
     "file": "web/src/main/java/com/habench/fulfilreview/web/OrderController.java",
     "line": 13,
-    "expr": "label",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "token",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/fulfilreview/service/OrderExecutor.java",
+    "file": "web/src/main/java/com/habench/fulfilreview/web/OrderExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/fulfilreview/service/ChannelScreen.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 只剥离分号（无效）"
-  },
-  "sanitizer_kind": "metachar_strip_semicolon",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/fulfilreview/web/OrderController.java",
       "line": 13,
-      "expr": "label",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "token",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilreview/web/BundleEnricher.java",
-      "line": 8,
-      "expr": "tariffRef1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilreview/web/BundleEnricher.java",
-      "line": 9,
-      "expr": "tariffRef1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilreview/web/OrderStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 19,
       "expr": "value",
-      "note": "接口多态派发（3 个实现）"
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilreview/web/OrderStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 20,
+      "expr": "accountRef1",
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilreview/web/ManifestTranslator.java",
-      "line": 8,
-      "expr": "manifestKey101",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 21,
+      "expr": "accountRef1",
+      "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilreview/web/ManifestTranslator.java",
-      "line": 9,
-      "expr": "invoiceKey102",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 26,
+      "expr": "voucherRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 27,
+      "expr": "paymentTag3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilreview/web/ManifestTranslator.java",
-      "line": 10,
-      "expr": "invoiceKey102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 13,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 14,
-      "expr": "accountRef201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 15,
-      "expr": "accountRef201",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 20,
-      "expr": "voucherRef202",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 23,
-      "expr": "voucherRef202",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 24,
-      "expr": "paymentTag203",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 27,
-      "expr": "paymentTag203",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
       "line": 28,
-      "expr": "refundCode204",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 29,
-      "expr": "refundCode204",
+      "expr": "paymentTag3",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 34,
-      "expr": "shipmentCode205",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 33,
+      "expr": "refundCode4",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 37,
-      "expr": "shipmentCode205",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 36,
+      "expr": "refundCode4",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 38,
-      "expr": "manifestKey206",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 37,
+      "expr": "shipmentCode5",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ManifestCollector.java",
-      "line": 39,
-      "expr": "manifestKey206",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 38,
+      "expr": "shipmentCode5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 43,
+      "expr": "manifestKey6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 46,
+      "expr": "manifestKey6",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 47,
+      "expr": "invoiceKey7",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 48,
+      "expr": "invoiceKey7",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 53,
+      "expr": "batchTag8",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 54,
+      "expr": "orderRef9",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ChannelBuilder.java",
+      "line": 55,
+      "expr": "orderRef9",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/ChannelScreen.java",
-      "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 只剥离分号（无效）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/OrderExecutor.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/OrderExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreview/service/OrderExecutor.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/OrderExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 10,
-    "chain_len": 24,
-    "files_crossed": 8,
-    "modules_crossed": 2,
+    "call_depth": 8,
+    "chain_len": 20,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:runtime_exec",
-      "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
       "prop:string_concat",
-      "prop:cross_module",
+      "prop:static_field",
       "prop:map_element",
       "prop:static_field",
       "prop:map_element",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:map_element",
-      "sanitizer:metachar_strip_semicolon"
+      "prop:store_field",
+      "prop:assign_local",
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-CMDI-1042-N",
   "http": {
     "method": "GET",
     "path": "/api/fulfil/review",
-    "param": "label",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 10,
+    "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id)",
+    "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

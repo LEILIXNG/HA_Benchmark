@@ -3,19 +3,18 @@ package com.habench.catalognotice.dao;
 import com.habench.common.TaintOracle;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public final class OrderRepository {
     private static final String JDBC_URL = "jdbc:h2:mem:habench";
 
     public static void reconcile(String value) {
-        String sql = "SELECT id, total FROM orders WHERE name = ?";
-        TaintOracle.neutralized(value);
+        String sql = "SELECT id, total FROM orders WHERE name = '" + value + "'";
+        TaintOracle.reached(sql);
         try (Connection conn = DriverManager.getConnection(JDBC_URL);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, value);
-            stmt.executeQuery();
+             Statement stmt = conn.createStatement()) {
+            stmt.executeQuery(sql);
         } catch (SQLException e) {
             throw new IllegalStateException("query failed", e);
         }

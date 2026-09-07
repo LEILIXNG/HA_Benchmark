@@ -1,0 +1,271 @@
+{
+  "id": "JAVA-SPEL-1017-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-1017 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingbind/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingbind/web/ReceiptController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/billingbind/dao/ReceiptEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/billingbind/dao/ReceiptGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/ReceiptController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/CatalogCoordinator.java",
+      "line": 8,
+      "expr": "quoteRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/CatalogCoordinator.java",
+      "line": 9,
+      "expr": "tariffRef2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/CatalogCoordinator.java",
+      "line": 10,
+      "expr": "tariffRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 17,
+      "expr": "shipmentCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 18,
+      "expr": "shipmentCode101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 23,
+      "expr": "manifestKey102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 26,
+      "expr": "manifestKey102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 27,
+      "expr": "invoiceKey103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 28,
+      "expr": "batchTag104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 29,
+      "expr": "batchTag104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 34,
+      "expr": "orderRef105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 35,
+      "expr": "quoteRef106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/CatalogCollector.java",
+      "line": 36,
+      "expr": "quoteRef106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/SessionFacade.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/SessionFacade.java",
+      "line": 13,
+      "expr": "receiptKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/SessionFacade.java",
+      "line": 16,
+      "expr": "receiptKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/SessionFacade.java",
+      "line": 17,
+      "expr": "accountRef202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/SessionFacade.java",
+      "line": 18,
+      "expr": "accountRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/VoucherStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/VoucherStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/CatalogService.java",
+      "line": 8,
+      "expr": "quoteRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/CatalogService.java",
+      "line": 9,
+      "expr": "quoteRef301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/AccountPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/AccountPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/OrderFacade.java",
+      "line": 10,
+      "expr": "shipmentCode401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/OrderFacade.java",
+      "line": 13,
+      "expr": "shipmentCode401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/OrderFacade.java",
+      "line": 14,
+      "expr": "manifestKey402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/OrderFacade.java",
+      "line": 15,
+      "expr": "manifestKey402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/ReceiptGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/ReceiptEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingbind/dao/ReceiptEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 15,
+    "chain_len": 32,
+    "files_crossed": 12,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/bind",
+    "param": "resource",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

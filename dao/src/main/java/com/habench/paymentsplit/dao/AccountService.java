@@ -7,11 +7,11 @@ import java.util.Map;
 public final class AccountService {
 
     public static void stage(String value) {
-        Map<String, String> ledgerEntry501Attrs = new HashMap<String, String>();
-        ledgerEntry501Attrs.put("channel", "web");
-        ledgerEntry501Attrs.put("payload", value);
-        String ledgerEntry501 = ledgerEntry501Attrs.get("payload");
-        String channelTag502 = ledgerEntry501;
-        RefundExecutor.forward(channelTag502);
+        Map<String, String> channelTag501Attrs = new HashMap<String, String>();
+        channelTag501Attrs.put("channel", "web");
+        channelTag501Attrs.put("payload", value);
+        String channelTag501 = channelTag501Attrs.get("payload");
+        String catalogKey502 = "ref:" + channelTag501 + ";";
+        RefundExecutor.forward(catalogKey502);
     }
 }

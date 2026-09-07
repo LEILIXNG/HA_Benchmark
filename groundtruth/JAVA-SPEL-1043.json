@@ -1,0 +1,181 @@
+{
+  "id": "JAVA-SPEL-1043",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "查询参数经 6 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/paymentsubmit/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/paymentsubmit/web/SessionController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/paymentsubmit/service/SessionEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/paymentsubmit/web/SessionController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsubmit/web/PaymentAssembler.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsubmit/web/PaymentAssembler.java",
+      "line": 13,
+      "expr": "manifestKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsubmit/web/PaymentAssembler.java",
+      "line": 14,
+      "expr": "invoiceKey2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsubmit/web/PaymentAssembler.java",
+      "line": 15,
+      "expr": "invoiceKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 14,
+      "expr": "accountRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 17,
+      "expr": "accountRef101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 18,
+      "expr": "voucherRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 19,
+      "expr": "voucherRef102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 24,
+      "expr": "paymentTag103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 25,
+      "expr": "refundCode104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 26,
+      "expr": "shipmentCode105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 27,
+      "expr": "shipmentCode105",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 32,
+      "expr": "manifestKey106",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 33,
+      "expr": "invoiceKey107",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/PaymentBuilder.java",
+      "line": 34,
+      "expr": "invoiceKey107",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/SessionEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsubmit/service/SessionEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 19,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SPEL-1043-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/payment/submit",
+    "param": "userName",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 6,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

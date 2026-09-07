@@ -1,6 +1,6 @@
 package com.habench.inventorytrace.web;
 
-import com.habench.inventorytrace.web.ContractAdapter;
+import com.habench.inventorytrace.web.ShipmentCoordinator;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class InvoiceController {
 
     @GetMapping("/api/inventory/trace")
-    public String submit(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
-        ContractAdapter.translate(target);
+    public String assemble(HttpServletRequest request) {
+        String orderNo = request.getHeader("X-Ha-Payload");
+        ShipmentCoordinator.normalize(orderNo);
         return "ok";
     }
 }

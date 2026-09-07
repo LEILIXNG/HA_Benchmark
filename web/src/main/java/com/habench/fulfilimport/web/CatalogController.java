@@ -1,17 +1,17 @@
 package com.habench.fulfilimport.web;
 
-import com.habench.fulfilimport.web.BatchComposer;
+import com.habench.fulfilimport.web.TariffCoordinator;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("fulfilimportController")
 public class CatalogController {
 
-    @GetMapping("/api/fulfil/import/{query}")
-    public String resolve(
-            @PathVariable("query") String query) {
-        BatchComposer.refine(query);
+    @GetMapping("/api/fulfil/import")
+    public String submit(
+            @RequestParam("reference") String reference) {
+        TariffCoordinator.attach(reference);
         return "ok";
     }
 }

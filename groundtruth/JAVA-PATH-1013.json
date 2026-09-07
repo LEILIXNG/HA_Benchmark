@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1013",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "查询参数经 8 层调用、跨 2 个模块流入文件读取",
+  "title": "请求头经 10 层调用、跨 2 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
     "line": 13,
-    "expr": "tag",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "reference",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/billingnotice/service/QuoteLoader.java",
@@ -26,109 +26,151 @@
     {
       "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
       "line": 13,
-      "expr": "tag",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "reference",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
       "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
-      "line": 8,
-      "expr": "tariffRef1",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 14,
+      "expr": "batchTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 15,
+      "expr": "orderRef2",
       "note": "局部变量传递"
     },
     {
       "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
-      "line": 9,
-      "expr": "ledgerEntry2",
+      "line": 16,
+      "expr": "orderRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 21,
+      "expr": "quoteRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 22,
+      "expr": "tariffRef4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 23,
+      "expr": "ledgerEntry5",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 24,
+      "expr": "ledgerEntry5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 29,
+      "expr": "channelTag6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
+      "line": 30,
+      "expr": "catalogKey7",
       "note": "字符串拼接传播"
     },
     {
       "file": "web/src/main/java/com/habench/billingnotice/web/ContractCoordinator.java",
-      "line": 10,
-      "expr": "ledgerEntry2",
+      "line": 31,
+      "expr": "catalogKey7",
       "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 17,
-      "expr": "manifestKey101",
+      "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 18,
-      "expr": "manifestKey101",
+      "expr": "paymentTag101",
       "note": "写入实例字段"
     },
     {
       "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
       "line": 23,
-      "expr": "invoiceKey102",
+      "expr": "refundCode102",
       "note": "读取实例字段"
     },
     {
       "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 26,
-      "expr": "invoiceKey102",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 27,
-      "expr": "batchTag103",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 28,
-      "expr": "orderRef104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 29,
-      "expr": "orderRef104",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 34,
-      "expr": "quoteRef105",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 37,
-      "expr": "quoteRef105",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 38,
-      "expr": "tariffRef106",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 39,
-      "expr": "tariffRef106",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 44,
-      "expr": "ledgerEntry107",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 45,
-      "expr": "channelTag108",
+      "line": 24,
+      "expr": "shipmentCode103",
       "note": "局部变量传递"
     },
     {
       "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
-      "line": 46,
-      "expr": "channelTag108",
+      "line": 25,
+      "expr": "shipmentCode103",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 30,
+      "expr": "manifestKey104",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 33,
+      "expr": "manifestKey104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 34,
+      "expr": "invoiceKey105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 35,
+      "expr": "batchTag106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 36,
+      "expr": "batchTag106",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 41,
+      "expr": "orderRef107",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 42,
+      "expr": "quoteRef108",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffEnricher.java",
+      "line": 43,
+      "expr": "quoteRef108",
       "note": "调用下一层"
     },
     {
@@ -145,44 +187,49 @@
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 20,
+    "call_depth": 10,
+    "chain_len": 27,
     "files_crossed": 4,
     "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:file_read",
+      "prop:map_element",
       "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
       "prop:string_concat",
       "prop:cross_module",
       "prop:string_concat",
       "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
       "prop:map_element",
       "prop:string_concat",
-      "prop:static_field",
-      "prop:map_element",
       "prop:static_field",
       "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-PATH-1013-N",
   "http": {
     "method": "GET",
     "path": "/api/billing/notice",
-    "param": "tag",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 8,
+    "call_depth_observed": 10,
     "payload_sent": "../../../etc/passwd",
     "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

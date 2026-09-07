@@ -1,0 +1,417 @@
+{
+  "id": "JAVA-SPEL-1036",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "请求头经 19 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingtransfer/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingtransfer/web/RefundController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/billingtransfer/dao/RefundEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/billingtransfer/dao/ManifestPolicy.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 单次剥离 T(（无效）"
+  },
+  "sanitizer_kind": "spel_strip_type_ref",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingtransfer/web/RefundController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtransfer/web/BatchComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtransfer/web/BatchComposer.java",
+      "line": 13,
+      "expr": "paymentTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtransfer/web/BatchComposer.java",
+      "line": 14,
+      "expr": "refundCode2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtransfer/web/BatchComposer.java",
+      "line": 15,
+      "expr": "refundCode2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 17,
+      "expr": "channelTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 20,
+      "expr": "channelTag101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 21,
+      "expr": "catalogKey102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 22,
+      "expr": "catalogKey102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 27,
+      "expr": "receiptKey103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 30,
+      "expr": "receiptKey103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 31,
+      "expr": "accountRef104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 34,
+      "expr": "accountRef104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 35,
+      "expr": "voucherRef105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 36,
+      "expr": "voucherRef105",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 41,
+      "expr": "paymentTag106",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 44,
+      "expr": "paymentTag106",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 45,
+      "expr": "refundCode107",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtransfer/service/BatchCollector.java",
+      "line": 46,
+      "expr": "refundCode107",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 17,
+      "expr": "batchTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 18,
+      "expr": "batchTag201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 23,
+      "expr": "orderRef202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 24,
+      "expr": "quoteRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 27,
+      "expr": "quoteRef203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 28,
+      "expr": "tariffRef204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 29,
+      "expr": "tariffRef204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 34,
+      "expr": "ledgerEntry205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 35,
+      "expr": "channelTag206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 36,
+      "expr": "channelTag206",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 41,
+      "expr": "catalogKey207",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 42,
+      "expr": "receiptKey208",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 43,
+      "expr": "receiptKey208",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 48,
+      "expr": "accountRef209",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 49,
+      "expr": "voucherRef210",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 50,
+      "expr": "voucherRef210",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 55,
+      "expr": "paymentTag211",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 58,
+      "expr": "paymentTag211",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 59,
+      "expr": "refundCode212",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 60,
+      "expr": "shipmentCode213",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/CatalogCoordinator.java",
+      "line": 61,
+      "expr": "shipmentCode213",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 20,
+      "expr": "paymentTag301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 21,
+      "expr": "paymentTag301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 26,
+      "expr": "refundCode302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 27,
+      "expr": "shipmentCode303",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 28,
+      "expr": "shipmentCode303",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 33,
+      "expr": "manifestKey304",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 34,
+      "expr": "invoiceKey305",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 37,
+      "expr": "invoiceKey305",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 38,
+      "expr": "batchTag306",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/LedgerRouter.java",
+      "line": 39,
+      "expr": "batchTag306",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/ManifestPolicy.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 单次剥离 T(（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/RefundEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingtransfer/dao/RefundEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 19,
+    "chain_len": 54,
+    "files_crossed": 7,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:spel_strip_type_ref"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/transfer",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 19,
+    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

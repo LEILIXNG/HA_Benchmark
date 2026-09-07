@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1000",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 12 层调用、跨 3 个模块流入命令执行",
+  "title": "请求头经 9 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/vendorsync/web/BatchController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/vendorsync/web/BatchController.java",
     "line": 13,
-    "expr": "resource",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "orderNo",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchExecutor.java",
+    "file": "service/src/main/java/com/habench/vendorsync/service/BatchExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,222 +26,142 @@
     {
       "file": "web/src/main/java/com/habench/vendorsync/web/BatchController.java",
       "line": 13,
-      "expr": "resource",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "orderNo",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsync/web/AccountEnricher.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
+      "file": "web/src/main/java/com/habench/vendorsync/web/ManifestFacade.java",
+      "line": 8,
+      "expr": "tariffRef1",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsync/web/AccountEnricher.java",
-      "line": 13,
-      "expr": "batchTag1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorsync/web/AccountEnricher.java",
-      "line": 14,
-      "expr": "batchTag1",
+      "file": "web/src/main/java/com/habench/vendorsync/web/ManifestFacade.java",
+      "line": 9,
+      "expr": "tariffRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsync/web/SessionStrategySelector.java",
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 16,
+      "expr": "manifestKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 17,
+      "expr": "manifestKey101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 22,
+      "expr": "invoiceKey102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 25,
+      "expr": "invoiceKey102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 26,
+      "expr": "batchTag103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 29,
+      "expr": "batchTag103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 30,
+      "expr": "orderRef104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchNormalizer.java",
+      "line": 31,
+      "expr": "orderRef104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsync/service/TariffPolicySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsync/web/SessionStrategyStandard.java",
+      "file": "service/src/main/java/com/habench/vendorsync/service/TariffPolicyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 11,
-      "expr": "paymentTag101",
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchFacade.java",
+      "line": 8,
+      "expr": "accountRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 12,
-      "expr": "paymentTag101",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 17,
-      "expr": "refundCode102",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 20,
-      "expr": "refundCode102",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 21,
-      "expr": "shipmentCode103",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 24,
-      "expr": "shipmentCode103",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 25,
-      "expr": "manifestKey104",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorsync/web/VoucherRegistry.java",
-      "line": 26,
-      "expr": "manifestKey104",
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchFacade.java",
+      "line": 9,
+      "expr": "accountRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorsync/service/AccountAdapter.java",
-      "line": 14,
-      "expr": "channelTag201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorsync/service/AccountAdapter.java",
-      "line": 15,
-      "expr": "channelTag201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorsync/service/AccountAdapter.java",
-      "line": 20,
-      "expr": "catalogKey202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorsync/service/AccountAdapter.java",
-      "line": 21,
-      "expr": "receiptKey203",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorsync/service/AccountAdapter.java",
-      "line": 22,
-      "expr": "accountRef204",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorsync/service/AccountAdapter.java",
-      "line": 23,
-      "expr": "accountRef204",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchFacade.java",
-      "line": 11,
-      "expr": "batchTag301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchFacade.java",
-      "line": 14,
-      "expr": "batchTag301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchFacade.java",
-      "line": 15,
-      "expr": "orderRef302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchFacade.java",
-      "line": 16,
-      "expr": "orderRef302",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchFacade.java",
-      "line": 21,
-      "expr": "quoteRef303",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchFacade.java",
-      "line": 22,
-      "expr": "tariffRef304",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchFacade.java",
-      "line": 23,
-      "expr": "tariffRef304",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchExecutor.java",
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorsync/dao/BatchExecutor.java",
+      "file": "service/src/main/java/com/habench/vendorsync/service/BatchExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 12,
-    "chain_len": 29,
-    "files_crossed": 8,
-    "modules_crossed": 3,
+    "call_depth": 9,
+    "chain_len": 17,
+    "files_crossed": 7,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:runtime_exec",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
       "prop:map_element",
       "prop:interface_dispatch",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:static_field",
       "prop:string_concat",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1000-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/vendor/sync/{resource}",
-    "param": "resource",
-    "carrier": "path"
+    "path": "/api/vendor/sync",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 12,
+    "call_depth_observed": 9,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:zz$(id);;;;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

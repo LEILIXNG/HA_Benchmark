@@ -1,0 +1,186 @@
+{
+  "id": "JAVA-SPEL-1024-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-1024 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorreview/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorreview/web/OrderController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/vendorreview/web/OrderEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/vendorreview/web/QuoteGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/OrderController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 14,
+      "expr": "paymentTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 17,
+      "expr": "paymentTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 18,
+      "expr": "refundCode2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 19,
+      "expr": "refundCode2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 24,
+      "expr": "shipmentCode3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 25,
+      "expr": "manifestKey4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 26,
+      "expr": "invoiceKey5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteCoordinator.java",
+      "line": 27,
+      "expr": "invoiceKey5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/PaymentTranslator.java",
+      "line": 9,
+      "expr": "channelTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/PaymentTranslator.java",
+      "line": 10,
+      "expr": "catalogKey102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/PaymentTranslator.java",
+      "line": 11,
+      "expr": "catalogKey102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/PaymentTranslator.java",
+      "line": 16,
+      "expr": "receiptKey103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/PaymentTranslator.java",
+      "line": 17,
+      "expr": "accountRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/PaymentTranslator.java",
+      "line": 18,
+      "expr": "accountRef104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/QuoteGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/OrderEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorreview/web/OrderEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 19,
+    "files_crossed": 5,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/review",
+    "param": "reference",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

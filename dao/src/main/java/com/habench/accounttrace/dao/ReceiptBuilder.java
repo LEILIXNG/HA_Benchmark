@@ -1,6 +1,8 @@
 package com.habench.accounttrace.dao;
 
 import com.habench.accounttrace.dao.BatchExecutor;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class ReceiptBuilder {
     private String pendingBatch;
@@ -12,29 +14,35 @@ public final class ReceiptBuilder {
     }
 
     private void stage(String value) {
-        String refundCode201 = "ref:" + value + ";";
-        String shipmentCode202 = "ref:" + refundCode201 + ";";
-        this.pendingBatch = shipmentCode202;
+        Map<String, String> shipmentCode301Attrs = new HashMap<String, String>();
+        shipmentCode301Attrs.put("channel", "web");
+        shipmentCode301Attrs.put("payload", value);
+        String shipmentCode301 = shipmentCode301Attrs.get("payload");
+        String manifestKey302 = shipmentCode301;
+        this.pendingBatch = manifestKey302;
         collect();
     }
 
     private void collect() {
-        String manifestKey203 = this.pendingBatch;
-        String invoiceKey204 = manifestKey203;
-        cachedBatch = invoiceKey204;
+        String invoiceKey303 = this.pendingBatch;
+        String batchTag304 = invoiceKey303;
+        cachedBatch = batchTag304;
         compose();
     }
 
     private void compose() {
-        String batchTag205 = cachedBatch;
-        String orderRef206 = "ref:" + batchTag205 + ";";
-        this.pendingBatch = orderRef206;
+        String orderRef305 = cachedBatch;
+        String quoteRef306 = "ref:" + orderRef305 + ";";
+        this.pendingBatch = quoteRef306;
         route();
     }
 
     private void route() {
-        String quoteRef207 = this.pendingBatch;
-        String tariffRef208 = quoteRef207;
-        BatchExecutor.prepare(tariffRef208);
+        String tariffRef307 = this.pendingBatch;
+        Map<String, String> ledgerEntry308Attrs = new HashMap<String, String>();
+        ledgerEntry308Attrs.put("channel", "web");
+        ledgerEntry308Attrs.put("payload", tariffRef307);
+        String ledgerEntry308 = ledgerEntry308Attrs.get("payload");
+        BatchExecutor.prepare(ledgerEntry308);
     }
 }

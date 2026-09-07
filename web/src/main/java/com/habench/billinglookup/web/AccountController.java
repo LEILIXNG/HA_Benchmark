@@ -1,17 +1,17 @@
 package com.habench.billinglookup.web;
 
-import com.habench.billinglookup.web.OrderAssembler;
-import javax.servlet.http.HttpServletRequest;
+import com.habench.billinglookup.web.ContractTranslator;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("billinglookupController")
 public class AccountController {
 
-    @GetMapping("/api/billing/lookup")
-    public String translate(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
-        OrderAssembler.stage(label);
+    @GetMapping("/api/billing/lookup/{label}")
+    public String enrich(
+            @PathVariable("label") String label) {
+        ContractTranslator.submit(label);
         return "ok";
     }
 }

@@ -5,7 +5,7 @@ import com.habench.fulfilsync.dao.ShipmentLoader;
 public final class LedgerComposer {
 
     public static void translate(String value) {
-        String batchTag301 = value;
-        ShipmentLoader.refine(batchTag301);
+        String tariffRef301 = value;
+        ShipmentLoader.refine(tariffRef301);
     }
 }

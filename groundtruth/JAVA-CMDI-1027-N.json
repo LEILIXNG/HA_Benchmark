@@ -1,0 +1,349 @@
+{
+  "id": "JAVA-CMDI-1027-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1027 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/LedgerController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/LedgerController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/LedgerExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionScreen.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/LedgerController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 20,
+      "expr": "voucherRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 21,
+      "expr": "paymentTag2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 22,
+      "expr": "paymentTag2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 27,
+      "expr": "refundCode3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 30,
+      "expr": "refundCode3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 31,
+      "expr": "shipmentCode4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 34,
+      "expr": "shipmentCode4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 35,
+      "expr": "manifestKey5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 36,
+      "expr": "manifestKey5",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 41,
+      "expr": "invoiceKey6",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 42,
+      "expr": "batchTag7",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 43,
+      "expr": "orderRef8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 44,
+      "expr": "orderRef8",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 49,
+      "expr": "quoteRef9",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 52,
+      "expr": "quoteRef9",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 53,
+      "expr": "tariffRef10",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ChannelCoordinator.java",
+      "line": 54,
+      "expr": "tariffRef10",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilsettlequeue/service/PaymentRegistry.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilsettlequeue/service/PaymentRegistry.java",
+      "line": 13,
+      "expr": "ledgerEntry101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilsettlequeue/service/PaymentRegistry.java",
+      "line": 14,
+      "expr": "ledgerEntry101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/OrderRegistry.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/OrderRegistry.java",
+      "line": 13,
+      "expr": "invoiceKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/OrderRegistry.java",
+      "line": 14,
+      "expr": "batchTag202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/OrderRegistry.java",
+      "line": 15,
+      "expr": "batchTag202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/LedgerStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/LedgerStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionCoordinator.java",
+      "line": 13,
+      "expr": "voucherRef301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionCoordinator.java",
+      "line": 14,
+      "expr": "voucherRef301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/ContractPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/ContractPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 16,
+      "expr": "ledgerEntry401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 17,
+      "expr": "channelTag402",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 18,
+      "expr": "channelTag402",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 23,
+      "expr": "catalogKey403",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 24,
+      "expr": "receiptKey404",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 27,
+      "expr": "receiptKey404",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 28,
+      "expr": "accountRef405",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/BundleService.java",
+      "line": 29,
+      "expr": "accountRef405",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionScreen.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/LedgerExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/LedgerExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 44,
+    "files_crossed": 12,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/settlequeue",
+    "param": "userName",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

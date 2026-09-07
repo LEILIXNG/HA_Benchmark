@@ -1,0 +1,323 @@
+{
+  "id": "JAVA-SPEL-1009",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "查询参数经 18 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/paymentrenewal/web/ManifestController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/paymentrenewal/web/ManifestController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/paymentrenewal/service/ManifestEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ManifestController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ShipmentEnricher.java",
+      "line": 14,
+      "expr": "catalogKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ShipmentEnricher.java",
+      "line": 15,
+      "expr": "receiptKey2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ShipmentEnricher.java",
+      "line": 16,
+      "expr": "receiptKey2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ShipmentEnricher.java",
+      "line": 21,
+      "expr": "accountRef3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ShipmentEnricher.java",
+      "line": 22,
+      "expr": "voucherRef4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ShipmentEnricher.java",
+      "line": 23,
+      "expr": "voucherRef4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/QuotePlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/QuotePlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ManifestRegistry.java",
+      "line": 8,
+      "expr": "orderRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentrenewal/web/ManifestRegistry.java",
+      "line": 9,
+      "expr": "orderRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ContractFacade.java",
+      "line": 14,
+      "expr": "refundCode201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ContractFacade.java",
+      "line": 15,
+      "expr": "refundCode201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ContractFacade.java",
+      "line": 20,
+      "expr": "shipmentCode202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ContractFacade.java",
+      "line": 21,
+      "expr": "manifestKey203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ContractFacade.java",
+      "line": 22,
+      "expr": "invoiceKey204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ContractFacade.java",
+      "line": 23,
+      "expr": "invoiceKey204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 17,
+      "expr": "catalogKey301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 18,
+      "expr": "catalogKey301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 23,
+      "expr": "receiptKey302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 24,
+      "expr": "accountRef303",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 25,
+      "expr": "voucherRef304",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 26,
+      "expr": "voucherRef304",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 31,
+      "expr": "paymentTag305",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 32,
+      "expr": "refundCode306",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 33,
+      "expr": "shipmentCode307",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 34,
+      "expr": "shipmentCode307",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 39,
+      "expr": "manifestKey308",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 40,
+      "expr": "invoiceKey309",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 41,
+      "expr": "invoiceKey309",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 46,
+      "expr": "batchTag310",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 49,
+      "expr": "batchTag310",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 50,
+      "expr": "orderRef311",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 51,
+      "expr": "orderRef311",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 56,
+      "expr": "quoteRef312",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 57,
+      "expr": "tariffRef313",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 58,
+      "expr": "ledgerEntry314",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/TariffTranslator.java",
+      "line": 59,
+      "expr": "ledgerEntry314",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ManifestEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrenewal/service/ManifestEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 40,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:spel_eval",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SPEL-1009-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/payment/renewal",
+    "param": "tag",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 18,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

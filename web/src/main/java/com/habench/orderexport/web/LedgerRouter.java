@@ -1,11 +1,11 @@
 package com.habench.orderexport.web;
 
-import com.habench.orderexport.service.ChannelService;
+import com.habench.orderexport.web.ManifestPlanSelector;
 
 public final class LedgerRouter {
 
     public static void submit(String value) {
-        String paymentTag101 = "ref:" + value + ";";
-        ChannelService.forward(paymentTag101);
+        String quoteRef101 = "ref:" + value + ";";
+        ManifestPlanSelector.reconcile(quoteRef101);
     }
 }

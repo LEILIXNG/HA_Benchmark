@@ -1,0 +1,264 @@
+{
+  "id": "JAVA-SPEL-1002",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "请求头经 11 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorarchive/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorarchive/web/PaymentController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/vendorarchive/dao/PaymentEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/PaymentController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/VoucherResolver.java",
+      "line": 9,
+      "expr": "receiptKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/VoucherResolver.java",
+      "line": 10,
+      "expr": "accountRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/VoucherResolver.java",
+      "line": 11,
+      "expr": "accountRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/VoucherResolver.java",
+      "line": 16,
+      "expr": "voucherRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/VoucherResolver.java",
+      "line": 17,
+      "expr": "paymentTag4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/VoucherResolver.java",
+      "line": 18,
+      "expr": "refundCode5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorarchive/web/VoucherResolver.java",
+      "line": 19,
+      "expr": "refundCode5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/PaymentCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/PaymentCollector.java",
+      "line": 13,
+      "expr": "quoteRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/PaymentCollector.java",
+      "line": 14,
+      "expr": "tariffRef102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/PaymentCollector.java",
+      "line": 15,
+      "expr": "tariffRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/CatalogBuilder.java",
+      "line": 10,
+      "expr": "shipmentCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/CatalogBuilder.java",
+      "line": 13,
+      "expr": "shipmentCode201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/CatalogBuilder.java",
+      "line": 14,
+      "expr": "manifestKey202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorarchive/service/CatalogBuilder.java",
+      "line": 15,
+      "expr": "manifestKey202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/InvoiceCollector.java",
+      "line": 8,
+      "expr": "receiptKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/InvoiceCollector.java",
+      "line": 9,
+      "expr": "accountRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/InvoiceCollector.java",
+      "line": 10,
+      "expr": "accountRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 20,
+      "expr": "quoteRef401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 21,
+      "expr": "tariffRef402",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 22,
+      "expr": "tariffRef402",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 27,
+      "expr": "ledgerEntry403",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 28,
+      "expr": "channelTag404",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 29,
+      "expr": "channelTag404",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 34,
+      "expr": "catalogKey405",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 35,
+      "expr": "receiptKey406",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/QuoteComposer.java",
+      "line": 36,
+      "expr": "receiptKey406",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/PaymentEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorarchive/dao/PaymentEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 31,
+    "files_crossed": 7,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/archive",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 11,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

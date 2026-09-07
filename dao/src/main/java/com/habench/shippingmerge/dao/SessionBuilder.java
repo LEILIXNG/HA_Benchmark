@@ -7,10 +7,10 @@ import java.util.Map;
 public final class SessionBuilder {
 
     public static void normalize(String value) {
-        Map<String, String> quoteRef401Attrs = new HashMap<String, String>();
-        quoteRef401Attrs.put("channel", "web");
-        quoteRef401Attrs.put("payload", value);
-        String quoteRef401 = quoteRef401Attrs.get("payload");
-        AccountExecutor.forward(quoteRef401);
+        Map<String, String> channelTag301Attrs = new HashMap<String, String>();
+        channelTag301Attrs.put("channel", "web");
+        channelTag301Attrs.put("payload", value);
+        String channelTag301 = channelTag301Attrs.get("payload");
+        AccountExecutor.forward(channelTag301);
     }
 }

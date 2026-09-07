@@ -5,26 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class BundleAdapter {
-    private String pendingRefund;
 
-    public static void translate(String value) {
-        BundleAdapter self = new BundleAdapter();
-        self.prepare(value);
-    }
-
-    private void prepare(String value) {
-        Map<String, String> catalogKey1Attrs = new HashMap<String, String>();
-        catalogKey1Attrs.put("channel", "web");
-        catalogKey1Attrs.put("payload", value);
-        String catalogKey1 = catalogKey1Attrs.get("payload");
-        String receiptKey2 = catalogKey1;
-        this.pendingRefund = receiptKey2;
-        assemble();
-    }
-
-    private void assemble() {
-        String accountRef3 = this.pendingRefund;
-        String voucherRef4 = "ref:" + accountRef3 + ";";
-        InvoiceRegistry.expand(voucherRef4);
+    public static void prepare(String value) {
+        String ledgerEntry101 = "ref:" + value + ";";
+        Map<String, String> channelTag102Attrs = new HashMap<String, String>();
+        channelTag102Attrs.put("channel", "web");
+        channelTag102Attrs.put("payload", ledgerEntry101);
+        String channelTag102 = channelTag102Attrs.get("payload");
+        InvoiceRegistry.expand(channelTag102);
     }
 }

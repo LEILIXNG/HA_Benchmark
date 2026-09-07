@@ -1,6 +1,6 @@
 package com.habench.fulfilnotice.web;
 
-import com.habench.fulfilnotice.web.BundleAdapter;
+import com.habench.fulfilnotice.web.CatalogCollector;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RefundController {
 
     @GetMapping("/api/fulfil/notice")
-    public String route(HttpServletRequest request) {
+    public String reconcile(HttpServletRequest request) {
         String query = request.getHeader("X-Ha-Payload");
-        BundleAdapter.translate(query);
+        CatalogCollector.reconcile(query);
         return "ok";
     }
 }

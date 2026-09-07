@@ -2,20 +2,20 @@
   "id": "JAVA-SQLI-1027",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "查询参数经 7 层调用、跨 1 个模块流入JDBC 拼接",
+  "title": "查询参数经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingadjust/web/InvoiceController.java",
+    "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingadjust/web/InvoiceController.java",
+    "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceController.java",
     "line": 13,
-    "expr": "orderNo",
+    "expr": "category",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/shippingadjust/web/InvoiceRepository.java",
+    "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,114 +24,85 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/InvoiceController.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceController.java",
       "line": 13,
-      "expr": "orderNo",
+      "expr": "category",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ManifestCollector.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/RefundRegistry.java",
+      "line": 8,
+      "expr": "paymentTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrevise/web/RefundRegistry.java",
       "line": 9,
-      "expr": "ledgerEntry1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ManifestCollector.java",
-      "line": 10,
-      "expr": "channelTag2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ManifestCollector.java",
-      "line": 11,
-      "expr": "channelTag2",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ManifestCollector.java",
-      "line": 16,
-      "expr": "catalogKey3",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ManifestCollector.java",
-      "line": 17,
-      "expr": "receiptKey4",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ManifestCollector.java",
-      "line": 18,
-      "expr": "receiptKey4",
+      "expr": "paymentTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ChannelService.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/ManifestPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrevise/web/ManifestPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrevise/web/ChannelService.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrevise/web/ChannelService.java",
+      "line": 13,
+      "expr": "channelTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrevise/web/ChannelService.java",
       "line": 14,
-      "expr": "invoiceKey101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ChannelService.java",
-      "line": 15,
-      "expr": "invoiceKey101",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ChannelService.java",
-      "line": 20,
-      "expr": "batchTag102",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ChannelService.java",
-      "line": 21,
-      "expr": "orderRef103",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/ChannelService.java",
-      "line": 22,
-      "expr": "orderRef103",
+      "expr": "channelTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/InvoiceRepository.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingadjust/web/InvoiceRepository.java",
+      "file": "web/src/main/java/com/habench/catalogrevise/web/InvoiceRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 14,
-    "files_crossed": 4,
+    "call_depth": 6,
+    "chain_len": 10,
+    "files_crossed": 6,
     "modules_crossed": 1,
     "features": [
       "source:spring_request_param",
       "sink:jdbc_concat",
-      "prop:string_concat",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:cross_class",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SQLI-1027-N",
   "http": {
     "method": "GET",
-    "path": "/api/shipping/adjust",
-    "param": "orderNo",
+    "path": "/api/catalog/revise",
+    "param": "category",
     "carrier": "query"
   },
   "verification": {
@@ -139,11 +110,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 7,
+    "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

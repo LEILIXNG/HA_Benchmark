@@ -2,7 +2,7 @@
   "id": "JAVA-SQLI-1025",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "请求头经 8 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
+  "title": "请求头经 7 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
     "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
     "line": 11,
@@ -11,7 +11,7 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
     "line": 13,
-    "expr": "userName",
+    "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
@@ -20,127 +20,74 @@
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/pricingrelease/service/BundleGuard.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 不完整净化（无效）"
-  },
-  "sanitizer_kind": "incomplete_quote_strip",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
       "line": 13,
-      "expr": "userName",
+      "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/BatchCollector.java",
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
       "line": 8,
-      "expr": "tariffRef1",
+      "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/BatchCollector.java",
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
       "line": 9,
-      "expr": "ledgerEntry2",
-      "note": "局部变量传递"
+      "expr": "catalogKey1",
+      "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/BatchCollector.java",
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
       "line": 10,
-      "expr": "ledgerEntry2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 17,
-      "expr": "manifestKey101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 20,
-      "expr": "manifestKey101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 21,
-      "expr": "invoiceKey102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 22,
-      "expr": "invoiceKey102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 27,
-      "expr": "batchTag103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 28,
-      "expr": "orderRef104",
+      "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 31,
-      "expr": "orderRef104",
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
+      "line": 13,
+      "expr": "orderRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 32,
-      "expr": "quoteRef105",
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
+      "line": 14,
+      "expr": "quoteRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 33,
-      "expr": "quoteRef105",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 38,
-      "expr": "tariffRef106",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 39,
-      "expr": "ledgerEntry107",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 42,
-      "expr": "ledgerEntry107",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 43,
-      "expr": "channelTag108",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/CatalogBroker.java",
-      "line": 44,
-      "expr": "channelTag108",
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
+      "line": 15,
+      "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleGuard.java",
+      "file": "service/src/main/java/com/habench/pricingrelease/service/QuotePolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrelease/service/QuotePolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
+      "line": 8,
+      "expr": "refundCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
       "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 不完整净化（无效）"
+      "expr": "refundCode201",
+      "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/pricingrelease/service/QuoteRepository.java",
@@ -156,28 +103,23 @@
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 21,
-    "files_crossed": 5,
+    "call_depth": 7,
+    "chain_len": 13,
+    "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
       "source:servlet_header",
       "sink:jdbc_concat",
       "prop:string_concat",
-      "prop:assign_local",
       "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:static_field",
       "prop:string_concat",
       "prop:map_element",
-      "prop:store_field",
+      "prop:interface_dispatch",
       "prop:assign_local",
-      "prop:map_element",
-      "sanitizer:incomplete_quote_strip"
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SQLI-1025-N",
   "http": {
     "method": "GET",
     "path": "/api/pricing/release",
@@ -189,11 +131,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 8,
+    "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

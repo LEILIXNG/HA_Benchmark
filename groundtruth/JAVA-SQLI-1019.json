@@ -1,229 +1,189 @@
 {
   "id": "JAVA-SQLI-1019",
   "cwe": "CWE-89",
-  "verdict": "vulnerable",
-  "title": "路径变量经 12 层调用、跨 2 个模块流入JDBC 拼接",
+  "verdict": "safe",
+  "title": "路径变量经 7 层调用、跨 1 个模块流入JDBC 拼接，经 sql_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingdigest/web/OrderController.java",
+    "file": "web/src/main/java/com/habench/inventorymerge/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingdigest/web/OrderController.java",
+    "file": "web/src/main/java/com/habench/inventorymerge/web/OrderController.java",
     "line": 13,
-    "expr": "label",
+    "expr": "token",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/shippingdigest/service/OrderRepository.java",
-    "line": 17,
-    "expr": "sql",
-    "note": "SINK: CWE-89 SQL 注入"
+    "file": "web/src/main/java/com/habench/inventorymerge/web/OrderRepository.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/inventorymerge/web/OrderRepository.java",
+    "line": 17,
+    "expr": "value",
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/OrderController.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/OrderController.java",
       "line": 13,
-      "expr": "label",
+      "expr": "token",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 17,
-      "expr": "manifestKey1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 20,
-      "expr": "manifestKey1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 21,
-      "expr": "invoiceKey2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 22,
-      "expr": "invoiceKey2",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 27,
-      "expr": "batchTag3",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 30,
-      "expr": "batchTag3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 31,
-      "expr": "orderRef4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 32,
-      "expr": "orderRef4",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 37,
-      "expr": "quoteRef5",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 38,
-      "expr": "tariffRef6",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingdigest/web/QuoteAdapter.java",
-      "line": 39,
-      "expr": "tariffRef6",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/PaymentRegistry.java",
-      "line": 14,
-      "expr": "accountRef101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/PaymentRegistry.java",
-      "line": 15,
-      "expr": "voucherRef102",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/PaymentRegistry.java",
-      "line": 16,
-      "expr": "voucherRef102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/PaymentRegistry.java",
-      "line": 21,
-      "expr": "paymentTag103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/PaymentRegistry.java",
-      "line": 22,
-      "expr": "refundCode104",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/PaymentRegistry.java",
-      "line": 23,
-      "expr": "shipmentCode105",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/PaymentRegistry.java",
-      "line": 24,
-      "expr": "shipmentCode105",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/ReceiptBroker.java",
-      "line": 14,
-      "expr": "tariffRef201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/ReceiptBroker.java",
-      "line": 15,
-      "expr": "tariffRef201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/ReceiptBroker.java",
-      "line": 20,
-      "expr": "ledgerEntry202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/ReceiptBroker.java",
-      "line": 21,
-      "expr": "channelTag203",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/ReceiptBroker.java",
-      "line": 22,
-      "expr": "channelTag203",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/OrderRepository.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/inventorymerge/web/QuoteAdapter.java",
+      "line": 12,
       "expr": "value",
-      "note": "污点进入 SQL 语句"
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingdigest/service/OrderRepository.java",
+      "file": "web/src/main/java/com/habench/inventorymerge/web/QuoteAdapter.java",
+      "line": 13,
+      "expr": "refundCode1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/QuoteAdapter.java",
+      "line": 16,
+      "expr": "refundCode1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/QuoteAdapter.java",
       "line": 17,
-      "expr": "sql",
-      "note": "SINK: CWE-89 SQL 注入"
+      "expr": "shipmentCode2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/QuoteAdapter.java",
+      "line": 18,
+      "expr": "shipmentCode2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 19,
+      "expr": "catalogKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 22,
+      "expr": "catalogKey101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 23,
+      "expr": "receiptKey102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 24,
+      "expr": "receiptKey102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 29,
+      "expr": "accountRef103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 30,
+      "expr": "voucherRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 31,
+      "expr": "paymentTag105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/PaymentRegistry.java",
+      "line": 32,
+      "expr": "paymentTag105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/ReceiptBroker.java",
+      "line": 8,
+      "expr": "orderRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/ReceiptBroker.java",
+      "line": 9,
+      "expr": "orderRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/OrderRepository.java",
+      "line": 13,
+      "note": "参数化占位符，值不参与 SQL 语法"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/OrderRepository.java",
+      "line": 17,
+      "expr": "value",
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorymerge/web/OrderRepository.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
   ],
   "metrics": {
-    "call_depth": 12,
-    "chain_len": 26,
+    "call_depth": 7,
+    "chain_len": 20,
     "files_crossed": 5,
-    "modules_crossed": 2,
+    "modules_crossed": 1,
     "features": [
       "source:spring_path_variable",
       "sink:jdbc_concat",
-      "prop:assign_local",
       "prop:map_element",
-      "prop:store_field",
       "prop:map_element",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:string_concat",
       "prop:cross_class",
-      "prop:string_concat",
+      "prop:map_element",
+      "prop:map_element",
       "prop:store_field",
       "prop:string_concat",
-      "sanitizer:none"
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "sanitizer:sql_parameterized"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1019-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/shipping/digest/{label}",
-    "param": "label",
+    "path": "/api/inventory/merge/{token}",
+    "param": "token",
     "carrier": "path"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
-    "neutralized": false,
-    "call_depth_observed": 12,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
+    "payload_at_sink": "ref:zz' OR 1=1--;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

@@ -7,10 +7,10 @@ import java.util.Map;
 public final class AccountEnricher {
 
     public static void forward(String value) {
-        Map<String, String> channelTag301Attrs = new HashMap<String, String>();
-        channelTag301Attrs.put("channel", "web");
-        channelTag301Attrs.put("payload", value);
-        String channelTag301 = channelTag301Attrs.get("payload");
-        ShipmentLoader.translate(channelTag301);
+        Map<String, String> orderRef301Attrs = new HashMap<String, String>();
+        orderRef301Attrs.put("channel", "web");
+        orderRef301Attrs.put("payload", value);
+        String orderRef301 = orderRef301Attrs.get("payload");
+        ShipmentLoader.translate(orderRef301);
     }
 }

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ManifestController {
 
     @GetMapping("/api/payment/bind")
-    public String collect(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
-        ManifestAssembler.refine(filename);
+    public String route(HttpServletRequest request) {
+        String token = request.getHeader("X-Ha-Payload");
+        ManifestAssembler.dispatch(token);
         return "ok";
     }
 }

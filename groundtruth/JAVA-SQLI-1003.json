@@ -2,20 +2,20 @@
   "id": "JAVA-SQLI-1003",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "路径变量经 12 层调用、跨 1 个模块流入JDBC 拼接",
+  "title": "查询参数经 9 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilissue/web/ContractController.java",
+    "file": "web/src/main/java/com/habench/pricingassign/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilissue/web/ContractController.java",
+    "file": "web/src/main/java/com/habench/pricingassign/web/ContractController.java",
     "line": 13,
-    "expr": "keyword",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "target",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/fulfilissue/web/ContractRepository.java",
+    "file": "service/src/main/java/com/habench/pricingassign/service/ContractRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,169 +24,158 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/ContractController.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/ContractController.java",
       "line": 13,
-      "expr": "keyword",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "target",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/ShipmentFacade.java",
-      "line": 10,
-      "expr": "receiptKey1",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/pricingassign/web/ReceiptAdapter.java",
+      "line": 8,
+      "expr": "accountRef1",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/ShipmentFacade.java",
-      "line": 13,
-      "expr": "receiptKey1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/ShipmentFacade.java",
-      "line": 14,
-      "expr": "accountRef2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/ShipmentFacade.java",
-      "line": 15,
-      "expr": "accountRef2",
+      "file": "web/src/main/java/com/habench/pricingassign/web/ReceiptAdapter.java",
+      "line": 9,
+      "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/CatalogRuleSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（3 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/CatalogRuleStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/SessionTranslator.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/ShipmentBroker.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/SessionTranslator.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/ShipmentBroker.java",
       "line": 13,
-      "expr": "quoteRef101",
+      "expr": "tariffRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/SessionTranslator.java",
+      "file": "web/src/main/java/com/habench/pricingassign/web/ShipmentBroker.java",
       "line": 14,
-      "expr": "tariffRef102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/SessionTranslator.java",
-      "line": 15,
-      "expr": "tariffRef102",
+      "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/VoucherStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/habench/pricingassign/service/PaymentRegistry.java",
+      "line": 12,
       "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/VoucherStrategyStandard.java",
+      "file": "service/src/main/java/com/habench/pricingassign/service/PaymentRegistry.java",
+      "line": 13,
+      "expr": "manifestKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/PaymentRegistry.java",
+      "line": 14,
+      "expr": "manifestKey201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/QuoteRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/QuoteRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/LedgerAssembler.java",
-      "line": 8,
-      "expr": "shipmentCode201",
+      "file": "service/src/main/java/com/habench/pricingassign/service/RefundCoordinator.java",
+      "line": 9,
+      "expr": "accountRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/LedgerAssembler.java",
-      "line": 9,
-      "expr": "shipmentCode201",
+      "file": "service/src/main/java/com/habench/pricingassign/service/RefundCoordinator.java",
+      "line": 10,
+      "expr": "accountRef301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/RefundCoordinator.java",
+      "line": 15,
+      "expr": "voucherRef302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/RefundCoordinator.java",
+      "line": 16,
+      "expr": "paymentTag303",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/RefundCoordinator.java",
+      "line": 17,
+      "expr": "refundCode304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/RefundCoordinator.java",
+      "line": 18,
+      "expr": "refundCode304",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/QuotePolicySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/QuotePolicyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/RefundCoordinator.java",
-      "line": 8,
-      "expr": "receiptKey301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/RefundCoordinator.java",
-      "line": 9,
-      "expr": "receiptKey301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/ContractRepository.java",
+      "file": "service/src/main/java/com/habench/pricingassign/service/ContractRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilissue/web/ContractRepository.java",
+      "file": "service/src/main/java/com/habench/pricingassign/service/ContractRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 12,
-    "chain_len": 21,
-    "files_crossed": 12,
-    "modules_crossed": 1,
+    "call_depth": 9,
+    "chain_len": 19,
+    "files_crossed": 8,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:spring_request_param",
       "sink:jdbc_concat",
-      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:cross_module",
       "prop:map_element",
       "prop:interface_dispatch",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:interface_dispatch",
       "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1003-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/fulfil/issue/{keyword}",
-    "param": "keyword",
-    "carrier": "path"
+    "path": "/api/pricing/assign",
+    "param": "target",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 12,
+    "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

@@ -2,26 +2,26 @@
   "id": "JAVA-SQLI-1032",
   "cwe": "CWE-89",
   "verdict": "safe",
-  "title": "查询参数经 15 层调用、跨 3 个模块流入JDBC 拼接，经 whitelist_regex 净化",
+  "title": "查询参数经 9 层调用、跨 2 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingreview/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/inventorydraft/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingreview/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/inventorydraft/web/ChannelController.java",
     "line": 13,
-    "expr": "token",
+    "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingreview/dao/ChannelRepository.java",
+    "file": "service/src/main/java/com/habench/inventorydraft/service/ChannelRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/pricingreview/dao/QuoteScreen.java",
+    "file": "service/src/main/java/com/habench/inventorydraft/service/QuoteScreen.java",
     "line": 11,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,266 +29,126 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingreview/web/ChannelController.java",
+      "file": "web/src/main/java/com/habench/inventorydraft/web/ChannelController.java",
       "line": 13,
-      "expr": "token",
+      "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreview/web/RefundTranslator.java",
-      "line": 8,
-      "expr": "channelTag1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreview/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
       "line": 9,
-      "expr": "catalogKey2",
+      "expr": "receiptKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreview/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
       "line": 10,
-      "expr": "catalogKey2",
+      "expr": "accountRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
+      "line": 11,
+      "expr": "accountRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
+      "line": 16,
+      "expr": "voucherRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
+      "line": 17,
+      "expr": "paymentTag4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
+      "line": 18,
+      "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreview/web/VoucherComposer.java",
-      "line": 8,
-      "expr": "batchTag101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreview/web/VoucherComposer.java",
-      "line": 9,
-      "expr": "orderRef102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreview/web/VoucherComposer.java",
-      "line": 10,
-      "expr": "orderRef102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/ChannelAdapter.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/ChannelAdapter.java",
-      "line": 13,
-      "expr": "paymentTag201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/ChannelAdapter.java",
-      "line": 14,
-      "expr": "paymentTag201",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/InvoiceResolver.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/InvoiceResolver.java",
-      "line": 13,
-      "expr": "channelTag301",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/InvoiceResolver.java",
-      "line": 14,
-      "expr": "channelTag301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/AccountStrategySelector.java",
+      "file": "web/src/main/java/com/habench/inventorydraft/web/CatalogPlanSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreview/service/AccountStrategyStandard.java",
+      "file": "web/src/main/java/com/habench/inventorydraft/web/CatalogPlanStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 17,
-      "expr": "batchTag401",
+      "file": "web/src/main/java/com/habench/inventorydraft/web/PaymentResolver.java",
+      "line": 8,
+      "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 20,
-      "expr": "batchTag401",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 21,
-      "expr": "orderRef402",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 22,
-      "expr": "orderRef402",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 27,
-      "expr": "quoteRef403",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 30,
-      "expr": "quoteRef403",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 31,
-      "expr": "tariffRef404",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 32,
-      "expr": "tariffRef404",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 37,
-      "expr": "ledgerEntry405",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 38,
-      "expr": "channelTag406",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 39,
-      "expr": "catalogKey407",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 40,
-      "expr": "catalogKey407",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 45,
-      "expr": "receiptKey408",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 46,
-      "expr": "accountRef409",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreview/service/PaymentResolver.java",
-      "line": 47,
-      "expr": "accountRef409",
+      "file": "web/src/main/java/com/habench/inventorydraft/web/PaymentResolver.java",
+      "line": 9,
+      "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreview/dao/AccountCollector.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
+      "file": "service/src/main/java/com/habench/inventorydraft/service/AccountCollector.java",
+      "line": 8,
+      "expr": "shipmentCode201",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreview/dao/AccountCollector.java",
-      "line": 13,
-      "expr": "paymentTag501",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreview/dao/AccountCollector.java",
-      "line": 14,
-      "expr": "refundCode502",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreview/dao/AccountCollector.java",
-      "line": 15,
-      "expr": "refundCode502",
+      "file": "service/src/main/java/com/habench/inventorydraft/service/AccountCollector.java",
+      "line": 9,
+      "expr": "shipmentCode201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreview/dao/QuoteScreen.java",
+      "file": "service/src/main/java/com/habench/inventorydraft/service/QuoteScreen.java",
       "line": 11,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreview/dao/ChannelRepository.java",
+      "file": "service/src/main/java/com/habench/inventorydraft/service/ChannelRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreview/dao/ChannelRepository.java",
+      "file": "service/src/main/java/com/habench/inventorydraft/service/ChannelRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 15,
-    "chain_len": 37,
-    "files_crossed": 11,
-    "modules_crossed": 3,
+    "call_depth": 9,
+    "chain_len": 16,
+    "files_crossed": 8,
+    "modules_crossed": 2,
     "features": [
       "source:spring_request_param",
       "sink:jdbc_concat",
-      "prop:string_concat",
       "prop:assign_local",
-      "prop:cross_class",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
+      "prop:assign_local",
       "prop:static_field",
       "prop:assign_local",
-      "prop:string_concat",
-      "prop:store_field",
+      "prop:interface_dispatch",
       "prop:string_concat",
       "prop:cross_module",
-      "prop:map_element",
-      "prop:assign_local",
+      "prop:string_concat",
       "sanitizer:whitelist_regex"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/pricing/review",
-    "param": "token",
+    "path": "/api/inventory/draft",
+    "param": "reference",
     "carrier": "query"
   },
   "verification": {
@@ -301,6 +161,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

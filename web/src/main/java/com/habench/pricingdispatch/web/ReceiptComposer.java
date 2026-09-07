@@ -1,25 +1,17 @@
 package com.habench.pricingdispatch.web;
 
-import com.habench.pricingdispatch.web.ShipmentFacade;
+import com.habench.pricingdispatch.service.LedgerAssembler;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class ReceiptComposer {
-    private static String cachedOrder;
 
     public static void refine(String value) {
-        String quoteRef1 = "ref:" + value + ";";
-        Map<String, String> tariffRef2Attrs = new HashMap<String, String>();
-        tariffRef2Attrs.put("channel", "web");
-        tariffRef2Attrs.put("payload", quoteRef1);
-        String tariffRef2 = tariffRef2Attrs.get("payload");
-        cachedOrder = tariffRef2;
-        stage();
-    }
-
-    private static void stage() {
-        String ledgerEntry3 = cachedOrder;
-        String channelTag4 = ledgerEntry3;
-        ShipmentFacade.attach(channelTag4);
+        Map<String, String> channelTag1Attrs = new HashMap<String, String>();
+        channelTag1Attrs.put("channel", "web");
+        channelTag1Attrs.put("payload", value);
+        String channelTag1 = channelTag1Attrs.get("payload");
+        String catalogKey2 = "ref:" + channelTag1 + ";";
+        LedgerAssembler.attach(catalogKey2);
     }
 }

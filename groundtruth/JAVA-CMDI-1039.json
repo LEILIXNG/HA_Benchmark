@@ -2,20 +2,20 @@
   "id": "JAVA-CMDI-1039",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "请求头经 11 层调用、跨 3 个模块流入命令执行",
+  "title": "请求头经 18 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountimport/web/TariffController.java",
+    "file": "web/src/main/java/com/habench/orderreopen/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountimport/web/TariffController.java",
+    "file": "web/src/main/java/com/habench/orderreopen/web/TariffController.java",
     "line": 13,
-    "expr": "userName",
+    "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountimport/dao/TariffExecutor.java",
+    "file": "service/src/main/java/com/habench/orderreopen/service/TariffExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,213 +24,264 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/TariffController.java",
+      "file": "web/src/main/java/com/habench/orderreopen/web/TariffController.java",
       "line": 13,
-      "expr": "userName",
+      "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 11,
-      "expr": "orderRef1",
-      "note": "字符串拼接传播"
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 17,
+      "expr": "refundCode1",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 12,
-      "expr": "orderRef1",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 18,
+      "expr": "refundCode1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 23,
+      "expr": "shipmentCode2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 24,
+      "expr": "manifestKey3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 25,
+      "expr": "invoiceKey4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 26,
+      "expr": "invoiceKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 17,
-      "expr": "quoteRef2",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 31,
+      "expr": "batchTag5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 18,
-      "expr": "tariffRef3",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 32,
+      "expr": "orderRef6",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 33,
+      "expr": "orderRef6",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 38,
+      "expr": "quoteRef7",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 39,
+      "expr": "tariffRef8",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 21,
-      "expr": "tariffRef3",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 42,
+      "expr": "tariffRef8",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 22,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 43,
+      "expr": "ledgerEntry9",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 23,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 44,
+      "expr": "ledgerEntry9",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 28,
-      "expr": "channelTag5",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 49,
+      "expr": "channelTag10",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 29,
-      "expr": "catalogKey6",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 50,
+      "expr": "catalogKey11",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 30,
-      "expr": "catalogKey6",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 35,
-      "expr": "receiptKey7",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 36,
-      "expr": "accountRef8",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 51,
+      "expr": "receiptKey12",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 37,
-      "expr": "voucherRef9",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountimport/web/RefundFacade.java",
-      "line": 38,
-      "expr": "voucherRef9",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountNormalizer.java",
+      "line": 52,
+      "expr": "receiptKey12",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/AccountPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/ManifestRouter.java",
+      "line": 8,
+      "expr": "catalogKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreopen/web/ManifestRouter.java",
+      "line": 9,
+      "expr": "catalogKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreopen/service/ContractBuilder.java",
+      "line": 8,
+      "expr": "orderRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreopen/service/ContractBuilder.java",
+      "line": 9,
+      "expr": "orderRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreopen/service/ReceiptRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreopen/service/ReceiptRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreopen/service/ManifestService.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/RefundTranslator.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ManifestService.java",
       "line": 13,
-      "expr": "refundCode101",
+      "expr": "refundCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/RefundTranslator.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ManifestService.java",
       "line": 14,
-      "expr": "shipmentCode102",
+      "expr": "shipmentCode302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/RefundTranslator.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ManifestService.java",
       "line": 15,
-      "expr": "shipmentCode102",
+      "expr": "shipmentCode302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/BundleRouter.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ContractComposer.java",
       "line": 14,
-      "expr": "catalogKey201",
+      "expr": "catalogKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/BundleRouter.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ContractComposer.java",
       "line": 15,
-      "expr": "catalogKey201",
+      "expr": "catalogKey401",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/BundleRouter.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ContractComposer.java",
       "line": 20,
-      "expr": "receiptKey202",
+      "expr": "receiptKey402",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/BundleRouter.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ContractComposer.java",
       "line": 21,
-      "expr": "accountRef203",
-      "note": "局部变量传递"
+      "expr": "accountRef403",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/BundleRouter.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/ContractComposer.java",
       "line": 22,
-      "expr": "voucherRef204",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/BundleRouter.java",
-      "line": 23,
-      "expr": "voucherRef204",
+      "expr": "accountRef403",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountimport/dao/ContractComposer.java",
-      "line": 8,
-      "expr": "orderRef301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountimport/dao/ContractComposer.java",
-      "line": 9,
-      "expr": "quoteRef302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountimport/dao/ContractComposer.java",
-      "line": 10,
-      "expr": "quoteRef302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountimport/dao/TariffExecutor.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/TariffExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountimport/dao/TariffExecutor.java",
+      "file": "service/src/main/java/com/habench/orderreopen/service/TariffExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 11,
-    "chain_len": 30,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "call_depth": 18,
+    "chain_len": 38,
+    "files_crossed": 11,
+    "modules_crossed": 2,
     "features": [
       "source:servlet_header",
       "sink:runtime_exec",
-      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
       "prop:static_field",
       "prop:string_concat",
       "prop:map_element",
       "prop:static_field",
       "prop:string_concat",
-      "prop:static_field",
       "prop:string_concat",
+      "prop:interface_dispatch",
       "prop:string_concat",
       "prop:cross_module",
+      "prop:string_concat",
+      "prop:interface_dispatch",
       "prop:map_element",
       "prop:assign_local",
       "prop:cross_class",
       "prop:assign_local",
       "prop:store_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:string_concat",
       "prop:string_concat",
       "sanitizer:none"
     ]
@@ -238,7 +289,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/account/import",
+    "path": "/api/order/reopen",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -247,11 +298,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 11,
+    "call_depth_observed": 18,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

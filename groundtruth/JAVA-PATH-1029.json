@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1029",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "查询参数经 13 层调用、跨 3 个模块流入文件读取",
+  "title": "查询参数经 18 层调用、跨 3 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/accountexport/web/PaymentController.java",
     "line": 11,
@@ -11,7 +11,7 @@
   "source": {
     "file": "web/src/main/java/com/habench/accountexport/web/PaymentController.java",
     "line": 13,
-    "expr": "orderNo",
+    "expr": "tag",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
@@ -26,175 +26,319 @@
     {
       "file": "web/src/main/java/com/habench/accountexport/web/PaymentController.java",
       "line": 13,
-      "expr": "orderNo",
+      "expr": "tag",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/accountexport/web/BatchCollector.java",
-      "line": 16,
-      "expr": "refundCode1",
+      "file": "web/src/main/java/com/habench/accountexport/web/SessionBroker.java",
+      "line": 8,
+      "expr": "ledgerEntry1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountexport/web/SessionBroker.java",
+      "line": 9,
+      "expr": "channelTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountexport/web/BatchCollector.java",
+      "file": "web/src/main/java/com/habench/accountexport/web/SessionBroker.java",
+      "line": 10,
+      "expr": "channelTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
       "line": 17,
-      "expr": "refundCode1",
+      "expr": "invoiceKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 18,
+      "expr": "batchTag102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 19,
+      "expr": "batchTag102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountexport/web/BatchCollector.java",
-      "line": 22,
-      "expr": "shipmentCode2",
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 24,
+      "expr": "orderRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountexport/web/BatchCollector.java",
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
       "line": 25,
-      "expr": "shipmentCode2",
+      "expr": "quoteRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 28,
+      "expr": "quoteRef104",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountexport/web/BatchCollector.java",
-      "line": 26,
-      "expr": "manifestKey3",
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 29,
+      "expr": "tariffRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountexport/web/BatchCollector.java",
-      "line": 27,
-      "expr": "manifestKey3",
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 30,
+      "expr": "tariffRef105",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 35,
+      "expr": "ledgerEntry106",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 36,
+      "expr": "channelTag107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 37,
+      "expr": "catalogKey108",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 38,
+      "expr": "catalogKey108",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 43,
+      "expr": "receiptKey109",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 46,
+      "expr": "receiptKey109",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 47,
+      "expr": "accountRef110",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 48,
+      "expr": "voucherRef111",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 49,
+      "expr": "voucherRef111",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 54,
+      "expr": "paymentTag112",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 55,
+      "expr": "refundCode113",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 56,
+      "expr": "refundCode113",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 61,
+      "expr": "shipmentCode114",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 62,
+      "expr": "manifestKey115",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/InvoiceAdapter.java",
+      "line": 63,
+      "expr": "manifestKey115",
       "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 16,
-      "expr": "catalogKey101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 17,
-      "expr": "catalogKey101",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 22,
-      "expr": "receiptKey102",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 25,
-      "expr": "receiptKey102",
+      "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 26,
-      "expr": "accountRef103",
+      "line": 20,
+      "expr": "voucherRef201",
       "note": "取出集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 27,
-      "expr": "accountRef103",
+      "line": 21,
+      "expr": "paymentTag202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 22,
+      "expr": "paymentTag202",
       "note": "写入实例字段"
     },
     {
       "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 32,
-      "expr": "voucherRef104",
+      "line": 27,
+      "expr": "refundCode203",
       "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 28,
+      "expr": "shipmentCode204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 29,
+      "expr": "manifestKey205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 30,
+      "expr": "manifestKey205",
+      "note": "写入实例字段"
     },
     {
       "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
       "line": 35,
-      "expr": "voucherRef104",
+      "expr": "invoiceKey206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 38,
+      "expr": "invoiceKey206",
       "note": "存入集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 36,
-      "expr": "paymentTag105",
+      "line": 39,
+      "expr": "batchTag207",
       "note": "取出集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
-      "line": 37,
-      "expr": "paymentTag105",
+      "line": 40,
+      "expr": "batchTag207",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 45,
+      "expr": "orderRef208",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 46,
+      "expr": "quoteRef209",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 47,
+      "expr": "tariffRef210",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountexport/service/LedgerService.java",
+      "line": 48,
+      "expr": "tariffRef210",
       "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 17,
-      "expr": "orderRef201",
-      "note": "字符串拼接传播"
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 18,
-      "expr": "quoteRef202",
-      "note": "字符串拼接传播"
+      "line": 14,
+      "expr": "ledgerEntry301",
+      "note": "取出集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 19,
-      "expr": "quoteRef202",
+      "line": 15,
+      "expr": "channelTag302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
+      "line": 16,
+      "expr": "channelTag302",
       "note": "写入静态字段"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 24,
-      "expr": "tariffRef203",
+      "line": 21,
+      "expr": "catalogKey303",
       "note": "读取静态字段"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 27,
-      "expr": "tariffRef203",
-      "note": "存入集合元素"
+      "line": 22,
+      "expr": "receiptKey304",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
+      "line": 23,
+      "expr": "receiptKey304",
+      "note": "写入静态字段"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
       "line": 28,
-      "expr": "ledgerEntry204",
-      "note": "取出集合元素"
+      "expr": "accountRef305",
+      "note": "读取静态字段"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
       "line": 29,
-      "expr": "ledgerEntry204",
-      "note": "写入实例字段"
+      "expr": "voucherRef306",
+      "note": "字符串拼接传播"
     },
     {
       "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 34,
-      "expr": "channelTag205",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 35,
-      "expr": "catalogKey206",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 38,
-      "expr": "catalogKey206",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 39,
-      "expr": "receiptKey207",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountexport/dao/QuoteRegistry.java",
-      "line": 40,
-      "expr": "receiptKey207",
+      "line": 30,
+      "expr": "voucherRef306",
       "note": "调用下一层"
     },
     {
@@ -211,38 +355,57 @@
     }
   ],
   "metrics": {
-    "call_depth": 13,
-    "chain_len": 31,
-    "files_crossed": 5,
+    "call_depth": 18,
+    "chain_len": 55,
+    "files_crossed": 6,
     "modules_crossed": 3,
     "features": [
       "source:spring_request_param",
       "sink:file_read",
+      "prop:string_concat",
       "prop:assign_local",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
       "prop:cross_module",
       "prop:string_concat",
       "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
       "prop:static_field",
       "prop:map_element",
-      "prop:store_field",
-      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_class",
       "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-PATH-1029-N",
   "http": {
     "method": "GET",
     "path": "/api/account/export",
-    "param": "orderNo",
+    "param": "tag",
     "carrier": "query"
   },
   "verification": {
@@ -250,11 +413,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 13,
+    "call_depth_observed": 18,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

@@ -1,17 +1,17 @@
 package com.habench.paymenthold.web;
 
-import com.habench.paymenthold.web.SessionComposer;
-import javax.servlet.http.HttpServletRequest;
+import com.habench.paymenthold.web.RefundComposer;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("paymentholdController")
 public class BatchController {
 
     @GetMapping("/api/payment/hold")
-    public String collect(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
-        SessionComposer.submit(orderNo);
+    public String reconcile(
+            @RequestParam("resource") String resource) {
+        RefundComposer.translate(resource);
         return "ok";
     }
 }

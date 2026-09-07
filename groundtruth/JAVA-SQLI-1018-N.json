@@ -1,0 +1,257 @@
+{
+  "id": "JAVA-SQLI-1018-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1018 逐行相同，仅把净化改为 sql_parameterized",
+  "entry": {
+    "file": "web/src/main/java/com/habench/customergrant/web/TariffController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/customergrant/web/TariffController.java",
+    "line": 13,
+    "expr": "filename",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/customergrant/dao/TariffRepository.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/customergrant/dao/TariffRepository.java",
+    "line": 17,
+    "expr": "value",
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/customergrant/web/TariffController.java",
+      "line": 13,
+      "expr": "filename",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customergrant/web/QuoteRouter.java",
+      "line": 8,
+      "expr": "batchTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customergrant/web/QuoteRouter.java",
+      "line": 9,
+      "expr": "batchTag1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customergrant/service/ContractTranslator.java",
+      "line": 9,
+      "expr": "paymentTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customergrant/service/ContractTranslator.java",
+      "line": 10,
+      "expr": "refundCode102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customergrant/service/ContractTranslator.java",
+      "line": 11,
+      "expr": "refundCode102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customergrant/service/ContractTranslator.java",
+      "line": 16,
+      "expr": "shipmentCode103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customergrant/service/ContractTranslator.java",
+      "line": 17,
+      "expr": "manifestKey104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customergrant/service/ContractTranslator.java",
+      "line": 18,
+      "expr": "manifestKey104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 17,
+      "expr": "channelTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 18,
+      "expr": "channelTag201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 23,
+      "expr": "catalogKey202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 26,
+      "expr": "catalogKey202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 27,
+      "expr": "receiptKey203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 28,
+      "expr": "receiptKey203",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 33,
+      "expr": "accountRef204",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 34,
+      "expr": "voucherRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 35,
+      "expr": "voucherRef205",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 40,
+      "expr": "paymentTag206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 41,
+      "expr": "refundCode207",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 44,
+      "expr": "refundCode207",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 45,
+      "expr": "shipmentCode208",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 46,
+      "expr": "shipmentCode208",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 51,
+      "expr": "manifestKey209",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 52,
+      "expr": "invoiceKey210",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 53,
+      "expr": "batchTag211",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/AccountService.java",
+      "line": 54,
+      "expr": "batchTag211",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/TariffRepository.java",
+      "line": 13,
+      "note": "参数化占位符，值不参与 SQL 语法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/TariffRepository.java",
+      "line": 17,
+      "expr": "value",
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customergrant/dao/TariffRepository.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 30,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:sql_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/customer/grant/{filename}",
+    "param": "filename",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 11,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "ref:ref:ref:zz' OR 1=1--;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

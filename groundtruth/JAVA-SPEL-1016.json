@@ -1,0 +1,272 @@
+{
+  "id": "JAVA-SPEL-1016",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "请求头经 12 层调用、跨 1 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogrelease/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogrelease/web/InvoiceController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/catalogrelease/web/InvoiceEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/InvoiceController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 17,
+      "expr": "tariffRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 18,
+      "expr": "tariffRef1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 23,
+      "expr": "ledgerEntry2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 26,
+      "expr": "ledgerEntry2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 27,
+      "expr": "channelTag3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 30,
+      "expr": "channelTag3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 31,
+      "expr": "catalogKey4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 32,
+      "expr": "catalogKey4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 37,
+      "expr": "receiptKey5",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 40,
+      "expr": "receiptKey5",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 41,
+      "expr": "accountRef6",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 42,
+      "expr": "accountRef6",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 47,
+      "expr": "voucherRef7",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 48,
+      "expr": "paymentTag8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 49,
+      "expr": "paymentTag8",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 54,
+      "expr": "refundCode9",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 57,
+      "expr": "refundCode9",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 58,
+      "expr": "shipmentCode10",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 61,
+      "expr": "shipmentCode10",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 62,
+      "expr": "manifestKey11",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 63,
+      "expr": "manifestKey11",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 68,
+      "expr": "invoiceKey12",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 69,
+      "expr": "batchTag13",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 70,
+      "expr": "orderRef14",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountRouter.java",
+      "line": 71,
+      "expr": "orderRef14",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/AccountPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/BatchEnricher.java",
+      "line": 8,
+      "expr": "manifestKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/BatchEnricher.java",
+      "line": 9,
+      "expr": "invoiceKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/BatchEnricher.java",
+      "line": 10,
+      "expr": "invoiceKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/InvoiceEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrelease/web/InvoiceEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 33,
+    "files_crossed": 6,
+    "modules_crossed": 1,
+    "features": [
+      "source:servlet_header",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/release",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T09:25:40+08:00"
+  }
+}

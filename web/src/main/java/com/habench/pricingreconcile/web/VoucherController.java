@@ -1,6 +1,6 @@
 package com.habench.pricingreconcile.web;
 
-import com.habench.pricingreconcile.web.RefundRouter;
+import com.habench.pricingreconcile.web.ContractEnricher;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class VoucherController {
 
     @GetMapping("/api/pricing/reconcile")
-    public String refine(
-            @RequestParam("label") String label) {
-        RefundRouter.reconcile(label);
+    public String enrich(
+            @RequestParam("userName") String userName) {
+        ContractEnricher.dispatch(userName);
         return "ok";
     }
 }

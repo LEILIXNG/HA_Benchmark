@@ -1,6 +1,6 @@
 package com.habench.fulfilgrant.web;
 
-import com.habench.fulfilgrant.web.VoucherFacade;
+import com.habench.fulfilgrant.web.SessionBroker;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChannelController {
 
     @GetMapping("/api/fulfil/grant")
-    public String attach(
-            @RequestParam("target") String target) {
-        VoucherFacade.attach(target);
+    public String route(
+            @RequestParam("userName") String userName) {
+        SessionBroker.assemble(userName);
         return "ok";
     }
 }

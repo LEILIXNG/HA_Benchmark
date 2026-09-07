@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("pricingquoteController")
 public class OrderController {
 
-    @GetMapping("/api/pricing/quote/{target}")
-    public String assemble(
-            @PathVariable("target") String target) {
-        InvoiceRegistry.merge(target);
+    @GetMapping("/api/pricing/quote/{token}")
+    public String forward(
+            @PathVariable("token") String token) {
+        InvoiceRegistry.enrich(token);
         return "ok";
     }
 }

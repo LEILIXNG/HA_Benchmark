@@ -1,6 +1,6 @@
 package com.habench.pricingnotice.web;
 
-import com.habench.pricingnotice.web.CatalogCoordinator;
+import com.habench.pricingnotice.web.QuoteRouter;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class BatchController {
 
     @GetMapping("/api/pricing/notice")
-    public String prepare(HttpServletRequest request) {
-        String resource = request.getHeader("X-Ha-Payload");
-        CatalogCoordinator.forward(resource);
+    public String route(HttpServletRequest request) {
+        String category = request.getHeader("X-Ha-Payload");
+        QuoteRouter.publish(category);
         return "ok";
     }
 }

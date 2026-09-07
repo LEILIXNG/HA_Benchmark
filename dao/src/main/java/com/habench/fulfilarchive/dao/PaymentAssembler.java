@@ -11,7 +11,7 @@ public final class PaymentAssembler {
     }
 
     private static void reconcile() {
-        String channelTag401 = cachedInvoice;
-        ShipmentNormalizer.merge(channelTag401);
+        String accountRef401 = cachedInvoice;
+        ShipmentNormalizer.merge(accountRef401);
     }
 }

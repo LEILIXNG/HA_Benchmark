@@ -11,17 +11,17 @@
   "source": {
     "file": "web/src/main/java/com/habench/reportmanifest/web/ContractController.java",
     "line": 13,
-    "expr": "target",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "query",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/reportmanifest/web/ContractExecutor.java",
+    "file": "service/src/main/java/com/habench/reportmanifest/service/ContractExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/reportmanifest/web/BundleValidator.java",
+    "file": "service/src/main/java/com/habench/reportmanifest/service/BundleValidator.java",
     "line": 13,
     "expr": "value",
     "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
@@ -31,80 +31,223 @@
     {
       "file": "web/src/main/java/com/habench/reportmanifest/web/ContractController.java",
       "line": 13,
-      "expr": "target",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "query",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 17,
+      "expr": "invoiceKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 18,
+      "expr": "invoiceKey1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 23,
+      "expr": "batchTag2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 24,
+      "expr": "orderRef3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 27,
+      "expr": "orderRef3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 28,
+      "expr": "quoteRef4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 29,
+      "expr": "quoteRef4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 34,
+      "expr": "tariffRef5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 35,
+      "expr": "ledgerEntry6",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 36,
+      "expr": "channelTag7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/CatalogService.java",
+      "line": 37,
+      "expr": "channelTag7",
+      "note": "调用下一层"
     },
     {
       "file": "web/src/main/java/com/habench/reportmanifest/web/ContractNormalizer.java",
       "line": 8,
-      "expr": "ledgerEntry1",
+      "expr": "voucherRef101",
       "note": "字符串拼接传播"
     },
     {
       "file": "web/src/main/java/com/habench/reportmanifest/web/ContractNormalizer.java",
       "line": 9,
-      "expr": "ledgerEntry1",
+      "expr": "paymentTag102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportmanifest/web/ContractNormalizer.java",
+      "line": 10,
+      "expr": "paymentTag102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/BatchStrategySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 16,
+      "expr": "ledgerEntry201",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/BatchStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 17,
+      "expr": "ledgerEntry201",
+      "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/RefundBroker.java",
-      "line": 12,
-      "expr": "value",
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 22,
+      "expr": "channelTag202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 23,
+      "expr": "catalogKey203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 24,
+      "expr": "catalogKey203",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 29,
+      "expr": "receiptKey204",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 30,
+      "expr": "accountRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 31,
+      "expr": "voucherRef206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 32,
+      "expr": "voucherRef206",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 37,
+      "expr": "paymentTag207",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 38,
+      "expr": "refundCode208",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 41,
+      "expr": "refundCode208",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/RefundBroker.java",
-      "line": 13,
-      "expr": "invoiceKey101",
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 42,
+      "expr": "shipmentCode209",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/RefundBroker.java",
-      "line": 14,
-      "expr": "invoiceKey101",
+      "file": "service/src/main/java/com/habench/reportmanifest/service/RefundBroker.java",
+      "line": 43,
+      "expr": "shipmentCode209",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/BundleValidator.java",
+      "file": "service/src/main/java/com/habench/reportmanifest/service/BundleValidator.java",
       "line": 13,
       "expr": "value",
       "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/ContractExecutor.java",
+      "file": "service/src/main/java/com/habench/reportmanifest/service/ContractExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmanifest/web/ContractExecutor.java",
+      "file": "service/src/main/java/com/habench/reportmanifest/service/ContractExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 11,
-    "files_crossed": 7,
-    "modules_crossed": 1,
+    "call_depth": 13,
+    "chain_len": 32,
+    "files_crossed": 6,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:runtime_exec",
       "prop:string_concat",
-      "prop:interface_dispatch",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
       "prop:map_element",
       "sanitizer:command_allowlist"
     ]
@@ -112,9 +255,9 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/report/manifest/{target}",
-    "param": "target",
-    "carrier": "path"
+    "path": "/api/report/manifest",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
@@ -126,6 +269,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

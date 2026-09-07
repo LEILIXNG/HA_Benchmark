@@ -1,6 +1,6 @@
 package com.habench.paymentrevise.web;
 
-import com.habench.paymentrevise.web.ShipmentAdapter;
+import com.habench.paymentrevise.web.ReceiptEnricher;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class InvoiceController {
 
     @GetMapping("/api/payment/revise")
-    public String assemble(
-            @RequestParam("filename") String filename) {
-        ShipmentAdapter.stage(filename);
+    public String enrich(
+            @RequestParam("query") String query) {
+        ReceiptEnricher.enrich(query);
         return "ok";
     }
 }

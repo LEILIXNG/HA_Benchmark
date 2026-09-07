@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1037",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 11 层调用、跨 3 个模块流入命令执行",
+  "title": "路径变量经 7 层调用、跨 3 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/vendorbind/web/RefundController.java",
     "line": 11,
@@ -11,7 +11,7 @@
   "source": {
     "file": "web/src/main/java/com/habench/vendorbind/web/RefundController.java",
     "line": 13,
-    "expr": "query",
+    "expr": "reference",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
@@ -26,193 +26,97 @@
     {
       "file": "web/src/main/java/com/habench/vendorbind/web/RefundController.java",
       "line": 13,
-      "expr": "query",
+      "expr": "reference",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundResolver.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
+      "file": "web/src/main/java/com/habench/vendorbind/web/ContractCollector.java",
+      "line": 8,
+      "expr": "catalogKey1",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundResolver.java",
-      "line": 13,
-      "expr": "channelTag1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundResolver.java",
-      "line": 16,
-      "expr": "channelTag1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundResolver.java",
-      "line": 17,
-      "expr": "catalogKey2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundResolver.java",
-      "line": 18,
-      "expr": "catalogKey2",
+      "file": "web/src/main/java/com/habench/vendorbind/web/ContractCollector.java",
+      "line": 9,
+      "expr": "catalogKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 19,
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 13,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 20,
-      "expr": "batchTag101",
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 14,
+      "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 23,
-      "expr": "batchTag101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 24,
-      "expr": "orderRef102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 25,
-      "expr": "orderRef102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 30,
-      "expr": "quoteRef103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 33,
-      "expr": "quoteRef103",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 34,
-      "expr": "tariffRef104",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 37,
-      "expr": "tariffRef104",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 38,
-      "expr": "ledgerEntry105",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 39,
-      "expr": "ledgerEntry105",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 44,
-      "expr": "channelTag106",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 47,
-      "expr": "channelTag106",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 48,
-      "expr": "catalogKey107",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 51,
-      "expr": "catalogKey107",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 52,
-      "expr": "receiptKey108",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 53,
-      "expr": "receiptKey108",
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 15,
+      "expr": "orderRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 58,
-      "expr": "accountRef109",
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 20,
+      "expr": "quoteRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 59,
-      "expr": "voucherRef110",
-      "note": "字符串拼接传播"
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 21,
+      "expr": "tariffRef103",
+      "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/VoucherNormalizer.java",
-      "line": 60,
-      "expr": "voucherRef110",
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 22,
+      "expr": "tariffRef103",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 27,
+      "expr": "ledgerEntry104",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 28,
+      "expr": "channelTag105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbind/service/BatchCoordinator.java",
+      "line": 29,
+      "expr": "channelTag105",
       "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
-      "line": 14,
-      "expr": "paymentTag201",
+      "line": 10,
+      "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
+      "line": 13,
+      "expr": "refundCode201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
+      "line": 14,
+      "expr": "shipmentCode202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
       "line": 15,
-      "expr": "refundCode202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
-      "line": 16,
-      "expr": "refundCode202",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
-      "line": 21,
-      "expr": "shipmentCode203",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
-      "line": 22,
-      "expr": "manifestKey204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorbind/dao/BatchTranslator.java",
-      "line": 23,
-      "expr": "manifestKey204",
+      "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
@@ -229,39 +133,31 @@
     }
   ],
   "metrics": {
-    "call_depth": 11,
-    "chain_len": 34,
+    "call_depth": 7,
+    "chain_len": 18,
     "files_crossed": 5,
     "modules_crossed": 3,
     "features": [
       "source:spring_path_variable",
       "sink:runtime_exec",
-      "prop:map_element",
-      "prop:map_element",
+      "prop:assign_local",
       "prop:cross_module",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
       "prop:map_element",
       "prop:static_field",
-      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
       "prop:cross_module",
       "prop:assign_local",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-CMDI-1037-N",
   "http": {
     "method": "GET",
-    "path": "/api/vendor/bind/{query}",
-    "param": "query",
+    "path": "/api/vendor/bind/{reference}",
+    "param": "reference",
     "carrier": "path"
   },
   "verification": {
@@ -269,11 +165,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 11,
+    "call_depth_observed": 7,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
+    "payload_at_sink": "echo zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

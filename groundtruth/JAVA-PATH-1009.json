@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1009",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "查询参数经 14 层调用、跨 2 个模块流入文件读取",
+  "title": "请求头经 5 层调用、跨 1 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/shippingcapture/web/ChannelController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/shippingcapture/web/ChannelController.java",
     "line": 13,
-    "expr": "keyword",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "userName",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/shippingcapture/service/ChannelLoader.java",
+    "file": "web/src/main/java/com/habench/shippingcapture/web/ChannelLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,228 +26,109 @@
     {
       "file": "web/src/main/java/com/habench/shippingcapture/web/ChannelController.java",
       "line": 13,
-      "expr": "keyword",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "userName",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
-      "line": 16,
-      "expr": "voucherRef1",
-      "note": "字符串拼接传播"
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
-      "line": 17,
-      "expr": "voucherRef1",
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 19,
+      "expr": "manifestKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 22,
+      "expr": "manifestKey1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 23,
+      "expr": "invoiceKey2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 24,
+      "expr": "invoiceKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
-      "line": 22,
-      "expr": "paymentTag2",
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 29,
+      "expr": "batchTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
-      "line": 25,
-      "expr": "paymentTag2",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
-      "line": 26,
-      "expr": "refundCode3",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
-      "line": 29,
-      "expr": "refundCode3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
       "line": 30,
-      "expr": "shipmentCode4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ManifestBroker.java",
-      "line": 31,
-      "expr": "shipmentCode4",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ReceiptPlanSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/ReceiptPlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/AccountCoordinator.java",
-      "line": 8,
-      "expr": "ledgerEntry101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/AccountCoordinator.java",
-      "line": 9,
-      "expr": "ledgerEntry101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/TariffEnricher.java",
-      "line": 8,
-      "expr": "invoiceKey201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/TariffEnricher.java",
-      "line": 9,
-      "expr": "batchTag202",
+      "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingcapture/web/TariffEnricher.java",
-      "line": 10,
-      "expr": "batchTag202",
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 31,
+      "expr": "quoteRef5",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingcapture/web/PaymentBuilder.java",
+      "line": 32,
+      "expr": "quoteRef5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/RefundRegistry.java",
-      "line": 11,
-      "expr": "voucherRef301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/RefundRegistry.java",
-      "line": 12,
-      "expr": "paymentTag302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/RefundRegistry.java",
-      "line": 13,
-      "expr": "paymentTag302",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/RefundRegistry.java",
-      "line": 18,
-      "expr": "refundCode303",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/RefundRegistry.java",
-      "line": 21,
-      "expr": "refundCode303",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/RefundRegistry.java",
-      "line": 22,
-      "expr": "shipmentCode304",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/RefundRegistry.java",
-      "line": 23,
-      "expr": "shipmentCode304",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/QuoteStrategySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/QuoteStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/PaymentBuilder.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/PaymentBuilder.java",
-      "line": 13,
-      "expr": "ledgerEntry401",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/PaymentBuilder.java",
-      "line": 14,
-      "expr": "ledgerEntry401",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/ChannelLoader.java",
+      "file": "web/src/main/java/com/habench/shippingcapture/web/ChannelLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingcapture/service/ChannelLoader.java",
+      "file": "web/src/main/java/com/habench/shippingcapture/web/ChannelLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 30,
-    "files_crossed": 11,
-    "modules_crossed": 2,
+    "call_depth": 5,
+    "chain_len": 12,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:file_read",
-      "prop:string_concat",
+      "prop:map_element",
+      "prop:map_element",
       "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:string_concat",
-      "prop:cross_class",
-      "prop:string_concat",
       "prop:assign_local",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:map_element",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-PATH-1009-N",
   "http": {
     "method": "GET",
     "path": "/api/shipping/capture",
-    "param": "keyword",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 14,
+    "call_depth_observed": 5,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:../../../etc/passwd;;;;;",
+    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

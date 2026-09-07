@@ -1,17 +1,25 @@
 package com.habench.accounttrace.service;
 
 import com.habench.accounttrace.dao.ReceiptBuilder;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class BundleTranslator {
+    private String pendingBatch;
 
-    public static void submit(String value) {
-        String orderRef101 = "ref:" + value + ";";
-        Map<String, String> quoteRef102Attrs = new HashMap<String, String>();
-        quoteRef102Attrs.put("channel", "web");
-        quoteRef102Attrs.put("payload", orderRef101);
-        String quoteRef102 = quoteRef102Attrs.get("payload");
-        ReceiptBuilder.expand(quoteRef102);
+    public static void translate(String value) {
+        BundleTranslator self = new BundleTranslator();
+        self.submit(value);
+    }
+
+    private void submit(String value) {
+        String quoteRef201 = value;
+        this.pendingBatch = quoteRef201;
+        stage();
+    }
+
+    private void stage() {
+        String tariffRef202 = this.pendingBatch;
+        String ledgerEntry203 = "ref:" + tariffRef202 + ";";
+        String channelTag204 = "ref:" + ledgerEntry203 + ";";
+        ReceiptBuilder.expand(channelTag204);
     }
 }

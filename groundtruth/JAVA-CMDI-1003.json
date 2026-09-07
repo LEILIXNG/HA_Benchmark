@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1003",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 6 层调用、跨 1 个模块流入命令执行",
+  "title": "请求头经 12 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
     "line": 13,
-    "expr": "target",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "query",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/pricinggrant/web/AccountExecutor.java",
+    "file": "service/src/main/java/com/habench/pricinggrant/service/AccountExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,74 +26,217 @@
     {
       "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
       "line": 13,
-      "expr": "target",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "query",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/BundleAdapter.java",
-      "line": 8,
-      "expr": "manifestKey1",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 17,
+      "expr": "refundCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/BundleAdapter.java",
-      "line": 9,
-      "expr": "manifestKey1",
-      "note": "调用下一层"
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 18,
+      "expr": "refundCode1",
+      "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelStrategySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 23,
+      "expr": "shipmentCode2",
+      "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 24,
+      "expr": "manifestKey3",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountResolver.java",
-      "line": 12,
-      "expr": "value",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 27,
+      "expr": "manifestKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountResolver.java",
-      "line": 13,
-      "expr": "accountRef101",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 28,
+      "expr": "invoiceKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountResolver.java",
-      "line": 14,
-      "expr": "accountRef101",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 29,
+      "expr": "invoiceKey4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 34,
+      "expr": "batchTag5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 35,
+      "expr": "orderRef6",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 36,
+      "expr": "quoteRef7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
+      "line": 37,
+      "expr": "quoteRef7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountExecutor.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ReceiptRegistry.java",
+      "line": 8,
+      "expr": "catalogKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ReceiptRegistry.java",
+      "line": 9,
+      "expr": "receiptKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ReceiptRegistry.java",
+      "line": 10,
+      "expr": "receiptKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 16,
+      "expr": "orderRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 17,
+      "expr": "orderRef201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 22,
+      "expr": "quoteRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 23,
+      "expr": "tariffRef203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 24,
+      "expr": "tariffRef203",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 29,
+      "expr": "ledgerEntry204",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 30,
+      "expr": "channelTag205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 31,
+      "expr": "catalogKey206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 32,
+      "expr": "catalogKey206",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 37,
+      "expr": "receiptKey207",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 38,
+      "expr": "accountRef208",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 41,
+      "expr": "accountRef208",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 42,
+      "expr": "voucherRef209",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 43,
+      "expr": "voucherRef209",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountExecutor.java",
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 6,
-    "chain_len": 10,
-    "files_crossed": 6,
-    "modules_crossed": 1,
+    "call_depth": 12,
+    "chain_len": 31,
+    "files_crossed": 5,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:runtime_exec",
       "prop:string_concat",
-      "prop:interface_dispatch",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
       "prop:map_element",
       "sanitizer:none"
     ]
@@ -101,20 +244,20 @@
   "paired_negative": "JAVA-CMDI-1003-N",
   "http": {
     "method": "GET",
-    "path": "/api/pricing/grant/{target}",
-    "param": "target",
-    "carrier": "path"
+    "path": "/api/pricing/grant",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 6,
+    "call_depth_observed": 12,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id);",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-04T17:09:28+08:00"
+    "checked_at": "2026-09-07T09:25:40+08:00"
   }
 }

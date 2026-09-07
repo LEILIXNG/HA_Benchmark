@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TariffController {
 
     @GetMapping("/api/order/merge")
-    public String route(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
-        BundleBuilder.submit(orderNo);
+    public String translate(HttpServletRequest request) {
+        String category = request.getHeader("X-Ha-Payload");
+        BundleBuilder.resolve(category);
         return "ok";
     }
 }
