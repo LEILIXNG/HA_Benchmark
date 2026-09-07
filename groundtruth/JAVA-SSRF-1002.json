@@ -1,0 +1,267 @@
+{
+  "id": "JAVA-SSRF-1002",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "查询参数经 12 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendormerge/web/BatchController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendormerge/web/BatchController.java",
+    "line": 13,
+    "expr": "token",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/BatchController.java",
+      "line": 13,
+      "expr": "token",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 11,
+      "expr": "tariffRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 14,
+      "expr": "tariffRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 15,
+      "expr": "ledgerEntry2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 16,
+      "expr": "ledgerEntry2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 21,
+      "expr": "channelTag3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 22,
+      "expr": "catalogKey4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 25,
+      "expr": "catalogKey4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 26,
+      "expr": "receiptKey5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormerge/web/OrderBroker.java",
+      "line": 27,
+      "expr": "receiptKey5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendormerge/service/ContractComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendormerge/service/ContractComposer.java",
+      "line": 13,
+      "expr": "manifestKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendormerge/service/ContractComposer.java",
+      "line": 14,
+      "expr": "manifestKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 16,
+      "expr": "accountRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 19,
+      "expr": "accountRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 20,
+      "expr": "voucherRef202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 21,
+      "expr": "voucherRef202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 26,
+      "expr": "paymentTag203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 27,
+      "expr": "refundCode204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 28,
+      "expr": "shipmentCode205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/ManifestFacade.java",
+      "line": 29,
+      "expr": "shipmentCode205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/TariffFacade.java",
+      "line": 8,
+      "expr": "tariffRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/TariffFacade.java",
+      "line": 9,
+      "expr": "tariffRef301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/AccountRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/AccountRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchCoordinator.java",
+      "line": 13,
+      "expr": "manifestKey401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchCoordinator.java",
+      "line": 16,
+      "expr": "manifestKey401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchCoordinator.java",
+      "line": 17,
+      "expr": "invoiceKey402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchCoordinator.java",
+      "line": 18,
+      "expr": "invoiceKey402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendormerge/dao/BatchFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 32,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/merge",
+    "param": "token",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

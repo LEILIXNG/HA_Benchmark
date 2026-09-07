@@ -1,0 +1,154 @@
+{
+  "id": "JAVA-SSRF-1022",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "路径变量经 8 层调用、跨 3 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountadjust/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountadjust/web/ReceiptController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/accountadjust/dao/ReceiptFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/accountadjust/dao/BundleGuard.java",
+    "line": 10,
+    "expr": "value",
+    "note": "SANITIZER: 按名字拒绝 localhost（无效）"
+  },
+  "sanitizer_kind": "ssrf_host_denylist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountadjust/web/ReceiptController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountadjust/web/BundleNormalizer.java",
+      "line": 14,
+      "expr": "channelTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountadjust/web/BundleNormalizer.java",
+      "line": 15,
+      "expr": "channelTag1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountadjust/web/BundleNormalizer.java",
+      "line": 20,
+      "expr": "catalogKey2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountadjust/web/BundleNormalizer.java",
+      "line": 21,
+      "expr": "receiptKey3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountadjust/web/BundleNormalizer.java",
+      "line": 22,
+      "expr": "receiptKey3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountadjust/service/ShipmentComposer.java",
+      "line": 8,
+      "expr": "batchTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountadjust/service/ShipmentComposer.java",
+      "line": 9,
+      "expr": "orderRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountadjust/service/ShipmentComposer.java",
+      "line": 10,
+      "expr": "orderRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountadjust/dao/BundleTranslator.java",
+      "line": 8,
+      "expr": "paymentTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountadjust/dao/BundleTranslator.java",
+      "line": 9,
+      "expr": "paymentTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountadjust/dao/BundleGuard.java",
+      "line": 10,
+      "expr": "value",
+      "note": "SANITIZER: 按名字拒绝 localhost（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountadjust/dao/ReceiptFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountadjust/dao/ReceiptFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 14,
+    "files_crossed": 6,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:url_fetch",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:ssrf_host_denylist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/adjust/{reference}",
+    "param": "reference",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

@@ -6,25 +6,55 @@ import java.util.Map;
 
 public final class ShipmentComposer {
     private String pendingContract;
+    private static String cachedContract;
 
-    public static void compose(String value) {
+    public static void attach(String value) {
         ShipmentComposer self = new ShipmentComposer();
         self.register(value);
     }
 
     private void register(String value) {
-        String catalogKey201 = "ref:" + value + ";";
-        this.pendingContract = catalogKey201;
+        String refundCode101 = "ref:" + value + ";";
+        cachedContract = refundCode101;
         reconcile();
     }
 
     private void reconcile() {
-        String receiptKey202 = this.pendingContract;
-        Map<String, String> accountRef203Attrs = new HashMap<String, String>();
-        accountRef203Attrs.put("channel", "web");
-        accountRef203Attrs.put("payload", receiptKey202);
-        String accountRef203 = accountRef203Attrs.get("payload");
-        String voucherRef204 = accountRef203;
-        InvoicePolicy.prepare(voucherRef204);
+        String shipmentCode102 = cachedContract;
+        String manifestKey103 = shipmentCode102;
+        Map<String, String> invoiceKey104Attrs = new HashMap<String, String>();
+        invoiceKey104Attrs.put("channel", "web");
+        invoiceKey104Attrs.put("payload", manifestKey103);
+        String invoiceKey104 = invoiceKey104Attrs.get("payload");
+        cachedContract = invoiceKey104;
+        compose();
+    }
+
+    private void compose() {
+        String batchTag105 = cachedContract;
+        String orderRef106 = batchTag105;
+        cachedContract = orderRef106;
+        route();
+    }
+
+    private void route() {
+        String quoteRef107 = cachedContract;
+        String tariffRef108 = quoteRef107;
+        String ledgerEntry109 = tariffRef108;
+        this.pendingContract = ledgerEntry109;
+        collect();
+    }
+
+    private void collect() {
+        String channelTag110 = this.pendingContract;
+        String catalogKey111 = "ref:" + channelTag110 + ";";
+        this.pendingContract = catalogKey111;
+        resolve();
+    }
+
+    private void resolve() {
+        String receiptKey112 = this.pendingContract;
+        String accountRef113 = "ref:" + receiptKey112 + ";";
+        InvoicePolicy.prepare(accountRef113);
     }
 }

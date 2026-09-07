@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1015",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 7 层调用、跨 3 个模块流入命令执行",
+  "title": "路径变量经 13 层调用、跨 3 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/orderquote/web/BundleController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/orderquote/web/BundleController.java",
     "line": 13,
-    "expr": "label",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "category",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
     "file": "dao/src/main/java/com/habench/orderquote/dao/BundleExecutor.java",
@@ -26,85 +26,205 @@
     {
       "file": "web/src/main/java/com/habench/orderquote/web/BundleController.java",
       "line": 13,
-      "expr": "label",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "category",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/orderquote/web/ManifestTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/orderquote/web/BundleCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderquote/web/BundleCollector.java",
+      "line": 13,
       "expr": "tariffRef1",
-      "note": "字符串拼接传播"
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderquote/web/ManifestTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/habench/orderquote/web/BundleCollector.java",
+      "line": 14,
       "expr": "tariffRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderquote/service/BundleTranslator.java",
+      "file": "web/src/main/java/com/habench/orderquote/web/PaymentService.java",
       "line": 8,
       "expr": "manifestKey101",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderquote/service/BundleTranslator.java",
+      "file": "web/src/main/java/com/habench/orderquote/web/PaymentService.java",
       "line": 9,
-      "expr": "invoiceKey102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderquote/service/BundleTranslator.java",
-      "line": 10,
-      "expr": "invoiceKey102",
+      "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 16,
+      "file": "service/src/main/java/com/habench/orderquote/service/OrderRouter.java",
+      "line": 8,
       "expr": "accountRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 17,
-      "expr": "voucherRef202",
+      "file": "service/src/main/java/com/habench/orderquote/service/OrderRouter.java",
+      "line": 9,
+      "expr": "accountRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ReceiptBroker.java",
+      "line": 10,
+      "expr": "tariffRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 18,
-      "expr": "voucherRef202",
-      "note": "写入实例字段"
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ReceiptBroker.java",
+      "line": 13,
+      "expr": "tariffRef301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ReceiptBroker.java",
+      "line": 14,
+      "expr": "ledgerEntry302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ReceiptBroker.java",
+      "line": 15,
+      "expr": "ledgerEntry302",
+      "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 23,
-      "expr": "paymentTag203",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 24,
-      "expr": "refundCode204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 27,
-      "expr": "refundCode204",
+      "line": 19,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 28,
-      "expr": "shipmentCode205",
+      "line": 20,
+      "expr": "manifestKey401",
       "note": "取出集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
-      "line": 29,
-      "expr": "shipmentCode205",
+      "line": 21,
+      "expr": "manifestKey401",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 26,
+      "expr": "invoiceKey402",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 27,
+      "expr": "batchTag403",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 28,
+      "expr": "batchTag403",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 33,
+      "expr": "orderRef404",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 34,
+      "expr": "quoteRef405",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 35,
+      "expr": "tariffRef406",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 36,
+      "expr": "tariffRef406",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 41,
+      "expr": "ledgerEntry407",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 42,
+      "expr": "channelTag408",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 43,
+      "expr": "catalogKey409",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 44,
+      "expr": "catalogKey409",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 49,
+      "expr": "receiptKey410",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 50,
+      "expr": "accountRef411",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 53,
+      "expr": "accountRef411",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 54,
+      "expr": "voucherRef412",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 55,
+      "expr": "voucherRef412",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 60,
+      "expr": "paymentTag413",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 61,
+      "expr": "refundCode414",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderquote/dao/ContractRegistry.java",
+      "line": 62,
+      "expr": "refundCode414",
       "note": "调用下一层"
     },
     {
@@ -121,43 +241,56 @@
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 16,
-    "files_crossed": 5,
+    "call_depth": 13,
+    "chain_len": 36,
+    "files_crossed": 7,
     "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:runtime_exec",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
       "prop:cross_module",
       "prop:assign_local",
-      "prop:string_concat",
-      "prop:store_field",
+      "prop:cross_module",
       "prop:string_concat",
       "prop:map_element",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/order/quote",
-    "param": "label",
-    "carrier": "query"
+    "path": "/api/order/quote/{category}",
+    "param": "category",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 7,
+    "call_depth_observed": 13,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:zz$(id);;;;;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

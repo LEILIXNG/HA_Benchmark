@@ -1,0 +1,247 @@
+{
+  "id": "JAVA-CMDI-1029-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1029 逐行相同，仅把净化改为 exec_no_shell",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorsplit/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorsplit/web/PaymentController.java",
+    "line": 13,
+    "expr": "filename",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/vendorsplit/dao/PaymentExecutor.java",
+    "line": 14,
+    "expr": "builder",
+    "note": "SINK 位置：CWE-78（未经 shell 解释）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/vendorsplit/dao/PaymentExecutor.java",
+    "line": 12,
+    "expr": "argv",
+    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "exec_no_shell",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorsplit/web/PaymentController.java",
+      "line": 13,
+      "expr": "filename",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsplit/web/ReceiptAssembler.java",
+      "line": 8,
+      "expr": "voucherRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsplit/web/ReceiptAssembler.java",
+      "line": 9,
+      "expr": "voucherRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsplit/web/RefundBroker.java",
+      "line": 8,
+      "expr": "ledgerEntry101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsplit/web/RefundBroker.java",
+      "line": 9,
+      "expr": "ledgerEntry101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsplit/service/BatchEnricher.java",
+      "line": 10,
+      "expr": "invoiceKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsplit/service/BatchEnricher.java",
+      "line": 13,
+      "expr": "invoiceKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsplit/service/BatchEnricher.java",
+      "line": 14,
+      "expr": "batchTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsplit/service/BatchEnricher.java",
+      "line": 15,
+      "expr": "batchTag202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/SessionBuilder.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/SessionBuilder.java",
+      "line": 13,
+      "expr": "voucherRef301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/SessionBuilder.java",
+      "line": 14,
+      "expr": "paymentTag302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/SessionBuilder.java",
+      "line": 15,
+      "expr": "paymentTag302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/LedgerBuilder.java",
+      "line": 9,
+      "expr": "ledgerEntry401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/LedgerBuilder.java",
+      "line": 10,
+      "expr": "ledgerEntry401",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/LedgerBuilder.java",
+      "line": 15,
+      "expr": "channelTag402",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/LedgerBuilder.java",
+      "line": 16,
+      "expr": "catalogKey403",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/LedgerBuilder.java",
+      "line": 17,
+      "expr": "receiptKey404",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/LedgerBuilder.java",
+      "line": 18,
+      "expr": "receiptKey404",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/QuotePolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/QuotePolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/OrderTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/OrderTranslator.java",
+      "line": 13,
+      "expr": "invoiceKey501",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/OrderTranslator.java",
+      "line": 14,
+      "expr": "batchTag502",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/OrderTranslator.java",
+      "line": 15,
+      "expr": "batchTag502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/PaymentExecutor.java",
+      "line": 11,
+      "expr": "value",
+      "note": "参数以数组传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/PaymentExecutor.java",
+      "line": 12,
+      "expr": "argv",
+      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorsplit/dao/PaymentExecutor.java",
+      "line": 14,
+      "expr": "builder",
+      "note": "SINK 位置：CWE-78（未经 shell 解释）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 28,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:assign_local",
+      "sanitizer:exec_no_shell"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/split",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 11,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "ref:ref:zz$(id);;",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

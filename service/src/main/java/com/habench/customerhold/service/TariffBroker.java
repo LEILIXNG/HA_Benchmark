@@ -5,12 +5,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class TariffBroker {
+    private static String cachedQuote;
 
     public static void route(String value) {
-        Map<String, String> paymentTag201Attrs = new HashMap<String, String>();
-        paymentTag201Attrs.put("channel", "web");
-        paymentTag201Attrs.put("payload", value);
-        String paymentTag201 = paymentTag201Attrs.get("payload");
-        ChannelBuilder.normalize(paymentTag201);
+        String paymentTag201 = value;
+        cachedQuote = paymentTag201;
+        merge();
+    }
+
+    private static void merge() {
+        String refundCode202 = cachedQuote;
+        String shipmentCode203 = "ref:" + refundCode202 + ";";
+        Map<String, String> manifestKey204Attrs = new HashMap<String, String>();
+        manifestKey204Attrs.put("channel", "web");
+        manifestKey204Attrs.put("payload", shipmentCode203);
+        String manifestKey204 = manifestKey204Attrs.get("payload");
+        cachedQuote = manifestKey204;
+        register();
+    }
+
+    private static void register() {
+        String invoiceKey205 = cachedQuote;
+        String batchTag206 = invoiceKey205;
+        ChannelBuilder.enrich(batchTag206);
     }
 }

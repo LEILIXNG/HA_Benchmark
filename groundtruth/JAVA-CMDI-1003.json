@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1003",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "请求头经 12 层调用、跨 2 个模块流入命令执行",
+  "title": "查询参数经 13 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
     "line": 13,
-    "expr": "query",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "resource",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/pricinggrant/service/AccountExecutor.java",
@@ -26,175 +26,205 @@
     {
       "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
       "line": 13,
-      "expr": "query",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "resource",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 17,
+      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
+      "line": 10,
       "expr": "refundCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 18,
+      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
+      "line": 13,
       "expr": "refundCode1",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 23,
-      "expr": "shipmentCode2",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 24,
-      "expr": "manifestKey3",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 27,
-      "expr": "manifestKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 28,
-      "expr": "invoiceKey4",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
+      "line": 14,
+      "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 29,
-      "expr": "invoiceKey4",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 34,
-      "expr": "batchTag5",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 35,
-      "expr": "orderRef6",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 36,
-      "expr": "quoteRef7",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/PaymentRouter.java",
-      "line": 37,
-      "expr": "quoteRef7",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
+      "line": 15,
+      "expr": "shipmentCode2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ReceiptRegistry.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelCollector.java",
       "line": 8,
       "expr": "catalogKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ReceiptRegistry.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelCollector.java",
       "line": 9,
       "expr": "receiptKey102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ReceiptRegistry.java",
+      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelCollector.java",
       "line": 10,
       "expr": "receiptKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 16,
-      "expr": "orderRef201",
-      "note": "字符串拼接传播"
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 17,
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
+      "line": 19,
       "expr": "orderRef201",
-      "note": "写入实例字段"
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
       "line": 22,
-      "expr": "quoteRef202",
-      "note": "读取实例字段"
+      "expr": "orderRef201",
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
       "line": 23,
-      "expr": "tariffRef203",
-      "note": "字符串拼接传播"
+      "expr": "quoteRef202",
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
       "line": 24,
-      "expr": "tariffRef203",
+      "expr": "quoteRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
       "line": 29,
-      "expr": "ledgerEntry204",
+      "expr": "tariffRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
       "line": 30,
+      "expr": "ledgerEntry204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
+      "line": 31,
       "expr": "channelTag205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
+      "line": 32,
+      "expr": "channelTag205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 14,
+      "expr": "refundCode301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 15,
+      "expr": "shipmentCode302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 16,
+      "expr": "shipmentCode302",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 21,
+      "expr": "manifestKey303",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 22,
+      "expr": "invoiceKey304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 23,
+      "expr": "invoiceKey304",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 28,
+      "expr": "batchTag305",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
       "line": 31,
-      "expr": "catalogKey206",
+      "expr": "batchTag305",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 32,
+      "expr": "orderRef306",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
+      "line": 33,
+      "expr": "orderRef306",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
+      "line": 10,
+      "expr": "catalogKey401",
       "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 32,
-      "expr": "catalogKey206",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 37,
-      "expr": "receiptKey207",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 38,
-      "expr": "accountRef208",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 41,
-      "expr": "accountRef208",
+      "line": 13,
+      "expr": "catalogKey401",
       "note": "存入集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 42,
-      "expr": "voucherRef209",
+      "line": 14,
+      "expr": "receiptKey402",
       "note": "取出集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 43,
-      "expr": "voucherRef209",
+      "line": 15,
+      "expr": "receiptKey402",
       "note": "调用下一层"
     },
     {
@@ -211,53 +241,54 @@
     }
   ],
   "metrics": {
-    "call_depth": 12,
-    "chain_len": 31,
-    "files_crossed": 5,
+    "call_depth": 13,
+    "chain_len": 36,
+    "files_crossed": 9,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:runtime_exec",
       "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
       "prop:map_element",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:string_concat",
       "prop:cross_class",
       "prop:string_concat",
       "prop:string_concat",
       "prop:cross_module",
-      "prop:string_concat",
+      "prop:map_element",
+      "prop:map_element",
       "prop:store_field",
       "prop:string_concat",
-      "prop:store_field",
       "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
       "prop:string_concat",
-      "prop:store_field",
+      "prop:static_field",
       "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:string_concat",
       "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1003-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/pricing/grant",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "resource",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 12,
+    "call_depth_observed": 13,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

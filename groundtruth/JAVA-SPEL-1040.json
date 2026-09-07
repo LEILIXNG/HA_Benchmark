@@ -2,7 +2,7 @@
   "id": "JAVA-SPEL-1040",
   "cwe": "CWE-917",
   "verdict": "safe",
-  "title": "请求头经 13 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
+  "title": "路径变量经 15 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/billingtrace/web/BundleController.java",
     "line": 11,
@@ -11,17 +11,17 @@
   "source": {
     "file": "web/src/main/java/com/habench/billingtrace/web/BundleController.java",
     "line": 13,
-    "expr": "target",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "userName",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleEvaluator.java",
+    "file": "service/src/main/java/com/habench/billingtrace/service/BundleEvaluator.java",
     "line": 17,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleEvaluator.java",
+    "file": "service/src/main/java/com/habench/billingtrace/service/BundleEvaluator.java",
     "line": 15,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
@@ -31,230 +31,260 @@
     {
       "file": "web/src/main/java/com/habench/billingtrace/web/BundleController.java",
       "line": 13,
-      "expr": "target",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "userName",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/billingtrace/web/ContractTranslator.java",
-      "line": 10,
-      "expr": "ledgerEntry1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingtrace/web/ContractTranslator.java",
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
       "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
+      "line": 14,
+      "expr": "ledgerEntry1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
+      "line": 17,
       "expr": "ledgerEntry1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingtrace/web/ContractTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
+      "line": 18,
       "expr": "channelTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingtrace/web/ContractTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
+      "line": 19,
       "expr": "channelTag2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
+      "line": 24,
+      "expr": "catalogKey3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
+      "line": 25,
+      "expr": "receiptKey4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingtrace/web/PaymentBuilder.java",
+      "line": 26,
+      "expr": "receiptKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingtrace/service/AccountEnricher.java",
-      "line": 9,
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 17,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingtrace/service/AccountEnricher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 18,
       "expr": "invoiceKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingtrace/service/AccountEnricher.java",
-      "line": 15,
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 23,
       "expr": "batchTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingtrace/service/AccountEnricher.java",
-      "line": 16,
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 24,
       "expr": "orderRef103",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingtrace/service/AccountEnricher.java",
-      "line": 17,
-      "expr": "quoteRef104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingtrace/service/AccountEnricher.java",
-      "line": 18,
-      "expr": "quoteRef104",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/ManifestNormalizer.java",
-      "line": 8,
-      "expr": "voucherRef201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/ManifestNormalizer.java",
-      "line": 9,
-      "expr": "paymentTag202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/ManifestNormalizer.java",
-      "line": 10,
-      "expr": "paymentTag202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 15,
-      "expr": "ledgerEntry301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 16,
-      "expr": "channelTag302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 17,
-      "expr": "channelTag302",
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 25,
+      "expr": "orderRef103",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 22,
-      "expr": "catalogKey303",
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 30,
+      "expr": "quoteRef104",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 23,
-      "expr": "receiptKey304",
-      "note": "字符串拼接传播"
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 33,
+      "expr": "quoteRef104",
+      "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 24,
-      "expr": "accountRef305",
-      "note": "字符串拼接传播"
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 34,
+      "expr": "tariffRef105",
+      "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 25,
-      "expr": "accountRef305",
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 35,
+      "expr": "tariffRef105",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 30,
-      "expr": "voucherRef306",
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 40,
+      "expr": "ledgerEntry106",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 31,
-      "expr": "paymentTag307",
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 41,
+      "expr": "channelTag107",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 42,
+      "expr": "catalogKey108",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleAssembler.java",
-      "line": 32,
-      "expr": "paymentTag307",
+      "file": "service/src/main/java/com/habench/billingtrace/service/PaymentFacade.java",
+      "line": 43,
+      "expr": "catalogKey108",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/OrderStrategySelector.java",
+      "file": "service/src/main/java/com/habench/billingtrace/service/OrderPlanSelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/OrderStrategyStandard.java",
+      "file": "service/src/main/java/com/habench/billingtrace/service/OrderPlanStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/ShipmentComposer.java",
-      "line": 10,
-      "expr": "invoiceKey401",
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 16,
+      "expr": "voucherRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/ShipmentComposer.java",
-      "line": 13,
-      "expr": "invoiceKey401",
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 17,
+      "expr": "voucherRef201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 22,
+      "expr": "paymentTag202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 23,
+      "expr": "refundCode203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 24,
+      "expr": "shipmentCode204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 25,
+      "expr": "shipmentCode204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 30,
+      "expr": "manifestKey205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 31,
+      "expr": "invoiceKey206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 34,
+      "expr": "invoiceKey206",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/ShipmentComposer.java",
-      "line": 14,
-      "expr": "batchTag402",
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 35,
+      "expr": "batchTag207",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/ShipmentComposer.java",
-      "line": 15,
-      "expr": "batchTag402",
+      "file": "service/src/main/java/com/habench/billingtrace/service/ShipmentComposer.java",
+      "line": 36,
+      "expr": "batchTag207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleEvaluator.java",
+      "file": "service/src/main/java/com/habench/billingtrace/service/BundleEvaluator.java",
       "line": 12,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleEvaluator.java",
+      "file": "service/src/main/java/com/habench/billingtrace/service/BundleEvaluator.java",
       "line": 15,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingtrace/dao/BundleEvaluator.java",
+      "file": "service/src/main/java/com/habench/billingtrace/service/BundleEvaluator.java",
       "line": 17,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
   ],
   "metrics": {
-    "call_depth": 13,
-    "chain_len": 33,
-    "files_crossed": 9,
-    "modules_crossed": 3,
+    "call_depth": 15,
+    "chain_len": 38,
+    "files_crossed": 7,
+    "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_path_variable",
       "sink:spel_eval",
-      "prop:assign_local",
       "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
       "prop:cross_module",
       "prop:assign_local",
       "prop:static_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
       "prop:string_concat",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:cross_class",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:store_field",
       "prop:assign_local",
       "prop:string_concat",
       "prop:store_field",
       "prop:string_concat",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:assign_local",
       "prop:map_element",
       "sanitizer:spel_restricted_context"
     ]
@@ -262,20 +292,20 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/billing/trace",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "path": "/api/billing/trace/{userName}",
+    "param": "userName",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": false,
     "tainted": false,
     "neutralized": true,
-    "call_depth_observed": 13,
+    "call_depth_observed": 15,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;'",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

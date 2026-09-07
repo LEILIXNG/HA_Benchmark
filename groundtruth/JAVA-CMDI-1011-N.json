@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1011-N",
   "cwe": "CWE-78",
   "verdict": "safe",
-  "title": "与 JAVA-CMDI-1011 逐行相同，仅把净化改为 exec_no_shell",
+  "title": "与 JAVA-CMDI-1011 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
     "file": "web/src/main/java/com/habench/accountimport/web/ContractController.java",
     "line": 11,
@@ -12,274 +12,209 @@
     "file": "web/src/main/java/com/habench/accountimport/web/ContractController.java",
     "line": 13,
     "expr": "filename",
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/accountimport/service/ContractExecutor.java",
-    "line": 14,
-    "expr": "builder",
-    "note": "SINK 位置：CWE-78（未经 shell 解释）"
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/accountimport/service/ContractExecutor.java",
-    "line": 12,
-    "expr": "argv",
-    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+    "file": "service/src/main/java/com/habench/accountimport/service/OrderScreen.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
   },
-  "sanitizer_kind": "exec_no_shell",
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
       "file": "web/src/main/java/com/habench/accountimport/web/ContractController.java",
       "line": 13,
       "expr": "filename",
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/ReceiptRouter.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountimport/web/ReceiptRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/accountimport/web/CatalogCollector.java",
+      "line": 8,
       "expr": "shipmentCode1",
-      "note": "取出集合元素"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountimport/web/ReceiptRouter.java",
-      "line": 14,
-      "expr": "manifestKey2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountimport/web/ReceiptRouter.java",
-      "line": 15,
-      "expr": "manifestKey2",
+      "file": "web/src/main/java/com/habench/accountimport/web/CatalogCollector.java",
+      "line": 9,
+      "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/habench/accountimport/service/LedgerBroker.java",
+      "line": 14,
       "expr": "receiptKey101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 21,
-      "expr": "accountRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 22,
-      "expr": "accountRef102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 27,
-      "expr": "voucherRef103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 30,
-      "expr": "voucherRef103",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 31,
-      "expr": "paymentTag104",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 32,
-      "expr": "paymentTag104",
+      "file": "service/src/main/java/com/habench/accountimport/service/LedgerBroker.java",
+      "line": 15,
+      "expr": "receiptKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 37,
-      "expr": "refundCode105",
+      "file": "service/src/main/java/com/habench/accountimport/service/LedgerBroker.java",
+      "line": 20,
+      "expr": "accountRef102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 38,
-      "expr": "shipmentCode106",
+      "file": "service/src/main/java/com/habench/accountimport/service/LedgerBroker.java",
+      "line": 21,
+      "expr": "voucherRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 41,
-      "expr": "shipmentCode106",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 42,
-      "expr": "manifestKey107",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ShipmentCoordinator.java",
-      "line": 43,
-      "expr": "manifestKey107",
+      "file": "service/src/main/java/com/habench/accountimport/service/LedgerBroker.java",
+      "line": 22,
+      "expr": "voucherRef103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/LedgerRuleSelector.java",
+      "file": "service/src/main/java/com/habench/accountimport/service/BatchStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/LedgerRuleStandard.java",
+      "file": "service/src/main/java/com/habench/accountimport/service/BatchStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/VoucherTranslator.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/VoucherTranslator.java",
-      "line": 13,
-      "expr": "quoteRef201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/VoucherTranslator.java",
-      "line": 14,
-      "expr": "tariffRef202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/VoucherTranslator.java",
-      "line": 15,
-      "expr": "tariffRef202",
-      "note": "调用下一层"
-    },
-    {
       "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
-      "line": 10,
-      "expr": "shipmentCode301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
-      "line": 13,
-      "expr": "shipmentCode301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
-      "line": 14,
-      "expr": "manifestKey302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
-      "line": 15,
-      "expr": "manifestKey302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/OrderBuilder.java",
-      "line": 8,
-      "expr": "receiptKey401",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/OrderBuilder.java",
       "line": 9,
-      "expr": "accountRef402",
+      "expr": "quoteRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/OrderBuilder.java",
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
       "line": 10,
-      "expr": "accountRef402",
+      "expr": "tariffRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 11,
+      "expr": "tariffRef202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 16,
+      "expr": "ledgerEntry203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 17,
+      "expr": "channelTag204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 18,
+      "expr": "catalogKey205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 19,
+      "expr": "catalogKey205",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 24,
+      "expr": "receiptKey206",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 25,
+      "expr": "accountRef207",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 26,
+      "expr": "voucherRef208",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ManifestCollector.java",
+      "line": 27,
+      "expr": "voucherRef208",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountimport/service/ContractExecutor.java",
+      "file": "service/src/main/java/com/habench/accountimport/service/OrderScreen.java",
       "line": 11,
       "expr": "value",
-      "note": "参数以数组传递"
+      "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
       "file": "service/src/main/java/com/habench/accountimport/service/ContractExecutor.java",
-      "line": 12,
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountimport/service/ContractExecutor.java",
+      "line": 13,
       "expr": "argv",
-      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountimport/service/ContractExecutor.java",
-      "line": 14,
-      "expr": "builder",
-      "note": "SINK 位置：CWE-78（未经 shell 解释）"
+      "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
     "call_depth": 12,
-    "chain_len": 34,
-    "files_crossed": 9,
+    "chain_len": 24,
+    "files_crossed": 8,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_path_variable",
       "sink:runtime_exec",
-      "prop:map_element",
-      "prop:assign_local",
+      "prop:string_concat",
       "prop:cross_module",
-      "prop:map_element",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
       "prop:store_field",
       "prop:assign_local",
-      "prop:map_element",
       "prop:interface_dispatch",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
       "prop:assign_local",
-      "prop:cross_class",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:cross_class",
+      "prop:static_field",
       "prop:assign_local",
       "prop:string_concat",
-      "sanitizer:exec_no_shell"
+      "sanitizer:whitelist_regex"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/account/import",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "path": "/api/account/import/{filename}",
+    "param": "filename",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": false,
     "tainted": false,
-    "neutralized": true,
-    "call_depth_observed": 12,
+    "neutralized": false,
+    "call_depth_observed": null,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "ref:zz$(id);",
-    "http_status": 200,
+    "payload_at_sink": null,
+    "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

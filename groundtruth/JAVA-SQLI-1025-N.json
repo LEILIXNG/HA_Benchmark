@@ -4,23 +4,23 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1025 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/ordertransfer/web/ManifestController.java",
+    "file": "web/src/main/java/com/habench/paymentcapture/web/ManifestController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/ordertransfer/web/ManifestController.java",
+    "file": "web/src/main/java/com/habench/paymentcapture/web/ManifestController.java",
     "line": 13,
-    "expr": "label",
+    "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/ordertransfer/service/ManifestRepository.java",
+    "file": "service/src/main/java/com/habench/paymentcapture/service/ManifestRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/ordertransfer/service/ManifestRepository.java",
+    "file": "service/src/main/java/com/habench/paymentcapture/service/ManifestRepository.java",
     "line": 17,
     "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
@@ -28,109 +28,161 @@
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/ManifestController.java",
+      "file": "web/src/main/java/com/habench/paymentcapture/web/ManifestController.java",
       "line": 13,
-      "expr": "label",
+      "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/TariffFacade.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 16,
       "expr": "refundCode1",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/TariffFacade.java",
-      "line": 9,
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 19,
       "expr": "refundCode1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRouter.java",
-      "line": 10,
-      "expr": "catalogKey101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRouter.java",
-      "line": 13,
-      "expr": "catalogKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRouter.java",
-      "line": 14,
-      "expr": "receiptKey102",
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 20,
+      "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRouter.java",
-      "line": 15,
-      "expr": "receiptKey102",
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 21,
+      "expr": "shipmentCode2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 26,
+      "expr": "manifestKey3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 29,
+      "expr": "manifestKey3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 30,
+      "expr": "invoiceKey4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 33,
+      "expr": "invoiceKey4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 34,
+      "expr": "batchTag5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentcapture/web/TariffFacade.java",
+      "line": 35,
+      "expr": "batchTag5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ContractPlanSelector.java",
+      "file": "service/src/main/java/com/habench/paymentcapture/service/ShipmentRouter.java",
+      "line": 8,
+      "expr": "catalogKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentcapture/service/ShipmentRouter.java",
+      "line": 9,
+      "expr": "catalogKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentcapture/service/ContractPlanSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ContractPlanStandard.java",
+      "file": "service/src/main/java/com/habench/paymentcapture/service/ContractPlanStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/OrderAdapter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/habench/paymentcapture/service/OrderAdapter.java",
+      "line": 10,
       "expr": "orderRef201",
-      "note": "局部变量传递"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/OrderAdapter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/habench/paymentcapture/service/OrderAdapter.java",
+      "line": 13,
       "expr": "orderRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentcapture/service/OrderAdapter.java",
+      "line": 14,
+      "expr": "quoteRef202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentcapture/service/OrderAdapter.java",
+      "line": 15,
+      "expr": "quoteRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ManifestRepository.java",
+      "file": "service/src/main/java/com/habench/paymentcapture/service/ManifestRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ManifestRepository.java",
+      "file": "service/src/main/java/com/habench/paymentcapture/service/ManifestRepository.java",
       "line": 17,
       "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ManifestRepository.java",
+      "file": "service/src/main/java/com/habench/paymentcapture/service/ManifestRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 14,
+    "call_depth": 9,
+    "chain_len": 22,
     "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
       "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:string_concat",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
       "prop:cross_module",
+      "prop:assign_local",
+      "prop:interface_dispatch",
       "prop:string_concat",
       "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:assign_local",
       "sanitizer:sql_parameterized"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/order/transfer",
+    "path": "/api/payment/capture",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -139,11 +191,11 @@
     "reached": false,
     "tainted": false,
     "neutralized": true,
-    "call_depth_observed": 7,
+    "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "ref:ref:zz' OR 1=1--;;",
+    "payload_at_sink": "ref:zz' OR 1=1--;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

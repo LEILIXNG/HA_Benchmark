@@ -1,0 +1,239 @@
+{
+  "id": "JAVA-SSRF-1035",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "查询参数经 11 层调用、跨 2 个模块流入URL 抓取，经 ssrf_host_allowlist 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/paymentapprove/web/AccountController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/paymentapprove/web/AccountController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
+    "line": 23,
+    "expr": "endpoint",
+    "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
+    "line": 19,
+    "expr": "endpoint",
+    "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+  },
+  "sanitizer_kind": "ssrf_host_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/AccountController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 16,
+      "expr": "batchTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 17,
+      "expr": "batchTag1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 22,
+      "expr": "orderRef2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 23,
+      "expr": "quoteRef3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 24,
+      "expr": "quoteRef3",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 29,
+      "expr": "tariffRef4",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 32,
+      "expr": "tariffRef4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 33,
+      "expr": "ledgerEntry5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
+      "line": 34,
+      "expr": "ledgerEntry5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 16,
+      "expr": "paymentTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 19,
+      "expr": "paymentTag101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 20,
+      "expr": "refundCode102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 21,
+      "expr": "refundCode102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 26,
+      "expr": "shipmentCode103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 29,
+      "expr": "shipmentCode103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 30,
+      "expr": "manifestKey104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
+      "line": 31,
+      "expr": "manifestKey104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
+      "line": 9,
+      "expr": "channelTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
+      "line": 10,
+      "expr": "catalogKey202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
+      "line": 11,
+      "expr": "catalogKey202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
+      "line": 16,
+      "expr": "receiptKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
+      "line": 17,
+      "expr": "accountRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
+      "line": 18,
+      "expr": "accountRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
+      "line": 16,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
+      "line": 19,
+      "expr": "endpoint",
+      "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
+      "line": 23,
+      "expr": "endpoint",
+      "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 27,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:url_fetch",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "sanitizer:ssrf_host_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/payment/approve",
+    "param": "label",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

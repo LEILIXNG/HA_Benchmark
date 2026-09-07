@@ -1,17 +1,17 @@
 package com.habench.inventorydigest.web;
 
-import com.habench.inventorydigest.web.LedgerEnricher;
+import com.habench.inventorydigest.web.ShipmentRegistry;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("inventorydigestController")
 public class AccountController {
 
-    @GetMapping("/api/inventory/digest/{resource}")
-    public String enrich(
-            @PathVariable("resource") String resource) {
-        LedgerEnricher.refine(resource);
+    @GetMapping("/api/inventory/digest")
+    public String compose(HttpServletRequest request) {
+        String token = request.getHeader("X-Ha-Payload");
+        ShipmentRegistry.compose(token);
         return "ok";
     }
 }

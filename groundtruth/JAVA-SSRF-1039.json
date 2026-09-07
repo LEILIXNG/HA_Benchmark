@@ -1,0 +1,184 @@
+{
+  "id": "JAVA-SSRF-1039",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "路径变量经 6 层调用、跨 1 个模块流入URL 抓取，经 ssrf_host_allowlist 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
+    "line": 23,
+    "expr": "endpoint",
+    "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
+    "line": 19,
+    "expr": "endpoint",
+    "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+  },
+  "sanitizer_kind": "ssrf_host_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 17,
+      "expr": "ledgerEntry1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 20,
+      "expr": "ledgerEntry1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 21,
+      "expr": "channelTag2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 22,
+      "expr": "channelTag2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 27,
+      "expr": "catalogKey3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 30,
+      "expr": "catalogKey3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 31,
+      "expr": "receiptKey4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 34,
+      "expr": "receiptKey4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 35,
+      "expr": "accountRef5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 36,
+      "expr": "accountRef5",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 41,
+      "expr": "voucherRef6",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 44,
+      "expr": "voucherRef6",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 45,
+      "expr": "paymentTag7",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 46,
+      "expr": "refundCode8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
+      "line": 47,
+      "expr": "refundCode8",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
+      "line": 16,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
+      "line": 19,
+      "expr": "endpoint",
+      "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
+      "line": 23,
+      "expr": "endpoint",
+      "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 19,
+    "files_crossed": 3,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "sanitizer:ssrf_host_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/draft/{resource}",
+    "param": "resource",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

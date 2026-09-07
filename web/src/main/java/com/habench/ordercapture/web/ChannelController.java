@@ -1,6 +1,6 @@
 package com.habench.ordercapture.web;
 
-import com.habench.ordercapture.web.TariffRegistry;
+import com.habench.ordercapture.web.BatchValidator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChannelController {
 
     @GetMapping("/api/order/capture/{userName}")
-    public String publish(
+    public String resolve(
             @PathVariable("userName") String userName) {
-        TariffRegistry.resolve(userName);
+        BatchValidator.resolve(userName);
         return "ok";
     }
 }

@@ -1,0 +1,405 @@
+{
+  "id": "JAVA-SQLI-1039-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1039 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/customerreconcile/dao/ShipmentRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/customerreconcile/dao/InvoiceGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 17,
+      "expr": "paymentTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 20,
+      "expr": "paymentTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 21,
+      "expr": "refundCode2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 22,
+      "expr": "refundCode2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 27,
+      "expr": "shipmentCode3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 30,
+      "expr": "shipmentCode3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 31,
+      "expr": "manifestKey4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 32,
+      "expr": "manifestKey4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 37,
+      "expr": "invoiceKey5",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 38,
+      "expr": "batchTag6",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 39,
+      "expr": "batchTag6",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 44,
+      "expr": "orderRef7",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 45,
+      "expr": "quoteRef8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 46,
+      "expr": "tariffRef9",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 47,
+      "expr": "tariffRef9",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 52,
+      "expr": "ledgerEntry10",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 53,
+      "expr": "channelTag11",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 54,
+      "expr": "catalogKey12",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 55,
+      "expr": "catalogKey12",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 60,
+      "expr": "receiptKey13",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 63,
+      "expr": "receiptKey13",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 64,
+      "expr": "accountRef14",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 65,
+      "expr": "accountRef14",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 70,
+      "expr": "voucherRef15",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 71,
+      "expr": "paymentTag16",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerreconcile/web/ShipmentService.java",
+      "line": 72,
+      "expr": "paymentTag16",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 16,
+      "expr": "channelTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 17,
+      "expr": "channelTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 22,
+      "expr": "catalogKey102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 25,
+      "expr": "catalogKey102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 26,
+      "expr": "receiptKey103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 27,
+      "expr": "accountRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 28,
+      "expr": "accountRef104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 33,
+      "expr": "voucherRef105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 36,
+      "expr": "voucherRef105",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 37,
+      "expr": "paymentTag106",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 38,
+      "expr": "paymentTag106",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 43,
+      "expr": "refundCode107",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 44,
+      "expr": "shipmentCode108",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerreconcile/service/ManifestRouter.java",
+      "line": 45,
+      "expr": "shipmentCode108",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 16,
+      "expr": "batchTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 19,
+      "expr": "batchTag201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 20,
+      "expr": "orderRef202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 21,
+      "expr": "orderRef202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 26,
+      "expr": "quoteRef203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 27,
+      "expr": "tariffRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 28,
+      "expr": "ledgerEntry205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ManifestResolver.java",
+      "line": 29,
+      "expr": "ledgerEntry205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/InvoiceGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ShipmentRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerreconcile/dao/ShipmentRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 19,
+    "chain_len": 52,
+    "files_crossed": 6,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/customer/reconcile/{target}",
+    "param": "target",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

@@ -1,166 +1,298 @@
 {
   "id": "JAVA-SQLI-1032",
   "cwe": "CWE-89",
-  "verdict": "safe",
-  "title": "查询参数经 9 层调用、跨 2 个模块流入JDBC 拼接，经 whitelist_regex 净化",
+  "verdict": "vulnerable",
+  "title": "请求头经 13 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventorydraft/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/fulfilmanifest/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventorydraft/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/fulfilmanifest/web/ChannelController.java",
     "line": 13,
     "expr": "reference",
-    "note": "SOURCE: Spring 查询参数"
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/inventorydraft/service/ChannelRepository.java",
+    "file": "service/src/main/java/com/habench/fulfilmanifest/service/ChannelRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/inventorydraft/service/QuoteScreen.java",
-    "line": 11,
-    "expr": "value",
-    "note": "SANITIZER: 严格白名单校验（有效）"
-  },
-  "sanitizer_kind": "whitelist_regex",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/ChannelController.java",
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ChannelController.java",
       "line": 13,
       "expr": "reference",
-      "note": "SOURCE: Spring 查询参数"
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
-      "line": 9,
-      "expr": "receiptKey1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
-      "line": 10,
-      "expr": "accountRef2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
-      "line": 11,
-      "expr": "accountRef2",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
-      "line": 16,
-      "expr": "voucherRef3",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
-      "line": 17,
-      "expr": "paymentTag4",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/ReceiptCoordinator.java",
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
       "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 19,
+      "expr": "receiptKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 22,
+      "expr": "receiptKey1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 23,
+      "expr": "accountRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 24,
+      "expr": "accountRef2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 29,
+      "expr": "voucherRef3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 32,
+      "expr": "voucherRef3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 33,
       "expr": "paymentTag4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 36,
+      "expr": "paymentTag4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 37,
+      "expr": "refundCode5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmanifest/web/ReceiptCoordinator.java",
+      "line": 38,
+      "expr": "refundCode5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/CatalogPlanSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/CatalogTranslator.java",
+      "line": 12,
       "expr": "value",
-      "note": "接口多态派发（4 个实现）"
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/CatalogPlanStandard.java",
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/CatalogTranslator.java",
+      "line": 13,
+      "expr": "quoteRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/CatalogTranslator.java",
+      "line": 14,
+      "expr": "tariffRef102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/CatalogTranslator.java",
+      "line": 15,
+      "expr": "tariffRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/PaymentPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/PaymentPolicyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/PaymentResolver.java",
-      "line": 8,
-      "expr": "quoteRef101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydraft/web/PaymentResolver.java",
-      "line": 9,
-      "expr": "quoteRef101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydraft/service/AccountCollector.java",
-      "line": 8,
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 17,
       "expr": "shipmentCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydraft/service/AccountCollector.java",
-      "line": 9,
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 18,
       "expr": "shipmentCode201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 23,
+      "expr": "manifestKey202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 24,
+      "expr": "invoiceKey203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 25,
+      "expr": "batchTag204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 26,
+      "expr": "batchTag204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 31,
+      "expr": "orderRef205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 34,
+      "expr": "orderRef205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 35,
+      "expr": "quoteRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 38,
+      "expr": "quoteRef206",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 39,
+      "expr": "tariffRef207",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 40,
+      "expr": "tariffRef207",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 45,
+      "expr": "ledgerEntry208",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 48,
+      "expr": "ledgerEntry208",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 49,
+      "expr": "channelTag209",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 50,
+      "expr": "catalogKey210",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/QuoteEnricher.java",
+      "line": 51,
+      "expr": "catalogKey210",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydraft/service/QuoteScreen.java",
-      "line": 11,
-      "expr": "value",
-      "note": "SANITIZER: 严格白名单校验（有效）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydraft/service/ChannelRepository.java",
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/ChannelRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydraft/service/ChannelRepository.java",
+      "file": "service/src/main/java/com/habench/fulfilmanifest/service/ChannelRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 9,
-    "chain_len": 16,
-    "files_crossed": 8,
+    "call_depth": 13,
+    "chain_len": 37,
+    "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
       "prop:assign_local",
       "prop:interface_dispatch",
       "prop:string_concat",
-      "prop:cross_module",
+      "prop:store_field",
       "prop:string_concat",
-      "sanitizer:whitelist_regex"
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/inventory/draft",
-    "param": "reference",
-    "carrier": "query"
+    "path": "/api/fulfil/manifest",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
+    "reached": true,
+    "tainted": true,
     "neutralized": false,
-    "call_depth_observed": null,
+    "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": null,
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

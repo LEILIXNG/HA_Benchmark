@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1009",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 8 层调用、跨 3 个模块流入命令执行",
+  "title": "请求头经 10 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogController.java",
     "line": 13,
-    "expr": "label",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "filename",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingbatch/dao/CatalogExecutor.java",
+    "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,211 +26,174 @@
     {
       "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogController.java",
       "line": 13,
-      "expr": "label",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "filename",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerTranslator.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 13,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 14,
       "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 17,
+      "expr": "orderRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 18,
       "expr": "quoteRef2",
-      "note": "字符串拼接传播"
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 19,
       "expr": "quoteRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 11,
-      "expr": "refundCode101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 12,
-      "expr": "shipmentCode102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 13,
-      "expr": "shipmentCode102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 18,
-      "expr": "manifestKey103",
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 24,
+      "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 19,
-      "expr": "invoiceKey104",
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 27,
+      "expr": "tariffRef3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 28,
+      "expr": "ledgerEntry4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 29,
+      "expr": "channelTag5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 22,
-      "expr": "invoiceKey104",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 23,
-      "expr": "batchTag105",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/AccountAssembler.java",
-      "line": 24,
-      "expr": "batchTag105",
+      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
+      "line": 30,
+      "expr": "channelTag5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/QuoteBuilder.java",
-      "line": 10,
-      "expr": "catalogKey201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/QuoteBuilder.java",
-      "line": 13,
-      "expr": "catalogKey201",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/QuoteBuilder.java",
-      "line": 14,
-      "expr": "receiptKey202",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/QuoteBuilder.java",
-      "line": 15,
-      "expr": "receiptKey202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/InvoiceEnricher.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerPolicySelector.java",
+      "line": 7,
       "expr": "value",
-      "note": "存入集合元素"
+      "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/InvoiceEnricher.java",
-      "line": 13,
-      "expr": "orderRef301",
-      "note": "取出集合元素"
+      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/InvoiceEnricher.java",
-      "line": 16,
-      "expr": "orderRef301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/InvoiceEnricher.java",
-      "line": 17,
-      "expr": "quoteRef302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingbatch/service/InvoiceEnricher.java",
-      "line": 18,
-      "expr": "quoteRef302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingbatch/dao/LedgerCollector.java",
+      "file": "web/src/main/java/com/habench/shippingbatch/web/PaymentResolver.java",
       "line": 8,
-      "expr": "refundCode401",
-      "note": "局部变量传递"
+      "expr": "refundCode101",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbatch/dao/LedgerCollector.java",
+      "file": "web/src/main/java/com/habench/shippingbatch/web/PaymentResolver.java",
       "line": 9,
-      "expr": "shipmentCode402",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingbatch/dao/LedgerCollector.java",
-      "line": 10,
-      "expr": "shipmentCode402",
+      "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbatch/dao/CatalogExecutor.java",
+      "file": "web/src/main/java/com/habench/shippingbatch/web/InvoiceRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/InvoiceRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerCollector.java",
+      "line": 8,
+      "expr": "catalogKey201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerCollector.java",
+      "line": 9,
+      "expr": "receiptKey202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerCollector.java",
+      "line": 10,
+      "expr": "receiptKey202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingbatch/dao/CatalogExecutor.java",
+      "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 27,
-    "files_crossed": 7,
-    "modules_crossed": 3,
+    "call_depth": 10,
+    "chain_len": 22,
+    "files_crossed": 9,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:runtime_exec",
       "prop:map_element",
-      "prop:string_concat",
-      "prop:cross_class",
-      "prop:assign_local",
-      "prop:string_concat",
+      "prop:map_element",
       "prop:static_field",
+      "prop:map_element",
       "prop:string_concat",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
       "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-CMDI-1009-N",
   "http": {
     "method": "GET",
-    "path": "/api/shipping/batch/{label}",
-    "param": "label",
-    "carrier": "path"
+    "path": "/api/shipping/batch",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 8,
+    "call_depth_observed": 10,
     "payload_sent": "zz$(id)",
     "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

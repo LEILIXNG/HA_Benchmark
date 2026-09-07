@@ -6,12 +6,11 @@ import java.io.IOException;
 public final class TariffExecutor {
 
     public static void refine(String value) {
-        TaintOracle.neutralized(value);
-        // 不经 shell：参数以数组形式直接交给进程，元字符不会被解释
-        String[] argv = {"echo", value};
-        ProcessBuilder builder = new ProcessBuilder(argv);
+        String command = "echo " + value;
+        TaintOracle.reached(command);
+        String[] argv = {"/bin/sh", "-c", command};
         try {
-            builder.start();
+            Runtime.getRuntime().exec(argv);
         } catch (IOException e) {
             throw new IllegalStateException("exec failed", e);
         }

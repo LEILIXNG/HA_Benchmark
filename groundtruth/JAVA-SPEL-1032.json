@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SPEL-1032",
   "cwe": "CWE-917",
-  "verdict": "vulnerable",
-  "title": "请求头经 8 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "verdict": "safe",
+  "title": "请求头经 13 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
     "line": 11,
@@ -11,139 +11,252 @@
   "source": {
     "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
     "line": 13,
-    "expr": "resource",
+    "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/reportarchive/service/SessionEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
+    "line": 17,
     "expr": "template",
-    "note": "SINK: CWE-917 SpEL 表达式注入"
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
       "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
       "line": 13,
-      "expr": "resource",
+      "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
-      "line": 9,
-      "expr": "accountRef1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
+      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
       "line": 10,
       "expr": "accountRef1",
-      "note": "写入静态字段"
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
-      "line": 15,
-      "expr": "voucherRef2",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
-      "line": 16,
-      "expr": "paymentTag3",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
-      "line": 17,
-      "expr": "paymentTag3",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
-      "line": 22,
-      "expr": "refundCode4",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
-      "line": 23,
-      "expr": "shipmentCode5",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ShipmentFacade.java",
-      "line": 24,
-      "expr": "shipmentCode5",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
-      "line": 18,
-      "expr": "value",
+      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
+      "line": 13,
+      "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
-      "line": 19,
-      "expr": "tariffRef101",
+      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
+      "line": 14,
+      "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
-      "line": 20,
+      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
+      "line": 15,
+      "expr": "voucherRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
+      "line": 9,
       "expr": "tariffRef101",
-      "note": "写入实例字段"
+      "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
-      "line": 25,
+      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
+      "line": 10,
+      "expr": "tariffRef101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
+      "line": 15,
       "expr": "ledgerEntry102",
-      "note": "读取实例字段"
+      "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
-      "line": 26,
+      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
+      "line": 16,
       "expr": "channelTag103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/TariffCollector.java",
-      "line": 27,
-      "expr": "channelTag103",
+      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
+      "line": 17,
+      "expr": "catalogKey104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
+      "line": 18,
+      "expr": "catalogKey104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/SessionEvaluator.java",
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestTranslator.java",
+      "line": 8,
+      "expr": "manifestKey201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestTranslator.java",
+      "line": 9,
+      "expr": "invoiceKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestTranslator.java",
       "line": 10,
+      "expr": "invoiceKey202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 15,
+      "expr": "accountRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 16,
+      "expr": "voucherRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 17,
+      "expr": "voucherRef302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 22,
+      "expr": "paymentTag303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 23,
+      "expr": "refundCode304",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 24,
+      "expr": "shipmentCode305",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 25,
+      "expr": "shipmentCode305",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 30,
+      "expr": "manifestKey306",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 31,
+      "expr": "invoiceKey307",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
+      "line": 32,
+      "expr": "invoiceKey307",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/QuoteStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/QuoteStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
+      "line": 10,
+      "expr": "tariffRef401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
+      "line": 13,
+      "expr": "tariffRef401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
+      "line": 14,
+      "expr": "ledgerEntry402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
+      "line": 15,
+      "expr": "ledgerEntry402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
+      "line": 12,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/SessionEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
+      "line": 17,
       "expr": "template",
-      "note": "SINK: CWE-917 SpEL 表达式注入"
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 17,
-    "files_crossed": 4,
-    "modules_crossed": 2,
+    "call_depth": 13,
+    "chain_len": 33,
+    "files_crossed": 9,
+    "modules_crossed": 3,
     "features": [
       "source:servlet_header",
       "sink:spel_eval",
-      "prop:string_concat",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
       "prop:static_field",
       "prop:string_concat",
-      "prop:static_field",
       "prop:string_concat",
       "prop:cross_module",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
       "prop:store_field",
       "prop:string_concat",
-      "sanitizer:none"
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:spel_restricted_context"
     ]
   },
   "paired_negative": null,
@@ -155,14 +268,14 @@
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
-    "neutralized": false,
-    "call_depth_observed": 8,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 13,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
-    "http_status": 200,
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;'",
+    "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

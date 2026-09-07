@@ -1,0 +1,181 @@
+{
+  "id": "JAVA-SSRF-1017",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "路径变量经 8 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogcapture/web/CatalogController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogcapture/web/CatalogController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/catalogcapture/dao/CatalogFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/CatalogController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/ReceiptCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/ReceiptCollector.java",
+      "line": 13,
+      "expr": "voucherRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/ReceiptCollector.java",
+      "line": 14,
+      "expr": "paymentTag2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/ReceiptCollector.java",
+      "line": 15,
+      "expr": "paymentTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/BatchPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/BatchPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/LedgerCoordinator.java",
+      "line": 10,
+      "expr": "ledgerEntry101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/LedgerCoordinator.java",
+      "line": 13,
+      "expr": "ledgerEntry101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/LedgerCoordinator.java",
+      "line": 14,
+      "expr": "channelTag102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogcapture/web/LedgerCoordinator.java",
+      "line": 15,
+      "expr": "channelTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogcapture/service/PaymentComposer.java",
+      "line": 8,
+      "expr": "invoiceKey201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogcapture/service/PaymentComposer.java",
+      "line": 9,
+      "expr": "invoiceKey201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogcapture/dao/LedgerService.java",
+      "line": 10,
+      "expr": "voucherRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogcapture/dao/LedgerService.java",
+      "line": 13,
+      "expr": "voucherRef301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogcapture/dao/LedgerService.java",
+      "line": 14,
+      "expr": "paymentTag302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogcapture/dao/LedgerService.java",
+      "line": 15,
+      "expr": "paymentTag302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogcapture/dao/CatalogFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogcapture/dao/CatalogFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 19,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:url_fetch",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SSRF-1017-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/capture/{userName}",
+    "param": "userName",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

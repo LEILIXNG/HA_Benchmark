@@ -2,7 +2,7 @@
   "id": "JAVA-SPEL-1014",
   "cwe": "CWE-917",
   "verdict": "vulnerable",
-  "title": "查询参数经 15 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "title": "路径变量经 8 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
     "file": "web/src/main/java/com/habench/reportimport/web/BundleController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/reportimport/web/BundleController.java",
     "line": 13,
-    "expr": "filename",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
     "file": "dao/src/main/java/com/habench/reportimport/dao/BundleEvaluator.java",
@@ -26,205 +26,109 @@
     {
       "file": "web/src/main/java/com/habench/reportimport/web/BundleController.java",
       "line": 13,
-      "expr": "filename",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/RefundTranslator.java",
-      "line": 13,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportimport/web/RefundTranslator.java",
-      "line": 14,
-      "expr": "voucherRef1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportimport/web/RefundTranslator.java",
-      "line": 15,
-      "expr": "voucherRef1",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportimport/web/RefundTranslator.java",
-      "line": 20,
-      "expr": "paymentTag2",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportimport/web/RefundTranslator.java",
-      "line": 21,
-      "expr": "refundCode3",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportimport/web/RefundTranslator.java",
-      "line": 22,
-      "expr": "shipmentCode4",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportimport/web/RefundTranslator.java",
-      "line": 23,
-      "expr": "shipmentCode4",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportimport/service/TariffEnricher.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportimport/service/TariffEnricher.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
       "line": 13,
-      "expr": "ledgerEntry101",
+      "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportimport/service/TariffEnricher.java",
-      "line": 14,
-      "expr": "channelTag102",
-      "note": "字符串拼接传播"
+      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
+      "line": 16,
+      "expr": "voucherRef1",
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportimport/service/TariffEnricher.java",
-      "line": 15,
-      "expr": "channelTag102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportimport/service/TariffPlanSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportimport/service/TariffPlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportimport/service/ContractFacade.java",
-      "line": 8,
-      "expr": "invoiceKey201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportimport/service/ContractFacade.java",
-      "line": 9,
-      "expr": "batchTag202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportimport/service/ContractFacade.java",
-      "line": 10,
-      "expr": "batchTag202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 11,
-      "expr": "voucherRef301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 12,
-      "expr": "voucherRef301",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
       "line": 17,
-      "expr": "paymentTag302",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 18,
-      "expr": "refundCode303",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 19,
-      "expr": "refundCode303",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 24,
-      "expr": "shipmentCode304",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 25,
-      "expr": "manifestKey305",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 28,
-      "expr": "manifestKey305",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 29,
-      "expr": "invoiceKey306",
+      "expr": "paymentTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/VoucherAdapter.java",
-      "line": 30,
-      "expr": "invoiceKey306",
+      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
+      "line": 18,
+      "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/ContractStrategySelector.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/ManifestStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/ContractStrategyStandard.java",
+      "file": "web/src/main/java/com/habench/reportimport/web/ManifestStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
-      "line": 9,
-      "expr": "ledgerEntry401",
+      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
+      "line": 10,
+      "expr": "ledgerEntry101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
+      "line": 13,
+      "expr": "ledgerEntry101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
+      "line": 14,
+      "expr": "channelTag102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
+      "line": 15,
+      "expr": "channelTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportimport/service/InvoiceTranslator.java",
+      "line": 8,
+      "expr": "invoiceKey201",
       "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportimport/service/InvoiceTranslator.java",
+      "line": 9,
+      "expr": "invoiceKey201",
+      "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
       "line": 10,
-      "expr": "ledgerEntry401",
-      "note": "写入静态字段"
+      "expr": "voucherRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
+      "line": 13,
+      "expr": "voucherRef301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
+      "line": 14,
+      "expr": "paymentTag302",
+      "note": "取出集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
       "line": 15,
-      "expr": "channelTag402",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
-      "line": 16,
-      "expr": "catalogKey403",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
-      "line": 17,
-      "expr": "catalogKey403",
+      "expr": "paymentTag302",
       "note": "调用下一层"
     },
     {
@@ -241,54 +145,43 @@
     }
   ],
   "metrics": {
-    "call_depth": 15,
-    "chain_len": 36,
-    "files_crossed": 11,
+    "call_depth": 8,
+    "chain_len": 20,
+    "files_crossed": 8,
     "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:spel_eval",
       "prop:map_element",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:string_concat",
       "prop:map_element",
       "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
       "prop:string_concat",
-      "prop:static_field",
-      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/report/import",
-    "param": "filename",
-    "carrier": "query"
+    "path": "/api/report/import/{orderNo}",
+    "param": "orderNo",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 15,
+    "call_depth_observed": 8,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;'",
+    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

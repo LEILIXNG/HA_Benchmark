@@ -2,196 +2,234 @@
   "id": "JAVA-SPEL-1026",
   "cwe": "CWE-917",
   "verdict": "vulnerable",
-  "title": "路径变量经 8 层调用、跨 1 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
+  "title": "请求头经 11 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingsubmit/web/SessionController.java",
+    "file": "web/src/main/java/com/habench/accountdraft/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingsubmit/web/SessionController.java",
+    "file": "web/src/main/java/com/habench/accountdraft/web/SessionController.java",
     "line": 13,
-    "expr": "reference",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "resource",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/shippingsubmit/web/SessionEvaluator.java",
+    "file": "service/src/main/java/com/habench/accountdraft/service/SessionEvaluator.java",
     "line": 14,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": {
-    "file": "web/src/main/java/com/habench/shippingsubmit/web/OrderScreen.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 单次剥离 T(（无效）"
-  },
-  "sanitizer_kind": "spel_strip_type_ref",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/SessionController.java",
+      "file": "web/src/main/java/com/habench/accountdraft/web/SessionController.java",
       "line": 13,
-      "expr": "reference",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "resource",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 17,
+      "expr": "quoteRef1",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
       "line": 20,
       "expr": "quoteRef1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 21,
-      "expr": "quoteRef1",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 26,
-      "expr": "tariffRef2",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 29,
-      "expr": "tariffRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 21,
+      "expr": "tariffRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 22,
+      "expr": "tariffRef2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 27,
+      "expr": "ledgerEntry3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
       "line": 30,
       "expr": "ledgerEntry3",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 33,
-      "expr": "ledgerEntry3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 34,
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 31,
       "expr": "channelTag4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 35,
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 32,
       "expr": "channelTag4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 40,
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 37,
       "expr": "catalogKey5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 38,
+      "expr": "receiptKey6",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
       "line": 41,
       "expr": "receiptKey6",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 42,
-      "expr": "accountRef7",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 43,
-      "expr": "accountRef7",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 48,
-      "expr": "voucherRef8",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 51,
-      "expr": "voucherRef8",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 52,
-      "expr": "paymentTag9",
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 42,
+      "expr": "accountRef7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/VoucherRouter.java",
-      "line": 53,
-      "expr": "paymentTag9",
+      "file": "web/src/main/java/com/habench/accountdraft/web/AccountRouter.java",
+      "line": 43,
+      "expr": "accountRef7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/OrderScreen.java",
-      "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 单次剥离 T(（无效）"
+      "file": "service/src/main/java/com/habench/accountdraft/service/InvoiceFacade.java",
+      "line": 8,
+      "expr": "shipmentCode101",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/SessionEvaluator.java",
+      "file": "service/src/main/java/com/habench/accountdraft/service/InvoiceFacade.java",
+      "line": 9,
+      "expr": "shipmentCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/ManifestResolver.java",
+      "line": 8,
+      "expr": "receiptKey201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/ManifestResolver.java",
+      "line": 9,
+      "expr": "receiptKey201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/OrderBuilder.java",
+      "line": 16,
+      "expr": "quoteRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/OrderBuilder.java",
+      "line": 19,
+      "expr": "quoteRef301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/OrderBuilder.java",
+      "line": 20,
+      "expr": "tariffRef302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/OrderBuilder.java",
+      "line": 21,
+      "expr": "tariffRef302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/OrderBuilder.java",
+      "line": 26,
+      "expr": "ledgerEntry303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/OrderBuilder.java",
+      "line": 27,
+      "expr": "channelTag304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/OrderBuilder.java",
+      "line": 28,
+      "expr": "channelTag304",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountdraft/service/SessionEvaluator.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsubmit/web/SessionEvaluator.java",
+      "file": "service/src/main/java/com/habench/accountdraft/service/SessionEvaluator.java",
       "line": 14,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 21,
-    "files_crossed": 4,
-    "modules_crossed": 1,
+    "call_depth": 11,
+    "chain_len": 27,
+    "files_crossed": 6,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:spel_eval",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:static_field",
       "prop:assign_local",
-      "prop:assign_local",
+      "prop:map_element",
       "prop:store_field",
       "prop:map_element",
-      "sanitizer:spel_strip_type_ref"
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/shipping/submit/{reference}",
-    "param": "reference",
-    "carrier": "path"
+    "path": "/api/account/draft",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 8,
-    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'zz' + T(java.lang.Runtime) + 'zz'",
+    "call_depth_observed": 11,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

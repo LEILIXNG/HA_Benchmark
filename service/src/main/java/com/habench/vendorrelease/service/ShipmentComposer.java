@@ -1,30 +1,16 @@
 package com.habench.vendorrelease.service;
 
-import com.habench.vendorrelease.dao.CatalogService;
+import com.habench.vendorrelease.service.CatalogValidator;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class ShipmentComposer {
-    private String pendingRefund;
 
-    public static void enrich(String value) {
-        ShipmentComposer self = new ShipmentComposer();
-        self.stage(value);
-    }
-
-    private void stage(String value) {
-        String refundCode401 = "ref:" + value + ";";
-        this.pendingRefund = refundCode401;
-        forward();
-    }
-
-    private void forward() {
-        String shipmentCode402 = this.pendingRefund;
-        Map<String, String> manifestKey403Attrs = new HashMap<String, String>();
-        manifestKey403Attrs.put("channel", "web");
-        manifestKey403Attrs.put("payload", shipmentCode402);
-        String manifestKey403 = manifestKey403Attrs.get("payload");
-        String invoiceKey404 = manifestKey403;
-        CatalogService.translate(invoiceKey404);
+    public static void stage(String value) {
+        Map<String, String> refundCode401Attrs = new HashMap<String, String>();
+        refundCode401Attrs.put("channel", "web");
+        refundCode401Attrs.put("payload", value);
+        String refundCode401 = refundCode401Attrs.get("payload");
+        CatalogValidator.translate(refundCode401);
     }
 }

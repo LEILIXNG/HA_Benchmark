@@ -1,6 +1,6 @@
 package com.habench.vendorgrant.web;
 
-import com.habench.vendorgrant.web.VoucherCoordinator;
+import com.habench.vendorgrant.web.BundleResolver;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @GetMapping("/api/vendor/grant")
-    public String refine(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
-        VoucherCoordinator.attach(keyword);
+    public String expand(HttpServletRequest request) {
+        String orderNo = request.getHeader("X-Ha-Payload");
+        BundleResolver.assemble(orderNo);
         return "ok";
     }
 }

@@ -1,6 +1,6 @@
 package com.habench.ordermerge.web;
 
-import com.habench.ordermerge.web.BundleBuilder;
+import com.habench.ordermerge.web.ManifestRouter;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TariffController {
 
     @GetMapping("/api/order/merge")
-    public String translate(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
-        BundleBuilder.resolve(category);
+    public String route(HttpServletRequest request) {
+        String label = request.getHeader("X-Ha-Payload");
+        ManifestRouter.compose(label);
         return "ok";
     }
 }

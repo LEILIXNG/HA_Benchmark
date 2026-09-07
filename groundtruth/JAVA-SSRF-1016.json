@@ -1,0 +1,307 @@
+{
+  "id": "JAVA-SSRF-1016",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "查询参数经 16 层调用、跨 3 个模块流入URL 抓取，经 whitelist_regex 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogassign/web/CatalogController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogassign/web/CatalogController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/catalogassign/dao/CatalogFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/catalogassign/dao/InvoiceScreen.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogassign/web/CatalogController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogassign/web/ChannelAdapter.java",
+      "line": 8,
+      "expr": "channelTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogassign/web/ChannelAdapter.java",
+      "line": 9,
+      "expr": "channelTag1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogassign/web/RefundFacade.java",
+      "line": 8,
+      "expr": "batchTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogassign/web/RefundFacade.java",
+      "line": 9,
+      "expr": "batchTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogassign/service/ContractRegistry.java",
+      "line": 8,
+      "expr": "paymentTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogassign/service/ContractRegistry.java",
+      "line": 9,
+      "expr": "paymentTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/ShipmentCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/ShipmentCoordinator.java",
+      "line": 13,
+      "expr": "channelTag301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/ShipmentCoordinator.java",
+      "line": 14,
+      "expr": "catalogKey302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/ShipmentCoordinator.java",
+      "line": 15,
+      "expr": "catalogKey302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/TariffRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/TariffRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 17,
+      "expr": "batchTag401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 18,
+      "expr": "batchTag401",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 23,
+      "expr": "orderRef402",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 24,
+      "expr": "quoteRef403",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 25,
+      "expr": "tariffRef404",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 26,
+      "expr": "tariffRef404",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 31,
+      "expr": "ledgerEntry405",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 32,
+      "expr": "channelTag406",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 33,
+      "expr": "catalogKey407",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 34,
+      "expr": "catalogKey407",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 39,
+      "expr": "receiptKey408",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 42,
+      "expr": "receiptKey408",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 43,
+      "expr": "accountRef409",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 44,
+      "expr": "voucherRef410",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 45,
+      "expr": "voucherRef410",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 50,
+      "expr": "paymentTag411",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 51,
+      "expr": "refundCode412",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/AccountAdapter.java",
+      "line": 52,
+      "expr": "refundCode412",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/QuoteNormalizer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/QuoteNormalizer.java",
+      "line": 13,
+      "expr": "paymentTag501",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/QuoteNormalizer.java",
+      "line": 14,
+      "expr": "paymentTag501",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/InvoiceScreen.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/CatalogFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogassign/dao/CatalogFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 16,
+    "chain_len": 37,
+    "files_crossed": 11,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/assign",
+    "param": "resource",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

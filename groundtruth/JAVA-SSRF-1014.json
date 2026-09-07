@@ -1,0 +1,241 @@
+{
+  "id": "JAVA-SSRF-1014",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "请求头经 10 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportrenewal/web/VoucherController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportrenewal/web/VoucherController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/reportrenewal/dao/VoucherFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/VoucherController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 17,
+      "expr": "orderRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 18,
+      "expr": "quoteRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 19,
+      "expr": "quoteRef2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 24,
+      "expr": "tariffRef3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 25,
+      "expr": "ledgerEntry4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 26,
+      "expr": "ledgerEntry4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 31,
+      "expr": "channelTag5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 32,
+      "expr": "catalogKey6",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 35,
+      "expr": "catalogKey6",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 36,
+      "expr": "receiptKey7",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrenewal/web/TariffEnricher.java",
+      "line": 37,
+      "expr": "receiptKey7",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrenewal/service/ShipmentBroker.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrenewal/service/ShipmentBroker.java",
+      "line": 13,
+      "expr": "refundCode101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrenewal/service/ShipmentBroker.java",
+      "line": 16,
+      "expr": "refundCode101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrenewal/service/ShipmentBroker.java",
+      "line": 17,
+      "expr": "shipmentCode102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrenewal/service/ShipmentBroker.java",
+      "line": 18,
+      "expr": "shipmentCode102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 11,
+      "expr": "catalogKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 12,
+      "expr": "catalogKey201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 17,
+      "expr": "receiptKey202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 18,
+      "expr": "accountRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 19,
+      "expr": "accountRef203",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 24,
+      "expr": "voucherRef204",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 27,
+      "expr": "voucherRef204",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 28,
+      "expr": "paymentTag205",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/ReceiptBroker.java",
+      "line": 29,
+      "expr": "paymentTag205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/VoucherFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrenewal/dao/VoucherFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 28,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/report/renewal",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 10,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://127.0.0.1:1/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

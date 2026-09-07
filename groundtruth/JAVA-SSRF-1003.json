@@ -1,0 +1,215 @@
+{
+  "id": "JAVA-SSRF-1003",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "查询参数经 9 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountrefund/web/VoucherController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountrefund/web/VoucherController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/accountrefund/dao/VoucherFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountrefund/web/VoucherController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrefund/web/ManifestCoordinator.java",
+      "line": 8,
+      "expr": "quoteRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrefund/web/ManifestCoordinator.java",
+      "line": 9,
+      "expr": "tariffRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountrefund/web/ManifestCoordinator.java",
+      "line": 10,
+      "expr": "tariffRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 11,
+      "expr": "shipmentCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 12,
+      "expr": "manifestKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 13,
+      "expr": "manifestKey102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 18,
+      "expr": "invoiceKey103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 19,
+      "expr": "batchTag104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 22,
+      "expr": "batchTag104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 23,
+      "expr": "orderRef105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountrefund/service/ManifestRegistry.java",
+      "line": 24,
+      "expr": "orderRef105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BundleAdapter.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BundleAdapter.java",
+      "line": 13,
+      "expr": "receiptKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BundleAdapter.java",
+      "line": 14,
+      "expr": "accountRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BundleAdapter.java",
+      "line": 15,
+      "expr": "accountRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/QuotePolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/QuotePolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BatchFacade.java",
+      "line": 10,
+      "expr": "quoteRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BatchFacade.java",
+      "line": 13,
+      "expr": "quoteRef301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BatchFacade.java",
+      "line": 14,
+      "expr": "tariffRef302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/BatchFacade.java",
+      "line": 15,
+      "expr": "tariffRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/VoucherFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountrefund/dao/VoucherFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 24,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:url_fetch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/refund",
+    "param": "userName",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:ref:127.0.0.1:1;;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

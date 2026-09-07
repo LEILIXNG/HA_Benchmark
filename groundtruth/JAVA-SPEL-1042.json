@@ -2,7 +2,7 @@
   "id": "JAVA-SPEL-1042",
   "cwe": "CWE-917",
   "verdict": "vulnerable",
-  "title": "请求头经 11 层调用、跨 1 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
+  "title": "请求头经 10 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
     "file": "web/src/main/java/com/habench/orderbatch/web/OrderController.java",
     "line": 11,
@@ -15,18 +15,13 @@
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/orderbatch/web/OrderEvaluator.java",
+    "file": "service/src/main/java/com/habench/orderbatch/service/OrderEvaluator.java",
     "line": 14,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": {
-    "file": "web/src/main/java/com/habench/orderbatch/web/ContractGuard.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 单次剥离 T(（无效）"
-  },
-  "sanitizer_kind": "spel_strip_type_ref",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/OrderController.java",
@@ -35,33 +30,39 @@
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/orderbatch/web/RefundRegistry.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/orderbatch/web/InvoiceCollector.java",
+      "line": 14,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderbatch/web/RefundRegistry.java",
-      "line": 9,
-      "expr": "refundCode2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderbatch/web/RefundRegistry.java",
-      "line": 10,
-      "expr": "refundCode2",
-      "note": "调用下一层"
+      "file": "web/src/main/java/com/habench/orderbatch/web/InvoiceCollector.java",
+      "line": 15,
+      "expr": "paymentTag1",
+      "note": "写入实例字段"
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/InvoiceCollector.java",
-      "line": 8,
-      "expr": "channelTag101",
+      "line": 20,
+      "expr": "refundCode2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderbatch/web/InvoiceCollector.java",
+      "line": 21,
+      "expr": "shipmentCode3",
       "note": "字符串拼接传播"
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/InvoiceCollector.java",
-      "line": 9,
-      "expr": "channelTag101",
+      "line": 22,
+      "expr": "manifestKey4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderbatch/web/InvoiceCollector.java",
+      "line": 23,
+      "expr": "manifestKey4",
       "note": "调用下一层"
     },
     {
@@ -78,105 +79,101 @@
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
+      "line": 9,
+      "expr": "channelTag101",
+      "note": "局部变量传递"
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 19,
-      "expr": "batchTag201",
-      "note": "取出集合元素"
+      "line": 10,
+      "expr": "channelTag101",
+      "note": "写入静态字段"
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 20,
-      "expr": "batchTag201",
-      "note": "写入实例字段"
+      "line": 15,
+      "expr": "catalogKey102",
+      "note": "读取静态字段"
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 25,
-      "expr": "orderRef202",
-      "note": "读取实例字段"
+      "line": 16,
+      "expr": "receiptKey103",
+      "note": "局部变量传递"
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 26,
-      "expr": "quoteRef203",
+      "line": 17,
+      "expr": "accountRef104",
       "note": "字符串拼接传播"
     },
     {
       "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 27,
-      "expr": "quoteRef203",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 32,
-      "expr": "tariffRef204",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 35,
-      "expr": "tariffRef204",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 36,
-      "expr": "ledgerEntry205",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderbatch/web/CatalogBroker.java",
-      "line": 37,
-      "expr": "ledgerEntry205",
+      "line": 18,
+      "expr": "accountRef104",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/orderbatch/web/ContractGuard.java",
-      "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 单次剥离 T(（无效）"
+      "file": "service/src/main/java/com/habench/orderbatch/service/ContractEnricher.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderbatch/web/OrderEvaluator.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/ContractEnricher.java",
+      "line": 13,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderbatch/service/ContractEnricher.java",
+      "line": 14,
+      "expr": "orderRef202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderbatch/service/ContractEnricher.java",
+      "line": 15,
+      "expr": "orderRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderbatch/service/OrderEvaluator.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "web/src/main/java/com/habench/orderbatch/web/OrderEvaluator.java",
+      "file": "service/src/main/java/com/habench/orderbatch/service/OrderEvaluator.java",
       "line": 14,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
   "metrics": {
-    "call_depth": 11,
+    "call_depth": 10,
     "chain_len": 21,
-    "files_crossed": 8,
-    "modules_crossed": 1,
+    "files_crossed": 7,
+    "modules_crossed": 2,
     "features": [
       "source:servlet_header",
       "sink:spel_eval",
       "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_class",
+      "prop:store_field",
+      "prop:string_concat",
       "prop:string_concat",
       "prop:interface_dispatch",
-      "prop:map_element",
-      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
       "prop:string_concat",
-      "prop:store_field",
+      "prop:cross_module",
       "prop:map_element",
-      "sanitizer:spel_strip_type_ref"
+      "prop:assign_local",
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SPEL-1042-N",
   "http": {
     "method": "GET",
     "path": "/api/order/batch",
@@ -188,11 +185,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 11,
-    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "call_depth_observed": 10,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

@@ -1,0 +1,197 @@
+{
+  "id": "JAVA-CMDI-1031-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1031 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/orderimport/web/BundleController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/orderimport/web/BundleController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/orderimport/service/BundleExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/orderimport/service/VoucherGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/BundleController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/TariffBroker.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/TariffBroker.java",
+      "line": 14,
+      "expr": "orderRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/TariffBroker.java",
+      "line": 15,
+      "expr": "orderRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/TariffBroker.java",
+      "line": 20,
+      "expr": "quoteRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/TariffBroker.java",
+      "line": 21,
+      "expr": "tariffRef3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/TariffBroker.java",
+      "line": 22,
+      "expr": "tariffRef3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/ManifestRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/ManifestRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/VoucherResolver.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/VoucherResolver.java",
+      "line": 13,
+      "expr": "refundCode101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/VoucherResolver.java",
+      "line": 14,
+      "expr": "shipmentCode102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderimport/web/VoucherResolver.java",
+      "line": 15,
+      "expr": "shipmentCode102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/BatchBroker.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/BatchBroker.java",
+      "line": 13,
+      "expr": "catalogKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/BatchBroker.java",
+      "line": 16,
+      "expr": "catalogKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/BatchBroker.java",
+      "line": 17,
+      "expr": "receiptKey202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/BatchBroker.java",
+      "line": 18,
+      "expr": "receiptKey202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/VoucherGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/BundleExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderimport/service/BundleExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 21,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/order/import/{orderNo}",
+    "param": "orderNo",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

@@ -2,7 +2,7 @@
   "id": "JAVA-SQLI-1004",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "查询参数经 14 层调用、跨 3 个模块流入JDBC 拼接",
+  "title": "查询参数经 18 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
     "file": "web/src/main/java/com/habench/billingmanifest/web/ChannelController.java",
     "line": 11,
@@ -11,7 +11,7 @@
   "source": {
     "file": "web/src/main/java/com/habench/billingmanifest/web/ChannelController.java",
     "line": 13,
-    "expr": "label",
+    "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
@@ -26,170 +26,320 @@
     {
       "file": "web/src/main/java/com/habench/billingmanifest/web/ChannelController.java",
       "line": 13,
-      "expr": "label",
+      "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 11,
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 17,
       "expr": "ledgerEntry1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 18,
       "expr": "ledgerEntry1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 15,
-      "expr": "channelTag2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 16,
-      "expr": "channelTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 23,
+      "expr": "channelTag2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 24,
       "expr": "catalogKey3",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 22,
-      "expr": "receiptKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 25,
-      "expr": "receiptKey4",
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 27,
+      "expr": "catalogKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 26,
-      "expr": "accountRef5",
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 28,
+      "expr": "receiptKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 27,
-      "expr": "accountRef5",
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 29,
+      "expr": "receiptKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 32,
-      "expr": "voucherRef6",
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 34,
+      "expr": "accountRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 33,
-      "expr": "paymentTag7",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
-      "line": 34,
-      "expr": "refundCode8",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ShipmentTranslator.java",
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
       "line": 35,
+      "expr": "voucherRef6",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 38,
+      "expr": "voucherRef6",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 39,
+      "expr": "paymentTag7",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 40,
+      "expr": "paymentTag7",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 45,
       "expr": "refundCode8",
-      "note": "调用下一层"
+      "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/QuoteBroker.java",
-      "line": 8,
-      "expr": "invoiceKey101",
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 48,
+      "expr": "refundCode8",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 49,
+      "expr": "shipmentCode9",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 52,
+      "expr": "shipmentCode9",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 53,
+      "expr": "manifestKey10",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 54,
+      "expr": "manifestKey10",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 59,
+      "expr": "invoiceKey11",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 60,
+      "expr": "batchTag12",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/QuoteBroker.java",
-      "line": 9,
-      "expr": "invoiceKey101",
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 63,
+      "expr": "batchTag12",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 64,
+      "expr": "orderRef13",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 65,
+      "expr": "orderRef13",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 70,
+      "expr": "quoteRef14",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 71,
+      "expr": "tariffRef15",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 72,
+      "expr": "tariffRef15",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 77,
+      "expr": "ledgerEntry16",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 80,
+      "expr": "ledgerEntry16",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 81,
+      "expr": "channelTag17",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 82,
+      "expr": "catalogKey18",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionBuilder.java",
+      "line": 83,
+      "expr": "catalogKey18",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionPlanSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/habench/billingmanifest/service/ReceiptCoordinator.java",
+      "line": 12,
       "expr": "value",
-      "note": "接口多态派发（3 个实现）"
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/SessionPlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
+      "file": "service/src/main/java/com/habench/billingmanifest/service/ReceiptCoordinator.java",
+      "line": 13,
+      "expr": "invoiceKey101",
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ReceiptCoordinator.java",
-      "line": 8,
+      "file": "service/src/main/java/com/habench/billingmanifest/service/ReceiptCoordinator.java",
+      "line": 14,
+      "expr": "batchTag102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingmanifest/service/ReceiptCoordinator.java",
+      "line": 15,
+      "expr": "batchTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 14,
       "expr": "voucherRef201",
-      "note": "局部变量传递"
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ReceiptCoordinator.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 17,
+      "expr": "voucherRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 18,
       "expr": "paymentTag202",
-      "note": "字符串拼接传播"
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingmanifest/web/ReceiptCoordinator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 19,
       "expr": "paymentTag202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingmanifest/service/CatalogService.java",
-      "line": 8,
-      "expr": "ledgerEntry301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingmanifest/service/CatalogService.java",
-      "line": 9,
-      "expr": "channelTag302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingmanifest/service/CatalogService.java",
-      "line": 10,
-      "expr": "channelTag302",
-      "note": "调用下一层"
+      "note": "写入静态字段"
     },
     {
       "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
-      "line": 8,
-      "expr": "invoiceKey401",
+      "line": 24,
+      "expr": "refundCode203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 25,
+      "expr": "shipmentCode204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 26,
+      "expr": "manifestKey205",
       "note": "局部变量传递"
     },
     {
       "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
-      "line": 9,
-      "expr": "batchTag402",
+      "line": 27,
+      "expr": "manifestKey205",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 32,
+      "expr": "invoiceKey206",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 33,
+      "expr": "batchTag207",
       "note": "局部变量传递"
     },
     {
       "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
-      "line": 10,
-      "expr": "batchTag402",
+      "line": 34,
+      "expr": "batchTag207",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 39,
+      "expr": "orderRef208",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 40,
+      "expr": "quoteRef209",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 41,
+      "expr": "tariffRef210",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/OrderAssembler.java",
+      "line": 42,
+      "expr": "tariffRef210",
       "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/billingmanifest/dao/BatchPolicySelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（4 个实现）"
+      "note": "接口多态派发（2 个实现）"
     },
     {
       "file": "dao/src/main/java/com/habench/billingmanifest/dao/BatchPolicyStandard.java",
@@ -199,26 +349,20 @@
     },
     {
       "file": "dao/src/main/java/com/habench/billingmanifest/dao/InvoiceAdapter.java",
+      "line": 8,
+      "expr": "ledgerEntry301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/InvoiceAdapter.java",
+      "line": 9,
+      "expr": "channelTag302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingmanifest/dao/InvoiceAdapter.java",
       "line": 10,
-      "expr": "voucherRef501",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingmanifest/dao/InvoiceAdapter.java",
-      "line": 13,
-      "expr": "voucherRef501",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingmanifest/dao/InvoiceAdapter.java",
-      "line": 14,
-      "expr": "paymentTag502",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingmanifest/dao/InvoiceAdapter.java",
-      "line": 15,
-      "expr": "paymentTag502",
+      "expr": "channelTag302",
       "note": "调用下一层"
     },
     {
@@ -235,35 +379,48 @@
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 35,
-    "files_crossed": 12,
+    "call_depth": 18,
+    "chain_len": 59,
+    "files_crossed": 8,
     "modules_crossed": 3,
     "features": [
       "source:spring_request_param",
       "sink:jdbc_concat",
       "prop:string_concat",
-      "prop:map_element",
       "prop:static_field",
       "prop:string_concat",
       "prop:map_element",
       "prop:static_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_class",
-      "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:interface_dispatch",
       "prop:string_concat",
       "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
@@ -271,7 +428,7 @@
   "http": {
     "method": "GET",
     "path": "/api/billing/manifest",
-    "param": "label",
+    "param": "query",
     "carrier": "query"
   },
   "verification": {
@@ -279,11 +436,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 14,
+    "call_depth_observed": 18,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

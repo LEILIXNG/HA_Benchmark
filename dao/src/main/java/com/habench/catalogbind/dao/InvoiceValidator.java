@@ -1,12 +1,16 @@
 package com.habench.catalogbind.dao;
 
 import com.habench.catalogbind.dao.TariffEvaluator;
+import java.util.regex.Pattern;
 
 public final class InvoiceValidator {
+    private static final Pattern ACCEPTED =
+            Pattern.compile("^[A-Za-z0-9_]{1,64}$");
 
     public static void attach(String value) {
-        // 只删 T( ：TT(( 单次替换后会被还原成 T( —— 无效净化
-        String cleaned = value.replace("T(", "");
-        TariffEvaluator.prepare(cleaned);
+        if (!ACCEPTED.matcher(value).matches()) {
+            throw new IllegalArgumentException("rejected input");
+        }
+        TariffEvaluator.prepare(value);
     }
 }

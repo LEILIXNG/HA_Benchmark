@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1018",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 9 层调用、跨 3 个模块流入命令执行",
+  "title": "路径变量经 6 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/inventorycapture/web/ChannelController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/inventorycapture/web/ChannelController.java",
     "line": 13,
-    "expr": "query",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/inventorycapture/dao/ChannelExecutor.java",
+    "file": "web/src/main/java/com/habench/inventorycapture/web/ChannelExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,191 +26,123 @@
     {
       "file": "web/src/main/java/com/habench/inventorycapture/web/ChannelController.java",
       "line": 13,
-      "expr": "query",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorycapture/web/ContractBuilder.java",
-      "line": 12,
-      "expr": "value",
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 17,
+      "expr": "manifestKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 20,
+      "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorycapture/web/ContractBuilder.java",
-      "line": 13,
-      "expr": "manifestKey1",
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 21,
+      "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorycapture/web/ContractBuilder.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 22,
       "expr": "invoiceKey2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorycapture/web/ContractBuilder.java",
-      "line": 15,
-      "expr": "invoiceKey2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/CatalogService.java",
-      "line": 8,
-      "expr": "accountRef101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/CatalogService.java",
-      "line": 9,
-      "expr": "voucherRef102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/CatalogService.java",
-      "line": 10,
-      "expr": "voucherRef102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 17,
-      "expr": "tariffRef201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 18,
-      "expr": "tariffRef201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 23,
-      "expr": "ledgerEntry202",
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 27,
+      "expr": "batchTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 24,
-      "expr": "channelTag203",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 27,
-      "expr": "channelTag203",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
       "line": 28,
-      "expr": "catalogKey204",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 29,
-      "expr": "catalogKey204",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 34,
-      "expr": "receiptKey205",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 37,
-      "expr": "receiptKey205",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 38,
-      "expr": "accountRef206",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 39,
-      "expr": "voucherRef207",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorycapture/service/RefundBuilder.java",
-      "line": 40,
-      "expr": "voucherRef207",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorycapture/dao/InvoiceResolver.java",
-      "line": 8,
-      "expr": "manifestKey301",
+      "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorycapture/dao/InvoiceResolver.java",
-      "line": 9,
-      "expr": "manifestKey301",
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 29,
+      "expr": "quoteRef5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 30,
+      "expr": "quoteRef5",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 35,
+      "expr": "tariffRef6",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 36,
+      "expr": "ledgerEntry7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorycapture/web/InvoiceResolver.java",
+      "line": 37,
+      "expr": "ledgerEntry7",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorycapture/dao/ChannelExecutor.java",
+      "file": "web/src/main/java/com/habench/inventorycapture/web/ChannelExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorycapture/dao/ChannelExecutor.java",
+      "file": "web/src/main/java/com/habench/inventorycapture/web/ChannelExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 9,
-    "chain_len": 24,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "call_depth": 6,
+    "chain_len": 14,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:runtime_exec",
+      "prop:string_concat",
       "prop:map_element",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:cross_class",
-      "prop:string_concat",
       "prop:static_field",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:cross_module",
       "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1018-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/inventory/capture",
-    "param": "query",
-    "carrier": "query"
+    "path": "/api/inventory/capture/{orderNo}",
+    "param": "orderNo",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 9,
+    "call_depth_observed": 6,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
+    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

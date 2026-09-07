@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1002",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 18 层调用、跨 3 个模块流入命令执行",
+  "title": "请求头经 15 层调用、跨 3 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/paymentsplit/web/RefundController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/paymentsplit/web/RefundController.java",
     "line": 13,
-    "expr": "reference",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "token",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
     "file": "dao/src/main/java/com/habench/paymentsplit/dao/RefundExecutor.java",
@@ -26,229 +26,229 @@
     {
       "file": "web/src/main/java/com/habench/paymentsplit/web/RefundController.java",
       "line": 13,
-      "expr": "reference",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "token",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsplit/web/BatchAssembler.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 11,
       "expr": "batchTag1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentsplit/web/BatchAssembler.java",
-      "line": 9,
-      "expr": "batchTag1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/VoucherBuilder.java",
-      "line": 8,
-      "expr": "paymentTag101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/VoucherBuilder.java",
-      "line": 9,
-      "expr": "paymentTag101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 20,
-      "expr": "channelTag201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 21,
-      "expr": "channelTag201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 26,
-      "expr": "catalogKey202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 29,
-      "expr": "catalogKey202",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 30,
-      "expr": "receiptKey203",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 31,
-      "expr": "receiptKey203",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 36,
-      "expr": "accountRef204",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 37,
-      "expr": "voucherRef205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 38,
-      "expr": "voucherRef205",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 43,
-      "expr": "paymentTag206",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 46,
-      "expr": "paymentTag206",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 47,
-      "expr": "refundCode207",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 50,
-      "expr": "refundCode207",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 51,
-      "expr": "shipmentCode208",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsplit/service/ReceiptAssembler.java",
-      "line": 52,
-      "expr": "shipmentCode208",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/ReceiptComposer.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/ReceiptComposer.java",
-      "line": 13,
-      "expr": "batchTag301",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/ReceiptComposer.java",
-      "line": 14,
-      "expr": "batchTag301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/ReceiptPolicySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（3 个实现）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/ReceiptPolicyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/VoucherAdapter.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/VoucherAdapter.java",
-      "line": 19,
-      "expr": "paymentTag401",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/VoucherAdapter.java",
-      "line": 20,
-      "expr": "paymentTag401",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/VoucherAdapter.java",
-      "line": 25,
-      "expr": "refundCode402",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/VoucherAdapter.java",
-      "line": 26,
-      "expr": "shipmentCode403",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/VoucherAdapter.java",
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 12,
+      "expr": "batchTag1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 17,
+      "expr": "orderRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 20,
+      "expr": "orderRef2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 21,
+      "expr": "quoteRef3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 22,
+      "expr": "quoteRef3",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
       "line": 27,
-      "expr": "shipmentCode403",
+      "expr": "tariffRef4",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 28,
+      "expr": "ledgerEntry5",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/TariffBuilder.java",
+      "line": 29,
+      "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/LedgerRuleSelector.java",
+      "file": "web/src/main/java/com/habench/paymentsplit/web/VoucherRuleSelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/LedgerRuleStandard.java",
+      "file": "web/src/main/java/com/habench/paymentsplit/web/VoucherRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/AccountService.java",
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ReceiptAssembler.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/AccountService.java",
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ReceiptAssembler.java",
+      "line": 13,
+      "expr": "paymentTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ReceiptAssembler.java",
+      "line": 14,
+      "expr": "refundCode102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ReceiptAssembler.java",
+      "line": 15,
+      "expr": "refundCode102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ReceiptComposer.java",
+      "line": 8,
+      "expr": "channelTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ReceiptComposer.java",
+      "line": 9,
+      "expr": "channelTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 14,
+      "expr": "batchTag301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 15,
+      "expr": "batchTag301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 20,
+      "expr": "orderRef302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 21,
+      "expr": "quoteRef303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 22,
+      "expr": "quoteRef303",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 27,
+      "expr": "tariffRef304",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 28,
+      "expr": "ledgerEntry305",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 29,
+      "expr": "channelTag306",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentsplit/web/ManifestTranslator.java",
+      "line": 30,
+      "expr": "channelTag306",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsplit/service/VoucherAdapter.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsplit/service/VoucherAdapter.java",
+      "line": 13,
+      "expr": "paymentTag401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsplit/service/VoucherAdapter.java",
+      "line": 14,
+      "expr": "paymentTag401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsplit/service/LedgerCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsplit/service/LedgerCoordinator.java",
       "line": 13,
       "expr": "channelTag501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/AccountService.java",
+      "file": "service/src/main/java/com/habench/paymentsplit/service/LedgerCoordinator.java",
       "line": 14,
       "expr": "catalogKey502",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsplit/dao/AccountService.java",
+      "file": "service/src/main/java/com/habench/paymentsplit/service/LedgerCoordinator.java",
       "line": 15,
       "expr": "catalogKey502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsplit/dao/AccountService.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsplit/dao/AccountService.java",
+      "line": 13,
+      "expr": "batchTag601",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsplit/dao/AccountService.java",
+      "line": 14,
+      "expr": "batchTag601",
       "note": "调用下一层"
     },
     {
@@ -265,54 +265,57 @@
     }
   ],
   "metrics": {
-    "call_depth": 18,
+    "call_depth": 15,
     "chain_len": 40,
-    "files_crossed": 12,
+    "files_crossed": 11,
     "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:runtime_exec",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
       "prop:map_element",
       "prop:static_field",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:map_element",
-      "prop:store_field",
       "prop:assign_local",
       "prop:interface_dispatch",
       "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:static_field",
       "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-CMDI-1002-N",
   "http": {
     "method": "GET",
     "path": "/api/payment/split",
-    "param": "reference",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 18,
+    "call_depth_observed": 15,
     "payload_sent": "zz$(id)",
     "payload_at_sink": "echo ref:ref:ref:ref:zz$(id);;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

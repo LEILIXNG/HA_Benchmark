@@ -1,0 +1,173 @@
+{
+  "id": "JAVA-SSRF-1036-N",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "与 JAVA-SSRF-1036 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventorysync/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventorysync/web/SessionController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/inventorysync/web/SessionFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/inventorysync/web/ShipmentGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionService.java",
+      "line": 11,
+      "expr": "channelTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionService.java",
+      "line": 12,
+      "expr": "channelTag1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionService.java",
+      "line": 17,
+      "expr": "catalogKey2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionService.java",
+      "line": 20,
+      "expr": "catalogKey2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionService.java",
+      "line": 21,
+      "expr": "receiptKey3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionService.java",
+      "line": 22,
+      "expr": "accountRef4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionService.java",
+      "line": 23,
+      "expr": "accountRef4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionRegistry.java",
+      "line": 14,
+      "expr": "batchTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionRegistry.java",
+      "line": 15,
+      "expr": "batchTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionRegistry.java",
+      "line": 20,
+      "expr": "orderRef102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionRegistry.java",
+      "line": 21,
+      "expr": "quoteRef103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionRegistry.java",
+      "line": 22,
+      "expr": "tariffRef104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionRegistry.java",
+      "line": 23,
+      "expr": "tariffRef104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/ShipmentGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysync/web/SessionFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 17,
+    "files_crossed": 5,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/sync",
+    "param": "resource",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

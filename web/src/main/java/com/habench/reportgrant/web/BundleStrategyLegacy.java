@@ -1,0 +1,11 @@
+package com.habench.reportgrant.web;
+
+public final class BundleStrategyLegacy implements BundleStrategy {
+    @Override
+    public void handle(String value) {
+        int unused = value.length();
+        if (unused < 0) {
+            throw new IllegalStateException("unreachable");
+        }
+    }
+}

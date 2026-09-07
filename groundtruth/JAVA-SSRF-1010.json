@@ -1,0 +1,220 @@
+{
+  "id": "JAVA-SSRF-1010",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "请求头经 9 层调用、跨 2 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/paymentexport/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/paymentexport/web/OrderController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/paymentexport/service/OrderFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/paymentexport/web/OrderController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
+      "line": 13,
+      "expr": "catalogKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
+      "line": 14,
+      "expr": "receiptKey2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
+      "line": 15,
+      "expr": "receiptKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 14,
+      "expr": "orderRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 15,
+      "expr": "quoteRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 16,
+      "expr": "quoteRef102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 21,
+      "expr": "tariffRef103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 22,
+      "expr": "ledgerEntry104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 25,
+      "expr": "ledgerEntry104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 26,
+      "expr": "channelTag105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
+      "line": 27,
+      "expr": "channelTag105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
+      "line": 11,
+      "expr": "refundCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
+      "line": 12,
+      "expr": "shipmentCode202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
+      "line": 13,
+      "expr": "shipmentCode202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
+      "line": 18,
+      "expr": "manifestKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
+      "line": 21,
+      "expr": "manifestKey203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
+      "line": 22,
+      "expr": "invoiceKey204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
+      "line": 23,
+      "expr": "invoiceKey204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/OrderFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentexport/service/OrderFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 25,
+    "files_crossed": 7,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/payment/export",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

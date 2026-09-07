@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1010",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "请求头经 7 层调用、跨 2 个模块流入文件读取",
+  "title": "查询参数经 13 层调用、跨 2 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/pricingsettlequeue/web/CatalogController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricingsettlequeue/web/CatalogController.java",
     "line": 13,
-    "expr": "tag",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "keyword",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogLoader.java",
@@ -26,91 +26,151 @@
     {
       "file": "web/src/main/java/com/habench/pricingsettlequeue/web/CatalogController.java",
       "line": 13,
-      "expr": "tag",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "keyword",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ReceiptBroker.java",
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ChannelAdapter.java",
       "line": 8,
       "expr": "ledgerEntry1",
-      "note": "局部变量传递"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ReceiptBroker.java",
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ChannelAdapter.java",
       "line": 9,
       "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 17,
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 11,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 18,
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 12,
       "expr": "batchTag102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 19,
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 13,
       "expr": "batchTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 24,
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 18,
       "expr": "orderRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 21,
+      "expr": "orderRef103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 22,
       "expr": "quoteRef104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 23,
+      "expr": "quoteRef104",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 28,
+      "expr": "tariffRef105",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 29,
+      "expr": "ledgerEntry106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 30,
+      "expr": "ledgerEntry106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/VoucherPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/VoucherPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ManifestBuilder.java",
+      "line": 8,
+      "expr": "voucherRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ManifestBuilder.java",
+      "line": 9,
+      "expr": "voucherRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/ShipmentComposer.java",
+      "line": 8,
+      "expr": "ledgerEntry301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/ShipmentComposer.java",
+      "line": 9,
+      "expr": "channelTag302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/ShipmentComposer.java",
+      "line": 10,
+      "expr": "channelTag302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
+      "line": 8,
+      "expr": "invoiceKey401",
       "note": "局部变量传递"
     },
     {
       "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 26,
-      "expr": "tariffRef105",
+      "line": 9,
+      "expr": "batchTag402",
       "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 27,
-      "expr": "tariffRef105",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 32,
-      "expr": "ledgerEntry106",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 33,
-      "expr": "channelTag107",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 36,
-      "expr": "channelTag107",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 37,
-      "expr": "catalogKey108",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 38,
-      "expr": "catalogKey108",
+      "line": 10,
+      "expr": "batchTag402",
       "note": "调用下一层"
     },
     {
@@ -127,23 +187,29 @@
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 17,
-    "files_crossed": 4,
+    "call_depth": 13,
+    "chain_len": 27,
+    "files_crossed": 11,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:file_read",
-      "prop:assign_local",
-      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_class",
       "prop:assign_local",
       "prop:string_concat",
       "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:interface_dispatch",
       "prop:assign_local",
       "prop:string_concat",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:map_element",
       "sanitizer:none"
     ]
   },
@@ -151,19 +217,19 @@
   "http": {
     "method": "GET",
     "path": "/api/pricing/settlequeue",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "keyword",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 7,
+    "call_depth_observed": 13,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:../../../etc/passwd;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

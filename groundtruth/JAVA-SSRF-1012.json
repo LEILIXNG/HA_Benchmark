@@ -1,0 +1,298 @@
+{
+  "id": "JAVA-SSRF-1012",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "请求头经 12 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/customerquote/web/ShipmentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/customerquote/web/ShipmentController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/customerquote/dao/ShipmentFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 11,
+      "expr": "orderRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 12,
+      "expr": "quoteRef2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 13,
+      "expr": "quoteRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 18,
+      "expr": "tariffRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 19,
+      "expr": "ledgerEntry4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 22,
+      "expr": "ledgerEntry4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 23,
+      "expr": "channelTag5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/RefundTranslator.java",
+      "line": 24,
+      "expr": "channelTag5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/BundleTranslator.java",
+      "line": 8,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/BundleTranslator.java",
+      "line": 9,
+      "expr": "shipmentCode102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/BundleTranslator.java",
+      "line": 10,
+      "expr": "shipmentCode102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/OrderCoordinator.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/OrderCoordinator.java",
+      "line": 14,
+      "expr": "catalogKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/OrderCoordinator.java",
+      "line": 15,
+      "expr": "catalogKey201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/OrderCoordinator.java",
+      "line": 20,
+      "expr": "receiptKey202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/OrderCoordinator.java",
+      "line": 21,
+      "expr": "accountRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerquote/web/OrderCoordinator.java",
+      "line": 22,
+      "expr": "accountRef203",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 14,
+      "expr": "orderRef301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 15,
+      "expr": "quoteRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 16,
+      "expr": "quoteRef302",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 21,
+      "expr": "tariffRef303",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 22,
+      "expr": "ledgerEntry304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 23,
+      "expr": "channelTag305",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/AccountBroker.java",
+      "line": 24,
+      "expr": "channelTag305",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/OrderComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/OrderComposer.java",
+      "line": 13,
+      "expr": "refundCode401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerquote/service/OrderComposer.java",
+      "line": 14,
+      "expr": "refundCode401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptNormalizer.java",
+      "line": 8,
+      "expr": "catalogKey501",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptNormalizer.java",
+      "line": 9,
+      "expr": "receiptKey502",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptNormalizer.java",
+      "line": 10,
+      "expr": "receiptKey502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerquote/dao/OrderBuilder.java",
+      "line": 8,
+      "expr": "orderRef601",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerquote/dao/OrderBuilder.java",
+      "line": 9,
+      "expr": "orderRef601",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ShipmentFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ShipmentFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 36,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/customer/quote",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

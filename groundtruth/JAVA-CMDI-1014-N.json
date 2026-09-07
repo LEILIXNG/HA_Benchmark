@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1014-N",
   "cwe": "CWE-78",
   "verdict": "safe",
-  "title": "与 JAVA-CMDI-1014 逐行相同，仅把净化改为 command_allowlist",
+  "title": "与 JAVA-CMDI-1014 逐行相同，仅把净化改为 exec_no_shell",
   "entry": {
     "file": "web/src/main/java/com/habench/pricingapprove/web/CatalogController.java",
     "line": 11,
@@ -11,270 +11,222 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricingapprove/web/CatalogController.java",
     "line": 13,
-    "expr": "orderNo",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "query",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingapprove/dao/CatalogExecutor.java",
-    "line": 13,
-    "expr": "argv",
-    "note": "SINK: CWE-78 命令注入"
+    "file": "service/src/main/java/com/habench/pricingapprove/service/CatalogExecutor.java",
+    "line": 14,
+    "expr": "builder",
+    "note": "SINK 位置：CWE-78（未经 shell 解释）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/pricingapprove/dao/InvoiceValidator.java",
-    "line": 13,
-    "expr": "value",
-    "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+    "file": "service/src/main/java/com/habench/pricingapprove/service/CatalogExecutor.java",
+    "line": 12,
+    "expr": "argv",
+    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
   },
-  "sanitizer_kind": "command_allowlist",
+  "sanitizer_kind": "exec_no_shell",
   "path": [
     {
       "file": "web/src/main/java/com/habench/pricingapprove/web/CatalogController.java",
       "line": 13,
-      "expr": "orderNo",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "query",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingapprove/web/RefundCollector.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/pricingapprove/web/PaymentResolver.java",
+      "line": 14,
       "expr": "receiptKey1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingapprove/web/RefundCollector.java",
-      "line": 9,
-      "expr": "receiptKey1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/VoucherEnricher.java",
-      "line": 8,
-      "expr": "quoteRef101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/VoucherEnricher.java",
-      "line": 9,
-      "expr": "tariffRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/VoucherEnricher.java",
-      "line": 10,
-      "expr": "tariffRef102",
+      "file": "web/src/main/java/com/habench/pricingapprove/web/PaymentResolver.java",
+      "line": 15,
+      "expr": "receiptKey1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingapprove/web/PaymentResolver.java",
+      "line": 20,
+      "expr": "accountRef2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingapprove/web/PaymentResolver.java",
+      "line": 21,
+      "expr": "voucherRef3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingapprove/web/PaymentResolver.java",
+      "line": 22,
+      "expr": "voucherRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceNormalizer.java",
+      "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 20,
-      "expr": "shipmentCode201",
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceNormalizer.java",
+      "line": 13,
+      "expr": "quoteRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 21,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceNormalizer.java",
+      "line": 16,
+      "expr": "quoteRef101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceNormalizer.java",
+      "line": 17,
+      "expr": "tariffRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceNormalizer.java",
+      "line": 18,
+      "expr": "tariffRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 17,
+      "expr": "shipmentCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 18,
       "expr": "manifestKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 22,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 19,
       "expr": "manifestKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 27,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 24,
       "expr": "invoiceKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 30,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 27,
       "expr": "invoiceKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 31,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 28,
       "expr": "batchTag204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 32,
-      "expr": "orderRef205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 33,
-      "expr": "orderRef205",
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 29,
+      "expr": "batchTag204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 34,
+      "expr": "orderRef205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 35,
+      "expr": "quoteRef206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
       "line": 38,
       "expr": "quoteRef206",
-      "note": "读取实例字段"
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
       "line": 39,
       "expr": "tariffRef207",
-      "note": "字符串拼接传播"
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 42,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/InvoiceService.java",
+      "line": 40,
       "expr": "tariffRef207",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 43,
-      "expr": "ledgerEntry208",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingapprove/service/BatchEnricher.java",
-      "line": 44,
-      "expr": "ledgerEntry208",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 17,
-      "expr": "receiptKey301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 18,
-      "expr": "accountRef302",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 19,
-      "expr": "accountRef302",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 24,
-      "expr": "voucherRef303",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 27,
-      "expr": "voucherRef303",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 28,
-      "expr": "paymentTag304",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 29,
-      "expr": "paymentTag304",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 34,
-      "expr": "refundCode305",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 35,
-      "expr": "shipmentCode306",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/ManifestRouter.java",
-      "line": 36,
-      "expr": "shipmentCode306",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/InvoiceValidator.java",
-      "line": 13,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/CatalogExecutor.java",
+      "line": 11,
       "expr": "value",
-      "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+      "note": "参数以数组传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/CatalogExecutor.java",
-      "line": 9,
-      "expr": "value",
-      "note": "污点进入命令行"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingapprove/dao/CatalogExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/habench/pricingapprove/service/CatalogExecutor.java",
+      "line": 12,
       "expr": "argv",
-      "note": "SINK: CWE-78 命令注入"
+      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingapprove/service/CatalogExecutor.java",
+      "line": 14,
+      "expr": "builder",
+      "note": "SINK 位置：CWE-78（未经 shell 解释）"
     }
   ],
   "metrics": {
-    "call_depth": 13,
-    "chain_len": 33,
-    "files_crossed": 7,
-    "modules_crossed": 3,
+    "call_depth": 10,
+    "chain_len": 26,
+    "files_crossed": 5,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:runtime_exec",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
       "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
       "prop:cross_class",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:cross_module",
       "prop:assign_local",
-      "prop:assign_local",
+      "prop:string_concat",
       "prop:static_field",
       "prop:map_element",
       "prop:store_field",
       "prop:string_concat",
-      "sanitizer:command_allowlist"
+      "prop:map_element",
+      "sanitizer:exec_no_shell"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/pricing/approve",
-    "param": "orderNo",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": false,
     "tainted": false,
-    "neutralized": false,
-    "call_depth_observed": null,
+    "neutralized": true,
+    "call_depth_observed": 10,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": null,
-    "http_status": 500,
+    "payload_at_sink": "ref:ref:zz$(id);;",
+    "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

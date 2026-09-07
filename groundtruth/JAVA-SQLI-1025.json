@@ -2,7 +2,7 @@
   "id": "JAVA-SQLI-1025",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "请求头经 7 层调用、跨 2 个模块流入JDBC 拼接",
+  "title": "请求头经 9 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
     "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
     "line": 11,
@@ -11,7 +11,7 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
     "line": 13,
-    "expr": "label",
+    "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
@@ -26,43 +26,79 @@
     {
       "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
       "line": 13,
-      "expr": "label",
+      "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
       "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 8,
+      "line": 16,
       "expr": "catalogKey1",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
       "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 9,
+      "line": 19,
       "expr": "catalogKey1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 20,
+      "expr": "receiptKey2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 21,
+      "expr": "receiptKey2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 26,
+      "expr": "accountRef3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 29,
+      "expr": "accountRef3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 30,
+      "expr": "voucherRef4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 33,
+      "expr": "voucherRef4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 34,
+      "expr": "paymentTag5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
+      "line": 35,
+      "expr": "paymentTag5",
       "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
-      "line": 10,
+      "line": 8,
       "expr": "orderRef101",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
       "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
-      "line": 13,
+      "line": 9,
       "expr": "orderRef101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
-      "line": 14,
-      "expr": "quoteRef102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
-      "line": 15,
-      "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
@@ -79,14 +115,26 @@
     },
     {
       "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
-      "line": 8,
+      "line": 10,
       "expr": "refundCode201",
-      "note": "局部变量传递"
+      "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
-      "line": 9,
+      "line": 13,
       "expr": "refundCode201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
+      "line": 14,
+      "expr": "shipmentCode202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
+      "line": 15,
+      "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
@@ -103,19 +151,23 @@
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 13,
+    "call_depth": 9,
+    "chain_len": 21,
     "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
       "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:string_concat",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
       "prop:cross_module",
+      "prop:assign_local",
+      "prop:interface_dispatch",
       "prop:string_concat",
       "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:assign_local",
       "sanitizer:none"
     ]
   },
@@ -131,11 +183,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 7,
+    "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

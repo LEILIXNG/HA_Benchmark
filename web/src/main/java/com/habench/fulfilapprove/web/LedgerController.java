@@ -1,6 +1,6 @@
 package com.habench.fulfilapprove.web;
 
-import com.habench.fulfilapprove.web.OrderTranslator;
+import com.habench.fulfilapprove.web.ShipmentEnricher;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class LedgerController {
 
     @GetMapping("/api/fulfil/approve")
-    public String translate(HttpServletRequest request) {
-        String tag = request.getHeader("X-Ha-Payload");
-        OrderTranslator.assemble(tag);
+    public String forward(HttpServletRequest request) {
+        String query = request.getHeader("X-Ha-Payload");
+        ShipmentEnricher.reconcile(query);
         return "ok";
     }
 }

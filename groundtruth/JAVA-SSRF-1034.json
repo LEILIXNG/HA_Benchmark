@@ -1,0 +1,247 @@
+{
+  "id": "JAVA-SSRF-1034",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "请求头经 12 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventorysettlequeue/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventorysettlequeue/web/RefundController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/RefundFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/RefundController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/SessionRegistry.java",
+      "line": 8,
+      "expr": "refundCode1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/SessionRegistry.java",
+      "line": 9,
+      "expr": "refundCode1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/CatalogPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/CatalogPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/ReceiptRouter.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/ReceiptRouter.java",
+      "line": 13,
+      "expr": "catalogKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorysettlequeue/web/ReceiptRouter.java",
+      "line": 14,
+      "expr": "catalogKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorysettlequeue/service/LedgerService.java",
+      "line": 8,
+      "expr": "orderRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorysettlequeue/service/LedgerService.java",
+      "line": 9,
+      "expr": "quoteRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorysettlequeue/service/LedgerService.java",
+      "line": 10,
+      "expr": "quoteRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorysettlequeue/service/AccountFacade.java",
+      "line": 8,
+      "expr": "refundCode301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorysettlequeue/service/AccountFacade.java",
+      "line": 9,
+      "expr": "refundCode301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 20,
+      "expr": "catalogKey401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 21,
+      "expr": "catalogKey401",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 26,
+      "expr": "receiptKey402",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 29,
+      "expr": "receiptKey402",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 30,
+      "expr": "accountRef403",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 33,
+      "expr": "accountRef403",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 34,
+      "expr": "voucherRef404",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 35,
+      "expr": "voucherRef404",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 40,
+      "expr": "paymentTag405",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 43,
+      "expr": "paymentTag405",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 44,
+      "expr": "refundCode406",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 45,
+      "expr": "shipmentCode407",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/BatchRegistry.java",
+      "line": 46,
+      "expr": "shipmentCode407",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/RefundFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorysettlequeue/dao/RefundFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 29,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/settlequeue",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

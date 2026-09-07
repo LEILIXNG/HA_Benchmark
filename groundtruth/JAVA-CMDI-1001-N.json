@@ -1,0 +1,184 @@
+{
+  "id": "JAVA-CMDI-1001-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1001 逐行相同，仅把净化改为 command_allowlist",
+  "entry": {
+    "file": "web/src/main/java/com/habench/customerexport/web/ManifestController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/customerexport/web/ManifestController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/customerexport/web/ManifestExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/customerexport/web/LedgerScreen.java",
+    "line": 13,
+    "expr": "value",
+    "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "command_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ManifestController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/BundleCoordinator.java",
+      "line": 8,
+      "expr": "catalogKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/BundleCoordinator.java",
+      "line": 9,
+      "expr": "receiptKey2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/BundleCoordinator.java",
+      "line": 10,
+      "expr": "receiptKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/LedgerScreen.java",
+      "line": 13,
+      "expr": "value",
+      "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/BatchPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/BatchPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 14,
+      "expr": "orderRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 15,
+      "expr": "orderRef101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 20,
+      "expr": "quoteRef102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 23,
+      "expr": "quoteRef102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 24,
+      "expr": "tariffRef103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 25,
+      "expr": "tariffRef103",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 30,
+      "expr": "ledgerEntry104",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 31,
+      "expr": "channelTag105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ChannelResolver.java",
+      "line": 32,
+      "expr": "channelTag105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ManifestExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerexport/web/ManifestExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 19,
+    "files_crossed": 7,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "sanitizer:command_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/customer/export",
+    "param": "label",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

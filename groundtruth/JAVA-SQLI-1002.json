@@ -2,7 +2,7 @@
   "id": "JAVA-SQLI-1002",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "查询参数经 9 层调用、跨 2 个模块流入JDBC 拼接",
+  "title": "查询参数经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
     "file": "web/src/main/java/com/habench/paymentrevise/web/InvoiceController.java",
     "line": 11,
@@ -30,105 +30,81 @@
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 13,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
+      "line": 9,
       "expr": "batchTag1",
-      "note": "取出集合元素"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 15,
+      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
+      "line": 10,
       "expr": "batchTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 20,
+      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
+      "line": 15,
       "expr": "orderRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 21,
+      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
+      "line": 16,
       "expr": "quoteRef3",
-      "note": "局部变量传递"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 22,
+      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
+      "line": 17,
       "expr": "quoteRef3",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 27,
-      "expr": "tariffRef4",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 30,
-      "expr": "tariffRef4",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 31,
-      "expr": "ledgerEntry5",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/ReceiptEnricher.java",
-      "line": 32,
-      "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ManifestAssembler.java",
-      "line": 8,
+      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
+      "line": 11,
       "expr": "paymentTag101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ManifestAssembler.java",
-      "line": 9,
-      "expr": "paymentTag101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/TariffRuleSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/TariffRuleStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
+      "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
       "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
+      "expr": "refundCode102",
+      "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
       "line": 13,
-      "expr": "channelTag201",
+      "expr": "refundCode102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
+      "line": 18,
+      "expr": "shipmentCode103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
+      "line": 19,
+      "expr": "manifestKey104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
+      "line": 22,
+      "expr": "manifestKey104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
+      "line": 23,
+      "expr": "invoiceKey105",
       "note": "取出集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 14,
-      "expr": "channelTag201",
+      "line": 24,
+      "expr": "invoiceKey105",
       "note": "调用下一层"
     },
     {
@@ -145,26 +121,26 @@
     }
   ],
   "metrics": {
-    "call_depth": 9,
-    "chain_len": 20,
-    "files_crossed": 7,
+    "call_depth": 6,
+    "chain_len": 16,
+    "files_crossed": 4,
     "modules_crossed": 2,
     "features": [
       "source:spring_request_param",
       "sink:jdbc_concat",
-      "prop:map_element",
+      "prop:string_concat",
       "prop:static_field",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
+      "prop:string_concat",
       "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
       "prop:assign_local",
-      "prop:interface_dispatch",
       "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SQLI-1002-N",
   "http": {
     "method": "GET",
     "path": "/api/payment/revise",
@@ -176,11 +152,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 9,
+    "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

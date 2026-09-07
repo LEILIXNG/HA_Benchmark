@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1007",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "查询参数经 11 层调用、跨 1 个模块流入文件读取",
+  "title": "请求头经 7 层调用、跨 2 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerController.java",
     "line": 13,
-    "expr": "keyword",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "tag",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerLoader.java",
+    "file": "service/src/main/java/com/habench/inventoryrenewal/service/LedgerLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,195 +26,123 @@
     {
       "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerController.java",
       "line": 13,
-      "expr": "keyword",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "tag",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/ShipmentComposer.java",
+      "file": "web/src/main/java/com/habench/inventoryrenewal/web/QuoteAssembler.java",
       "line": 8,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/ShipmentComposer.java",
+      "file": "web/src/main/java/com/habench/inventoryrenewal/web/QuoteAssembler.java",
       "line": 9,
       "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
       "line": 17,
       "expr": "tariffRef101",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 20,
-      "expr": "tariffRef101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 21,
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 18,
       "expr": "ledgerEntry102",
-      "note": "取出集合元素"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 22,
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 19,
       "expr": "ledgerEntry102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 27,
-      "expr": "channelTag103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 28,
-      "expr": "catalogKey104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 29,
-      "expr": "receiptKey105",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 30,
-      "expr": "receiptKey105",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 35,
-      "expr": "accountRef106",
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 24,
+      "expr": "channelTag103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 25,
+      "expr": "catalogKey104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 26,
+      "expr": "receiptKey105",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 27,
+      "expr": "receiptKey105",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 32,
+      "expr": "accountRef106",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 33,
+      "expr": "voucherRef107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
       "line": 36,
       "expr": "voucherRef107",
-      "note": "字符串拼接传播"
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
       "line": 37,
-      "expr": "voucherRef107",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 42,
       "expr": "paymentTag108",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 45,
-      "expr": "paymentTag108",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 46,
-      "expr": "refundCode109",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/TariffEnricher.java",
-      "line": 47,
-      "expr": "refundCode109",
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 38,
+      "expr": "paymentTag108",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 19,
-      "expr": "manifestKey201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 20,
-      "expr": "manifestKey201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 25,
-      "expr": "invoiceKey202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 26,
-      "expr": "batchTag203",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 29,
-      "expr": "batchTag203",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 30,
-      "expr": "orderRef204",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/RefundCoordinator.java",
-      "line": 31,
-      "expr": "orderRef204",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerLoader.java",
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/LedgerLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerLoader.java",
+      "file": "service/src/main/java/com/habench/inventoryrenewal/service/LedgerLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 11,
-    "chain_len": 28,
-    "files_crossed": 5,
-    "modules_crossed": 1,
+    "call_depth": 7,
+    "chain_len": 17,
+    "files_crossed": 4,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:file_read",
       "prop:assign_local",
-      "prop:cross_class",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
       "prop:string_concat",
       "prop:static_field",
+      "prop:assign_local",
       "prop:string_concat",
       "prop:store_field",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
+      "prop:assign_local",
       "prop:map_element",
       "sanitizer:none"
     ]
@@ -223,19 +151,19 @@
   "http": {
     "method": "GET",
     "path": "/api/inventory/renewal",
-    "param": "keyword",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 11,
+    "call_depth_observed": 7,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:../../../etc/passwd;;;;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

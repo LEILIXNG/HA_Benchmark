@@ -1,0 +1,200 @@
+{
+  "id": "JAVA-CMDI-1020-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1020 逐行相同，仅把净化改为 command_allowlist",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingreview/web/ManifestController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingreview/web/ManifestController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/billingreview/dao/ManifestExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/billingreview/dao/CatalogValidator.java",
+    "line": 13,
+    "expr": "value",
+    "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "command_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingreview/web/ManifestController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreview/web/ChannelAssembler.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreview/web/ChannelAssembler.java",
+      "line": 13,
+      "expr": "orderRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreview/web/ChannelAssembler.java",
+      "line": 14,
+      "expr": "orderRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingreview/service/LedgerFacade.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingreview/service/LedgerFacade.java",
+      "line": 13,
+      "expr": "refundCode101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingreview/service/LedgerFacade.java",
+      "line": 14,
+      "expr": "refundCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/CatalogBuilder.java",
+      "line": 8,
+      "expr": "catalogKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/CatalogBuilder.java",
+      "line": 9,
+      "expr": "catalogKey201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 14,
+      "expr": "orderRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 15,
+      "expr": "orderRef301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 20,
+      "expr": "quoteRef302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 21,
+      "expr": "tariffRef303",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 22,
+      "expr": "tariffRef303",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 27,
+      "expr": "ledgerEntry304",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 28,
+      "expr": "channelTag305",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 29,
+      "expr": "catalogKey306",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/BundleRouter.java",
+      "line": 30,
+      "expr": "catalogKey306",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/CatalogValidator.java",
+      "line": 13,
+      "expr": "value",
+      "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/ManifestExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingreview/dao/ManifestExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 21,
+    "files_crossed": 7,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:command_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/review",
+    "param": "category",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

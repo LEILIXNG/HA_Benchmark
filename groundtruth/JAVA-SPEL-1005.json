@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SPEL-1005",
   "cwe": "CWE-917",
-  "verdict": "safe",
-  "title": "查询参数经 14 层调用、跨 3 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
+  "verdict": "vulnerable",
+  "title": "查询参数经 14 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
     "file": "web/src/main/java/com/habench/ordernotice/web/ReceiptController.java",
     "line": 11,
@@ -11,7 +11,7 @@
   "source": {
     "file": "web/src/main/java/com/habench/ordernotice/web/ReceiptController.java",
     "line": 13,
-    "expr": "token",
+    "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
@@ -20,229 +20,152 @@
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": {
-    "file": "dao/src/main/java/com/habench/ordernotice/dao/BatchScreen.java",
-    "line": 11,
-    "expr": "value",
-    "note": "SANITIZER: 严格白名单校验（有效）"
-  },
-  "sanitizer_kind": "whitelist_regex",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/ordernotice/web/ReceiptController.java",
       "line": 13,
-      "expr": "token",
+      "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 20,
-      "expr": "paymentTag1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 21,
-      "expr": "paymentTag1",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 26,
-      "expr": "refundCode2",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 29,
-      "expr": "refundCode2",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 30,
-      "expr": "shipmentCode3",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 33,
-      "expr": "shipmentCode3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 34,
-      "expr": "manifestKey4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 35,
-      "expr": "manifestKey4",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 40,
-      "expr": "invoiceKey5",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 41,
-      "expr": "batchTag6",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 42,
-      "expr": "batchTag6",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 47,
-      "expr": "orderRef7",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 50,
-      "expr": "orderRef7",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 51,
-      "expr": "quoteRef8",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 52,
-      "expr": "tariffRef9",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 53,
-      "expr": "tariffRef9",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 58,
-      "expr": "ledgerEntry10",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 59,
-      "expr": "channelTag11",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ManifestCollector.java",
-      "line": 60,
-      "expr": "channelTag11",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 11,
-      "expr": "channelTag101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 12,
-      "expr": "catalogKey102",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 13,
-      "expr": "catalogKey102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 18,
-      "expr": "receiptKey103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 19,
-      "expr": "accountRef104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 22,
-      "expr": "accountRef104",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 23,
-      "expr": "voucherRef105",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/ordernotice/service/SessionAssembler.java",
-      "line": 24,
-      "expr": "voucherRef105",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/LedgerBroker.java",
+      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
       "line": 14,
-      "expr": "batchTag201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/LedgerBroker.java",
-      "line": 15,
-      "expr": "batchTag201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/LedgerBroker.java",
-      "line": 20,
-      "expr": "orderRef202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/LedgerBroker.java",
-      "line": 21,
-      "expr": "quoteRef203",
+      "expr": "paymentTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/LedgerBroker.java",
+      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
+      "line": 15,
+      "expr": "refundCode2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
+      "line": 16,
+      "expr": "refundCode2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
+      "line": 21,
+      "expr": "shipmentCode3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
       "line": 22,
-      "expr": "tariffRef204",
+      "expr": "manifestKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/LedgerBroker.java",
+      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
       "line": 23,
-      "expr": "tariffRef204",
+      "expr": "invoiceKey5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
+      "line": 24,
+      "expr": "invoiceKey5",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/BatchScreen.java",
-      "line": 11,
+      "file": "service/src/main/java/com/habench/ordernotice/service/ShipmentFacade.java",
+      "line": 12,
       "expr": "value",
-      "note": "SANITIZER: 严格白名单校验（有效）"
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/ShipmentFacade.java",
+      "line": 13,
+      "expr": "channelTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/ShipmentFacade.java",
+      "line": 14,
+      "expr": "channelTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/QuotePolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/QuotePolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/AccountService.java",
+      "line": 8,
+      "expr": "batchTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/AccountService.java",
+      "line": 9,
+      "expr": "batchTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/LedgerAdapter.java",
+      "line": 8,
+      "expr": "paymentTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/LedgerAdapter.java",
+      "line": 9,
+      "expr": "refundCode302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordernotice/service/LedgerAdapter.java",
+      "line": 10,
+      "expr": "refundCode302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordernotice/dao/SessionAssembler.java",
+      "line": 8,
+      "expr": "channelTag401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordernotice/dao/SessionAssembler.java",
+      "line": 9,
+      "expr": "channelTag401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordernotice/dao/VoucherRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordernotice/dao/VoucherRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordernotice/dao/BatchTranslator.java",
+      "line": 8,
+      "expr": "batchTag501",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/ordernotice/dao/BatchTranslator.java",
+      "line": 9,
+      "expr": "batchTag501",
+      "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/ordernotice/dao/ReceiptEvaluator.java",
@@ -259,54 +182,48 @@
   ],
   "metrics": {
     "call_depth": 14,
-    "chain_len": 38,
-    "files_crossed": 6,
+    "chain_len": 26,
+    "files_crossed": 12,
     "modules_crossed": 3,
     "features": [
       "source:spring_request_param",
       "sink:spel_eval",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:static_field",
       "prop:string_concat",
-      "prop:static_field",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
       "prop:assign_local",
-      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
       "prop:assign_local",
       "prop:cross_module",
       "prop:string_concat",
+      "prop:interface_dispatch",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:assign_local",
-      "sanitizer:whitelist_regex"
+      "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/order/notice",
-    "param": "token",
+    "param": "userName",
     "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
+    "reached": true,
+    "tainted": true,
     "neutralized": false,
-    "call_depth_observed": null,
+    "call_depth_observed": 14,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": null,
-    "http_status": 500,
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;'",
+    "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

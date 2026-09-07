@@ -1,0 +1,220 @@
+{
+  "id": "JAVA-SPEL-1047-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-1047 逐行相同，仅把净化改为 spel_restricted_context",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportdispatch/web/QuoteController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportdispatch/web/QuoteController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/reportdispatch/dao/QuoteEvaluator.java",
+    "line": 17,
+    "expr": "template",
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/reportdispatch/dao/QuoteEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportdispatch/web/QuoteController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdispatch/web/RefundBroker.java",
+      "line": 9,
+      "expr": "voucherRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdispatch/web/RefundBroker.java",
+      "line": 10,
+      "expr": "voucherRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdispatch/web/RefundBroker.java",
+      "line": 15,
+      "expr": "paymentTag2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdispatch/web/RefundBroker.java",
+      "line": 16,
+      "expr": "refundCode3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdispatch/web/RefundBroker.java",
+      "line": 17,
+      "expr": "refundCode3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdispatch/service/PaymentService.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdispatch/service/PaymentService.java",
+      "line": 13,
+      "expr": "ledgerEntry101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdispatch/service/PaymentService.java",
+      "line": 14,
+      "expr": "ledgerEntry101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 17,
+      "expr": "invoiceKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 20,
+      "expr": "invoiceKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 21,
+      "expr": "batchTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 22,
+      "expr": "batchTag202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 27,
+      "expr": "orderRef203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 28,
+      "expr": "quoteRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 29,
+      "expr": "tariffRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 30,
+      "expr": "tariffRef205",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 35,
+      "expr": "ledgerEntry206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 36,
+      "expr": "channelTag207",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 37,
+      "expr": "catalogKey208",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/ChannelNormalizer.java",
+      "line": 38,
+      "expr": "catalogKey208",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/QuoteEvaluator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/QuoteEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportdispatch/dao/QuoteEvaluator.java",
+      "line": 17,
+      "expr": "template",
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 24,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:spel_restricted_context"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/report/dispatch/{label}",
+    "param": "label",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 9,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

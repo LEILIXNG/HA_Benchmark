@@ -1,16 +1,26 @@
 package com.habench.catalogbind.dao;
 
 import com.habench.catalogbind.dao.InvoiceValidator;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class ShipmentRouter {
+    private String pendingTariff;
 
-    public static void forward(String value) {
-        Map<String, String> shipmentCode201Attrs = new HashMap<String, String>();
-        shipmentCode201Attrs.put("channel", "web");
-        shipmentCode201Attrs.put("payload", value);
-        String shipmentCode201 = shipmentCode201Attrs.get("payload");
-        InvoiceValidator.attach(shipmentCode201);
+    public static void attach(String value) {
+        ShipmentRouter self = new ShipmentRouter();
+        self.forward(value);
+    }
+
+    private void forward(String value) {
+        String shipmentCode201 = "ref:" + value + ";";
+        String manifestKey202 = "ref:" + shipmentCode201 + ";";
+        this.pendingTariff = manifestKey202;
+        refine();
+    }
+
+    private void refine() {
+        String invoiceKey203 = this.pendingTariff;
+        String batchTag204 = "ref:" + invoiceKey203 + ";";
+        String orderRef205 = "ref:" + batchTag204 + ";";
+        InvoiceValidator.attach(orderRef205);
     }
 }

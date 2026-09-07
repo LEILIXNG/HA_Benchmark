@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1038",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "请求头经 6 层调用、跨 3 个模块流入命令执行",
+  "title": "查询参数经 6 层调用、跨 1 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
     "line": 11,
@@ -11,104 +11,79 @@
   "source": {
     "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
     "line": 13,
-    "expr": "tag",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "target",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customernotice/dao/RefundExecutor.java",
+    "file": "web/src/main/java/com/habench/customernotice/web/RefundExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/customernotice/web/VoucherScreen.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 只剥离分号（无效）"
+  },
+  "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
       "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
       "line": 13,
-      "expr": "tag",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "target",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/BundleAdapter.java",
-      "line": 8,
-      "expr": "receiptKey1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customernotice/web/BundleAdapter.java",
-      "line": 9,
-      "expr": "accountRef2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customernotice/web/BundleAdapter.java",
-      "line": 10,
-      "expr": "accountRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customernotice/service/SessionComposer.java",
-      "line": 8,
-      "expr": "quoteRef101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customernotice/service/SessionComposer.java",
-      "line": 9,
-      "expr": "quoteRef101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/AccountNormalizer.java",
-      "line": 8,
-      "expr": "shipmentCode201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/AccountNormalizer.java",
-      "line": 9,
-      "expr": "manifestKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/AccountNormalizer.java",
-      "line": 10,
-      "expr": "manifestKey202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/VoucherBuilder.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/VoucherBuilder.java",
-      "line": 13,
-      "expr": "receiptKey301",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/VoucherBuilder.java",
+      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
       "line": 14,
-      "expr": "accountRef302",
+      "expr": "receiptKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
+      "line": 15,
+      "expr": "receiptKey1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
+      "line": 20,
+      "expr": "accountRef2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
+      "line": 21,
+      "expr": "voucherRef3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
+      "line": 22,
+      "expr": "paymentTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/VoucherBuilder.java",
-      "line": 15,
-      "expr": "accountRef302",
+      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
+      "line": 23,
+      "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/RefundExecutor.java",
+      "file": "web/src/main/java/com/habench/customernotice/web/VoucherScreen.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 只剥离分号（无效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customernotice/web/RefundExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/customernotice/dao/RefundExecutor.java",
+      "file": "web/src/main/java/com/habench/customernotice/web/RefundExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -116,31 +91,25 @@
   ],
   "metrics": {
     "call_depth": 6,
-    "chain_len": 15,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "chain_len": 10,
+    "files_crossed": 4,
+    "modules_crossed": 1,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
       "prop:string_concat",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:string_concat",
-      "sanitizer:none"
+      "sanitizer:metachar_strip_semicolon"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1038-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/customer/notice",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "target",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
@@ -149,9 +118,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
+    "payload_at_sink": "echo ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

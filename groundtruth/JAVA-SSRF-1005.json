@@ -1,0 +1,149 @@
+{
+  "id": "JAVA-SSRF-1005",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "请求头经 7 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/paymentadjust/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/paymentadjust/web/RefundController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/paymentadjust/dao/RefundFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/paymentadjust/web/RefundController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentadjust/web/ReceiptComposer.java",
+      "line": 8,
+      "expr": "ledgerEntry1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentadjust/web/ReceiptComposer.java",
+      "line": 9,
+      "expr": "ledgerEntry1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentadjust/service/InvoiceBroker.java",
+      "line": 16,
+      "expr": "invoiceKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentadjust/service/InvoiceBroker.java",
+      "line": 19,
+      "expr": "invoiceKey101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentadjust/service/InvoiceBroker.java",
+      "line": 20,
+      "expr": "batchTag102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentadjust/service/InvoiceBroker.java",
+      "line": 21,
+      "expr": "batchTag102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentadjust/service/InvoiceBroker.java",
+      "line": 26,
+      "expr": "orderRef103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentadjust/service/InvoiceBroker.java",
+      "line": 27,
+      "expr": "quoteRef104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentadjust/service/InvoiceBroker.java",
+      "line": 28,
+      "expr": "quoteRef104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentadjust/dao/InvoiceCoordinator.java",
+      "line": 8,
+      "expr": "voucherRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentadjust/dao/InvoiceCoordinator.java",
+      "line": 9,
+      "expr": "voucherRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentadjust/dao/RefundFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentadjust/dao/RefundFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 14,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/payment/adjust",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:127.0.0.1:1;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

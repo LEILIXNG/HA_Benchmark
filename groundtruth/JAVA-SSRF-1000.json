@@ -1,0 +1,158 @@
+{
+  "id": "JAVA-SSRF-1000",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "路径变量经 6 层调用、跨 1 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/vendorsubmit/web/ManifestPolicy.java",
+    "line": 10,
+    "expr": "value",
+    "note": "SANITIZER: 按名字拒绝 localhost（无效）"
+  },
+  "sanitizer_kind": "ssrf_host_denylist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 11,
+      "expr": "refundCode1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 12,
+      "expr": "shipmentCode2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 13,
+      "expr": "shipmentCode2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 18,
+      "expr": "manifestKey3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 21,
+      "expr": "manifestKey3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 22,
+      "expr": "invoiceKey4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 23,
+      "expr": "invoiceKey4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 28,
+      "expr": "batchTag5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 31,
+      "expr": "batchTag5",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 32,
+      "expr": "orderRef6",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
+      "line": 33,
+      "expr": "orderRef6",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/ManifestPolicy.java",
+      "line": 10,
+      "expr": "value",
+      "note": "SANITIZER: 按名字拒绝 localhost（无效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 15,
+    "files_crossed": 4,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_path_variable",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "sanitizer:ssrf_host_denylist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/submit/{tag}",
+    "param": "tag",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 6,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:127.0.0.1:1;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

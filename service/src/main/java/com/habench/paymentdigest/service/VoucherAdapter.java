@@ -1,29 +1,20 @@
 package com.habench.paymentdigest.service;
 
-import com.habench.paymentdigest.dao.RefundBuilder;
-import java.util.HashMap;
-import java.util.Map;
+import com.habench.paymentdigest.dao.CatalogResolver;
 
 public final class VoucherAdapter {
-    private String pendingContract;
+    private static String cachedTariff;
 
-    public static void translate(String value) {
-        VoucherAdapter self = new VoucherAdapter();
-        self.prepare(value);
-    }
-
-    private void prepare(String value) {
-        Map<String, String> channelTag101Attrs = new HashMap<String, String>();
-        channelTag101Attrs.put("channel", "web");
-        channelTag101Attrs.put("payload", value);
-        String channelTag101 = channelTag101Attrs.get("payload");
-        this.pendingContract = channelTag101;
+    public static void assemble(String value) {
+        String quoteRef401 = value;
+        String tariffRef402 = quoteRef401;
+        cachedTariff = tariffRef402;
         normalize();
     }
 
-    private void normalize() {
-        String catalogKey102 = this.pendingContract;
-        String receiptKey103 = catalogKey102;
-        RefundBuilder.forward(receiptKey103);
+    private static void normalize() {
+        String ledgerEntry403 = cachedTariff;
+        String channelTag404 = ledgerEntry403;
+        CatalogResolver.reconcile(channelTag404);
     }
 }

@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SQLI-1013",
   "cwe": "CWE-89",
-  "verdict": "vulnerable",
-  "title": "查询参数经 17 层调用、跨 3 个模块流入JDBC 拼接",
+  "verdict": "safe",
+  "title": "路径变量经 7 层调用、跨 1 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/shippingsettle/web/TariffController.java",
     "line": 11,
@@ -11,363 +11,148 @@
   "source": {
     "file": "web/src/main/java/com/habench/shippingsettle/web/TariffController.java",
     "line": 13,
-    "expr": "target",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "resource",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingsettle/dao/TariffRepository.java",
+    "file": "web/src/main/java/com/habench/shippingsettle/web/TariffRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/shippingsettle/web/ManifestValidator.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
       "file": "web/src/main/java/com/habench/shippingsettle/web/TariffController.java",
       "line": 13,
-      "expr": "target",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "resource",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 17,
       "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 20,
       "expr": "tariffRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 21,
       "expr": "ledgerEntry2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 22,
       "expr": "ledgerEntry2",
-      "note": "写入实例字段"
+      "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 27,
       "expr": "channelTag3",
-      "note": "读取实例字段"
+      "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 28,
       "expr": "catalogKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 29,
+      "expr": "catalogKey4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
+      "line": 34,
       "expr": "receiptKey5",
-      "note": "局部变量传递"
+      "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 30,
-      "expr": "receiptKey5",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 35,
-      "expr": "accountRef6",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 36,
-      "expr": "voucherRef7",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 37,
-      "expr": "voucherRef7",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 42,
-      "expr": "paymentTag8",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 43,
-      "expr": "refundCode9",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 46,
-      "expr": "refundCode9",
+      "expr": "receiptKey5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 47,
-      "expr": "shipmentCode10",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/VoucherService.java",
-      "line": 48,
-      "expr": "shipmentCode10",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/ShipmentStrategySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/ShipmentStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 19,
-      "expr": "manifestKey101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 22,
-      "expr": "manifestKey101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 23,
-      "expr": "invoiceKey102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 24,
-      "expr": "invoiceKey102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 29,
-      "expr": "batchTag103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 30,
-      "expr": "orderRef104",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 31,
-      "expr": "quoteRef105",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/LedgerAssembler.java",
-      "line": 32,
-      "expr": "quoteRef105",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 17,
-      "expr": "accountRef201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 18,
-      "expr": "voucherRef202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 19,
-      "expr": "voucherRef202",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 24,
-      "expr": "paymentTag203",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 27,
-      "expr": "paymentTag203",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 28,
-      "expr": "refundCode204",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 29,
-      "expr": "shipmentCode205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 30,
-      "expr": "shipmentCode205",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 35,
-      "expr": "manifestKey206",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 38,
-      "expr": "manifestKey206",
-      "note": "存入集合元素"
+      "expr": "accountRef6",
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
       "line": 39,
-      "expr": "invoiceKey207",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 42,
-      "expr": "invoiceKey207",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 43,
-      "expr": "batchTag208",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsettle/service/BundleNormalizer.java",
-      "line": 44,
-      "expr": "batchTag208",
+      "expr": "accountRef6",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingsettle/dao/ManifestService.java",
-      "line": 10,
-      "expr": "tariffRef301",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/shippingsettle/web/ManifestValidator.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingsettle/dao/ManifestService.java",
-      "line": 13,
-      "expr": "tariffRef301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingsettle/dao/ManifestService.java",
-      "line": 14,
-      "expr": "ledgerEntry302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingsettle/dao/ManifestService.java",
-      "line": 15,
-      "expr": "ledgerEntry302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingsettle/dao/TariffRepository.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/TariffRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingsettle/dao/TariffRepository.java",
+      "file": "web/src/main/java/com/habench/shippingsettle/web/TariffRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 17,
-    "chain_len": 48,
-    "files_crossed": 8,
-    "modules_crossed": 3,
+    "call_depth": 7,
+    "chain_len": 15,
+    "files_crossed": 4,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:jdbc_concat",
       "prop:string_concat",
       "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:assign_local",
       "prop:static_field",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:map_element",
       "prop:string_concat",
       "prop:store_field",
       "prop:map_element",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
-      "sanitizer:none"
+      "sanitizer:whitelist_regex"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/shipping/settle",
-    "param": "target",
-    "carrier": "query"
+    "path": "/api/shipping/settle/{resource}",
+    "param": "resource",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
     "neutralized": false,
-    "call_depth_observed": 17,
+    "call_depth_observed": null,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
+    "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

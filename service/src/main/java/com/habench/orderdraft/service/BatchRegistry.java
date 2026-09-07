@@ -1,26 +1,17 @@
 package com.habench.orderdraft.service;
 
 import com.habench.orderdraft.service.SessionEvaluator;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class BatchRegistry {
-    private String pendingSession;
 
-    public static void reconcile(String value) {
-        BatchRegistry self = new BatchRegistry();
-        self.submit(value);
-    }
-
-    private void submit(String value) {
+    public static void submit(String value) {
         String ledgerEntry201 = value;
-        String channelTag202 = ledgerEntry201;
-        this.pendingSession = channelTag202;
-        prepare();
-    }
-
-    private void prepare() {
-        String catalogKey203 = this.pendingSession;
-        String receiptKey204 = catalogKey203;
-        String accountRef205 = "ref:" + receiptKey204 + ";";
-        SessionEvaluator.resolve(accountRef205);
+        Map<String, String> channelTag202Attrs = new HashMap<String, String>();
+        channelTag202Attrs.put("channel", "web");
+        channelTag202Attrs.put("payload", ledgerEntry201);
+        String channelTag202 = channelTag202Attrs.get("payload");
+        SessionEvaluator.resolve(channelTag202);
     }
 }

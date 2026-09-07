@@ -1,185 +1,214 @@
 {
   "id": "JAVA-SPEL-1039",
   "cwe": "CWE-917",
-  "verdict": "safe",
-  "title": "查询参数经 6 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
+  "verdict": "vulnerable",
+  "title": "请求头经 12 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogtrace/web/BatchController.java",
+    "file": "web/src/main/java/com/habench/inventorynotice/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogtrace/web/BatchController.java",
+    "file": "web/src/main/java/com/habench/inventorynotice/web/BatchController.java",
     "line": 13,
-    "expr": "tag",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "target",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/catalogtrace/service/BatchEvaluator.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/habench/inventorynotice/dao/BatchEvaluator.java",
+    "line": 14,
     "expr": "template",
-    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/catalogtrace/service/BatchEvaluator.java",
-    "line": 15,
-    "expr": "context",
-    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
-  },
-  "sanitizer_kind": "spel_restricted_context",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogtrace/web/BatchController.java",
+      "file": "web/src/main/java/com/habench/inventorynotice/web/BatchController.java",
       "line": 13,
-      "expr": "tag",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "target",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtrace/web/LedgerComposer.java",
-      "line": 8,
-      "expr": "ledgerEntry1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/catalogtrace/web/LedgerComposer.java",
-      "line": 9,
-      "expr": "ledgerEntry1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/inventorynotice/web/ChannelNormalizer.java",
+      "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
+      "file": "web/src/main/java/com/habench/inventorynotice/web/ChannelNormalizer.java",
+      "line": 13,
+      "expr": "ledgerEntry1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorynotice/web/ChannelNormalizer.java",
       "line": 14,
-      "expr": "invoiceKey101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 17,
-      "expr": "invoiceKey101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 18,
-      "expr": "batchTag102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 19,
-      "expr": "batchTag102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 24,
-      "expr": "orderRef103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 25,
-      "expr": "quoteRef104",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 26,
-      "expr": "quoteRef104",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 31,
-      "expr": "tariffRef105",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 34,
-      "expr": "tariffRef105",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 35,
-      "expr": "ledgerEntry106",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 36,
-      "expr": "channelTag107",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/ManifestNormalizer.java",
-      "line": 37,
-      "expr": "channelTag107",
+      "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/BatchEvaluator.java",
-      "line": 12,
+      "file": "service/src/main/java/com/habench/inventorynotice/service/AccountAssembler.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorynotice/service/AccountAssembler.java",
+      "line": 19,
+      "expr": "invoiceKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorynotice/service/AccountAssembler.java",
+      "line": 20,
+      "expr": "invoiceKey101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorynotice/service/AccountAssembler.java",
+      "line": 25,
+      "expr": "batchTag102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorynotice/service/AccountAssembler.java",
+      "line": 26,
+      "expr": "orderRef103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorynotice/service/AccountAssembler.java",
+      "line": 27,
+      "expr": "orderRef103",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ChannelRouter.java",
+      "line": 8,
+      "expr": "voucherRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ChannelRouter.java",
+      "line": 9,
+      "expr": "voucherRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/CatalogPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/CatalogPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 19,
+      "expr": "ledgerEntry301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 20,
+      "expr": "channelTag302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 21,
+      "expr": "channelTag302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 26,
+      "expr": "catalogKey303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 27,
+      "expr": "receiptKey304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 28,
+      "expr": "accountRef305",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/ManifestNormalizer.java",
+      "line": 29,
+      "expr": "accountRef305",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/BatchEvaluator.java",
+      "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/BatchEvaluator.java",
-      "line": 15,
-      "expr": "context",
-      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogtrace/service/BatchEvaluator.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/habench/inventorynotice/dao/BatchEvaluator.java",
+      "line": 14,
       "expr": "template",
-      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+      "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
   "metrics": {
-    "call_depth": 6,
-    "chain_len": 19,
-    "files_crossed": 4,
-    "modules_crossed": 2,
+    "call_depth": 12,
+    "chain_len": 24,
+    "files_crossed": 8,
+    "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:spel_eval",
-      "prop:string_concat",
+      "prop:map_element",
       "prop:cross_module",
       "prop:map_element",
-      "prop:map_element",
-      "prop:static_field",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
       "prop:assign_local",
-      "prop:static_field",
+      "prop:interface_dispatch",
       "prop:map_element",
       "prop:assign_local",
-      "sanitizer:spel_restricted_context"
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:none"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/catalog/trace",
-    "param": "tag",
-    "carrier": "query"
+    "path": "/api/inventory/notice",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
-    "neutralized": true,
-    "call_depth_observed": 6,
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
     "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
-    "http_status": 500,
+    "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

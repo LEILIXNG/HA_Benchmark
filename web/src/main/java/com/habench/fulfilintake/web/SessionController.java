@@ -1,6 +1,6 @@
 package com.habench.fulfilintake.web;
 
-import com.habench.fulfilintake.web.ManifestNormalizer;
+import com.habench.fulfilintake.web.BundleCoordinator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class SessionController {
 
     @GetMapping("/api/fulfil/intake")
-    public String attach(
-            @RequestParam("keyword") String keyword) {
-        ManifestNormalizer.refine(keyword);
+    public String merge(
+            @RequestParam("reference") String reference) {
+        BundleCoordinator.register(reference);
         return "ok";
     }
 }

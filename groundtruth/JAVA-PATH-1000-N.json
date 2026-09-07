@@ -1,0 +1,146 @@
+{
+  "id": "JAVA-PATH-1000-N",
+  "cwe": "CWE-22",
+  "verdict": "safe",
+  "title": "与 JAVA-PATH-1000 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippingarchive/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippingarchive/web/SessionController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/shippingarchive/service/SessionLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/shippingarchive/service/LedgerGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippingarchive/web/SessionController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingarchive/web/CatalogCollector.java",
+      "line": 8,
+      "expr": "shipmentCode1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingarchive/web/CatalogCollector.java",
+      "line": 9,
+      "expr": "shipmentCode1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 16,
+      "expr": "receiptKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 19,
+      "expr": "receiptKey101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 20,
+      "expr": "accountRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 21,
+      "expr": "accountRef102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 26,
+      "expr": "voucherRef103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 27,
+      "expr": "paymentTag104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 28,
+      "expr": "paymentTag104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/LedgerGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/SessionLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingarchive/service/SessionLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 13,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:file_read",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/archive",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

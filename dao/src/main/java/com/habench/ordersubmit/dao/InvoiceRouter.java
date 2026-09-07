@@ -5,7 +5,8 @@ import com.habench.ordersubmit.dao.PaymentPlanSelector;
 public final class InvoiceRouter {
 
     public static void translate(String value) {
-        String catalogKey301 = value;
-        PaymentPlanSelector.dispatch(catalogKey301);
+        String refundCode201 = value;
+        String shipmentCode202 = refundCode201;
+        PaymentPlanSelector.dispatch(shipmentCode202);
     }
 }

@@ -2,20 +2,20 @@
   "id": "JAVA-SQLI-1033",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "请求头经 13 层调用、跨 2 个模块流入JDBC 拼接",
+  "title": "查询参数经 13 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingcapture/web/InvoiceController.java",
+    "file": "web/src/main/java/com/habench/fulfilreview/web/InvoiceController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingcapture/web/InvoiceController.java",
+    "file": "web/src/main/java/com/habench/fulfilreview/web/InvoiceController.java",
     "line": 13,
-    "expr": "reference",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/billingcapture/service/InvoiceRepository.java",
+    "file": "dao/src/main/java/com/habench/fulfilreview/dao/InvoiceRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,223 +24,157 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingcapture/web/InvoiceController.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/InvoiceController.java",
       "line": 13,
-      "expr": "reference",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 19,
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ManifestNormalizer.java",
+      "line": 10,
       "expr": "batchTag1",
-      "note": "取出集合元素"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 22,
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ManifestNormalizer.java",
+      "line": 13,
       "expr": "batchTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 23,
-      "expr": "orderRef2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 24,
-      "expr": "orderRef2",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 29,
-      "expr": "quoteRef3",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 32,
-      "expr": "quoteRef3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 33,
-      "expr": "tariffRef4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 36,
-      "expr": "tariffRef4",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 37,
-      "expr": "ledgerEntry5",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingcapture/web/VoucherAssembler.java",
-      "line": 38,
-      "expr": "ledgerEntry5",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/VoucherComposer.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/VoucherComposer.java",
-      "line": 13,
-      "expr": "paymentTag101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/VoucherComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ManifestNormalizer.java",
       "line": 14,
-      "expr": "refundCode102",
-      "note": "局部变量传递"
+      "expr": "orderRef2",
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingcapture/service/VoucherComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ManifestNormalizer.java",
       "line": 15,
-      "expr": "refundCode102",
+      "expr": "orderRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingcapture/service/VoucherPlanSelector.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/SessionRuleSelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/billingcapture/service/VoucherPlanStandard.java",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/SessionRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 17,
-      "expr": "channelTag201",
-      "note": "字符串拼接传播"
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ShipmentTranslator.java",
+      "line": 8,
+      "expr": "paymentTag101",
+      "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 18,
-      "expr": "channelTag201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 23,
-      "expr": "catalogKey202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 24,
-      "expr": "receiptKey203",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 25,
-      "expr": "accountRef204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 26,
-      "expr": "accountRef204",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 31,
-      "expr": "voucherRef205",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 34,
-      "expr": "voucherRef205",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 35,
-      "expr": "paymentTag206",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 38,
-      "expr": "paymentTag206",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 39,
-      "expr": "refundCode207",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 40,
-      "expr": "refundCode207",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 45,
-      "expr": "shipmentCode208",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 48,
-      "expr": "shipmentCode208",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 49,
-      "expr": "manifestKey209",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 50,
-      "expr": "invoiceKey210",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingcapture/service/ChannelTranslator.java",
-      "line": 51,
-      "expr": "invoiceKey210",
+      "file": "web/src/main/java/com/habench/fulfilreview/web/ShipmentTranslator.java",
+      "line": 9,
+      "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingcapture/service/InvoiceRepository.java",
+      "file": "service/src/main/java/com/habench/fulfilreview/service/QuoteNormalizer.java",
+      "line": 14,
+      "expr": "channelTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/QuoteNormalizer.java",
+      "line": 15,
+      "expr": "catalogKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/QuoteNormalizer.java",
+      "line": 16,
+      "expr": "catalogKey202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/QuoteNormalizer.java",
+      "line": 21,
+      "expr": "receiptKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/QuoteNormalizer.java",
+      "line": 22,
+      "expr": "accountRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/QuoteNormalizer.java",
+      "line": 23,
+      "expr": "accountRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/ContractPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/ContractPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/TariffAssembler.java",
+      "line": 8,
+      "expr": "batchTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/TariffAssembler.java",
+      "line": 9,
+      "expr": "orderRef302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilreview/service/TariffAssembler.java",
+      "line": 10,
+      "expr": "orderRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreview/dao/ChannelTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreview/dao/ChannelTranslator.java",
+      "line": 13,
+      "expr": "paymentTag401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreview/dao/ChannelTranslator.java",
+      "line": 14,
+      "expr": "refundCode402",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreview/dao/ChannelTranslator.java",
+      "line": 15,
+      "expr": "refundCode402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilreview/dao/InvoiceRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/billingcapture/service/InvoiceRepository.java",
+      "file": "dao/src/main/java/com/habench/fulfilreview/dao/InvoiceRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -248,29 +182,25 @@
   ],
   "metrics": {
     "call_depth": 13,
-    "chain_len": 37,
-    "files_crossed": 7,
-    "modules_crossed": 2,
+    "chain_len": 26,
+    "files_crossed": 11,
+    "modules_crossed": 3,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:jdbc_concat",
+      "prop:string_concat",
       "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
       "prop:cross_module",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
       "prop:assign_local",
       "prop:interface_dispatch",
       "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_module",
       "prop:map_element",
       "prop:string_concat",
       "sanitizer:none"
@@ -279,9 +209,9 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/billing/capture",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "path": "/api/fulfil/review",
+    "param": "orderNo",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
@@ -290,9 +220,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

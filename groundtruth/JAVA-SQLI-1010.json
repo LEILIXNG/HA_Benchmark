@@ -2,20 +2,20 @@
   "id": "JAVA-SQLI-1010",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "路径变量经 14 层调用、跨 2 个模块流入JDBC 拼接",
+  "title": "查询参数经 17 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/orderlookup/web/ContractController.java",
+    "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/orderlookup/web/ContractController.java",
+    "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
     "line": 13,
     "expr": "target",
-    "note": "SOURCE: Spring 路径变量"
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/orderlookup/service/ContractRepository.java",
+    "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/ContractRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,249 +24,356 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ContractController.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
       "line": 13,
       "expr": "target",
-      "note": "SOURCE: Spring 路径变量"
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ReceiptBroker.java",
-      "line": 18,
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ReceiptBroker.java",
-      "line": 19,
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 20,
       "expr": "refundCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ReceiptBroker.java",
-      "line": 20,
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 23,
       "expr": "refundCode1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 24,
+      "expr": "shipmentCode2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 25,
+      "expr": "shipmentCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ReceiptBroker.java",
-      "line": 25,
-      "expr": "shipmentCode2",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 30,
+      "expr": "manifestKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ReceiptBroker.java",
-      "line": 26,
-      "expr": "manifestKey3",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 31,
+      "expr": "invoiceKey4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 32,
+      "expr": "batchTag5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ReceiptBroker.java",
-      "line": 27,
-      "expr": "invoiceKey4",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 33,
+      "expr": "batchTag5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 38,
+      "expr": "orderRef6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 39,
+      "expr": "quoteRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/ReceiptBroker.java",
-      "line": 28,
-      "expr": "invoiceKey4",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 40,
+      "expr": "quoteRef7",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 45,
+      "expr": "tariffRef8",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 46,
+      "expr": "ledgerEntry9",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 49,
+      "expr": "ledgerEntry9",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 50,
+      "expr": "channelTag10",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
+      "line": 51,
+      "expr": "channelTag10",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/InvoicePolicySelector.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ReceiptStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/InvoicePolicyStandard.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ReceiptStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 16,
-      "expr": "catalogKey101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 19,
-      "expr": "catalogKey101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 20,
-      "expr": "receiptKey102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 21,
-      "expr": "receiptKey102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 26,
-      "expr": "accountRef103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 27,
-      "expr": "voucherRef104",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 28,
-      "expr": "voucherRef104",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 33,
-      "expr": "paymentTag105",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 36,
-      "expr": "paymentTag105",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 37,
-      "expr": "refundCode106",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderlookup/web/RefundCoordinator.java",
-      "line": 38,
-      "expr": "refundCode106",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
       "line": 19,
-      "expr": "orderRef201",
+      "expr": "catalogKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
       "line": 22,
-      "expr": "orderRef201",
+      "expr": "catalogKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
       "line": 23,
-      "expr": "quoteRef202",
+      "expr": "receiptKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
       "line": 24,
-      "expr": "quoteRef202",
+      "expr": "receiptKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
       "line": 29,
-      "expr": "tariffRef203",
+      "expr": "accountRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
       "line": 30,
-      "expr": "ledgerEntry204",
+      "expr": "voucherRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
-      "line": 33,
-      "expr": "ledgerEntry204",
-      "note": "存入集合元素"
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
+      "line": 31,
+      "expr": "paymentTag105",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
-      "line": 34,
-      "expr": "channelTag205",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderlookup/service/OrderComposer.java",
-      "line": 35,
-      "expr": "channelTag205",
+      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
+      "line": 32,
+      "expr": "paymentTag105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/ContractRepository.java",
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 17,
+      "expr": "orderRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 18,
+      "expr": "quoteRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 19,
+      "expr": "quoteRef202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 24,
+      "expr": "tariffRef203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 27,
+      "expr": "tariffRef203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 28,
+      "expr": "ledgerEntry204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 29,
+      "expr": "channelTag205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 30,
+      "expr": "channelTag205",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 35,
+      "expr": "catalogKey206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 38,
+      "expr": "catalogKey206",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 39,
+      "expr": "receiptKey207",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 42,
+      "expr": "receiptKey207",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 43,
+      "expr": "accountRef208",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 44,
+      "expr": "accountRef208",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
+      "line": 10,
+      "expr": "refundCode301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
+      "line": 13,
+      "expr": "refundCode301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
+      "line": 14,
+      "expr": "shipmentCode302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
+      "line": 15,
+      "expr": "shipmentCode302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/ContractRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/orderlookup/service/ContractRepository.java",
+      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/ContractRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 33,
-    "files_crossed": 7,
-    "modules_crossed": 2,
+    "call_depth": 17,
+    "chain_len": 49,
+    "files_crossed": 8,
+    "modules_crossed": 3,
     "features": [
-      "source:spring_path_variable",
+      "source:spring_request_param",
       "sink:jdbc_concat",
       "prop:map_element",
+      "prop:map_element",
       "prop:store_field",
+      "prop:string_concat",
       "prop:assign_local",
+      "prop:static_field",
       "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
       "prop:interface_dispatch",
-      "prop:assign_local",
+      "prop:map_element",
       "prop:map_element",
       "prop:store_field",
       "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
       "prop:store_field",
+      "prop:map_element",
       "prop:map_element",
       "prop:cross_module",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
       "prop:assign_local",
       "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1010-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/order/lookup/{target}",
+    "path": "/api/fulfil/renewal",
     "param": "target",
-    "carrier": "path"
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 14,
+    "call_depth_observed": 17,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

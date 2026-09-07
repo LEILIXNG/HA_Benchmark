@@ -1,6 +1,6 @@
 package com.habench.accounttransfer.web;
 
-import com.habench.accounttransfer.web.ReceiptRouter;
+import com.habench.accounttransfer.web.ContractComposer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChannelController {
 
     @GetMapping("/api/account/transfer")
-    public String reconcile(
-            @RequestParam("resource") String resource) {
-        ReceiptRouter.publish(resource);
+    public String compose(
+            @RequestParam("userName") String userName) {
+        ContractComposer.compose(userName);
         return "ok";
     }
 }

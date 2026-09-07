@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1013",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 21 层调用、跨 3 个模块流入命令执行",
+  "title": "路径变量经 19 层调用、跨 3 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/vendorrevise/web/OrderController.java",
     "line": 11,
@@ -11,7 +11,7 @@
   "source": {
     "file": "web/src/main/java/com/habench/vendorrevise/web/OrderController.java",
     "line": 13,
-    "expr": "keyword",
+    "expr": "query",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
@@ -26,289 +26,325 @@
     {
       "file": "web/src/main/java/com/habench/vendorrevise/web/OrderController.java",
       "line": 13,
-      "expr": "keyword",
+      "expr": "query",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/LedgerRegistry.java",
+      "file": "web/src/main/java/com/habench/vendorrevise/web/VoucherTranslator.java",
       "line": 8,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/LedgerRegistry.java",
+      "file": "web/src/main/java/com/habench/vendorrevise/web/VoucherTranslator.java",
       "line": 9,
       "expr": "receiptKey2",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/LedgerRegistry.java",
+      "file": "web/src/main/java/com/habench/vendorrevise/web/VoucherTranslator.java",
       "line": 10,
       "expr": "receiptKey2",
       "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/ShipmentPlanSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/ShipmentPlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 20,
-      "expr": "orderRef101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 21,
-      "expr": "orderRef101",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 26,
-      "expr": "quoteRef102",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 27,
-      "expr": "tariffRef103",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 28,
-      "expr": "tariffRef103",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 33,
-      "expr": "ledgerEntry104",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 34,
-      "expr": "channelTag105",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 35,
-      "expr": "channelTag105",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 40,
-      "expr": "catalogKey106",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 41,
-      "expr": "receiptKey107",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 42,
-      "expr": "accountRef108",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 43,
-      "expr": "accountRef108",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 48,
-      "expr": "voucherRef109",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 49,
-      "expr": "paymentTag110",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 50,
-      "expr": "refundCode111",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 51,
-      "expr": "refundCode111",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 56,
-      "expr": "shipmentCode112",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 57,
-      "expr": "manifestKey113",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 58,
-      "expr": "manifestKey113",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 63,
-      "expr": "invoiceKey114",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 64,
-      "expr": "batchTag115",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 65,
-      "expr": "orderRef116",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorrevise/web/BatchBroker.java",
-      "line": 66,
-      "expr": "orderRef116",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
-      "line": 9,
-      "expr": "refundCode201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
-      "line": 10,
-      "expr": "shipmentCode202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
-      "line": 11,
-      "expr": "shipmentCode202",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
-      "line": 16,
-      "expr": "manifestKey203",
-      "note": "读取静态字段"
     },
     {
       "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
       "line": 17,
-      "expr": "invoiceKey204",
+      "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
-      "line": 18,
-      "expr": "invoiceKey204",
-      "note": "调用下一层"
+      "line": 20,
+      "expr": "orderRef101",
+      "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
-      "line": 18,
-      "expr": "value",
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 21,
+      "expr": "quoteRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 22,
+      "expr": "quoteRef102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 27,
+      "expr": "tariffRef103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 28,
+      "expr": "ledgerEntry104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 29,
+      "expr": "channelTag105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 30,
+      "expr": "channelTag105",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 35,
+      "expr": "catalogKey106",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 36,
+      "expr": "receiptKey107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 37,
+      "expr": "receiptKey107",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 42,
+      "expr": "accountRef108",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 43,
+      "expr": "voucherRef109",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 46,
+      "expr": "voucherRef109",
       "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 47,
+      "expr": "paymentTag110",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 48,
+      "expr": "paymentTag110",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 53,
+      "expr": "refundCode111",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 54,
+      "expr": "shipmentCode112",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 57,
+      "expr": "shipmentCode112",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 58,
+      "expr": "manifestKey113",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrevise/service/ReceiptTranslator.java",
+      "line": 59,
+      "expr": "manifestKey113",
+      "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
       "line": 19,
-      "expr": "catalogKey301",
-      "note": "取出集合元素"
+      "expr": "value",
+      "note": "存入集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
       "line": 20,
-      "expr": "catalogKey301",
+      "expr": "refundCode201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
+      "line": 21,
+      "expr": "refundCode201",
       "note": "写入实例字段"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
-      "line": 25,
-      "expr": "receiptKey302",
+      "line": 26,
+      "expr": "shipmentCode202",
       "note": "读取实例字段"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
-      "line": 26,
-      "expr": "accountRef303",
+      "line": 27,
+      "expr": "manifestKey203",
       "note": "局部变量传递"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
-      "line": 27,
-      "expr": "accountRef303",
+      "line": 28,
+      "expr": "manifestKey203",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
+      "line": 33,
+      "expr": "invoiceKey204",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
+      "line": 34,
+      "expr": "batchTag205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/ShipmentNormalizer.java",
+      "line": 35,
+      "expr": "batchTag205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrevise/dao/AccountStrategySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/vendorrevise/dao/AccountStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
-      "line": 12,
+      "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
-      "line": 13,
-      "expr": "orderRef401",
+      "line": 20,
+      "expr": "catalogKey301",
       "note": "取出集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
-      "line": 14,
-      "expr": "quoteRef402",
+      "line": 21,
+      "expr": "receiptKey302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 22,
+      "expr": "receiptKey302",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 27,
+      "expr": "accountRef303",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 30,
+      "expr": "accountRef303",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 31,
+      "expr": "voucherRef304",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 32,
+      "expr": "voucherRef304",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 37,
+      "expr": "paymentTag305",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 38,
+      "expr": "refundCode306",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 39,
+      "expr": "refundCode306",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 44,
+      "expr": "shipmentCode307",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 47,
+      "expr": "shipmentCode307",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 48,
+      "expr": "manifestKey308",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 49,
+      "expr": "invoiceKey309",
       "note": "字符串拼接传播"
     },
     {
       "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
-      "line": 15,
-      "expr": "quoteRef402",
+      "line": 50,
+      "expr": "invoiceKey309",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 55,
+      "expr": "batchTag310",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 56,
+      "expr": "orderRef311",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 57,
+      "expr": "quoteRef312",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrevise/dao/BundleBuilder.java",
+      "line": 58,
+      "expr": "quoteRef312",
       "note": "调用下一层"
     },
     {
@@ -325,52 +361,56 @@
     }
   ],
   "metrics": {
-    "call_depth": 21,
-    "chain_len": 50,
-    "files_crossed": 11,
+    "call_depth": 19,
+    "chain_len": 56,
+    "files_crossed": 6,
     "modules_crossed": 3,
     "features": [
       "source:spring_path_variable",
       "sink:runtime_exec",
       "prop:assign_local",
-      "prop:string_concat",
-      "prop:interface_dispatch",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
       "prop:assign_local",
       "prop:cross_module",
       "prop:string_concat",
-      "prop:assign_local",
+      "prop:map_element",
       "prop:static_field",
       "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
       "prop:cross_module",
       "prop:map_element",
       "prop:store_field",
       "prop:assign_local",
-      "prop:interface_dispatch",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:store_field",
       "prop:map_element",
       "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1013-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/vendor/revise/{keyword}",
-    "param": "keyword",
+    "path": "/api/vendor/revise/{query}",
+    "param": "query",
     "carrier": "path"
   },
   "verification": {
@@ -378,11 +418,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 21,
+    "call_depth_observed": 19,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

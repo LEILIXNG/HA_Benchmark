@@ -1,0 +1,186 @@
+{
+  "id": "JAVA-CMDI-1036-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1036 逐行相同，仅把净化改为 command_allowlist",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogtrace/web/ShipmentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogtrace/web/ShipmentController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/catalogtrace/dao/ShipmentExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/catalogtrace/dao/SessionValidator.java",
+    "line": 13,
+    "expr": "value",
+    "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "command_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogtrace/web/ShipmentController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogtrace/web/CatalogRouter.java",
+      "line": 11,
+      "expr": "paymentTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogtrace/web/CatalogRouter.java",
+      "line": 12,
+      "expr": "paymentTag1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogtrace/web/CatalogRouter.java",
+      "line": 17,
+      "expr": "refundCode2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogtrace/web/CatalogRouter.java",
+      "line": 20,
+      "expr": "refundCode2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogtrace/web/CatalogRouter.java",
+      "line": 21,
+      "expr": "shipmentCode3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogtrace/web/CatalogRouter.java",
+      "line": 22,
+      "expr": "shipmentCode3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogtrace/service/TariffResolver.java",
+      "line": 14,
+      "expr": "channelTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogtrace/service/TariffResolver.java",
+      "line": 15,
+      "expr": "channelTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogtrace/service/TariffResolver.java",
+      "line": 20,
+      "expr": "catalogKey102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogtrace/service/TariffResolver.java",
+      "line": 21,
+      "expr": "receiptKey103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogtrace/service/TariffResolver.java",
+      "line": 22,
+      "expr": "accountRef104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogtrace/service/TariffResolver.java",
+      "line": 23,
+      "expr": "accountRef104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogtrace/dao/SessionValidator.java",
+      "line": 13,
+      "expr": "value",
+      "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogtrace/dao/SessionTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogtrace/dao/SessionTranslator.java",
+      "line": 13,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogtrace/dao/SessionTranslator.java",
+      "line": 14,
+      "expr": "batchTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogtrace/dao/ShipmentExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogtrace/dao/ShipmentExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 19,
+    "files_crossed": 6,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "sanitizer:command_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/trace/{target}",
+    "param": "target",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

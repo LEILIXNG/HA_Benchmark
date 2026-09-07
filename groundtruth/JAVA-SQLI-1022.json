@@ -2,7 +2,7 @@
   "id": "JAVA-SQLI-1022",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "路径变量经 15 层调用、跨 3 个模块流入JDBC 拼接",
+  "title": "请求头经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
     "file": "web/src/main/java/com/habench/customersubmit/web/CatalogController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/customersubmit/web/CatalogController.java",
     "line": 13,
-    "expr": "keyword",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "userName",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customersubmit/dao/CatalogRepository.java",
+    "file": "service/src/main/java/com/habench/customersubmit/service/CatalogRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -26,284 +26,129 @@
     {
       "file": "web/src/main/java/com/habench/customersubmit/web/CatalogController.java",
       "line": 13,
-      "expr": "keyword",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "userName",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
-      "line": 9,
+      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
+      "line": 13,
       "expr": "shipmentCode1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
+      "line": 14,
+      "expr": "manifestKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
-      "line": 10,
-      "expr": "shipmentCode1",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
+      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
       "line": 15,
       "expr": "manifestKey2",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
-      "line": 16,
-      "expr": "invoiceKey3",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
-      "line": 17,
-      "expr": "invoiceKey3",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
-      "line": 22,
-      "expr": "batchTag4",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
-      "line": 23,
-      "expr": "orderRef5",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customersubmit/web/ReceiptEnricher.java",
-      "line": 24,
-      "expr": "orderRef5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 17,
-      "expr": "receiptKey101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 20,
-      "expr": "receiptKey101",
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
+      "line": 18,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
+      "line": 19,
+      "expr": "receiptKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
+      "line": 20,
+      "expr": "accountRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
       "line": 21,
       "expr": "accountRef102",
-      "note": "取出集合元素"
+      "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 22,
-      "expr": "accountRef102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 27,
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
+      "line": 26,
       "expr": "voucherRef103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 28,
-      "expr": "paymentTag104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 29,
-      "expr": "paymentTag104",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 34,
-      "expr": "refundCode105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 35,
-      "expr": "shipmentCode106",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 36,
-      "expr": "shipmentCode106",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 41,
-      "expr": "manifestKey107",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 42,
-      "expr": "invoiceKey108",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 43,
-      "expr": "batchTag109",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customersubmit/service/ChannelRegistry.java",
-      "line": 44,
-      "expr": "batchTag109",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 17,
-      "expr": "quoteRef201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 18,
-      "expr": "tariffRef202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 19,
-      "expr": "tariffRef202",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 24,
-      "expr": "ledgerEntry203",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 27,
-      "expr": "ledgerEntry203",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 28,
-      "expr": "channelTag204",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
       "line": 29,
-      "expr": "channelTag204",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 34,
-      "expr": "catalogKey205",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 37,
-      "expr": "catalogKey205",
+      "expr": "voucherRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 38,
-      "expr": "receiptKey206",
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
+      "line": 30,
+      "expr": "paymentTag104",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/OrderResolver.java",
-      "line": 39,
-      "expr": "receiptKey206",
+      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
+      "line": 31,
+      "expr": "paymentTag104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/VoucherEnricher.java",
-      "line": 8,
-      "expr": "shipmentCode301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/VoucherEnricher.java",
-      "line": 9,
-      "expr": "shipmentCode301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/CatalogRepository.java",
+      "file": "service/src/main/java/com/habench/customersubmit/service/CatalogRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersubmit/dao/CatalogRepository.java",
+      "file": "service/src/main/java/com/habench/customersubmit/service/CatalogRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 15,
-    "chain_len": 38,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "call_depth": 6,
+    "chain_len": 15,
+    "files_crossed": 4,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:assign_local",
       "prop:map_element",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:string_concat",
       "prop:string_concat",
       "prop:cross_module",
+      "prop:map_element",
       "prop:string_concat",
-      "prop:assign_local",
       "prop:store_field",
       "prop:map_element",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1022-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/customer/submit/{keyword}",
-    "param": "keyword",
-    "carrier": "path"
+    "path": "/api/customer/submit",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 15,
+    "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

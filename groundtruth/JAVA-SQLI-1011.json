@@ -1,374 +1,164 @@
 {
   "id": "JAVA-SQLI-1011",
   "cwe": "CWE-89",
-  "verdict": "vulnerable",
-  "title": "请求头经 20 层调用、跨 3 个模块流入JDBC 拼接",
+  "verdict": "safe",
+  "title": "查询参数经 7 层调用、跨 2 个模块流入JDBC 拼接，经 sql_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountsettle/web/SessionController.java",
+    "file": "web/src/main/java/com/habench/vendormanifest/web/SessionController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountsettle/web/SessionController.java",
+    "file": "web/src/main/java/com/habench/vendormanifest/web/SessionController.java",
     "line": 13,
-    "expr": "category",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "target",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountsettle/dao/SessionRepository.java",
-    "line": 17,
-    "expr": "sql",
-    "note": "SINK: CWE-89 SQL 注入"
+    "file": "service/src/main/java/com/habench/vendormanifest/service/SessionRepository.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/vendormanifest/service/SessionRepository.java",
+    "line": 17,
+    "expr": "value",
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountsettle/web/SessionController.java",
+      "file": "web/src/main/java/com/habench/vendormanifest/web/SessionController.java",
       "line": 13,
-      "expr": "category",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "target",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 17,
+      "file": "web/src/main/java/com/habench/vendormanifest/web/PaymentCollector.java",
+      "line": 8,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 18,
+      "file": "web/src/main/java/com/habench/vendormanifest/web/PaymentCollector.java",
+      "line": 9,
       "expr": "quoteRef2",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 19,
+      "file": "web/src/main/java/com/habench/vendormanifest/web/PaymentCollector.java",
+      "line": 10,
       "expr": "quoteRef2",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 24,
-      "expr": "tariffRef3",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 27,
-      "expr": "tariffRef3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 28,
-      "expr": "ledgerEntry4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 29,
-      "expr": "ledgerEntry4",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 34,
-      "expr": "channelTag5",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 37,
-      "expr": "channelTag5",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 38,
-      "expr": "catalogKey6",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 41,
-      "expr": "catalogKey6",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 42,
-      "expr": "receiptKey7",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountsettle/web/QuoteResolver.java",
-      "line": 43,
-      "expr": "receiptKey7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 16,
-      "expr": "refundCode101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 17,
-      "expr": "refundCode101",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 22,
-      "expr": "shipmentCode102",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 25,
-      "expr": "shipmentCode102",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 26,
-      "expr": "manifestKey103",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 29,
-      "expr": "manifestKey103",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 30,
-      "expr": "invoiceKey104",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 31,
-      "expr": "invoiceKey104",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 36,
-      "expr": "batchTag105",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 37,
-      "expr": "orderRef106",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/ShipmentFacade.java",
-      "line": 38,
-      "expr": "orderRef106",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/vendormanifest/web/AccountCollector.java",
       "line": 8,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendormanifest/web/AccountCollector.java",
+      "line": 9,
+      "expr": "refundCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendormanifest/service/CatalogRegistry.java",
+      "line": 16,
       "expr": "catalogKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAdapter.java",
-      "line": 9,
-      "expr": "receiptKey202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAdapter.java",
-      "line": 10,
-      "expr": "receiptKey202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/CatalogPolicySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/CatalogPolicyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAssembler.java",
-      "line": 16,
-      "expr": "orderRef301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAssembler.java",
-      "line": 17,
-      "expr": "quoteRef302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAssembler.java",
-      "line": 18,
-      "expr": "quoteRef302",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAssembler.java",
-      "line": 23,
-      "expr": "tariffRef303",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAssembler.java",
-      "line": 26,
-      "expr": "tariffRef303",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAssembler.java",
-      "line": 27,
-      "expr": "ledgerEntry304",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/BatchAssembler.java",
-      "line": 28,
-      "expr": "ledgerEntry304",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/VoucherResolver.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/VoucherResolver.java",
+      "file": "service/src/main/java/com/habench/vendormanifest/service/CatalogRegistry.java",
       "line": 19,
-      "expr": "refundCode401",
+      "expr": "catalogKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendormanifest/service/CatalogRegistry.java",
+      "line": 20,
+      "expr": "receiptKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountsettle/service/VoucherResolver.java",
-      "line": 20,
-      "expr": "refundCode401",
+      "file": "service/src/main/java/com/habench/vendormanifest/service/CatalogRegistry.java",
+      "line": 21,
+      "expr": "receiptKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountsettle/service/VoucherResolver.java",
-      "line": 25,
-      "expr": "shipmentCode402",
+      "file": "service/src/main/java/com/habench/vendormanifest/service/CatalogRegistry.java",
+      "line": 26,
+      "expr": "accountRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountsettle/service/VoucherResolver.java",
-      "line": 26,
-      "expr": "manifestKey403",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsettle/service/VoucherResolver.java",
+      "file": "service/src/main/java/com/habench/vendormanifest/service/CatalogRegistry.java",
       "line": 27,
-      "expr": "manifestKey403",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountsettle/dao/CatalogRegistry.java",
-      "line": 8,
-      "expr": "catalogKey501",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accountsettle/dao/CatalogRegistry.java",
-      "line": 9,
-      "expr": "receiptKey502",
+      "expr": "voucherRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsettle/dao/CatalogRegistry.java",
-      "line": 10,
-      "expr": "receiptKey502",
+      "file": "service/src/main/java/com/habench/vendormanifest/service/CatalogRegistry.java",
+      "line": 28,
+      "expr": "voucherRef204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsettle/dao/SessionRepository.java",
+      "file": "service/src/main/java/com/habench/vendormanifest/service/SessionRepository.java",
       "line": 13,
-      "expr": "value",
-      "note": "污点进入 SQL 语句"
+      "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsettle/dao/SessionRepository.java",
+      "file": "service/src/main/java/com/habench/vendormanifest/service/SessionRepository.java",
       "line": 17,
-      "expr": "sql",
-      "note": "SINK: CWE-89 SQL 注入"
+      "expr": "value",
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendormanifest/service/SessionRepository.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
   ],
   "metrics": {
-    "call_depth": 20,
-    "chain_len": 48,
-    "files_crossed": 10,
-    "modules_crossed": 3,
+    "call_depth": 7,
+    "chain_len": 16,
+    "files_crossed": 5,
+    "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:jdbc_concat",
       "prop:assign_local",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
       "prop:cross_module",
       "prop:string_concat",
-      "prop:store_field",
-      "prop:map_element",
       "prop:map_element",
       "prop:store_field",
-      "prop:string_concat",
-      "prop:cross_class",
-      "prop:string_concat",
       "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:assign_local",
-      "sanitizer:none"
+      "sanitizer:sql_parameterized"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1011-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/account/settle",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "path": "/api/vendor/manifest",
+    "param": "target",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
-    "neutralized": false,
-    "call_depth_observed": 20,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;;'",
+    "payload_at_sink": "ref:zz' OR 1=1--;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

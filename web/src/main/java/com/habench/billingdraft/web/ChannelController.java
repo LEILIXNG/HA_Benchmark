@@ -1,6 +1,6 @@
 package com.habench.billingdraft.web;
 
-import com.habench.billingdraft.web.ManifestCollector;
+import com.habench.billingdraft.web.OrderBuilder;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChannelController {
 
     @GetMapping("/api/billing/draft")
-    public String submit(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
-        ManifestCollector.route(filename);
+    public String compose(HttpServletRequest request) {
+        String query = request.getHeader("X-Ha-Payload");
+        OrderBuilder.attach(query);
         return "ok";
     }
 }

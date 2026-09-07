@@ -1,17 +1,11 @@
 package com.habench.vendorapprove.service;
 
-import com.habench.vendorapprove.service.ShipmentAssembler;
-import java.util.HashMap;
-import java.util.Map;
+import com.habench.vendorapprove.service.OrderBroker;
 
 public final class ContractRouter {
 
     public static void stage(String value) {
-        String shipmentCode201 = value;
-        Map<String, String> manifestKey202Attrs = new HashMap<String, String>();
-        manifestKey202Attrs.put("channel", "web");
-        manifestKey202Attrs.put("payload", shipmentCode201);
-        String manifestKey202 = manifestKey202Attrs.get("payload");
-        ShipmentAssembler.reconcile(manifestKey202);
+        String shipmentCode201 = "ref:" + value + ";";
+        OrderBroker.enrich(shipmentCode201);
     }
 }

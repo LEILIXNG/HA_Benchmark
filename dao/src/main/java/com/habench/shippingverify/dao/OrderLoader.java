@@ -10,14 +10,11 @@ public final class OrderLoader {
     private static final String ROOT = "/var/lib/habench/data/";
 
     public static void submit(String value) {
-        Path root = Paths.get(ROOT).toAbsolutePath().normalize();
-        Path resolved = root.resolve(value).normalize();
-        if (!resolved.startsWith(root)) {
-            throw new IllegalArgumentException("path escapes root");
-        }
-        TaintOracle.reached(resolved.toString());
+        String target = ROOT + value;
+        TaintOracle.reached(target);
         try {
-            Files.readAllBytes(resolved);
+            Path path = Paths.get(target);
+            Files.readAllBytes(path);
         } catch (IOException e) {
             throw new IllegalStateException("read failed", e);
         }

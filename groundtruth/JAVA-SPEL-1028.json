@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SPEL-1028",
   "cwe": "CWE-917",
-  "verdict": "vulnerable",
-  "title": "请求头经 14 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
+  "verdict": "safe",
+  "title": "查询参数经 17 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/reportverify/web/SessionController.java",
     "line": 11,
@@ -11,294 +11,322 @@
   "source": {
     "file": "web/src/main/java/com/habench/reportverify/web/SessionController.java",
     "line": 13,
-    "expr": "tag",
-    "note": "SOURCE: Servlet 请求头"
+    "expr": "resource",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/reportverify/service/SessionEvaluator.java",
-    "line": 14,
+    "line": 17,
     "expr": "template",
-    "note": "SINK: CWE-917 SpEL 表达式注入"
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/reportverify/service/AccountScreen.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 单次剥离 T(（无效）"
+    "file": "service/src/main/java/com/habench/reportverify/service/SessionEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
   },
-  "sanitizer_kind": "spel_strip_type_ref",
+  "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
       "file": "web/src/main/java/com/habench/reportverify/web/SessionController.java",
       "line": 13,
-      "expr": "tag",
-      "note": "SOURCE: Servlet 请求头"
+      "expr": "resource",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 20,
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 16,
       "expr": "shipmentCode1",
-      "note": "取出集合元素"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 21,
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 17,
       "expr": "manifestKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 22,
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 18,
       "expr": "manifestKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 27,
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 23,
       "expr": "invoiceKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 30,
-      "expr": "invoiceKey3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 31,
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 24,
       "expr": "batchTag4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 34,
-      "expr": "batchTag4",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 35,
-      "expr": "orderRef5",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 36,
-      "expr": "orderRef5",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 41,
-      "expr": "quoteRef6",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 42,
-      "expr": "tariffRef7",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 43,
-      "expr": "tariffRef7",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 48,
-      "expr": "ledgerEntry8",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 49,
-      "expr": "channelTag9",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 50,
-      "expr": "catalogKey10",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 51,
-      "expr": "catalogKey10",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 56,
-      "expr": "receiptKey11",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 59,
-      "expr": "receiptKey11",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 60,
-      "expr": "accountRef12",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/ContractService.java",
-      "line": 61,
-      "expr": "accountRef12",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/BatchBroker.java",
-      "line": 8,
-      "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/BatchBroker.java",
-      "line": 9,
-      "expr": "accountRef102",
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 27,
+      "expr": "batchTag4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 28,
+      "expr": "orderRef5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 29,
+      "expr": "orderRef5",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 34,
+      "expr": "quoteRef6",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 35,
+      "expr": "tariffRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/BatchBroker.java",
-      "line": 10,
-      "expr": "accountRef102",
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 36,
+      "expr": "tariffRef7",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 41,
+      "expr": "ledgerEntry8",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 42,
+      "expr": "channelTag9",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 43,
+      "expr": "channelTag9",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 48,
+      "expr": "catalogKey10",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 49,
+      "expr": "receiptKey11",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 50,
+      "expr": "accountRef12",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportverify/web/BatchRegistry.java",
+      "line": 51,
+      "expr": "accountRef12",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/ChannelPlanSelector.java",
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 17,
+      "expr": "receiptKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 18,
+      "expr": "receiptKey101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 23,
+      "expr": "accountRef102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 24,
+      "expr": "voucherRef103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 25,
+      "expr": "voucherRef103",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 30,
+      "expr": "paymentTag104",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 31,
+      "expr": "refundCode105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 32,
+      "expr": "refundCode105",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 37,
+      "expr": "shipmentCode106",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 38,
+      "expr": "manifestKey107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 39,
+      "expr": "manifestKey107",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 44,
+      "expr": "invoiceKey108",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 47,
+      "expr": "invoiceKey108",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 48,
+      "expr": "batchTag109",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/BundleBroker.java",
+      "line": 49,
+      "expr": "batchTag109",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/QuotePlanSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/ChannelPlanStandard.java",
+      "file": "service/src/main/java/com/habench/reportverify/service/QuotePlanStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/BundleBroker.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportverify/web/BundleBroker.java",
-      "line": 13,
+      "file": "service/src/main/java/com/habench/reportverify/service/AccountFacade.java",
+      "line": 8,
       "expr": "quoteRef201",
-      "note": "取出集合元素"
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportverify/web/BundleBroker.java",
-      "line": 14,
-      "expr": "quoteRef201",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportverify/service/QuoteBuilder.java",
-      "line": 10,
-      "expr": "shipmentCode301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportverify/service/QuoteBuilder.java",
-      "line": 13,
-      "expr": "shipmentCode301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportverify/service/QuoteBuilder.java",
-      "line": 14,
-      "expr": "manifestKey302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportverify/service/QuoteBuilder.java",
-      "line": 15,
-      "expr": "manifestKey302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportverify/service/AccountScreen.java",
+      "file": "service/src/main/java/com/habench/reportverify/service/AccountFacade.java",
       "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 单次剥离 T(（无效）"
+      "expr": "quoteRef201",
+      "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/reportverify/service/SessionEvaluator.java",
-      "line": 10,
+      "line": 12,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
       "file": "service/src/main/java/com/habench/reportverify/service/SessionEvaluator.java",
-      "line": 14,
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportverify/service/SessionEvaluator.java",
+      "line": 17,
       "expr": "template",
-      "note": "SINK: CWE-917 SpEL 表达式注入"
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 37,
-    "files_crossed": 9,
+    "call_depth": 17,
+    "chain_len": 41,
+    "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_request_param",
       "sink:spel_eval",
-      "prop:map_element",
+      "prop:string_concat",
       "prop:string_concat",
       "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:cross_class",
       "prop:string_concat",
-      "prop:assign_local",
-      "prop:interface_dispatch",
       "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
       "prop:cross_module",
-      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
       "prop:map_element",
-      "sanitizer:spel_strip_type_ref"
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:spel_restricted_context"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/report/verify",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "param": "resource",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
-    "neutralized": false,
-    "call_depth_observed": 14,
-    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
-    "http_status": 200,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 17,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
+    "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

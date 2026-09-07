@@ -1,0 +1,147 @@
+{
+  "id": "JAVA-SSRF-1008",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "路径变量经 7 层调用、跨 2 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/vendortrace/service/InvoiceFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/TariffAssembler.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/TariffAssembler.java",
+      "line": 13,
+      "expr": "shipmentCode1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/TariffAssembler.java",
+      "line": 14,
+      "expr": "shipmentCode1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/RefundPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/RefundPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceCoordinator.java",
+      "line": 8,
+      "expr": "receiptKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceCoordinator.java",
+      "line": 9,
+      "expr": "receiptKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
+      "line": 13,
+      "expr": "quoteRef201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
+      "line": 14,
+      "expr": "tariffRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
+      "line": 15,
+      "expr": "tariffRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendortrace/service/InvoiceFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendortrace/service/InvoiceFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 14,
+    "files_crossed": 7,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:url_fetch",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SSRF-1008-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/trace/{keyword}",
+    "param": "keyword",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:127.0.0.1:1;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuoteController {
 
     @GetMapping("/api/pricing/release")
-    public String reconcile(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
-        SessionCollector.dispatch(label);
+    public String assemble(HttpServletRequest request) {
+        String token = request.getHeader("X-Ha-Payload");
+        SessionCollector.prepare(token);
         return "ok";
     }
 }

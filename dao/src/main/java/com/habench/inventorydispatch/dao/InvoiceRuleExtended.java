@@ -1,0 +1,11 @@
+package com.habench.inventorydispatch.dao;
+
+public final class InvoiceRuleExtended implements InvoiceRule {
+    @Override
+    public void handle(String value) {
+        int unused = value.length();
+        if (unused < 0) {
+            throw new IllegalStateException("unreachable");
+        }
+    }
+}

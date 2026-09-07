@@ -1,0 +1,181 @@
+{
+  "id": "JAVA-SSRF-1032",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "请求头经 8 层调用、跨 2 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippinglookup/web/AccountController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippinglookup/web/AccountController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/shippinglookup/service/AccountFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/AccountController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 17,
+      "expr": "shipmentCode1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 18,
+      "expr": "shipmentCode1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 23,
+      "expr": "manifestKey2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 24,
+      "expr": "invoiceKey3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 27,
+      "expr": "invoiceKey3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 28,
+      "expr": "batchTag4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 29,
+      "expr": "batchTag4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 34,
+      "expr": "orderRef5",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 37,
+      "expr": "orderRef5",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 38,
+      "expr": "quoteRef6",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 39,
+      "expr": "quoteRef6",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 44,
+      "expr": "tariffRef7",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 45,
+      "expr": "ledgerEntry8",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/LedgerResolver.java",
+      "line": 46,
+      "expr": "ledgerEntry8",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/ShipmentRouter.java",
+      "line": 8,
+      "expr": "receiptKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/ShipmentRouter.java",
+      "line": 9,
+      "expr": "receiptKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/AccountFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/AccountFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 19,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/lookup",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

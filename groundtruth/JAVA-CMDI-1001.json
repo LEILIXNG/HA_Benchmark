@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1001",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 18 层调用、跨 3 个模块流入命令执行",
+  "title": "查询参数经 8 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentController.java",
     "line": 13,
-    "expr": "userName",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "label",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingreconcile/dao/PaymentExecutor.java",
+    "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,336 +26,148 @@
     {
       "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentController.java",
       "line": 13,
-      "expr": "userName",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "label",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/habench/billingreconcile/web/OrderResolver.java",
+      "line": 8,
       "expr": "invoiceKey1",
-      "note": "局部变量传递"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 16,
-      "expr": "invoiceKey1",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/habench/billingreconcile/web/OrderResolver.java",
+      "line": 9,
       "expr": "batchTag2",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 22,
-      "expr": "orderRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 23,
-      "expr": "quoteRef4",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 24,
-      "expr": "quoteRef4",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 29,
-      "expr": "tariffRef5",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 30,
-      "expr": "ledgerEntry6",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 31,
-      "expr": "ledgerEntry6",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 36,
-      "expr": "channelTag7",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 37,
-      "expr": "catalogKey8",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ChannelCoordinator.java",
-      "line": 38,
-      "expr": "catalogKey8",
+      "file": "web/src/main/java/com/habench/billingreconcile/web/OrderResolver.java",
+      "line": 10,
+      "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 20,
-      "expr": "voucherRef101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 21,
-      "expr": "paymentTag102",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 22,
-      "expr": "paymentTag102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 27,
-      "expr": "refundCode103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 28,
-      "expr": "shipmentCode104",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 29,
-      "expr": "shipmentCode104",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 34,
-      "expr": "manifestKey105",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 35,
-      "expr": "invoiceKey106",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 36,
-      "expr": "batchTag107",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/ReceiptRegistry.java",
-      "line": 37,
-      "expr": "batchTag107",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 11,
-      "expr": "ledgerEntry201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 14,
-      "expr": "ledgerEntry201",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 15,
-      "expr": "channelTag202",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 16,
-      "expr": "channelTag202",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 21,
-      "expr": "catalogKey203",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 24,
-      "expr": "catalogKey203",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 25,
-      "expr": "receiptKey204",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 28,
-      "expr": "receiptKey204",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 29,
-      "expr": "accountRef205",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingreconcile/service/CatalogCoordinator.java",
-      "line": 30,
-      "expr": "accountRef205",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/InvoiceRouter.java",
-      "line": 11,
-      "expr": "invoiceKey301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/InvoiceRouter.java",
-      "line": 12,
-      "expr": "invoiceKey301",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/InvoiceRouter.java",
-      "line": 17,
-      "expr": "batchTag302",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/InvoiceRouter.java",
-      "line": 20,
-      "expr": "batchTag302",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/InvoiceRouter.java",
-      "line": 21,
-      "expr": "orderRef303",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/InvoiceRouter.java",
-      "line": 22,
-      "expr": "orderRef303",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/SessionPlanSelector.java",
+      "file": "web/src/main/java/com/habench/billingreconcile/web/RefundStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/SessionPlanStandard.java",
+      "file": "web/src/main/java/com/habench/billingreconcile/web/RefundStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/QuoteTranslator.java",
-      "line": 8,
-      "expr": "voucherRef401",
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 14,
+      "expr": "voucherRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 15,
+      "expr": "voucherRef101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 20,
+      "expr": "paymentTag102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 23,
+      "expr": "paymentTag102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 24,
+      "expr": "refundCode103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 25,
+      "expr": "refundCode103",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 30,
+      "expr": "shipmentCode104",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 31,
+      "expr": "manifestKey105",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/QuoteTranslator.java",
-      "line": 9,
-      "expr": "voucherRef401",
+      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
+      "line": 32,
+      "expr": "manifestKey105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/PaymentExecutor.java",
+      "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingreconcile/dao/PaymentExecutor.java",
+      "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 18,
-    "chain_len": 46,
-    "files_crossed": 9,
-    "modules_crossed": 3,
+    "call_depth": 8,
+    "chain_len": 18,
+    "files_crossed": 6,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_path_variable",
+      "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
       "prop:string_concat",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:store_field",
       "prop:assign_local",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
       "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
       "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-CMDI-1001-N",
   "http": {
     "method": "GET",
-    "path": "/api/billing/reconcile/{userName}",
-    "param": "userName",
-    "carrier": "path"
+    "path": "/api/billing/reconcile",
+    "param": "label",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 18,
+    "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:zz$(id);;",
+    "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

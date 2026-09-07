@@ -1,6 +1,6 @@
 package com.habench.inventoryimport.web;
 
-import com.habench.inventoryimport.web.PaymentTranslator;
+import com.habench.inventoryimport.web.RefundFacade;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RefundController {
 
     @GetMapping("/api/inventory/import")
-    public String stage(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
-        PaymentTranslator.merge(query);
+    public String merge(HttpServletRequest request) {
+        String filename = request.getHeader("X-Ha-Payload");
+        RefundFacade.refine(filename);
         return "ok";
     }
 }

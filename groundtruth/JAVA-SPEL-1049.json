@@ -2,248 +2,157 @@
   "id": "JAVA-SPEL-1049",
   "cwe": "CWE-917",
   "verdict": "vulnerable",
-  "title": "路径变量经 14 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "title": "查询参数经 8 层调用、跨 1 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingdraft/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/shippingexport/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingdraft/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/shippingexport/web/ChannelController.java",
     "line": 13,
-    "expr": "reference",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "token",
+    "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingdraft/dao/ChannelEvaluator.java",
+    "file": "web/src/main/java/com/habench/shippingexport/web/ChannelEvaluator.java",
     "line": 14,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/shippingexport/web/BundlePolicy.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 单次剥离 T(（无效）"
+  },
+  "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingdraft/web/ChannelController.java",
+      "file": "web/src/main/java/com/habench/shippingexport/web/ChannelController.java",
       "line": 13,
-      "expr": "reference",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "token",
+      "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingdraft/web/SessionResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
+      "line": 10,
       "expr": "ledgerEntry1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingdraft/web/SessionResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
+      "line": 13,
       "expr": "ledgerEntry1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
+      "line": 14,
+      "expr": "channelTag2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
+      "line": 15,
+      "expr": "channelTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/ReceiptTranslator.java",
+      "file": "web/src/main/java/com/habench/shippingexport/web/ManifestComposer.java",
       "line": 8,
       "expr": "invoiceKey101",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/ReceiptTranslator.java",
+      "file": "web/src/main/java/com/habench/shippingexport/web/ManifestComposer.java",
       "line": 9,
       "expr": "invoiceKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/LedgerStrategySelector.java",
+      "file": "web/src/main/java/com/habench/shippingexport/web/QuoteStrategySelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/LedgerStrategyStandard.java",
+      "file": "web/src/main/java/com/habench/shippingexport/web/QuoteStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 15,
-      "expr": "voucherRef201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 16,
-      "expr": "voucherRef201",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 21,
-      "expr": "paymentTag202",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 22,
-      "expr": "refundCode203",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 23,
-      "expr": "refundCode203",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 28,
-      "expr": "shipmentCode204",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 29,
-      "expr": "manifestKey205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 30,
-      "expr": "invoiceKey206",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 31,
-      "expr": "invoiceKey206",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 36,
-      "expr": "batchTag207",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 37,
-      "expr": "orderRef208",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 38,
-      "expr": "quoteRef209",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingdraft/service/TariffBroker.java",
-      "line": 39,
-      "expr": "quoteRef209",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/BundleAdapter.java",
-      "line": 18,
+      "file": "web/src/main/java/com/habench/shippingexport/web/PaymentResolver.java",
+      "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/BundleAdapter.java",
-      "line": 19,
-      "expr": "ledgerEntry301",
+      "file": "web/src/main/java/com/habench/shippingexport/web/PaymentResolver.java",
+      "line": 13,
+      "expr": "voucherRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/BundleAdapter.java",
-      "line": 20,
-      "expr": "ledgerEntry301",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/BundleAdapter.java",
-      "line": 25,
-      "expr": "channelTag302",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/BundleAdapter.java",
-      "line": 26,
-      "expr": "catalogKey303",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/BundleAdapter.java",
-      "line": 27,
-      "expr": "receiptKey304",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/BundleAdapter.java",
-      "line": 28,
-      "expr": "receiptKey304",
+      "file": "web/src/main/java/com/habench/shippingexport/web/PaymentResolver.java",
+      "line": 14,
+      "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/ChannelEvaluator.java",
+      "file": "web/src/main/java/com/habench/shippingexport/web/BundlePolicy.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 单次剥离 T(（无效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingexport/web/ChannelEvaluator.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingdraft/dao/ChannelEvaluator.java",
+      "file": "web/src/main/java/com/habench/shippingexport/web/ChannelEvaluator.java",
       "line": 14,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 29,
+    "call_depth": 8,
+    "chain_len": 15,
     "files_crossed": 8,
-    "modules_crossed": 3,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_path_variable",
+      "source:spring_request_param",
       "sink:spel_eval",
       "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_module",
       "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:string_concat",
-      "sanitizer:none"
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "sanitizer:spel_strip_type_ref"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/pricing/draft/{reference}",
-    "param": "reference",
-    "carrier": "path"
+    "path": "/api/shipping/export",
+    "param": "token",
+    "carrier": "query"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 14,
-    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;'",
+    "call_depth_observed": 8,
+    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

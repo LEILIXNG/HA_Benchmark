@@ -1,6 +1,6 @@
 package com.habench.pricingreconcile.web;
 
-import com.habench.pricingreconcile.web.ContractEnricher;
+import com.habench.pricingreconcile.web.AccountNormalizer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class VoucherController {
 
     @GetMapping("/api/pricing/reconcile")
-    public String enrich(
-            @RequestParam("userName") String userName) {
-        ContractEnricher.dispatch(userName);
+    public String publish(
+            @RequestParam("filename") String filename) {
+        AccountNormalizer.attach(filename);
         return "ok";
     }
 }

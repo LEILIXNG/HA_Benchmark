@@ -11,7 +11,10 @@ public final class InvoiceRegistry {
         invoiceKey201Attrs.put("channel", "web");
         invoiceKey201Attrs.put("payload", value);
         String invoiceKey201 = invoiceKey201Attrs.get("payload");
-        String batchTag202 = invoiceKey201;
+        Map<String, String> batchTag202Attrs = new HashMap<String, String>();
+        batchTag202Attrs.put("channel", "web");
+        batchTag202Attrs.put("payload", invoiceKey201);
+        String batchTag202 = batchTag202Attrs.get("payload");
         RefundExecutor.compose(batchTag202);
     }
 }

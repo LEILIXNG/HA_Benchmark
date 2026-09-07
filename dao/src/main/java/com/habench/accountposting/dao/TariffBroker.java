@@ -1,26 +1,32 @@
 package com.habench.accountposting.dao;
 
 import com.habench.accountposting.dao.TariffExecutor;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class TariffBroker {
-    private static String cachedTariff;
+    private String pendingTariff;
 
-    public static void expand(String value) {
-        Map<String, String> refundCode401Attrs = new HashMap<String, String>();
-        refundCode401Attrs.put("channel", "web");
-        refundCode401Attrs.put("payload", value);
-        String refundCode401 = refundCode401Attrs.get("payload");
-        String shipmentCode402 = refundCode401;
-        cachedTariff = shipmentCode402;
+    public static void submit(String value) {
+        TariffBroker self = new TariffBroker();
+        self.expand(value);
+    }
+
+    private void expand(String value) {
+        String catalogKey201 = value;
+        this.pendingTariff = catalogKey201;
         stage();
     }
 
-    private static void stage() {
-        String manifestKey403 = cachedTariff;
-        String invoiceKey404 = manifestKey403;
-        String batchTag405 = "ref:" + invoiceKey404 + ";";
-        TariffExecutor.refine(batchTag405);
+    private void stage() {
+        String receiptKey202 = this.pendingTariff;
+        String accountRef203 = receiptKey202;
+        String voucherRef204 = accountRef203;
+        this.pendingTariff = voucherRef204;
+        refine();
+    }
+
+    private void refine() {
+        String paymentTag205 = this.pendingTariff;
+        String refundCode206 = paymentTag205;
+        TariffExecutor.refine(refundCode206);
     }
 }

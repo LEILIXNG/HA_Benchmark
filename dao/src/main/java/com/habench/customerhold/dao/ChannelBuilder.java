@@ -1,24 +1,24 @@
 package com.habench.customerhold.dao;
 
 import com.habench.customerhold.dao.QuoteLoader;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class ChannelBuilder {
-    private String pendingQuote;
+    private static String cachedQuote;
 
-    public static void normalize(String value) {
-        ChannelBuilder self = new ChannelBuilder();
-        self.enrich(value);
-    }
-
-    private void enrich(String value) {
+    public static void enrich(String value) {
         String channelTag301 = "ref:" + value + ";";
-        this.pendingQuote = channelTag301;
+        cachedQuote = channelTag301;
         register();
     }
 
-    private void register() {
-        String catalogKey302 = this.pendingQuote;
-        String receiptKey303 = catalogKey302;
+    private static void register() {
+        String catalogKey302 = cachedQuote;
+        Map<String, String> receiptKey303Attrs = new HashMap<String, String>();
+        receiptKey303Attrs.put("channel", "web");
+        receiptKey303Attrs.put("payload", catalogKey302);
+        String receiptKey303 = receiptKey303Attrs.get("payload");
         QuoteLoader.route(receiptKey303);
     }
 }

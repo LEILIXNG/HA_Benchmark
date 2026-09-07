@@ -1,0 +1,328 @@
+{
+  "id": "JAVA-SSRF-1001",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "请求头经 17 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorbatch/web/LedgerController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorbatch/web/LedgerController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/vendorbatch/dao/LedgerFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/LedgerController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 19,
+      "expr": "paymentTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 20,
+      "expr": "paymentTag1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 25,
+      "expr": "refundCode2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 26,
+      "expr": "shipmentCode3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 27,
+      "expr": "manifestKey4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 28,
+      "expr": "manifestKey4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 33,
+      "expr": "invoiceKey5",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 34,
+      "expr": "batchTag6",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 35,
+      "expr": "orderRef7",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 36,
+      "expr": "orderRef7",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 41,
+      "expr": "quoteRef8",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 42,
+      "expr": "tariffRef9",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 43,
+      "expr": "ledgerEntry10",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorbatch/web/SessionRegistry.java",
+      "line": 44,
+      "expr": "ledgerEntry10",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 19,
+      "expr": "channelTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 20,
+      "expr": "channelTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 25,
+      "expr": "catalogKey102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 26,
+      "expr": "receiptKey103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 27,
+      "expr": "receiptKey103",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 32,
+      "expr": "accountRef104",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 35,
+      "expr": "accountRef104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 36,
+      "expr": "voucherRef105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 37,
+      "expr": "paymentTag106",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/PaymentService.java",
+      "line": 38,
+      "expr": "paymentTag106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ChannelRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ChannelRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ReceiptFacade.java",
+      "line": 14,
+      "expr": "batchTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ReceiptFacade.java",
+      "line": 15,
+      "expr": "batchTag201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ReceiptFacade.java",
+      "line": 20,
+      "expr": "orderRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ReceiptFacade.java",
+      "line": 21,
+      "expr": "quoteRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ReceiptFacade.java",
+      "line": 22,
+      "expr": "tariffRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorbatch/service/ReceiptFacade.java",
+      "line": 23,
+      "expr": "tariffRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbatch/dao/BundleAssembler.java",
+      "line": 10,
+      "expr": "paymentTag301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbatch/dao/BundleAssembler.java",
+      "line": 13,
+      "expr": "paymentTag301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbatch/dao/BundleAssembler.java",
+      "line": 14,
+      "expr": "refundCode302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbatch/dao/BundleAssembler.java",
+      "line": 15,
+      "expr": "refundCode302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbatch/dao/LedgerFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorbatch/dao/LedgerFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 17,
+    "chain_len": 41,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/batch",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 17,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

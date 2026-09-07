@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1027",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 17 层调用、跨 3 个模块流入命令执行",
+  "title": "查询参数经 9 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/pricingreconcile/web/VoucherController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/pricingreconcile/web/VoucherController.java",
     "line": 13,
-    "expr": "userName",
+    "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingreconcile/dao/VoucherExecutor.java",
+    "file": "service/src/main/java/com/habench/pricingreconcile/service/VoucherExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,301 +26,138 @@
     {
       "file": "web/src/main/java/com/habench/pricingreconcile/web/VoucherController.java",
       "line": 13,
-      "expr": "userName",
+      "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 20,
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/AccountNormalizer.java",
+      "line": 8,
       "expr": "ledgerEntry1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 21,
-      "expr": "channelTag2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 22,
-      "expr": "channelTag2",
-      "note": "写入实例字段"
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/AccountNormalizer.java",
+      "line": 9,
+      "expr": "ledgerEntry1",
+      "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 27,
-      "expr": "catalogKey3",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 30,
-      "expr": "catalogKey3",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 31,
-      "expr": "receiptKey4",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 34,
-      "expr": "receiptKey4",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 35,
-      "expr": "accountRef5",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 36,
-      "expr": "accountRef5",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 41,
-      "expr": "voucherRef6",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 42,
-      "expr": "paymentTag7",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/QuoteNormalizer.java",
+      "line": 9,
+      "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 43,
-      "expr": "refundCode8",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/QuoteNormalizer.java",
+      "line": 10,
+      "expr": "batchTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 44,
-      "expr": "refundCode8",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/QuoteNormalizer.java",
+      "line": 11,
+      "expr": "batchTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 49,
-      "expr": "shipmentCode9",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/QuoteNormalizer.java",
+      "line": 16,
+      "expr": "orderRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 52,
-      "expr": "shipmentCode9",
-      "note": "存入集合元素"
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/QuoteNormalizer.java",
+      "line": 17,
+      "expr": "quoteRef104",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 53,
-      "expr": "manifestKey10",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricingreconcile/web/ContractEnricher.java",
-      "line": 54,
-      "expr": "manifestKey10",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/QuoteNormalizer.java",
+      "line": 18,
+      "expr": "quoteRef104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreconcile/service/PaymentCoordinator.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/AccountPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/AccountPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/BatchAssembler.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreconcile/service/PaymentCoordinator.java",
-      "line": 13,
-      "expr": "invoiceKey101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingreconcile/service/PaymentCoordinator.java",
-      "line": 14,
-      "expr": "invoiceKey101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ChannelEnricher.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ChannelEnricher.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/BatchAssembler.java",
       "line": 13,
       "expr": "voucherRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ChannelEnricher.java",
+      "file": "web/src/main/java/com/habench/pricingreconcile/web/BatchAssembler.java",
       "line": 14,
-      "expr": "paymentTag202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ChannelEnricher.java",
-      "line": 15,
-      "expr": "paymentTag202",
+      "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ShipmentPlan2Selector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ShipmentPlan2Standard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/AccountRegistry.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/AccountRegistry.java",
-      "line": 13,
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/RefundCollector.java",
+      "line": 8,
       "expr": "ledgerEntry301",
-      "note": "取出集合元素"
+      "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/AccountRegistry.java",
-      "line": 14,
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/RefundCollector.java",
+      "line": 9,
       "expr": "ledgerEntry301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ShipmentPlanSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/ShipmentPlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 16,
-      "expr": "invoiceKey401",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 17,
-      "expr": "batchTag402",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 18,
-      "expr": "batchTag402",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 23,
-      "expr": "orderRef403",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 24,
-      "expr": "quoteRef404",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 27,
-      "expr": "quoteRef404",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 28,
-      "expr": "tariffRef405",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/RefundCollector.java",
-      "line": 29,
-      "expr": "tariffRef405",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/VoucherExecutor.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/VoucherExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreconcile/dao/VoucherExecutor.java",
+      "file": "service/src/main/java/com/habench/pricingreconcile/service/VoucherExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 17,
-    "chain_len": 43,
-    "files_crossed": 11,
-    "modules_crossed": 3,
+    "call_depth": 9,
+    "chain_len": 18,
+    "files_crossed": 8,
+    "modules_crossed": 2,
     "features": [
       "source:spring_request_param",
       "sink:runtime_exec",
-      "prop:map_element",
       "prop:string_concat",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
+      "prop:cross_class",
       "prop:assign_local",
       "prop:assign_local",
       "prop:static_field",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:map_element",
-      "prop:string_concat",
+      "prop:assign_local",
       "prop:interface_dispatch",
       "prop:map_element",
-      "prop:interface_dispatch",
+      "prop:cross_module",
       "prop:assign_local",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-CMDI-1027-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/pricing/reconcile",
-    "param": "userName",
+    "param": "filename",
     "carrier": "query"
   },
   "verification": {
@@ -328,11 +165,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 17,
+    "call_depth_observed": 9,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:zz$(id);;",
+    "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

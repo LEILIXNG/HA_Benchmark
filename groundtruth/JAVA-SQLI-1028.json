@@ -2,7 +2,7 @@
   "id": "JAVA-SQLI-1028",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "请求头经 19 层调用、跨 3 个模块流入JDBC 拼接",
+  "title": "请求头经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
     "line": 13,
-    "expr": "tag",
+    "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilapprove/dao/LedgerRepository.java",
+    "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -26,295 +26,86 @@
     {
       "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
       "line": 13,
-      "expr": "tag",
+      "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/OrderTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
+      "line": 10,
       "expr": "receiptKey1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/OrderTranslator.java",
-      "line": 9,
-      "expr": "accountRef2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/OrderTranslator.java",
-      "line": 10,
-      "expr": "accountRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/SessionPolicySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（3 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/SessionPolicyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteBroker.java",
-      "line": 9,
-      "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteBroker.java",
-      "line": 10,
-      "expr": "quoteRef101",
-      "note": "写入静态字段"
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
+      "line": 13,
+      "expr": "receiptKey1",
+      "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteBroker.java",
-      "line": 15,
-      "expr": "tariffRef102",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteBroker.java",
-      "line": 16,
-      "expr": "ledgerEntry103",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteBroker.java",
-      "line": 17,
-      "expr": "ledgerEntry103",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
-      "line": 11,
-      "expr": "shipmentCode201",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 14,
-      "expr": "shipmentCode201",
-      "note": "存入集合元素"
+      "expr": "accountRef2",
+      "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
       "line": 15,
-      "expr": "manifestKey202",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
-      "line": 16,
-      "expr": "manifestKey202",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
-      "line": 21,
-      "expr": "invoiceKey203",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
-      "line": 22,
-      "expr": "batchTag204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
-      "line": 23,
-      "expr": "orderRef205",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/QuoteService.java",
-      "line": 24,
-      "expr": "orderRef205",
+      "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/CatalogRegistry.java",
-      "line": 8,
-      "expr": "receiptKey301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/CatalogRegistry.java",
-      "line": 9,
-      "expr": "accountRef302",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/CatalogRegistry.java",
-      "line": 10,
-      "expr": "accountRef302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/ChannelPlanSelector.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/InvoicePolicySelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/ChannelPlanStandard.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/InvoicePolicyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 16,
-      "expr": "quoteRef401",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 17,
-      "expr": "tariffRef402",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 18,
-      "expr": "tariffRef402",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 23,
-      "expr": "ledgerEntry403",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 26,
-      "expr": "ledgerEntry403",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 27,
-      "expr": "channelTag404",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 28,
-      "expr": "catalogKey405",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceCoordinator.java",
-      "line": 29,
-      "expr": "catalogKey405",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/ShipmentStrategySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/ShipmentStrategyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceResolver.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ReceiptFacade.java",
       "line": 8,
-      "expr": "shipmentCode501",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceResolver.java",
-      "line": 9,
-      "expr": "manifestKey502",
+      "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilapprove/service/InvoiceResolver.java",
-      "line": 10,
-      "expr": "manifestKey502",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfilapprove/dao/ReceiptFacade.java",
-      "line": 8,
-      "expr": "receiptKey601",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfilapprove/dao/ReceiptFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/ReceiptFacade.java",
       "line": 9,
-      "expr": "accountRef602",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfilapprove/dao/ReceiptFacade.java",
-      "line": 10,
-      "expr": "accountRef602",
+      "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilapprove/dao/LedgerRepository.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilapprove/dao/LedgerRepository.java",
+      "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 19,
-    "chain_len": 42,
-    "files_crossed": 15,
-    "modules_crossed": 3,
+    "call_depth": 6,
+    "chain_len": 11,
+    "files_crossed": 6,
+    "modules_crossed": 1,
     "features": [
       "source:servlet_header",
       "sink:jdbc_concat",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:cross_class",
       "prop:string_concat",
       "prop:map_element",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:assign_local",
       "prop:interface_dispatch",
       "prop:string_concat",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1028-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/fulfil/approve",
@@ -326,11 +117,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 19,
+    "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

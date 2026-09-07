@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SPEL-1047",
   "cwe": "CWE-917",
-  "verdict": "safe",
-  "title": "路径变量经 16 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
+  "verdict": "vulnerable",
+  "title": "路径变量经 9 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
     "file": "web/src/main/java/com/habench/fulfilsubmit/web/ReceiptController.java",
     "line": 11,
@@ -11,301 +11,199 @@
   "source": {
     "file": "web/src/main/java/com/habench/fulfilsubmit/web/ReceiptController.java",
     "line": 13,
-    "expr": "userName",
+    "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/fulfilsubmit/service/ReceiptEvaluator.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ReceiptEvaluator.java",
+    "line": 14,
     "expr": "template",
-    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/fulfilsubmit/service/ReceiptEvaluator.java",
-    "line": 15,
-    "expr": "context",
-    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
-  },
-  "sanitizer_kind": "spel_restricted_context",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/fulfilsubmit/web/ReceiptController.java",
       "line": 13,
-      "expr": "userName",
+      "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 19,
+      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 9,
       "expr": "invoiceKey1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 22,
-      "expr": "invoiceKey1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 23,
-      "expr": "batchTag2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 24,
-      "expr": "batchTag2",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 29,
-      "expr": "orderRef3",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 30,
-      "expr": "quoteRef4",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/VoucherRegistry.java",
-      "line": 31,
-      "expr": "quoteRef4",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 17,
-      "expr": "voucherRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 18,
-      "expr": "voucherRef101",
+      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 10,
+      "expr": "invoiceKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 23,
-      "expr": "paymentTag102",
+      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 15,
+      "expr": "batchTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 24,
-      "expr": "refundCode103",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 25,
-      "expr": "refundCode103",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 30,
-      "expr": "shipmentCode104",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 33,
-      "expr": "shipmentCode104",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 34,
-      "expr": "manifestKey105",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 35,
-      "expr": "manifestKey105",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 40,
-      "expr": "invoiceKey106",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 41,
-      "expr": "batchTag107",
+      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 16,
+      "expr": "orderRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 42,
-      "expr": "orderRef108",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentFacade.java",
-      "line": 43,
-      "expr": "orderRef108",
+      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 17,
+      "expr": "orderRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundlePolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundleComposer.java",
+      "line": 12,
       "expr": "value",
-      "note": "接口多态派发（3 个实现）"
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundlePolicyStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
+      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundleComposer.java",
+      "line": 13,
+      "expr": "voucherRef101",
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 16,
-      "expr": "ledgerEntry201",
-      "note": "局部变量传递"
+      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundleComposer.java",
+      "line": 14,
+      "expr": "voucherRef101",
+      "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
       "line": 17,
       "expr": "ledgerEntry201",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 22,
-      "expr": "channelTag202",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 23,
-      "expr": "catalogKey203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 24,
-      "expr": "receiptKey204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 25,
-      "expr": "receiptKey204",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 30,
-      "expr": "accountRef205",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 31,
-      "expr": "voucherRef206",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 34,
-      "expr": "voucherRef206",
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 20,
+      "expr": "ledgerEntry201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
-      "line": 35,
-      "expr": "paymentTag207",
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 21,
+      "expr": "channelTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ShipmentCoordinator.java",
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 22,
+      "expr": "channelTag202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 27,
+      "expr": "catalogKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 28,
+      "expr": "receiptKey204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 29,
+      "expr": "accountRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 30,
+      "expr": "accountRef205",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 35,
+      "expr": "voucherRef206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
       "line": 36,
       "expr": "paymentTag207",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 37,
+      "expr": "refundCode208",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 38,
+      "expr": "refundCode208",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ReceiptEvaluator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ReceiptEvaluator.java",
+      "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ReceiptEvaluator.java",
-      "line": 15,
-      "expr": "context",
-      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/ReceiptEvaluator.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ReceiptEvaluator.java",
+      "line": 14,
       "expr": "template",
-      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+      "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
   "metrics": {
-    "call_depth": 16,
-    "chain_len": 38,
-    "files_crossed": 7,
-    "modules_crossed": 2,
+    "call_depth": 9,
+    "chain_len": 23,
+    "files_crossed": 5,
+    "modules_crossed": 3,
     "features": [
       "source:spring_path_variable",
       "sink:spel_eval",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:cross_module",
       "prop:assign_local",
       "prop:static_field",
-      "prop:assign_local",
-      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
       "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
+      "prop:cross_module",
       "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
       "prop:map_element",
-      "sanitizer:spel_restricted_context"
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SPEL-1047-N",
   "http": {
     "method": "GET",
-    "path": "/api/fulfil/submit/{userName}",
-    "param": "userName",
+    "path": "/api/fulfil/submit/{label}",
+    "param": "label",
     "carrier": "path"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
-    "neutralized": true,
-    "call_depth_observed": 16,
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
-    "http_status": 500,
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
+    "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

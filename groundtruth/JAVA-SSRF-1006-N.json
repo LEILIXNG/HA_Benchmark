@@ -1,0 +1,259 @@
+{
+  "id": "JAVA-SSRF-1006-N",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "与 JAVA-SSRF-1006 逐行相同，仅把净化改为 ssrf_host_allowlist",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventorybatch/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventorybatch/web/InvoiceController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/inventorybatch/dao/InvoiceFetcher.java",
+    "line": 23,
+    "expr": "endpoint",
+    "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/inventorybatch/dao/InvoiceFetcher.java",
+    "line": 19,
+    "expr": "endpoint",
+    "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+  },
+  "sanitizer_kind": "ssrf_host_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventorybatch/web/InvoiceController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybatch/web/BundleCoordinator.java",
+      "line": 8,
+      "expr": "manifestKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybatch/web/BundleCoordinator.java",
+      "line": 9,
+      "expr": "invoiceKey2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybatch/web/BundleCoordinator.java",
+      "line": 10,
+      "expr": "invoiceKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/TariffResolver.java",
+      "line": 8,
+      "expr": "accountRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/TariffResolver.java",
+      "line": 9,
+      "expr": "accountRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/TariffRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/TariffRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 17,
+      "expr": "tariffRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 18,
+      "expr": "tariffRef201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 23,
+      "expr": "ledgerEntry202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 26,
+      "expr": "ledgerEntry202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 27,
+      "expr": "channelTag203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 30,
+      "expr": "channelTag203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 31,
+      "expr": "catalogKey204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 32,
+      "expr": "catalogKey204",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 37,
+      "expr": "receiptKey205",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 40,
+      "expr": "receiptKey205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 41,
+      "expr": "accountRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 44,
+      "expr": "accountRef206",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 45,
+      "expr": "voucherRef207",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybatch/service/LedgerTranslator.java",
+      "line": 46,
+      "expr": "voucherRef207",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/PaymentCollector.java",
+      "line": 8,
+      "expr": "manifestKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/PaymentCollector.java",
+      "line": 9,
+      "expr": "manifestKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/LedgerBroker.java",
+      "line": 8,
+      "expr": "accountRef401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/LedgerBroker.java",
+      "line": 9,
+      "expr": "voucherRef402",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/LedgerBroker.java",
+      "line": 10,
+      "expr": "voucherRef402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/InvoiceFetcher.java",
+      "line": 16,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/InvoiceFetcher.java",
+      "line": 19,
+      "expr": "endpoint",
+      "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybatch/dao/InvoiceFetcher.java",
+      "line": 23,
+      "expr": "endpoint",
+      "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 30,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:ssrf_host_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/batch",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

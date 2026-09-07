@@ -1,6 +1,6 @@
 package com.habench.customerdigest.web;
 
-import com.habench.customerdigest.web.CatalogService;
+import com.habench.customerdigest.web.ChannelAssembler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class BatchController {
 
     @GetMapping("/api/customer/digest/{target}")
-    public String route(
+    public String publish(
             @PathVariable("target") String target) {
-        CatalogService.expand(target);
+        ChannelAssembler.normalize(target);
         return "ok";
     }
 }

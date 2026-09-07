@@ -2,7 +2,7 @@
   "id": "JAVA-SPEL-1025",
   "cwe": "CWE-917",
   "verdict": "vulnerable",
-  "title": "查询参数经 13 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
+  "title": "路径变量经 13 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
     "file": "web/src/main/java/com/habench/vendorapprove/web/ChannelController.java",
     "line": 11,
@@ -11,223 +11,206 @@
   "source": {
     "file": "web/src/main/java/com/habench/vendorapprove/web/ChannelController.java",
     "line": 13,
-    "expr": "label",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendorapprove/service/ChannelEvaluator.java",
+    "file": "dao/src/main/java/com/habench/vendorapprove/dao/ChannelEvaluator.java",
     "line": 14,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": {
-    "file": "service/src/main/java/com/habench/vendorapprove/service/InvoicePolicy.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 单次剥离 T(（无效）"
-  },
-  "sanitizer_kind": "spel_strip_type_ref",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/vendorapprove/web/ChannelController.java",
       "line": 13,
-      "expr": "label",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/LedgerTranslator.java",
-      "line": 10,
-      "expr": "receiptKey1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/LedgerTranslator.java",
-      "line": 13,
-      "expr": "receiptKey1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/LedgerTranslator.java",
-      "line": 14,
-      "expr": "accountRef2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/LedgerTranslator.java",
-      "line": 15,
-      "expr": "accountRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 18,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 19,
-      "expr": "quoteRef101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 22,
-      "expr": "quoteRef101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 23,
-      "expr": "tariffRef102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 24,
-      "expr": "tariffRef102",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 29,
-      "expr": "ledgerEntry103",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 30,
-      "expr": "channelTag104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 31,
-      "expr": "channelTag104",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 36,
-      "expr": "catalogKey105",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 37,
-      "expr": "receiptKey106",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/vendorapprove/web/VoucherCollector.java",
-      "line": 38,
-      "expr": "receiptKey106",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractRouter.java",
-      "line": 10,
-      "expr": "shipmentCode201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractRouter.java",
-      "line": 13,
-      "expr": "shipmentCode201",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractRouter.java",
-      "line": 14,
-      "expr": "manifestKey202",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractRouter.java",
-      "line": 15,
-      "expr": "manifestKey202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ShipmentAssembler.java",
-      "line": 8,
-      "expr": "receiptKey301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ShipmentAssembler.java",
-      "line": 9,
-      "expr": "receiptKey301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractBuilder.java",
+      "file": "web/src/main/java/com/habench/vendorapprove/web/CatalogTranslator.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractBuilder.java",
+      "file": "web/src/main/java/com/habench/vendorapprove/web/CatalogTranslator.java",
       "line": 13,
-      "expr": "quoteRef401",
+      "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractBuilder.java",
+      "file": "web/src/main/java/com/habench/vendorapprove/web/CatalogTranslator.java",
       "line": 14,
-      "expr": "quoteRef401",
+      "expr": "accountRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorapprove/web/CatalogTranslator.java",
+      "line": 15,
+      "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/BatchRouter.java",
+      "file": "service/src/main/java/com/habench/vendorapprove/service/VoucherCollector.java",
+      "line": 8,
+      "expr": "quoteRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/VoucherCollector.java",
+      "line": 9,
+      "expr": "quoteRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractRouter.java",
+      "line": 8,
+      "expr": "shipmentCode201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/ContractRouter.java",
+      "line": 9,
+      "expr": "shipmentCode201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/OrderBroker.java",
+      "line": 9,
+      "expr": "receiptKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/OrderBroker.java",
+      "line": 10,
+      "expr": "receiptKey301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/OrderBroker.java",
+      "line": 15,
+      "expr": "accountRef302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/OrderBroker.java",
+      "line": 16,
+      "expr": "voucherRef303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/OrderBroker.java",
+      "line": 17,
+      "expr": "voucherRef303",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/CatalogService.java",
+      "line": 9,
+      "expr": "quoteRef401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/CatalogService.java",
+      "line": 10,
+      "expr": "tariffRef402",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/CatalogService.java",
       "line": 11,
+      "expr": "tariffRef402",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/CatalogService.java",
+      "line": 16,
+      "expr": "ledgerEntry403",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/CatalogService.java",
+      "line": 17,
+      "expr": "channelTag404",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorapprove/service/CatalogService.java",
+      "line": 18,
+      "expr": "channelTag404",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 17,
       "expr": "shipmentCode501",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/BatchRouter.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 18,
       "expr": "shipmentCode501",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/BatchRouter.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 23,
       "expr": "manifestKey502",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/BatchRouter.java",
-      "line": 20,
-      "expr": "manifestKey502",
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 24,
+      "expr": "invoiceKey503",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 25,
+      "expr": "invoiceKey503",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 30,
+      "expr": "batchTag504",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 31,
+      "expr": "orderRef505",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 34,
+      "expr": "orderRef505",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/BatchRouter.java",
-      "line": 21,
-      "expr": "invoiceKey503",
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 35,
+      "expr": "quoteRef506",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/BatchRouter.java",
-      "line": 22,
-      "expr": "invoiceKey503",
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/InvoiceNormalizer.java",
+      "line": 36,
+      "expr": "quoteRef506",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/InvoicePolicy.java",
-      "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 单次剥离 T(（无效）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ChannelEvaluator.java",
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/ChannelEvaluator.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorapprove/service/ChannelEvaluator.java",
+      "file": "dao/src/main/java/com/habench/vendorapprove/dao/ChannelEvaluator.java",
       "line": 14,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -235,41 +218,43 @@
   ],
   "metrics": {
     "call_depth": 13,
-    "chain_len": 34,
-    "files_crossed": 9,
-    "modules_crossed": 2,
+    "chain_len": 32,
+    "files_crossed": 8,
+    "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:spel_eval",
-      "prop:assign_local",
       "prop:map_element",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:store_field",
       "prop:assign_local",
       "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
+      "prop:string_concat",
       "prop:cross_class",
-      "prop:assign_local",
-      "prop:cross_class",
-      "prop:map_element",
+      "prop:string_concat",
       "prop:cross_class",
       "prop:assign_local",
       "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
       "prop:map_element",
-      "sanitizer:spel_strip_type_ref"
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SPEL-1025-N",
   "http": {
     "method": "GET",
-    "path": "/api/vendor/approve",
-    "param": "label",
-    "carrier": "query"
+    "path": "/api/vendor/approve/{orderNo}",
+    "param": "orderNo",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
@@ -277,10 +262,10 @@
     "tainted": true,
     "neutralized": false,
     "call_depth_observed": 13,
-    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1012",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 10 层调用、跨 3 个模块流入命令执行",
+  "title": "路径变量经 5 层调用、跨 1 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/billingquote/web/SessionController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/billingquote/web/SessionController.java",
     "line": 13,
-    "expr": "tag",
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingquote/dao/SessionExecutor.java",
+    "file": "web/src/main/java/com/habench/billingquote/web/SessionExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,151 +26,77 @@
     {
       "file": "web/src/main/java/com/habench/billingquote/web/SessionController.java",
       "line": 13,
-      "expr": "tag",
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/billingquote/web/QuoteNormalizer.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/billingquote/web/ContractNormalizer.java",
+      "line": 16,
       "expr": "refundCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingquote/web/QuoteNormalizer.java",
-      "line": 9,
+      "file": "web/src/main/java/com/habench/billingquote/web/ContractNormalizer.java",
+      "line": 17,
       "expr": "refundCode1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingquote/service/VoucherCollector.java",
-      "line": 8,
-      "expr": "catalogKey101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingquote/service/VoucherCollector.java",
-      "line": 9,
-      "expr": "catalogKey101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/VoucherNormalizer.java",
-      "line": 10,
-      "expr": "orderRef201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/VoucherNormalizer.java",
-      "line": 13,
-      "expr": "orderRef201",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/VoucherNormalizer.java",
-      "line": 14,
-      "expr": "quoteRef202",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/VoucherNormalizer.java",
-      "line": 15,
-      "expr": "quoteRef202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ChannelRuleSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ChannelRuleStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ContractNormalizer.java",
-      "line": 16,
-      "expr": "refundCode301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ContractNormalizer.java",
-      "line": 19,
-      "expr": "refundCode301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ContractNormalizer.java",
-      "line": 20,
-      "expr": "shipmentCode302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ContractNormalizer.java",
-      "line": 21,
-      "expr": "shipmentCode302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ContractNormalizer.java",
-      "line": 26,
-      "expr": "manifestKey303",
+      "file": "web/src/main/java/com/habench/billingquote/web/ContractNormalizer.java",
+      "line": 22,
+      "expr": "shipmentCode2",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ContractNormalizer.java",
-      "line": 27,
-      "expr": "invoiceKey304",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/billingquote/web/ContractNormalizer.java",
+      "line": 25,
+      "expr": "shipmentCode2",
+      "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/ContractNormalizer.java",
-      "line": 28,
-      "expr": "invoiceKey304",
+      "file": "web/src/main/java/com/habench/billingquote/web/ContractNormalizer.java",
+      "line": 26,
+      "expr": "manifestKey3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingquote/web/ContractNormalizer.java",
+      "line": 27,
+      "expr": "manifestKey3",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/SessionExecutor.java",
+      "file": "web/src/main/java/com/habench/billingquote/web/SessionExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingquote/dao/SessionExecutor.java",
+      "file": "web/src/main/java/com/habench/billingquote/web/SessionExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 10,
-    "chain_len": 20,
-    "files_crossed": 8,
-    "modules_crossed": 3,
+    "call_depth": 5,
+    "chain_len": 9,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
       "source:spring_path_variable",
       "sink:runtime_exec",
       "prop:string_concat",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:interface_dispatch",
-      "prop:assign_local",
-      "prop:map_element",
       "prop:store_field",
-      "prop:assign_local",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
   "paired_negative": "JAVA-CMDI-1012-N",
   "http": {
     "method": "GET",
-    "path": "/api/billing/quote/{tag}",
-    "param": "tag",
+    "path": "/api/billing/quote/{userName}",
+    "param": "userName",
     "carrier": "path"
   },
   "verification": {
@@ -178,11 +104,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 10,
+    "call_depth_observed": 5,
     "payload_sent": "zz$(id)",
     "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

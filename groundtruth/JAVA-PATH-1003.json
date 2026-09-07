@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1003",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "请求头经 13 层调用、跨 3 个模块流入文件读取",
+  "title": "请求头经 5 层调用、跨 1 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/inventoryhold/web/BundleController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/inventoryhold/web/BundleController.java",
     "line": 13,
-    "expr": "filename",
+    "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/inventoryhold/dao/BundleLoader.java",
+    "file": "web/src/main/java/com/habench/inventoryhold/web/BundleLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,171 +26,81 @@
     {
       "file": "web/src/main/java/com/habench/inventoryhold/web/BundleController.java",
       "line": 13,
-      "expr": "filename",
+      "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 19,
       "expr": "paymentTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 22,
       "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 23,
       "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 24,
       "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 29,
       "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 30,
       "expr": "manifestKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 31,
       "expr": "invoiceKey5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/TariffResolver.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
       "line": 32,
       "expr": "invoiceKey5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleRouter.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleRouter.java",
-      "line": 13,
-      "expr": "channelTag101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleRouter.java",
-      "line": 14,
-      "expr": "channelTag101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventoryhold/service/CatalogComposer.java",
-      "line": 8,
-      "expr": "batchTag201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventoryhold/service/CatalogComposer.java",
-      "line": 9,
-      "expr": "batchTag201",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventoryhold/service/InvoicePlanSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventoryhold/service/InvoicePlanStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventoryhold/service/BatchBroker.java",
-      "line": 8,
-      "expr": "paymentTag301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventoryhold/service/BatchBroker.java",
-      "line": 9,
-      "expr": "paymentTag301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/AccountCollector.java",
-      "line": 14,
-      "expr": "channelTag401",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/AccountCollector.java",
-      "line": 15,
-      "expr": "channelTag401",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/AccountCollector.java",
-      "line": 20,
-      "expr": "catalogKey402",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/AccountCollector.java",
-      "line": 21,
-      "expr": "receiptKey403",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/AccountCollector.java",
-      "line": 22,
-      "expr": "accountRef404",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/AccountCollector.java",
-      "line": 23,
-      "expr": "accountRef404",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/BundleLoader.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryhold/dao/BundleLoader.java",
+      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 13,
-    "chain_len": 27,
-    "files_crossed": 9,
-    "modules_crossed": 3,
+    "call_depth": 5,
+    "chain_len": 12,
+    "files_crossed": 3,
+    "modules_crossed": 1,
     "features": [
       "source:servlet_header",
       "sink:file_read",
@@ -199,21 +109,10 @@
       "prop:store_field",
       "prop:assign_local",
       "prop:assign_local",
-      "prop:cross_class",
-      "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:interface_dispatch",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-PATH-1003-N",
   "http": {
     "method": "GET",
     "path": "/api/inventory/hold",
@@ -225,11 +124,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 13,
+    "call_depth_observed": 5,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

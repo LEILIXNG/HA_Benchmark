@@ -1,0 +1,275 @@
+{
+  "id": "JAVA-CMDI-1019-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-1019 逐行相同，仅把净化改为 exec_no_shell",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippingclose/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippingclose/web/OrderController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/shippingclose/dao/OrderExecutor.java",
+    "line": 14,
+    "expr": "builder",
+    "note": "SINK 位置：CWE-78（未经 shell 解释）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/shippingclose/dao/OrderExecutor.java",
+    "line": 12,
+    "expr": "argv",
+    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "exec_no_shell",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippingclose/web/OrderController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingclose/web/VoucherRouter.java",
+      "line": 8,
+      "expr": "batchTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingclose/web/VoucherRouter.java",
+      "line": 9,
+      "expr": "orderRef2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingclose/web/VoucherRouter.java",
+      "line": 10,
+      "expr": "orderRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingclose/web/InvoiceRouter.java",
+      "line": 8,
+      "expr": "paymentTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingclose/web/InvoiceRouter.java",
+      "line": 9,
+      "expr": "paymentTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 14,
+      "expr": "channelTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 15,
+      "expr": "channelTag201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 20,
+      "expr": "catalogKey202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 21,
+      "expr": "receiptKey203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 22,
+      "expr": "accountRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 23,
+      "expr": "accountRef204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 28,
+      "expr": "voucherRef205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 29,
+      "expr": "paymentTag206",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/CatalogTranslator.java",
+      "line": 30,
+      "expr": "paymentTag206",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/BatchTranslator.java",
+      "line": 8,
+      "expr": "batchTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/BatchTranslator.java",
+      "line": 9,
+      "expr": "batchTag301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 16,
+      "expr": "paymentTag401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 19,
+      "expr": "paymentTag401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 20,
+      "expr": "refundCode402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 21,
+      "expr": "refundCode402",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 26,
+      "expr": "shipmentCode403",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 29,
+      "expr": "shipmentCode403",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 30,
+      "expr": "manifestKey404",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingclose/service/SessionRegistry.java",
+      "line": 31,
+      "expr": "manifestKey404",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingclose/dao/ContractEnricher.java",
+      "line": 10,
+      "expr": "channelTag501",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingclose/dao/ContractEnricher.java",
+      "line": 13,
+      "expr": "channelTag501",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingclose/dao/ContractEnricher.java",
+      "line": 14,
+      "expr": "catalogKey502",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingclose/dao/ContractEnricher.java",
+      "line": 15,
+      "expr": "catalogKey502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingclose/dao/OrderExecutor.java",
+      "line": 11,
+      "expr": "value",
+      "note": "参数以数组传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingclose/dao/OrderExecutor.java",
+      "line": 12,
+      "expr": "argv",
+      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingclose/dao/OrderExecutor.java",
+      "line": 14,
+      "expr": "builder",
+      "note": "SINK 位置：CWE-78（未经 shell 解释）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 13,
+    "chain_len": 32,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:exec_no_shell"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/close/{tag}",
+    "param": "tag",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 13,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

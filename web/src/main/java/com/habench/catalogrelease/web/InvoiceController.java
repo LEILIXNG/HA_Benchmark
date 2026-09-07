@@ -1,6 +1,6 @@
 package com.habench.catalogrelease.web;
 
-import com.habench.catalogrelease.web.AccountRouter;
+import com.habench.catalogrelease.web.ShipmentBroker;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class InvoiceController {
 
     @GetMapping("/api/catalog/release")
-    public String publish(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
-        AccountRouter.publish(target);
+    public String prepare(HttpServletRequest request) {
+        String orderNo = request.getHeader("X-Ha-Payload");
+        ShipmentBroker.enrich(orderNo);
         return "ok";
     }
 }

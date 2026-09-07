@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SPEL-1048",
   "cwe": "CWE-917",
-  "verdict": "vulnerable",
-  "title": "查询参数经 9 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
+  "verdict": "safe",
+  "title": "路径变量经 16 层调用、跨 3 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/catalogbind/web/TariffController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/catalogbind/web/TariffController.java",
     "line": 13,
-    "expr": "token",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "category",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
     "file": "dao/src/main/java/com/habench/catalogbind/dao/TariffEvaluator.java",
@@ -22,125 +22,239 @@
   },
   "sanitizer": {
     "file": "dao/src/main/java/com/habench/catalogbind/dao/InvoiceValidator.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 单次剥离 T(（无效）"
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
   },
-  "sanitizer_kind": "spel_strip_type_ref",
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
       "file": "web/src/main/java/com/habench/catalogbind/web/TariffController.java",
       "line": 13,
-      "expr": "token",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "category",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
       "line": 17,
       "expr": "receiptKey1",
-      "note": "局部变量传递"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
       "line": 18,
-      "expr": "accountRef2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
-      "line": 19,
-      "expr": "accountRef2",
+      "expr": "receiptKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
-      "line": 24,
-      "expr": "voucherRef3",
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 23,
+      "expr": "accountRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
-      "line": 25,
-      "expr": "paymentTag4",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
       "line": 26,
-      "expr": "paymentTag4",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
-      "line": 31,
-      "expr": "refundCode5",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
-      "line": 34,
-      "expr": "refundCode5",
+      "expr": "accountRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
-      "line": 35,
-      "expr": "shipmentCode6",
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 27,
+      "expr": "voucherRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/QuoteBroker.java",
-      "line": 36,
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 28,
+      "expr": "voucherRef3",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 33,
+      "expr": "paymentTag4",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 34,
+      "expr": "refundCode5",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 35,
+      "expr": "refundCode5",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 40,
       "expr": "shipmentCode6",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 41,
+      "expr": "manifestKey7",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 44,
+      "expr": "manifestKey7",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 45,
+      "expr": "invoiceKey8",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 46,
+      "expr": "invoiceKey8",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 51,
+      "expr": "batchTag9",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 52,
+      "expr": "orderRef10",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 53,
+      "expr": "quoteRef11",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 54,
+      "expr": "quoteRef11",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 59,
+      "expr": "tariffRef12",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 62,
+      "expr": "tariffRef12",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 63,
+      "expr": "ledgerEntry13",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 64,
+      "expr": "channelTag14",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
+      "line": 65,
+      "expr": "channelTag14",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbind/service/ChannelCoordinator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
+      "line": 14,
       "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbind/service/ChannelCoordinator.java",
-      "line": 13,
-      "expr": "quoteRef101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogbind/service/ChannelCoordinator.java",
-      "line": 14,
-      "expr": "tariffRef102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogbind/service/ChannelCoordinator.java",
+      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
       "line": 15,
       "expr": "tariffRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
+      "line": 16,
+      "expr": "tariffRef102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
+      "line": 21,
+      "expr": "ledgerEntry103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
+      "line": 22,
+      "expr": "channelTag104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
+      "line": 23,
+      "expr": "channelTag104",
       "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 13,
-      "expr": "shipmentCode201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
       "line": 14,
       "expr": "shipmentCode201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
+      "line": 15,
+      "expr": "manifestKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
+      "line": 16,
+      "expr": "manifestKey202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
+      "line": 21,
+      "expr": "invoiceKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
+      "line": 22,
+      "expr": "batchTag204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
+      "line": 23,
+      "expr": "orderRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
+      "line": 24,
+      "expr": "orderRef205",
       "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/catalogbind/dao/InvoiceValidator.java",
-      "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 单次剥离 T(（无效）"
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
       "file": "dao/src/main/java/com/habench/catalogbind/dao/TariffEvaluator.java",
@@ -156,44 +270,58 @@
     }
   ],
   "metrics": {
-    "call_depth": 9,
-    "chain_len": 21,
+    "call_depth": 16,
+    "chain_len": 40,
     "files_crossed": 6,
     "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:spel_eval",
-      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
       "prop:assign_local",
       "prop:store_field",
       "prop:assign_local",
-      "prop:static_field",
       "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
       "prop:cross_module",
       "prop:string_concat",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
       "prop:cross_module",
-      "prop:map_element",
-      "sanitizer:spel_strip_type_ref"
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/catalog/bind",
-    "param": "token",
-    "carrier": "query"
+    "path": "/api/catalog/bind/{category}",
+    "param": "category",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
     "neutralized": false,
-    "call_depth_observed": 9,
-    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
-    "http_status": 200,
+    "call_depth_observed": null,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": null,
+    "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

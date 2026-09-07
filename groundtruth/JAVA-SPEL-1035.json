@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SPEL-1035",
   "cwe": "CWE-917",
-  "verdict": "safe",
-  "title": "路径变量经 13 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
+  "verdict": "vulnerable",
+  "title": "请求头经 16 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
     "file": "web/src/main/java/com/habench/inventorydigest/web/AccountController.java",
     "line": 11,
@@ -11,316 +11,373 @@
   "source": {
     "file": "web/src/main/java/com/habench/inventorydigest/web/AccountController.java",
     "line": 13,
-    "expr": "resource",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "token",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
     "file": "dao/src/main/java/com/habench/inventorydigest/dao/AccountEvaluator.java",
-    "line": 17,
+    "line": 14,
     "expr": "template",
-    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    "note": "SINK: CWE-917 SpEL 表达式注入"
   },
-  "sanitizer": {
-    "file": "dao/src/main/java/com/habench/inventorydigest/dao/AccountEvaluator.java",
-    "line": 15,
-    "expr": "context",
-    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
-  },
-  "sanitizer_kind": "spel_restricted_context",
+  "sanitizer": null,
+  "sanitizer_kind": "none",
   "path": [
     {
       "file": "web/src/main/java/com/habench/inventorydigest/web/AccountController.java",
       "line": 13,
-      "expr": "resource",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "token",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentRegistry.java",
+      "line": 9,
       "expr": "receiptKey1",
-      "note": "局部变量传递"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 17,
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentRegistry.java",
+      "line": 10,
       "expr": "accountRef2",
-      "note": "字符串拼接传播"
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 18,
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentRegistry.java",
+      "line": 11,
       "expr": "accountRef2",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 23,
-      "expr": "voucherRef3",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 24,
-      "expr": "paymentTag4",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 27,
-      "expr": "paymentTag4",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 28,
-      "expr": "refundCode5",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 29,
-      "expr": "refundCode5",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 34,
-      "expr": "shipmentCode6",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 35,
-      "expr": "manifestKey7",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 38,
-      "expr": "manifestKey7",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 39,
-      "expr": "invoiceKey8",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 40,
-      "expr": "invoiceKey8",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 45,
-      "expr": "batchTag9",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 46,
-      "expr": "orderRef10",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 47,
-      "expr": "quoteRef11",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorydigest/web/LedgerEnricher.java",
-      "line": 48,
-      "expr": "quoteRef11",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 20,
-      "expr": "quoteRef101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 21,
-      "expr": "tariffRef102",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 22,
-      "expr": "tariffRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentRegistry.java",
+      "line": 16,
+      "expr": "voucherRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentRegistry.java",
+      "line": 17,
+      "expr": "paymentTag4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentRegistry.java",
+      "line": 18,
+      "expr": "refundCode5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydigest/web/ShipmentRegistry.java",
+      "line": 19,
+      "expr": "refundCode5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 17,
+      "expr": "quoteRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 18,
+      "expr": "tariffRef102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 19,
+      "expr": "tariffRef102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 24,
+      "expr": "ledgerEntry103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
       "line": 27,
       "expr": "ledgerEntry103",
-      "note": "读取静态字段"
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
       "line": 28,
       "expr": "channelTag104",
-      "note": "字符串拼接传播"
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
       "line": 29,
       "expr": "channelTag104",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 34,
-      "expr": "catalogKey105",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 35,
-      "expr": "receiptKey106",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 36,
-      "expr": "receiptKey106",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 41,
-      "expr": "accountRef107",
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 34,
+      "expr": "catalogKey105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
-      "line": 42,
-      "expr": "voucherRef108",
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 35,
+      "expr": "receiptKey106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 36,
+      "expr": "accountRef107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 37,
+      "expr": "accountRef107",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 42,
+      "expr": "voucherRef108",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
       "line": 45,
       "expr": "voucherRef108",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
       "line": 46,
       "expr": "paymentTag109",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorydigest/service/AccountRegistry.java",
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
       "line": 47,
-      "expr": "paymentTag109",
+      "expr": "refundCode110",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 48,
+      "expr": "refundCode110",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 53,
+      "expr": "shipmentCode111",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 54,
+      "expr": "manifestKey112",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 55,
+      "expr": "invoiceKey113",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 56,
+      "expr": "invoiceKey113",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 61,
+      "expr": "batchTag114",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 64,
+      "expr": "batchTag114",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 65,
+      "expr": "orderRef115",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydigest/service/QuoteCoordinator.java",
+      "line": 66,
+      "expr": "orderRef115",
       "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
-      "line": 10,
+      "line": 17,
       "expr": "shipmentCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 18,
+      "expr": "manifestKey202",
       "note": "字符串拼接传播"
     },
     {
       "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
-      "line": 13,
-      "expr": "shipmentCode201",
+      "line": 19,
+      "expr": "manifestKey202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 24,
+      "expr": "invoiceKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 25,
+      "expr": "batchTag204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 28,
+      "expr": "batchTag204",
       "note": "存入集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
-      "line": 14,
-      "expr": "manifestKey202",
+      "line": 29,
+      "expr": "orderRef205",
       "note": "取出集合元素"
     },
     {
       "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
-      "line": 15,
-      "expr": "manifestKey202",
+      "line": 30,
+      "expr": "orderRef205",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 35,
+      "expr": "quoteRef206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 36,
+      "expr": "tariffRef207",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 37,
+      "expr": "tariffRef207",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 42,
+      "expr": "ledgerEntry208",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 43,
+      "expr": "channelTag209",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 44,
+      "expr": "catalogKey210",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorydigest/dao/ShipmentCoordinator.java",
+      "line": 45,
+      "expr": "catalogKey210",
       "note": "调用下一层"
     },
     {
       "file": "dao/src/main/java/com/habench/inventorydigest/dao/AccountEvaluator.java",
-      "line": 12,
+      "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
       "file": "dao/src/main/java/com/habench/inventorydigest/dao/AccountEvaluator.java",
-      "line": 15,
-      "expr": "context",
-      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorydigest/dao/AccountEvaluator.java",
-      "line": 17,
+      "line": 14,
       "expr": "template",
-      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+      "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
   "metrics": {
-    "call_depth": 13,
-    "chain_len": 40,
+    "call_depth": 16,
+    "chain_len": 49,
     "files_crossed": 5,
     "modules_crossed": 3,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:spel_eval",
-      "prop:assign_local",
       "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:map_element",
       "prop:assign_local",
       "prop:static_field",
       "prop:string_concat",
-      "prop:store_field",
       "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
       "prop:static_field",
       "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
       "prop:map_element",
       "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
       "prop:string_concat",
       "prop:map_element",
-      "sanitizer:spel_restricted_context"
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SPEL-1035-N",
   "http": {
     "method": "GET",
-    "path": "/api/inventory/digest/{resource}",
-    "param": "resource",
-    "carrier": "path"
+    "path": "/api/inventory/digest",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
-    "reached": false,
-    "tainted": false,
-    "neutralized": true,
-    "call_depth_observed": 13,
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 16,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;'",
-    "http_status": 500,
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;'",
+    "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

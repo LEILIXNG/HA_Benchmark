@@ -1,0 +1,173 @@
+{
+  "id": "JAVA-SSRF-1018-N",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "与 JAVA-SSRF-1018 逐行相同，仅把净化改为 ssrf_host_allowlist",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingsettle/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingsettle/web/InvoiceController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/billingsettle/service/InvoiceFetcher.java",
+    "line": 23,
+    "expr": "endpoint",
+    "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/billingsettle/service/InvoiceFetcher.java",
+    "line": 19,
+    "expr": "endpoint",
+    "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+  },
+  "sanitizer_kind": "ssrf_host_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingsettle/web/InvoiceController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingsettle/web/OrderCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingsettle/web/OrderCollector.java",
+      "line": 13,
+      "expr": "paymentTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingsettle/web/OrderCollector.java",
+      "line": 14,
+      "expr": "refundCode2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingsettle/web/OrderCollector.java",
+      "line": 15,
+      "expr": "refundCode2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 15,
+      "expr": "channelTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 16,
+      "expr": "channelTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 21,
+      "expr": "catalogKey102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 22,
+      "expr": "receiptKey103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 23,
+      "expr": "accountRef104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 24,
+      "expr": "accountRef104",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 29,
+      "expr": "voucherRef105",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 30,
+      "expr": "paymentTag106",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/VoucherService.java",
+      "line": 31,
+      "expr": "paymentTag106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/InvoiceFetcher.java",
+      "line": 16,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/InvoiceFetcher.java",
+      "line": 19,
+      "expr": "endpoint",
+      "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingsettle/service/InvoiceFetcher.java",
+      "line": 23,
+      "expr": "endpoint",
+      "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 17,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:url_fetch",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "sanitizer:ssrf_host_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/settle",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

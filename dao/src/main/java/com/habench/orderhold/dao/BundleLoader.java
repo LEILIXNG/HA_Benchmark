@@ -10,11 +10,14 @@ public final class BundleLoader {
     private static final String ROOT = "/var/lib/habench/data/";
 
     public static void dispatch(String value) {
-        String target = ROOT + value;
-        TaintOracle.reached(target);
+        Path root = Paths.get(ROOT).toAbsolutePath().normalize();
+        Path resolved = root.resolve(value).normalize();
+        if (!resolved.startsWith(root)) {
+            throw new IllegalArgumentException("path escapes root");
+        }
+        TaintOracle.reached(resolved.toString());
         try {
-            Path path = Paths.get(target);
-            Files.readAllBytes(path);
+            Files.readAllBytes(resolved);
         } catch (IOException e) {
             throw new IllegalStateException("read failed", e);
         }

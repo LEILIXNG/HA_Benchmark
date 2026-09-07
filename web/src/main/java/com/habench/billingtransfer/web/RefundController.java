@@ -1,6 +1,6 @@
 package com.habench.billingtransfer.web;
 
-import com.habench.billingtransfer.web.BatchComposer;
+import com.habench.billingtransfer.web.TariffFacade;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RefundController {
 
     @GetMapping("/api/billing/transfer")
-    public String submit(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
-        BatchComposer.route(reference);
+    public String register(HttpServletRequest request) {
+        String category = request.getHeader("X-Ha-Payload");
+        TariffFacade.translate(category);
         return "ok";
     }
 }

@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1011",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "请求头经 12 层调用、跨 2 个模块流入命令执行",
+  "title": "路径变量经 11 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/customerrefund/web/TariffController.java",
     "line": 11,
@@ -12,7 +12,7 @@
     "file": "web/src/main/java/com/habench/customerrefund/web/TariffController.java",
     "line": 13,
     "expr": "filename",
-    "note": "SOURCE: Servlet 请求头"
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/customerrefund/service/TariffExecutor.java",
@@ -27,186 +27,126 @@
       "file": "web/src/main/java/com/habench/customerrefund/web/TariffController.java",
       "line": 13,
       "expr": "filename",
-      "note": "SOURCE: Servlet 请求头"
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrefund/web/SessionCollector.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrefund/web/SessionCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/customerrefund/web/RefundService.java",
+      "line": 8,
       "expr": "voucherRef1",
-      "note": "取出集合元素"
+      "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrefund/web/SessionCollector.java",
-      "line": 14,
-      "expr": "paymentTag2",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerrefund/web/SessionCollector.java",
-      "line": 15,
-      "expr": "paymentTag2",
+      "file": "web/src/main/java/com/habench/customerrefund/web/RefundService.java",
+      "line": 9,
+      "expr": "voucherRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 19,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 20,
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerRouter.java",
+      "line": 14,
       "expr": "ledgerEntry101",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 21,
-      "expr": "channelTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 22,
-      "expr": "channelTag102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 27,
-      "expr": "catalogKey103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 30,
-      "expr": "catalogKey103",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 31,
-      "expr": "receiptKey104",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 32,
-      "expr": "receiptKey104",
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerRouter.java",
+      "line": 15,
+      "expr": "ledgerEntry101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 37,
-      "expr": "accountRef105",
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerRouter.java",
+      "line": 20,
+      "expr": "channelTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 38,
-      "expr": "voucherRef106",
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerRouter.java",
+      "line": 21,
+      "expr": "catalogKey103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 41,
-      "expr": "voucherRef106",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 42,
-      "expr": "paymentTag107",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/InvoiceAdapter.java",
-      "line": 43,
-      "expr": "paymentTag107",
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerRouter.java",
+      "line": 22,
+      "expr": "catalogKey103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelPlanSelector.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/OrderPolicySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/ChannelPlanStandard.java",
+      "file": "service/src/main/java/com/habench/customerrefund/service/OrderPolicyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrefund/service/AccountBuilder.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/AccountBuilder.java",
-      "line": 13,
-      "expr": "invoiceKey201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/AccountBuilder.java",
-      "line": 14,
-      "expr": "batchTag202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/AccountBuilder.java",
-      "line": 15,
-      "expr": "batchTag202",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/TariffNormalizer.java",
-      "line": 10,
-      "expr": "voucherRef301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/TariffNormalizer.java",
-      "line": 13,
-      "expr": "voucherRef301",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/TariffNormalizer.java",
-      "line": 14,
-      "expr": "paymentTag302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/TariffNormalizer.java",
-      "line": 15,
-      "expr": "paymentTag302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
-      "line": 8,
-      "expr": "ledgerEntry401",
-      "note": "局部变量传递"
-    },
-    {
       "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
       "line": 9,
-      "expr": "channelTag402",
+      "expr": "invoiceKey201",
       "note": "字符串拼接传播"
     },
     {
       "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
       "line": 10,
-      "expr": "channelTag402",
+      "expr": "batchTag202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 11,
+      "expr": "batchTag202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 16,
+      "expr": "orderRef203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 17,
+      "expr": "quoteRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 18,
+      "expr": "tariffRef205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 19,
+      "expr": "tariffRef205",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 24,
+      "expr": "ledgerEntry206",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 25,
+      "expr": "channelTag207",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 26,
+      "expr": "catalogKey208",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerrefund/service/LedgerCollector.java",
+      "line": 27,
+      "expr": "catalogKey208",
       "note": "调用下一层"
     },
     {
@@ -223,30 +163,25 @@
     }
   ],
   "metrics": {
-    "call_depth": 12,
-    "chain_len": 33,
-    "files_crossed": 9,
+    "call_depth": 11,
+    "chain_len": 23,
+    "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
-      "source:servlet_header",
+      "source:spring_path_variable",
       "sink:runtime_exec",
-      "prop:map_element",
-      "prop:assign_local",
+      "prop:string_concat",
       "prop:cross_module",
-      "prop:map_element",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
       "prop:store_field",
       "prop:assign_local",
-      "prop:map_element",
       "prop:interface_dispatch",
-      "prop:map_element",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
       "prop:assign_local",
-      "prop:cross_class",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:cross_class",
+      "prop:static_field",
       "prop:assign_local",
       "prop:string_concat",
       "sanitizer:none"
@@ -255,20 +190,20 @@
   "paired_negative": "JAVA-CMDI-1011-N",
   "http": {
     "method": "GET",
-    "path": "/api/customer/refund",
-    "param": "X-Ha-Payload",
-    "carrier": "header"
+    "path": "/api/customer/refund/{filename}",
+    "param": "filename",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 12,
+    "call_depth_observed": 11,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id);",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:zz$(id);;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

@@ -1,0 +1,149 @@
+{
+  "id": "JAVA-SQLI-1021-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-SQLI-1021 逐行相同，仅把净化改为 sql_parameterized",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippingrevise/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippingrevise/web/PaymentController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
+    "line": 17,
+    "expr": "value",
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippingrevise/web/PaymentController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
+      "line": 13,
+      "expr": "invoiceKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
+      "line": 14,
+      "expr": "batchTag2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
+      "line": 15,
+      "expr": "batchTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
+      "line": 16,
+      "expr": "voucherRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
+      "line": 17,
+      "expr": "voucherRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
+      "line": 22,
+      "expr": "paymentTag102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
+      "line": 25,
+      "expr": "paymentTag102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
+      "line": 26,
+      "expr": "refundCode103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
+      "line": 27,
+      "expr": "refundCode103",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
+      "line": 13,
+      "note": "参数化占位符，值不参与 SQL 语法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
+      "line": 17,
+      "expr": "value",
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 14,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "sanitizer:sql_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/revise/{userName}",
+    "param": "userName",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 6,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "ref:zz' OR 1=1--;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

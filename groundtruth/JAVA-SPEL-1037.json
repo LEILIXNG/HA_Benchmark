@@ -1,8 +1,8 @@
 {
   "id": "JAVA-SPEL-1037",
   "cwe": "CWE-917",
-  "verdict": "vulnerable",
-  "title": "查询参数经 11 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "verdict": "safe",
+  "title": "路径变量经 16 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/shippingsplit/web/ContractController.java",
     "line": 11,
@@ -11,212 +11,269 @@
   "source": {
     "file": "web/src/main/java/com/habench/shippingsplit/web/ContractController.java",
     "line": 13,
-    "expr": "orderNo",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "reference",
+    "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/shippingsplit/service/ContractEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/habench/shippingsplit/dao/ContractEvaluator.java",
+    "line": 17,
     "expr": "template",
-    "note": "SINK: CWE-917 SpEL 表达式注入"
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/shippingsplit/dao/ContractEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
       "file": "web/src/main/java/com/habench/shippingsplit/web/ContractController.java",
       "line": 13,
-      "expr": "orderNo",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "reference",
+      "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsplit/web/BatchComposer.java",
+      "file": "web/src/main/java/com/habench/shippingsplit/web/OrderService.java",
       "line": 14,
       "expr": "orderRef1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingsplit/web/BatchComposer.java",
-      "line": 15,
-      "expr": "quoteRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsplit/web/BatchComposer.java",
-      "line": 16,
-      "expr": "quoteRef2",
+      "file": "web/src/main/java/com/habench/shippingsplit/web/OrderService.java",
+      "line": 15,
+      "expr": "orderRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsplit/web/BatchComposer.java",
-      "line": 21,
-      "expr": "tariffRef3",
+      "file": "web/src/main/java/com/habench/shippingsplit/web/OrderService.java",
+      "line": 20,
+      "expr": "quoteRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsplit/web/BatchComposer.java",
-      "line": 22,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/habench/shippingsplit/web/OrderService.java",
+      "line": 21,
+      "expr": "tariffRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsplit/web/BatchComposer.java",
-      "line": 23,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/habench/shippingsplit/web/OrderService.java",
+      "line": 22,
+      "expr": "tariffRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/ChannelRegistry.java",
-      "line": 12,
+      "file": "web/src/main/java/com/habench/shippingsplit/web/LedgerStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsplit/web/LedgerStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsplit/web/ManifestRouter.java",
+      "line": 13,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/ChannelRegistry.java",
-      "line": 13,
+      "file": "web/src/main/java/com/habench/shippingsplit/web/ManifestRouter.java",
+      "line": 14,
       "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/ChannelRegistry.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/shippingsplit/web/ManifestRouter.java",
+      "line": 15,
       "expr": "refundCode101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsplit/web/ManifestRouter.java",
+      "line": 20,
+      "expr": "shipmentCode102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsplit/web/ManifestRouter.java",
+      "line": 21,
+      "expr": "manifestKey103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsplit/web/ManifestRouter.java",
+      "line": 22,
+      "expr": "manifestKey103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 17,
+      "file": "service/src/main/java/com/habench/shippingsplit/service/VoucherFacade.java",
+      "line": 16,
       "expr": "catalogKey201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 18,
-      "expr": "catalogKey201",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 23,
-      "expr": "receiptKey202",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 24,
-      "expr": "accountRef203",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 25,
-      "expr": "accountRef203",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 30,
-      "expr": "voucherRef204",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 33,
-      "expr": "voucherRef204",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 34,
-      "expr": "paymentTag205",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 35,
-      "expr": "refundCode206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 36,
-      "expr": "refundCode206",
+      "file": "service/src/main/java/com/habench/shippingsplit/service/VoucherFacade.java",
+      "line": 17,
+      "expr": "catalogKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 41,
-      "expr": "shipmentCode207",
+      "file": "service/src/main/java/com/habench/shippingsplit/service/VoucherFacade.java",
+      "line": 22,
+      "expr": "receiptKey202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 42,
-      "expr": "manifestKey208",
-      "note": "局部变量传递"
+      "file": "service/src/main/java/com/habench/shippingsplit/service/VoucherFacade.java",
+      "line": 23,
+      "expr": "accountRef203",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/PaymentBroker.java",
-      "line": 43,
-      "expr": "manifestKey208",
+      "file": "service/src/main/java/com/habench/shippingsplit/service/VoucherFacade.java",
+      "line": 26,
+      "expr": "accountRef203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsplit/service/VoucherFacade.java",
+      "line": 27,
+      "expr": "voucherRef204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsplit/service/VoucherFacade.java",
+      "line": 28,
+      "expr": "voucherRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/ContractEvaluator.java",
+      "file": "service/src/main/java/com/habench/shippingsplit/service/ReceiptNormalizer.java",
+      "line": 8,
+      "expr": "orderRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsplit/service/ReceiptNormalizer.java",
+      "line": 9,
+      "expr": "quoteRef302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsplit/service/ReceiptNormalizer.java",
       "line": 10,
+      "expr": "quoteRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/PaymentBroker.java",
+      "line": 16,
+      "expr": "refundCode401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/PaymentBroker.java",
+      "line": 17,
+      "expr": "refundCode401",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/PaymentBroker.java",
+      "line": 22,
+      "expr": "shipmentCode402",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/PaymentBroker.java",
+      "line": 25,
+      "expr": "shipmentCode402",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/PaymentBroker.java",
+      "line": 26,
+      "expr": "manifestKey403",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/PaymentBroker.java",
+      "line": 27,
+      "expr": "manifestKey403",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/ContractEvaluator.java",
+      "line": 12,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingsplit/service/ContractEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/ContractEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingsplit/dao/ContractEvaluator.java",
+      "line": 17,
       "expr": "template",
-      "note": "SINK: CWE-917 SpEL 表达式注入"
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
   ],
   "metrics": {
-    "call_depth": 11,
-    "chain_len": 25,
-    "files_crossed": 5,
-    "modules_crossed": 2,
+    "call_depth": 16,
+    "chain_len": 33,
+    "files_crossed": 9,
+    "modules_crossed": 3,
     "features": [
-      "source:spring_request_param",
+      "source:spring_path_variable",
       "sink:spel_eval",
-      "prop:assign_local",
       "prop:string_concat",
       "prop:store_field",
       "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
       "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
       "prop:map_element",
       "prop:cross_class",
       "prop:assign_local",
-      "prop:static_field",
       "prop:assign_local",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
       "prop:store_field",
-      "prop:assign_local",
-      "sanitizer:none"
+      "prop:map_element",
+      "sanitizer:spel_restricted_context"
     ]
   },
-  "paired_negative": "JAVA-SPEL-1037-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/shipping/split",
-    "param": "orderNo",
-    "carrier": "query"
+    "path": "/api/shipping/split/{reference}",
+    "param": "reference",
+    "carrier": "path"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
-    "neutralized": false,
-    "call_depth_observed": 11,
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 16,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
-    "http_status": 200,
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
+    "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

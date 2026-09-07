@@ -2,20 +2,20 @@
   "id": "JAVA-SQLI-1021",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "路径变量经 8 层调用、跨 3 个模块流入JDBC 拼接",
+  "title": "路径变量经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentsync/web/ReceiptController.java",
+    "file": "web/src/main/java/com/habench/reportclose/web/ReceiptController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentsync/web/ReceiptController.java",
+    "file": "web/src/main/java/com/habench/reportclose/web/ReceiptController.java",
     "line": 13,
-    "expr": "query",
+    "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/paymentsync/dao/ReceiptRepository.java",
+    "file": "service/src/main/java/com/habench/reportclose/service/ReceiptRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,140 +24,106 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ReceiptController.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/ReceiptController.java",
       "line": 13,
-      "expr": "query",
+      "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ContractRegistry.java",
-      "line": 8,
-      "expr": "tariffRef1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ContractRegistry.java",
-      "line": 9,
-      "expr": "tariffRef1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ShipmentRuleSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ShipmentRuleStandard.java",
-      "line": 6,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ManifestBroker.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/VoucherAdapter.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ManifestBroker.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/VoucherAdapter.java",
       "line": 13,
-      "expr": "manifestKey101",
+      "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ManifestBroker.java",
+      "file": "web/src/main/java/com/habench/reportclose/web/VoucherAdapter.java",
       "line": 14,
-      "expr": "invoiceKey102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ManifestBroker.java",
-      "line": 15,
-      "expr": "invoiceKey102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsync/service/BatchEnricher.java",
-      "line": 10,
-      "expr": "accountRef201",
+      "expr": "ledgerEntry2",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/BatchEnricher.java",
-      "line": 13,
-      "expr": "accountRef201",
+      "file": "web/src/main/java/com/habench/reportclose/web/VoucherAdapter.java",
+      "line": 15,
+      "expr": "ledgerEntry2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportclose/service/LedgerNormalizer.java",
+      "line": 16,
+      "expr": "manifestKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportclose/service/LedgerNormalizer.java",
+      "line": 17,
+      "expr": "manifestKey101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportclose/service/LedgerNormalizer.java",
+      "line": 22,
+      "expr": "invoiceKey102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportclose/service/LedgerNormalizer.java",
+      "line": 25,
+      "expr": "invoiceKey102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/BatchEnricher.java",
-      "line": 14,
-      "expr": "voucherRef202",
+      "file": "service/src/main/java/com/habench/reportclose/service/LedgerNormalizer.java",
+      "line": 26,
+      "expr": "batchTag103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/BatchEnricher.java",
-      "line": 15,
-      "expr": "voucherRef202",
+      "file": "service/src/main/java/com/habench/reportclose/service/LedgerNormalizer.java",
+      "line": 27,
+      "expr": "batchTag103",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsync/dao/LedgerNormalizer.java",
-      "line": 8,
-      "expr": "tariffRef301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsync/dao/LedgerNormalizer.java",
-      "line": 9,
-      "expr": "ledgerEntry302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsync/dao/LedgerNormalizer.java",
-      "line": 10,
-      "expr": "ledgerEntry302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/paymentsync/dao/ReceiptRepository.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ReceiptRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentsync/dao/ReceiptRepository.java",
+      "file": "service/src/main/java/com/habench/reportclose/service/ReceiptRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
   ],
   "metrics": {
-    "call_depth": 8,
-    "chain_len": 18,
-    "files_crossed": 8,
-    "modules_crossed": 3,
+    "call_depth": 6,
+    "chain_len": 13,
+    "files_crossed": 4,
+    "modules_crossed": 2,
     "features": [
       "source:spring_path_variable",
       "sink:jdbc_concat",
-      "prop:string_concat",
-      "prop:interface_dispatch",
       "prop:map_element",
-      "prop:string_concat",
-      "prop:cross_module",
       "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:store_field",
       "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:string_concat",
       "sanitizer:none"
     ]
   },
-  "paired_negative": null,
+  "paired_negative": "JAVA-SQLI-1021-N",
   "http": {
     "method": "GET",
-    "path": "/api/payment/sync/{query}",
-    "param": "query",
+    "path": "/api/report/close/{userName}",
+    "param": "userName",
     "carrier": "path"
   },
   "verification": {
@@ -165,11 +131,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 8,
+    "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

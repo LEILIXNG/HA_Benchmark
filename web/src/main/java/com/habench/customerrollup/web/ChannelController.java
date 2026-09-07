@@ -1,6 +1,6 @@
 package com.habench.customerrollup.web;
 
-import com.habench.customerrollup.web.ManifestAdapter;
+import com.habench.customerrollup.web.InvoiceBuilder;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChannelController {
 
     @GetMapping("/api/customer/rollup")
-    public String register(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
-        ManifestAdapter.reconcile(category);
+    public String enrich(HttpServletRequest request) {
+        String reference = request.getHeader("X-Ha-Payload");
+        InvoiceBuilder.translate(reference);
         return "ok";
     }
 }

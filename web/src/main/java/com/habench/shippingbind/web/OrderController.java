@@ -1,6 +1,6 @@
 package com.habench.shippingbind.web;
 
-import com.habench.shippingbind.web.CatalogCollector;
+import com.habench.shippingbind.web.ReceiptAssembler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @GetMapping("/api/shipping/bind")
-    public String publish(
-            @RequestParam("category") String category) {
-        CatalogCollector.dispatch(category);
+    public String collect(
+            @RequestParam("label") String label) {
+        ReceiptAssembler.route(label);
         return "ok";
     }
 }

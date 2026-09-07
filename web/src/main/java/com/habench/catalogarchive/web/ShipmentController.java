@@ -1,6 +1,6 @@
 package com.habench.catalogarchive.web;
 
-import com.habench.catalogarchive.web.TariffRegistry;
+import com.habench.catalogarchive.web.BundleFacade;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShipmentController {
 
     @GetMapping("/api/catalog/archive")
-    public String enrich(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
-        TariffRegistry.collect(filename);
+    public String refine(HttpServletRequest request) {
+        String tag = request.getHeader("X-Ha-Payload");
+        BundleFacade.collect(tag);
         return "ok";
     }
 }

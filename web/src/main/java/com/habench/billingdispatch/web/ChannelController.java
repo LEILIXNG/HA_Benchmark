@@ -1,6 +1,6 @@
 package com.habench.billingdispatch.web;
 
-import com.habench.billingdispatch.web.TariffBroker;
+import com.habench.billingdispatch.web.RefundFacade;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChannelController {
 
     @GetMapping("/api/billing/dispatch")
-    public String resolve(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
-        TariffBroker.register(target);
+    public String reconcile(HttpServletRequest request) {
+        String label = request.getHeader("X-Ha-Payload");
+        RefundFacade.translate(label);
         return "ok";
     }
 }

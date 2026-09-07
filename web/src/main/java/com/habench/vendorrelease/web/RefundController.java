@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RefundController {
 
     @GetMapping("/api/vendor/release")
-    public String assemble(HttpServletRequest request) {
-        String tag = request.getHeader("X-Ha-Payload");
-        OrderTranslator.reconcile(tag);
+    public String reconcile(HttpServletRequest request) {
+        String reference = request.getHeader("X-Ha-Payload");
+        OrderTranslator.reconcile(reference);
         return "ok";
     }
 }

@@ -2,7 +2,7 @@
   "id": "JAVA-PATH-1008",
   "cwe": "CWE-22",
   "verdict": "vulnerable",
-  "title": "查询参数经 11 层调用、跨 3 个模块流入文件读取",
+  "title": "请求头经 8 层调用、跨 1 个模块流入文件读取",
   "entry": {
     "file": "web/src/main/java/com/habench/billingrollup/web/OrderController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/billingrollup/web/OrderController.java",
     "line": 13,
-    "expr": "label",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "tag",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingrollup/dao/OrderLoader.java",
+    "file": "web/src/main/java/com/habench/billingrollup/web/OrderLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -26,196 +26,141 @@
     {
       "file": "web/src/main/java/com/habench/billingrollup/web/OrderController.java",
       "line": 13,
-      "expr": "label",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "tag",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/InvoiceBuilder.java",
-      "line": 8,
-      "expr": "accountRef1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingrollup/web/InvoiceBuilder.java",
-      "line": 9,
-      "expr": "accountRef1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
       "line": 13,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
       "line": 14,
-      "expr": "tariffRef101",
+      "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
-      "line": 15,
-      "expr": "ledgerEntry102",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
-      "line": 16,
-      "expr": "ledgerEntry102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
-      "line": 21,
-      "expr": "channelTag103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
-      "line": 24,
-      "expr": "channelTag103",
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "line": 17,
+      "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
-      "line": 25,
-      "expr": "catalogKey104",
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "line": 18,
+      "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/TariffBroker.java",
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "line": 19,
+      "expr": "voucherRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "line": 24,
+      "expr": "paymentTag3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "line": 25,
+      "expr": "refundCode4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
       "line": 26,
-      "expr": "catalogKey104",
+      "expr": "refundCode4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/LedgerPolicySelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（4 个实现）"
+      "file": "web/src/main/java/com/habench/billingrollup/web/ContractService.java",
+      "line": 8,
+      "expr": "tariffRef101",
+      "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/LedgerPolicyStandard.java",
+      "file": "web/src/main/java/com/habench/billingrollup/web/ContractService.java",
+      "line": 9,
+      "expr": "tariffRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrollup/web/BundleRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/RefundBuilder.java",
-      "line": 10,
-      "expr": "manifestKey201",
-      "note": "局部变量传递"
+      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/RefundBuilder.java",
+      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
       "line": 13,
+      "expr": "manifestKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "line": 16,
       "expr": "manifestKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/RefundBuilder.java",
-      "line": 14,
+      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "line": 17,
       "expr": "invoiceKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingrollup/service/RefundBuilder.java",
-      "line": 15,
+      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "line": 18,
       "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 9,
-      "expr": "accountRef301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 10,
-      "expr": "accountRef301",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 15,
-      "expr": "voucherRef302",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 16,
-      "expr": "paymentTag303",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 17,
-      "expr": "paymentTag303",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 22,
-      "expr": "refundCode304",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 23,
-      "expr": "shipmentCode305",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 24,
-      "expr": "manifestKey306",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/QuoteTranslator.java",
-      "line": 25,
-      "expr": "manifestKey306",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/OrderLoader.java",
+      "file": "web/src/main/java/com/habench/billingrollup/web/OrderLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingrollup/dao/OrderLoader.java",
+      "file": "web/src/main/java/com/habench/billingrollup/web/OrderLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
   ],
   "metrics": {
-    "call_depth": 11,
-    "chain_len": 28,
-    "files_crossed": 8,
-    "modules_crossed": 3,
+    "call_depth": 8,
+    "chain_len": 20,
+    "files_crossed": 7,
+    "modules_crossed": 1,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:file_read",
-      "prop:assign_local",
-      "prop:cross_module",
       "prop:map_element",
-      "prop:assign_local",
+      "prop:map_element",
       "prop:static_field",
-      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
       "prop:interface_dispatch",
-      "prop:assign_local",
       "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:static_field",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:string_concat",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
@@ -223,19 +168,19 @@
   "http": {
     "method": "GET",
     "path": "/api/billing/rollup",
-    "param": "label",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 11,
+    "call_depth_observed": 8,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

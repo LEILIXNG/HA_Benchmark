@@ -1,6 +1,6 @@
 package com.habench.customerhold.web;
 
-import com.habench.customerhold.web.TariffBroker2;
+import com.habench.customerhold.web.LedgerNormalizer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +10,8 @@ public class QuoteController {
 
     @GetMapping("/api/customer/hold")
     public String attach(
-            @RequestParam("reference") String reference) {
-        TariffBroker2.dispatch(reference);
+            @RequestParam("token") String token) {
+        LedgerNormalizer.forward(token);
         return "ok";
     }
 }

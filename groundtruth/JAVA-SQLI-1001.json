@@ -2,7 +2,7 @@
   "id": "JAVA-SQLI-1001",
   "cwe": "CWE-89",
   "verdict": "vulnerable",
-  "title": "路径变量经 7 层调用、跨 3 个模块流入JDBC 拼接",
+  "title": "请求头经 11 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
     "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
     "line": 13,
-    "expr": "query",
-    "note": "SOURCE: Spring 路径变量"
+    "expr": "userName",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
     "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
@@ -26,79 +26,133 @@
     {
       "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
       "line": 13,
-      "expr": "query",
-      "note": "SOURCE: Spring 路径变量"
+      "expr": "userName",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/CatalogResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
+      "line": 16,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/CatalogResolver.java",
-      "line": 9,
-      "expr": "refundCode2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/catalognotice/web/CatalogResolver.java",
-      "line": 10,
-      "expr": "refundCode2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
-      "line": 16,
-      "expr": "channelTag101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
       "line": 19,
-      "expr": "channelTag101",
+      "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
       "line": 20,
-      "expr": "catalogKey102",
+      "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
       "line": 21,
-      "expr": "catalogKey102",
+      "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
       "line": 26,
-      "expr": "receiptKey103",
+      "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
-      "line": 27,
-      "expr": "accountRef104",
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
+      "line": 29,
+      "expr": "shipmentCode3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
+      "line": 30,
+      "expr": "manifestKey4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
+      "line": 31,
+      "expr": "invoiceKey5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
+      "line": 32,
+      "expr": "invoiceKey5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountAdapter.java",
+      "line": 8,
+      "expr": "channelTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountService.java",
-      "line": 28,
-      "expr": "accountRef104",
+      "file": "service/src/main/java/com/habench/catalognotice/service/AccountAdapter.java",
+      "line": 9,
+      "expr": "channelTag101",
       "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
+      "line": 11,
+      "expr": "batchTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
+      "line": 12,
+      "expr": "batchTag201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
+      "line": 17,
+      "expr": "orderRef202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
+      "line": 20,
+      "expr": "orderRef202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
+      "line": 21,
+      "expr": "quoteRef203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
+      "line": 22,
+      "expr": "quoteRef203",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/AccountStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalognotice/dao/AccountStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
     },
     {
       "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
       "line": 8,
-      "expr": "batchTag201",
+      "expr": "paymentTag301",
       "note": "局部变量传递"
     },
     {
       "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
       "line": 9,
-      "expr": "batchTag201",
+      "expr": "paymentTag301",
       "note": "调用下一层"
     },
     {
@@ -115,42 +169,46 @@
     }
   ],
   "metrics": {
-    "call_depth": 7,
-    "chain_len": 15,
-    "files_crossed": 5,
+    "call_depth": 11,
+    "chain_len": 24,
+    "files_crossed": 8,
     "modules_crossed": 3,
     "features": [
-      "source:spring_path_variable",
+      "source:servlet_header",
       "sink:jdbc_concat",
       "prop:assign_local",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
       "prop:map_element",
       "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
       "prop:assign_local",
       "prop:cross_module",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:interface_dispatch",
       "prop:assign_local",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-SQLI-1001-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/catalog/notice/{query}",
-    "param": "query",
-    "carrier": "path"
+    "path": "/api/catalog/notice",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 7,
+    "call_depth_observed": 11,
     "payload_sent": "zz' OR 1=1--",
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

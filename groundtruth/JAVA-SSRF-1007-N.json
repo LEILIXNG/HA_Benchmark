@@ -1,0 +1,213 @@
+{
+  "id": "JAVA-SSRF-1007-N",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "与 JAVA-SSRF-1007 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingcapture/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingcapture/web/SessionController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/billingcapture/service/SessionFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/billingcapture/service/ContractFilter.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/SessionController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/ManifestRouter.java",
+      "line": 14,
+      "expr": "ledgerEntry1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/ManifestRouter.java",
+      "line": 15,
+      "expr": "channelTag2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/ManifestRouter.java",
+      "line": 16,
+      "expr": "channelTag2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/ManifestRouter.java",
+      "line": 21,
+      "expr": "catalogKey3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/ManifestRouter.java",
+      "line": 22,
+      "expr": "receiptKey4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/ManifestRouter.java",
+      "line": 23,
+      "expr": "accountRef5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingcapture/web/ManifestRouter.java",
+      "line": 24,
+      "expr": "accountRef5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 19,
+      "expr": "invoiceKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 20,
+      "expr": "batchTag102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 21,
+      "expr": "batchTag102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 26,
+      "expr": "orderRef103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 27,
+      "expr": "quoteRef104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 28,
+      "expr": "quoteRef104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 33,
+      "expr": "tariffRef105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 36,
+      "expr": "tariffRef105",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 37,
+      "expr": "ledgerEntry106",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 38,
+      "expr": "channelTag107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/QuoteCollector.java",
+      "line": 39,
+      "expr": "channelTag107",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/ContractFilter.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/SessionFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingcapture/service/SessionFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 23,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/capture/{target}",
+    "param": "target",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-07T16:03:24+08:00"
+  }
+}

@@ -1,8 +1,8 @@
 {
   "id": "JAVA-CMDI-1034",
   "cwe": "CWE-78",
-  "verdict": "vulnerable",
-  "title": "查询参数经 14 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
+  "verdict": "safe",
+  "title": "请求头经 9 层调用、跨 2 个模块流入命令执行，经 whitelist_regex 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/customermerge/web/AccountController.java",
     "line": 11,
@@ -11,249 +11,175 @@
   "source": {
     "file": "web/src/main/java/com/habench/customermerge/web/AccountController.java",
     "line": 13,
-    "expr": "token",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "query",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customermerge/dao/AccountExecutor.java",
+    "file": "service/src/main/java/com/habench/customermerge/service/AccountExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/customermerge/dao/PaymentGuard.java",
-    "line": 9,
-    "expr": "cleaned",
-    "note": "SANITIZER: 只剥离分号（无效）"
+    "file": "service/src/main/java/com/habench/customermerge/service/PaymentGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
   },
-  "sanitizer_kind": "metachar_strip_semicolon",
+  "sanitizer_kind": "whitelist_regex",
   "path": [
     {
       "file": "web/src/main/java/com/habench/customermerge/web/AccountController.java",
       "line": 13,
-      "expr": "token",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "query",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/ReceiptCoordinator.java",
-      "line": 16,
-      "expr": "accountRef1",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/ReceiptCoordinator.java",
-      "line": 17,
-      "expr": "accountRef1",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/ReceiptCoordinator.java",
-      "line": 22,
-      "expr": "voucherRef2",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/ReceiptCoordinator.java",
-      "line": 25,
-      "expr": "voucherRef2",
+      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
+      "line": 13,
+      "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/ReceiptCoordinator.java",
-      "line": 26,
-      "expr": "paymentTag3",
+      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
+      "line": 14,
+      "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/ReceiptCoordinator.java",
-      "line": 27,
+      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
+      "line": 15,
+      "expr": "accountRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
+      "line": 20,
+      "expr": "voucherRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
+      "line": 21,
       "expr": "paymentTag3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
+      "line": 22,
+      "expr": "refundCode4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
+      "line": 23,
+      "expr": "refundCode4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/LedgerRuleSelector.java",
-      "line": 7,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
+      "file": "service/src/main/java/com/habench/customermerge/service/OrderService.java",
+      "line": 8,
+      "expr": "tariffRef101",
+      "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/LedgerRuleStandard.java",
+      "file": "service/src/main/java/com/habench/customermerge/service/OrderService.java",
+      "line": 9,
+      "expr": "tariffRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customermerge/service/OrderRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customermerge/service/OrderRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 19,
+      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
+      "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 20,
-      "expr": "tariffRef101",
+      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
+      "line": 13,
+      "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 21,
-      "expr": "ledgerEntry102",
+      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
+      "line": 14,
+      "expr": "invoiceKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 22,
-      "expr": "ledgerEntry102",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 27,
-      "expr": "channelTag103",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 28,
-      "expr": "catalogKey104",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 31,
-      "expr": "catalogKey104",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 32,
-      "expr": "receiptKey105",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 33,
-      "expr": "receiptKey105",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 38,
-      "expr": "accountRef106",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 39,
-      "expr": "voucherRef107",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 40,
-      "expr": "paymentTag108",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customermerge/web/OrderService.java",
-      "line": 41,
-      "expr": "paymentTag108",
+      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
+      "line": 15,
+      "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/OrderFacade.java",
-      "line": 8,
-      "expr": "manifestKey201",
-      "note": "局部变量传递"
+      "file": "service/src/main/java/com/habench/customermerge/service/PaymentGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/OrderFacade.java",
-      "line": 9,
-      "expr": "manifestKey201",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customermerge/dao/CatalogFacade.java",
-      "line": 8,
-      "expr": "accountRef301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customermerge/dao/CatalogFacade.java",
-      "line": 9,
-      "expr": "voucherRef302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customermerge/dao/CatalogFacade.java",
-      "line": 10,
-      "expr": "voucherRef302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customermerge/dao/PaymentGuard.java",
-      "line": 9,
-      "expr": "cleaned",
-      "note": "SANITIZER: 只剥离分号（无效）"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/customermerge/dao/AccountExecutor.java",
+      "file": "service/src/main/java/com/habench/customermerge/service/AccountExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/customermerge/dao/AccountExecutor.java",
+      "file": "service/src/main/java/com/habench/customermerge/service/AccountExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 14,
-    "chain_len": 30,
-    "files_crossed": 9,
-    "modules_crossed": 3,
+    "call_depth": 9,
+    "chain_len": 19,
+    "files_crossed": 8,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:runtime_exec",
-      "prop:assign_local",
-      "prop:store_field",
       "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
       "prop:interface_dispatch",
       "prop:map_element",
       "prop:string_concat",
-      "prop:static_field",
-      "prop:assign_local",
-      "prop:map_element",
-      "prop:store_field",
-      "prop:assign_local",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:assign_local",
-      "prop:cross_module",
-      "prop:string_concat",
-      "prop:string_concat",
-      "sanitizer:metachar_strip_semicolon"
+      "sanitizer:whitelist_regex"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/customer/merge",
-    "param": "token",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
-    "reached": true,
-    "tainted": true,
+    "reached": false,
+    "tainted": false,
     "neutralized": false,
-    "call_depth_observed": 14,
+    "call_depth_observed": null,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:zz$(id)",
+    "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1014",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "查询参数经 12 层调用、跨 3 个模块流入命令执行",
+  "title": "请求头经 10 层调用、跨 2 个模块流入命令执行",
   "entry": {
     "file": "web/src/main/java/com/habench/inventorylookup/web/BatchController.java",
     "line": 11,
@@ -11,11 +11,11 @@
   "source": {
     "file": "web/src/main/java/com/habench/inventorylookup/web/BatchController.java",
     "line": 13,
-    "expr": "orderNo",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "query",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/inventorylookup/dao/BatchExecutor.java",
+    "file": "service/src/main/java/com/habench/inventorylookup/service/BatchExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -26,224 +26,176 @@
     {
       "file": "web/src/main/java/com/habench/inventorylookup/web/BatchController.java",
       "line": 13,
-      "expr": "orderNo",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "query",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/PaymentResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
+      "line": 14,
       "expr": "tariffRef1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/PaymentResolver.java",
-      "line": 9,
-      "expr": "tariffRef1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/BundleCoordinator.java",
-      "line": 8,
-      "expr": "manifestKey101",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/BundleCoordinator.java",
-      "line": 9,
-      "expr": "invoiceKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/BundleCoordinator.java",
-      "line": 10,
-      "expr": "invoiceKey102",
+      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
+      "line": 15,
+      "expr": "tariffRef1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
+      "line": 20,
+      "expr": "ledgerEntry2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
+      "line": 21,
+      "expr": "channelTag3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
+      "line": 22,
+      "expr": "channelTag3",
       "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 19,
+      "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 20,
-      "expr": "accountRef201",
+      "line": 13,
+      "expr": "manifestKey101",
       "note": "取出集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 21,
-      "expr": "voucherRef202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 22,
-      "expr": "voucherRef202",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 27,
-      "expr": "paymentTag203",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 30,
-      "expr": "paymentTag203",
+      "line": 16,
+      "expr": "manifestKey101",
       "note": "存入集合元素"
     },
     {
       "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 31,
+      "line": 17,
+      "expr": "invoiceKey102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
+      "line": 18,
+      "expr": "invoiceKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 17,
+      "expr": "accountRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 18,
+      "expr": "voucherRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 19,
+      "expr": "voucherRef202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 24,
+      "expr": "paymentTag203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 27,
+      "expr": "paymentTag203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 28,
       "expr": "refundCode204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 32,
-      "expr": "shipmentCode205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 33,
-      "expr": "shipmentCode205",
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 29,
+      "expr": "refundCode204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 34,
+      "expr": "shipmentCode205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 35,
+      "expr": "manifestKey206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
       "line": 38,
       "expr": "manifestKey206",
-      "note": "读取实例字段"
+      "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
       "line": 39,
       "expr": "invoiceKey207",
-      "note": "字符串拼接传播"
+      "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 42,
+      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
+      "line": 40,
       "expr": "invoiceKey207",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 43,
-      "expr": "batchTag208",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 44,
-      "expr": "batchTag208",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 17,
-      "expr": "tariffRef301",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 18,
-      "expr": "ledgerEntry302",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 19,
-      "expr": "ledgerEntry302",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 24,
-      "expr": "channelTag303",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 27,
-      "expr": "channelTag303",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 28,
-      "expr": "catalogKey304",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 29,
-      "expr": "catalogKey304",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 34,
-      "expr": "receiptKey305",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 35,
-      "expr": "accountRef306",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/ReceiptCollector.java",
-      "line": 36,
-      "expr": "accountRef306",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/BatchExecutor.java",
+      "file": "service/src/main/java/com/habench/inventorylookup/service/BatchExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorylookup/dao/BatchExecutor.java",
+      "file": "service/src/main/java/com/habench/inventorylookup/service/BatchExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 12,
-    "chain_len": 32,
-    "files_crossed": 6,
-    "modules_crossed": 3,
+    "call_depth": 10,
+    "chain_len": 25,
+    "files_crossed": 5,
+    "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:runtime_exec",
-      "prop:string_concat",
-      "prop:cross_module",
-      "prop:string_concat",
       "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
       "prop:cross_class",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:static_field",
-      "prop:map_element",
-      "prop:string_concat",
-      "prop:store_field",
-      "prop:string_concat",
-      "prop:map_element",
-      "prop:cross_module",
       "prop:assign_local",
-      "prop:assign_local",
+      "prop:string_concat",
       "prop:static_field",
       "prop:map_element",
       "prop:store_field",
       "prop:string_concat",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
@@ -251,19 +203,19 @@
   "http": {
     "method": "GET",
     "path": "/api/inventory/lookup",
-    "param": "orderNo",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 12,
+    "call_depth_observed": 10,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
+    "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

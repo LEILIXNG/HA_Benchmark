@@ -2,7 +2,7 @@
   "id": "JAVA-CMDI-1004",
   "cwe": "CWE-78",
   "verdict": "vulnerable",
-  "title": "路径变量经 6 层调用、跨 2 个模块流入命令执行",
+  "title": "路径变量经 19 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
     "file": "web/src/main/java/com/habench/paymentsettlequeue/web/SessionController.java",
     "line": 11,
@@ -11,113 +11,342 @@
   "source": {
     "file": "web/src/main/java/com/habench/paymentsettlequeue/web/SessionController.java",
     "line": 13,
-    "expr": "filename",
+    "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/paymentsettlequeue/service/SessionExecutor.java",
+    "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/SessionExecutor.java",
     "line": 13,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
-  "sanitizer": null,
-  "sanitizer_kind": "none",
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/VoucherScreen.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 只剥离分号（无效）"
+  },
+  "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
       "file": "web/src/main/java/com/habench/paymentsettlequeue/web/SessionController.java",
       "line": 13,
-      "expr": "filename",
+      "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/CatalogEnricher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/AccountTranslator.java",
+      "line": 8,
       "expr": "manifestKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/CatalogEnricher.java",
-      "line": 19,
+      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/AccountTranslator.java",
+      "line": 9,
       "expr": "manifestKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 17,
+      "expr": "accountRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 20,
+      "expr": "accountRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/CatalogEnricher.java",
-      "line": 20,
-      "expr": "invoiceKey2",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 21,
+      "expr": "voucherRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/CatalogEnricher.java",
-      "line": 21,
-      "expr": "invoiceKey2",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 22,
+      "expr": "voucherRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/CatalogEnricher.java",
-      "line": 26,
-      "expr": "batchTag3",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 27,
+      "expr": "paymentTag103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/CatalogEnricher.java",
-      "line": 27,
-      "expr": "orderRef4",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymentsettlequeue/web/CatalogEnricher.java",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
       "line": 28,
-      "expr": "orderRef4",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/VoucherTranslator.java",
-      "line": 8,
-      "expr": "accountRef101",
+      "expr": "refundCode104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/VoucherTranslator.java",
-      "line": 9,
-      "expr": "accountRef101",
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 29,
+      "expr": "refundCode104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 34,
+      "expr": "shipmentCode105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 37,
+      "expr": "shipmentCode105",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 38,
+      "expr": "manifestKey106",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 39,
+      "expr": "manifestKey106",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 44,
+      "expr": "invoiceKey107",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 47,
+      "expr": "invoiceKey107",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 48,
+      "expr": "batchTag108",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 49,
+      "expr": "orderRef109",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 50,
+      "expr": "orderRef109",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 55,
+      "expr": "quoteRef110",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 58,
+      "expr": "quoteRef110",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 59,
+      "expr": "tariffRef111",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 60,
+      "expr": "tariffRef111",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 65,
+      "expr": "ledgerEntry112",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 68,
+      "expr": "ledgerEntry112",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 69,
+      "expr": "channelTag113",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 70,
+      "expr": "channelTag113",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 75,
+      "expr": "catalogKey114",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 76,
+      "expr": "receiptKey115",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 77,
+      "expr": "accountRef116",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/ReceiptComposer.java",
+      "line": 78,
+      "expr": "accountRef116",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/SessionExecutor.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/RefundBroker.java",
+      "line": 14,
+      "expr": "tariffRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/RefundBroker.java",
+      "line": 15,
+      "expr": "tariffRef201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/RefundBroker.java",
+      "line": 20,
+      "expr": "ledgerEntry202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/RefundBroker.java",
+      "line": 21,
+      "expr": "channelTag203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/RefundBroker.java",
+      "line": 22,
+      "expr": "channelTag203",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/ContractStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/ContractStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/OrderBroker.java",
+      "line": 9,
+      "expr": "manifestKey301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/OrderBroker.java",
+      "line": 10,
+      "expr": "manifestKey301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/OrderBroker.java",
+      "line": 15,
+      "expr": "invoiceKey302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/OrderBroker.java",
+      "line": 16,
+      "expr": "batchTag303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/OrderBroker.java",
+      "line": 17,
+      "expr": "batchTag303",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/VoucherScreen.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 只剥离分号（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/SessionExecutor.java",
       "line": 9,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsettlequeue/service/SessionExecutor.java",
+      "file": "dao/src/main/java/com/habench/paymentsettlequeue/dao/SessionExecutor.java",
       "line": 13,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
   ],
   "metrics": {
-    "call_depth": 6,
-    "chain_len": 12,
-    "files_crossed": 4,
-    "modules_crossed": 2,
+    "call_depth": 19,
+    "chain_len": 46,
+    "files_crossed": 9,
+    "modules_crossed": 3,
     "features": [
       "source:spring_path_variable",
       "sink:runtime_exec",
       "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
       "prop:map_element",
       "prop:store_field",
       "prop:string_concat",
+      "prop:string_concat",
       "prop:cross_module",
       "prop:assign_local",
-      "sanitizer:none"
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "sanitizer:metachar_strip_semicolon"
     ]
   },
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/payment/settlequeue/{filename}",
-    "param": "filename",
+    "path": "/api/payment/settlequeue/{label}",
+    "param": "label",
     "carrier": "path"
   },
   "verification": {
@@ -125,11 +354,11 @@
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 6,
+    "call_depth_observed": 19,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:zz$(id);;",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }

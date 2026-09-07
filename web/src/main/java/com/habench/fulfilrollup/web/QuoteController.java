@@ -1,6 +1,6 @@
 package com.habench.fulfilrollup.web;
 
-import com.habench.fulfilrollup.web.LedgerAdapter;
+import com.habench.fulfilrollup.web.LedgerBroker;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("fulfilrollupController")
 public class QuoteController {
 
-    @GetMapping("/api/fulfil/rollup/{filename}")
-    public String refine(
-            @PathVariable("filename") String filename) {
-        LedgerAdapter.refine(filename);
+    @GetMapping("/api/fulfil/rollup/{keyword}")
+    public String reconcile(
+            @PathVariable("keyword") String keyword) {
+        LedgerBroker.refine(keyword);
         return "ok";
     }
 }

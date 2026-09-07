@@ -2,7 +2,7 @@
   "id": "JAVA-SPEL-1000",
   "cwe": "CWE-917",
   "verdict": "vulnerable",
-  "title": "查询参数经 10 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "title": "请求头经 11 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
     "file": "web/src/main/java/com/habench/orderdraft/web/SessionController.java",
     "line": 11,
@@ -11,8 +11,8 @@
   "source": {
     "file": "web/src/main/java/com/habench/orderdraft/web/SessionController.java",
     "line": 13,
-    "expr": "reference",
-    "note": "SOURCE: Spring 查询参数"
+    "expr": "label",
+    "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
     "file": "service/src/main/java/com/habench/orderdraft/service/SessionEvaluator.java",
@@ -26,26 +26,86 @@
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/SessionController.java",
       "line": 13,
-      "expr": "reference",
-      "note": "SOURCE: Spring 查询参数"
+      "expr": "label",
+      "note": "SOURCE: Servlet 请求头"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
-      "line": 8,
+      "line": 11,
       "expr": "invoiceKey1",
       "note": "字符串拼接传播"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
-      "line": 9,
-      "expr": "invoiceKey1",
+      "line": 12,
+      "expr": "batchTag2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 13,
+      "expr": "batchTag2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 18,
+      "expr": "orderRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 19,
+      "expr": "quoteRef4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 20,
+      "expr": "quoteRef4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 25,
+      "expr": "tariffRef5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 28,
+      "expr": "tariffRef5",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 29,
+      "expr": "ledgerEntry6",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 32,
+      "expr": "ledgerEntry6",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 33,
+      "expr": "channelTag7",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/BatchEnricher.java",
+      "line": 34,
+      "expr": "channelTag7",
       "note": "调用下一层"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/InvoiceStrategySelector.java",
       "line": 7,
       "expr": "value",
-      "note": "接口多态派发（4 个实现）"
+      "note": "接口多态派发（3 个实现）"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/InvoiceStrategyStandard.java",
@@ -55,80 +115,62 @@
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/VoucherTranslator.java",
-      "line": 11,
+      "line": 14,
       "expr": "voucherRef101",
       "note": "局部变量传递"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/VoucherTranslator.java",
-      "line": 12,
+      "line": 15,
       "expr": "voucherRef101",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "web/src/main/java/com/habench/orderdraft/web/VoucherTranslator.java",
-      "line": 17,
-      "expr": "paymentTag102",
-      "note": "读取静态字段"
+      "note": "写入实例字段"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/VoucherTranslator.java",
       "line": 20,
       "expr": "paymentTag102",
-      "note": "存入集合元素"
+      "note": "读取实例字段"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/VoucherTranslator.java",
       "line": 21,
       "expr": "refundCode103",
-      "note": "取出集合元素"
+      "note": "字符串拼接传播"
     },
     {
       "file": "web/src/main/java/com/habench/orderdraft/web/VoucherTranslator.java",
       "line": 22,
-      "expr": "refundCode103",
+      "expr": "shipmentCode104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderdraft/web/VoucherTranslator.java",
+      "line": 23,
+      "expr": "shipmentCode104",
       "note": "调用下一层"
     },
     {
       "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
-      "line": 14,
+      "line": 10,
       "expr": "ledgerEntry201",
       "note": "局部变量传递"
     },
     {
       "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
+      "line": 13,
+      "expr": "ledgerEntry201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
+      "line": 14,
+      "expr": "channelTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
       "line": 15,
       "expr": "channelTag202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
-      "line": 16,
-      "expr": "channelTag202",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
-      "line": 21,
-      "expr": "catalogKey203",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
-      "line": 22,
-      "expr": "receiptKey204",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
-      "line": 23,
-      "expr": "accountRef205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderdraft/service/BatchRegistry.java",
-      "line": 24,
-      "expr": "accountRef205",
       "note": "调用下一层"
     },
     {
@@ -145,44 +187,48 @@
     }
   ],
   "metrics": {
-    "call_depth": 10,
-    "chain_len": 20,
+    "call_depth": 11,
+    "chain_len": 27,
     "files_crossed": 7,
     "modules_crossed": 2,
     "features": [
-      "source:spring_request_param",
+      "source:servlet_header",
       "sink:spel_eval",
       "prop:string_concat",
-      "prop:interface_dispatch",
-      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
       "prop:static_field",
       "prop:map_element",
-      "prop:cross_module",
-      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
       "prop:assign_local",
       "prop:store_field",
-      "prop:assign_local",
       "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
       "sanitizer:none"
     ]
   },
-  "paired_negative": "JAVA-SPEL-1000-N",
+  "paired_negative": null,
   "http": {
     "method": "GET",
     "path": "/api/order/draft",
-    "param": "reference",
-    "carrier": "query"
+    "param": "X-Ha-Payload",
+    "carrier": "header"
   },
   "verification": {
     "status": "pass",
     "reached": true,
     "tainted": true,
     "neutralized": false,
-    "call_depth_observed": 10,
+    "call_depth_observed": 11,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T09:25:40+08:00"
+    "checked_at": "2026-09-07T16:03:24+08:00"
   }
 }
