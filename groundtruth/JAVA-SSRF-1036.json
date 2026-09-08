@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 7 层调用、跨 1 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentverify/web/TariffController.java",
+    "file": "web/src/main/java/com/habench/paymentissue/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentverify/web/TariffController.java",
+    "file": "web/src/main/java/com/habench/paymentissue/web/TariffController.java",
     "line": 13,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/paymentverify/web/TariffFetcher.java",
+    "file": "web/src/main/java/com/habench/paymentissue/web/TariffFetcher.java",
     "line": 14,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,97 +24,97 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/TariffController.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/TariffController.java",
       "line": 13,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/SessionCoordinator.java",
       "line": 11,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/SessionCoordinator.java",
       "line": 12,
       "expr": "invoiceKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/SessionCoordinator.java",
       "line": 17,
       "expr": "batchTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/SessionCoordinator.java",
       "line": 20,
       "expr": "batchTag2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/SessionCoordinator.java",
       "line": 21,
       "expr": "orderRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/SessionCoordinator.java",
       "line": 22,
       "expr": "quoteRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/SessionCoordinator.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/SessionCoordinator.java",
       "line": 23,
       "expr": "quoteRef4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/CatalogFacade.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/CatalogFacade.java",
       "line": 14,
       "expr": "voucherRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/CatalogFacade.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/CatalogFacade.java",
       "line": 15,
       "expr": "voucherRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/CatalogFacade.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/CatalogFacade.java",
       "line": 20,
       "expr": "paymentTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/CatalogFacade.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/CatalogFacade.java",
       "line": 21,
       "expr": "refundCode103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/CatalogFacade.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/CatalogFacade.java",
       "line": 22,
       "expr": "shipmentCode104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/CatalogFacade.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/CatalogFacade.java",
       "line": 23,
       "expr": "shipmentCode104",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/TariffFetcher.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/TariffFetcher.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentverify/web/TariffFetcher.java",
+      "file": "web/src/main/java/com/habench/paymentissue/web/TariffFetcher.java",
       "line": 14,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -143,7 +143,7 @@
   "paired_negative": "JAVA-SSRF-1036-N",
   "http": {
     "method": "GET",
-    "path": "/api/payment/verify",
+    "path": "/api/payment/issue",
     "param": "resource",
     "carrier": "query"
   },
@@ -157,6 +157,6 @@
     "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

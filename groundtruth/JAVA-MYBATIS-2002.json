@@ -1,0 +1,313 @@
+{
+  "id": "JAVA-MYBATIS-2002",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 17 层调用、跨 2 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingissue/web/BundleController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingissue/web/BundleController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/pricingissue/service/BundleMapper.xml",
+    "line": 9,
+    "expr": "catalogKey",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingissue/web/BundleController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
+      "line": 13,
+      "expr": "tariffRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
+      "line": 16,
+      "expr": "tariffRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
+      "line": 17,
+      "expr": "ledgerEntry2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
+      "line": 18,
+      "expr": "ledgerEntry2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 17,
+      "expr": "manifestKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 18,
+      "expr": "invoiceKey102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 19,
+      "expr": "invoiceKey102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 24,
+      "expr": "batchTag103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 25,
+      "expr": "orderRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 26,
+      "expr": "quoteRef105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 27,
+      "expr": "quoteRef105",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 32,
+      "expr": "tariffRef106",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 35,
+      "expr": "tariffRef106",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 36,
+      "expr": "ledgerEntry107",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 37,
+      "expr": "ledgerEntry107",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 42,
+      "expr": "channelTag108",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 43,
+      "expr": "catalogKey109",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 44,
+      "expr": "receiptKey110",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 45,
+      "expr": "receiptKey110",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 50,
+      "expr": "accountRef111",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 51,
+      "expr": "voucherRef112",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 52,
+      "expr": "voucherRef112",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 57,
+      "expr": "paymentTag113",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 58,
+      "expr": "refundCode114",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
+      "line": 59,
+      "expr": "refundCode114",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/QuotePolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/QuotePolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogFacade.java",
+      "line": 8,
+      "expr": "accountRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogFacade.java",
+      "line": 9,
+      "expr": "voucherRef202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogFacade.java",
+      "line": 10,
+      "expr": "voucherRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/LedgerStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/LedgerStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogEnricher.java",
+      "line": 8,
+      "expr": "tariffRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogEnricher.java",
+      "line": 9,
+      "expr": "tariffRef301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/BundleGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingissue/service/BundleGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/pricingissue/service/BundleMapper.xml",
+      "line": 9,
+      "expr": "catalogKey",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 17,
+    "chain_len": 39,
+    "files_crossed": 11,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/issue/{resource}",
+    "param": "resource",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 17,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

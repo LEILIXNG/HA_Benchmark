@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "查询参数经 10 层调用、跨 2 个模块流入文件读取，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingcapture/web/BatchController.java",
+    "file": "web/src/main/java/com/habench/shippingtrace/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingcapture/web/BatchController.java",
+    "file": "web/src/main/java/com/habench/shippingtrace/web/BatchController.java",
     "line": 13,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/pricingcapture/service/BatchLoader.java",
+    "file": "service/src/main/java/com/habench/shippingtrace/service/BatchLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/pricingcapture/service/RefundPolicy.java",
+    "file": "service/src/main/java/com/habench/shippingtrace/service/RefundPolicy.java",
     "line": 11,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,139 +29,139 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/BatchController.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/BatchController.java",
       "line": 13,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 15,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 16,
       "expr": "voucherRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 17,
       "expr": "voucherRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 22,
       "expr": "paymentTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 23,
       "expr": "refundCode4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 24,
       "expr": "refundCode4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 29,
       "expr": "shipmentCode5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 30,
       "expr": "manifestKey6",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 31,
       "expr": "invoiceKey7",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 32,
       "expr": "invoiceKey7",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 37,
       "expr": "batchTag8",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 38,
       "expr": "orderRef9",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 39,
       "expr": "quoteRef10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingcapture/web/VoucherRouter.java",
+      "file": "web/src/main/java/com/habench/shippingtrace/web/VoucherRouter.java",
       "line": 40,
       "expr": "quoteRef10",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/RefundPolicy.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/RefundPolicy.java",
       "line": 11,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestBuilder.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/ManifestBuilder.java",
       "line": 8,
       "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestBuilder.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/ManifestBuilder.java",
       "line": 9,
       "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/PaymentComposer.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/PaymentComposer.java",
       "line": 8,
       "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/PaymentComposer.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/PaymentComposer.java",
       "line": 9,
       "expr": "invoiceKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/PaymentComposer.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/PaymentComposer.java",
       "line": 10,
       "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/BatchLoader.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/BatchLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingcapture/service/BatchLoader.java",
+      "file": "service/src/main/java/com/habench/shippingtrace/service/BatchLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -196,7 +196,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/pricing/capture",
+    "path": "/api/shipping/trace",
     "param": "resource",
     "carrier": "query"
   },
@@ -210,6 +210,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

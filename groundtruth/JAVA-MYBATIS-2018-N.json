@@ -1,0 +1,267 @@
+{
+  "id": "JAVA-MYBATIS-2018-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-MYBATIS-2018 逐行相同，仅把净化改为 mybatis_parameterized",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingtrace/web/TariffController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingtrace/web/TariffController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/pricingtrace/dao/TariffMapper.xml",
+    "line": 9,
+    "expr": "ledgerEntry",
+    "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/resources/com/habench/pricingtrace/dao/TariffMapper.xml",
+    "line": 9,
+    "expr": "ledgerEntry",
+    "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
+  },
+  "sanitizer_kind": "mybatis_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/TariffController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/InvoiceBroker.java",
+      "line": 8,
+      "expr": "channelTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/InvoiceBroker.java",
+      "line": 9,
+      "expr": "channelTag1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 19,
+      "expr": "batchTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 20,
+      "expr": "orderRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 21,
+      "expr": "orderRef102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 26,
+      "expr": "quoteRef103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 27,
+      "expr": "tariffRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 28,
+      "expr": "tariffRef104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 33,
+      "expr": "ledgerEntry105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 34,
+      "expr": "channelTag106",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingtrace/web/OrderService.java",
+      "line": 35,
+      "expr": "channelTag106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingtrace/service/VoucherNormalizer.java",
+      "line": 8,
+      "expr": "paymentTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingtrace/service/VoucherNormalizer.java",
+      "line": 9,
+      "expr": "refundCode202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingtrace/service/VoucherNormalizer.java",
+      "line": 10,
+      "expr": "refundCode202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 17,
+      "expr": "channelTag301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 18,
+      "expr": "catalogKey302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 19,
+      "expr": "catalogKey302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 24,
+      "expr": "receiptKey303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 27,
+      "expr": "receiptKey303",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 28,
+      "expr": "accountRef304",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 29,
+      "expr": "accountRef304",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 34,
+      "expr": "voucherRef305",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 35,
+      "expr": "paymentTag306",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 38,
+      "expr": "paymentTag306",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 39,
+      "expr": "refundCode307",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/SessionAdapter.java",
+      "line": 40,
+      "expr": "refundCode307",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/TariffGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingtrace/dao/TariffGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/pricingtrace/dao/TariffMapper.xml",
+      "line": 9,
+      "expr": "ledgerEntry",
+      "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 13,
+    "chain_len": 31,
+    "files_crossed": 7,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:mybatis_dollar",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:mybatis_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/trace/{query}",
+    "param": "query",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 13,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

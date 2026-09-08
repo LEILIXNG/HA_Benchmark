@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 16 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippinggrant/web/CatalogController.java",
+    "file": "web/src/main/java/com/habench/ordermanifest/web/CatalogController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippinggrant/web/CatalogController.java",
+    "file": "web/src/main/java/com/habench/ordermanifest/web/CatalogController.java",
     "line": 13,
     "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippinggrant/dao/CatalogRepository.java",
+    "file": "dao/src/main/java/com/habench/ordermanifest/dao/CatalogRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,271 +24,271 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/CatalogController.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/CatalogController.java",
       "line": 13,
       "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/ManifestAdapter.java",
       "line": 10,
       "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/ManifestAdapter.java",
       "line": 13,
       "expr": "shipmentCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/ManifestAdapter.java",
       "line": 14,
       "expr": "manifestKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/ManifestAdapter.java",
       "line": 15,
       "expr": "manifestKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/LedgerBroker.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/LedgerBroker.java",
       "line": 10,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/LedgerBroker.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/LedgerBroker.java",
       "line": 13,
       "expr": "receiptKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/LedgerBroker.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/LedgerBroker.java",
       "line": 14,
       "expr": "accountRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippinggrant/web/LedgerBroker.java",
+      "file": "web/src/main/java/com/habench/ordermanifest/web/LedgerBroker.java",
       "line": 15,
       "expr": "accountRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippinggrant/service/TariffAdapter.java",
+      "file": "service/src/main/java/com/habench/ordermanifest/service/TariffAdapter.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippinggrant/service/TariffAdapter.java",
+      "file": "service/src/main/java/com/habench/ordermanifest/service/TariffAdapter.java",
       "line": 13,
       "expr": "quoteRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippinggrant/service/TariffAdapter.java",
+      "file": "service/src/main/java/com/habench/ordermanifest/service/TariffAdapter.java",
       "line": 14,
       "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/OrderService.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/OrderService.java",
       "line": 10,
       "expr": "shipmentCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/OrderService.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/OrderService.java",
       "line": 13,
       "expr": "shipmentCode301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/OrderService.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/OrderService.java",
       "line": 14,
       "expr": "manifestKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/OrderService.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/OrderService.java",
       "line": 15,
       "expr": "manifestKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/ChannelRuleSelector.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/ChannelRuleSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/ChannelRuleStandard.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/ChannelRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 17,
       "expr": "receiptKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 18,
       "expr": "accountRef402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 19,
       "expr": "accountRef402",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 24,
       "expr": "voucherRef403",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 25,
       "expr": "paymentTag404",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 26,
       "expr": "paymentTag404",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 31,
       "expr": "refundCode405",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 32,
       "expr": "shipmentCode406",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 33,
       "expr": "shipmentCode406",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 38,
       "expr": "manifestKey407",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 41,
       "expr": "manifestKey407",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 42,
       "expr": "invoiceKey408",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 45,
       "expr": "invoiceKey408",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 46,
       "expr": "batchTag409",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 47,
       "expr": "batchTag409",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 52,
       "expr": "orderRef410",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 53,
       "expr": "quoteRef411",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 56,
       "expr": "quoteRef411",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 57,
       "expr": "tariffRef412",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 58,
       "expr": "tariffRef412",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 63,
       "expr": "ledgerEntry413",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 64,
       "expr": "channelTag414",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/InvoiceResolver.java",
       "line": 65,
       "expr": "channelTag414",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/OrderRouter.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/OrderRouter.java",
       "line": 8,
       "expr": "quoteRef501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/OrderRouter.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/OrderRouter.java",
       "line": 9,
       "expr": "quoteRef501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/CatalogRepository.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/CatalogRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippinggrant/dao/CatalogRepository.java",
+      "file": "dao/src/main/java/com/habench/ordermanifest/dao/CatalogRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -335,7 +335,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/shipping/grant",
+    "path": "/api/order/manifest",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -349,6 +349,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

@@ -1,0 +1,222 @@
+{
+  "id": "JAVA-MYBATIS-2019",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 11 层调用、跨 3 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorrelease/web/LedgerController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorrelease/web/LedgerController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/vendorrelease/dao/LedgerMapper.xml",
+    "line": 9,
+    "expr": "accountRef",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorrelease/web/LedgerController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrelease/web/ManifestNormalizer.java",
+      "line": 8,
+      "expr": "tariffRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorrelease/web/ManifestNormalizer.java",
+      "line": 9,
+      "expr": "tariffRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
+      "line": 14,
+      "expr": "manifestKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
+      "line": 15,
+      "expr": "invoiceKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
+      "line": 16,
+      "expr": "invoiceKey102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
+      "line": 21,
+      "expr": "batchTag103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
+      "line": 22,
+      "expr": "orderRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
+      "line": 23,
+      "expr": "orderRef104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 13,
+      "expr": "accountRef201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 14,
+      "expr": "voucherRef202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 15,
+      "expr": "voucherRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/OrderAssembler.java",
+      "line": 8,
+      "expr": "tariffRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/OrderAssembler.java",
+      "line": 9,
+      "expr": "tariffRef301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
+      "line": 16,
+      "expr": "manifestKey401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
+      "line": 17,
+      "expr": "manifestKey401",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
+      "line": 22,
+      "expr": "invoiceKey402",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
+      "line": 25,
+      "expr": "invoiceKey402",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
+      "line": 26,
+      "expr": "batchTag403",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
+      "line": 27,
+      "expr": "batchTag403",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/LedgerGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorrelease/dao/LedgerGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/vendorrelease/dao/LedgerMapper.xml",
+      "line": 9,
+      "expr": "accountRef",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 25,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:mybatis_dollar",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/release/{label}",
+    "param": "label",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 11,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

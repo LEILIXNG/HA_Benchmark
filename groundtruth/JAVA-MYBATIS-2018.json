@@ -1,0 +1,262 @@
+{
+  "id": "JAVA-MYBATIS-2018",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 13 层调用、跨 3 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorledger/web/ChannelController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorledger/web/ChannelController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/vendorledger/dao/ChannelMapper.xml",
+    "line": 9,
+    "expr": "tariffRef",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ReceiptNormalizer.java",
+      "line": 8,
+      "expr": "receiptKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ReceiptNormalizer.java",
+      "line": 9,
+      "expr": "receiptKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 19,
+      "expr": "quoteRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 20,
+      "expr": "tariffRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 21,
+      "expr": "tariffRef102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 26,
+      "expr": "ledgerEntry103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 27,
+      "expr": "channelTag104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 28,
+      "expr": "channelTag104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 33,
+      "expr": "catalogKey105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 34,
+      "expr": "receiptKey106",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorledger/web/ChannelFacade.java",
+      "line": 35,
+      "expr": "receiptKey106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorledger/service/CatalogRegistry.java",
+      "line": 8,
+      "expr": "shipmentCode201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorledger/service/CatalogRegistry.java",
+      "line": 9,
+      "expr": "manifestKey202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorledger/service/CatalogRegistry.java",
+      "line": 10,
+      "expr": "manifestKey202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 17,
+      "expr": "receiptKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 18,
+      "expr": "accountRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 19,
+      "expr": "accountRef302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 24,
+      "expr": "voucherRef303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 27,
+      "expr": "voucherRef303",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 28,
+      "expr": "paymentTag304",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 29,
+      "expr": "paymentTag304",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 34,
+      "expr": "refundCode305",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 35,
+      "expr": "shipmentCode306",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 38,
+      "expr": "shipmentCode306",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 39,
+      "expr": "manifestKey307",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/RefundAssembler.java",
+      "line": 40,
+      "expr": "manifestKey307",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/ChannelGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/vendorledger/dao/ChannelGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/vendorledger/dao/ChannelMapper.xml",
+      "line": 9,
+      "expr": "tariffRef",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 13,
+    "chain_len": 31,
+    "files_crossed": 7,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:mybatis_dollar",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-MYBATIS-2018-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/ledger/{query}",
+    "param": "query",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 13,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

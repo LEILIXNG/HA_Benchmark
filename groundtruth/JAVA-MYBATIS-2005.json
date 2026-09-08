@@ -1,0 +1,219 @@
+{
+  "id": "JAVA-MYBATIS-2005",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "查询参数经 12 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingcapture/web/ContractController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingcapture/web/ContractController.java",
+    "line": 13,
+    "expr": "filename",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/pricingcapture/dao/ContractMapper.xml",
+    "line": 9,
+    "expr": "catalogKey",
+    "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/resources/com/habench/pricingcapture/dao/ContractMapper.xml",
+    "line": 9,
+    "expr": "catalogKey",
+    "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
+  },
+  "sanitizer_kind": "mybatis_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/ContractController.java",
+      "line": 13,
+      "expr": "filename",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/SessionService.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/SessionService.java",
+      "line": 13,
+      "expr": "manifestKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/SessionService.java",
+      "line": 14,
+      "expr": "manifestKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/PaymentRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/PaymentRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/CatalogNormalizer.java",
+      "line": 8,
+      "expr": "accountRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingcapture/web/CatalogNormalizer.java",
+      "line": 9,
+      "expr": "accountRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 17,
+      "expr": "tariffRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 18,
+      "expr": "ledgerEntry202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 19,
+      "expr": "ledgerEntry202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 24,
+      "expr": "channelTag203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 25,
+      "expr": "catalogKey204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 26,
+      "expr": "catalogKey204",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 31,
+      "expr": "receiptKey205",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 34,
+      "expr": "receiptKey205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 35,
+      "expr": "accountRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 36,
+      "expr": "voucherRef207",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingcapture/service/ManifestEnricher.java",
+      "line": 37,
+      "expr": "voucherRef207",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentResolver.java",
+      "line": 8,
+      "expr": "manifestKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingcapture/dao/PaymentResolver.java",
+      "line": 9,
+      "expr": "manifestKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingcapture/dao/ContractGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingcapture/dao/ContractGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/pricingcapture/dao/ContractMapper.xml",
+      "line": 9,
+      "expr": "catalogKey",
+      "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 24,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:mybatis_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/capture",
+    "param": "filename",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 12,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

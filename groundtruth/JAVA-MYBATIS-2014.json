@@ -1,0 +1,198 @@
+{
+  "id": "JAVA-MYBATIS-2014",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "查询参数经 9 层调用、跨 1 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/customersplit/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/customersplit/web/OrderController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "web/src/main/resources/com/habench/customersplit/web/OrderMapper.xml",
+    "line": 9,
+    "expr": "quoteRef",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/customersplit/web/TariffValidator.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 不完整净化（无效）"
+  },
+  "sanitizer_kind": "incomplete_quote_strip",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/OrderController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 20,
+      "expr": "voucherRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 21,
+      "expr": "paymentTag2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 22,
+      "expr": "paymentTag2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 27,
+      "expr": "refundCode3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 28,
+      "expr": "shipmentCode4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 29,
+      "expr": "shipmentCode4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 34,
+      "expr": "manifestKey5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 37,
+      "expr": "manifestKey5",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 38,
+      "expr": "invoiceKey6",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 39,
+      "expr": "batchTag7",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 40,
+      "expr": "batchTag7",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 45,
+      "expr": "orderRef8",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 46,
+      "expr": "quoteRef9",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 47,
+      "expr": "tariffRef10",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
+      "line": 48,
+      "expr": "tariffRef10",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/TariffValidator.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 不完整净化（无效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/OrderGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customersplit/web/OrderGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "web/src/main/resources/com/habench/customersplit/web/OrderMapper.xml",
+      "line": 9,
+      "expr": "quoteRef",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 21,
+    "files_crossed": 5,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_param",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:incomplete_quote_strip"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/customer/split",
+    "param": "category",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:zz OR 1=1--;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

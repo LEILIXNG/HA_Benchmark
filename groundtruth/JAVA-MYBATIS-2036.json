@@ -1,0 +1,247 @@
+{
+  "id": "JAVA-MYBATIS-2036",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "查询参数经 10 层调用、跨 2 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilmerge/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilmerge/web/InvoiceController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/fulfilmerge/service/InvoiceMapper.xml",
+    "line": 9,
+    "expr": "channelTag",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/InvoiceController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/ReceiptBuilder.java",
+      "line": 11,
+      "expr": "quoteRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/ReceiptBuilder.java",
+      "line": 12,
+      "expr": "quoteRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/ReceiptBuilder.java",
+      "line": 17,
+      "expr": "tariffRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/ReceiptBuilder.java",
+      "line": 20,
+      "expr": "tariffRef2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/ReceiptBuilder.java",
+      "line": 21,
+      "expr": "ledgerEntry3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/ReceiptBuilder.java",
+      "line": 22,
+      "expr": "channelTag4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/ReceiptBuilder.java",
+      "line": 23,
+      "expr": "channelTag4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 16,
+      "expr": "shipmentCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 19,
+      "expr": "shipmentCode101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 20,
+      "expr": "manifestKey102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 21,
+      "expr": "manifestKey102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 26,
+      "expr": "invoiceKey103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 27,
+      "expr": "batchTag104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 28,
+      "expr": "orderRef105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilmerge/web/TariffFacade.java",
+      "line": 29,
+      "expr": "orderRef105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 14,
+      "expr": "receiptKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 17,
+      "expr": "receiptKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 18,
+      "expr": "accountRef202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 19,
+      "expr": "accountRef202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 24,
+      "expr": "voucherRef203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 27,
+      "expr": "voucherRef203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 28,
+      "expr": "paymentTag204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 29,
+      "expr": "refundCode205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/BatchEnricher.java",
+      "line": 30,
+      "expr": "refundCode205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/InvoiceGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilmerge/service/InvoiceGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/fulfilmerge/service/InvoiceMapper.xml",
+      "line": 9,
+      "expr": "channelTag",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 29,
+    "files_crossed": 6,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:mybatis_dollar",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/merge",
+    "param": "category",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 10,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

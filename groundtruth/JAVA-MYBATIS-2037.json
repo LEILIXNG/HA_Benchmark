@@ -1,0 +1,259 @@
+{
+  "id": "JAVA-MYBATIS-2037",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "请求头经 15 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventoryledger/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventoryledger/web/OrderController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/inventoryledger/dao/OrderMapper.xml",
+    "line": 9,
+    "expr": "ledgerEntry",
+    "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/resources/com/habench/inventoryledger/dao/OrderMapper.xml",
+    "line": 9,
+    "expr": "ledgerEntry",
+    "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
+  },
+  "sanitizer_kind": "mybatis_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventoryledger/web/OrderController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryledger/web/QuoteTranslator.java",
+      "line": 8,
+      "expr": "paymentTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryledger/web/QuoteTranslator.java",
+      "line": 9,
+      "expr": "refundCode2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryledger/web/QuoteTranslator.java",
+      "line": 10,
+      "expr": "refundCode2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryledger/web/AccountTranslator.java",
+      "line": 8,
+      "expr": "channelTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryledger/web/AccountTranslator.java",
+      "line": 9,
+      "expr": "catalogKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryledger/web/AccountTranslator.java",
+      "line": 10,
+      "expr": "catalogKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 19,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 20,
+      "expr": "batchTag201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 25,
+      "expr": "orderRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 28,
+      "expr": "orderRef202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 29,
+      "expr": "quoteRef203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 30,
+      "expr": "tariffRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
+      "line": 31,
+      "expr": "tariffRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
+      "line": 13,
+      "expr": "paymentTag301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
+      "line": 14,
+      "expr": "refundCode302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
+      "line": 15,
+      "expr": "refundCode302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/TariffPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/TariffPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelEnricher.java",
+      "line": 8,
+      "expr": "channelTag401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelEnricher.java",
+      "line": 9,
+      "expr": "channelTag401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/BatchPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/BatchPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ManifestBroker.java",
+      "line": 8,
+      "expr": "batchTag501",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ManifestBroker.java",
+      "line": 9,
+      "expr": "batchTag501",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/OrderGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryledger/dao/OrderGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/inventoryledger/dao/OrderMapper.xml",
+      "line": 9,
+      "expr": "ledgerEntry",
+      "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 15,
+    "chain_len": 30,
+    "files_crossed": 13,
+    "modules_crossed": 3,
+    "features": [
+      "source:servlet_header",
+      "sink:mybatis_dollar",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:mybatis_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/ledger",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 15,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

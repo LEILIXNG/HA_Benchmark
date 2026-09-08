@@ -1,0 +1,252 @@
+{
+  "id": "JAVA-MYBATIS-2012",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 13 层调用、跨 3 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilissue/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilissue/web/PaymentController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/fulfilissue/dao/PaymentMapper.xml",
+    "line": 9,
+    "expr": "refundCode",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/PaymentController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 14,
+      "expr": "paymentTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 15,
+      "expr": "refundCode2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 16,
+      "expr": "refundCode2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 21,
+      "expr": "shipmentCode3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 24,
+      "expr": "shipmentCode3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 25,
+      "expr": "manifestKey4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilissue/web/BatchAdapter.java",
+      "line": 26,
+      "expr": "manifestKey4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/LedgerCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/LedgerCoordinator.java",
+      "line": 13,
+      "expr": "channelTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/LedgerCoordinator.java",
+      "line": 16,
+      "expr": "channelTag101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/LedgerCoordinator.java",
+      "line": 17,
+      "expr": "catalogKey102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/LedgerCoordinator.java",
+      "line": 18,
+      "expr": "catalogKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/BundleNormalizer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/BundleNormalizer.java",
+      "line": 13,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/BundleNormalizer.java",
+      "line": 14,
+      "expr": "batchTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/ChannelPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/ChannelPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/RefundCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/RefundCollector.java",
+      "line": 13,
+      "expr": "paymentTag301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilissue/service/RefundCollector.java",
+      "line": 14,
+      "expr": "paymentTag301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilissue/dao/BatchEnricher.java",
+      "line": 14,
+      "expr": "channelTag401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilissue/dao/BatchEnricher.java",
+      "line": 15,
+      "expr": "channelTag401",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilissue/dao/BatchEnricher.java",
+      "line": 20,
+      "expr": "catalogKey402",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilissue/dao/BatchEnricher.java",
+      "line": 21,
+      "expr": "receiptKey403",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilissue/dao/BatchEnricher.java",
+      "line": 22,
+      "expr": "receiptKey403",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilissue/dao/PaymentGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilissue/dao/PaymentGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/fulfilissue/dao/PaymentMapper.xml",
+      "line": 9,
+      "expr": "refundCode",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 13,
+    "chain_len": 30,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_path_variable",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-MYBATIS-2012-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/issue/{tag}",
+    "param": "tag",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 13,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:zz' OR 1=1--;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

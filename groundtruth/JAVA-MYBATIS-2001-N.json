@@ -1,0 +1,378 @@
+{
+  "id": "JAVA-MYBATIS-2001-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-MYBATIS-2001 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventorybind/web/ContractController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventorybind/web/ContractController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/inventorybind/dao/ContractMapper.xml",
+    "line": 9,
+    "expr": "quoteRef",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/inventorybind/dao/BatchGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/ContractController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 14,
+      "expr": "orderRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 15,
+      "expr": "orderRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 20,
+      "expr": "quoteRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 23,
+      "expr": "quoteRef2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 24,
+      "expr": "tariffRef3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 25,
+      "expr": "ledgerEntry4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorybind/web/QuoteComposer.java",
+      "line": 26,
+      "expr": "ledgerEntry4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 16,
+      "expr": "refundCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 19,
+      "expr": "refundCode101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 20,
+      "expr": "shipmentCode102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 21,
+      "expr": "shipmentCode102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 26,
+      "expr": "manifestKey103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 27,
+      "expr": "invoiceKey104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 28,
+      "expr": "batchTag105",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ChannelNormalizer.java",
+      "line": 29,
+      "expr": "batchTag105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 17,
+      "expr": "catalogKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 18,
+      "expr": "receiptKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 19,
+      "expr": "receiptKey202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 24,
+      "expr": "accountRef203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 25,
+      "expr": "voucherRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 26,
+      "expr": "voucherRef204",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 31,
+      "expr": "paymentTag205",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 32,
+      "expr": "refundCode206",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 35,
+      "expr": "refundCode206",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 36,
+      "expr": "shipmentCode207",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 37,
+      "expr": "shipmentCode207",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 42,
+      "expr": "manifestKey208",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 45,
+      "expr": "manifestKey208",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 46,
+      "expr": "invoiceKey209",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 47,
+      "expr": "invoiceKey209",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 52,
+      "expr": "batchTag210",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 53,
+      "expr": "orderRef211",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 56,
+      "expr": "orderRef211",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 57,
+      "expr": "quoteRef212",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorybind/service/ShipmentRegistry.java",
+      "line": 58,
+      "expr": "quoteRef212",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ChannelFacade.java",
+      "line": 11,
+      "expr": "orderRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ChannelFacade.java",
+      "line": 12,
+      "expr": "orderRef301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ChannelFacade.java",
+      "line": 17,
+      "expr": "quoteRef302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ChannelFacade.java",
+      "line": 18,
+      "expr": "tariffRef303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ChannelFacade.java",
+      "line": 21,
+      "expr": "tariffRef303",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ChannelFacade.java",
+      "line": 22,
+      "expr": "ledgerEntry304",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ChannelFacade.java",
+      "line": 23,
+      "expr": "ledgerEntry304",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/BatchGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ContractGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorybind/dao/ContractGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/inventorybind/dao/ContractMapper.xml",
+      "line": 9,
+      "expr": "quoteRef",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 17,
+    "chain_len": 48,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_param",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/bind",
+    "param": "orderNo",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

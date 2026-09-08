@@ -1,0 +1,193 @@
+{
+  "id": "JAVA-MYBATIS-2011",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "请求头经 11 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingreview/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingreview/web/ReceiptController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Servlet 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/pricingreview/service/ReceiptMapper.xml",
+    "line": 9,
+    "expr": "paymentTag",
+    "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/resources/com/habench/pricingreview/service/ReceiptMapper.xml",
+    "line": 9,
+    "expr": "paymentTag",
+    "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
+  },
+  "sanitizer_kind": "mybatis_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/ReceiptController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Servlet 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 14,
+      "expr": "shipmentCode1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 15,
+      "expr": "shipmentCode1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 20,
+      "expr": "manifestKey2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 21,
+      "expr": "invoiceKey3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 22,
+      "expr": "batchTag4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 23,
+      "expr": "batchTag4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 28,
+      "expr": "orderRef5",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 29,
+      "expr": "quoteRef6",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 30,
+      "expr": "tariffRef7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingreview/web/BundleAssembler.java",
+      "line": 31,
+      "expr": "tariffRef7",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/ManifestCoordinator.java",
+      "line": 8,
+      "expr": "receiptKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/ManifestCoordinator.java",
+      "line": 9,
+      "expr": "receiptKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/RefundPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/RefundPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/ReceiptAssembler.java",
+      "line": 8,
+      "expr": "quoteRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/ReceiptAssembler.java",
+      "line": 9,
+      "expr": "quoteRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/ReceiptGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingreview/service/ReceiptGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/pricingreview/service/ReceiptMapper.xml",
+      "line": 9,
+      "expr": "paymentTag",
+      "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 20,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:servlet_header",
+      "sink:mybatis_dollar",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:mybatis_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/review",
+    "param": "X-Ha-Payload",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 11,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1021 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/habench/orderadjust/web/CatalogController.java",
+    "file": "web/src/main/java/com/habench/orderclose/web/CatalogController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/orderadjust/web/CatalogController.java",
+    "file": "web/src/main/java/com/habench/orderclose/web/CatalogController.java",
     "line": 13,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/orderadjust/service/CatalogFetcher.java",
+    "file": "service/src/main/java/com/habench/orderclose/service/CatalogFetcher.java",
     "line": 23,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/orderadjust/service/CatalogFetcher.java",
+    "file": "service/src/main/java/com/habench/orderclose/service/CatalogFetcher.java",
     "line": 19,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
@@ -29,235 +29,235 @@
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/CatalogController.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/CatalogController.java",
       "line": 13,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/ReceiptNormalizer.java",
       "line": 9,
       "expr": "voucherRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/ReceiptNormalizer.java",
       "line": 10,
       "expr": "voucherRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/ReceiptNormalizer.java",
       "line": 15,
       "expr": "paymentTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/ReceiptNormalizer.java",
       "line": 16,
       "expr": "refundCode3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/ReceiptNormalizer.java",
       "line": 17,
       "expr": "shipmentCode4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/ReceiptNormalizer.java",
       "line": 18,
       "expr": "shipmentCode4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/AccountService.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/AccountService.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/AccountService.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/AccountService.java",
       "line": 13,
       "expr": "ledgerEntry101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/AccountService.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/AccountService.java",
       "line": 14,
       "expr": "channelTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/AccountService.java",
+      "file": "web/src/main/java/com/habench/orderclose/web/AccountService.java",
       "line": 15,
       "expr": "channelTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 11,
       "expr": "invoiceKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 12,
       "expr": "invoiceKey201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 17,
       "expr": "batchTag202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 18,
       "expr": "orderRef203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 19,
       "expr": "quoteRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 20,
       "expr": "quoteRef204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 25,
       "expr": "tariffRef205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 26,
       "expr": "ledgerEntry206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 27,
       "expr": "channelTag207",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 28,
       "expr": "channelTag207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 33,
       "expr": "catalogKey208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 36,
       "expr": "catalogKey208",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 37,
       "expr": "receiptKey209",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 40,
       "expr": "receiptKey209",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 41,
       "expr": "accountRef210",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 42,
       "expr": "accountRef210",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 47,
       "expr": "voucherRef211",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 48,
       "expr": "paymentTag212",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 49,
       "expr": "refundCode213",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/BatchResolver.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/BatchResolver.java",
       "line": 50,
       "expr": "refundCode213",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/LedgerService.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/LedgerService.java",
       "line": 9,
       "expr": "voucherRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/LedgerService.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/LedgerService.java",
       "line": 10,
       "expr": "voucherRef301",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/LedgerService.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/LedgerService.java",
       "line": 15,
       "expr": "paymentTag302",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/LedgerService.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/LedgerService.java",
       "line": 16,
       "expr": "refundCode303",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/LedgerService.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/LedgerService.java",
       "line": 17,
       "expr": "refundCode303",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/CatalogFetcher.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/CatalogFetcher.java",
       "line": 16,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/CatalogFetcher.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/CatalogFetcher.java",
       "line": 19,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/CatalogFetcher.java",
+      "file": "service/src/main/java/com/habench/orderclose/service/CatalogFetcher.java",
       "line": 23,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
@@ -302,7 +302,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/order/adjust/{label}",
+    "path": "/api/order/close/{label}",
     "param": "label",
     "carrier": "path"
   },
@@ -316,6 +316,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

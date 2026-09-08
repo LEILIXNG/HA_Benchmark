@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingrollup/web/OrderController.java",
+    "file": "web/src/main/java/com/habench/inventoryimport/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingrollup/web/OrderController.java",
+    "file": "web/src/main/java/com/habench/inventoryimport/web/OrderController.java",
     "line": 13,
     "expr": "tag",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/billingrollup/web/OrderLoader.java",
+    "file": "web/src/main/java/com/habench/inventoryimport/web/OrderLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,121 +24,121 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/OrderController.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/OrderController.java",
       "line": 13,
       "expr": "tag",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 13,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 14,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 17,
       "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 18,
       "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 19,
       "expr": "voucherRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 24,
       "expr": "paymentTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 25,
       "expr": "refundCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleEnricher.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
       "line": 26,
       "expr": "refundCode4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/ContractService.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/ContractService.java",
       "line": 8,
       "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/ContractService.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/ContractService.java",
       "line": 9,
       "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleRuleSelector.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleRuleSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/BundleRuleStandard.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
       "line": 13,
       "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
       "line": 16,
       "expr": "manifestKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
       "line": 17,
       "expr": "invoiceKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/QuoteTranslator.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
       "line": 18,
       "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/OrderLoader.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/OrderLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/billingrollup/web/OrderLoader.java",
+      "file": "web/src/main/java/com/habench/inventoryimport/web/OrderLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -167,7 +167,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/billing/rollup",
+    "path": "/api/inventory/import",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -181,6 +181,6 @@
     "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

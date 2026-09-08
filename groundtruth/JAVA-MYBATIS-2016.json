@@ -1,0 +1,246 @@
+{
+  "id": "JAVA-MYBATIS-2016",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "查询参数经 13 层调用、跨 2 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportapprove/web/QuoteController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportapprove/web/QuoteController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/reportapprove/service/QuoteMapper.xml",
+    "line": 9,
+    "expr": "quoteRef",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/QuoteController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
+      "line": 13,
+      "expr": "paymentTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
+      "line": 14,
+      "expr": "refundCode2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
+      "line": 15,
+      "expr": "refundCode2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 20,
+      "expr": "channelTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 21,
+      "expr": "channelTag101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 26,
+      "expr": "catalogKey102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 27,
+      "expr": "receiptKey103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 28,
+      "expr": "accountRef104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 29,
+      "expr": "accountRef104",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 34,
+      "expr": "voucherRef105",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 35,
+      "expr": "paymentTag106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 36,
+      "expr": "refundCode107",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
+      "line": 37,
+      "expr": "refundCode107",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 19,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 20,
+      "expr": "orderRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 21,
+      "expr": "orderRef202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 26,
+      "expr": "quoteRef203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 29,
+      "expr": "quoteRef203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 30,
+      "expr": "tariffRef204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
+      "line": 31,
+      "expr": "tariffRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/QuoteGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportapprove/service/QuoteGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/reportapprove/service/QuoteMapper.xml",
+      "line": 9,
+      "expr": "quoteRef",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 13,
+    "chain_len": 29,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/report/approve",
+    "param": "reference",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 13,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

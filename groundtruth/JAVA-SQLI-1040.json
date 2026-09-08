@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 18 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorrelease/web/RefundController.java",
+    "file": "web/src/main/java/com/habench/orderreconcile/web/RefundController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorrelease/web/RefundController.java",
+    "file": "web/src/main/java/com/habench/orderreconcile/web/RefundController.java",
     "line": 13,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendorrelease/service/RefundRepository.java",
+    "file": "service/src/main/java/com/habench/orderreconcile/service/RefundRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/vendorrelease/service/CatalogValidator.java",
+    "file": "service/src/main/java/com/habench/orderreconcile/service/CatalogValidator.java",
     "line": 9,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,271 +29,271 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/RefundController.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/RefundController.java",
       "line": 13,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 9,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 10,
       "expr": "orderRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 15,
       "expr": "quoteRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 16,
       "expr": "tariffRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 17,
       "expr": "ledgerEntry4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 18,
       "expr": "ledgerEntry4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 23,
       "expr": "channelTag5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 24,
       "expr": "catalogKey6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/OrderTranslator.java",
+      "file": "web/src/main/java/com/habench/orderreconcile/web/OrderTranslator.java",
       "line": 25,
       "expr": "catalogKey6",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 20,
       "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 21,
       "expr": "shipmentCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 22,
       "expr": "shipmentCode102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 27,
       "expr": "manifestKey103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 28,
       "expr": "invoiceKey104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 29,
       "expr": "batchTag105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 30,
       "expr": "batchTag105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 35,
       "expr": "orderRef106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 38,
       "expr": "orderRef106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 39,
       "expr": "quoteRef107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 42,
       "expr": "quoteRef107",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 43,
       "expr": "tariffRef108",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 44,
       "expr": "tariffRef108",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 49,
       "expr": "ledgerEntry109",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 50,
       "expr": "channelTag110",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 51,
       "expr": "catalogKey111",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundAssembler.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundAssembler.java",
       "line": 52,
       "expr": "catalogKey111",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/SessionBroker.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/SessionBroker.java",
       "line": 10,
       "expr": "catalogKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/SessionBroker.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/SessionBroker.java",
       "line": 13,
       "expr": "catalogKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/SessionBroker.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/SessionBroker.java",
       "line": 14,
       "expr": "receiptKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/SessionBroker.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/SessionBroker.java",
       "line": 15,
       "expr": "receiptKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentStrategySelector.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/ShipmentStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentStrategyStandard.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/ShipmentStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/TariffCoordinator.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/TariffCoordinator.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/TariffCoordinator.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/TariffCoordinator.java",
       "line": 13,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/TariffCoordinator.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/TariffCoordinator.java",
       "line": 14,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/TariffStrategySelector.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/TariffStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/TariffStrategyStandard.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/TariffStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentComposer.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/ShipmentComposer.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentComposer.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/ShipmentComposer.java",
       "line": 13,
       "expr": "refundCode401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentComposer.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/ShipmentComposer.java",
       "line": 14,
       "expr": "refundCode401",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/CatalogValidator.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/CatalogValidator.java",
       "line": 9,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundRepository.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/RefundRepository.java",
+      "file": "service/src/main/java/com/habench/orderreconcile/service/RefundRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -338,7 +338,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/vendor/release",
+    "path": "/api/order/reconcile",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -352,6 +352,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz OR 1=1--;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

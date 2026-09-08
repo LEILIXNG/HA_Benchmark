@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "查询参数经 11 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilrelease/web/VoucherController.java",
+    "file": "web/src/main/java/com/habench/pricingintake/web/VoucherController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilrelease/web/VoucherController.java",
+    "file": "web/src/main/java/com/habench/pricingintake/web/VoucherController.java",
     "line": 13,
     "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilrelease/dao/VoucherEvaluator.java",
+    "file": "dao/src/main/java/com/habench/pricingintake/dao/VoucherEvaluator.java",
     "line": 14,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/fulfilrelease/dao/ContractFilter.java",
+    "file": "dao/src/main/java/com/habench/pricingintake/dao/ContractFilter.java",
     "line": 9,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
@@ -29,121 +29,121 @@
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/VoucherController.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/VoucherController.java",
       "line": 13,
       "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/BundleComposer.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/BundleComposer.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/BundleComposer.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/BundleComposer.java",
       "line": 13,
       "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/BundleComposer.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/BundleComposer.java",
       "line": 14,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/PaymentPolicySelector.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/PaymentPolicySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/PaymentPolicyStandard.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/PaymentPolicyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/VoucherResolver.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/VoucherResolver.java",
       "line": 8,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrelease/web/VoucherResolver.java",
+      "file": "web/src/main/java/com/habench/pricingintake/web/VoucherResolver.java",
       "line": 9,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrelease/service/QuoteNormalizer.java",
+      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrelease/service/QuoteNormalizer.java",
+      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
       "line": 19,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrelease/service/QuoteNormalizer.java",
+      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
       "line": 20,
       "expr": "catalogKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrelease/service/QuoteNormalizer.java",
+      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
       "line": 25,
       "expr": "receiptKey202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrelease/service/QuoteNormalizer.java",
+      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
       "line": 26,
       "expr": "accountRef203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrelease/service/QuoteNormalizer.java",
+      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
       "line": 27,
       "expr": "accountRef203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrelease/dao/TariffFacade.java",
+      "file": "dao/src/main/java/com/habench/pricingintake/dao/TariffFacade.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrelease/dao/TariffFacade.java",
+      "file": "dao/src/main/java/com/habench/pricingintake/dao/TariffFacade.java",
       "line": 13,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrelease/dao/TariffFacade.java",
+      "file": "dao/src/main/java/com/habench/pricingintake/dao/TariffFacade.java",
       "line": 14,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrelease/dao/ContractFilter.java",
+      "file": "dao/src/main/java/com/habench/pricingintake/dao/ContractFilter.java",
       "line": 9,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrelease/dao/VoucherEvaluator.java",
+      "file": "dao/src/main/java/com/habench/pricingintake/dao/VoucherEvaluator.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrelease/dao/VoucherEvaluator.java",
+      "file": "dao/src/main/java/com/habench/pricingintake/dao/VoucherEvaluator.java",
       "line": 14,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -172,7 +172,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/fulfil/release",
+    "path": "/api/pricing/intake",
     "param": "label",
     "carrier": "query"
   },
@@ -186,6 +186,6 @@
     "payload_at_sink": "'ref-' + 'zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

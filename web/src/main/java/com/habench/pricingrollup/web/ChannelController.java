@@ -1,17 +1,17 @@
 package com.habench.pricingrollup.web;
 
-import com.habench.pricingrollup.web.ShipmentResolver;
+import com.habench.pricingrollup.web.VoucherFacade;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("pricingrollupController")
 public class ChannelController {
 
-    @GetMapping("/api/pricing/rollup")
-    public String refine(
-            @RequestParam("keyword") String keyword) {
-        ShipmentResolver.stage(keyword);
+    @GetMapping("/api/pricing/rollup/{orderNo}")
+    public String enrich(
+            @PathVariable("orderNo") String orderNo) {
+        VoucherFacade.enrich(orderNo);
         return "ok";
     }
 }

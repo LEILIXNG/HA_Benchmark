@@ -3,9 +3,11 @@
 面向 SAST（静态应用安全测试）工具的测试集：多 source、多 sink、跨文件跨模块、长链路，
 每条用例附带经过**动态验证**的标答。
 
-* 用例 265 条（vulnerable 179 / safe 86），其中 58 组逐行配对的正负样本
-* 覆盖 CWE-22 / CWE-78 / CWE-89 / CWE-917 / CWE-918；Java 11 + Spring Boot 2.7 + Maven 多模块
-* 单条污点链路平均跨 7.1 个文件、穿越 11.0 层方法调用、经过 26.7 条传播语句
+* 用例 311 条（vulnerable 211 / safe 100），其中 64 组逐行配对的正负样本
+* 覆盖 CWE-22 / CWE-78 / CWE-89 / CWE-917 / CWE-918，共六类 sink；其中 MyBatis 一类的
+  污点要跨过 Java → XML 才能到达 sink
+* Java 11 + Spring Boot 2.7 + Maven 多模块
+* 单条污点链路平均跨 7.2 个文件、穿越 11.1 层方法调用、经过 26.7 条传播语句
 * 全部通过动态验证：载荷能否到达 sink、是否保持攻击语义、调用链长度，
   三者都是运行时实测的，不是标注出来的
 
@@ -17,6 +19,10 @@ web/ service/ dao/     四个模块，依赖方向与污点流向一致：web ->
 common/
 groundtruth/<id>.json  每条用例的标答
 manifest.json          用例清单与规模指标
+
+<模块>/src/main/java/…    用例代码
+<模块>/src/main/resources/…/<X>Mapper.xml
+                       MyBatis 用例的 XML mapper —— 污点在这里才真正进入 SQL
 ```
 
 ## 怎么用
@@ -87,19 +93,64 @@ safe 用例不是简单地"加个过滤函数"，而是按每类漏洞的**惯�
 | `path_canonical_check` | file_read | ✔ | `normalize()` 后校验前缀，CWE-22 的正解 |
 | `spel_restricted_context` | spel_eval | ✔ | `SimpleEvaluationContext` 只读属性绑定，禁止类型引用与构造调用，CWE-917 的正解 |
 | `ssrf_host_allowlist` | url_fetch | ✔ | 解析出 host 再查白名单，CWE-918 的正解 |
-| `incomplete_quote_strip` | jdbc_concat | ✘ | 只剥单引号，注释符与关键字仍可通过 |
+| `mybatis_parameterized` | mybatis_dollar | ✔ | XML 里改用 `#{}`，值走 JDBC 绑定不进 SQL 文本，MyBatis 的正解 |
+| `incomplete_quote_strip` | jdbc_concat / mybatis_dollar | ✘ | 只剥单引号，注释符与关键字仍可通过 |
 | `metachar_strip_semicolon` | runtime_exec | ✘ | 只删分号，`$( )`、反引号、`\|`、`&&` 一概不管 |
 | `traversal_replace_once` | file_read | ✘ | `replace("../", "")` 单次替换，`....//` 会被还原成 `../` |
 | `spel_strip_type_ref` | spel_eval | ✘ | `replace("T(", "")` 单次替换，`TT((` 会被还原成 `T(` |
 | `ssrf_host_denylist` | url_fetch | ✘ | 只按名字拒绝 `localhost`，`127.0.0.1`、`[::1]`、十进制 IP 都能绕过 |
 
 五种无效净化的**绕过都是动态证实的**：PoC 载荷经过它们之后仍完整到达 sink。
-三种 sink 形式的有效净化（参数化、不经 shell、受限求值上下文）则记为 `neutralized`——
+四种 sink 形式的有效净化（JDBC 参数化、不经 shell、受限求值上下文、MyBatis `#{}`）
+则记为 `neutralized`——
 污点确实到了那个 API，只是不再具有攻击语义。标答里 `verification.neutralized`
 区分了"没到达"和"到达但已失效"这两种安全。
 
 净化器与 sink 的对应关系在生成阶段强制校验，`verdict` 也由净化器是否有效唯一决定，
 不允许人为标注——给路径穿越配"剥离单引号"这种没有意义的组合会直接报错。
+
+## 跨 Java → XML 的污点流
+
+MyBatis 那批用例（`sink:mybatis_dollar`，`JAVA-MYBATIS-*`）和别的不一样：Java 侧看不到
+任何拼接，危险的那一行根本不在 `.java` 里。
+
+```java
+// service/…/CatalogGateway.java —— Java 侧只是把值交出去
+public static void enrich(String value) {
+    try (SqlSession session = MapperSessions.open(CatalogMapper.class)) {
+        register(session.getMapper(CatalogMapper.class), value);
+    } catch (RuntimeException e) { … }
+}
+
+private static void register(CatalogMapper mapper, String value) {
+    mapper.register(value);
+}
+```
+
+```xml
+<!-- service/src/main/resources/…/CatalogMapper.xml —— 污点在这里进入 SQL -->
+<select id="register" resultType="map">
+  SELECT id, total
+    FROM orders
+   WHERE name = '${tariffRef}'
+</select>
+```
+
+所以这批用例的标答里，`sink` 指向的是一个 **XML 文件的行号**，`path` 的最后一跳是
+Java → XML。工具要报出它，必须同时读懂 mapper 接口、XML 里的语句 id 与 `${}` 的语义；
+只扫 `.java` 的工具在这批上是零召回。
+
+配对负样本只差一个字符：`${}` 换成 `#{}`，Java 侧逐行相同。
+
+**这一批的 `neutralized` 是实测出来的，不是生成器断言的。** 其他 sink 的安全写法由生成器
+自己知道（生成参数化那一版就记 `neutralized`）；MyBatis 这里，探针在语句下发前读一眼
+XML 渲染出的最终 SQL，看参数值是否被拼了进去：
+
+| 用例 | 到达 sink 时的 SQL |
+|---|---|
+| `${}`，无净化 | `… WHERE name = 'zz' OR 1=1--'` |
+| `${}`，只剥单引号 | `… WHERE name = 'zz OR 1=1--'` ← 仍带注入语义 |
+| `#{}`（参数化） | `… WHERE name = ?` ← 值从未进入 SQL 文本 |
 
 ## 代码形态
 
@@ -109,15 +160,16 @@ safe 用例不是简单地"加个过滤函数"，而是按每类漏洞的**惯�
 
 | | 平均 | 说明 |
 |---|---|---|
-| 跨文件数 | 7.1 | 污点路径经过的不同文件 |
-| 调用帧数 | 11.0 | 穿越的方法调用层数 |
+| 跨文件数 | 7.2 | 污点路径经过的不同文件 |
+| 调用帧数 | 11.1 | 穿越的方法调用层数 |
 | 路径节点 | 26.7 | 参与传播的语句条数 |
 
-三者的比例是 **3.8 : 1.5 : 1**。这个梯度是刻意的：早期版本三个数几乎相等
+三者的比例是 **3.7 : 1.5 : 1**。这个梯度是刻意的：早期版本三个数几乎相等
 （1.3 : 1.15 : 1），等于"一条语句一个方法一个文件"，一眼就能看出是生成的。
 
 注意这三个量互相锁死：一个文件至少装一个方法，一个方法至少装一条语句，所以恒有
 **跨文件数 ≤ 调用帧数 ≤ 路径节点数**。想要高跨文件度，调用链就不可能短。
+这条对全库无例外，审计会逐条核。
 
 ## 调用链长度是实测的
 
@@ -133,10 +185,10 @@ safe 用例不是简单地"加个过滤函数"，而是按每类漏洞的**惯�
 
 | 调用链长度 | 用例数 |
 |---|---|
-| 5-7 层 | 55 |
-| 8-10 层 | 82 |
-| 11-13 层 | 63 |
-| 14+ 层 | 65 |
+| ≤7 层 | 64 |
+| 8-10 层 | 93 |
+| 11-13 层 | 74 |
+| 14+ 层 | 80 |
 
 跨模块跳数随调用链长度递增，深链路不会全挤在同一个模块里。
 
@@ -178,5 +230,5 @@ DR = |检出正样本 且 未报其 paired_negative| / 配对数
 
 ## 说明
 
-`common/.../TaintOracle.java` 是动态验证用的探针，属于测试基础设施，
-不是被测语义的一部分——工具在这个文件里报出的问题请忽略。
+`common/` 下的 `TaintOracle.java`、`SqlProbe.java`、`MapperSessions.java` 是动态验证用的
+探针与会话工厂，属于测试基础设施，不是被测语义的一部分——工具在这三个文件里报出的问题请忽略。

@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 9 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerrollup/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/billingdigest/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerrollup/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/billingdigest/web/ChannelController.java",
     "line": 13,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/customerrollup/web/ChannelLoader.java",
+    "file": "web/src/main/java/com/habench/billingdigest/web/ChannelLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,103 +24,103 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ChannelController.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ChannelController.java",
       "line": 13,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/InvoiceBuilder.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/InvoiceBuilder.java",
       "line": 8,
       "expr": "voucherRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/InvoiceBuilder.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/InvoiceBuilder.java",
       "line": 9,
       "expr": "voucherRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestRouter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestRouter.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestRouter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestRouter.java",
       "line": 13,
       "expr": "ledgerEntry101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestRouter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestRouter.java",
       "line": 14,
       "expr": "ledgerEntry101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchPlanSelector.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/BatchPlanSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchPlanStandard.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/BatchPlanStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
       "line": 14,
       "expr": "invoiceKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
       "line": 15,
       "expr": "batchTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
       "line": 16,
       "expr": "batchTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
       "line": 21,
       "expr": "orderRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
       "line": 22,
       "expr": "quoteRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
       "line": 23,
       "expr": "tariffRef205",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ManifestAdapter.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
       "line": 24,
       "expr": "tariffRef205",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ChannelLoader.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ChannelLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/ChannelLoader.java",
+      "file": "web/src/main/java/com/habench/billingdigest/web/ChannelLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -149,7 +149,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/customer/rollup",
+    "path": "/api/billing/digest",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -163,6 +163,6 @@
     "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

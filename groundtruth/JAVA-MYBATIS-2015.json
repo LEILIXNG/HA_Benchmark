@@ -1,0 +1,240 @@
+{
+  "id": "JAVA-MYBATIS-2015",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 12 层调用、跨 2 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingrollup/web/ChannelController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingrollup/web/ChannelController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/pricingrollup/service/ChannelMapper.xml",
+    "line": 9,
+    "expr": "orderRef",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ChannelController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 14,
+      "expr": "batchTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 15,
+      "expr": "orderRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 16,
+      "expr": "orderRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 21,
+      "expr": "quoteRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 24,
+      "expr": "quoteRef3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 25,
+      "expr": "tariffRef4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 28,
+      "expr": "tariffRef4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 29,
+      "expr": "ledgerEntry5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
+      "line": 30,
+      "expr": "ledgerEntry5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/OrderBroker.java",
+      "line": 8,
+      "expr": "paymentTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/OrderBroker.java",
+      "line": 9,
+      "expr": "paymentTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/InvoiceStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/InvoiceStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 16,
+      "expr": "channelTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 17,
+      "expr": "catalogKey202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 18,
+      "expr": "catalogKey202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 23,
+      "expr": "receiptKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 26,
+      "expr": "receiptKey203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 27,
+      "expr": "accountRef204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 28,
+      "expr": "voucherRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
+      "line": 29,
+      "expr": "voucherRef205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelCoordinator.java",
+      "line": 8,
+      "expr": "batchTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelCoordinator.java",
+      "line": 9,
+      "expr": "batchTag301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/pricingrollup/service/ChannelMapper.xml",
+      "line": 9,
+      "expr": "orderRef",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 28,
+    "files_crossed": 9,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/rollup/{orderNo}",
+    "param": "orderNo",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

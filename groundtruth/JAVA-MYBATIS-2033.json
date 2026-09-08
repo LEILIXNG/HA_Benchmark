@@ -1,0 +1,160 @@
+{
+  "id": "JAVA-MYBATIS-2033",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "路径变量经 6 层调用、跨 2 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilrelease/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilrelease/web/PaymentController.java",
+    "line": 13,
+    "expr": "token",
+    "note": "SOURCE: Spring 路径变量"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/fulfilrelease/service/PaymentMapper.xml",
+    "line": 9,
+    "expr": "catalogKey",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/PaymentController.java",
+      "line": 13,
+      "expr": "token",
+      "note": "SOURCE: Spring 路径变量"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 11,
+      "expr": "orderRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 14,
+      "expr": "orderRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 15,
+      "expr": "quoteRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 16,
+      "expr": "quoteRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 21,
+      "expr": "tariffRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 24,
+      "expr": "tariffRef3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 25,
+      "expr": "ledgerEntry4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 28,
+      "expr": "ledgerEntry4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 29,
+      "expr": "channelTag5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilrelease/web/TariffAdapter.java",
+      "line": 30,
+      "expr": "channelTag5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrelease/service/SessionNormalizer.java",
+      "line": 8,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrelease/service/SessionNormalizer.java",
+      "line": 9,
+      "expr": "refundCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrelease/service/PaymentGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilrelease/service/PaymentGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/fulfilrelease/service/PaymentMapper.xml",
+      "line": 9,
+      "expr": "catalogKey",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 16,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_path_variable",
+      "sink:mybatis_dollar",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/release/{token}",
+    "param": "token",
+    "carrier": "path"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 6,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:zz' OR 1=1--;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}

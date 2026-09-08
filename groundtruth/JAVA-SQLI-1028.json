@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
+    "file": "web/src/main/java/com/habench/inventorygrant/web/LedgerController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
+    "file": "web/src/main/java/com/habench/inventorygrant/web/LedgerController.java",
     "line": 13,
     "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerRepository.java",
+    "file": "web/src/main/java/com/habench/inventorygrant/web/LedgerRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,67 +24,67 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerController.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/LedgerController.java",
       "line": 13,
       "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/ShipmentEnricher.java",
       "line": 10,
       "expr": "receiptKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/ShipmentEnricher.java",
       "line": 13,
       "expr": "receiptKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/ShipmentEnricher.java",
       "line": 14,
       "expr": "accountRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/ShipmentEnricher.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/ShipmentEnricher.java",
       "line": 15,
       "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/InvoicePolicySelector.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/InvoicePolicySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/InvoicePolicyStandard.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/InvoicePolicyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/ReceiptFacade.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/ReceiptFacade.java",
       "line": 8,
       "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/ReceiptFacade.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/ReceiptFacade.java",
       "line": 9,
       "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerRepository.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/LedgerRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilapprove/web/LedgerRepository.java",
+      "file": "web/src/main/java/com/habench/inventorygrant/web/LedgerRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -108,7 +108,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/fulfil/approve",
+    "path": "/api/inventory/grant",
     "param": "X-Ha-Payload",
     "carrier": "header"
   },
@@ -122,6 +122,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

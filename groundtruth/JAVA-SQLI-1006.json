@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 14 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/cataloglookup/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/customersettle/web/ShipmentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/cataloglookup/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/customersettle/web/ShipmentController.java",
     "line": 13,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/cataloglookup/service/ShipmentRepository.java",
+    "file": "service/src/main/java/com/habench/customersettle/service/ShipmentRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,199 +24,199 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/ShipmentController.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/ShipmentController.java",
       "line": 13,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BatchAdapter.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BatchAdapter.java",
       "line": 19,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BatchAdapter.java",
       "line": 20,
       "expr": "accountRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BatchAdapter.java",
       "line": 25,
       "expr": "voucherRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BatchAdapter.java",
       "line": 26,
       "expr": "paymentTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BatchAdapter.java",
       "line": 27,
       "expr": "refundCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/BatchAdapter.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/BatchAdapter.java",
       "line": 28,
       "expr": "refundCode4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffPlanSelector.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffPlanSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffPlanStandard.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffPlanStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 16,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 19,
       "expr": "tariffRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 20,
       "expr": "ledgerEntry102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 21,
       "expr": "ledgerEntry102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 26,
       "expr": "channelTag103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 27,
       "expr": "catalogKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 28,
       "expr": "catalogKey104",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 33,
       "expr": "receiptKey105",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 36,
       "expr": "receiptKey105",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 37,
       "expr": "accountRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/cataloglookup/web/TariffComposer.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/TariffComposer.java",
       "line": 38,
       "expr": "accountRef106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 19,
       "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 22,
       "expr": "manifestKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 23,
       "expr": "invoiceKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 24,
       "expr": "invoiceKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 29,
       "expr": "batchTag203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 30,
       "expr": "orderRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 33,
       "expr": "orderRef204",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 34,
       "expr": "quoteRef205",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/RefundComposer.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/RefundComposer.java",
       "line": 35,
       "expr": "quoteRef205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/ShipmentRepository.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/ShipmentRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/cataloglookup/service/ShipmentRepository.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/ShipmentRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -253,7 +253,7 @@
   "paired_negative": "JAVA-SQLI-1006-N",
   "http": {
     "method": "GET",
-    "path": "/api/catalog/lookup/{target}",
+    "path": "/api/customer/settle/{target}",
     "param": "target",
     "carrier": "path"
   },
@@ -267,6 +267,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-07T16:03:24+08:00"
+    "checked_at": "2026-09-08T12:18:58+08:00"
   }
 }

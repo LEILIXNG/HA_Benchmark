@@ -1,0 +1,191 @@
+{
+  "id": "JAVA-MYBATIS-2027-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-MYBATIS-2027 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorsettlequeue/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorsettlequeue/web/OrderController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 查询参数"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/vendorsettlequeue/service/OrderMapper.xml",
+    "line": 9,
+    "expr": "batchTag",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/vendorsettlequeue/web/QuoteGuard.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/OrderController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 查询参数"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/BatchEnricher.java",
+      "line": 8,
+      "expr": "paymentTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/BatchEnricher.java",
+      "line": 9,
+      "expr": "refundCode2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/BatchEnricher.java",
+      "line": 10,
+      "expr": "refundCode2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/QuoteGuard.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/OrderPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/OrderPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/ChannelRouter.java",
+      "line": 11,
+      "expr": "channelTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/ChannelRouter.java",
+      "line": 12,
+      "expr": "channelTag101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/ChannelRouter.java",
+      "line": 17,
+      "expr": "catalogKey102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/ChannelRouter.java",
+      "line": 18,
+      "expr": "receiptKey103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/ChannelRouter.java",
+      "line": 21,
+      "expr": "receiptKey103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/ChannelRouter.java",
+      "line": 22,
+      "expr": "accountRef104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorsettlequeue/web/ChannelRouter.java",
+      "line": 23,
+      "expr": "accountRef104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsettlequeue/service/InvoiceTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsettlequeue/service/InvoiceTranslator.java",
+      "line": 13,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsettlequeue/service/InvoiceTranslator.java",
+      "line": 14,
+      "expr": "batchTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsettlequeue/service/OrderGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorsettlequeue/service/OrderGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/vendorsettlequeue/service/OrderMapper.xml",
+      "line": 9,
+      "expr": "batchTag",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 20,
+    "files_crossed": 9,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_param",
+      "sink:mybatis_dollar",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/settlequeue",
+    "param": "tag",
+    "carrier": "query"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T12:18:58+08:00"
+  }
+}
