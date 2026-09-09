@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilgrant/web/OrderController.java",
+    "file": "web/src/main/java/com/habench/billingimport/web/OrderController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilgrant/web/OrderController.java",
+    "file": "web/src/main/java/com/habench/billingimport/web/OrderController.java",
     "line": 13,
     "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/fulfilgrant/service/OrderFetcher.java",
+    "file": "service/src/main/java/com/habench/billingimport/service/OrderFetcher.java",
     "line": 14,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,115 +24,115 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/OrderController.java",
+      "file": "web/src/main/java/com/habench/billingimport/web/OrderController.java",
       "line": 13,
       "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherAssembler.java",
+      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherAssembler.java",
+      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
       "line": 13,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherAssembler.java",
+      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
       "line": 14,
       "expr": "ledgerEntry2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilgrant/web/VoucherAssembler.java",
+      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
       "line": 15,
       "expr": "ledgerEntry2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 16,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 17,
       "expr": "invoiceKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 18,
       "expr": "invoiceKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 23,
       "expr": "batchTag103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 24,
       "expr": "orderRef104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 25,
       "expr": "orderRef104",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 30,
       "expr": "quoteRef105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 33,
       "expr": "quoteRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 34,
       "expr": "tariffRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 37,
       "expr": "tariffRef106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 38,
       "expr": "ledgerEntry107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/InvoiceService.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
       "line": 39,
       "expr": "ledgerEntry107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/OrderFetcher.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/OrderFetcher.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilgrant/service/OrderFetcher.java",
+      "file": "service/src/main/java/com/habench/billingimport/service/OrderFetcher.java",
       "line": 14,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -162,7 +162,7 @@
   "paired_negative": "JAVA-SSRF-1038-N",
   "http": {
     "method": "GET",
-    "path": "/api/fulfil/grant",
+    "path": "/api/billing/import",
     "param": "filename",
     "carrier": "query"
   },
@@ -176,6 +176,6 @@
     "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

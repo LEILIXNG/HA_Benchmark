@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/inventory/ledger")
     public String forward(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
+        String keyword = request.getHeader("X-Order-Correlation");
         QuoteTranslator.collect(keyword);
         return "ok";
     }

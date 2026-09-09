@@ -10,7 +10,7 @@ public class AccountController {
 
     @GetMapping("/api/customer/merge")
     public String dispatch(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Account-Origin");
         CatalogService.dispatch(query);
         return "ok";
     }

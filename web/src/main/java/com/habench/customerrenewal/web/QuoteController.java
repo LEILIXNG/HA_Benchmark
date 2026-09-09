@@ -10,7 +10,7 @@ public class QuoteController {
 
     @GetMapping("/api/customer/renewal")
     public String merge(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
+        String keyword = request.getHeader("X-Quote-Tenant");
         VoucherAssembler.attach(keyword);
         return "ok";
     }

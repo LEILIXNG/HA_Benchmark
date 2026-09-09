@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1035 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/ordercapture/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/fulfildispatch/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/ordercapture/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/fulfildispatch/web/ChannelController.java",
     "line": 13,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/ordercapture/web/ChannelRepository.java",
+    "file": "web/src/main/java/com/habench/fulfildispatch/web/ChannelRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/ordercapture/web/BatchValidator.java",
+    "file": "web/src/main/java/com/habench/fulfildispatch/web/BatchValidator.java",
     "line": 11,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,91 +29,91 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/ChannelController.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/ChannelController.java",
       "line": 13,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BatchValidator.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BatchValidator.java",
       "line": 11,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 17,
       "expr": "channelTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 18,
       "expr": "catalogKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 19,
       "expr": "catalogKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 24,
       "expr": "receiptKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 27,
       "expr": "receiptKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 28,
       "expr": "accountRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 29,
       "expr": "accountRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 34,
       "expr": "voucherRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 37,
       "expr": "voucherRef5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 38,
       "expr": "paymentTag6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/BundleCollector.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/BundleCollector.java",
       "line": 39,
       "expr": "paymentTag6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/ChannelRepository.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/ChannelRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/ordercapture/web/ChannelRepository.java",
+      "file": "web/src/main/java/com/habench/fulfildispatch/web/ChannelRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -139,7 +139,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/order/capture/{userName}",
+    "path": "/api/fulfil/dispatch/{userName}",
     "param": "userName",
     "carrier": "path"
   },
@@ -153,6 +153,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

@@ -10,7 +10,7 @@ public class InvoiceController {
 
     @GetMapping("/api/catalog/release")
     public String prepare(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
+        String orderNo = request.getHeader("X-Invoice-Client");
         ShipmentBroker.enrich(orderNo);
         return "ok";
     }

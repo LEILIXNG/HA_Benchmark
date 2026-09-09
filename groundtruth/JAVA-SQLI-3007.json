@@ -1,0 +1,150 @@
+{
+  "id": "JAVA-SQLI-3007",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 7 层调用、跨 1 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingverify/web/CatalogController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingverify/web/CatalogController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/billingverify/web/CatalogRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/CatalogController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/VoucherCoordinator.java",
+      "line": 8,
+      "expr": "voucherRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/VoucherCoordinator.java",
+      "line": 9,
+      "expr": "voucherRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/BundleBuilder.java",
+      "line": 8,
+      "expr": "ledgerEntry101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/BundleBuilder.java",
+      "line": 9,
+      "expr": "channelTag102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/BundleBuilder.java",
+      "line": 10,
+      "expr": "channelTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/InvoiceResolver.java",
+      "line": 14,
+      "expr": "invoiceKey201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/InvoiceResolver.java",
+      "line": 15,
+      "expr": "batchTag202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/InvoiceResolver.java",
+      "line": 16,
+      "expr": "batchTag202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/InvoiceResolver.java",
+      "line": 21,
+      "expr": "orderRef203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/InvoiceResolver.java",
+      "line": 22,
+      "expr": "quoteRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/InvoiceResolver.java",
+      "line": 23,
+      "expr": "quoteRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/CatalogRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingverify/web/CatalogRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 14,
+    "files_crossed": 5,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_request_header",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-3007-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/verify",
+    "param": "X-Catalog-Reference",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

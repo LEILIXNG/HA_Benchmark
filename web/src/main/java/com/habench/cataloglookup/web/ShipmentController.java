@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/catalog/lookup")
     public String stage(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Shipment-Context");
         VoucherAssembler.submit(category);
         return "ok";
     }

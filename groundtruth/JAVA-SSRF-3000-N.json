@@ -1,0 +1,161 @@
+{
+  "id": "JAVA-SSRF-3000-N",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "与 JAVA-SSRF-3000 逐行相同，仅把净化改为 ssrf_host_allowlist",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountsubmit/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountsubmit/web/SessionController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
+    "line": 23,
+    "expr": "endpoint",
+    "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
+    "line": 19,
+    "expr": "endpoint",
+    "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+  },
+  "sanitizer_kind": "ssrf_host_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountsubmit/web/SessionController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
+      "line": 14,
+      "expr": "paymentTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
+      "line": 15,
+      "expr": "paymentTag1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
+      "line": 20,
+      "expr": "refundCode2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
+      "line": 21,
+      "expr": "shipmentCode3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
+      "line": 22,
+      "expr": "shipmentCode3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsubmit/service/ContractComposer.java",
+      "line": 8,
+      "expr": "channelTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsubmit/service/ContractComposer.java",
+      "line": 9,
+      "expr": "catalogKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsubmit/service/ContractComposer.java",
+      "line": 10,
+      "expr": "catalogKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsubmit/dao/BatchComposer.java",
+      "line": 8,
+      "expr": "batchTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsubmit/dao/BatchComposer.java",
+      "line": 9,
+      "expr": "orderRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsubmit/dao/BatchComposer.java",
+      "line": 10,
+      "expr": "orderRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
+      "line": 16,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
+      "line": 19,
+      "expr": "endpoint",
+      "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
+      "line": 23,
+      "expr": "endpoint",
+      "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 15,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:url_fetch",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "sanitizer:ssrf_host_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/submit",
+    "param": "session_trace",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

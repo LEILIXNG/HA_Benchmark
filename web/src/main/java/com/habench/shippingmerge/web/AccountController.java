@@ -10,7 +10,7 @@ public class AccountController {
 
     @GetMapping("/api/shipping/merge")
     public String forward(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Account-Reference");
         TariffBuilder.translate(reference);
         return "ok";
     }

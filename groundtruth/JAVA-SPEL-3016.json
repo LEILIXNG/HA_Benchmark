@@ -1,0 +1,168 @@
+{
+  "id": "JAVA-SPEL-3016",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "Cookie经 7 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippingsync/web/TariffController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippingsync/web/TariffController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/shippingsync/service/TariffEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/TariffController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 11,
+      "expr": "voucherRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 12,
+      "expr": "voucherRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 17,
+      "expr": "paymentTag2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 20,
+      "expr": "paymentTag2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 21,
+      "expr": "refundCode3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 24,
+      "expr": "refundCode3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 25,
+      "expr": "shipmentCode4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingsync/web/OrderNormalizer.java",
+      "line": 26,
+      "expr": "shipmentCode4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/ShipmentComposer.java",
+      "line": 14,
+      "expr": "ledgerEntry101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/ShipmentComposer.java",
+      "line": 15,
+      "expr": "ledgerEntry101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/ShipmentComposer.java",
+      "line": 20,
+      "expr": "channelTag102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/ShipmentComposer.java",
+      "line": 21,
+      "expr": "catalogKey103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/ShipmentComposer.java",
+      "line": 22,
+      "expr": "receiptKey104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/ShipmentComposer.java",
+      "line": 23,
+      "expr": "receiptKey104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/TariffEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingsync/service/TariffEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 17,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:spel_eval",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SPEL-3016-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/sync",
+    "param": "tariff_session",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "zz'+T(java.lang.Runtime)+'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz'+T(java.lang.Runtime)+'zz;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

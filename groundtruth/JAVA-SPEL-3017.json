@@ -1,0 +1,234 @@
+{
+  "id": "JAVA-SPEL-3017",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "Cookie经 11 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingexport/web/AccountController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingexport/web/AccountController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/pricingexport/service/AccountEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/AccountController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 20,
+      "expr": "quoteRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 21,
+      "expr": "quoteRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 26,
+      "expr": "tariffRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 29,
+      "expr": "tariffRef2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 30,
+      "expr": "ledgerEntry3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 31,
+      "expr": "ledgerEntry3",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 36,
+      "expr": "channelTag4",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 37,
+      "expr": "catalogKey5",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 40,
+      "expr": "catalogKey5",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 41,
+      "expr": "receiptKey6",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/InvoiceBroker.java",
+      "line": 42,
+      "expr": "receiptKey6",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/TariffRouter.java",
+      "line": 10,
+      "expr": "shipmentCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/TariffRouter.java",
+      "line": 13,
+      "expr": "shipmentCode101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/TariffRouter.java",
+      "line": 14,
+      "expr": "manifestKey102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/TariffRouter.java",
+      "line": 15,
+      "expr": "manifestKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/LedgerStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/LedgerStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/BundleFacade.java",
+      "line": 8,
+      "expr": "receiptKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/BundleFacade.java",
+      "line": 9,
+      "expr": "accountRef202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingexport/web/BundleFacade.java",
+      "line": 10,
+      "expr": "accountRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingexport/service/OrderFacade.java",
+      "line": 8,
+      "expr": "quoteRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingexport/service/OrderFacade.java",
+      "line": 9,
+      "expr": "tariffRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingexport/service/OrderFacade.java",
+      "line": 10,
+      "expr": "tariffRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingexport/service/AccountEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingexport/service/AccountEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 27,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/export",
+    "param": "account_ctx",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 11,
+    "payload_sent": "zz'+T(java.lang.Runtime)+'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:zz'+T(java.lang.Runtime)+'zz;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

@@ -10,7 +10,7 @@ public class SessionController {
 
     @GetMapping("/api/account/archive")
     public String attach(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
+        String orderNo = request.getHeader("X-Session-Context");
         RefundBroker.route(orderNo);
         return "ok";
     }

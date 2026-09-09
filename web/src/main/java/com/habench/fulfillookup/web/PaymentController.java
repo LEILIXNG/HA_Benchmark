@@ -10,7 +10,7 @@ public class PaymentController {
 
     @GetMapping("/api/fulfil/lookup")
     public String submit(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Payment-Reference");
         BundleCoordinator.resolve(filename);
         return "ok";
     }

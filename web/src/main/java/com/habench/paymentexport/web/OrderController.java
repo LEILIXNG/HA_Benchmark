@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/payment/export")
     public String translate(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
+        String keyword = request.getHeader("X-Order-Channel");
         CatalogTranslator.register(keyword);
         return "ok";
     }

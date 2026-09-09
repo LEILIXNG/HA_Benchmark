@@ -10,7 +10,7 @@ public class ManifestController {
 
     @GetMapping("/api/account/release")
     public String merge(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
+        String keyword = request.getHeader("X-Manifest-Reference");
         QuoteEnricher.resolve(keyword);
         return "ok";
     }

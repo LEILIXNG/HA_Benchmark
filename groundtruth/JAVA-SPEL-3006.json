@@ -1,0 +1,269 @@
+{
+  "id": "JAVA-SPEL-3006",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 12 层调用、跨 3 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippinggrant/web/AccountController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippinggrant/web/AccountController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/shippinggrant/dao/AccountEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountService.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountService.java",
+      "line": 14,
+      "expr": "invoiceKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountService.java",
+      "line": 15,
+      "expr": "invoiceKey1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountService.java",
+      "line": 20,
+      "expr": "batchTag2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountService.java",
+      "line": 21,
+      "expr": "orderRef3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountService.java",
+      "line": 22,
+      "expr": "orderRef3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/AccountPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 11,
+      "expr": "voucherRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 12,
+      "expr": "paymentTag102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 13,
+      "expr": "paymentTag102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 18,
+      "expr": "refundCode103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 21,
+      "expr": "refundCode103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 22,
+      "expr": "shipmentCode104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 25,
+      "expr": "shipmentCode104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 26,
+      "expr": "manifestKey105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/QuoteResolver.java",
+      "line": 27,
+      "expr": "manifestKey105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/InvoiceComposer.java",
+      "line": 8,
+      "expr": "ledgerEntry201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/InvoiceComposer.java",
+      "line": 9,
+      "expr": "channelTag202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinggrant/web/InvoiceComposer.java",
+      "line": 10,
+      "expr": "channelTag202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinggrant/service/VoucherCoordinator.java",
+      "line": 8,
+      "expr": "invoiceKey301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinggrant/service/VoucherCoordinator.java",
+      "line": 9,
+      "expr": "invoiceKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/RefundComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/RefundComposer.java",
+      "line": 13,
+      "expr": "voucherRef401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/RefundComposer.java",
+      "line": 14,
+      "expr": "paymentTag402",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/RefundComposer.java",
+      "line": 15,
+      "expr": "paymentTag402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/ShipmentAdapter.java",
+      "line": 8,
+      "expr": "ledgerEntry501",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/ShipmentAdapter.java",
+      "line": 9,
+      "expr": "channelTag502",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/ShipmentAdapter.java",
+      "line": 10,
+      "expr": "channelTag502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/AccountEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippinggrant/dao/AccountEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 32,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/grant",
+    "param": "X-Account-Correlation",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 12,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

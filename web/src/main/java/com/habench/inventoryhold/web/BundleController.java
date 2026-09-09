@@ -10,7 +10,7 @@ public class BundleController {
 
     @GetMapping("/api/inventory/hold")
     public String register(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Bundle-Trace");
         AccountCollector.reconcile(userName);
         return "ok";
     }

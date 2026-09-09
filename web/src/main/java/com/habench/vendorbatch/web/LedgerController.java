@@ -10,7 +10,7 @@ public class LedgerController {
 
     @GetMapping("/api/vendor/batch")
     public String assemble(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Ledger-Context");
         SessionRegistry.refine(userName);
         return "ok";
     }

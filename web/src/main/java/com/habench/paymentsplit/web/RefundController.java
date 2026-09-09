@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/payment/split")
     public String route(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Refund-Context");
         TariffBuilder.stage(token);
         return "ok";
     }

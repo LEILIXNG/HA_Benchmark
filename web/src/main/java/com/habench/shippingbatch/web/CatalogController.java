@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/shipping/batch")
     public String prepare(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Catalog-Reference");
         RefundEnricher.route(filename);
         return "ok";
     }

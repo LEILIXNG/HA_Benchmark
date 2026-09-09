@@ -1,0 +1,139 @@
+{
+  "id": "JAVA-PATH-3001",
+  "cwe": "CWE-22",
+  "verdict": "safe",
+  "title": "Spring 请求头经 7 层调用、跨 2 个模块流入文件读取，经 path_canonical_check 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/vendorintake/web/QuoteController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/vendorintake/web/QuoteController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
+    "line": 20,
+    "expr": "resolved",
+    "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
+    "line": 15,
+    "expr": "resolved",
+    "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
+  },
+  "sanitizer_kind": "path_canonical_check",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/vendorintake/web/QuoteController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorintake/web/AccountTranslator.java",
+      "line": 8,
+      "expr": "refundCode1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/vendorintake/web/AccountTranslator.java",
+      "line": 9,
+      "expr": "refundCode1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/ContractFacade.java",
+      "line": 8,
+      "expr": "catalogKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/ContractFacade.java",
+      "line": 9,
+      "expr": "catalogKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/ReceiptRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/ReceiptRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/CatalogCoordinator.java",
+      "line": 8,
+      "expr": "orderRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/CatalogCoordinator.java",
+      "line": 9,
+      "expr": "orderRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
+      "line": 14,
+      "expr": "value",
+      "note": "解析并规范化路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
+      "line": 15,
+      "expr": "resolved",
+      "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
+      "line": 20,
+      "expr": "resolved",
+      "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 12,
+    "files_crossed": 7,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:file_read",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:path_canonical_check"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/vendor/intake",
+    "param": "X-Quote-Correlation",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

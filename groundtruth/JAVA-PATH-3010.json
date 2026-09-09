@@ -1,0 +1,341 @@
+{
+  "id": "JAVA-PATH-3010",
+  "cwe": "CWE-22",
+  "verdict": "safe",
+  "title": "Spring 请求头经 18 层调用、跨 3 个模块流入文件读取，经 whitelist_regex 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportrefund/web/TariffController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportrefund/web/TariffController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/reportrefund/dao/TariffLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/reportrefund/dao/PaymentPolicy.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportrefund/web/TariffController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrefund/web/InvoiceRouter.java",
+      "line": 8,
+      "expr": "quoteRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrefund/web/InvoiceRouter.java",
+      "line": 9,
+      "expr": "tariffRef2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportrefund/web/InvoiceRouter.java",
+      "line": 10,
+      "expr": "tariffRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
+      "line": 11,
+      "expr": "shipmentCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
+      "line": 12,
+      "expr": "manifestKey102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
+      "line": 13,
+      "expr": "manifestKey102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
+      "line": 18,
+      "expr": "invoiceKey103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
+      "line": 21,
+      "expr": "invoiceKey103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
+      "line": 22,
+      "expr": "batchTag104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
+      "line": 23,
+      "expr": "batchTag104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 19,
+      "expr": "receiptKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 20,
+      "expr": "receiptKey201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 25,
+      "expr": "accountRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 26,
+      "expr": "voucherRef203",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 27,
+      "expr": "voucherRef203",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 32,
+      "expr": "paymentTag204",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 33,
+      "expr": "refundCode205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
+      "line": 34,
+      "expr": "refundCode205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
+      "line": 9,
+      "expr": "quoteRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
+      "line": 10,
+      "expr": "tariffRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
+      "line": 11,
+      "expr": "tariffRef302",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
+      "line": 16,
+      "expr": "ledgerEntry303",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
+      "line": 17,
+      "expr": "channelTag304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
+      "line": 18,
+      "expr": "channelTag304",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
+      "line": 14,
+      "expr": "shipmentCode401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
+      "line": 15,
+      "expr": "manifestKey402",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
+      "line": 16,
+      "expr": "manifestKey402",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
+      "line": 21,
+      "expr": "invoiceKey403",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
+      "line": 22,
+      "expr": "batchTag404",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
+      "line": 23,
+      "expr": "orderRef405",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
+      "line": 24,
+      "expr": "orderRef405",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/OrderPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/OrderPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
+      "line": 10,
+      "expr": "receiptKey501",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
+      "line": 13,
+      "expr": "receiptKey501",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
+      "line": 14,
+      "expr": "accountRef502",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
+      "line": 15,
+      "expr": "accountRef502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/PaymentPolicy.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/TariffLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportrefund/dao/TariffLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 42,
+    "files_crossed": 11,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:file_read",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/report/refund",
+    "param": "X-Tariff-Reference",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

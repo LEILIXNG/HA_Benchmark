@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/customer/approve")
     public String forward(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Order-Client");
         OrderBuilder.compose(userName);
         return "ok";
     }

@@ -3,11 +3,12 @@
 面向 SAST（静态应用安全测试）工具的测试集：多 source、多 sink、跨文件跨模块、长链路，
 每条用例附带经过**动态验证**的标答。
 
-* 用例 311 条（vulnerable 211 / safe 100），其中 64 组逐行配对的正负样本
+* 用例 412 条（vulnerable 276 / safe 136），其中 85 组逐行配对的正负样本
 * 覆盖 CWE-22 / CWE-78 / CWE-89 / CWE-917 / CWE-918，共六类 sink；其中 MyBatis 一类的
   污点要跨过 Java → XML 才能到达 sink
 * Java 11 + Spring Boot 2.7 + Maven 多模块
-* 单条污点链路平均跨 7.2 个文件、穿越 11.1 层方法调用、经过 26.7 条传播语句
+* 5 种 source × 4 种载体（query / path / header / cookie）
+* 单条污点链路平均跨 7.4 个文件、穿越 11.4 层方法调用、经过 27.7 条传播语句
 * 全部通过动态验证：载荷能否到达 sink、是否保持攻击语义、调用链长度，
   三者都是运行时实测的，不是标注出来的
 
@@ -54,7 +55,7 @@ mvn -DskipTests compile
 | `metrics.modules_crossed` | 路径经过的不同 Maven 模块数 |
 | `metrics.features` | 用到的 source / sink / 传播算子标签，用于按能力切片统计 |
 | `paired_negative` | 配对负样本的用例 id（见下） |
-| `http` | PoC 请求信息：方法、路径、参数名、载体（query/path/header） |
+| `http` | PoC 请求信息：方法、路径、参数名/头名/Cookie 名、载体（query/path/header/cookie） |
 | `verification` | 动态验证结果：探针是否命中（`reached`）、载荷是否完整（`tainted`）、是否被安全写法中和（`neutralized`）、实测调用链长度（`call_depth_observed`） |
 
 `file` 是相对本目录的正斜杠路径，`line` 从 1 开始。
@@ -63,7 +64,7 @@ mvn -DskipTests compile
 
 多数测试集的标答靠人工标注，可能那条路径其实根本不可达。这里每个 sink 之前都埋了探针
 （`common/.../TaintOracle.java`），发布前会把工程真的跑起来、按载体
-（query / path / header）发 PoC 请求，再核对：
+（query / path / header / cookie）发 PoC 请求，再核对：
 
 * `vulnerable` 用例 —— 必须命中探针，且攻击载荷到达 sink 时仍然完整
 * `safe` 用例 —— 必须不命中探针，或命中但载荷已失去攻击语义
@@ -108,6 +109,27 @@ safe 用例不是简单地"加个过滤函数"，而是按每类漏洞的**惯�
 
 净化器与 sink 的对应关系在生成阶段强制校验，`verdict` 也由净化器是否有效唯一决定，
 不允许人为标注——给路径穿越配"剥离单引号"这种没有意义的组合会直接报错。
+
+## 污点入口：5 种 source、4 种载体
+
+| source | 载体 | 取值方式 |
+|---|---|---|
+| `spring_request_param` | query | `@RequestParam` |
+| `spring_path_variable` | path | `@PathVariable` |
+| `servlet_header` | header | `HttpServletRequest.getHeader()` |
+| `spring_request_header` | header | `@RequestHeader` |
+| `spring_cookie_value` | cookie | `@CookieValue` |
+
+请求头刻意分成两种：同一个载体，一种走 Servlet API、一种走 Spring 的注解绑定。
+工具的 source 规则常常只覆盖其中一种，分开才看得出来。
+
+头名与 Cookie 名都按用例派生成业务化的名字（`X-Order-Trace`、`bundle_ref`），
+不会出现 `payload` 这类把答案写在 HTTP 层的词。
+
+Cookie 载体的 PoC 载荷是**另一套**：RFC 6265 的 cookie 值不含空格，带空格的载荷会被
+Tomcat 直接 400，而百分号编码到不了 sink（Tomcat 不解码 cookie 值）。所以那批用例改用
+等价的无空格写法——SQL 用 `/**/` 当空白（`zz'/**/OR/**/1=1--`），SpEL 的 `+` 两侧本来
+就不需要空格。攻击语义不变。
 
 ## 跨 Java → XML 的污点流
 
@@ -160,9 +182,9 @@ XML 渲染出的最终 SQL，看参数值是否被拼了进去：
 
 | | 平均 | 说明 |
 |---|---|---|
-| 跨文件数 | 7.2 | 污点路径经过的不同文件 |
-| 调用帧数 | 11.1 | 穿越的方法调用层数 |
-| 路径节点 | 26.7 | 参与传播的语句条数 |
+| 跨文件数 | 7.4 | 污点路径经过的不同文件 |
+| 调用帧数 | 11.4 | 穿越的方法调用层数 |
+| 路径节点 | 27.7 | 参与传播的语句条数 |
 
 三者的比例是 **3.7 : 1.5 : 1**。这个梯度是刻意的：早期版本三个数几乎相等
 （1.3 : 1.15 : 1），等于"一条语句一个方法一个文件"，一眼就能看出是生成的。
@@ -185,10 +207,10 @@ XML 渲染出的最终 SQL，看参数值是否被拼了进去：
 
 | 调用链长度 | 用例数 |
 |---|---|
-| ≤7 层 | 64 |
-| 8-10 层 | 93 |
-| 11-13 层 | 74 |
-| 14+ 层 | 80 |
+| ≤7 层 | 80 |
+| 8-10 层 | 112 |
+| 11-13 层 | 97 |
+| 14+ 层 | 123 |
 
 跨模块跳数随调用链长度递增，深链路不会全挤在同一个模块里。
 

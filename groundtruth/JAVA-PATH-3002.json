@@ -1,0 +1,203 @@
+{
+  "id": "JAVA-PATH-3002",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 9 层调用、跨 3 个模块流入文件读取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilhold/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilhold/web/ReceiptController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/fulfilhold/dao/ReceiptLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/ReceiptController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/SessionResolver.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/SessionResolver.java",
+      "line": 13,
+      "expr": "quoteRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/SessionResolver.java",
+      "line": 14,
+      "expr": "tariffRef2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/SessionResolver.java",
+      "line": 15,
+      "expr": "tariffRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/PaymentCoordinator.java",
+      "line": 9,
+      "expr": "shipmentCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/PaymentCoordinator.java",
+      "line": 10,
+      "expr": "shipmentCode101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/PaymentCoordinator.java",
+      "line": 15,
+      "expr": "manifestKey102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/PaymentCoordinator.java",
+      "line": 16,
+      "expr": "invoiceKey103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/PaymentCoordinator.java",
+      "line": 17,
+      "expr": "batchTag104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilhold/web/PaymentCoordinator.java",
+      "line": 18,
+      "expr": "batchTag104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilhold/service/BundleFacade.java",
+      "line": 8,
+      "expr": "receiptKey201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilhold/service/BundleFacade.java",
+      "line": 9,
+      "expr": "accountRef202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilhold/service/BundleFacade.java",
+      "line": 10,
+      "expr": "accountRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/BundleAssembler.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/BundleAssembler.java",
+      "line": 19,
+      "expr": "quoteRef301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/BundleAssembler.java",
+      "line": 20,
+      "expr": "quoteRef301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/BundleAssembler.java",
+      "line": 25,
+      "expr": "tariffRef302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/BundleAssembler.java",
+      "line": 26,
+      "expr": "ledgerEntry303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/BundleAssembler.java",
+      "line": 27,
+      "expr": "ledgerEntry303",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/ReceiptLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfilhold/dao/ReceiptLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 22,
+    "files_crossed": 6,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:file_read",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/hold",
+    "param": "X-Receipt-Context",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:../../../etc/passwd;;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

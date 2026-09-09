@@ -10,7 +10,7 @@ public class VoucherController {
 
     @GetMapping("/api/report/renewal")
     public String translate(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Voucher-Trace");
         TariffEnricher.forward(query);
         return "ok";
     }

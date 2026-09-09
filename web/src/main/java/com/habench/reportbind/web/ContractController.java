@@ -10,7 +10,7 @@ public class ContractController {
 
     @GetMapping("/api/report/bind")
     public String assemble(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Contract-Channel");
         RefundResolver.assemble(reference);
         return "ok";
     }

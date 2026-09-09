@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymenttransfer/web/LedgerController.java",
+    "file": "web/src/main/java/com/habench/shippingdigest/web/LedgerController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymenttransfer/web/LedgerController.java",
+    "file": "web/src/main/java/com/habench/shippingdigest/web/LedgerController.java",
     "line": 13,
     "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/paymenttransfer/service/LedgerRepository.java",
+    "file": "service/src/main/java/com/habench/shippingdigest/service/LedgerRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/paymenttransfer/service/BundleValidator.java",
+    "file": "service/src/main/java/com/habench/shippingdigest/service/BundleValidator.java",
     "line": 9,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,169 +29,169 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/LedgerController.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/LedgerController.java",
       "line": 13,
       "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 17,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 20,
       "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 21,
       "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 22,
       "expr": "refundCode2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 27,
       "expr": "shipmentCode3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 30,
       "expr": "shipmentCode3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 31,
       "expr": "manifestKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 32,
       "expr": "invoiceKey5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 33,
       "expr": "invoiceKey5",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 38,
       "expr": "batchTag6",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 39,
       "expr": "orderRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 40,
       "expr": "orderRef7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 45,
       "expr": "quoteRef8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 46,
       "expr": "tariffRef9",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 47,
       "expr": "ledgerEntry10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 48,
       "expr": "ledgerEntry10",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 53,
       "expr": "channelTag11",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 56,
       "expr": "channelTag11",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 57,
       "expr": "catalogKey12",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttransfer/web/TariffRouter.java",
+      "file": "web/src/main/java/com/habench/shippingdigest/web/TariffRouter.java",
       "line": 58,
       "expr": "catalogKey12",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttransfer/service/BatchComposer.java",
+      "file": "service/src/main/java/com/habench/shippingdigest/service/BatchComposer.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttransfer/service/BatchComposer.java",
+      "file": "service/src/main/java/com/habench/shippingdigest/service/BatchComposer.java",
       "line": 13,
       "expr": "channelTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttransfer/service/BatchComposer.java",
+      "file": "service/src/main/java/com/habench/shippingdigest/service/BatchComposer.java",
       "line": 14,
       "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttransfer/service/BatchComposer.java",
+      "file": "service/src/main/java/com/habench/shippingdigest/service/BatchComposer.java",
       "line": 15,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttransfer/service/BundleValidator.java",
+      "file": "service/src/main/java/com/habench/shippingdigest/service/BundleValidator.java",
       "line": 9,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttransfer/service/LedgerRepository.java",
+      "file": "service/src/main/java/com/habench/shippingdigest/service/LedgerRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttransfer/service/LedgerRepository.java",
+      "file": "service/src/main/java/com/habench/shippingdigest/service/LedgerRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -226,8 +226,8 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/payment/transfer",
-    "param": "X-Ha-Payload",
+    "path": "/api/shipping/digest",
+    "param": "X-Ledger-Context",
     "carrier": "header"
   },
   "verification": {
@@ -240,6 +240,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

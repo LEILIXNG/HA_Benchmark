@@ -1,0 +1,165 @@
+{
+  "id": "JAVA-MYBATIS-3000",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 10 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingnotice/web/ContractController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingnotice/web/ContractController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/billingnotice/dao/ContractMapper.xml",
+    "line": 9,
+    "expr": "invoiceKey",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/billingnotice/dao/ChannelValidator.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 不完整净化（无效）"
+  },
+  "sanitizer_kind": "incomplete_quote_strip",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractAdapter.java",
+      "line": 8,
+      "expr": "channelTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractAdapter.java",
+      "line": 9,
+      "expr": "channelTag1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/ContractStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/OrderTranslator.java",
+      "line": 8,
+      "expr": "batchTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingnotice/web/OrderTranslator.java",
+      "line": 9,
+      "expr": "batchTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffRouter.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffRouter.java",
+      "line": 13,
+      "expr": "paymentTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingnotice/service/TariffRouter.java",
+      "line": 14,
+      "expr": "paymentTag201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingnotice/dao/RefundComposer.java",
+      "line": 8,
+      "expr": "channelTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingnotice/dao/RefundComposer.java",
+      "line": 9,
+      "expr": "channelTag301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingnotice/dao/ChannelValidator.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 不完整净化（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingnotice/dao/ContractGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingnotice/dao/ContractGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/billingnotice/dao/ContractMapper.xml",
+      "line": 9,
+      "expr": "invoiceKey",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 16,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:mybatis_dollar",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "sanitizer:incomplete_quote_strip"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/notice",
+    "param": "X-Contract-Trace",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 10,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:zz OR 1=1--;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

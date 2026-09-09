@@ -1,0 +1,335 @@
+{
+  "id": "JAVA-SSRF-3004",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 15 层调用、跨 2 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingposting/web/BatchController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingposting/web/BatchController.java",
+    "line": 13,
+    "expr": "reference",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/pricingposting/service/BatchFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/BatchController.java",
+      "line": 13,
+      "expr": "reference",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 17,
+      "expr": "catalogKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 18,
+      "expr": "catalogKey1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 23,
+      "expr": "receiptKey2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 24,
+      "expr": "accountRef3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 25,
+      "expr": "accountRef3",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 30,
+      "expr": "voucherRef4",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 31,
+      "expr": "paymentTag5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 32,
+      "expr": "refundCode6",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 33,
+      "expr": "refundCode6",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 38,
+      "expr": "shipmentCode7",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 41,
+      "expr": "shipmentCode7",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 42,
+      "expr": "manifestKey8",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 43,
+      "expr": "invoiceKey9",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 44,
+      "expr": "invoiceKey9",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 49,
+      "expr": "batchTag10",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 50,
+      "expr": "orderRef11",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 51,
+      "expr": "quoteRef12",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 52,
+      "expr": "quoteRef12",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 57,
+      "expr": "tariffRef13",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 58,
+      "expr": "ledgerEntry14",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 59,
+      "expr": "ledgerEntry14",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 64,
+      "expr": "channelTag15",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 65,
+      "expr": "catalogKey16",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 66,
+      "expr": "catalogKey16",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 71,
+      "expr": "receiptKey17",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 72,
+      "expr": "accountRef18",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingposting/web/VoucherCoordinator.java",
+      "line": 73,
+      "expr": "accountRef18",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 19,
+      "expr": "orderRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 20,
+      "expr": "orderRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 25,
+      "expr": "quoteRef102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 28,
+      "expr": "quoteRef102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 29,
+      "expr": "tariffRef103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 30,
+      "expr": "ledgerEntry104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 31,
+      "expr": "ledgerEntry104",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 36,
+      "expr": "channelTag105",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 37,
+      "expr": "catalogKey106",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 38,
+      "expr": "receiptKey107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFacade.java",
+      "line": 39,
+      "expr": "receiptKey107",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingposting/service/BatchFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 15,
+    "chain_len": 42,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/posting",
+    "param": "X-Batch-Channel",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 15,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

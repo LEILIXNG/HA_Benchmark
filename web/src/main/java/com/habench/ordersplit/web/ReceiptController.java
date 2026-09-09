@@ -10,7 +10,7 @@ public class ReceiptController {
 
     @GetMapping("/api/order/split")
     public String prepare(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
+        String target = request.getHeader("X-Receipt-Origin");
         BundleBuilder.enrich(target);
         return "ok";
     }

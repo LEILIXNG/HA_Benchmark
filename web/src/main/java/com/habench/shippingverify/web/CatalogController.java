@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/shipping/verify")
     public String publish(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Catalog-Reference");
         RefundRouter.normalize(token);
         return "ok";
     }

@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/report/sync")
     public String refine(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
+        String target = request.getHeader("X-Refund-Tenant");
         InvoiceBroker.publish(target);
         return "ok";
     }

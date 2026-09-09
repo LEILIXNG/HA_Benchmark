@@ -1,0 +1,403 @@
+{
+  "id": "JAVA-PATH-3006",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Cookie经 17 层调用、跨 3 个模块流入文件读取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfiltransfer/web/BundleController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfiltransfer/web/BundleController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/BundleLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/BundleController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/CatalogComposer.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/CatalogComposer.java",
+      "line": 14,
+      "expr": "quoteRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/CatalogComposer.java",
+      "line": 15,
+      "expr": "tariffRef2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/CatalogComposer.java",
+      "line": 16,
+      "expr": "tariffRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/CatalogComposer.java",
+      "line": 21,
+      "expr": "ledgerEntry3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/CatalogComposer.java",
+      "line": 22,
+      "expr": "channelTag4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfiltransfer/web/CatalogComposer.java",
+      "line": 23,
+      "expr": "channelTag4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/PaymentAdapter.java",
+      "line": 8,
+      "expr": "shipmentCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/PaymentAdapter.java",
+      "line": 9,
+      "expr": "manifestKey102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/PaymentAdapter.java",
+      "line": 10,
+      "expr": "manifestKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/ContractCollector.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/ContractCollector.java",
+      "line": 14,
+      "expr": "receiptKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/ContractCollector.java",
+      "line": 15,
+      "expr": "receiptKey201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/ContractCollector.java",
+      "line": 20,
+      "expr": "accountRef202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/ContractCollector.java",
+      "line": 21,
+      "expr": "voucherRef203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/ContractCollector.java",
+      "line": 22,
+      "expr": "paymentTag204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/ContractCollector.java",
+      "line": 23,
+      "expr": "paymentTag204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 20,
+      "expr": "quoteRef301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 21,
+      "expr": "tariffRef302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 22,
+      "expr": "tariffRef302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 27,
+      "expr": "ledgerEntry303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 28,
+      "expr": "channelTag304",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 29,
+      "expr": "catalogKey305",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 30,
+      "expr": "catalogKey305",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 35,
+      "expr": "receiptKey306",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 38,
+      "expr": "receiptKey306",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 39,
+      "expr": "accountRef307",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 42,
+      "expr": "accountRef307",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 43,
+      "expr": "voucherRef308",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 44,
+      "expr": "voucherRef308",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 49,
+      "expr": "paymentTag309",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 52,
+      "expr": "paymentTag309",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 53,
+      "expr": "refundCode310",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 56,
+      "expr": "refundCode310",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 57,
+      "expr": "shipmentCode311",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfiltransfer/service/TariffAdapter.java",
+      "line": 58,
+      "expr": "shipmentCode311",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/AccountFacade.java",
+      "line": 8,
+      "expr": "shipmentCode401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/AccountFacade.java",
+      "line": 9,
+      "expr": "shipmentCode401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/QuoteRouter.java",
+      "line": 8,
+      "expr": "receiptKey501",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/QuoteRouter.java",
+      "line": 9,
+      "expr": "accountRef502",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/QuoteRouter.java",
+      "line": 10,
+      "expr": "accountRef502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/RefundBroker.java",
+      "line": 16,
+      "expr": "quoteRef601",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/RefundBroker.java",
+      "line": 19,
+      "expr": "quoteRef601",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/RefundBroker.java",
+      "line": 20,
+      "expr": "tariffRef602",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/RefundBroker.java",
+      "line": 21,
+      "expr": "tariffRef602",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/RefundBroker.java",
+      "line": 26,
+      "expr": "ledgerEntry603",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/RefundBroker.java",
+      "line": 27,
+      "expr": "channelTag604",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/RefundBroker.java",
+      "line": 28,
+      "expr": "channelTag604",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/BundleLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/fulfiltransfer/dao/BundleLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 17,
+    "chain_len": 52,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:file_read",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-PATH-3006-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/transfer",
+    "param": "bundle_ctx",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 17,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

@@ -10,7 +10,7 @@ public class BundleController {
 
     @GetMapping("/api/payment/adjust")
     public String route(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Bundle-Client");
         CatalogTranslator.merge(reference);
         return "ok";
     }

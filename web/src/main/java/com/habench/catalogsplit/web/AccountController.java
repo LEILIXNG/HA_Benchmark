@@ -10,7 +10,7 @@ public class AccountController {
 
     @GetMapping("/api/catalog/split")
     public String publish(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Account-Trace");
         InvoiceBuilder.dispatch(filename);
         return "ok";
     }

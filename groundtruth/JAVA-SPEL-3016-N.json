@@ -1,0 +1,179 @@
+{
+  "id": "JAVA-SPEL-3016-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-3016 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportledger/web/VoucherController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportledger/web/VoucherController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/reportledger/service/VoucherEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/reportledger/service/VoucherPolicy.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/VoucherController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 11,
+      "expr": "accountRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 12,
+      "expr": "accountRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 17,
+      "expr": "voucherRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 20,
+      "expr": "voucherRef2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 21,
+      "expr": "paymentTag3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 24,
+      "expr": "paymentTag3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 25,
+      "expr": "refundCode4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportledger/web/ChannelRegistry.java",
+      "line": 26,
+      "expr": "refundCode4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/ChannelCoordinator.java",
+      "line": 14,
+      "expr": "tariffRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/ChannelCoordinator.java",
+      "line": 15,
+      "expr": "tariffRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/ChannelCoordinator.java",
+      "line": 20,
+      "expr": "ledgerEntry102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/ChannelCoordinator.java",
+      "line": 21,
+      "expr": "channelTag103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/ChannelCoordinator.java",
+      "line": 22,
+      "expr": "catalogKey104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/ChannelCoordinator.java",
+      "line": 23,
+      "expr": "catalogKey104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/VoucherPolicy.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/VoucherEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportledger/service/VoucherEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 18,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:spel_eval",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/report/ledger",
+    "param": "voucher_token",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz'+T(java.lang.Runtime)+'zz",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

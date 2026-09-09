@@ -1,0 +1,270 @@
+{
+  "id": "JAVA-CMDI-3009",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "Cookie经 12 层调用、跨 3 个模块流入命令执行，经 whitelist_regex 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/catalogadjust/dao/InvoiceExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/catalogadjust/dao/ChannelValidator.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
+      "line": 13,
+      "expr": "batchTag1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
+      "line": 16,
+      "expr": "batchTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
+      "line": 17,
+      "expr": "orderRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
+      "line": 18,
+      "expr": "orderRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
+      "line": 10,
+      "expr": "paymentTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
+      "line": 13,
+      "expr": "paymentTag101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
+      "line": 14,
+      "expr": "refundCode102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
+      "line": 15,
+      "expr": "refundCode102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/QuoteStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/QuoteStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 19,
+      "expr": "channelTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 20,
+      "expr": "catalogKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 21,
+      "expr": "catalogKey202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 26,
+      "expr": "receiptKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 29,
+      "expr": "receiptKey203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 30,
+      "expr": "accountRef204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 31,
+      "expr": "accountRef204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 36,
+      "expr": "voucherRef205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 39,
+      "expr": "voucherRef205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 40,
+      "expr": "paymentTag206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 41,
+      "expr": "refundCode207",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
+      "line": 42,
+      "expr": "refundCode207",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
+      "line": 10,
+      "expr": "batchTag301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
+      "line": 13,
+      "expr": "batchTag301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
+      "line": 14,
+      "expr": "orderRef302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
+      "line": 15,
+      "expr": "orderRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogadjust/dao/ChannelValidator.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogadjust/dao/InvoiceExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogadjust/dao/InvoiceExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 12,
+    "chain_len": 32,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/adjust",
+    "param": "invoice_tag",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

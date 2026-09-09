@@ -1,0 +1,397 @@
+{
+  "id": "JAVA-CMDI-3000-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-3000 逐行相同，仅把净化改为 exec_no_shell",
+  "entry": {
+    "file": "web/src/main/java/com/habench/fulfilgrant/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/fulfilgrant/web/ReceiptController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/fulfilgrant/service/ReceiptExecutor.java",
+    "line": 14,
+    "expr": "builder",
+    "note": "SINK 位置：CWE-78（未经 shell 解释）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/fulfilgrant/service/ReceiptExecutor.java",
+    "line": 12,
+    "expr": "argv",
+    "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+  },
+  "sanitizer_kind": "exec_no_shell",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/ReceiptController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 20,
+      "expr": "manifestKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 21,
+      "expr": "manifestKey1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 26,
+      "expr": "invoiceKey2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 29,
+      "expr": "invoiceKey2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 30,
+      "expr": "batchTag3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 33,
+      "expr": "batchTag3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 34,
+      "expr": "orderRef4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 35,
+      "expr": "orderRef4",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 40,
+      "expr": "quoteRef5",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 41,
+      "expr": "tariffRef6",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 42,
+      "expr": "tariffRef6",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 47,
+      "expr": "ledgerEntry7",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 48,
+      "expr": "channelTag8",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 49,
+      "expr": "catalogKey9",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 50,
+      "expr": "catalogKey9",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 55,
+      "expr": "receiptKey10",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 56,
+      "expr": "accountRef11",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/fulfilgrant/web/SessionRegistry.java",
+      "line": 57,
+      "expr": "accountRef11",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 20,
+      "expr": "accountRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 21,
+      "expr": "accountRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 26,
+      "expr": "voucherRef102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 27,
+      "expr": "paymentTag103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 28,
+      "expr": "paymentTag103",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 33,
+      "expr": "refundCode104",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 34,
+      "expr": "shipmentCode105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 35,
+      "expr": "shipmentCode105",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 40,
+      "expr": "manifestKey106",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 41,
+      "expr": "invoiceKey107",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 42,
+      "expr": "batchTag108",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/SessionRouter.java",
+      "line": 43,
+      "expr": "batchTag108",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/ChannelRegistry.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/ChannelRegistry.java",
+      "line": 13,
+      "expr": "tariffRef201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/ChannelRegistry.java",
+      "line": 14,
+      "expr": "tariffRef201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 17,
+      "expr": "manifestKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 18,
+      "expr": "manifestKey301",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 23,
+      "expr": "invoiceKey302",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 26,
+      "expr": "invoiceKey302",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 27,
+      "expr": "batchTag303",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 28,
+      "expr": "batchTag303",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 33,
+      "expr": "orderRef304",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 34,
+      "expr": "quoteRef305",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 35,
+      "expr": "tariffRef306",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/LedgerNormalizer.java",
+      "line": 36,
+      "expr": "tariffRef306",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/ReceiptExecutor.java",
+      "line": 11,
+      "expr": "value",
+      "note": "参数以数组传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/ReceiptExecutor.java",
+      "line": 12,
+      "expr": "argv",
+      "note": "SANITIZER: 不经 shell 执行（CWE-78 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/fulfilgrant/service/ReceiptExecutor.java",
+      "line": 14,
+      "expr": "builder",
+      "note": "SINK 位置：CWE-78（未经 shell 解释）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 20,
+    "chain_len": 51,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:exec_no_shell"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/fulfil/grant",
+    "param": "receipt_trace",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 20,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

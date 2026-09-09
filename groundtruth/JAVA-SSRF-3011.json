@@ -1,0 +1,200 @@
+{
+  "id": "JAVA-SSRF-3011",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "Cookie经 9 层调用、跨 2 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingbind/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingbind/web/InvoiceController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/billingbind/service/InvoiceFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/InvoiceController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/PaymentCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/PaymentCollector.java",
+      "line": 13,
+      "expr": "orderRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/PaymentCollector.java",
+      "line": 14,
+      "expr": "orderRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/QuotePlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/QuotePlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/ManifestCoordinator.java",
+      "line": 8,
+      "expr": "refundCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingbind/web/ManifestCoordinator.java",
+      "line": 9,
+      "expr": "refundCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 11,
+      "expr": "catalogKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 14,
+      "expr": "catalogKey201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 15,
+      "expr": "receiptKey202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 16,
+      "expr": "receiptKey202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 21,
+      "expr": "accountRef203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 22,
+      "expr": "voucherRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 23,
+      "expr": "voucherRef204",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 28,
+      "expr": "paymentTag205",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 31,
+      "expr": "paymentTag205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 32,
+      "expr": "refundCode206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 33,
+      "expr": "shipmentCode207",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/TariffEnricher.java",
+      "line": 34,
+      "expr": "shipmentCode207",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/InvoiceFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingbind/service/InvoiceFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 22,
+    "files_crossed": 7,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:url_fetch",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SSRF-3011-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/bind",
+    "param": "invoice_ctx",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

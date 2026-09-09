@@ -1,0 +1,149 @@
+{
+  "id": "JAVA-SSRF-3008",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "Cookie经 7 层调用、跨 2 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportdigest/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportdigest/web/ReceiptController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/reportdigest/service/ReceiptFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportdigest/web/ReceiptController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
+      "line": 14,
+      "expr": "tariffRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
+      "line": 15,
+      "expr": "ledgerEntry2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
+      "line": 16,
+      "expr": "ledgerEntry2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
+      "line": 21,
+      "expr": "channelTag3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
+      "line": 22,
+      "expr": "catalogKey4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
+      "line": 23,
+      "expr": "catalogKey4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
+      "line": 9,
+      "expr": "manifestKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
+      "line": 10,
+      "expr": "manifestKey101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
+      "line": 15,
+      "expr": "invoiceKey102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
+      "line": 16,
+      "expr": "batchTag103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
+      "line": 17,
+      "expr": "batchTag103",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdigest/service/ReceiptFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportdigest/service/ReceiptFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 14,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/report/digest",
+    "param": "receipt_session",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

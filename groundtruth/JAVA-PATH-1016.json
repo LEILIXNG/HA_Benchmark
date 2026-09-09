@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 14 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
+    "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
+    "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
     "line": 13,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/inventoryadjust/dao/AccountLoader.java",
+    "file": "dao/src/main/java/com/habench/customerquote/dao/AccountLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,193 +24,193 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/AccountController.java",
+      "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
       "line": 13,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ShipmentResolver.java",
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentResolver.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ShipmentResolver.java",
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentResolver.java",
       "line": 13,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryadjust/web/ShipmentResolver.java",
+      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentResolver.java",
       "line": 14,
       "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryadjust/service/BatchRouter.java",
+      "file": "service/src/main/java/com/habench/customerquote/service/BatchRouter.java",
       "line": 8,
       "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryadjust/service/BatchRouter.java",
+      "file": "service/src/main/java/com/habench/customerquote/service/BatchRouter.java",
       "line": 9,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/TariffCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
       "line": 16,
       "expr": "quoteRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/TariffCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
       "line": 17,
       "expr": "quoteRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/TariffCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
       "line": 22,
       "expr": "tariffRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/TariffCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
       "line": 25,
       "expr": "tariffRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/TariffCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
       "line": 26,
       "expr": "ledgerEntry203",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/TariffCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
       "line": 27,
       "expr": "ledgerEntry203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/BundlePolicySelector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/BundlePolicySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/BundlePolicyStandard.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/BundlePolicyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 19,
       "expr": "shipmentCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 20,
       "expr": "manifestKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 21,
       "expr": "manifestKey302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 26,
       "expr": "invoiceKey303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 27,
       "expr": "batchTag304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 30,
       "expr": "batchTag304",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 31,
       "expr": "orderRef305",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 32,
       "expr": "orderRef305",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 37,
       "expr": "quoteRef306",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 38,
       "expr": "tariffRef307",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 39,
       "expr": "tariffRef307",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 44,
       "expr": "ledgerEntry308",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 45,
       "expr": "channelTag309",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 46,
       "expr": "catalogKey310",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ReceiptCollector.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
       "line": 47,
       "expr": "catalogKey310",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/AccountLoader.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/AccountLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/AccountLoader.java",
+      "file": "dao/src/main/java/com/habench/customerquote/dao/AccountLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -248,8 +248,8 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/inventory/adjust",
-    "param": "X-Ha-Payload",
+    "path": "/api/customer/quote",
+    "param": "X-Account-Context",
     "carrier": "header"
   },
   "verification": {
@@ -262,6 +262,6 @@
     "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

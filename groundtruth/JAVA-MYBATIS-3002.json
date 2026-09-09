@@ -1,0 +1,205 @@
+{
+  "id": "JAVA-MYBATIS-3002",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "Spring 请求头经 9 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingassign/web/ShipmentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingassign/web/ShipmentController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/pricingassign/service/ShipmentMapper.xml",
+    "line": 9,
+    "expr": "ledgerEntry",
+    "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/resources/com/habench/pricingassign/service/ShipmentMapper.xml",
+    "line": 9,
+    "expr": "ledgerEntry",
+    "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
+  },
+  "sanitizer_kind": "mybatis_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingassign/web/ShipmentController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingassign/web/TariffAssembler.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingassign/web/TariffAssembler.java",
+      "line": 13,
+      "expr": "catalogKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingassign/web/TariffAssembler.java",
+      "line": 14,
+      "expr": "catalogKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/ReceiptCollector.java",
+      "line": 8,
+      "expr": "orderRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/ReceiptCollector.java",
+      "line": 9,
+      "expr": "orderRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 16,
+      "expr": "refundCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 19,
+      "expr": "refundCode201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 20,
+      "expr": "shipmentCode202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 21,
+      "expr": "shipmentCode202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 26,
+      "expr": "manifestKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 29,
+      "expr": "manifestKey203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 30,
+      "expr": "invoiceKey204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 31,
+      "expr": "invoiceKey204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 36,
+      "expr": "batchTag205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 39,
+      "expr": "batchTag205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 40,
+      "expr": "orderRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 41,
+      "expr": "quoteRef207",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/CatalogBroker.java",
+      "line": 42,
+      "expr": "quoteRef207",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/ShipmentGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingassign/service/ShipmentGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/pricingassign/service/ShipmentMapper.xml",
+      "line": 9,
+      "expr": "ledgerEntry",
+      "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 22,
+    "files_crossed": 6,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "sanitizer:mybatis_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/assign",
+    "param": "X-Shipment-Origin",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 9,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

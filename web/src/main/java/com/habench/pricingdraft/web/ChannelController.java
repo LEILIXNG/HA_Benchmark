@@ -10,7 +10,7 @@ public class ChannelController {
 
     @GetMapping("/api/pricing/draft")
     public String normalize(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Channel-Trace");
         InvoiceAssembler.dispatch(userName);
         return "ok";
     }

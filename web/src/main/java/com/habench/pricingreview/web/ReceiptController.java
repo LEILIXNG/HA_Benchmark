@@ -10,7 +10,7 @@ public class ReceiptController {
 
     @GetMapping("/api/pricing/review")
     public String route(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
+        String target = request.getHeader("X-Receipt-Origin");
         BundleAssembler.forward(target);
         return "ok";
     }

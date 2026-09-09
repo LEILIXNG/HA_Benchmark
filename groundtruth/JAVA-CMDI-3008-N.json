@@ -1,0 +1,151 @@
+{
+  "id": "JAVA-CMDI-3008-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-3008 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogrollup/web/ContractController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogrollup/web/ContractController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/catalogrollup/web/ContractExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/catalogrollup/web/AccountPolicy.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ContractController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ShipmentCollector.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ShipmentCollector.java",
+      "line": 14,
+      "expr": "accountRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ShipmentCollector.java",
+      "line": 15,
+      "expr": "accountRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ShipmentCollector.java",
+      "line": 20,
+      "expr": "voucherRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ShipmentCollector.java",
+      "line": 21,
+      "expr": "paymentTag3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ShipmentCollector.java",
+      "line": 22,
+      "expr": "paymentTag3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ContractPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ContractPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/OrderRegistry.java",
+      "line": 8,
+      "expr": "tariffRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/OrderRegistry.java",
+      "line": 9,
+      "expr": "tariffRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/AccountPolicy.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ContractExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogrollup/web/ContractExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 14,
+    "files_crossed": 7,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/rollup",
+    "param": "contract_tag",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

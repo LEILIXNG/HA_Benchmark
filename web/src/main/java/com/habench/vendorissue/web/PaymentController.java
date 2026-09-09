@@ -10,7 +10,7 @@ public class PaymentController {
 
     @GetMapping("/api/vendor/issue")
     public String refine(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
+        String label = request.getHeader("X-Payment-Reference");
         ChannelService.refine(label);
         return "ok";
     }

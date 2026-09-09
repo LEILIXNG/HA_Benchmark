@@ -1,0 +1,208 @@
+{
+  "id": "JAVA-CMDI-3002",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "Cookie经 9 层调用、跨 2 个模块流入命令执行",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventoryintake/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventoryintake/web/PaymentController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/inventoryintake/service/PaymentExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/PaymentController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractTranslator.java",
+      "line": 13,
+      "expr": "shipmentCode1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractTranslator.java",
+      "line": 14,
+      "expr": "manifestKey2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractTranslator.java",
+      "line": 15,
+      "expr": "manifestKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/RefundService.java",
+      "line": 8,
+      "expr": "receiptKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/RefundService.java",
+      "line": 9,
+      "expr": "accountRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/RefundService.java",
+      "line": 10,
+      "expr": "accountRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/RefundEnricher.java",
+      "line": 10,
+      "expr": "quoteRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/RefundEnricher.java",
+      "line": 13,
+      "expr": "quoteRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/RefundEnricher.java",
+      "line": 14,
+      "expr": "tariffRef202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/RefundEnricher.java",
+      "line": 15,
+      "expr": "tariffRef202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/BatchPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/BatchPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractEnricher.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractEnricher.java",
+      "line": 13,
+      "expr": "shipmentCode301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractEnricher.java",
+      "line": 14,
+      "expr": "manifestKey302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryintake/web/ContractEnricher.java",
+      "line": 15,
+      "expr": "manifestKey302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryintake/service/OrderCoordinator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryintake/service/OrderCoordinator.java",
+      "line": 13,
+      "expr": "receiptKey401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryintake/service/OrderCoordinator.java",
+      "line": 14,
+      "expr": "receiptKey401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryintake/service/PaymentExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryintake/service/PaymentExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 23,
+    "files_crossed": 9,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-CMDI-3002-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/intake",
+    "param": "payment_tag",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 9,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo ref:zz$(id);",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

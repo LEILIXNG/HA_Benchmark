@@ -1,0 +1,184 @@
+{
+  "id": "JAVA-SQLI-3002",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "Cookie经 9 层调用、跨 3 个模块流入JDBC 拼接，经 sql_parameterized 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippingreview/web/BundleController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippingreview/web/BundleController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/shippingreview/dao/BundleRepository.java",
+    "line": 18,
+    "note": "SINK 位置：CWE-89（已被参数化消解）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/shippingreview/dao/BundleRepository.java",
+    "line": 17,
+    "expr": "value",
+    "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+  },
+  "sanitizer_kind": "sql_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippingreview/web/BundleController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingreview/web/BundleComposer.java",
+      "line": 8,
+      "expr": "catalogKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingreview/web/BundleComposer.java",
+      "line": 9,
+      "expr": "catalogKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingreview/service/ShipmentComposer.java",
+      "line": 8,
+      "expr": "orderRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingreview/service/ShipmentComposer.java",
+      "line": 9,
+      "expr": "quoteRef102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingreview/service/ShipmentComposer.java",
+      "line": 10,
+      "expr": "quoteRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/ReceiptCoordinator.java",
+      "line": 8,
+      "expr": "refundCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/ReceiptCoordinator.java",
+      "line": 9,
+      "expr": "shipmentCode202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/ReceiptCoordinator.java",
+      "line": 10,
+      "expr": "shipmentCode202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/InvoiceComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/InvoiceComposer.java",
+      "line": 13,
+      "expr": "catalogKey301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/InvoiceComposer.java",
+      "line": 14,
+      "expr": "catalogKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/ReceiptStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/ReceiptStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/InvoiceAssembler.java",
+      "line": 8,
+      "expr": "orderRef401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/InvoiceAssembler.java",
+      "line": 9,
+      "expr": "orderRef401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/BundleRepository.java",
+      "line": 13,
+      "note": "参数化占位符，值不参与 SQL 语法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/BundleRepository.java",
+      "line": 17,
+      "expr": "value",
+      "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingreview/dao/BundleRepository.java",
+      "line": 18,
+      "note": "SINK 位置：CWE-89（已被参数化消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 9,
+    "chain_len": 19,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "sanitizer:sql_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/review",
+    "param": "bundle_ctx",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 9,
+    "payload_sent": "zz'/**/OR/**/1=1--",
+    "payload_at_sink": "ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

@@ -10,7 +10,7 @@ public class InvoiceController {
 
     @GetMapping("/api/order/submit")
     public String collect(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Invoice-Trace");
         BundleCollector.reconcile(category);
         return "ok";
     }

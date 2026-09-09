@@ -10,7 +10,7 @@ public class ManifestController {
 
     @GetMapping("/api/inventory/verify")
     public String stage(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Manifest-Context");
         OrderBuilder.refine(reference);
         return "ok";
     }

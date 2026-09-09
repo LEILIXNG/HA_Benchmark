@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/order/manifest")
     public String submit(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Catalog-Client");
         ManifestAdapter.translate(query);
         return "ok";
     }

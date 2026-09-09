@@ -10,7 +10,7 @@ public class ChannelController {
 
     @GetMapping("/api/billing/dispatch")
     public String reconcile(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
+        String label = request.getHeader("X-Channel-Origin");
         RefundFacade.translate(label);
         return "ok";
     }

@@ -10,7 +10,7 @@ public class LedgerController {
 
     @GetMapping("/api/inventory/renewal")
     public String normalize(HttpServletRequest request) {
-        String tag = request.getHeader("X-Ha-Payload");
+        String tag = request.getHeader("X-Ledger-Channel");
         QuoteAssembler.prepare(tag);
         return "ok";
     }

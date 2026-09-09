@@ -10,7 +10,7 @@ public class ManifestController {
 
     @GetMapping("/api/inventory/issue")
     public String attach(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Manifest-Trace");
         OrderService.stage(userName);
         return "ok";
     }

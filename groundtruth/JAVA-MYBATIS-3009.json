@@ -1,0 +1,182 @@
+{
+  "id": "JAVA-MYBATIS-3009",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 8 层调用、跨 3 个模块流入MyBatis ${} 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventorygrant/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventorygrant/web/OrderController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/inventorygrant/dao/OrderMapper.xml",
+    "line": 9,
+    "expr": "tariffRef",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/OrderController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 14,
+      "expr": "orderRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 15,
+      "expr": "orderRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 20,
+      "expr": "quoteRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 23,
+      "expr": "quoteRef2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 24,
+      "expr": "tariffRef3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 25,
+      "expr": "ledgerEntry4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
+      "line": 26,
+      "expr": "ledgerEntry4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorygrant/service/SessionRouter.java",
+      "line": 8,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorygrant/service/SessionRouter.java",
+      "line": 9,
+      "expr": "refundCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorygrant/service/ReceiptTranslator.java",
+      "line": 8,
+      "expr": "catalogKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorygrant/service/ReceiptTranslator.java",
+      "line": 9,
+      "expr": "catalogKey201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorygrant/dao/ContractCoordinator.java",
+      "line": 8,
+      "expr": "orderRef301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorygrant/dao/ContractCoordinator.java",
+      "line": 9,
+      "expr": "quoteRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorygrant/dao/ContractCoordinator.java",
+      "line": 10,
+      "expr": "quoteRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorygrant/dao/OrderGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventorygrant/dao/OrderGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/inventorygrant/dao/OrderMapper.xml",
+      "line": 9,
+      "expr": "tariffRef",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 19,
+    "files_crossed": 7,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:mybatis_dollar",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/grant",
+    "param": "X-Order-Tenant",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

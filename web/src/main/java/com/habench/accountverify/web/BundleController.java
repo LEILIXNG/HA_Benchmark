@@ -10,7 +10,7 @@ public class BundleController {
 
     @GetMapping("/api/account/verify")
     public String dispatch(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Bundle-Context");
         SessionBroker.route(filename);
         return "ok";
     }

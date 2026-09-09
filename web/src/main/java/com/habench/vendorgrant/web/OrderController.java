@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/vendor/grant")
     public String expand(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
+        String orderNo = request.getHeader("X-Order-Context");
         BundleResolver.assemble(orderNo);
         return "ok";
     }

@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/fulfil/sync")
     public String translate(HttpServletRequest request) {
-        String resource = request.getHeader("X-Ha-Payload");
+        String resource = request.getHeader("X-Shipment-Trace");
         LedgerAdapter.enrich(resource);
         return "ok";
     }

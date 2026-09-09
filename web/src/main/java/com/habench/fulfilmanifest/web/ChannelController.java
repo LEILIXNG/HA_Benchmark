@@ -10,7 +10,7 @@ public class ChannelController {
 
     @GetMapping("/api/fulfil/manifest")
     public String translate(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Channel-Reference");
         ReceiptCoordinator.normalize(reference);
         return "ok";
     }

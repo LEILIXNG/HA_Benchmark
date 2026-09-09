@@ -1,0 +1,314 @@
+{
+  "id": "JAVA-CMDI-3007",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "Cookie经 15 层调用、跨 3 个模块流入命令执行",
+  "entry": {
+    "file": "web/src/main/java/com/habench/orderreview/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/orderreview/web/PaymentController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/PaymentController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/RefundResolver.java",
+      "line": 8,
+      "expr": "invoiceKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/RefundResolver.java",
+      "line": 9,
+      "expr": "batchTag2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/RefundResolver.java",
+      "line": 10,
+      "expr": "batchTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ManifestStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ManifestStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
+      "line": 9,
+      "expr": "voucherRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
+      "line": 10,
+      "expr": "paymentTag102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
+      "line": 11,
+      "expr": "paymentTag102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
+      "line": 16,
+      "expr": "refundCode103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
+      "line": 17,
+      "expr": "shipmentCode104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
+      "line": 18,
+      "expr": "shipmentCode104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 19,
+      "expr": "ledgerEntry201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 22,
+      "expr": "ledgerEntry201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 23,
+      "expr": "channelTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 24,
+      "expr": "channelTag202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 29,
+      "expr": "catalogKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 30,
+      "expr": "receiptKey204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
+      "line": 31,
+      "expr": "receiptKey204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreview/service/OrderCoordinator.java",
+      "line": 8,
+      "expr": "invoiceKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderreview/service/OrderCoordinator.java",
+      "line": 9,
+      "expr": "invoiceKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 17,
+      "expr": "voucherRef401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 20,
+      "expr": "voucherRef401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 21,
+      "expr": "paymentTag402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 22,
+      "expr": "paymentTag402",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 27,
+      "expr": "refundCode403",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 28,
+      "expr": "shipmentCode404",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 31,
+      "expr": "shipmentCode404",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 32,
+      "expr": "manifestKey405",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 33,
+      "expr": "manifestKey405",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 38,
+      "expr": "invoiceKey406",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 41,
+      "expr": "invoiceKey406",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 42,
+      "expr": "batchTag407",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 45,
+      "expr": "batchTag407",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 46,
+      "expr": "orderRef408",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
+      "line": 47,
+      "expr": "orderRef408",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 15,
+    "chain_len": 39,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/order/review",
+    "param": "payment_trace",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 15,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:zz$(id);;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

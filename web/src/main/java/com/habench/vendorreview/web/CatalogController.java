@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/vendor/review")
     public String submit(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Catalog-Tenant");
         ReceiptService.submit(category);
         return "ok";
     }

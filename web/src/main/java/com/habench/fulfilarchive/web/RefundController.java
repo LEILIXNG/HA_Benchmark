@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/fulfil/archive")
     public String register(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Refund-Trace");
         TariffFacade.translate(category);
         return "ok";
     }

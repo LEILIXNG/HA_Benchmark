@@ -1,0 +1,176 @@
+{
+  "id": "JAVA-PATH-3004",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 6 层调用、跨 3 个模块流入文件读取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventoryarchive/web/CatalogController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventoryarchive/web/CatalogController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/inventoryarchive/dao/CatalogLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventoryarchive/web/CatalogController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryarchive/web/ContractTranslator.java",
+      "line": 10,
+      "expr": "batchTag1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryarchive/web/ContractTranslator.java",
+      "line": 13,
+      "expr": "batchTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryarchive/web/ContractTranslator.java",
+      "line": 14,
+      "expr": "orderRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryarchive/web/ContractTranslator.java",
+      "line": 15,
+      "expr": "orderRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryarchive/service/QuoteComposer.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryarchive/service/QuoteComposer.java",
+      "line": 13,
+      "expr": "paymentTag101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryarchive/service/QuoteComposer.java",
+      "line": 14,
+      "expr": "refundCode102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryarchive/service/QuoteComposer.java",
+      "line": 15,
+      "expr": "refundCode102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/TariffAdapter.java",
+      "line": 9,
+      "expr": "channelTag201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/TariffAdapter.java",
+      "line": 10,
+      "expr": "catalogKey202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/TariffAdapter.java",
+      "line": 11,
+      "expr": "catalogKey202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/TariffAdapter.java",
+      "line": 16,
+      "expr": "receiptKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/TariffAdapter.java",
+      "line": 17,
+      "expr": "accountRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/TariffAdapter.java",
+      "line": 18,
+      "expr": "voucherRef205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/TariffAdapter.java",
+      "line": 19,
+      "expr": "voucherRef205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/CatalogLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryarchive/dao/CatalogLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 6,
+    "chain_len": 18,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:file_read",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/archive",
+    "param": "X-Catalog-Trace",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 6,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

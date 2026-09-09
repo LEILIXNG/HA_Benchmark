@@ -1,0 +1,357 @@
+{
+  "id": "JAVA-SPEL-3001",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 18 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogdigest/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogdigest/web/RefundController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/catalogdigest/dao/RefundEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/catalogdigest/dao/VoucherGuard.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 单次剥离 T(（无效）"
+  },
+  "sanitizer_kind": "spel_strip_type_ref",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/RefundController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 17,
+      "expr": "orderRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 20,
+      "expr": "orderRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 21,
+      "expr": "quoteRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 22,
+      "expr": "quoteRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 27,
+      "expr": "tariffRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 28,
+      "expr": "ledgerEntry4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 31,
+      "expr": "ledgerEntry4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 32,
+      "expr": "channelTag5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 33,
+      "expr": "channelTag5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 38,
+      "expr": "catalogKey6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 41,
+      "expr": "catalogKey6",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 42,
+      "expr": "receiptKey7",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 43,
+      "expr": "receiptKey7",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 48,
+      "expr": "accountRef8",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 49,
+      "expr": "voucherRef9",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 52,
+      "expr": "voucherRef9",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 53,
+      "expr": "paymentTag10",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ChannelTranslator.java",
+      "line": 54,
+      "expr": "paymentTag10",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ManifestPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ManifestPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 16,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 19,
+      "expr": "refundCode101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 20,
+      "expr": "shipmentCode102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 21,
+      "expr": "shipmentCode102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 26,
+      "expr": "manifestKey103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 29,
+      "expr": "manifestKey103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 30,
+      "expr": "invoiceKey104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/ShipmentBuilder.java",
+      "line": 31,
+      "expr": "invoiceKey104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/AccountComposer.java",
+      "line": 14,
+      "expr": "catalogKey201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/AccountComposer.java",
+      "line": 15,
+      "expr": "receiptKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/AccountComposer.java",
+      "line": 16,
+      "expr": "receiptKey202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/AccountComposer.java",
+      "line": 21,
+      "expr": "accountRef203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/AccountComposer.java",
+      "line": 22,
+      "expr": "voucherRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdigest/web/AccountComposer.java",
+      "line": 23,
+      "expr": "voucherRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdigest/service/OrderService.java",
+      "line": 8,
+      "expr": "orderRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdigest/service/OrderService.java",
+      "line": 9,
+      "expr": "orderRef301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/ContractEnricher.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/ContractEnricher.java",
+      "line": 13,
+      "expr": "refundCode401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/ContractEnricher.java",
+      "line": 16,
+      "expr": "refundCode401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/ContractEnricher.java",
+      "line": 17,
+      "expr": "shipmentCode402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/ContractEnricher.java",
+      "line": 18,
+      "expr": "shipmentCode402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/VoucherGuard.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 单次剥离 T(（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/RefundEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdigest/dao/RefundEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 45,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "sanitizer:spel_strip_type_ref"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/digest",
+    "param": "X-Refund-Origin",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 18,
+    "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

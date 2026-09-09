@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/ordermerge/web/TariffController.java",
+    "file": "web/src/main/java/com/habench/customerreopen/web/TariffController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/ordermerge/web/TariffController.java",
+    "file": "web/src/main/java/com/habench/customerreopen/web/TariffController.java",
     "line": 13,
     "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/ordermerge/service/TariffRepository.java",
+    "file": "service/src/main/java/com/habench/customerreopen/service/TariffRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/ordermerge/service/VoucherScreen.java",
+    "file": "service/src/main/java/com/habench/customerreopen/service/VoucherScreen.java",
     "line": 9,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,169 +29,169 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/TariffController.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/TariffController.java",
       "line": 13,
       "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/ManifestRouter.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
       "line": 10,
       "expr": "orderRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/ManifestRouter.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
       "line": 13,
       "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/ManifestRouter.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
       "line": 14,
       "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/ManifestRouter.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
       "line": 15,
       "expr": "quoteRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/OrderFacade.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/OrderFacade.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
       "line": 13,
       "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/OrderFacade.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
       "line": 14,
       "expr": "shipmentCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/ordermerge/web/OrderFacade.java",
+      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
       "line": 15,
       "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/BundleBuilder.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/BundleBuilder.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/BundleBuilder.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/BundleBuilder.java",
       "line": 13,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/BundleBuilder.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/BundleBuilder.java",
       "line": 14,
       "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 17,
       "expr": "orderRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 18,
       "expr": "quoteRef302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 19,
       "expr": "quoteRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 24,
       "expr": "tariffRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 27,
       "expr": "tariffRef303",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 28,
       "expr": "ledgerEntry304",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 31,
       "expr": "ledgerEntry304",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 32,
       "expr": "channelTag305",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 33,
       "expr": "channelTag305",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 38,
       "expr": "catalogKey306",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 41,
       "expr": "catalogKey306",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 42,
       "expr": "receiptKey307",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffEnricher.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
       "line": 43,
       "expr": "receiptKey307",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/VoucherScreen.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/VoucherScreen.java",
       "line": 9,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffRepository.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/ordermerge/service/TariffRepository.java",
+      "file": "service/src/main/java/com/habench/customerreopen/service/TariffRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -226,8 +226,8 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/order/merge",
-    "param": "X-Ha-Payload",
+    "path": "/api/customer/reopen",
+    "param": "X-Tariff-Tenant",
     "carrier": "header"
   },
   "verification": {
@@ -240,6 +240,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

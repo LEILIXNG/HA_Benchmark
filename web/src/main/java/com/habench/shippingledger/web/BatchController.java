@@ -10,7 +10,7 @@ public class BatchController {
 
     @GetMapping("/api/shipping/ledger")
     public String reconcile(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Batch-Tenant");
         CatalogService.publish(query);
         return "ok";
     }

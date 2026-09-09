@@ -10,7 +10,7 @@ public class AccountController {
 
     @GetMapping("/api/inventory/rollup")
     public String publish(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Account-Tenant");
         BundleCoordinator.assemble(token);
         return "ok";
     }

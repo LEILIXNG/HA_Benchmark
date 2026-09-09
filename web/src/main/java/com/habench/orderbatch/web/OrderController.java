@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/order/batch")
     public String stage(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Order-Tenant");
         InvoiceCollector.translate(category);
         return "ok";
     }

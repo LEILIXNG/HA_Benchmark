@@ -10,7 +10,7 @@ public class SessionController {
 
     @GetMapping("/api/shipping/archive")
     public String register(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
+        String keyword = request.getHeader("X-Session-Client");
         CatalogCollector.submit(keyword);
         return "ok";
     }

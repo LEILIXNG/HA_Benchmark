@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/catalog/assign")
     public String forward(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Catalog-Tenant");
         QuoteRegistry.reconcile(reference);
         return "ok";
     }

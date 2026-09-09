@@ -1,0 +1,156 @@
+{
+  "id": "JAVA-PATH-3005",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 7 层调用、跨 2 个模块流入文件读取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventoryrelease/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventoryrelease/web/ReceiptController.java",
+    "line": 13,
+    "expr": "filename",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/inventoryrelease/service/ReceiptLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventoryrelease/web/ReceiptController.java",
+      "line": 13,
+      "expr": "filename",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrelease/web/AccountNormalizer.java",
+      "line": 10,
+      "expr": "quoteRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrelease/web/AccountNormalizer.java",
+      "line": 13,
+      "expr": "quoteRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrelease/web/AccountNormalizer.java",
+      "line": 14,
+      "expr": "tariffRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrelease/web/AccountNormalizer.java",
+      "line": 15,
+      "expr": "tariffRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/InvoiceResolver.java",
+      "line": 8,
+      "expr": "shipmentCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/InvoiceResolver.java",
+      "line": 9,
+      "expr": "shipmentCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/OrderCollector.java",
+      "line": 14,
+      "expr": "receiptKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/OrderCollector.java",
+      "line": 15,
+      "expr": "receiptKey201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/OrderCollector.java",
+      "line": 20,
+      "expr": "accountRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/OrderCollector.java",
+      "line": 21,
+      "expr": "voucherRef203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/OrderCollector.java",
+      "line": 22,
+      "expr": "paymentTag204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/OrderCollector.java",
+      "line": 23,
+      "expr": "paymentTag204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/ReceiptLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrelease/service/ReceiptLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 15,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:file_read",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/release",
+    "param": "X-Receipt-Client",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

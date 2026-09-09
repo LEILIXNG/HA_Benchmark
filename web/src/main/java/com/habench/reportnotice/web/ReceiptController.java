@@ -10,7 +10,7 @@ public class ReceiptController {
 
     @GetMapping("/api/report/notice")
     public String prepare(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Receipt-Context");
         TariffCollector.forward(userName);
         return "ok";
     }

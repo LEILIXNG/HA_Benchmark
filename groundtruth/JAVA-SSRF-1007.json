@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 9 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingrollup/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/vendorcapture/web/ShipmentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingrollup/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/vendorcapture/web/ShipmentController.java",
     "line": 13,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/shippingrollup/service/ShipmentFetcher.java",
+    "file": "service/src/main/java/com/habench/vendorcapture/service/ShipmentFetcher.java",
     "line": 14,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,133 +24,133 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/ShipmentController.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/ShipmentController.java",
       "line": 13,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/BatchFacade.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/BatchFacade.java",
       "line": 14,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/BatchFacade.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/BatchFacade.java",
       "line": 15,
       "expr": "voucherRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/BatchFacade.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/BatchFacade.java",
       "line": 16,
       "expr": "voucherRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/BatchFacade.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/BatchFacade.java",
       "line": 21,
       "expr": "paymentTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/BatchFacade.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/BatchFacade.java",
       "line": 22,
       "expr": "refundCode4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/BatchFacade.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/BatchFacade.java",
       "line": 23,
       "expr": "shipmentCode5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrollup/web/BatchFacade.java",
+      "file": "web/src/main/java/com/habench/vendorcapture/web/BatchFacade.java",
       "line": 24,
       "expr": "shipmentCode5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 19,
       "expr": "tariffRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 20,
       "expr": "ledgerEntry102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 21,
       "expr": "ledgerEntry102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 26,
       "expr": "channelTag103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 27,
       "expr": "catalogKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 28,
       "expr": "catalogKey104",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 33,
       "expr": "receiptKey105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 36,
       "expr": "receiptKey105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 37,
       "expr": "accountRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 38,
       "expr": "voucherRef107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/InvoiceResolver.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/InvoiceResolver.java",
       "line": 39,
       "expr": "voucherRef107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/ShipmentFetcher.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/ShipmentFetcher.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrollup/service/ShipmentFetcher.java",
+      "file": "service/src/main/java/com/habench/vendorcapture/service/ShipmentFetcher.java",
       "line": 14,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -183,7 +183,7 @@
   "paired_negative": "JAVA-SSRF-1007-N",
   "http": {
     "method": "GET",
-    "path": "/api/shipping/rollup/{target}",
+    "path": "/api/vendor/capture/{target}",
     "param": "target",
     "carrier": "path"
   },
@@ -197,6 +197,6 @@
     "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

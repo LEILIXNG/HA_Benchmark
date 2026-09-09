@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/fulfil/reopen")
     public String collect(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Refund-Reference");
         ManifestCoordinator.merge(category);
         return "ok";
     }

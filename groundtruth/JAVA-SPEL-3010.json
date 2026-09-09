@@ -1,0 +1,327 @@
+{
+  "id": "JAVA-SPEL-3010",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "Cookie经 18 层调用、跨 3 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogdispatch/web/ChannelController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogdispatch/web/ChannelController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ChannelEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/catalogdispatch/dao/QuoteFilter.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/ChannelController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchResolver.java",
+      "line": 8,
+      "expr": "ledgerEntry1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchResolver.java",
+      "line": 9,
+      "expr": "ledgerEntry1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
+      "line": 9,
+      "expr": "invoiceKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
+      "line": 10,
+      "expr": "invoiceKey101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
+      "line": 15,
+      "expr": "batchTag102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
+      "line": 16,
+      "expr": "orderRef103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
+      "line": 17,
+      "expr": "orderRef103",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "line": 11,
+      "expr": "voucherRef201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "line": 14,
+      "expr": "voucherRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "line": 15,
+      "expr": "paymentTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "line": 16,
+      "expr": "paymentTag202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "line": 21,
+      "expr": "refundCode203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "line": 22,
+      "expr": "shipmentCode204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "line": 23,
+      "expr": "shipmentCode204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/TariffComposer.java",
+      "line": 8,
+      "expr": "ledgerEntry301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/TariffComposer.java",
+      "line": 9,
+      "expr": "ledgerEntry301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ContractPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ContractPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ManifestAssembler.java",
+      "line": 8,
+      "expr": "invoiceKey401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ManifestAssembler.java",
+      "line": 9,
+      "expr": "batchTag402",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ManifestAssembler.java",
+      "line": 10,
+      "expr": "batchTag402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 9,
+      "expr": "voucherRef501",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 10,
+      "expr": "paymentTag502",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 11,
+      "expr": "paymentTag502",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 16,
+      "expr": "refundCode503",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 17,
+      "expr": "shipmentCode504",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 18,
+      "expr": "shipmentCode504",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 23,
+      "expr": "manifestKey505",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 24,
+      "expr": "invoiceKey506",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 25,
+      "expr": "invoiceKey506",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 30,
+      "expr": "batchTag507",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 31,
+      "expr": "orderRef508",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 32,
+      "expr": "quoteRef509",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
+      "line": 33,
+      "expr": "quoteRef509",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/QuoteFilter.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ChannelEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ChannelEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 40,
+    "files_crossed": 13,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/dispatch",
+    "param": "channel_trace",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz'+T(java.lang.Runtime)+'zz",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

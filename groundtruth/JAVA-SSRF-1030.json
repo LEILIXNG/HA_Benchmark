@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogadjust/web/RefundController.java",
+    "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogadjust/web/RefundController.java",
+    "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundController.java",
     "line": 13,
     "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/catalogadjust/service/RefundFetcher.java",
+    "file": "service/src/main/java/com/habench/catalogtransfer/service/RefundFetcher.java",
     "line": 14,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,109 +24,109 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/RefundController.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundController.java",
       "line": 13,
       "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/ContractEnricher.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/ContractEnricher.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
       "line": 13,
       "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/ContractEnricher.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
       "line": 16,
       "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/ContractEnricher.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
       "line": 17,
       "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/ContractEnricher.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
       "line": 18,
       "expr": "invoiceKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/RefundRuleSelector.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundRuleSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/RefundRuleStandard.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundRuleStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/CatalogCoordinator.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
       "line": 10,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/CatalogCoordinator.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
       "line": 13,
       "expr": "accountRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/CatalogCoordinator.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
       "line": 14,
       "expr": "voucherRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/CatalogCoordinator.java",
+      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
       "line": 15,
       "expr": "voucherRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherCollector.java",
+      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherCollector.java",
+      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
       "line": 13,
       "expr": "tariffRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherCollector.java",
+      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
       "line": 14,
       "expr": "ledgerEntry202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherCollector.java",
+      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
       "line": 15,
       "expr": "ledgerEntry202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/RefundFetcher.java",
+      "file": "service/src/main/java/com/habench/catalogtransfer/service/RefundFetcher.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/RefundFetcher.java",
+      "file": "service/src/main/java/com/habench/catalogtransfer/service/RefundFetcher.java",
       "line": 14,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -154,7 +154,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/catalog/adjust/{keyword}",
+    "path": "/api/catalog/transfer/{keyword}",
     "param": "keyword",
     "carrier": "path"
   },
@@ -168,6 +168,6 @@
     "payload_at_sink": "http://ref:127.0.0.1:1;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

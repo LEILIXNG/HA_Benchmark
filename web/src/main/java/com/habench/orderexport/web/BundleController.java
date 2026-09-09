@@ -10,7 +10,7 @@ public class BundleController {
 
     @GetMapping("/api/order/export")
     public String prepare(HttpServletRequest request) {
-        String resource = request.getHeader("X-Ha-Payload");
+        String resource = request.getHeader("X-Bundle-Trace");
         ContractBuilder.submit(resource);
         return "ok";
     }

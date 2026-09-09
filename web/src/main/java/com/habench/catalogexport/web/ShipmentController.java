@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/catalog/export")
     public String forward(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Shipment-Tenant");
         ChannelAdapter.normalize(token);
         return "ok";
     }

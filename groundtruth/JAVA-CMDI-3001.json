@@ -1,0 +1,167 @@
+{
+  "id": "JAVA-CMDI-3001",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 8 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventoryrevise/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventoryrevise/web/PaymentController.java",
+    "line": 13,
+    "expr": "label",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/inventoryrevise/dao/PaymentExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/inventoryrevise/dao/LedgerValidator.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 只剥离分号（无效）"
+  },
+  "sanitizer_kind": "metachar_strip_semicolon",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/PaymentController.java",
+      "line": 13,
+      "expr": "label",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 16,
+      "expr": "quoteRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 19,
+      "expr": "quoteRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 20,
+      "expr": "tariffRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 21,
+      "expr": "tariffRef2",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 26,
+      "expr": "ledgerEntry3",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 27,
+      "expr": "channelTag4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 28,
+      "expr": "catalogKey5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
+      "line": 29,
+      "expr": "catalogKey5",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrevise/service/BundleBuilder.java",
+      "line": 8,
+      "expr": "shipmentCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryrevise/service/BundleBuilder.java",
+      "line": 9,
+      "expr": "shipmentCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/SessionNormalizer.java",
+      "line": 8,
+      "expr": "receiptKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/SessionNormalizer.java",
+      "line": 9,
+      "expr": "receiptKey201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/LedgerValidator.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 只剥离分号（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/PaymentExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/PaymentExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 16,
+    "files_crossed": 6,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "sanitizer:metachar_strip_semicolon"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/revise",
+    "param": "X-Payment-Origin",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo ref:zz$(id)",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

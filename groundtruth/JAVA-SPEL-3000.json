@@ -1,0 +1,207 @@
+{
+  "id": "JAVA-SPEL-3000",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "Cookie经 7 层调用、跨 1 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundEvaluator.java",
+    "line": 17,
+    "expr": "template",
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/InvoiceBroker.java",
+      "line": 8,
+      "expr": "invoiceKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/InvoiceBroker.java",
+      "line": 9,
+      "expr": "batchTag2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/InvoiceBroker.java",
+      "line": 10,
+      "expr": "batchTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/TariffNormalizer.java",
+      "line": 8,
+      "expr": "voucherRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/TariffNormalizer.java",
+      "line": 9,
+      "expr": "paymentTag102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/TariffNormalizer.java",
+      "line": 10,
+      "expr": "paymentTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 14,
+      "expr": "ledgerEntry201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 17,
+      "expr": "ledgerEntry201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 18,
+      "expr": "channelTag202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 19,
+      "expr": "channelTag202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 24,
+      "expr": "catalogKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 27,
+      "expr": "catalogKey203",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 28,
+      "expr": "receiptKey204",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/ChannelRegistry.java",
+      "line": 29,
+      "expr": "receiptKey204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/CatalogRegistry.java",
+      "line": 8,
+      "expr": "invoiceKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/CatalogRegistry.java",
+      "line": 9,
+      "expr": "batchTag302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/CatalogRegistry.java",
+      "line": 10,
+      "expr": "batchTag302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundEvaluator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrenewal/web/RefundEvaluator.java",
+      "line": 17,
+      "expr": "template",
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 22,
+    "files_crossed": 6,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:string_concat",
+      "sanitizer:spel_restricted_context"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/renewal",
+    "param": "refund_session",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 7,
+    "payload_sent": "zz'+T(java.lang.Runtime)+'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:zz'+T(java.lang.Runtime)+'zz;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

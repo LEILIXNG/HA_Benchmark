@@ -10,7 +10,7 @@ public class QuoteController {
 
     @GetMapping("/api/shipping/release")
     public String prepare(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
+        String label = request.getHeader("X-Quote-Tenant");
         ManifestFacade.prepare(label);
         return "ok";
     }

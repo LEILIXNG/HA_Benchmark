@@ -1,0 +1,268 @@
+{
+  "id": "JAVA-SQLI-3010",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Cookie经 14 层调用、跨 3 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingquote/web/ContractController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingquote/web/ContractController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/pricingquote/dao/ContractRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractService.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractService.java",
+      "line": 13,
+      "expr": "invoiceKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractService.java",
+      "line": 16,
+      "expr": "invoiceKey1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractService.java",
+      "line": 17,
+      "expr": "batchTag2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractService.java",
+      "line": 18,
+      "expr": "batchTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/ContractStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/CatalogNormalizer.java",
+      "line": 14,
+      "expr": "voucherRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/CatalogNormalizer.java",
+      "line": 15,
+      "expr": "voucherRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/CatalogNormalizer.java",
+      "line": 20,
+      "expr": "paymentTag102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/CatalogNormalizer.java",
+      "line": 21,
+      "expr": "refundCode103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/CatalogNormalizer.java",
+      "line": 22,
+      "expr": "shipmentCode104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingquote/web/CatalogNormalizer.java",
+      "line": 23,
+      "expr": "shipmentCode104",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 17,
+      "expr": "ledgerEntry201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 18,
+      "expr": "ledgerEntry201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 23,
+      "expr": "channelTag202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 26,
+      "expr": "channelTag202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 27,
+      "expr": "catalogKey203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 28,
+      "expr": "receiptKey204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 29,
+      "expr": "receiptKey204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 34,
+      "expr": "accountRef205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 35,
+      "expr": "voucherRef206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 36,
+      "expr": "voucherRef206",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 41,
+      "expr": "paymentTag207",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 42,
+      "expr": "refundCode208",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingquote/service/ReceiptAdapter.java",
+      "line": 43,
+      "expr": "refundCode208",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingquote/dao/TariffService.java",
+      "line": 8,
+      "expr": "invoiceKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingquote/dao/TariffService.java",
+      "line": 9,
+      "expr": "batchTag302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingquote/dao/TariffService.java",
+      "line": 10,
+      "expr": "batchTag302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingquote/dao/ContractRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingquote/dao/ContractRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 14,
+    "chain_len": 32,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-3010-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/quote",
+    "param": "contract_ref",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 14,
+    "payload_sent": "zz'/**/OR/**/1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz'/**/OR/**/1=1--;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

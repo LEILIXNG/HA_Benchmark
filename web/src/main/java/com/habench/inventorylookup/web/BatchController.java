@@ -10,7 +10,7 @@ public class BatchController {
 
     @GetMapping("/api/inventory/lookup")
     public String translate(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Batch-Tenant");
         AccountService.stage(query);
         return "ok";
     }

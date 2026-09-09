@@ -10,7 +10,7 @@ public class AccountController {
 
     @GetMapping("/api/inventory/digest")
     public String compose(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Account-Tenant");
         ShipmentRegistry.compose(token);
         return "ok";
     }

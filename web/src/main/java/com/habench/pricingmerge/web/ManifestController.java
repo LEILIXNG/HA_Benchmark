@@ -10,7 +10,7 @@ public class ManifestController {
 
     @GetMapping("/api/pricing/merge")
     public String reconcile(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Manifest-Origin");
         AccountFacade.collect(userName);
         return "ok";
     }

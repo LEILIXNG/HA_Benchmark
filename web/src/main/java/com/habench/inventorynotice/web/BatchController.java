@@ -10,7 +10,7 @@ public class BatchController {
 
     @GetMapping("/api/inventory/notice")
     public String expand(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Batch-Origin");
         TariffRegistry.reconcile(query);
         return "ok";
     }

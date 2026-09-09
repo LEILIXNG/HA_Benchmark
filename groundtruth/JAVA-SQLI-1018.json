@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorexport/web/BundleController.java",
+    "file": "web/src/main/java/com/habench/fulfilverify/web/BundleController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorexport/web/BundleController.java",
+    "file": "web/src/main/java/com/habench/fulfilverify/web/BundleController.java",
     "line": 13,
     "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendorexport/service/BundleRepository.java",
+    "file": "service/src/main/java/com/habench/fulfilverify/service/BundleRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,103 +24,103 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/BundleController.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/BundleController.java",
       "line": 13,
       "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 11,
       "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 12,
       "expr": "catalogKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 13,
       "expr": "catalogKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 18,
       "expr": "receiptKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 19,
       "expr": "accountRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 22,
       "expr": "accountRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 23,
       "expr": "voucherRef5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/QuoteFacade.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/QuoteFacade.java",
       "line": 24,
       "expr": "voucherRef5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/ShipmentPlanSelector.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/ShipmentPlanSelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/ShipmentPlanStandard.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/ShipmentPlanStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/InvoiceService.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/InvoiceService.java",
       "line": 8,
       "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/InvoiceService.java",
+      "file": "web/src/main/java/com/habench/fulfilverify/web/InvoiceService.java",
       "line": 9,
       "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/CatalogFacade.java",
+      "file": "service/src/main/java/com/habench/fulfilverify/service/CatalogFacade.java",
       "line": 8,
       "expr": "paymentTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/CatalogFacade.java",
+      "file": "service/src/main/java/com/habench/fulfilverify/service/CatalogFacade.java",
       "line": 9,
       "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/BundleRepository.java",
+      "file": "service/src/main/java/com/habench/fulfilverify/service/BundleRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/BundleRepository.java",
+      "file": "service/src/main/java/com/habench/fulfilverify/service/BundleRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -149,7 +149,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/vendor/export",
+    "path": "/api/fulfil/verify",
     "param": "filename",
     "carrier": "query"
   },
@@ -163,6 +163,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

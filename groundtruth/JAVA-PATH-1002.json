@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingnotice/web/BatchController.java",
+    "file": "web/src/main/java/com/habench/cataloghold/web/BatchController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingnotice/web/BatchController.java",
+    "file": "web/src/main/java/com/habench/cataloghold/web/BatchController.java",
     "line": 13,
     "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingnotice/dao/BatchLoader.java",
+    "file": "dao/src/main/java/com/habench/cataloghold/dao/BatchLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,187 +24,187 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchController.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchController.java",
       "line": 13,
       "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 20,
       "expr": "channelTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 23,
       "expr": "channelTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 24,
       "expr": "catalogKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 25,
       "expr": "catalogKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 30,
       "expr": "receiptKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 31,
       "expr": "accountRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 32,
       "expr": "voucherRef5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 33,
       "expr": "voucherRef5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 38,
       "expr": "paymentTag6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 39,
       "expr": "refundCode7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchRegistry.java",
+      "file": "web/src/main/java/com/habench/cataloghold/web/BatchRegistry.java",
       "line": 40,
       "expr": "refundCode7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingnotice/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/com/habench/cataloghold/service/ReceiptAdapter.java",
       "line": 10,
       "expr": "batchTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingnotice/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/com/habench/cataloghold/service/ReceiptAdapter.java",
       "line": 13,
       "expr": "batchTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingnotice/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/com/habench/cataloghold/service/ReceiptAdapter.java",
       "line": 14,
       "expr": "orderRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingnotice/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/com/habench/cataloghold/service/ReceiptAdapter.java",
       "line": 15,
       "expr": "orderRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 15,
       "expr": "paymentTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 16,
       "expr": "refundCode202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 17,
       "expr": "refundCode202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 22,
       "expr": "shipmentCode203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 23,
       "expr": "manifestKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 24,
       "expr": "manifestKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 29,
       "expr": "invoiceKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 30,
       "expr": "batchTag206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 31,
       "expr": "batchTag206",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 36,
       "expr": "orderRef207",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 37,
       "expr": "quoteRef208",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/AccountEnricher.java",
       "line": 38,
       "expr": "quoteRef208",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/BatchLoader.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/BatchLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingnotice/dao/BatchLoader.java",
+      "file": "dao/src/main/java/com/habench/cataloghold/dao/BatchLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -243,8 +243,8 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/pricing/notice",
-    "param": "X-Ha-Payload",
+    "path": "/api/catalog/hold",
+    "param": "X-Batch-Client",
     "carrier": "header"
   },
   "verification": {
@@ -257,6 +257,6 @@
     "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

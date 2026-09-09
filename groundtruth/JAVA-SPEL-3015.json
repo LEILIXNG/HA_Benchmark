@@ -1,0 +1,142 @@
+{
+  "id": "JAVA-SPEL-3015",
+  "cwe": "CWE-917",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 7 层调用、跨 2 个模块流入SpEL 表达式求值",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogverify/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogverify/web/PaymentController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/catalogverify/service/PaymentEvaluator.java",
+    "line": 14,
+    "expr": "template",
+    "note": "SINK: CWE-917 SpEL 表达式注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogverify/web/PaymentController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogverify/web/ChannelRouter.java",
+      "line": 8,
+      "expr": "invoiceKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogverify/web/ChannelRouter.java",
+      "line": 9,
+      "expr": "invoiceKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 15,
+      "expr": "voucherRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 16,
+      "expr": "voucherRef101",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 21,
+      "expr": "paymentTag102",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 22,
+      "expr": "refundCode103",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 23,
+      "expr": "refundCode103",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 28,
+      "expr": "shipmentCode104",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 29,
+      "expr": "manifestKey105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
+      "line": 30,
+      "expr": "manifestKey105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/PaymentEvaluator.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogverify/service/PaymentEvaluator.java",
+      "line": 14,
+      "expr": "template",
+      "note": "SINK: CWE-917 SpEL 表达式注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 13,
+    "files_crossed": 4,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:spel_eval",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SPEL-3015-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/verify",
+    "param": "X-Payment-Correlation",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
+    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
+    "http_status": 200,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

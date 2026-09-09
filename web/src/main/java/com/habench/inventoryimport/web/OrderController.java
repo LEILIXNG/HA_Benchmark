@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/inventory/import")
     public String dispatch(HttpServletRequest request) {
-        String tag = request.getHeader("X-Ha-Payload");
+        String tag = request.getHeader("X-Order-Client");
         BundleEnricher.translate(tag);
         return "ok";
     }

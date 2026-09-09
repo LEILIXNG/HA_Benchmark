@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/order/reconcile")
     public String reconcile(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Refund-Origin");
         OrderTranslator.reconcile(reference);
         return "ok";
     }

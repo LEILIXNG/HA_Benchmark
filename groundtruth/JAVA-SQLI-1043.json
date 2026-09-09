@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 14 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customergrant/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customergrant/web/ChannelController.java",
+    "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelController.java",
     "line": 13,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/customergrant/service/ChannelRepository.java",
+    "file": "service/src/main/java/com/habench/catalogmanifest/service/ChannelRepository.java",
     "line": 17,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/customergrant/service/BatchValidator.java",
+    "file": "service/src/main/java/com/habench/catalogmanifest/service/BatchValidator.java",
     "line": 9,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,211 +29,211 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelController.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelController.java",
       "line": 13,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelAssembler.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelAssembler.java",
       "line": 13,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelAssembler.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelAssembler.java",
       "line": 14,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelAssembler.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelAssembler.java",
       "line": 15,
       "expr": "voucherRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelAssembler.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelAssembler.java",
       "line": 20,
       "expr": "paymentTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelAssembler.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelAssembler.java",
       "line": 21,
       "expr": "refundCode3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelAssembler.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelAssembler.java",
       "line": 22,
       "expr": "shipmentCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customergrant/web/ChannelAssembler.java",
+      "file": "web/src/main/java/com/habench/catalogmanifest/web/ChannelAssembler.java",
       "line": 23,
       "expr": "shipmentCode4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 17,
       "expr": "ledgerEntry101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 18,
       "expr": "ledgerEntry101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 23,
       "expr": "channelTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 24,
       "expr": "catalogKey103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 25,
       "expr": "receiptKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 26,
       "expr": "receiptKey104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 31,
       "expr": "accountRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 34,
       "expr": "accountRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 35,
       "expr": "voucherRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 36,
       "expr": "voucherRef106",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 41,
       "expr": "paymentTag107",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 42,
       "expr": "refundCode108",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 45,
       "expr": "refundCode108",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 46,
       "expr": "shipmentCode109",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 47,
       "expr": "shipmentCode109",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 52,
       "expr": "manifestKey110",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 53,
       "expr": "invoiceKey111",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BundleTranslator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BundleTranslator.java",
       "line": 54,
       "expr": "invoiceKey111",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/ManifestStrategySelector.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/ManifestStrategySelector.java",
       "line": 7,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/ManifestStrategyStandard.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/ManifestStrategyStandard.java",
       "line": 6,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/VoucherAssembler.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/VoucherAssembler.java",
       "line": 10,
       "expr": "invoiceKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/VoucherAssembler.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/VoucherAssembler.java",
       "line": 13,
       "expr": "invoiceKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/VoucherAssembler.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/VoucherAssembler.java",
       "line": 14,
       "expr": "batchTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/VoucherAssembler.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/VoucherAssembler.java",
       "line": 15,
       "expr": "batchTag202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/BatchValidator.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/BatchValidator.java",
       "line": 9,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/ChannelRepository.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/ChannelRepository.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/customergrant/service/ChannelRepository.java",
+      "file": "service/src/main/java/com/habench/catalogmanifest/service/ChannelRepository.java",
       "line": 17,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -272,8 +272,8 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/customer/grant",
-    "param": "X-Ha-Payload",
+    "path": "/api/catalog/manifest",
+    "param": "X-Channel-Client",
     "carrier": "header"
   },
   "verification": {
@@ -286,6 +286,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

@@ -10,7 +10,7 @@ public class ContractController {
 
     @GetMapping("/api/shipping/adjust")
     public String publish(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
+        String orderNo = request.getHeader("X-Contract-Origin");
         OrderNormalizer.normalize(orderNo);
         return "ok";
     }

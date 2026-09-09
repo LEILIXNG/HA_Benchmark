@@ -1,0 +1,204 @@
+{
+  "id": "JAVA-CMDI-3003",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 10 层调用、跨 3 个模块流入命令执行",
+  "entry": {
+    "file": "web/src/main/java/com/habench/billingapprove/web/BatchController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/billingapprove/web/BatchController.java",
+    "line": 13,
+    "expr": "filename",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/billingapprove/dao/BatchExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/billingapprove/web/BatchController.java",
+      "line": 13,
+      "expr": "filename",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingapprove/web/CatalogFacade.java",
+      "line": 8,
+      "expr": "voucherRef1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingapprove/web/CatalogFacade.java",
+      "line": 9,
+      "expr": "paymentTag2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/billingapprove/web/CatalogFacade.java",
+      "line": 10,
+      "expr": "paymentTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingapprove/service/SessionFacade.java",
+      "line": 10,
+      "expr": "ledgerEntry101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingapprove/service/SessionFacade.java",
+      "line": 13,
+      "expr": "ledgerEntry101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingapprove/service/SessionFacade.java",
+      "line": 14,
+      "expr": "channelTag102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/billingapprove/service/SessionFacade.java",
+      "line": 15,
+      "expr": "channelTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/VoucherRegistry.java",
+      "line": 14,
+      "expr": "invoiceKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/VoucherRegistry.java",
+      "line": 15,
+      "expr": "invoiceKey201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/VoucherRegistry.java",
+      "line": 20,
+      "expr": "batchTag202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/VoucherRegistry.java",
+      "line": 21,
+      "expr": "orderRef203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/VoucherRegistry.java",
+      "line": 22,
+      "expr": "quoteRef204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/VoucherRegistry.java",
+      "line": 23,
+      "expr": "quoteRef204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/AccountComposer.java",
+      "line": 14,
+      "expr": "voucherRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/AccountComposer.java",
+      "line": 15,
+      "expr": "voucherRef301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/AccountComposer.java",
+      "line": 20,
+      "expr": "paymentTag302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/AccountComposer.java",
+      "line": 21,
+      "expr": "refundCode303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/AccountComposer.java",
+      "line": 22,
+      "expr": "shipmentCode304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/AccountComposer.java",
+      "line": 23,
+      "expr": "shipmentCode304",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/BatchExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/billingapprove/dao/BatchExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 10,
+    "chain_len": 22,
+    "files_crossed": 6,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:runtime_exec",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-CMDI-3003-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/billing/approve",
+    "param": "X-Batch-Trace",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 10,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:zz$(id);;;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

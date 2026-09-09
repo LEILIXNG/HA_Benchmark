@@ -10,7 +10,7 @@ public class QuoteController {
 
     @GetMapping("/api/pricing/release")
     public String assemble(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Quote-Tenant");
         SessionCollector.prepare(token);
         return "ok";
     }

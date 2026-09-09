@@ -1,0 +1,427 @@
+{
+  "id": "JAVA-SPEL-3005-N",
+  "cwe": "CWE-917",
+  "verdict": "safe",
+  "title": "与 JAVA-SPEL-3005 逐行相同，仅把净化改为 spel_restricted_context",
+  "entry": {
+    "file": "web/src/main/java/com/habench/orderarchive/web/OrderController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/orderarchive/web/OrderController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderEvaluator.java",
+    "line": 17,
+    "expr": "template",
+    "note": "SINK 位置：CWE-917（受限上下文已消解）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderEvaluator.java",
+    "line": 15,
+    "expr": "context",
+    "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+  },
+  "sanitizer_kind": "spel_restricted_context",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/orderarchive/web/OrderController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderarchive/web/TariffEnricher.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderarchive/web/TariffEnricher.java",
+      "line": 13,
+      "expr": "ledgerEntry1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderarchive/web/TariffEnricher.java",
+      "line": 16,
+      "expr": "ledgerEntry1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderarchive/web/TariffEnricher.java",
+      "line": 17,
+      "expr": "channelTag2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderarchive/web/TariffEnricher.java",
+      "line": 18,
+      "expr": "channelTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 14,
+      "expr": "invoiceKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 17,
+      "expr": "invoiceKey101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 18,
+      "expr": "batchTag102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 19,
+      "expr": "batchTag102",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 24,
+      "expr": "orderRef103",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 27,
+      "expr": "orderRef103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 28,
+      "expr": "quoteRef104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 31,
+      "expr": "quoteRef104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 32,
+      "expr": "tariffRef105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ChannelCoordinator.java",
+      "line": 33,
+      "expr": "tariffRef105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/PaymentRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/PaymentRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/RefundService.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/RefundService.java",
+      "line": 13,
+      "expr": "voucherRef201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/RefundService.java",
+      "line": 14,
+      "expr": "paymentTag202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/RefundService.java",
+      "line": 15,
+      "expr": "paymentTag202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ContractStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/ContractStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 20,
+      "expr": "ledgerEntry301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 21,
+      "expr": "ledgerEntry301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 26,
+      "expr": "channelTag302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 29,
+      "expr": "channelTag302",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 30,
+      "expr": "catalogKey303",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 31,
+      "expr": "catalogKey303",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 36,
+      "expr": "receiptKey304",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 39,
+      "expr": "receiptKey304",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 40,
+      "expr": "accountRef305",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 43,
+      "expr": "accountRef305",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 44,
+      "expr": "voucherRef306",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 45,
+      "expr": "voucherRef306",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 50,
+      "expr": "paymentTag307",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 51,
+      "expr": "refundCode308",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 52,
+      "expr": "shipmentCode309",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/VoucherCollector.java",
+      "line": 53,
+      "expr": "shipmentCode309",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/QuoteRouter.java",
+      "line": 8,
+      "expr": "invoiceKey401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/QuoteRouter.java",
+      "line": 9,
+      "expr": "batchTag402",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderarchive/service/QuoteRouter.java",
+      "line": 10,
+      "expr": "batchTag402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 16,
+      "expr": "voucherRef501",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 19,
+      "expr": "voucherRef501",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 20,
+      "expr": "paymentTag502",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 21,
+      "expr": "paymentTag502",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 26,
+      "expr": "refundCode503",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 29,
+      "expr": "refundCode503",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 30,
+      "expr": "shipmentCode504",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderService.java",
+      "line": 31,
+      "expr": "shipmentCode504",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderEvaluator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "污点进入 SpEL 表达式"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderEvaluator.java",
+      "line": 15,
+      "expr": "context",
+      "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderarchive/dao/OrderEvaluator.java",
+      "line": 17,
+      "expr": "template",
+      "note": "SINK 位置：CWE-917（受限上下文已消解）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 19,
+    "chain_len": 56,
+    "files_crossed": 12,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:spel_eval",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "sanitizer:spel_restricted_context"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/order/archive",
+    "param": "order_ref",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 19,
+    "payload_sent": "zz'+T(java.lang.Runtime)+'zz",
+    "payload_at_sink": "'ref-' + 'ref:ref:zz'+T(java.lang.Runtime)+'zz;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

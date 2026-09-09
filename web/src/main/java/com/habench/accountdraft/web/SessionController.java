@@ -10,7 +10,7 @@ public class SessionController {
 
     @GetMapping("/api/account/draft")
     public String assemble(HttpServletRequest request) {
-        String resource = request.getHeader("X-Ha-Payload");
+        String resource = request.getHeader("X-Session-Tenant");
         AccountRouter.normalize(resource);
         return "ok";
     }

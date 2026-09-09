@@ -1,0 +1,372 @@
+{
+  "id": "JAVA-MYBATIS-3005-N",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "与 JAVA-MYBATIS-3005 逐行相同，仅把净化改为 mybatis_parameterized",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventoryadjust/web/ShipmentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventoryadjust/web/ShipmentController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/resources/com/habench/inventoryadjust/dao/ShipmentMapper.xml",
+    "line": 9,
+    "expr": "batchTag",
+    "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/resources/com/habench/inventoryadjust/dao/ShipmentMapper.xml",
+    "line": 9,
+    "expr": "batchTag",
+    "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
+  },
+  "sanitizer_kind": "mybatis_parameterized",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ShipmentController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 17,
+      "expr": "orderRef1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 18,
+      "expr": "orderRef1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 23,
+      "expr": "quoteRef2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 26,
+      "expr": "quoteRef2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 27,
+      "expr": "tariffRef3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 28,
+      "expr": "tariffRef3",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 33,
+      "expr": "ledgerEntry4",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 36,
+      "expr": "ledgerEntry4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 37,
+      "expr": "channelTag5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 38,
+      "expr": "catalogKey6",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 39,
+      "expr": "catalogKey6",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 44,
+      "expr": "receiptKey7",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 45,
+      "expr": "accountRef8",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 46,
+      "expr": "voucherRef9",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventoryadjust/web/ReceiptCollector.java",
+      "line": 47,
+      "expr": "voucherRef9",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryadjust/service/QuoteTranslator.java",
+      "line": 8,
+      "expr": "refundCode101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventoryadjust/service/QuoteTranslator.java",
+      "line": 9,
+      "expr": "refundCode101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ChannelCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ChannelCollector.java",
+      "line": 13,
+      "expr": "catalogKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ChannelCollector.java",
+      "line": 14,
+      "expr": "catalogKey201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 17,
+      "expr": "orderRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 20,
+      "expr": "orderRef301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 21,
+      "expr": "quoteRef302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 22,
+      "expr": "quoteRef302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 27,
+      "expr": "tariffRef303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 30,
+      "expr": "tariffRef303",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 31,
+      "expr": "ledgerEntry304",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 32,
+      "expr": "ledgerEntry304",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 37,
+      "expr": "channelTag305",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 40,
+      "expr": "channelTag305",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 41,
+      "expr": "catalogKey306",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 42,
+      "expr": "catalogKey306",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 47,
+      "expr": "receiptKey307",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 48,
+      "expr": "accountRef308",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 49,
+      "expr": "voucherRef309",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/RefundNormalizer.java",
+      "line": 50,
+      "expr": "voucherRef309",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/CatalogAdapter.java",
+      "line": 16,
+      "expr": "refundCode401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/CatalogAdapter.java",
+      "line": 17,
+      "expr": "shipmentCode402",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/CatalogAdapter.java",
+      "line": 18,
+      "expr": "shipmentCode402",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/CatalogAdapter.java",
+      "line": 23,
+      "expr": "manifestKey403",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/CatalogAdapter.java",
+      "line": 26,
+      "expr": "manifestKey403",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/CatalogAdapter.java",
+      "line": 27,
+      "expr": "invoiceKey404",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/CatalogAdapter.java",
+      "line": 28,
+      "expr": "invoiceKey404",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ShipmentGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/inventoryadjust/dao/ShipmentGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "dao/src/main/resources/com/habench/inventoryadjust/dao/ShipmentMapper.xml",
+      "line": 9,
+      "expr": "batchTag",
+      "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 47,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:mybatis_dollar",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "sanitizer:mybatis_parameterized"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/adjust",
+    "param": "X-Shipment-Origin",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": true,
+    "call_depth_observed": 18,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

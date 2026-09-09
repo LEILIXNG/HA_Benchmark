@@ -10,7 +10,7 @@ public class SessionController {
 
     @GetMapping("/api/report/archive")
     public String register(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
+        String target = request.getHeader("X-Session-Channel");
         ManifestTranslator2.normalize(target);
         return "ok";
     }

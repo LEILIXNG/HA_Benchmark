@@ -10,7 +10,7 @@ public class PaymentController {
 
     @GetMapping("/api/vendor/split")
     public String route(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Payment-Trace");
         ReceiptAssembler.attach(filename);
         return "ok";
     }

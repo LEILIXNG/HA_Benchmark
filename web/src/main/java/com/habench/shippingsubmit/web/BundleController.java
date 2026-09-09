@@ -10,7 +10,7 @@ public class BundleController {
 
     @GetMapping("/api/shipping/submit")
     public String compose(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Bundle-Client");
         BundleBuilder.resolve(token);
         return "ok";
     }

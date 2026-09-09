@@ -10,7 +10,7 @@ public class AccountController {
 
     @GetMapping("/api/inventory/review")
     public String stage(HttpServletRequest request) {
-        String token = request.getHeader("X-Ha-Payload");
+        String token = request.getHeader("X-Account-Origin");
         InvoiceFacade.refine(token);
         return "ok";
     }

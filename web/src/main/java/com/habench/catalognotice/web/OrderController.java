@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/catalog/notice")
     public String assemble(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Order-Context");
         PaymentBuilder.assemble(userName);
         return "ok";
     }

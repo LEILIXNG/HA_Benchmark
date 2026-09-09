@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/fulfil/settlequeue")
     public String merge(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
+        String keyword = request.getHeader("X-Catalog-Reference");
         ManifestService.assemble(keyword);
         return "ok";
     }

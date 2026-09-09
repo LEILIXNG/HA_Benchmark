@@ -1,0 +1,316 @@
+{
+  "id": "JAVA-CMDI-3006-N",
+  "cwe": "CWE-78",
+  "verdict": "safe",
+  "title": "与 JAVA-CMDI-3006 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/inventorydispatch/web/ReceiptController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/inventorydispatch/web/ReceiptController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/inventorydispatch/service/ReceiptExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": {
+    "file": "web/src/main/java/com/habench/inventorydispatch/web/InvoiceValidator.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ReceiptController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/InvoiceValidator.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ContractBuilder.java",
+      "line": 10,
+      "expr": "shipmentCode1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ContractBuilder.java",
+      "line": 13,
+      "expr": "shipmentCode1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ContractBuilder.java",
+      "line": 14,
+      "expr": "manifestKey2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ContractBuilder.java",
+      "line": 15,
+      "expr": "manifestKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/CatalogRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/CatalogRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ChannelNormalizer.java",
+      "line": 10,
+      "expr": "receiptKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ChannelNormalizer.java",
+      "line": 13,
+      "expr": "receiptKey101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ChannelNormalizer.java",
+      "line": 14,
+      "expr": "accountRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/ChannelNormalizer.java",
+      "line": 15,
+      "expr": "accountRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/QuotePlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/QuotePlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 17,
+      "expr": "quoteRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 18,
+      "expr": "tariffRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 19,
+      "expr": "tariffRef202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 24,
+      "expr": "ledgerEntry203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 25,
+      "expr": "channelTag204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 26,
+      "expr": "catalogKey205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 27,
+      "expr": "catalogKey205",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 32,
+      "expr": "receiptKey206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 35,
+      "expr": "receiptKey206",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 36,
+      "expr": "accountRef207",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 37,
+      "expr": "voucherRef208",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/VoucherEnricher.java",
+      "line": 38,
+      "expr": "voucherRef208",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/TariffPlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/TariffPlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/InvoiceAssembler.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/InvoiceAssembler.java",
+      "line": 13,
+      "expr": "shipmentCode301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/InvoiceAssembler.java",
+      "line": 14,
+      "expr": "manifestKey302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/inventorydispatch/web/InvoiceAssembler.java",
+      "line": 15,
+      "expr": "manifestKey302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydispatch/service/ChannelRegistry.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydispatch/service/ChannelRegistry.java",
+      "line": 13,
+      "expr": "receiptKey401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydispatch/service/ChannelRegistry.java",
+      "line": 16,
+      "expr": "receiptKey401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydispatch/service/ChannelRegistry.java",
+      "line": 17,
+      "expr": "accountRef402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydispatch/service/ChannelRegistry.java",
+      "line": 18,
+      "expr": "accountRef402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydispatch/service/ReceiptExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "service/src/main/java/com/habench/inventorydispatch/service/ReceiptExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 17,
+    "chain_len": 39,
+    "files_crossed": 14,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:runtime_exec",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/inventory/dispatch",
+    "param": "X-Receipt-Context",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

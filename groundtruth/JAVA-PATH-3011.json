@@ -1,0 +1,272 @@
+{
+  "id": "JAVA-PATH-3011",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Cookie经 14 层调用、跨 3 个模块流入文件读取，经 traversal_replace_once 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/customerassign/web/BundleController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/customerassign/web/BundleController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/customerassign/dao/BundleLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "dao/src/main/java/com/habench/customerassign/dao/CatalogScreen.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 单次剥离 ../（无效）"
+  },
+  "sanitizer_kind": "traversal_replace_once",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/customerassign/web/BundleController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerassign/web/PaymentRouter.java",
+      "line": 8,
+      "expr": "ledgerEntry1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerassign/web/PaymentRouter.java",
+      "line": 9,
+      "expr": "ledgerEntry1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerassign/service/CatalogRouter.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerassign/service/CatalogRouter.java",
+      "line": 13,
+      "expr": "invoiceKey101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerassign/service/CatalogRouter.java",
+      "line": 16,
+      "expr": "invoiceKey101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerassign/service/CatalogRouter.java",
+      "line": 17,
+      "expr": "batchTag102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/customerassign/service/CatalogRouter.java",
+      "line": 18,
+      "expr": "batchTag102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 15,
+      "expr": "voucherRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 16,
+      "expr": "paymentTag202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 17,
+      "expr": "paymentTag202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 22,
+      "expr": "refundCode203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 23,
+      "expr": "shipmentCode204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 24,
+      "expr": "shipmentCode204",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 29,
+      "expr": "manifestKey205",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 30,
+      "expr": "invoiceKey206",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 31,
+      "expr": "invoiceKey206",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 36,
+      "expr": "batchTag207",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 37,
+      "expr": "orderRef208",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 38,
+      "expr": "orderRef208",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 43,
+      "expr": "quoteRef209",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 44,
+      "expr": "tariffRef210",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 45,
+      "expr": "ledgerEntry211",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleNormalizer.java",
+      "line": 46,
+      "expr": "ledgerEntry211",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/LedgerStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/LedgerStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/ReceiptEnricher.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/ReceiptEnricher.java",
+      "line": 13,
+      "expr": "ledgerEntry301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/ReceiptEnricher.java",
+      "line": 14,
+      "expr": "ledgerEntry301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/CatalogScreen.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 单次剥离 ../（无效）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/customerassign/dao/BundleLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 14,
+    "chain_len": 32,
+    "files_crossed": 9,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:file_read",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "sanitizer:traversal_replace_once"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/customer/assign",
+    "param": "bundle_session",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 14,
+    "payload_sent": "....//....//etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:../../etc/passwd;;;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

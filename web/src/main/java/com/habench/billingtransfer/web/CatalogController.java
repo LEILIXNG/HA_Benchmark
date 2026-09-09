@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/billing/transfer")
     public String resolve(HttpServletRequest request) {
-        String resource = request.getHeader("X-Ha-Payload");
+        String resource = request.getHeader("X-Catalog-Trace");
         RefundTranslator.register(resource);
         return "ok";
     }

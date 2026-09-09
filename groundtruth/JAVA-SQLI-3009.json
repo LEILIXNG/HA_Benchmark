@@ -1,0 +1,374 @@
+{
+  "id": "JAVA-SQLI-3009",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Cookie经 18 层调用、跨 2 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippinglookup/web/TariffController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippinglookup/web/TariffController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/shippinglookup/service/TariffRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/TariffController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderBroker.java",
+      "line": 14,
+      "expr": "receiptKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderBroker.java",
+      "line": 15,
+      "expr": "receiptKey1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderBroker.java",
+      "line": 20,
+      "expr": "accountRef2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderBroker.java",
+      "line": 21,
+      "expr": "voucherRef3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderBroker.java",
+      "line": 22,
+      "expr": "paymentTag4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderBroker.java",
+      "line": 23,
+      "expr": "paymentTag4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderTranslator.java",
+      "line": 13,
+      "expr": "quoteRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippinglookup/web/OrderTranslator.java",
+      "line": 14,
+      "expr": "quoteRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 20,
+      "expr": "shipmentCode201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 21,
+      "expr": "manifestKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 22,
+      "expr": "manifestKey202",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 27,
+      "expr": "invoiceKey203",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 28,
+      "expr": "batchTag204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 31,
+      "expr": "batchTag204",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 32,
+      "expr": "orderRef205",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 33,
+      "expr": "orderRef205",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 38,
+      "expr": "quoteRef206",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 39,
+      "expr": "tariffRef207",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 40,
+      "expr": "tariffRef207",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 45,
+      "expr": "ledgerEntry208",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 46,
+      "expr": "channelTag209",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 47,
+      "expr": "catalogKey210",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 48,
+      "expr": "catalogKey210",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 53,
+      "expr": "receiptKey211",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 56,
+      "expr": "receiptKey211",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 57,
+      "expr": "accountRef212",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 58,
+      "expr": "voucherRef213",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 59,
+      "expr": "voucherRef213",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 64,
+      "expr": "paymentTag214",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 65,
+      "expr": "refundCode215",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 66,
+      "expr": "refundCode215",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 71,
+      "expr": "shipmentCode216",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 72,
+      "expr": "manifestKey217",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundRouter.java",
+      "line": 73,
+      "expr": "manifestKey217",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundService.java",
+      "line": 10,
+      "expr": "receiptKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundService.java",
+      "line": 13,
+      "expr": "receiptKey301",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundService.java",
+      "line": 14,
+      "expr": "accountRef302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundService.java",
+      "line": 15,
+      "expr": "accountRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/OrderPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/OrderPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundCollector.java",
+      "line": 13,
+      "expr": "quoteRef401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/RefundCollector.java",
+      "line": 14,
+      "expr": "quoteRef401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/TariffRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippinglookup/service/TariffRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 48,
+    "files_crossed": 9,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:jdbc_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/lookup",
+    "param": "tariff_ref",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 18,
+    "payload_sent": "zz'/**/OR/**/1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

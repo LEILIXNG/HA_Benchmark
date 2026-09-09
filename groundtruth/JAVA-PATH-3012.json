@@ -1,0 +1,213 @@
+{
+  "id": "JAVA-PATH-3012",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Cookie经 11 层调用、跨 2 个模块流入文件读取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/ordersync/web/QuoteController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/ordersync/web/QuoteController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/ordersync/service/QuoteLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/QuoteController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 20,
+      "expr": "receiptKey1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 21,
+      "expr": "receiptKey1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 26,
+      "expr": "accountRef2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 27,
+      "expr": "voucherRef3",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 28,
+      "expr": "voucherRef3",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 33,
+      "expr": "paymentTag4",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 36,
+      "expr": "paymentTag4",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 37,
+      "expr": "refundCode5",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 38,
+      "expr": "refundCode5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 43,
+      "expr": "shipmentCode6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 44,
+      "expr": "manifestKey7",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 45,
+      "expr": "invoiceKey8",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ManifestComposer.java",
+      "line": 46,
+      "expr": "invoiceKey8",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/BatchRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/BatchRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ContractResolver.java",
+      "line": 8,
+      "expr": "quoteRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/ordersync/web/ContractResolver.java",
+      "line": 9,
+      "expr": "quoteRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersync/service/SessionAssembler.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersync/service/SessionAssembler.java",
+      "line": 13,
+      "expr": "shipmentCode201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersync/service/SessionAssembler.java",
+      "line": 14,
+      "expr": "shipmentCode201",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersync/service/QuoteLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/ordersync/service/QuoteLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 11,
+    "chain_len": 24,
+    "files_crossed": 7,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:file_read",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-PATH-3012-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/order/sync",
+    "param": "quote_token",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 11,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/inventory/settlequeue")
     public String route(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
+        String label = request.getHeader("X-Refund-Client");
         SessionRegistry.prepare(label);
         return "ok";
     }

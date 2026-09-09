@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/payment/sync")
     public String assemble(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Shipment-Trace");
         ChannelBroker.prepare(category);
         return "ok";
     }

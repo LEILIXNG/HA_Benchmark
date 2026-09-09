@@ -10,7 +10,7 @@ public class PaymentController {
 
     @GetMapping("/api/order/verify")
     public String expand(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Payment-Channel");
         PaymentBroker.expand(category);
         return "ok";
     }

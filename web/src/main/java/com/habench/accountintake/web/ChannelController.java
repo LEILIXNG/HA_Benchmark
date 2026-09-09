@@ -10,7 +10,7 @@ public class ChannelController {
 
     @GetMapping("/api/account/intake")
     public String register(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
+        String orderNo = request.getHeader("X-Channel-Channel");
         BatchEnricher.compose(orderNo);
         return "ok";
     }

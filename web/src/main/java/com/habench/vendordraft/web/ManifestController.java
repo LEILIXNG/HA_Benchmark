@@ -10,7 +10,7 @@ public class ManifestController {
 
     @GetMapping("/api/vendor/draft")
     public String resolve(HttpServletRequest request) {
-        String orderNo = request.getHeader("X-Ha-Payload");
+        String orderNo = request.getHeader("X-Manifest-Channel");
         ManifestRegistry.prepare(orderNo);
         return "ok";
     }

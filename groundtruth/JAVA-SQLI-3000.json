@@ -1,0 +1,309 @@
+{
+  "id": "JAVA-SQLI-3000",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 13 层调用、跨 3 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/shippingrollup/web/ShipmentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/shippingrollup/web/ShipmentController.java",
+    "line": 13,
+    "expr": "orderNo",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/shippingrollup/dao/ShipmentRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/ShipmentController.java",
+      "line": 13,
+      "expr": "orderNo",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 11,
+      "expr": "batchTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 14,
+      "expr": "batchTag1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 15,
+      "expr": "orderRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 16,
+      "expr": "orderRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 21,
+      "expr": "quoteRef3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 22,
+      "expr": "tariffRef4",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 23,
+      "expr": "tariffRef4",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 28,
+      "expr": "ledgerEntry5",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 29,
+      "expr": "channelTag6",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/shippingrollup/web/AccountComposer.java",
+      "line": 30,
+      "expr": "channelTag6",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrollup/service/RefundRouter.java",
+      "line": 8,
+      "expr": "paymentTag101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/shippingrollup/service/RefundRouter.java",
+      "line": 9,
+      "expr": "paymentTag101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 17,
+      "expr": "channelTag201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 18,
+      "expr": "catalogKey202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 19,
+      "expr": "catalogKey202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 24,
+      "expr": "receiptKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 25,
+      "expr": "accountRef204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 26,
+      "expr": "accountRef204",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 31,
+      "expr": "voucherRef205",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 32,
+      "expr": "paymentTag206",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 35,
+      "expr": "paymentTag206",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 36,
+      "expr": "refundCode207",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 37,
+      "expr": "refundCode207",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 42,
+      "expr": "shipmentCode208",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 45,
+      "expr": "shipmentCode208",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 46,
+      "expr": "manifestKey209",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 47,
+      "expr": "manifestKey209",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 52,
+      "expr": "invoiceKey210",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 53,
+      "expr": "batchTag211",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 54,
+      "expr": "orderRef212",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 55,
+      "expr": "orderRef212",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 60,
+      "expr": "quoteRef213",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 61,
+      "expr": "tariffRef214",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 62,
+      "expr": "ledgerEntry215",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ContractBroker.java",
+      "line": 63,
+      "expr": "ledgerEntry215",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ShipmentRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/shippingrollup/dao/ShipmentRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 13,
+    "chain_len": 38,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-3000-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/shipping/rollup",
+    "param": "X-Shipment-Trace",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 13,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

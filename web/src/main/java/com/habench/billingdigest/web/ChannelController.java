@@ -10,7 +10,7 @@ public class ChannelController {
 
     @GetMapping("/api/billing/digest")
     public String enrich(HttpServletRequest request) {
-        String reference = request.getHeader("X-Ha-Payload");
+        String reference = request.getHeader("X-Channel-Correlation");
         InvoiceBuilder.translate(reference);
         return "ok";
     }

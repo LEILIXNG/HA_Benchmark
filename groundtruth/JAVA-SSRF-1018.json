@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentbind/web/PaymentController.java",
+    "file": "web/src/main/java/com/habench/catalogdraft/web/PaymentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentbind/web/PaymentController.java",
+    "file": "web/src/main/java/com/habench/catalogdraft/web/PaymentController.java",
     "line": 13,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/paymentbind/service/PaymentFetcher.java",
+    "file": "service/src/main/java/com/habench/catalogdraft/service/PaymentFetcher.java",
     "line": 14,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,97 +24,97 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentbind/web/PaymentController.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/PaymentController.java",
       "line": 13,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentbind/web/VoucherBuilder.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
       "line": 12,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentbind/web/VoucherBuilder.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
       "line": 13,
       "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentbind/web/VoucherBuilder.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
       "line": 14,
       "expr": "accountRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentbind/web/VoucherBuilder.java",
+      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
       "line": 15,
       "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 15,
       "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 16,
       "expr": "quoteRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 21,
       "expr": "tariffRef102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 22,
       "expr": "ledgerEntry103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 23,
       "expr": "channelTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 24,
       "expr": "channelTag104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 29,
       "expr": "catalogKey105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 30,
       "expr": "receiptKey106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/ChannelCollector.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
       "line": 31,
       "expr": "receiptKey106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/PaymentFetcher.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/PaymentFetcher.java",
       "line": 10,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentbind/service/PaymentFetcher.java",
+      "file": "service/src/main/java/com/habench/catalogdraft/service/PaymentFetcher.java",
       "line": 14,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -143,8 +143,8 @@
   "paired_negative": "JAVA-SSRF-1018-N",
   "http": {
     "method": "GET",
-    "path": "/api/payment/bind",
-    "param": "X-Ha-Payload",
+    "path": "/api/catalog/draft",
+    "param": "X-Payment-Context",
     "carrier": "header"
   },
   "verification": {
@@ -157,6 +157,6 @@
     "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

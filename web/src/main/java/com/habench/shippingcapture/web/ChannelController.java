@@ -10,7 +10,7 @@ public class ChannelController {
 
     @GetMapping("/api/shipping/capture")
     public String merge(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Channel-Trace");
         RefundRegistry.route(category);
         return "ok";
     }

@@ -1,0 +1,175 @@
+{
+  "id": "JAVA-PATH-3013",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Cookie经 8 层调用、跨 2 个模块流入文件读取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/catalogsettlequeue/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/catalogsettlequeue/web/RefundController.java",
+    "line": 13,
+    "expr": "userName",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/catalogsettlequeue/service/RefundLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/catalogsettlequeue/web/RefundController.java",
+      "line": 13,
+      "expr": "userName",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogsettlequeue/web/OrderService.java",
+      "line": 11,
+      "expr": "paymentTag1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogsettlequeue/web/OrderService.java",
+      "line": 12,
+      "expr": "paymentTag1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogsettlequeue/web/OrderService.java",
+      "line": 17,
+      "expr": "refundCode2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogsettlequeue/web/OrderService.java",
+      "line": 20,
+      "expr": "refundCode2",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogsettlequeue/web/OrderService.java",
+      "line": 21,
+      "expr": "shipmentCode3",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/catalogsettlequeue/web/OrderService.java",
+      "line": 22,
+      "expr": "shipmentCode3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ShipmentRouter.java",
+      "line": 8,
+      "expr": "channelTag101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ShipmentRouter.java",
+      "line": 9,
+      "expr": "catalogKey102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ShipmentRouter.java",
+      "line": 10,
+      "expr": "catalogKey102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ChannelRouter.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ChannelRouter.java",
+      "line": 19,
+      "expr": "batchTag201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ChannelRouter.java",
+      "line": 20,
+      "expr": "batchTag201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ChannelRouter.java",
+      "line": 25,
+      "expr": "orderRef202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ChannelRouter.java",
+      "line": 26,
+      "expr": "quoteRef203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/ChannelRouter.java",
+      "line": 27,
+      "expr": "quoteRef203",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/RefundLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/catalogsettlequeue/service/RefundLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 18,
+    "files_crossed": 5,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:file_read",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/catalog/settlequeue",
+    "param": "refund_trace",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

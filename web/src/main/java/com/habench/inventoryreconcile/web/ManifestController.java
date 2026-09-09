@@ -10,7 +10,7 @@ public class ManifestController {
 
     @GetMapping("/api/inventory/reconcile")
     public String expand(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Manifest-Channel");
         BatchBuilder.normalize(filename);
         return "ok";
     }

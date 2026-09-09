@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/vendor/merge")
     public String compose(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Catalog-Tenant");
         ShipmentBuilder.dispatch(query);
         return "ok";
     }

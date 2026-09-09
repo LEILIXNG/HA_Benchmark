@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/customer/submit")
     public String normalize(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Catalog-Channel");
         CatalogCollector.publish(userName);
         return "ok";
     }

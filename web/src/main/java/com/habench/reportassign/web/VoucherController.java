@@ -10,7 +10,7 @@ public class VoucherController {
 
     @GetMapping("/api/report/assign")
     public String forward(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Voucher-Reference");
         ReceiptNormalizer.register(category);
         return "ok";
     }

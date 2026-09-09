@@ -1,0 +1,393 @@
+{
+  "id": "JAVA-SQLI-3003",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Cookie经 20 层调用、跨 3 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountsettlequeue/web/RefundController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountsettlequeue/web/RefundController.java",
+    "line": 13,
+    "expr": "category",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/RefundRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/RefundController.java",
+      "line": 13,
+      "expr": "category",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 14,
+      "expr": "accountRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 17,
+      "expr": "accountRef1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 18,
+      "expr": "voucherRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 19,
+      "expr": "voucherRef2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 24,
+      "expr": "paymentTag3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 27,
+      "expr": "paymentTag3",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 28,
+      "expr": "refundCode4",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 29,
+      "expr": "shipmentCode5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 30,
+      "expr": "shipmentCode5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 35,
+      "expr": "manifestKey6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 36,
+      "expr": "invoiceKey7",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 37,
+      "expr": "batchTag8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountsettlequeue/web/BundleBroker.java",
+      "line": 38,
+      "expr": "batchTag8",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 14,
+      "expr": "tariffRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 15,
+      "expr": "ledgerEntry102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 16,
+      "expr": "ledgerEntry102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 21,
+      "expr": "channelTag103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 22,
+      "expr": "catalogKey104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 23,
+      "expr": "receiptKey105",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 24,
+      "expr": "receiptKey105",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 29,
+      "expr": "accountRef106",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 30,
+      "expr": "voucherRef107",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 31,
+      "expr": "voucherRef107",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 36,
+      "expr": "paymentTag108",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 37,
+      "expr": "refundCode109",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountsettlequeue/service/ManifestFacade.java",
+      "line": 38,
+      "expr": "refundCode109",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 16,
+      "expr": "manifestKey201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 17,
+      "expr": "manifestKey201",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 22,
+      "expr": "invoiceKey202",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 23,
+      "expr": "batchTag203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 24,
+      "expr": "batchTag203",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 29,
+      "expr": "orderRef204",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 32,
+      "expr": "orderRef204",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 33,
+      "expr": "quoteRef205",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 36,
+      "expr": "quoteRef205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 37,
+      "expr": "tariffRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/BatchCollector.java",
+      "line": 38,
+      "expr": "tariffRef206",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/InvoicePolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/InvoicePolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/VoucherBroker.java",
+      "line": 8,
+      "expr": "accountRef301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/VoucherBroker.java",
+      "line": 9,
+      "expr": "voucherRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/VoucherBroker.java",
+      "line": 10,
+      "expr": "voucherRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/AccountStrategySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/AccountStrategyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/CatalogEnricher.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/CatalogEnricher.java",
+      "line": 13,
+      "expr": "tariffRef401",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/CatalogEnricher.java",
+      "line": 14,
+      "expr": "tariffRef401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/RefundRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/accountsettlequeue/dao/RefundRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 20,
+    "chain_len": 51,
+    "files_crossed": 11,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:jdbc_concat",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/settlequeue",
+    "param": "refund_ref",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 20,
+    "payload_sent": "zz'/**/OR/**/1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

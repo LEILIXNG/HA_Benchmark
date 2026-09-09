@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "请求头经 5 层调用、跨 1 个模块流入URL 抓取，经 ssrf_host_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/billingclose/web/ShipmentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/billingclose/web/ShipmentController.java",
     "line": 13,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentFetcher.java",
+    "file": "web/src/main/java/com/habench/billingclose/web/ShipmentFetcher.java",
     "line": 23,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentFetcher.java",
+    "file": "web/src/main/java/com/habench/billingclose/web/ShipmentFetcher.java",
     "line": 19,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
@@ -29,67 +29,67 @@
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentController.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/ShipmentController.java",
       "line": 13,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/CatalogAdapter.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/CatalogAdapter.java",
       "line": 14,
       "expr": "quoteRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/CatalogAdapter.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/CatalogAdapter.java",
       "line": 15,
       "expr": "tariffRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/CatalogAdapter.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/CatalogAdapter.java",
       "line": 16,
       "expr": "tariffRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/CatalogAdapter.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/CatalogAdapter.java",
       "line": 21,
       "expr": "ledgerEntry3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/CatalogAdapter.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/CatalogAdapter.java",
       "line": 22,
       "expr": "channelTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/CatalogAdapter.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/CatalogAdapter.java",
       "line": 23,
       "expr": "catalogKey5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/CatalogAdapter.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/CatalogAdapter.java",
       "line": 24,
       "expr": "catalogKey5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentFetcher.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/ShipmentFetcher.java",
       "line": 16,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentFetcher.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/ShipmentFetcher.java",
       "line": 19,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/ShipmentFetcher.java",
+      "file": "web/src/main/java/com/habench/billingclose/web/ShipmentFetcher.java",
       "line": 23,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
@@ -114,8 +114,8 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/customer/archive",
-    "param": "X-Ha-Payload",
+    "path": "/api/billing/close",
+    "param": "X-Shipment-Correlation",
     "carrier": "header"
   },
   "verification": {
@@ -128,6 +128,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

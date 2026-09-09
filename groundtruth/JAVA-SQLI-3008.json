@@ -1,0 +1,274 @@
+{
+  "id": "JAVA-SQLI-3008",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Cookie经 15 层调用、跨 3 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/reportquote/web/CatalogController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/reportquote/web/CatalogController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/reportquote/dao/CatalogRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/reportquote/web/CatalogController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportquote/web/BatchAssembler.java",
+      "line": 8,
+      "expr": "catalogKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/reportquote/web/BatchAssembler.java",
+      "line": 9,
+      "expr": "catalogKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/BundleCollector.java",
+      "line": 10,
+      "expr": "orderRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/BundleCollector.java",
+      "line": 13,
+      "expr": "orderRef101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/BundleCollector.java",
+      "line": 14,
+      "expr": "quoteRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/BundleCollector.java",
+      "line": 15,
+      "expr": "quoteRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/InvoiceRuleSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/InvoiceRuleStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 16,
+      "expr": "refundCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 17,
+      "expr": "shipmentCode202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 18,
+      "expr": "shipmentCode202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 23,
+      "expr": "manifestKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 24,
+      "expr": "invoiceKey204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 25,
+      "expr": "invoiceKey204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 30,
+      "expr": "batchTag205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 33,
+      "expr": "batchTag205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 34,
+      "expr": "orderRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 35,
+      "expr": "quoteRef207",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 36,
+      "expr": "quoteRef207",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 41,
+      "expr": "tariffRef208",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 42,
+      "expr": "ledgerEntry209",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 45,
+      "expr": "ledgerEntry209",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 46,
+      "expr": "channelTag210",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/ChannelService.java",
+      "line": 47,
+      "expr": "channelTag210",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/QuotePlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/QuotePlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/CatalogFacade.java",
+      "line": 8,
+      "expr": "catalogKey301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/reportquote/service/CatalogFacade.java",
+      "line": 9,
+      "expr": "catalogKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportquote/dao/PaymentRegistry.java",
+      "line": 8,
+      "expr": "orderRef401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportquote/dao/PaymentRegistry.java",
+      "line": 9,
+      "expr": "orderRef401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportquote/dao/CatalogRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/reportquote/dao/CatalogRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 15,
+    "chain_len": 33,
+    "files_crossed": 11,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:jdbc_concat",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-3008-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/report/quote",
+    "param": "catalog_ref",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 15,
+    "payload_sent": "zz'/**/OR/**/1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

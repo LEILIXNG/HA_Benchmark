@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
+    "file": "web/src/main/java/com/habench/customersettle/web/QuoteController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
+    "file": "web/src/main/java/com/habench/customersettle/web/QuoteController.java",
     "line": 13,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingnotice/dao/QuoteLoader.java",
+    "file": "dao/src/main/java/com/habench/customersettle/dao/QuoteLoader.java",
     "line": 17,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,115 +24,115 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/QuoteController.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/QuoteController.java",
       "line": 13,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 11,
       "expr": "batchTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 12,
       "expr": "orderRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 13,
       "expr": "orderRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 18,
       "expr": "quoteRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 21,
       "expr": "quoteRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 22,
       "expr": "tariffRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 25,
       "expr": "tariffRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 26,
       "expr": "ledgerEntry5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/RefundTranslator.java",
+      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
       "line": 27,
       "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingnotice/service/PaymentService.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
       "line": 10,
       "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingnotice/service/PaymentService.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
       "line": 13,
       "expr": "paymentTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingnotice/service/PaymentService.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
       "line": 14,
       "expr": "refundCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingnotice/service/PaymentService.java",
+      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
       "line": 15,
       "expr": "refundCode102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/TariffEnricher.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/TariffEnricher.java",
       "line": 8,
       "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/TariffEnricher.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/TariffEnricher.java",
       "line": 9,
       "expr": "catalogKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/TariffEnricher.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/TariffEnricher.java",
       "line": 10,
       "expr": "catalogKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/QuoteLoader.java",
       "line": 13,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/com/habench/customersettle/dao/QuoteLoader.java",
       "line": 17,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -163,8 +163,8 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/billing/notice",
-    "param": "X-Ha-Payload",
+    "path": "/api/customer/settle",
+    "param": "X-Quote-Tenant",
     "carrier": "header"
   },
   "verification": {
@@ -177,6 +177,6 @@
     "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

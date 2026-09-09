@@ -1,0 +1,414 @@
+{
+  "id": "JAVA-PATH-3006-N",
+  "cwe": "CWE-22",
+  "verdict": "safe",
+  "title": "与 JAVA-PATH-3006 逐行相同，仅把净化改为 whitelist_regex",
+  "entry": {
+    "file": "web/src/main/java/com/habench/paymentbind/web/SessionController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/paymentbind/web/SessionController.java",
+    "line": 13,
+    "expr": "keyword",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/paymentbind/dao/SessionLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/paymentbind/service/ContractScreen.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/SessionController.java",
+      "line": 13,
+      "expr": "keyword",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/BundleComposer.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/BundleComposer.java",
+      "line": 14,
+      "expr": "shipmentCode1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/BundleComposer.java",
+      "line": 15,
+      "expr": "manifestKey2",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/BundleComposer.java",
+      "line": 16,
+      "expr": "manifestKey2",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/BundleComposer.java",
+      "line": 21,
+      "expr": "invoiceKey3",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/BundleComposer.java",
+      "line": 22,
+      "expr": "batchTag4",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/paymentbind/web/BundleComposer.java",
+      "line": 23,
+      "expr": "batchTag4",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/ContractScreen.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/QuoteFacade.java",
+      "line": 8,
+      "expr": "receiptKey101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/QuoteFacade.java",
+      "line": 9,
+      "expr": "accountRef102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/QuoteFacade.java",
+      "line": 10,
+      "expr": "accountRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/SessionResolver.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/SessionResolver.java",
+      "line": 14,
+      "expr": "quoteRef201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/SessionResolver.java",
+      "line": 15,
+      "expr": "quoteRef201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/SessionResolver.java",
+      "line": 20,
+      "expr": "tariffRef202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/SessionResolver.java",
+      "line": 21,
+      "expr": "ledgerEntry203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/SessionResolver.java",
+      "line": 22,
+      "expr": "channelTag204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/SessionResolver.java",
+      "line": 23,
+      "expr": "channelTag204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 19,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 20,
+      "expr": "shipmentCode301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 21,
+      "expr": "manifestKey302",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 22,
+      "expr": "manifestKey302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 27,
+      "expr": "invoiceKey303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 28,
+      "expr": "batchTag304",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 29,
+      "expr": "orderRef305",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 30,
+      "expr": "orderRef305",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 35,
+      "expr": "quoteRef306",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 38,
+      "expr": "quoteRef306",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 39,
+      "expr": "tariffRef307",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 42,
+      "expr": "tariffRef307",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 43,
+      "expr": "ledgerEntry308",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 44,
+      "expr": "ledgerEntry308",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 49,
+      "expr": "channelTag309",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 52,
+      "expr": "channelTag309",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 53,
+      "expr": "catalogKey310",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 56,
+      "expr": "catalogKey310",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 57,
+      "expr": "receiptKey311",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/paymentbind/service/VoucherBroker.java",
+      "line": 58,
+      "expr": "receiptKey311",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ReceiptRegistry.java",
+      "line": 8,
+      "expr": "receiptKey401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ReceiptRegistry.java",
+      "line": 9,
+      "expr": "receiptKey401",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelAssembler.java",
+      "line": 8,
+      "expr": "quoteRef501",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelAssembler.java",
+      "line": 9,
+      "expr": "tariffRef502",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelAssembler.java",
+      "line": 10,
+      "expr": "tariffRef502",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelEnricher.java",
+      "line": 16,
+      "expr": "shipmentCode601",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelEnricher.java",
+      "line": 19,
+      "expr": "shipmentCode601",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelEnricher.java",
+      "line": 20,
+      "expr": "manifestKey602",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelEnricher.java",
+      "line": 21,
+      "expr": "manifestKey602",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelEnricher.java",
+      "line": 26,
+      "expr": "invoiceKey603",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelEnricher.java",
+      "line": 27,
+      "expr": "batchTag604",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/ChannelEnricher.java",
+      "line": 28,
+      "expr": "batchTag604",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/SessionLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/paymentbind/dao/SessionLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 18,
+    "chain_len": 53,
+    "files_crossed": 10,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:file_read",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:string_concat",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/payment/bind",
+    "param": "session_trace",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "../../../etc/passwd",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

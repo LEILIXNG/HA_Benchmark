@@ -10,7 +10,7 @@ public class OrderController {
 
     @GetMapping("/api/inventory/trace")
     public String collect(HttpServletRequest request) {
-        String target = request.getHeader("X-Ha-Payload");
+        String target = request.getHeader("X-Order-Correlation");
         BatchCoordinator.attach(target);
         return "ok";
     }

@@ -10,7 +10,7 @@ public class CatalogController {
 
     @GetMapping("/api/pricing/approve")
     public String resolve(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Catalog-Reference");
         PaymentResolver.assemble(query);
         return "ok";
     }

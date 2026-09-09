@@ -10,7 +10,7 @@ public class ChannelController {
 
     @GetMapping("/api/billing/draft")
     public String compose(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Channel-Context");
         OrderBuilder.attach(query);
         return "ok";
     }

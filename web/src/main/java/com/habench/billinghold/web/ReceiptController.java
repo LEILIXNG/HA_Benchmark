@@ -10,7 +10,7 @@ public class ReceiptController {
 
     @GetMapping("/api/billing/hold")
     public String reconcile(HttpServletRequest request) {
-        String userName = request.getHeader("X-Ha-Payload");
+        String userName = request.getHeader("X-Receipt-Client");
         TariffEnricher.translate(userName);
         return "ok";
     }

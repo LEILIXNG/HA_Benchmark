@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/customer/capture")
     public String merge(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Refund-Tenant");
         RefundFacade.refine(filename);
         return "ok";
     }

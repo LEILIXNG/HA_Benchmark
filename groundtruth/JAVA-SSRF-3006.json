@@ -1,0 +1,162 @@
+{
+  "id": "JAVA-SSRF-3006",
+  "cwe": "CWE-918",
+  "verdict": "vulnerable",
+  "title": "Cookie经 8 层调用、跨 3 个模块流入URL 抓取",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingarchive/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingarchive/web/PaymentController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/pricingarchive/dao/PaymentFetcher.java",
+    "line": 14,
+    "expr": "endpoint",
+    "note": "SINK: CWE-918 服务端请求伪造"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingarchive/web/PaymentController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingarchive/web/QuoteRouter.java",
+      "line": 10,
+      "expr": "catalogKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingarchive/web/QuoteRouter.java",
+      "line": 13,
+      "expr": "catalogKey1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingarchive/web/QuoteRouter.java",
+      "line": 14,
+      "expr": "receiptKey2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingarchive/web/QuoteRouter.java",
+      "line": 15,
+      "expr": "receiptKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingarchive/service/AccountTranslator.java",
+      "line": 8,
+      "expr": "orderRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingarchive/service/AccountTranslator.java",
+      "line": 9,
+      "expr": "orderRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingarchive/service/LedgerPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingarchive/service/LedgerPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingarchive/service/SessionNormalizer.java",
+      "line": 8,
+      "expr": "refundCode201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingarchive/service/SessionNormalizer.java",
+      "line": 9,
+      "expr": "shipmentCode202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingarchive/service/SessionNormalizer.java",
+      "line": 10,
+      "expr": "shipmentCode202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingarchive/dao/BatchResolver.java",
+      "line": 8,
+      "expr": "catalogKey301",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingarchive/dao/BatchResolver.java",
+      "line": 9,
+      "expr": "catalogKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingarchive/dao/PaymentFetcher.java",
+      "line": 10,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/pricingarchive/dao/PaymentFetcher.java",
+      "line": 14,
+      "expr": "endpoint",
+      "note": "SINK: CWE-918 服务端请求伪造"
+    }
+  ],
+  "metrics": {
+    "call_depth": 8,
+    "chain_len": 16,
+    "files_crossed": 8,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:url_fetch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_module",
+      "prop:string_concat",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/archive",
+    "param": "payment_ref",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 8,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

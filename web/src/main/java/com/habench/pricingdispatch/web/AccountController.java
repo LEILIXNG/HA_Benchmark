@@ -10,7 +10,7 @@ public class AccountController {
 
     @GetMapping("/api/pricing/dispatch")
     public String merge(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Account-Trace");
         QuoteAssembler.forward(category);
         return "ok";
     }

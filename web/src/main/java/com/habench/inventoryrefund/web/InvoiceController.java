@@ -10,7 +10,7 @@ public class InvoiceController {
 
     @GetMapping("/api/inventory/refund")
     public String collect(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Invoice-Correlation");
         TariffRegistry.reconcile(query);
         return "ok";
     }

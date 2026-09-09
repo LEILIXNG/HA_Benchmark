@@ -10,7 +10,7 @@ public class LedgerController {
 
     @GetMapping("/api/order/reopen")
     public String publish(HttpServletRequest request) {
-        String query = request.getHeader("X-Ha-Payload");
+        String query = request.getHeader("X-Ledger-Correlation");
         SessionResolver.collect(query);
         return "ok";
     }

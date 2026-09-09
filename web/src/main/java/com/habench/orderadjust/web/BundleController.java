@@ -10,7 +10,7 @@ public class BundleController {
 
     @GetMapping("/api/order/adjust")
     public String resolve(HttpServletRequest request) {
-        String keyword = request.getHeader("X-Ha-Payload");
+        String keyword = request.getHeader("X-Bundle-Reference");
         BatchBroker.collect(keyword);
         return "ok";
     }

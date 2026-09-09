@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/catalog/archive")
     public String refine(HttpServletRequest request) {
-        String tag = request.getHeader("X-Ha-Payload");
+        String tag = request.getHeader("X-Shipment-Context");
         BundleFacade.collect(tag);
         return "ok";
     }

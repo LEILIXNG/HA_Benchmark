@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/billing/release")
     public String resolve(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Shipment-Tenant");
         BatchComposer.enrich(filename);
         return "ok";
     }

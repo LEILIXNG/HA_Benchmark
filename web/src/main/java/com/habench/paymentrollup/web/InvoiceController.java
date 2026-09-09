@@ -10,7 +10,7 @@ public class InvoiceController {
 
     @GetMapping("/api/payment/rollup")
     public String submit(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Invoice-Tenant");
         QuoteNormalizer.enrich(category);
         return "ok";
     }

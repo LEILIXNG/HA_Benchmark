@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/account/split")
     public String normalize(HttpServletRequest request) {
-        String filename = request.getHeader("X-Ha-Payload");
+        String filename = request.getHeader("X-Shipment-Reference");
         PaymentNormalizer.publish(filename);
         return "ok";
     }

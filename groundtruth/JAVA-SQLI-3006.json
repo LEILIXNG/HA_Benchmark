@@ -1,0 +1,308 @@
+{
+  "id": "JAVA-SQLI-3006",
+  "cwe": "CWE-89",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 14 层调用、跨 3 个模块流入JDBC 拼接",
+  "entry": {
+    "file": "web/src/main/java/com/habench/orderclose/web/ManifestController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/orderclose/web/ManifestController.java",
+    "line": 13,
+    "expr": "filename",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "dao/src/main/java/com/habench/orderclose/dao/ManifestRepository.java",
+    "line": 17,
+    "expr": "sql",
+    "note": "SINK: CWE-89 SQL 注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/ManifestController.java",
+      "line": 13,
+      "expr": "filename",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 17,
+      "expr": "manifestKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 18,
+      "expr": "manifestKey1",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 23,
+      "expr": "invoiceKey2",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 24,
+      "expr": "batchTag3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 25,
+      "expr": "batchTag3",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 30,
+      "expr": "orderRef4",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 31,
+      "expr": "quoteRef5",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 32,
+      "expr": "quoteRef5",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 37,
+      "expr": "tariffRef6",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 38,
+      "expr": "ledgerEntry7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 39,
+      "expr": "channelTag8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 40,
+      "expr": "channelTag8",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 45,
+      "expr": "catalogKey9",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 48,
+      "expr": "catalogKey9",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 49,
+      "expr": "receiptKey10",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/orderclose/web/OrderAdapter.java",
+      "line": 50,
+      "expr": "receiptKey10",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 11,
+      "expr": "accountRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 12,
+      "expr": "accountRef101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 17,
+      "expr": "voucherRef102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 18,
+      "expr": "paymentTag103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 21,
+      "expr": "paymentTag103",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 22,
+      "expr": "refundCode104",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 23,
+      "expr": "refundCode104",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 28,
+      "expr": "shipmentCode105",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 29,
+      "expr": "manifestKey106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/orderclose/service/InvoiceEnricher.java",
+      "line": 30,
+      "expr": "manifestKey106",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 19,
+      "expr": "tariffRef201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 22,
+      "expr": "tariffRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 23,
+      "expr": "ledgerEntry202",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 24,
+      "expr": "ledgerEntry202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 29,
+      "expr": "channelTag203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 30,
+      "expr": "catalogKey204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 31,
+      "expr": "receiptKey205",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/BundleBuilder.java",
+      "line": 32,
+      "expr": "receiptKey205",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/ManifestRepository.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入 SQL 语句"
+    },
+    {
+      "file": "dao/src/main/java/com/habench/orderclose/dao/ManifestRepository.java",
+      "line": 17,
+      "expr": "sql",
+      "note": "SINK: CWE-89 SQL 注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 14,
+    "chain_len": 38,
+    "files_crossed": 5,
+    "modules_crossed": 3,
+    "features": [
+      "source:spring_request_header",
+      "sink:jdbc_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-SQLI-3006-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/order/close",
+    "param": "X-Manifest-Context",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 14,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

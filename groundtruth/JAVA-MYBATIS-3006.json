@@ -1,0 +1,265 @@
+{
+  "id": "JAVA-MYBATIS-3006",
+  "cwe": "CWE-89",
+  "verdict": "safe",
+  "title": "Spring 请求头经 16 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 whitelist_regex 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingnotice/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingnotice/web/PaymentController.java",
+    "line": 13,
+    "expr": "tag",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/resources/com/habench/pricingnotice/service/PaymentMapper.xml",
+    "line": 9,
+    "expr": "manifestKey",
+    "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/pricingnotice/service/TariffValidator.java",
+    "line": 11,
+    "expr": "value",
+    "note": "SANITIZER: 严格白名单校验（有效）"
+  },
+  "sanitizer_kind": "whitelist_regex",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/PaymentController.java",
+      "line": 13,
+      "expr": "tag",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/OrderResolver.java",
+      "line": 8,
+      "expr": "invoiceKey1",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/OrderResolver.java",
+      "line": 9,
+      "expr": "invoiceKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BundlePlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BundlePlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 16,
+      "expr": "voucherRef101",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 17,
+      "expr": "paymentTag102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 18,
+      "expr": "paymentTag102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 23,
+      "expr": "refundCode103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 24,
+      "expr": "shipmentCode104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 27,
+      "expr": "shipmentCode104",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 28,
+      "expr": "manifestKey105",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingnotice/web/BatchResolver.java",
+      "line": 29,
+      "expr": "manifestKey105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/LedgerService.java",
+      "line": 8,
+      "expr": "ledgerEntry201",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/LedgerService.java",
+      "line": 9,
+      "expr": "channelTag202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/LedgerService.java",
+      "line": 10,
+      "expr": "channelTag202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/TariffValidator.java",
+      "line": 11,
+      "expr": "value",
+      "note": "SANITIZER: 严格白名单校验（有效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/QuotePlanSelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/QuotePlanStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogAssembler.java",
+      "line": 8,
+      "expr": "invoiceKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogAssembler.java",
+      "line": 9,
+      "expr": "invoiceKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogTranslator.java",
+      "line": 11,
+      "expr": "voucherRef401",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogTranslator.java",
+      "line": 14,
+      "expr": "voucherRef401",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogTranslator.java",
+      "line": 15,
+      "expr": "paymentTag402",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogTranslator.java",
+      "line": 16,
+      "expr": "paymentTag402",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogTranslator.java",
+      "line": 21,
+      "expr": "refundCode403",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogTranslator.java",
+      "line": 22,
+      "expr": "shipmentCode404",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/CatalogTranslator.java",
+      "line": 23,
+      "expr": "shipmentCode404",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/PaymentGateway.java",
+      "line": 10,
+      "expr": "value",
+      "note": "把污点带进持有 mapper 的方法"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingnotice/service/PaymentGateway.java",
+      "line": 17,
+      "expr": "value",
+      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+    },
+    {
+      "file": "service/src/main/resources/com/habench/pricingnotice/service/PaymentMapper.xml",
+      "line": 9,
+      "expr": "manifestKey",
+      "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
+    }
+  ],
+  "metrics": {
+    "call_depth": 16,
+    "chain_len": 31,
+    "files_crossed": 13,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:mybatis_dollar",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:cross_module",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:string_concat",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "sanitizer:whitelist_regex"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/notice",
+    "param": "X-Payment-Context",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "zz' OR 1=1--",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

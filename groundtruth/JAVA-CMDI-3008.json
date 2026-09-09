@@ -1,0 +1,140 @@
+{
+  "id": "JAVA-CMDI-3008",
+  "cwe": "CWE-78",
+  "verdict": "vulnerable",
+  "title": "Cookie经 7 层调用、跨 1 个模块流入命令执行",
+  "entry": {
+    "file": "web/src/main/java/com/habench/customerdigest/web/PaymentController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/customerdigest/web/PaymentController.java",
+    "line": 13,
+    "expr": "query",
+    "note": "SOURCE: Spring Cookie"
+  },
+  "sink": {
+    "file": "web/src/main/java/com/habench/customerdigest/web/PaymentExecutor.java",
+    "line": 13,
+    "expr": "argv",
+    "note": "SINK: CWE-78 命令注入"
+  },
+  "sanitizer": null,
+  "sanitizer_kind": "none",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/PaymentController.java",
+      "line": 13,
+      "expr": "query",
+      "note": "SOURCE: Spring Cookie"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
+      "line": 14,
+      "expr": "ledgerEntry1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
+      "line": 15,
+      "expr": "ledgerEntry1",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
+      "line": 20,
+      "expr": "channelTag2",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
+      "line": 21,
+      "expr": "catalogKey3",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
+      "line": 22,
+      "expr": "catalogKey3",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（4 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/SessionBroker.java",
+      "line": 8,
+      "expr": "invoiceKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/SessionBroker.java",
+      "line": 9,
+      "expr": "invoiceKey101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/PaymentExecutor.java",
+      "line": 9,
+      "expr": "value",
+      "note": "污点进入命令行"
+    },
+    {
+      "file": "web/src/main/java/com/habench/customerdigest/web/PaymentExecutor.java",
+      "line": 13,
+      "expr": "argv",
+      "note": "SINK: CWE-78 命令注入"
+    }
+  ],
+  "metrics": {
+    "call_depth": 7,
+    "chain_len": 13,
+    "files_crossed": 6,
+    "modules_crossed": 1,
+    "features": [
+      "source:spring_cookie_value",
+      "sink:runtime_exec",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "sanitizer:none"
+    ]
+  },
+  "paired_negative": "JAVA-CMDI-3008-N",
+  "http": {
+    "method": "GET",
+    "path": "/api/customer/digest",
+    "param": "payment_trace",
+    "carrier": "cookie"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 7,
+    "payload_sent": "zz$(id)",
+    "payload_at_sink": "echo zz$(id)",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

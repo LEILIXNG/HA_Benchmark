@@ -4,23 +4,23 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1002 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/ordertransfer/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/accountmerge/web/ShipmentController.java",
     "line": 11,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/ordertransfer/web/ShipmentController.java",
+    "file": "web/src/main/java/com/habench/accountmerge/web/ShipmentController.java",
     "line": 13,
     "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRepository.java",
+    "file": "service/src/main/java/com/habench/accountmerge/service/ShipmentRepository.java",
     "line": 18,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRepository.java",
+    "file": "service/src/main/java/com/habench/accountmerge/service/ShipmentRepository.java",
     "line": 17,
     "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
@@ -28,102 +28,102 @@
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/ShipmentController.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/ShipmentController.java",
       "line": 13,
       "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/InvoiceNormalizer.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/InvoiceNormalizer.java",
       "line": 9,
       "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/InvoiceNormalizer.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/InvoiceNormalizer.java",
       "line": 10,
       "expr": "catalogKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/InvoiceNormalizer.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/InvoiceNormalizer.java",
       "line": 15,
       "expr": "receiptKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/InvoiceNormalizer.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/InvoiceNormalizer.java",
       "line": 16,
       "expr": "accountRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/ordertransfer/web/InvoiceNormalizer.java",
+      "file": "web/src/main/java/com/habench/accountmerge/web/InvoiceNormalizer.java",
       "line": 17,
       "expr": "accountRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 11,
       "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 12,
       "expr": "quoteRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 13,
       "expr": "quoteRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 18,
       "expr": "tariffRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 19,
       "expr": "ledgerEntry104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 22,
       "expr": "ledgerEntry104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 23,
       "expr": "channelTag105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/SessionBuilder.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/SessionBuilder.java",
       "line": 24,
       "expr": "channelTag105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRepository.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/ShipmentRepository.java",
       "line": 13,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRepository.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/ShipmentRepository.java",
       "line": 17,
       "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/ordertransfer/service/ShipmentRepository.java",
+      "file": "service/src/main/java/com/habench/accountmerge/service/ShipmentRepository.java",
       "line": 18,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -151,7 +151,7 @@
   "paired_negative": null,
   "http": {
     "method": "GET",
-    "path": "/api/order/transfer",
+    "path": "/api/account/merge",
     "param": "query",
     "carrier": "query"
   },
@@ -165,6 +165,6 @@
     "payload_at_sink": "ref:ref:ref:ref:zz' OR 1=1--;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T12:18:58+08:00"
+    "checked_at": "2026-09-08T15:50:45+08:00"
   }
 }

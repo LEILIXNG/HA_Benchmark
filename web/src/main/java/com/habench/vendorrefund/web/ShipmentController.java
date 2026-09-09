@@ -10,7 +10,7 @@ public class ShipmentController {
 
     @GetMapping("/api/vendor/refund")
     public String expand(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
+        String label = request.getHeader("X-Shipment-Tenant");
         OrderNormalizer.refine(label);
         return "ok";
     }

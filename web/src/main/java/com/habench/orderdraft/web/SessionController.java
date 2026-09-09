@@ -10,7 +10,7 @@ public class SessionController {
 
     @GetMapping("/api/order/draft")
     public String stage(HttpServletRequest request) {
-        String label = request.getHeader("X-Ha-Payload");
+        String label = request.getHeader("X-Session-Channel");
         BatchEnricher.refine(label);
         return "ok";
     }

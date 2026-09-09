@@ -1,0 +1,297 @@
+{
+  "id": "JAVA-SSRF-3009-N",
+  "cwe": "CWE-918",
+  "verdict": "safe",
+  "title": "与 JAVA-SSRF-3009 逐行相同，仅把净化改为 ssrf_host_allowlist",
+  "entry": {
+    "file": "web/src/main/java/com/habench/accountapprove/web/InvoiceController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/accountapprove/web/InvoiceController.java",
+    "line": 13,
+    "expr": "resource",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
+    "line": 23,
+    "expr": "endpoint",
+    "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
+    "line": 19,
+    "expr": "endpoint",
+    "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+  },
+  "sanitizer_kind": "ssrf_host_allowlist",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/InvoiceController.java",
+      "line": 13,
+      "expr": "resource",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/SessionResolver.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/SessionResolver.java",
+      "line": 13,
+      "expr": "orderRef1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/SessionResolver.java",
+      "line": 14,
+      "expr": "orderRef1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/LedgerPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/LedgerPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 17,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 20,
+      "expr": "refundCode101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 21,
+      "expr": "shipmentCode102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 22,
+      "expr": "shipmentCode102",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 27,
+      "expr": "manifestKey103",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 28,
+      "expr": "invoiceKey104",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 29,
+      "expr": "invoiceKey104",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 34,
+      "expr": "batchTag105",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 35,
+      "expr": "orderRef106",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 36,
+      "expr": "quoteRef107",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 37,
+      "expr": "quoteRef107",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 42,
+      "expr": "tariffRef108",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 43,
+      "expr": "ledgerEntry109",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 46,
+      "expr": "ledgerEntry109",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 47,
+      "expr": "channelTag110",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
+      "line": 48,
+      "expr": "channelTag110",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
+      "line": 12,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
+      "line": 13,
+      "expr": "catalogKey201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
+      "line": 14,
+      "expr": "receiptKey202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
+      "line": 15,
+      "expr": "receiptKey202",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
+      "line": 18,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
+      "line": 19,
+      "expr": "orderRef301",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
+      "line": 20,
+      "expr": "orderRef301",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
+      "line": 25,
+      "expr": "quoteRef302",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
+      "line": 28,
+      "expr": "quoteRef302",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
+      "line": 29,
+      "expr": "tariffRef303",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
+      "line": 30,
+      "expr": "tariffRef303",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
+      "line": 16,
+      "expr": "value",
+      "note": "污点进入 URL"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
+      "line": 19,
+      "expr": "endpoint",
+      "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
+      "line": 23,
+      "expr": "endpoint",
+      "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
+    }
+  ],
+  "metrics": {
+    "call_depth": 14,
+    "chain_len": 36,
+    "files_crossed": 8,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:url_fetch",
+      "prop:map_element",
+      "prop:interface_dispatch",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:map_element",
+      "prop:cross_class",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:map_element",
+      "prop:store_field",
+      "prop:map_element",
+      "sanitizer:ssrf_host_allowlist"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/account/approve",
+    "param": "X-Invoice-Client",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": false,
+    "tainted": false,
+    "neutralized": false,
+    "call_depth_observed": null,
+    "payload_sent": "127.0.0.1:1",
+    "payload_at_sink": null,
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}

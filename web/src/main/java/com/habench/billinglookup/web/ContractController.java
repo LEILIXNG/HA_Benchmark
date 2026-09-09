@@ -10,7 +10,7 @@ public class ContractController {
 
     @GetMapping("/api/billing/lookup")
     public String register(HttpServletRequest request) {
-        String resource = request.getHeader("X-Ha-Payload");
+        String resource = request.getHeader("X-Contract-Correlation");
         BatchBuilder.refine(resource);
         return "ok";
     }

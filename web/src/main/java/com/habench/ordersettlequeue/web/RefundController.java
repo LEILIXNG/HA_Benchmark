@@ -10,7 +10,7 @@ public class RefundController {
 
     @GetMapping("/api/order/settlequeue")
     public String compose(HttpServletRequest request) {
-        String category = request.getHeader("X-Ha-Payload");
+        String category = request.getHeader("X-Refund-Origin");
         ReceiptComposer.publish(category);
         return "ok";
     }

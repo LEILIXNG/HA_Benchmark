@@ -1,0 +1,307 @@
+{
+  "id": "JAVA-PATH-3007",
+  "cwe": "CWE-22",
+  "verdict": "vulnerable",
+  "title": "Spring 请求头经 16 层调用、跨 2 个模块流入文件读取，经 traversal_replace_once 净化",
+  "entry": {
+    "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogController.java",
+    "line": 11,
+    "note": "HTTP 入口"
+  },
+  "source": {
+    "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogController.java",
+    "line": 13,
+    "expr": "target",
+    "note": "SOURCE: Spring 请求头"
+  },
+  "sink": {
+    "file": "service/src/main/java/com/habench/pricingrevise/service/CatalogLoader.java",
+    "line": 17,
+    "expr": "path",
+    "note": "SINK: CWE-22 路径穿越"
+  },
+  "sanitizer": {
+    "file": "service/src/main/java/com/habench/pricingrevise/service/ReceiptPolicy.java",
+    "line": 9,
+    "expr": "cleaned",
+    "note": "SANITIZER: 单次剥离 ../（无效）"
+  },
+  "sanitizer_kind": "traversal_replace_once",
+  "path": [
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogController.java",
+      "line": 13,
+      "expr": "target",
+      "note": "SOURCE: Spring 请求头"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/BundleEnricher.java",
+      "line": 8,
+      "expr": "manifestKey1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/BundleEnricher.java",
+      "line": 9,
+      "expr": "manifestKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/RefundPolicySelector.java",
+      "line": 7,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/RefundPolicyStandard.java",
+      "line": 6,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogCollector.java",
+      "line": 13,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogCollector.java",
+      "line": 14,
+      "expr": "accountRef101",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogCollector.java",
+      "line": 15,
+      "expr": "accountRef101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogCollector.java",
+      "line": 20,
+      "expr": "voucherRef102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogCollector.java",
+      "line": 21,
+      "expr": "paymentTag103",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/CatalogCollector.java",
+      "line": 22,
+      "expr": "paymentTag103",
+      "note": "调用下一层"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 11,
+      "expr": "tariffRef201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 12,
+      "expr": "tariffRef201",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 17,
+      "expr": "ledgerEntry202",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 20,
+      "expr": "ledgerEntry202",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 21,
+      "expr": "channelTag203",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 22,
+      "expr": "catalogKey204",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 23,
+      "expr": "catalogKey204",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 28,
+      "expr": "receiptKey205",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 29,
+      "expr": "accountRef206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/habench/pricingrevise/web/ShipmentService.java",
+      "line": 30,
+      "expr": "accountRef206",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 14,
+      "expr": "manifestKey301",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 15,
+      "expr": "invoiceKey302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 16,
+      "expr": "invoiceKey302",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 21,
+      "expr": "batchTag303",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 22,
+      "expr": "orderRef304",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 23,
+      "expr": "orderRef304",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 28,
+      "expr": "quoteRef305",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 29,
+      "expr": "tariffRef306",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 30,
+      "expr": "ledgerEntry307",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentTranslator.java",
+      "line": 31,
+      "expr": "ledgerEntry307",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentFacade.java",
+      "line": 8,
+      "expr": "accountRef401",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentFacade.java",
+      "line": 9,
+      "expr": "voucherRef402",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/PaymentFacade.java",
+      "line": 10,
+      "expr": "voucherRef402",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/ReceiptPolicy.java",
+      "line": 9,
+      "expr": "cleaned",
+      "note": "SANITIZER: 单次剥离 ../（无效）"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/CatalogLoader.java",
+      "line": 13,
+      "expr": "value",
+      "note": "污点进入文件路径"
+    },
+    {
+      "file": "service/src/main/java/com/habench/pricingrevise/service/CatalogLoader.java",
+      "line": 17,
+      "expr": "path",
+      "note": "SINK: CWE-22 路径穿越"
+    }
+  ],
+  "metrics": {
+    "call_depth": 16,
+    "chain_len": 37,
+    "files_crossed": 10,
+    "modules_crossed": 2,
+    "features": [
+      "source:spring_request_header",
+      "sink:file_read",
+      "prop:string_concat",
+      "prop:interface_dispatch",
+      "prop:map_element",
+      "prop:static_field",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:static_field",
+      "prop:map_element",
+      "prop:string_concat",
+      "prop:static_field",
+      "prop:string_concat",
+      "prop:cross_module",
+      "prop:assign_local",
+      "prop:string_concat",
+      "prop:store_field",
+      "prop:assign_local",
+      "prop:store_field",
+      "prop:string_concat",
+      "prop:assign_local",
+      "prop:cross_class",
+      "prop:assign_local",
+      "prop:assign_local",
+      "sanitizer:traversal_replace_once"
+    ]
+  },
+  "paired_negative": null,
+  "http": {
+    "method": "GET",
+    "path": "/api/pricing/revise",
+    "param": "X-Catalog-Tenant",
+    "carrier": "header"
+  },
+  "verification": {
+    "status": "pass",
+    "reached": true,
+    "tainted": true,
+    "neutralized": false,
+    "call_depth_observed": 16,
+    "payload_sent": "....//....//etc/passwd",
+    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:../../etc/passwd;;;;;",
+    "http_status": 500,
+    "detail": "",
+    "checked_at": "2026-09-08T15:50:45+08:00"
+  }
+}
