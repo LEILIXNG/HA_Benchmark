@@ -4,189 +4,189 @@
   "verdict": "safe",
   "title": "查询参数经 11 层调用、跨 2 个模块流入URL 抓取，经 ssrf_host_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentapprove/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentapprove/web/AccountController.java",
+    "line": 19,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentapprove/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentapprove/web/AccountController.java",
+    "line": 21,
     "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
-    "line": 23,
+    "file": "service/src/main/java/com/northwind/paymentapprove/service/AccountFetcher.java",
+    "line": 33,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
-    "line": 19,
+    "file": "service/src/main/java/com/northwind/paymentapprove/service/AccountFetcher.java",
+    "line": 29,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
   },
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/AccountController.java",
+      "line": 21,
       "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 16,
-      "expr": "batchTag1",
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 23,
       "expr": "batchTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 28,
       "expr": "orderRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 29,
       "expr": "quoteRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 30,
       "expr": "quoteRef3",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 35,
       "expr": "tariffRef4",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 38,
       "expr": "tariffRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 33,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 39,
       "expr": "ledgerEntry5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogAdapter.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogAdapter.java",
+      "line": 40,
       "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 16,
-      "expr": "paymentTag101",
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 28,
       "expr": "paymentTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 29,
       "expr": "refundCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 30,
       "expr": "refundCode102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 35,
       "expr": "shipmentCode103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 38,
       "expr": "shipmentCode103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 39,
       "expr": "manifestKey104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentapprove/web/CatalogNormalizer.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/paymentapprove/web/CatalogNormalizer.java",
+      "line": 40,
       "expr": "manifestKey104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/TariffCoordinator.java",
+      "line": 17,
       "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/TariffCoordinator.java",
+      "line": 18,
       "expr": "catalogKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/TariffCoordinator.java",
+      "line": 19,
       "expr": "catalogKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/TariffCoordinator.java",
+      "line": 24,
       "expr": "receiptKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/TariffCoordinator.java",
+      "line": 25,
       "expr": "accountRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/TariffCoordinator.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/TariffCoordinator.java",
+      "line": 26,
       "expr": "accountRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/AccountFetcher.java",
+      "line": 26,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/AccountFetcher.java",
+      "line": 29,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentapprove/service/AccountFetcher.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/paymentapprove/service/AccountFetcher.java",
+      "line": 33,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
     }
@@ -234,6 +234,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

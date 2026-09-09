@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingreconcile/web/PaymentController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingreconcile/web/PaymentController.java",
+    "line": 25,
     "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentExecutor.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingreconcile/web/PaymentExecutor.java",
+    "line": 18,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,110 +24,110 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/PaymentController.java",
+      "line": 25,
       "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/OrderResolver.java",
-      "line": 8,
-      "expr": "invoiceKey1",
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/TariffService.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/OrderResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/TariffService.java",
+      "line": 24,
       "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/OrderResolver.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/TariffService.java",
+      "line": 25,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/RefundStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/RefundStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/RefundStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/RefundStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 21,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 22,
       "expr": "voucherRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 23,
       "expr": "voucherRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 28,
       "expr": "paymentTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 31,
       "expr": "paymentTag102",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 32,
       "expr": "refundCode103",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 33,
       "expr": "refundCode103",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 38,
       "expr": "shipmentCode104",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 39,
       "expr": "manifestKey105",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/QuoteTranslator.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/QuoteTranslator.java",
+      "line": 40,
       "expr": "manifestKey105",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentExecutor.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/PaymentExecutor.java",
+      "line": 14,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/billingreconcile/web/PaymentExecutor.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingreconcile/web/PaymentExecutor.java",
+      "line": 18,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -165,9 +165,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id);",
+    "payload_at_sink": "echo -n ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

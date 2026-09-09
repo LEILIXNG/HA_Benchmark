@@ -4,131 +4,131 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogissue/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogissue/web/RefundController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogissue/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogissue/web/RefundController.java",
+    "line": 25,
     "expr": "token",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogissue/dao/RefundEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "dao/src/main/java/com/northwind/catalogissue/dao/RefundEvaluator.java",
+    "line": 23,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogissue/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogissue/web/RefundController.java",
+      "line": 25,
       "expr": "token",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogissue/web/ManifestService.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/catalogissue/web/ShipmentFacade.java",
+      "line": 19,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogissue/web/ManifestService.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/catalogissue/web/ShipmentFacade.java",
+      "line": 20,
       "expr": "paymentTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogissue/web/RefundStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/catalogissue/web/RefundStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogissue/web/RefundStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/catalogissue/web/RefundStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogissue/web/ShipmentComposer.java",
-      "line": 8,
-      "expr": "channelTag101",
+      "file": "web/src/main/java/com/northwind/catalogissue/web/ShipmentComposer.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogissue/web/ShipmentComposer.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/catalogissue/web/ShipmentComposer.java",
+      "line": 23,
       "expr": "channelTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogissue/service/TariffService.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/catalogissue/service/TariffService.java",
+      "line": 15,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/catalogissue/service/TariffService.java",
+      "line": 16,
       "expr": "batchTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogissue/service/TariffService.java",
-      "line": 9,
-      "expr": "orderRef202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogissue/service/TariffService.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogissue/service/TariffService.java",
+      "line": 17,
       "expr": "orderRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/ShipmentBuilder.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/ShipmentBuilder.java",
+      "line": 16,
       "expr": "paymentTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/ShipmentBuilder.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/ShipmentBuilder.java",
+      "line": 17,
       "expr": "refundCode302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/ShipmentBuilder.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/ShipmentBuilder.java",
+      "line": 18,
       "expr": "refundCode302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/CatalogEnricher.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/CatalogEnricher.java",
+      "line": 16,
       "expr": "channelTag401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/CatalogEnricher.java",
-      "line": 9,
-      "expr": "catalogKey402",
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/CatalogEnricher.java",
+      "line": 17,
+      "expr": "channelTag401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/CatalogEnricher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/CatalogEnricher.java",
+      "line": 18,
       "expr": "catalogKey402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/RefundEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/RefundEvaluator.java",
+      "line": 17,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogissue/dao/RefundEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "dao/src/main/java/com/northwind/catalogissue/dao/RefundEvaluator.java",
+      "line": 23,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -169,9 +169,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "payload_at_sink": "'tag-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

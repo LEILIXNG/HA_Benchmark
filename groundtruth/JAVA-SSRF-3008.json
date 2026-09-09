@@ -4,107 +4,107 @@
   "verdict": "vulnerable",
   "title": "Cookie经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportdigest/web/ReceiptController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportdigest/web/ReceiptController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportdigest/web/ReceiptController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportdigest/web/ReceiptController.java",
+    "line": 25,
     "expr": "resource",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/reportdigest/service/ReceiptFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "service/src/main/java/com/northwind/reportdigest/service/ReceiptFetcher.java",
+    "line": 24,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportdigest/web/ReceiptController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportdigest/web/ReceiptController.java",
+      "line": 25,
       "expr": "resource",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportdigest/web/OrderTranslator.java",
+      "line": 25,
       "expr": "tariffRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
-      "line": 15,
-      "expr": "ledgerEntry2",
+      "file": "web/src/main/java/com/northwind/reportdigest/web/OrderTranslator.java",
+      "line": 27,
+      "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/reportdigest/web/OrderTranslator.java",
+      "line": 29,
       "expr": "ledgerEntry2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/reportdigest/web/OrderTranslator.java",
+      "line": 34,
       "expr": "channelTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
-      "line": 22,
-      "expr": "catalogKey4",
+      "file": "web/src/main/java/com/northwind/reportdigest/web/OrderTranslator.java",
+      "line": 35,
+      "expr": "channelTag3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportdigest/web/OrderTranslator.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/reportdigest/web/OrderTranslator.java",
+      "line": 36,
       "expr": "catalogKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/reportdigest/service/LedgerTranslator.java",
+      "line": 20,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportdigest/service/LedgerTranslator.java",
+      "line": 21,
       "expr": "manifestKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/reportdigest/service/LedgerTranslator.java",
+      "line": 26,
       "expr": "invoiceKey102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportdigest/service/LedgerTranslator.java",
+      "line": 27,
       "expr": "batchTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportdigest/service/LedgerTranslator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportdigest/service/LedgerTranslator.java",
+      "line": 28,
       "expr": "batchTag103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportdigest/service/ReceiptFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportdigest/service/ReceiptFetcher.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/reportdigest/service/ReceiptFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "service/src/main/java/com/northwind/reportdigest/service/ReceiptFetcher.java",
+      "line": 24,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -141,9 +141,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
+    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

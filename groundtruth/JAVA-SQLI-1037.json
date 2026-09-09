@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 10 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingledger/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingledger/web/BundleController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingledger/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingledger/web/BundleController.java",
+    "line": 25,
     "expr": "token",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingledger/dao/BundleRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/pricingledger/dao/BundleRepository.java",
+    "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,140 +24,140 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingledger/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingledger/web/BundleController.java",
+      "line": 25,
       "expr": "token",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/pricingledger/web/BundleBuilder.java",
+      "line": 24,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingledger/web/BundleBuilder.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/pricingledger/web/BundleBuilder.java",
+      "line": 25,
       "expr": "invoiceKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/LedgerCoordinator.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/pricingledger/service/LedgerCoordinator.java",
+      "line": 26,
       "expr": "voucherRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/LedgerCoordinator.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/pricingledger/service/LedgerCoordinator.java",
+      "line": 27,
       "expr": "voucherRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/LedgerCoordinator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/pricingledger/service/LedgerCoordinator.java",
+      "line": 32,
       "expr": "paymentTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/LedgerCoordinator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/pricingledger/service/LedgerCoordinator.java",
+      "line": 35,
       "expr": "paymentTag102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/LedgerCoordinator.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/pricingledger/service/LedgerCoordinator.java",
+      "line": 36,
       "expr": "refundCode103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/LedgerCoordinator.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/pricingledger/service/LedgerCoordinator.java",
+      "line": 37,
       "expr": "refundCode103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/ChannelRegistry.java",
-      "line": 8,
-      "expr": "ledgerEntry201",
+      "file": "service/src/main/java/com/northwind/pricingledger/service/ChannelRegistry.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingledger/service/ChannelRegistry.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingledger/service/ChannelRegistry.java",
+      "line": 23,
       "expr": "ledgerEntry201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 31,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 32,
       "expr": "invoiceKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 33,
       "expr": "invoiceKey301",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 38,
       "expr": "batchTag302",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 41,
       "expr": "batchTag302",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 42,
       "expr": "orderRef303",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 31,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 43,
       "expr": "orderRef303",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 36,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 48,
       "expr": "quoteRef304",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 37,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 49,
       "expr": "tariffRef305",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/ManifestEnricher.java",
-      "line": 38,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/ManifestEnricher.java",
+      "line": 50,
       "expr": "tariffRef305",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/BundleRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/BundleRepository.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingledger/dao/BundleRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/pricingledger/dao/BundleRepository.java",
+      "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -200,9 +200,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
+    "payload_at_sink": "SELECT id, amount, status FROM quote_items WHERE label = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

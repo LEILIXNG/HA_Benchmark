@@ -4,158 +4,158 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 11 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendoradjust/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendoradjust/web/InvoiceController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendoradjust/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendoradjust/web/InvoiceController.java",
+    "line": 25,
     "expr": "query",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/resources/com/habench/vendoradjust/service/InvoiceMapper.xml",
+    "file": "service/src/main/resources/com/northwind/vendoradjust/service/InvoiceMapper.xml",
     "line": 9,
     "expr": "invoiceKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/vendoradjust/service/VoucherPolicy.java",
-    "line": 9,
+    "file": "service/src/main/java/com/northwind/vendoradjust/service/VoucherPolicy.java",
+    "line": 20,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/InvoiceController.java",
+      "line": 25,
       "expr": "query",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptBuilder.java",
-      "line": 8,
-      "expr": "channelTag1",
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/RefundEnricher.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ReceiptBuilder.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/RefundEnricher.java",
+      "line": 24,
       "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/QuotePlanSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/QuotePlanSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/QuotePlanStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/QuotePlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ChannelEnricher.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ChannelEnricher.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ChannelEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ChannelEnricher.java",
+      "line": 24,
       "expr": "batchTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ChannelEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ChannelEnricher.java",
+      "line": 25,
       "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 27,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 30,
       "expr": "paymentTag201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 31,
       "expr": "refundCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 32,
       "expr": "refundCode202",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 37,
       "expr": "shipmentCode203",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 38,
       "expr": "manifestKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 39,
       "expr": "invoiceKey205",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendoradjust/web/ManifestEnricher.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/vendoradjust/web/ManifestEnricher.java",
+      "line": 40,
       "expr": "invoiceKey205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendoradjust/service/ChannelRouter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/vendoradjust/service/ChannelRouter.java",
+      "line": 19,
       "expr": "channelTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendoradjust/service/ChannelRouter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendoradjust/service/ChannelRouter.java",
+      "line": 20,
       "expr": "channelTag301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendoradjust/service/VoucherPolicy.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendoradjust/service/VoucherPolicy.java",
+      "line": 20,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceGateway.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/vendoradjust/service/InvoiceGateway.java",
+      "line": 21,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/habench/vendoradjust/service/InvoiceGateway.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/vendoradjust/service/InvoiceGateway.java",
+      "line": 28,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/habench/vendoradjust/service/InvoiceMapper.xml",
+      "file": "service/src/main/resources/com/northwind/vendoradjust/service/InvoiceMapper.xml",
       "line": 9,
       "expr": "invoiceKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -197,9 +197,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:zz OR 1=1--;'",
+    "payload_at_sink": "SELECT id, ref_no, total       FROM quote_items      WHERE title = 'ref:zz OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

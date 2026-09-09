@@ -4,181 +4,181 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1009 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountintake/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountintake/web/ChannelController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountintake/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountintake/web/ChannelController.java",
+    "line": 27,
     "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountintake/dao/ChannelRepository.java",
-    "line": 18,
+    "file": "dao/src/main/java/com/northwind/accountintake/dao/ChannelRepository.java",
+    "line": 28,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/accountintake/dao/ChannelRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/accountintake/dao/ChannelRepository.java",
+    "line": 27,
     "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountintake/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountintake/web/ChannelController.java",
+      "line": 27,
       "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/accountintake/web/BatchEnricher.java",
-      "line": 10,
-      "expr": "refundCode1",
+      "file": "web/src/main/java/com/northwind/accountintake/web/BatchEnricher.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountintake/web/BatchEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountintake/web/BatchEnricher.java",
+      "line": 27,
       "expr": "refundCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountintake/web/BatchEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accountintake/web/BatchEnricher.java",
+      "line": 28,
       "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountintake/web/BatchEnricher.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/accountintake/web/BatchEnricher.java",
+      "line": 29,
       "expr": "shipmentCode2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountintake/service/ChannelTranslator.java",
-      "line": 8,
-      "expr": "catalogKey101",
+      "file": "service/src/main/java/com/northwind/accountintake/service/ChannelTranslator.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountintake/service/ChannelTranslator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/accountintake/service/ChannelTranslator.java",
+      "line": 21,
       "expr": "receiptKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountintake/service/ChannelTranslator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/accountintake/service/ChannelTranslator.java",
+      "line": 22,
       "expr": "receiptKey102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/QuoteResolver.java",
-      "line": 11,
-      "expr": "orderRef201",
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/QuoteResolver.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/QuoteResolver.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/QuoteResolver.java",
+      "line": 18,
       "expr": "quoteRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/QuoteResolver.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/QuoteResolver.java",
+      "line": 19,
       "expr": "quoteRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/QuoteResolver.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/QuoteResolver.java",
+      "line": 24,
       "expr": "tariffRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/QuoteResolver.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/QuoteResolver.java",
+      "line": 27,
       "expr": "tariffRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/QuoteResolver.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/QuoteResolver.java",
+      "line": 28,
       "expr": "ledgerEntry204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/QuoteResolver.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/QuoteResolver.java",
+      "line": 29,
       "expr": "ledgerEntry204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/AccountPolicySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/AccountPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/AccountPolicyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/AccountPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/VoucherNormalizer.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/VoucherNormalizer.java",
+      "line": 17,
       "expr": "refundCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/VoucherNormalizer.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/VoucherNormalizer.java",
+      "line": 18,
       "expr": "shipmentCode302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/VoucherNormalizer.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/VoucherNormalizer.java",
+      "line": 19,
       "expr": "shipmentCode302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/VoucherNormalizer.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/VoucherNormalizer.java",
+      "line": 24,
       "expr": "manifestKey303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/VoucherNormalizer.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/VoucherNormalizer.java",
+      "line": 25,
       "expr": "invoiceKey304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/VoucherNormalizer.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/VoucherNormalizer.java",
+      "line": 26,
       "expr": "invoiceKey304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/ChannelRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/ChannelRepository.java",
+      "line": 23,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/ChannelRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/ChannelRepository.java",
+      "line": 27,
       "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountintake/dao/ChannelRepository.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/accountintake/dao/ChannelRepository.java",
+      "line": 28,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
   ],
@@ -225,6 +225,6 @@
     "payload_at_sink": "ref:ref:ref:zz' OR 1=1--;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

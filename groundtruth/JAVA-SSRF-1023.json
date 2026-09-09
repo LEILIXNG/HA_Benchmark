@@ -4,165 +4,165 @@
   "verdict": "safe",
   "title": "查询参数经 9 层调用、跨 2 个模块流入URL 抓取，经 ssrf_host_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingverify/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingverify/web/SessionController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingverify/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingverify/web/SessionController.java",
+    "line": 28,
     "expr": "target",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/pricingverify/service/SessionFetcher.java",
-    "line": 23,
+    "file": "service/src/main/java/com/northwind/pricingverify/service/SessionFetcher.java",
+    "line": 31,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/pricingverify/service/SessionFetcher.java",
-    "line": 19,
+    "file": "service/src/main/java/com/northwind/pricingverify/service/SessionFetcher.java",
+    "line": 27,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
   },
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/SessionController.java",
+      "line": 28,
       "expr": "target",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 32,
       "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 33,
       "expr": "shipmentCode1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 38,
       "expr": "manifestKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 24,
-      "expr": "invoiceKey3",
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 39,
+      "expr": "manifestKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 40,
       "expr": "invoiceKey3",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 45,
       "expr": "batchTag4",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 46,
       "expr": "orderRef5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 49,
       "expr": "orderRef5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 50,
       "expr": "quoteRef6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 51,
       "expr": "quoteRef6",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 56,
       "expr": "tariffRef7",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 42,
-      "expr": "ledgerEntry8",
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 57,
+      "expr": "tariffRef7",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 58,
       "expr": "ledgerEntry8",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 48,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 63,
       "expr": "channelTag9",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 49,
-      "expr": "catalogKey10",
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 64,
+      "expr": "channelTag9",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 50,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 65,
       "expr": "receiptKey11",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingverify/web/OrderService.java",
-      "line": 51,
+      "file": "web/src/main/java/com/northwind/pricingverify/web/OrderService.java",
+      "line": 66,
       "expr": "receiptKey11",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingverify/service/CatalogResolver.java",
-      "line": 8,
-      "expr": "receiptKey101",
+      "file": "service/src/main/java/com/northwind/pricingverify/service/CatalogResolver.java",
+      "line": 14,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingverify/service/CatalogResolver.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingverify/service/CatalogResolver.java",
+      "line": 15,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingverify/service/SessionFetcher.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/pricingverify/service/SessionFetcher.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingverify/service/SessionFetcher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/pricingverify/service/SessionFetcher.java",
+      "line": 27,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingverify/service/SessionFetcher.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/pricingverify/service/SessionFetcher.java",
+      "line": 31,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
     }
@@ -208,6 +208,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

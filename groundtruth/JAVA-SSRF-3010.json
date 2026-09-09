@@ -4,233 +4,233 @@
   "verdict": "vulnerable",
   "title": "Cookie经 18 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountreconcile/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountreconcile/web/BundleController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountreconcile/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountreconcile/web/BundleController.java",
+    "line": 28,
     "expr": "resource",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountreconcile/dao/BundleFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BundleFetcher.java",
+    "line": 23,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/BundleController.java",
+      "line": 28,
       "expr": "resource",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ManifestAdapter.java",
-      "line": 8,
-      "expr": "accountRef1",
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ShipmentAdapter.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ManifestAdapter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ShipmentAdapter.java",
+      "line": 24,
       "expr": "voucherRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ManifestAdapter.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ShipmentAdapter.java",
+      "line": 25,
       "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/TariffPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/TariffPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/TariffPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/TariffPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ChannelBuilder.java",
-      "line": 14,
-      "expr": "tariffRef101",
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ChannelBuilder.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ChannelBuilder.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ChannelBuilder.java",
+      "line": 25,
       "expr": "tariffRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ChannelBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ChannelBuilder.java",
+      "line": 30,
       "expr": "ledgerEntry102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ChannelBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ChannelBuilder.java",
+      "line": 31,
       "expr": "channelTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/ChannelBuilder.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/ChannelBuilder.java",
+      "line": 32,
       "expr": "channelTag103",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/LedgerService.java",
-      "line": 8,
-      "expr": "manifestKey201",
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/LedgerService.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreconcile/web/LedgerService.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/accountreconcile/web/LedgerService.java",
+      "line": 25,
       "expr": "manifestKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreconcile/service/SessionTranslator.java",
-      "line": 14,
-      "expr": "accountRef301",
+      "file": "service/src/main/java/com/northwind/accountreconcile/service/SessionTranslator.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreconcile/service/SessionTranslator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/accountreconcile/service/SessionTranslator.java",
+      "line": 28,
       "expr": "accountRef301",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreconcile/service/SessionTranslator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/accountreconcile/service/SessionTranslator.java",
+      "line": 33,
       "expr": "voucherRef302",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreconcile/service/SessionTranslator.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/accountreconcile/service/SessionTranslator.java",
+      "line": 35,
+      "expr": "voucherRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/accountreconcile/service/SessionTranslator.java",
+      "line": 37,
       "expr": "paymentTag303",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreconcile/service/SessionTranslator.java",
-      "line": 22,
-      "expr": "refundCode304",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountreconcile/service/SessionTranslator.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/accountreconcile/service/SessionTranslator.java",
+      "line": 38,
       "expr": "refundCode304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/RefundEnricher.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/RefundEnricher.java",
+      "line": 23,
       "expr": "tariffRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/RefundEnricher.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/RefundEnricher.java",
+      "line": 24,
       "expr": "tariffRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BatchRouter.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BatchRouter.java",
+      "line": 26,
       "expr": "manifestKey501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BatchRouter.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BatchRouter.java",
+      "line": 27,
       "expr": "manifestKey501",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BatchRouter.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BatchRouter.java",
+      "line": 32,
       "expr": "invoiceKey502",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BatchRouter.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BatchRouter.java",
+      "line": 35,
       "expr": "invoiceKey502",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BatchRouter.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BatchRouter.java",
+      "line": 36,
       "expr": "batchTag503",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BatchRouter.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BatchRouter.java",
+      "line": 37,
       "expr": "batchTag503",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/PaymentResolver.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/PaymentResolver.java",
+      "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/PaymentResolver.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/PaymentResolver.java",
+      "line": 33,
       "expr": "accountRef601",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/PaymentResolver.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/PaymentResolver.java",
+      "line": 34,
       "expr": "accountRef601",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/PaymentResolver.java",
-      "line": 25,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/PaymentResolver.java",
+      "line": 39,
       "expr": "voucherRef602",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/PaymentResolver.java",
-      "line": 26,
-      "expr": "paymentTag603",
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/PaymentResolver.java",
+      "line": 40,
+      "expr": "voucherRef602",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/PaymentResolver.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/PaymentResolver.java",
+      "line": 41,
       "expr": "paymentTag603",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BundleFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BundleFetcher.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreconcile/dao/BundleFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "dao/src/main/java/com/northwind/accountreconcile/dao/BundleFetcher.java",
+      "line": 23,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -282,9 +282,9 @@
     "neutralized": false,
     "call_depth_observed": 18,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:ref:ref:ref:ref:127.0.0.1:1;;;;;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:ref:ref:ref:ref:127.0.0.1:1;;;;;;;/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

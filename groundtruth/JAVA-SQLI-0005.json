@@ -4,81 +4,81 @@
   "verdict": "vulnerable",
   "title": "不完整净化——只剥离单引号，注释符与关键字仍可通过，漏洞依然成立",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorexport/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorexport/web/ChannelController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorexport/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorexport/web/ChannelController.java",
+    "line": 27,
     "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendorexport/service/ChannelRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/vendorexport/service/ChannelRepository.java",
+    "line": 24,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/vendorexport/service/BatchPolicy.java",
-    "line": 9,
+    "file": "service/src/main/java/com/northwind/vendorexport/service/BatchPolicy.java",
+    "line": 26,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorexport/web/ChannelController.java",
+      "line": 27,
       "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/ShipmentResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/vendorexport/web/ShipmentResolver.java",
+      "line": 24,
       "expr": "refundCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorexport/web/ShipmentResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorexport/web/ShipmentResolver.java",
+      "line": 25,
       "expr": "refundCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/BundleCoordinator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/vendorexport/service/BundleCoordinator.java",
+      "line": 24,
       "expr": "value",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/BundleCoordinator.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/vendorexport/service/BundleCoordinator.java",
+      "line": 29,
       "expr": "catalogKey101",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/BundleCoordinator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/vendorexport/service/BundleCoordinator.java",
+      "line": 30,
       "expr": "catalogKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/BatchPolicy.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendorexport/service/BatchPolicy.java",
+      "line": 26,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/ChannelRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendorexport/service/ChannelRepository.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorexport/service/ChannelRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/vendorexport/service/ChannelRepository.java",
+      "line": 24,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -111,9 +111,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz OR 1=1--'",
+    "payload_at_sink": "SELECT id, code, created_at FROM shipments WHERE ref_no = 'zz OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

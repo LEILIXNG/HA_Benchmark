@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 10 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportgrant/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportgrant/web/OrderController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportgrant/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportgrant/web/OrderController.java",
+    "line": 22,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/reportgrant/service/OrderLoader.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/reportgrant/service/OrderLoader.java",
+    "line": 27,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,164 +24,164 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/OrderController.java",
+      "line": 22,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 17,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 18,
       "expr": "quoteRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 21,
       "expr": "quoteRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 22,
       "expr": "tariffRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 23,
       "expr": "tariffRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 28,
       "expr": "ledgerEntry3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 25,
-      "expr": "channelTag4",
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 29,
+      "expr": "ledgerEntry3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/AccountRouter.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/AccountRouter.java",
+      "line": 30,
       "expr": "channelTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/BundleStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/BundleStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/BundleStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/BundleStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/QuoteRouter.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/QuoteRouter.java",
+      "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/QuoteRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/QuoteRouter.java",
+      "line": 23,
       "expr": "shipmentCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/QuoteRouter.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/QuoteRouter.java",
+      "line": 26,
       "expr": "shipmentCode101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/QuoteRouter.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/QuoteRouter.java",
+      "line": 27,
       "expr": "manifestKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/QuoteRouter.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/QuoteRouter.java",
+      "line": 28,
       "expr": "manifestKey102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/BundleTranslator.java",
-      "line": 8,
-      "expr": "receiptKey201",
+      "file": "web/src/main/java/com/northwind/reportgrant/web/BundleTranslator.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportgrant/web/BundleTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/reportgrant/web/BundleTranslator.java",
+      "line": 18,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/ChannelCollector.java",
-      "line": 9,
-      "expr": "quoteRef301",
+      "file": "service/src/main/java/com/northwind/reportgrant/service/ChannelCollector.java",
+      "line": 18,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/ChannelCollector.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportgrant/service/ChannelCollector.java",
+      "line": 20,
       "expr": "tariffRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/ChannelCollector.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/reportgrant/service/ChannelCollector.java",
+      "line": 21,
       "expr": "tariffRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/ChannelCollector.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportgrant/service/ChannelCollector.java",
+      "line": 26,
       "expr": "ledgerEntry303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/ChannelCollector.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportgrant/service/ChannelCollector.java",
+      "line": 27,
+      "expr": "ledgerEntry303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/reportgrant/service/ChannelCollector.java",
+      "line": 28,
       "expr": "channelTag304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/ChannelCollector.java",
-      "line": 18,
-      "expr": "catalogKey305",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportgrant/service/ChannelCollector.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/reportgrant/service/ChannelCollector.java",
+      "line": 29,
       "expr": "catalogKey305",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/OrderLoader.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/reportgrant/service/OrderLoader.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/reportgrant/service/OrderLoader.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportgrant/service/OrderLoader.java",
+      "line": 27,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -226,9 +226,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:../../../etc/passwd;;;;;",
+    "payload_at_sink": "/opt/report/exchange/ref:ref:ref:ref:ref:../../../etc/passwd;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

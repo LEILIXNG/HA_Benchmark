@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportapprove/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportapprove/web/QuoteController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportapprove/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportapprove/web/QuoteController.java",
+    "line": 27,
     "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/resources/com/habench/reportapprove/service/QuoteMapper.xml",
+    "file": "service/src/main/resources/com/northwind/reportapprove/service/QuoteMapper.xml",
     "line": 9,
     "expr": "quoteRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,175 +24,175 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/QuoteController.java",
+      "line": 27,
       "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/VoucherAssembler.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/VoucherAssembler.java",
+      "line": 24,
       "expr": "paymentTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/VoucherAssembler.java",
+      "line": 25,
       "expr": "refundCode2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentRouter.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/VoucherAssembler.java",
+      "line": 26,
       "expr": "refundCode2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/PaymentStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/PaymentStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/PaymentStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 30,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 31,
       "expr": "channelTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 32,
       "expr": "channelTag101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 37,
       "expr": "catalogKey102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 27,
-      "expr": "receiptKey103",
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 39,
+      "expr": "catalogKey102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 41,
       "expr": "accountRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 42,
       "expr": "accountRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 47,
       "expr": "voucherRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 48,
+      "expr": "voucherRef105",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 49,
       "expr": "paymentTag106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 36,
-      "expr": "refundCode107",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportapprove/web/TariffBroker.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/reportapprove/web/TariffBroker.java",
+      "line": 50,
       "expr": "refundCode107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 24,
       "expr": "batchTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 20,
-      "expr": "orderRef202",
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 25,
+      "expr": "batchTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 26,
       "expr": "orderRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 31,
       "expr": "quoteRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 34,
       "expr": "quoteRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 35,
       "expr": "tariffRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/SessionBuilder.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/SessionBuilder.java",
+      "line": 36,
       "expr": "tariffRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/QuoteGateway.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/QuoteGateway.java",
+      "line": 20,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/habench/reportapprove/service/QuoteGateway.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportapprove/service/QuoteGateway.java",
+      "line": 27,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/habench/reportapprove/service/QuoteMapper.xml",
+      "file": "service/src/main/resources/com/northwind/reportapprove/service/QuoteMapper.xml",
       "line": 9,
       "expr": "quoteRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -238,9 +238,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, code, created_at       FROM payment_records      WHERE label IN ('ref:ref:ref:ref:zz' OR 1=1--;;;;')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

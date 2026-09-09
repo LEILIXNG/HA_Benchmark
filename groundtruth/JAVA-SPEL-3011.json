@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Cookie经 11 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventorybatch/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventorybatch/web/OrderController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventorybatch/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventorybatch/web/OrderController.java",
+    "line": 27,
     "expr": "filename",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/inventorybatch/dao/OrderEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/inventorybatch/dao/OrderEvaluator.java",
+    "line": 27,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,134 +24,134 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/OrderController.java",
+      "line": 27,
       "expr": "filename",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/OrderRegistry.java",
-      "line": 8,
-      "expr": "catalogKey1",
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/LedgerService.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/OrderRegistry.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/LedgerService.java",
+      "line": 22,
       "expr": "receiptKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/OrderRegistry.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/LedgerService.java",
+      "line": 23,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/CatalogStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/CatalogStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/CatalogStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/CatalogStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/TariffAdapter.java",
-      "line": 8,
-      "expr": "orderRef101",
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/TariffAdapter.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorybatch/web/TariffAdapter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/inventorybatch/web/TariffAdapter.java",
+      "line": 27,
       "expr": "orderRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorybatch/service/BundleCollector.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/inventorybatch/service/BundleCollector.java",
+      "line": 26,
       "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorybatch/service/BundleCollector.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/inventorybatch/service/BundleCollector.java",
+      "line": 29,
       "expr": "refundCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorybatch/service/BundleCollector.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/inventorybatch/service/BundleCollector.java",
+      "line": 30,
       "expr": "shipmentCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorybatch/service/BundleCollector.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/inventorybatch/service/BundleCollector.java",
+      "line": 31,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/ReceiptEnricher.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/BatchTranslator.java",
+      "line": 23,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/BatchTranslator.java",
+      "line": 25,
       "expr": "catalogKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/ReceiptEnricher.java",
-      "line": 9,
-      "expr": "receiptKey302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/ReceiptEnricher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/BatchTranslator.java",
+      "line": 27,
       "expr": "receiptKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/BatchPlanSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/BatchPlanSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/BatchPlanStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/BatchPlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/LedgerCoordinator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/LedgerCoordinator.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/LedgerCoordinator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/LedgerCoordinator.java",
+      "line": 28,
       "expr": "orderRef401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/LedgerCoordinator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/LedgerCoordinator.java",
+      "line": 29,
       "expr": "orderRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/OrderEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/OrderEvaluator.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorybatch/dao/OrderEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/inventorybatch/dao/OrderEvaluator.java",
+      "line": 27,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -193,9 +193,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz'+T(java.lang.Runtime)+'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz'+T(java.lang.Runtime)+'zz;;;;'",
+    "payload_at_sink": "'seq-' + 'ref:ref:ref:ref:zz'+T(java.lang.Runtime)+'zz;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

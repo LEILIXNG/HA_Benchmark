@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 12 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingreopen/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingreopen/web/PaymentController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingreopen/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingreopen/web/PaymentController.java",
+    "line": 24,
     "expr": "query",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingreopen/dao/PaymentFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/shippingreopen/dao/PaymentFetcher.java",
+    "line": 22,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
@@ -24,194 +24,194 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/PaymentController.java",
+      "line": 24,
       "expr": "query",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 16,
-      "expr": "tariffRef1",
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 29,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 32,
       "expr": "tariffRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 33,
       "expr": "ledgerEntry2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 34,
       "expr": "ledgerEntry2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 39,
       "expr": "channelTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 27,
-      "expr": "catalogKey4",
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 40,
+      "expr": "channelTag3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 43,
       "expr": "catalogKey4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 44,
       "expr": "receiptKey5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 45,
       "expr": "receiptKey5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 50,
       "expr": "accountRef6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 38,
-      "expr": "voucherRef7",
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 52,
+      "expr": "accountRef6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 56,
       "expr": "voucherRef7",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 57,
       "expr": "paymentTag8",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreopen/web/InvoiceEnricher.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/shippingreopen/web/BatchCollector.java",
+      "line": 58,
       "expr": "paymentTag8",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/QuoteBroker.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/VoucherComposer.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/QuoteBroker.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/VoucherComposer.java",
+      "line": 28,
       "expr": "manifestKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/QuoteBroker.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/VoucherComposer.java",
+      "line": 29,
       "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/InvoiceRuleSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/InvoiceRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/InvoiceRuleStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/InvoiceRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 27,
       "expr": "accountRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 30,
       "expr": "accountRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 31,
       "expr": "voucherRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 32,
       "expr": "voucherRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 37,
       "expr": "paymentTag203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 38,
       "expr": "refundCode204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 23,
-      "expr": "shipmentCode205",
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 39,
+      "expr": "refundCode204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreopen/service/CatalogRouter.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/shippingreopen/service/CatalogRouter.java",
+      "line": 40,
       "expr": "shipmentCode205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreopen/dao/BundleService.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/shippingreopen/dao/BundleService.java",
+      "line": 19,
       "expr": "tariffRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreopen/dao/BundleService.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/shippingreopen/dao/BundleService.java",
+      "line": 20,
       "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreopen/dao/PaymentFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingreopen/dao/PaymentFetcher.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreopen/dao/PaymentFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/shippingreopen/dao/PaymentFetcher.java",
+      "line": 22,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -259,9 +259,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:ref:127.0.0.1:1;;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:ref:127.0.0.1:1;;;;/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

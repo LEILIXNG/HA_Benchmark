@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/ordersubmit/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/ordersubmit/web/InvoiceController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/ordersubmit/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/ordersubmit/web/InvoiceController.java",
+    "line": 24,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/ordersubmit/dao/InvoiceEvaluator.java",
+    "line": 25,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,104 +24,104 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/ordersubmit/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/ordersubmit/web/InvoiceController.java",
+      "line": 24,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/ordersubmit/web/BundleCollector.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/ordersubmit/web/BundleCollector.java",
+      "line": 24,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/ordersubmit/web/BundleCollector.java",
-      "line": 9,
-      "expr": "receiptKey2",
+      "file": "web/src/main/java/com/northwind/ordersubmit/web/BundleCollector.java",
+      "line": 26,
+      "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/ordersubmit/web/BundleCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/ordersubmit/web/BundleCollector.java",
+      "line": 28,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordersubmit/service/ReceiptResolver.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordersubmit/service/ReceiptResolver.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
+      "line": 29,
       "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordersubmit/service/ReceiptResolver.java",
-      "line": 14,
-      "expr": "quoteRef102",
+      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
+      "line": 30,
+      "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordersubmit/service/ReceiptResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
+      "line": 31,
       "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceRouter.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/ShipmentService.java",
+      "line": 19,
       "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceRouter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/ShipmentService.java",
+      "line": 20,
       "expr": "shipmentCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceRouter.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/ShipmentService.java",
+      "line": 21,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/PaymentPlanSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/PaymentPlanSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/PaymentPlanStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/PaymentPlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/SessionBuilder.java",
-      "line": 8,
-      "expr": "catalogKey301",
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/SessionBuilder.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/SessionBuilder.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/SessionBuilder.java",
+      "line": 24,
       "expr": "catalogKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/InvoiceEvaluator.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordersubmit/dao/InvoiceEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/InvoiceEvaluator.java",
+      "line": 25,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -161,9 +161,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
+    "payload_at_sink": "'seq-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

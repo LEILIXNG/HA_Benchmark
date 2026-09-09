@@ -4,117 +4,117 @@
   "verdict": "safe",
   "title": "请求头经 8 层调用、跨 2 个模块流入命令执行，经 command_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentsync/web/ShipmentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentsync/web/ShipmentController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentsync/web/ShipmentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentsync/web/ShipmentController.java",
+    "line": 23,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/paymentsync/service/ShipmentExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/paymentsync/service/ShipmentExecutor.java",
+    "line": 23,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/paymentsync/service/RefundPolicy.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/paymentsync/service/RefundPolicy.java",
+    "line": 20,
     "expr": "value",
     "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
   },
   "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ShipmentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentsync/web/ShipmentController.java",
+      "line": 23,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ChannelBroker.java",
-      "line": 10,
-      "expr": "quoteRef1",
+      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ChannelBroker.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
+      "line": 22,
       "expr": "quoteRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ChannelBroker.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
+      "line": 23,
       "expr": "tariffRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentsync/web/ChannelBroker.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
+      "line": 24,
       "expr": "tariffRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/LedgerAdapter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/LedgerAdapter.java",
+      "line": 11,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/LedgerAdapter.java",
-      "line": 9,
-      "expr": "manifestKey102",
+      "file": "service/src/main/java/com/northwind/paymentsync/service/LedgerAdapter.java",
+      "line": 13,
+      "expr": "shipmentCode101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/LedgerAdapter.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/LedgerAdapter.java",
+      "line": 15,
       "expr": "manifestKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/RefundPolicy.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/RefundPolicy.java",
+      "line": 20,
       "expr": "value",
       "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/QuoteStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/QuoteStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/QuoteStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/QuoteStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/OrderRegistry.java",
-      "line": 8,
-      "expr": "receiptKey201",
+      "file": "service/src/main/java/com/northwind/paymentsync/service/OrderRegistry.java",
+      "line": 16,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/OrderRegistry.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/OrderRegistry.java",
+      "line": 17,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/ShipmentExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/ShipmentExecutor.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentsync/service/ShipmentExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/paymentsync/service/ShipmentExecutor.java",
+      "line": 23,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -154,6 +154,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

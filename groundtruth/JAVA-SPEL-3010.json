@@ -4,267 +4,267 @@
   "verdict": "safe",
   "title": "Cookie经 18 层调用、跨 3 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogdispatch/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogdispatch/web/ChannelController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogdispatch/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogdispatch/web/ChannelController.java",
+    "line": 28,
     "expr": "keyword",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ChannelEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ChannelEvaluator.java",
+    "line": 23,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/catalogdispatch/dao/QuoteFilter.java",
-    "line": 11,
+    "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/QuoteFilter.java",
+    "line": 23,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/ChannelController.java",
+      "line": 28,
       "expr": "keyword",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BatchResolver.java",
+      "line": 19,
       "expr": "ledgerEntry1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BatchResolver.java",
+      "line": 20,
       "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BatchStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BatchStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BatchStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BundleTranslator.java",
+      "line": 21,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BundleTranslator.java",
+      "line": 22,
       "expr": "invoiceKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BundleTranslator.java",
+      "line": 27,
       "expr": "batchTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BundleTranslator.java",
+      "line": 28,
       "expr": "orderRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdispatch/web/BundleTranslator.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/catalogdispatch/web/BundleTranslator.java",
+      "line": 29,
       "expr": "orderRef103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
-      "line": 11,
-      "expr": "voucherRef201",
+      "file": "service/src/main/java/com/northwind/catalogdispatch/service/CatalogAssembler.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/catalogdispatch/service/CatalogAssembler.java",
+      "line": 26,
       "expr": "voucherRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogdispatch/service/CatalogAssembler.java",
+      "line": 27,
       "expr": "paymentTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/catalogdispatch/service/CatalogAssembler.java",
+      "line": 28,
       "expr": "paymentTag202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogdispatch/service/CatalogAssembler.java",
+      "line": 33,
       "expr": "refundCode203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
+      "file": "service/src/main/java/com/northwind/catalogdispatch/service/CatalogAssembler.java",
+      "line": 34,
+      "expr": "refundCode203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/catalogdispatch/service/CatalogAssembler.java",
+      "line": 35,
+      "expr": "shipmentCode204",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/SessionBuilder.java",
+      "line": 19,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/SessionBuilder.java",
+      "line": 20,
+      "expr": "ledgerEntry301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ContractPlanSelector.java",
       "line": 22,
-      "expr": "shipmentCode204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogdispatch/service/CatalogAssembler.java",
-      "line": 23,
-      "expr": "shipmentCode204",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/TariffComposer.java",
-      "line": 8,
-      "expr": "ledgerEntry301",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/TariffComposer.java",
-      "line": 9,
-      "expr": "ledgerEntry301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ContractPlanSelector.java",
-      "line": 7,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ContractPlanStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ContractPlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ManifestAssembler.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ManifestAssembler.java",
+      "line": 19,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ManifestAssembler.java",
+      "line": 20,
       "expr": "invoiceKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ManifestAssembler.java",
-      "line": 9,
-      "expr": "batchTag402",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ManifestAssembler.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ManifestAssembler.java",
+      "line": 21,
       "expr": "batchTag402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 20,
       "expr": "voucherRef501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 10,
-      "expr": "paymentTag502",
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 21,
+      "expr": "voucherRef501",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 22,
       "expr": "paymentTag502",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 27,
       "expr": "refundCode503",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 28,
       "expr": "shipmentCode504",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 29,
       "expr": "shipmentCode504",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 34,
       "expr": "manifestKey505",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 24,
-      "expr": "invoiceKey506",
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 35,
+      "expr": "manifestKey505",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 25,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 36,
       "expr": "invoiceKey506",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 41,
       "expr": "batchTag507",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 31,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 42,
       "expr": "orderRef508",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 32,
-      "expr": "quoteRef509",
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 43,
+      "expr": "orderRef508",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/VoucherService.java",
-      "line": 33,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/VoucherService.java",
+      "line": 44,
       "expr": "quoteRef509",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/QuoteFilter.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/QuoteFilter.java",
+      "line": 23,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ChannelEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ChannelEvaluator.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogdispatch/dao/ChannelEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/catalogdispatch/dao/ChannelEvaluator.java",
+      "line": 23,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -322,6 +322,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

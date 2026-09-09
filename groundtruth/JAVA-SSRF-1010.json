@@ -4,173 +4,173 @@
   "verdict": "vulnerable",
   "title": "请求头经 9 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentexport/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentexport/web/OrderController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentexport/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentexport/web/OrderController.java",
+    "line": 25,
     "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/paymentexport/service/OrderFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "service/src/main/java/com/northwind/paymentexport/service/OrderFetcher.java",
+    "line": 25,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentexport/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentexport/web/OrderController.java",
+      "line": 25,
       "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/paymentexport/web/CatalogTranslator.java",
+      "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentexport/web/CatalogTranslator.java",
+      "line": 20,
       "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
-      "line": 14,
-      "expr": "receiptKey2",
+      "file": "web/src/main/java/com/northwind/paymentexport/web/CatalogTranslator.java",
+      "line": 22,
+      "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentexport/web/CatalogTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/paymentexport/web/CatalogTranslator.java",
+      "line": 24,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 20,
       "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 15,
-      "expr": "quoteRef102",
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 21,
+      "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 22,
       "expr": "quoteRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 27,
       "expr": "tariffRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 22,
-      "expr": "ledgerEntry104",
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 28,
+      "expr": "tariffRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 31,
       "expr": "ledgerEntry104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 32,
       "expr": "channelTag105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/ShipmentBroker.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/ShipmentBroker.java",
+      "line": 33,
       "expr": "channelTag105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteNormalizer.java",
+      "line": 19,
       "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteNormalizer.java",
+      "line": 20,
       "expr": "shipmentCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteNormalizer.java",
+      "line": 21,
       "expr": "shipmentCode202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteNormalizer.java",
+      "line": 26,
       "expr": "manifestKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteNormalizer.java",
+      "line": 29,
       "expr": "manifestKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteNormalizer.java",
+      "line": 30,
       "expr": "invoiceKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/QuoteNormalizer.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/QuoteNormalizer.java",
+      "line": 31,
       "expr": "invoiceKey204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/OrderFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/paymentexport/service/OrderFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentexport/service/OrderFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "service/src/main/java/com/northwind/paymentexport/service/OrderFetcher.java",
+      "line": 25,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -212,9 +212,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

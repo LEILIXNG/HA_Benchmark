@@ -4,147 +4,147 @@
   "verdict": "vulnerable",
   "title": "查询参数经 11 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingintake/web/VoucherController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingintake/web/VoucherController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingintake/web/VoucherController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingintake/web/VoucherController.java",
+    "line": 22,
     "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingintake/dao/VoucherEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/pricingintake/dao/VoucherEvaluator.java",
+    "line": 20,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/pricingintake/dao/ContractFilter.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/pricingintake/dao/ContractFilter.java",
+    "line": 12,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
   },
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/VoucherController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/VoucherController.java",
+      "line": 22,
       "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/BundleComposer.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/BundleComposer.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/BundleComposer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/BundleComposer.java",
+      "line": 21,
       "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/BundleComposer.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/BundleComposer.java",
+      "line": 22,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/PaymentPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/PaymentPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/PaymentPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/PaymentPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/VoucherResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/VoucherResolver.java",
+      "line": 17,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingintake/web/VoucherResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/pricingintake/web/VoucherResolver.java",
+      "line": 18,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/pricingintake/service/QuoteNormalizer.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/pricingintake/service/QuoteNormalizer.java",
+      "line": 24,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/pricingintake/service/QuoteNormalizer.java",
+      "line": 25,
       "expr": "catalogKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/pricingintake/service/QuoteNormalizer.java",
+      "line": 30,
       "expr": "receiptKey202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/pricingintake/service/QuoteNormalizer.java",
+      "line": 31,
       "expr": "accountRef203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingintake/service/QuoteNormalizer.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/pricingintake/service/QuoteNormalizer.java",
+      "line": 32,
       "expr": "accountRef203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingintake/dao/TariffFacade.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/pricingintake/dao/TariffFacade.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingintake/dao/TariffFacade.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/pricingintake/dao/TariffFacade.java",
+      "line": 17,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingintake/dao/TariffFacade.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/pricingintake/dao/TariffFacade.java",
+      "line": 18,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingintake/dao/ContractFilter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/pricingintake/dao/ContractFilter.java",
+      "line": 12,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingintake/dao/VoucherEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/pricingintake/dao/VoucherEvaluator.java",
+      "line": 16,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingintake/dao/VoucherEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/pricingintake/dao/VoucherEvaluator.java",
+      "line": 20,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -183,9 +183,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'zz' + T(java.lang.Runtime) + 'zz'",
+    "payload_at_sink": "'chn-' + 'zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

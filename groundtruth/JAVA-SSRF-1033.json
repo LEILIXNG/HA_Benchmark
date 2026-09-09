@@ -4,321 +4,321 @@
   "verdict": "vulnerable",
   "title": "路径变量经 20 层调用、跨 3 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingtransfer/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingtransfer/web/ContractController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingtransfer/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingtransfer/web/ContractController.java",
+    "line": 24,
     "expr": "tag",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingtransfer/dao/ContractFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/ContractFetcher.java",
+    "line": 24,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/shippingtransfer/dao/OrderGuard.java",
-    "line": 10,
+    "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/OrderGuard.java",
+    "line": 12,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
   },
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/ContractController.java",
+      "line": 24,
       "expr": "tag",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 34,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 35,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 36,
       "expr": "tariffRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 41,
       "expr": "ledgerEntry2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 42,
       "expr": "channelTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 45,
       "expr": "channelTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 46,
       "expr": "catalogKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 47,
       "expr": "catalogKey4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 52,
       "expr": "receiptKey5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 55,
       "expr": "receiptKey5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 56,
       "expr": "accountRef6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 57,
       "expr": "voucherRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/SessionEnricher.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogCollector.java",
+      "line": 58,
       "expr": "voucherRef7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/AccountPlanSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/AccountPlanSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/AccountPlanStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/AccountPlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/CatalogBroker.java",
-      "line": 8,
-      "expr": "manifestKey101",
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogBroker.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/CatalogBroker.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/CatalogBroker.java",
+      "line": 24,
       "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 17,
-      "expr": "accountRef201",
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 24,
       "expr": "voucherRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 25,
       "expr": "voucherRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 30,
       "expr": "paymentTag203",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 33,
       "expr": "paymentTag203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 34,
       "expr": "refundCode204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 29,
-      "expr": "shipmentCode205",
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 35,
+      "expr": "refundCode204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 36,
       "expr": "shipmentCode205",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 41,
       "expr": "manifestKey206",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 44,
       "expr": "manifestKey206",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 45,
       "expr": "invoiceKey207",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 46,
       "expr": "invoiceKey207",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 45,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 51,
       "expr": "batchTag208",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 46,
-      "expr": "orderRef209",
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 53,
+      "expr": "batchTag208",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingtransfer/web/LedgerRegistry.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/shippingtransfer/web/LedgerRegistry.java",
+      "line": 55,
       "expr": "orderRef209",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingtransfer/service/ManifestResolver.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/shippingtransfer/service/ManifestResolver.java",
+      "line": 17,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingtransfer/service/ManifestResolver.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/shippingtransfer/service/ManifestResolver.java",
+      "line": 18,
       "expr": "tariffRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingtransfer/service/ManifestResolver.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/shippingtransfer/service/ManifestResolver.java",
+      "line": 19,
       "expr": "ledgerEntry302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingtransfer/service/ManifestResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/shippingtransfer/service/ManifestResolver.java",
+      "line": 20,
       "expr": "ledgerEntry302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/VoucherRouter.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/VoucherRouter.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/VoucherRouter.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/VoucherRouter.java",
+      "line": 21,
       "expr": "manifestKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/VoucherRouter.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/VoucherRouter.java",
+      "line": 22,
       "expr": "invoiceKey402",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/VoucherRouter.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/VoucherRouter.java",
+      "line": 23,
       "expr": "invoiceKey402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/VoucherRuleSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/VoucherRuleSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/VoucherRuleStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/VoucherRuleStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/AccountTranslator.java",
-      "line": 8,
-      "expr": "accountRef501",
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/AccountTranslator.java",
+      "line": 11,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/AccountTranslator.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/AccountTranslator.java",
+      "line": 12,
       "expr": "voucherRef502",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/AccountTranslator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/AccountTranslator.java",
+      "line": 13,
       "expr": "voucherRef502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/OrderGuard.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/OrderGuard.java",
+      "line": 12,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/ContractFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/ContractFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingtransfer/dao/ContractFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/shippingtransfer/dao/ContractFetcher.java",
+      "line": 24,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -376,9 +376,9 @@
     "neutralized": false,
     "call_depth_observed": 20,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,315 +4,315 @@
   "verdict": "vulnerable",
   "title": "请求头经 17 层调用、跨 3 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerapprove/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerapprove/web/OrderController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerapprove/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerapprove/web/OrderController.java",
+    "line": 23,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customerapprove/dao/OrderLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/customerapprove/dao/OrderLoader.java",
+    "line": 24,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/customerapprove/dao/CatalogPolicy.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/customerapprove/dao/CatalogPolicy.java",
+    "line": 14,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 ../（无效）"
   },
   "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerapprove/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerapprove/web/OrderController.java",
+      "line": 23,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerapprove/web/OrderBuilder.java",
-      "line": 8,
-      "expr": "quoteRef1",
+      "file": "web/src/main/java/com/northwind/customerapprove/web/OrderResolver2.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerapprove/web/OrderBuilder.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customerapprove/web/OrderResolver2.java",
+      "line": 21,
       "expr": "quoteRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherBuilder.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/RefundFacade.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherBuilder.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/RefundFacade.java",
+      "line": 24,
       "expr": "shipmentCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherBuilder.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/RefundFacade.java",
+      "line": 25,
       "expr": "shipmentCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/TariffStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/TariffStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/TariffStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/TariffStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 27,
       "expr": "receiptKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 28,
       "expr": "accountRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 29,
       "expr": "accountRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 34,
       "expr": "voucherRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 37,
       "expr": "voucherRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 38,
       "expr": "paymentTag204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 41,
       "expr": "paymentTag204",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 42,
       "expr": "refundCode205",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/SessionAssembler.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/SessionAssembler.java",
+      "line": 43,
       "expr": "refundCode205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherAdapter.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/VoucherAdapter.java",
+      "line": 26,
       "expr": "quoteRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherAdapter.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/VoucherAdapter.java",
+      "line": 27,
       "expr": "tariffRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherAdapter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/VoucherAdapter.java",
+      "line": 28,
       "expr": "tariffRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/VoucherAdapter.java",
+      "line": 33,
       "expr": "ledgerEntry303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherAdapter.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/VoucherAdapter.java",
+      "line": 36,
       "expr": "ledgerEntry303",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherAdapter.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/VoucherAdapter.java",
+      "line": 37,
       "expr": "channelTag304",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/VoucherAdapter.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/VoucherAdapter.java",
+      "line": 38,
       "expr": "channelTag304",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 17,
-      "expr": "shipmentCode401",
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 30,
       "expr": "shipmentCode401",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 31,
       "expr": "manifestKey402",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 32,
       "expr": "manifestKey402",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 37,
       "expr": "invoiceKey403",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 38,
+      "expr": "invoiceKey403",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 39,
       "expr": "batchTag404",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 29,
-      "expr": "orderRef405",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 40,
       "expr": "orderRef405",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 45,
       "expr": "quoteRef406",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 36,
-      "expr": "tariffRef407",
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 46,
+      "expr": "quoteRef406",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 47,
       "expr": "ledgerEntry408",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 48,
       "expr": "ledgerEntry408",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 53,
       "expr": "channelTag409",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 46,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 56,
       "expr": "channelTag409",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 47,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 57,
       "expr": "catalogKey410",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 48,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 58,
       "expr": "receiptKey411",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerapprove/service/BatchTranslator.java",
-      "line": 49,
+      "file": "service/src/main/java/com/northwind/customerapprove/service/BatchTranslator.java",
+      "line": 59,
       "expr": "receiptKey411",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerapprove/dao/OrderResolver.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/customerapprove/dao/OrderResolver.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerapprove/dao/OrderResolver.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerapprove/dao/OrderResolver.java",
+      "line": 21,
       "expr": "receiptKey501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerapprove/dao/OrderResolver.java",
-      "line": 14,
-      "expr": "accountRef502",
+      "file": "dao/src/main/java/com/northwind/customerapprove/dao/OrderResolver.java",
+      "line": 22,
+      "expr": "receiptKey501",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerapprove/dao/OrderResolver.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/customerapprove/dao/OrderResolver.java",
+      "line": 23,
       "expr": "accountRef502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerapprove/dao/CatalogPolicy.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/customerapprove/dao/CatalogPolicy.java",
+      "line": 14,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 ../（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerapprove/dao/OrderLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerapprove/dao/OrderLoader.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerapprove/dao/OrderLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/customerapprove/dao/OrderLoader.java",
+      "line": 24,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -371,9 +371,9 @@
     "neutralized": false,
     "call_depth_observed": 17,
     "payload_sent": "....//....//etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:../../etc/passwd;;;;;;",
+    "payload_at_sink": "/opt/customer/exchange/ref:ref:ref:ref:ref:ref:../../etc/passwd;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

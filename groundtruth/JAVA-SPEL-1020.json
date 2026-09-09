@@ -4,209 +4,209 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingreopen/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingreopen/web/AccountController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingreopen/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingreopen/web/AccountController.java",
+    "line": 28,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingreopen/dao/AccountEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "dao/src/main/java/com/northwind/pricingreopen/dao/AccountEvaluator.java",
+    "line": 27,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/AccountController.java",
+      "line": 28,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/PaymentRegistry.java",
-      "line": 10,
-      "expr": "manifestKey1",
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/PaymentRegistry.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/PaymentRegistry.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/PaymentRegistry.java",
+      "line": 28,
       "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/PaymentRegistry.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/PaymentRegistry.java",
+      "line": 29,
       "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/PaymentRegistry.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/PaymentRegistry.java",
+      "line": 30,
       "expr": "invoiceKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 28,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 29,
       "expr": "accountRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 34,
       "expr": "voucherRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 37,
       "expr": "voucherRef102",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 38,
       "expr": "paymentTag103",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 41,
       "expr": "paymentTag103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 42,
       "expr": "refundCode104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingreopen/web/LedgerEnricher.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/pricingreopen/web/LedgerEnricher.java",
+      "line": 43,
       "expr": "refundCode104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 25,
       "expr": "tariffRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 26,
       "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 31,
       "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 32,
       "expr": "channelTag203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 22,
-      "expr": "catalogKey204",
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 33,
+      "expr": "channelTag203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 34,
       "expr": "catalogKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 39,
       "expr": "receiptKey205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 40,
       "expr": "accountRef206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingreopen/service/SessionNormalizer.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/pricingreopen/service/SessionNormalizer.java",
+      "line": 41,
       "expr": "accountRef206",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/ReceiptAssembler.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/SessionTranslator.java",
+      "line": 19,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/ReceiptAssembler.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/SessionTranslator.java",
+      "line": 20,
       "expr": "manifestKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/ChannelStrategySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/ChannelStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/ChannelStrategyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/ChannelStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/RefundRegistry.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/RefundRegistry.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/RefundRegistry.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/RefundRegistry.java",
+      "line": 24,
       "expr": "accountRef401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/RefundRegistry.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/RefundRegistry.java",
+      "line": 25,
       "expr": "accountRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/AccountEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/AccountEvaluator.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingreopen/dao/AccountEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "dao/src/main/java/com/northwind/pricingreopen/dao/AccountEvaluator.java",
+      "line": 27,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -253,9 +253,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "payload_at_sink": "'tag-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

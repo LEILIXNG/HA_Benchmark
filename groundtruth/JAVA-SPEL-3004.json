@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 12 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountadjust/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountadjust/web/QuoteController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountadjust/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountadjust/web/QuoteController.java",
+    "line": 28,
     "expr": "token",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountadjust/dao/QuoteEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/accountadjust/dao/QuoteEvaluator.java",
+    "line": 21,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,182 +24,182 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/QuoteController.java",
+      "line": 28,
       "expr": "token",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 17,
-      "expr": "manifestKey1",
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 27,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 28,
       "expr": "manifestKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 33,
       "expr": "invoiceKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 24,
-      "expr": "batchTag3",
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 34,
+      "expr": "invoiceKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 35,
       "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 36,
       "expr": "orderRef4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 41,
       "expr": "quoteRef5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 42,
       "expr": "tariffRef6",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 33,
-      "expr": "ledgerEntry7",
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 44,
+      "expr": "tariffRef6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 46,
       "expr": "ledgerEntry7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 51,
       "expr": "channelTag8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 54,
       "expr": "channelTag8",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 55,
       "expr": "catalogKey9",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 44,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 56,
       "expr": "receiptKey10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractResolver.java",
-      "line": 45,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/LedgerTranslator.java",
+      "line": 57,
       "expr": "receiptKey10",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/ContractStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ContractStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/ContractStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ShipmentBroker.java",
-      "line": 10,
-      "expr": "accountRef101",
+      "file": "web/src/main/java/com/northwind/accountadjust/web/ShipmentBroker.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ShipmentBroker.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/ShipmentBroker.java",
+      "line": 29,
       "expr": "accountRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ShipmentBroker.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/ShipmentBroker.java",
+      "line": 30,
       "expr": "voucherRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountadjust/web/ShipmentBroker.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/accountadjust/web/ShipmentBroker.java",
+      "line": 31,
       "expr": "voucherRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountadjust/service/PaymentRegistry.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/accountadjust/service/PaymentRegistry.java",
+      "line": 20,
       "expr": "tariffRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountadjust/service/PaymentRegistry.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/accountadjust/service/PaymentRegistry.java",
+      "line": 21,
       "expr": "tariffRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountadjust/dao/ShipmentEnricher.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/accountadjust/dao/ShipmentEnricher.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountadjust/dao/ShipmentEnricher.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accountadjust/dao/ShipmentEnricher.java",
+      "line": 24,
       "expr": "manifestKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountadjust/dao/ShipmentEnricher.java",
-      "line": 14,
-      "expr": "invoiceKey302",
+      "file": "dao/src/main/java/com/northwind/accountadjust/dao/ShipmentEnricher.java",
+      "line": 25,
+      "expr": "manifestKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountadjust/dao/ShipmentEnricher.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/accountadjust/dao/ShipmentEnricher.java",
+      "line": 26,
       "expr": "invoiceKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountadjust/dao/QuoteEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/accountadjust/dao/QuoteEvaluator.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountadjust/dao/QuoteEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/accountadjust/dao/QuoteEvaluator.java",
+      "line": 21,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -247,9 +247,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
+    "payload_at_sink": "'chn-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

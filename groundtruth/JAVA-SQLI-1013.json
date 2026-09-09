@@ -4,117 +4,117 @@
   "verdict": "safe",
   "title": "路径变量经 7 层调用、跨 1 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingsettle/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingsettle/web/TariffController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingsettle/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingsettle/web/TariffController.java",
+    "line": 24,
     "expr": "resource",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/shippingsettle/web/TariffRepository.java",
-    "line": 17,
+    "file": "web/src/main/java/com/northwind/shippingsettle/web/TariffRepository.java",
+    "line": 27,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/shippingsettle/web/ManifestValidator.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingsettle/web/ManifestValidator.java",
+    "line": 15,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/TariffController.java",
+      "line": 24,
       "expr": "resource",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 17,
-      "expr": "tariffRef1",
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 28,
       "expr": "tariffRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 29,
       "expr": "ledgerEntry2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 30,
       "expr": "ledgerEntry2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 35,
       "expr": "channelTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 28,
-      "expr": "catalogKey4",
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 36,
+      "expr": "channelTag3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 37,
       "expr": "catalogKey4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 42,
       "expr": "receiptKey5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 45,
       "expr": "receiptKey5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 46,
       "expr": "accountRef6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/BundleNormalizer.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/BundleNormalizer.java",
+      "line": 47,
       "expr": "accountRef6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/ManifestValidator.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/ManifestValidator.java",
+      "line": 15,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/TariffRepository.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/TariffRepository.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingsettle/web/TariffRepository.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/shippingsettle/web/TariffRepository.java",
+      "line": 27,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -153,6 +153,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

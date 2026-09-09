@@ -4,147 +4,147 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1017 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilsettle/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilsettle/web/OrderController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilsettle/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilsettle/web/OrderController.java",
+    "line": 27,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilsettle/dao/OrderFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/OrderFetcher.java",
+    "line": 25,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/fulfilsettle/dao/InvoiceScreen.java",
-    "line": 11,
+    "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/InvoiceScreen.java",
+    "line": 19,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/OrderController.java",
+      "line": 27,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/CatalogFacade.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/SessionCollector.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/CatalogFacade.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/SessionCollector.java",
+      "line": 24,
       "expr": "invoiceKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/CatalogFacade.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/SessionCollector.java",
+      "line": 25,
       "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/CatalogFacade.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/SessionCollector.java",
+      "line": 26,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/AccountPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/AccountPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/AccountPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/AccountPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/ManifestComposer.java",
-      "line": 10,
-      "expr": "voucherRef101",
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/ManifestComposer.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/ManifestComposer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/ManifestComposer.java",
+      "line": 29,
       "expr": "voucherRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/ManifestComposer.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/ManifestComposer.java",
+      "line": 30,
       "expr": "paymentTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettle/web/ManifestComposer.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/fulfilsettle/web/ManifestComposer.java",
+      "line": 31,
       "expr": "paymentTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsettle/service/VoucherCollector.java",
-      "line": 8,
-      "expr": "ledgerEntry201",
+      "file": "service/src/main/java/com/northwind/fulfilsettle/service/VoucherCollector.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsettle/service/VoucherCollector.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/fulfilsettle/service/VoucherCollector.java",
+      "line": 21,
       "expr": "ledgerEntry201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettle/dao/RefundCoordinator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/RefundCoordinator.java",
+      "line": 21,
       "expr": "invoiceKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettle/dao/RefundCoordinator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/RefundCoordinator.java",
+      "line": 24,
       "expr": "invoiceKey301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettle/dao/RefundCoordinator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/RefundCoordinator.java",
+      "line": 25,
       "expr": "batchTag302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettle/dao/RefundCoordinator.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/RefundCoordinator.java",
+      "line": 26,
       "expr": "batchTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettle/dao/InvoiceScreen.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/InvoiceScreen.java",
+      "line": 19,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettle/dao/OrderFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/OrderFetcher.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettle/dao/OrderFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/fulfilsettle/dao/OrderFetcher.java",
+      "line": 25,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -187,6 +187,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

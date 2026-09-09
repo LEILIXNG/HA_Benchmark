@@ -4,129 +4,129 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 3 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfiladjust/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfiladjust/web/OrderController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfiladjust/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfiladjust/web/OrderController.java",
+    "line": 28,
     "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfiladjust/dao/OrderLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/OrderLoader.java",
+    "line": 24,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogScreen.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/CatalogScreen.java",
+    "line": 23,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 ../（无效）"
   },
   "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfiladjust/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfiladjust/web/OrderController.java",
+      "line": 28,
       "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfiladjust/web/ContractCoordinator.java",
-      "line": 8,
-      "expr": "shipmentCode1",
+      "file": "web/src/main/java/com/northwind/fulfiladjust/web/ContractCoordinator.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfiladjust/web/ContractCoordinator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/fulfiladjust/web/ContractCoordinator.java",
+      "line": 27,
       "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/ReceiptCollector.java",
-      "line": 8,
-      "expr": "receiptKey101",
+      "file": "service/src/main/java/com/northwind/fulfiladjust/service/OrderTranslator.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/ReceiptCollector.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/fulfiladjust/service/OrderTranslator.java",
+      "line": 26,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/RefundPolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/fulfiladjust/service/RefundPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/RefundPolicyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/fulfiladjust/service/RefundPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderResolver.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/fulfiladjust/service/OrderResolver.java",
+      "line": 24,
       "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfiladjust/service/OrderResolver.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/fulfiladjust/service/OrderResolver.java",
+      "line": 25,
       "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/AccountComposer.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/AccountComposer.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/AccountComposer.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/AccountComposer.java",
+      "line": 30,
       "expr": "shipmentCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/AccountComposer.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/AccountComposer.java",
+      "line": 33,
       "expr": "shipmentCode301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/AccountComposer.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/AccountComposer.java",
+      "line": 34,
       "expr": "manifestKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/AccountComposer.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/AccountComposer.java",
+      "line": 35,
       "expr": "manifestKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/CatalogScreen.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/CatalogScreen.java",
+      "line": 23,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 ../（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/OrderLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/OrderLoader.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfiladjust/dao/OrderLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/fulfiladjust/dao/OrderLoader.java",
+      "line": 24,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -164,9 +164,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "....//....//etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../etc/passwd;;",
+    "payload_at_sink": "/opt/fulfil/exchange/ref:ref:../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

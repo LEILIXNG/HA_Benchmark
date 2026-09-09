@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "路径变量经 9 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryposting/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryposting/web/ContractController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryposting/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryposting/web/ContractController.java",
+    "line": 25,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/inventoryposting/dao/ContractMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/inventoryposting/dao/ContractMapper.xml",
     "line": 9,
     "expr": "ledgerEntry",
     "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
   },
   "sanitizer": {
-    "file": "dao/src/main/resources/com/habench/inventoryposting/dao/ContractMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/inventoryposting/dao/ContractMapper.xml",
     "line": 9,
     "expr": "ledgerEntry",
     "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
@@ -29,97 +29,97 @@
   "sanitizer_kind": "mybatis_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/ContractController.java",
+      "line": 25,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/CatalogCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/OrderResolver.java",
+      "line": 21,
       "expr": "manifestKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/CatalogCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/OrderResolver.java",
+      "line": 24,
       "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/CatalogCollector.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/OrderResolver.java",
+      "line": 25,
       "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/CatalogCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/OrderResolver.java",
+      "line": 26,
       "expr": "invoiceKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/ManifestStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/ManifestStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/ManifestStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/ManifestStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/ChannelResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/ChannelResolver.java",
+      "line": 19,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryposting/web/ChannelResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/inventoryposting/web/ChannelResolver.java",
+      "line": 20,
       "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryposting/service/RefundRouter.java",
-      "line": 8,
-      "expr": "tariffRef201",
+      "file": "service/src/main/java/com/northwind/inventoryposting/service/RefundRouter.java",
+      "line": 13,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryposting/service/RefundRouter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/inventoryposting/service/RefundRouter.java",
+      "line": 14,
       "expr": "tariffRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryposting/dao/ChannelFacade.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/inventoryposting/dao/ChannelFacade.java",
+      "line": 11,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryposting/dao/ChannelFacade.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/inventoryposting/dao/ChannelFacade.java",
+      "line": 12,
       "expr": "manifestKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryposting/dao/ContractGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/inventoryposting/dao/ContractGateway.java",
+      "line": 15,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryposting/dao/ContractGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/inventoryposting/dao/ContractGateway.java",
+      "line": 22,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/inventoryposting/dao/ContractMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/inventoryposting/dao/ContractMapper.xml",
       "line": 9,
       "expr": "ledgerEntry",
       "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
@@ -158,9 +158,9 @@
     "neutralized": true,
     "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "payload_at_sink": "SELECT id, ref_no, total       FROM shipments      WHERE ref_no = ?      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

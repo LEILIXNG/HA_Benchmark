@@ -4,165 +4,165 @@
   "verdict": "vulnerable",
   "title": "查询参数经 10 层调用、跨 1 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorquote/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorquote/web/QuoteController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorquote/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorquote/web/QuoteController.java",
+    "line": 27,
     "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/vendorquote/web/QuoteFetcher.java",
-    "line": 14,
+    "file": "web/src/main/java/com/northwind/vendorquote/web/QuoteFetcher.java",
+    "line": 21,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/vendorquote/web/BatchValidator.java",
-    "line": 10,
+    "file": "web/src/main/java/com/northwind/vendorquote/web/BatchValidator.java",
+    "line": 20,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
   },
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/QuoteController.java",
+      "line": 27,
       "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 33,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 34,
       "expr": "refundCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 35,
       "expr": "refundCode1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 40,
       "expr": "shipmentCode2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 27,
-      "expr": "manifestKey3",
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 41,
+      "expr": "shipmentCode2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 42,
       "expr": "manifestKey3",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 33,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 47,
       "expr": "invoiceKey4",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 48,
       "expr": "batchTag5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 49,
       "expr": "batchTag5",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 54,
       "expr": "orderRef6",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 55,
       "expr": "quoteRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 56,
       "expr": "quoteRef7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 61,
       "expr": "tariffRef8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 48,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 62,
       "expr": "ledgerEntry9",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 49,
-      "expr": "channelTag10",
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 63,
+      "expr": "ledgerEntry9",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 50,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 64,
       "expr": "channelTag10",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 55,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 69,
       "expr": "catalogKey11",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 56,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 70,
       "expr": "receiptKey12",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/VoucherBuilder.java",
-      "line": 57,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/VoucherBuilder.java",
+      "line": 71,
       "expr": "receiptKey12",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/BatchValidator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/BatchValidator.java",
+      "line": 20,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/QuoteFetcher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/QuoteFetcher.java",
+      "line": 17,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorquote/web/QuoteFetcher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendorquote/web/QuoteFetcher.java",
+      "line": 21,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -204,9 +204,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
+    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

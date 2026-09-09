@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 12 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilsplit/web/BatchController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilsplit/web/BatchController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilsplit/web/BatchController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilsplit/web/BatchController.java",
+    "line": 25,
     "expr": "token",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchFetcher.java",
+    "line": 24,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
@@ -24,194 +24,194 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/BatchController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/BatchController.java",
+      "line": 25,
       "expr": "token",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 29,
       "expr": "tariffRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 32,
       "expr": "tariffRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 33,
       "expr": "ledgerEntry2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 34,
       "expr": "ledgerEntry2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 39,
       "expr": "channelTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 22,
-      "expr": "catalogKey4",
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 41,
+      "expr": "channelTag3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 45,
       "expr": "catalogKey4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 46,
       "expr": "receiptKey5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsplit/web/OrderBroker.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/fulfilsplit/web/OrderBroker.java",
+      "line": 47,
       "expr": "receiptKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsplit/service/ContractComposer.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/fulfilsplit/service/ContractComposer.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsplit/service/ContractComposer.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/fulfilsplit/service/ContractComposer.java",
+      "line": 29,
       "expr": "manifestKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsplit/service/ContractComposer.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/fulfilsplit/service/ContractComposer.java",
+      "line": 30,
       "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 16,
-      "expr": "accountRef201",
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 27,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 31,
       "expr": "accountRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 32,
       "expr": "voucherRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 33,
       "expr": "voucherRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 38,
       "expr": "paymentTag203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 27,
-      "expr": "refundCode204",
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 39,
+      "expr": "paymentTag203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 40,
       "expr": "shipmentCode205",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/ManifestFacade.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ManifestFacade.java",
+      "line": 41,
       "expr": "shipmentCode205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/TariffFacade.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ReceiptBuilder.java",
+      "line": 23,
       "expr": "tariffRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/TariffFacade.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/ReceiptBuilder.java",
+      "line": 24,
       "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/AccountRuleSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/AccountRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/AccountRuleStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/AccountRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchCoordinator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchCoordinator.java",
+      "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchCoordinator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchCoordinator.java",
+      "line": 23,
       "expr": "manifestKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchCoordinator.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchCoordinator.java",
+      "line": 26,
       "expr": "manifestKey401",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchCoordinator.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchCoordinator.java",
+      "line": 27,
       "expr": "invoiceKey402",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchCoordinator.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchCoordinator.java",
+      "line": 28,
       "expr": "invoiceKey402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsplit/dao/BatchFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/fulfilsplit/dao/BatchFetcher.java",
+      "line": 24,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -262,6 +262,6 @@
     "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

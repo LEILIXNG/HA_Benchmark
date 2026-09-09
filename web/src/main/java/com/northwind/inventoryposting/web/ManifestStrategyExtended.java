@@ -1,0 +1,18 @@
+package com.northwind.inventoryposting.web;
+
+import org.springframework.stereotype.Component;
+
+/**
+ * 库存的备用处理策略，当前渠道未启用。
+ */
+@Component("inventorypostingManifestStrategyExtended")
+public class ManifestStrategyExtended implements ManifestStrategy {
+
+    @Override
+    public void handle(String value) {
+        String normalized = value.trim();
+        if (normalized.isEmpty()) {
+            throw new IllegalArgumentException("empty value");
+        }
+    }
+}

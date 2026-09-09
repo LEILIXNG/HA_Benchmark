@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerbatch/web/BatchController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerbatch/web/BatchController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerbatch/web/BatchController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerbatch/web/BatchController.java",
+    "line": 22,
     "expr": "target",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/customerbatch/service/BatchLoader.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/customerbatch/service/BatchLoader.java",
+    "line": 27,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,134 +24,134 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/BatchController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/BatchController.java",
+      "line": 22,
       "expr": "target",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 16,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 17,
       "expr": "channelTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 12,
-      "expr": "catalogKey2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 18,
       "expr": "catalogKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 23,
       "expr": "receiptKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 24,
       "expr": "accountRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 27,
       "expr": "accountRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 28,
       "expr": "voucherRef5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerbatch/web/RefundService.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/customerbatch/web/RefundService.java",
+      "line": 29,
       "expr": "voucherRef5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/LedgerAdapter.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/LedgerAdapter.java",
+      "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/LedgerAdapter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/LedgerAdapter.java",
+      "line": 19,
       "expr": "batchTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/LedgerAdapter.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/LedgerAdapter.java",
+      "line": 22,
       "expr": "batchTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/LedgerAdapter.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/LedgerAdapter.java",
+      "line": 23,
       "expr": "orderRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/LedgerAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/LedgerAdapter.java",
+      "line": 24,
       "expr": "orderRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/ShipmentBuilder.java",
+      "line": 22,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
-      "line": 15,
-      "expr": "refundCode202",
+      "file": "service/src/main/java/com/northwind/customerbatch/service/ShipmentBuilder.java",
+      "line": 23,
+      "expr": "paymentTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/ShipmentBuilder.java",
+      "line": 24,
       "expr": "refundCode202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/ShipmentBuilder.java",
+      "line": 29,
       "expr": "shipmentCode203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
-      "line": 22,
-      "expr": "manifestKey204",
+      "file": "service/src/main/java/com/northwind/customerbatch/service/ShipmentBuilder.java",
+      "line": 31,
+      "expr": "shipmentCode203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/ShipmentBuilder.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/ShipmentBuilder.java",
+      "line": 33,
       "expr": "manifestKey204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/BatchLoader.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/BatchLoader.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/customerbatch/service/BatchLoader.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/customerbatch/service/BatchLoader.java",
+      "line": 27,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -194,9 +194,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:../../../etc/passwd;;;;",
+    "payload_at_sink": "/data/customer/archive/ref:ref:ref:ref:../../../etc/passwd;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

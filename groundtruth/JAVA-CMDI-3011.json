@@ -4,315 +4,315 @@
   "verdict": "safe",
   "title": "Spring 请求头经 18 层调用、跨 3 个模块流入命令执行，经 command_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportadjust/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportadjust/web/ContractController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportadjust/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportadjust/web/ContractController.java",
+    "line": 26,
     "expr": "keyword",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reportadjust/dao/ContractExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/reportadjust/dao/ContractExecutor.java",
+    "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/reportadjust/dao/OrderScreen.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/reportadjust/dao/OrderScreen.java",
+    "line": 17,
     "expr": "value",
     "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
   },
   "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/ContractController.java",
+      "line": 26,
       "expr": "keyword",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/TariffTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/InvoiceBuilder.java",
+      "line": 23,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/TariffTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/InvoiceBuilder.java",
+      "line": 24,
       "expr": "quoteRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/TariffTranslator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/InvoiceBuilder.java",
+      "line": 25,
       "expr": "quoteRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/ManifestPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/ManifestPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/ManifestPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/ManifestPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 16,
-      "expr": "refundCode101",
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 22,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 24,
       "expr": "refundCode101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 29,
       "expr": "shipmentCode102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 31,
+      "expr": "shipmentCode102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 33,
       "expr": "manifestKey103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 24,
-      "expr": "invoiceKey104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 34,
       "expr": "invoiceKey104",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 39,
       "expr": "batchTag105",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 31,
-      "expr": "orderRef106",
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 40,
+      "expr": "batchTag105",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 43,
       "expr": "orderRef106",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 44,
       "expr": "quoteRef107",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 45,
       "expr": "quoteRef107",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 50,
       "expr": "tariffRef108",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 51,
       "expr": "ledgerEntry109",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 43,
-      "expr": "channelTag110",
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 52,
+      "expr": "ledgerEntry109",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/OrderNormalizer.java",
-      "line": 44,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/OrderNormalizer.java",
+      "line": 53,
       "expr": "channelTag110",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/SessionEnricher.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/SessionEnricher.java",
+      "line": 17,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/SessionEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/SessionEnricher.java",
+      "line": 18,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportadjust/web/SessionEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportadjust/web/SessionEnricher.java",
+      "line": 19,
       "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/LedgerCollector.java",
-      "line": 11,
-      "expr": "orderRef301",
+      "file": "service/src/main/java/com/northwind/reportadjust/service/LedgerCollector.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/LedgerCollector.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/LedgerCollector.java",
+      "line": 20,
       "expr": "orderRef301",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/LedgerCollector.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/LedgerCollector.java",
+      "line": 25,
       "expr": "quoteRef302",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/LedgerCollector.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/LedgerCollector.java",
+      "line": 28,
       "expr": "quoteRef302",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/LedgerCollector.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/LedgerCollector.java",
+      "line": 29,
       "expr": "tariffRef303",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/LedgerCollector.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/LedgerCollector.java",
+      "line": 30,
       "expr": "ledgerEntry304",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/LedgerCollector.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/LedgerCollector.java",
+      "line": 31,
       "expr": "ledgerEntry304",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 16,
-      "expr": "refundCode401",
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 27,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 28,
       "expr": "shipmentCode402",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 29,
       "expr": "shipmentCode402",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 34,
       "expr": "manifestKey403",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 37,
       "expr": "manifestKey403",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 38,
       "expr": "invoiceKey404",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 41,
       "expr": "invoiceKey404",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 42,
       "expr": "batchTag405",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportadjust/service/ChannelBroker.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/reportadjust/service/ChannelBroker.java",
+      "line": 43,
       "expr": "batchTag405",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/VoucherAssembler.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/VoucherAssembler.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/VoucherAssembler.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/VoucherAssembler.java",
+      "line": 17,
       "expr": "catalogKey501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/VoucherAssembler.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/VoucherAssembler.java",
+      "line": 20,
       "expr": "catalogKey501",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/VoucherAssembler.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/VoucherAssembler.java",
+      "line": 21,
       "expr": "receiptKey502",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/VoucherAssembler.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/VoucherAssembler.java",
+      "line": 22,
       "expr": "receiptKey502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/OrderScreen.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/OrderScreen.java",
+      "line": 17,
       "expr": "value",
       "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/ContractExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/ContractExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportadjust/dao/ContractExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportadjust/dao/ContractExecutor.java",
+      "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -374,6 +374,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

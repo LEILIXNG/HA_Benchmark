@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/customersettle/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customersettle/web/QuoteController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customersettle/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customersettle/web/QuoteController.java",
+    "line": 23,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customersettle/dao/QuoteLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/customersettle/dao/QuoteLoader.java",
+    "line": 29,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,116 +24,116 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customersettle/web/QuoteController.java",
+      "line": 23,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 25,
       "expr": "batchTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 26,
       "expr": "orderRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 27,
       "expr": "orderRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 32,
       "expr": "quoteRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 35,
       "expr": "quoteRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 36,
       "expr": "tariffRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 39,
       "expr": "tariffRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 40,
       "expr": "ledgerEntry5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersettle/web/RefundTranslator.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
+      "line": 41,
       "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
+      "line": 22,
       "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
+      "line": 25,
       "expr": "paymentTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
+      "line": 26,
       "expr": "refundCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customersettle/service/PaymentService.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
+      "line": 27,
       "expr": "refundCode102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersettle/dao/TariffEnricher.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/customersettle/dao/TariffEnricher.java",
+      "line": 14,
       "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersettle/dao/TariffEnricher.java",
-      "line": 9,
-      "expr": "catalogKey202",
+      "file": "dao/src/main/java/com/northwind/customersettle/dao/TariffEnricher.java",
+      "line": 15,
+      "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersettle/dao/TariffEnricher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/customersettle/dao/TariffEnricher.java",
+      "line": 16,
       "expr": "catalogKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersettle/dao/QuoteLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customersettle/dao/QuoteLoader.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/customersettle/dao/QuoteLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/customersettle/dao/QuoteLoader.java",
+      "line": 29,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -174,9 +174,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
+    "payload_at_sink": "/var/lib/customer/data/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,213 +4,213 @@
   "verdict": "vulnerable",
   "title": "Cookie经 15 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentdispatch/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentdispatch/web/TariffController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentdispatch/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentdispatch/web/TariffController.java",
+    "line": 24,
     "expr": "orderNo",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/paymentdispatch/dao/TariffEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/paymentdispatch/dao/TariffEvaluator.java",
+    "line": 26,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/paymentdispatch/dao/TariffPolicy.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/paymentdispatch/dao/TariffPolicy.java",
+    "line": 24,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
   },
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentdispatch/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentdispatch/web/TariffController.java",
+      "line": 24,
       "expr": "orderNo",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentdispatch/web/VoucherTranslator.java",
-      "line": 14,
-      "expr": "voucherRef1",
+      "file": "web/src/main/java/com/northwind/paymentdispatch/web/VoucherTranslator.java",
+      "line": 30,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentdispatch/web/VoucherTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/paymentdispatch/web/VoucherTranslator.java",
+      "line": 32,
       "expr": "voucherRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentdispatch/web/VoucherTranslator.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/paymentdispatch/web/VoucherTranslator.java",
+      "line": 37,
       "expr": "paymentTag2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentdispatch/web/VoucherTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/paymentdispatch/web/VoucherTranslator.java",
+      "line": 38,
       "expr": "refundCode3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentdispatch/web/VoucherTranslator.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/paymentdispatch/web/VoucherTranslator.java",
+      "line": 39,
       "expr": "refundCode3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/ReceiptCollector.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/OrderTranslator.java",
+      "line": 24,
       "expr": "ledgerEntry101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/ReceiptCollector.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/OrderTranslator.java",
+      "line": 25,
       "expr": "channelTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/ReceiptCollector.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/OrderTranslator.java",
+      "line": 26,
       "expr": "channelTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/ReceiptCollector.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/OrderTranslator.java",
+      "line": 31,
       "expr": "catalogKey103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/ReceiptCollector.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/OrderTranslator.java",
+      "line": 32,
       "expr": "receiptKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/ReceiptCollector.java",
-      "line": 18,
-      "expr": "accountRef105",
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/OrderTranslator.java",
+      "line": 33,
+      "expr": "receiptKey104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/ReceiptCollector.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/OrderTranslator.java",
+      "line": 34,
       "expr": "accountRef105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 30,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 31,
       "expr": "invoiceKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 17,
-      "expr": "batchTag202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 32,
       "expr": "batchTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 37,
       "expr": "orderRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 40,
       "expr": "orderRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 41,
       "expr": "quoteRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 28,
-      "expr": "tariffRef205",
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 43,
+      "expr": "quoteRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/TariffEnricher.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/QuoteNormalizer.java",
+      "line": 45,
       "expr": "tariffRef205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/LedgerPlanSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/LedgerPlanSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/LedgerPlanStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/LedgerPlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/PaymentFacade.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/PaymentFacade.java",
+      "line": 20,
       "expr": "voucherRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/PaymentFacade.java",
-      "line": 9,
-      "expr": "paymentTag302",
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/PaymentFacade.java",
+      "line": 22,
+      "expr": "voucherRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentdispatch/service/PaymentFacade.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/paymentdispatch/service/PaymentFacade.java",
+      "line": 24,
       "expr": "paymentTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentdispatch/dao/BundleAdapter.java",
-      "line": 8,
-      "expr": "ledgerEntry401",
+      "file": "dao/src/main/java/com/northwind/paymentdispatch/dao/BundleAdapter.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentdispatch/dao/BundleAdapter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/paymentdispatch/dao/BundleAdapter.java",
+      "line": 24,
       "expr": "ledgerEntry401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentdispatch/dao/TariffPolicy.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/paymentdispatch/dao/TariffPolicy.java",
+      "line": 24,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentdispatch/dao/TariffEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/paymentdispatch/dao/TariffEvaluator.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentdispatch/dao/TariffEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/paymentdispatch/dao/TariffEvaluator.java",
+      "line": 26,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -263,6 +263,6 @@
     "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:zz'+T(java.lang.Runtime)+'zz;;;;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

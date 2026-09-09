@@ -4,173 +4,173 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 12 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingposting/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingposting/web/AccountController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingposting/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingposting/web/AccountController.java",
+    "line": 26,
     "expr": "userName",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingposting/dao/AccountFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "dao/src/main/java/com/northwind/shippingposting/dao/AccountFetcher.java",
+    "line": 23,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingposting/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingposting/web/AccountController.java",
+      "line": 26,
       "expr": "userName",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingposting/web/CatalogFacade.java",
-      "line": 8,
-      "expr": "quoteRef1",
+      "file": "web/src/main/java/com/northwind/shippingposting/web/ManifestResolver.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingposting/web/CatalogFacade.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingposting/web/ManifestResolver.java",
+      "line": 25,
       "expr": "tariffRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingposting/web/CatalogFacade.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/shippingposting/web/ManifestResolver.java",
+      "line": 26,
       "expr": "tariffRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/ShipmentTranslator.java",
-      "line": 10,
-      "expr": "shipmentCode101",
+      "file": "service/src/main/java/com/northwind/shippingposting/service/ReceiptAssembler.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/ShipmentTranslator.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/shippingposting/service/ReceiptAssembler.java",
+      "line": 24,
       "expr": "shipmentCode101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/ShipmentTranslator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/shippingposting/service/ReceiptAssembler.java",
+      "line": 25,
       "expr": "manifestKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/ShipmentTranslator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/shippingposting/service/ReceiptAssembler.java",
+      "line": 26,
       "expr": "manifestKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/InvoicePolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/shippingposting/service/InvoicePolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/InvoicePolicyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/shippingposting/service/InvoicePolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/SessionFacade.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/shippingposting/service/SessionFacade.java",
+      "line": 20,
       "expr": "receiptKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingposting/service/SessionFacade.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/shippingposting/service/SessionFacade.java",
+      "line": 21,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/BundleCoordinator.java",
-      "line": 8,
-      "expr": "quoteRef301",
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/BundleCoordinator.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/BundleCoordinator.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/BundleCoordinator.java",
+      "line": 24,
       "expr": "tariffRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/BundleCoordinator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/BundleCoordinator.java",
+      "line": 25,
       "expr": "tariffRef302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 28,
       "expr": "shipmentCode401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 29,
       "expr": "shipmentCode401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 34,
       "expr": "manifestKey402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 35,
       "expr": "invoiceKey403",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 36,
       "expr": "invoiceKey403",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 41,
       "expr": "batchTag404",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 28,
-      "expr": "orderRef405",
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 42,
+      "expr": "batchTag404",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/ReceiptBuilder.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/ReceiptBuilder.java",
+      "line": 43,
       "expr": "orderRef405",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/AccountFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/AccountFetcher.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingposting/dao/AccountFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "dao/src/main/java/com/northwind/shippingposting/dao/AccountFetcher.java",
+      "line": 23,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -218,6 +218,6 @@
     "payload_at_sink": "http://ref:ref:ref:ref:127.0.0.1:1;;;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

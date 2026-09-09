@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingimport/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingimport/web/OrderController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingimport/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingimport/web/OrderController.java",
+    "line": 28,
     "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/billingimport/service/OrderFetcher.java",
-    "line": 14,
+    "file": "service/src/main/java/com/northwind/billingimport/service/OrderFetcher.java",
+    "line": 19,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
@@ -24,116 +24,116 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingimport/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingimport/web/OrderController.java",
+      "line": 28,
       "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/billingimport/web/VoucherAssembler.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingimport/web/VoucherAssembler.java",
+      "line": 24,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
-      "line": 14,
-      "expr": "ledgerEntry2",
+      "file": "web/src/main/java/com/northwind/billingimport/web/VoucherAssembler.java",
+      "line": 26,
+      "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingimport/web/VoucherAssembler.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/billingimport/web/VoucherAssembler.java",
+      "line": 28,
       "expr": "ledgerEntry2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 26,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 27,
       "expr": "invoiceKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 28,
       "expr": "invoiceKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 33,
       "expr": "batchTag103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 24,
-      "expr": "orderRef104",
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 34,
+      "expr": "batchTag103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 35,
       "expr": "orderRef104",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 40,
       "expr": "quoteRef105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 43,
       "expr": "quoteRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 44,
       "expr": "tariffRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 47,
       "expr": "tariffRef106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 48,
       "expr": "ledgerEntry107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/InvoiceService.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/billingimport/service/InvoiceService.java",
+      "line": 49,
       "expr": "ledgerEntry107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/OrderFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/billingimport/service/OrderFetcher.java",
+      "line": 15,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/billingimport/service/OrderFetcher.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/billingimport/service/OrderFetcher.java",
+      "line": 19,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -173,9 +173,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/status",
+    "payload_at_sink": "http://ref:ref:127.0.0.1:1;;/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

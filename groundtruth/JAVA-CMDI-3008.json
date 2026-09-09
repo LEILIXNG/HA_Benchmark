@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Cookie经 7 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerdigest/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerdigest/web/PaymentController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerdigest/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerdigest/web/PaymentController.java",
+    "line": 24,
     "expr": "query",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/customerdigest/web/PaymentExecutor.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerdigest/web/PaymentExecutor.java",
+    "line": 19,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,80 +24,80 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/PaymentController.java",
+      "line": 24,
       "expr": "query",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/BatchResolver.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/BatchResolver.java",
+      "line": 25,
       "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/BatchResolver.java",
+      "line": 26,
       "expr": "ledgerEntry1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/BatchResolver.java",
+      "line": 31,
       "expr": "channelTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/BatchResolver.java",
+      "line": 32,
       "expr": "catalogKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogCollector.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/BatchResolver.java",
+      "line": 33,
       "expr": "catalogKey3",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/CatalogPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/CatalogPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/CatalogPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/SessionBroker.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/SessionBroker.java",
+      "line": 14,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/SessionBroker.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/SessionBroker.java",
+      "line": 15,
       "expr": "invoiceKey101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/PaymentExecutor.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/PaymentExecutor.java",
+      "line": 15,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdigest/web/PaymentExecutor.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerdigest/web/PaymentExecutor.java",
+      "line": 19,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -132,9 +132,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo zz$(id)",
+    "payload_at_sink": "echo -n zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

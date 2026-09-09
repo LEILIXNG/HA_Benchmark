@@ -4,223 +4,223 @@
   "verdict": "safe",
   "title": "Spring 请求头经 15 层调用、跨 3 个模块流入JDBC 拼接，经 sql_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingsplit/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingsplit/web/ChannelController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingsplit/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingsplit/web/ChannelController.java",
+    "line": 26,
     "expr": "userName",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingsplit/dao/ChannelRepository.java",
-    "line": 18,
+    "file": "dao/src/main/java/com/northwind/billingsplit/dao/ChannelRepository.java",
+    "line": 30,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/billingsplit/dao/ChannelRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/billingsplit/dao/ChannelRepository.java",
+    "line": 29,
     "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ChannelController.java",
+      "line": 26,
       "expr": "userName",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/BatchBuilder.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/BatchBuilder.java",
+      "line": 19,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/billingsplit/web/BatchBuilder.java",
+      "line": 20,
       "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/BatchBuilder.java",
-      "line": 9,
-      "expr": "manifestKey2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingsplit/web/BatchBuilder.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/BatchBuilder.java",
+      "line": 21,
       "expr": "manifestKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ChannelStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ChannelStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ChannelStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ChannelStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ManifestNormalizer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ManifestNormalizer.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ManifestNormalizer.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ManifestNormalizer.java",
+      "line": 30,
       "expr": "receiptKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ManifestNormalizer.java",
-      "line": 15,
-      "expr": "accountRef102",
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ManifestNormalizer.java",
+      "line": 31,
+      "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ManifestNormalizer.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ManifestNormalizer.java",
+      "line": 32,
       "expr": "accountRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ManifestNormalizer.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ManifestNormalizer.java",
+      "line": 37,
       "expr": "voucherRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ManifestNormalizer.java",
-      "line": 22,
-      "expr": "paymentTag104",
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ManifestNormalizer.java",
+      "line": 38,
+      "expr": "voucherRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsplit/web/ManifestNormalizer.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/billingsplit/web/ManifestNormalizer.java",
+      "line": 39,
       "expr": "paymentTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/OrderService.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/AccountService.java",
+      "line": 28,
       "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/OrderService.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/AccountService.java",
+      "line": 29,
       "expr": "quoteRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/OrderService.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/AccountService.java",
+      "line": 34,
       "expr": "tariffRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/OrderService.java",
-      "line": 21,
-      "expr": "ledgerEntry203",
+      "file": "service/src/main/java/com/northwind/billingsplit/service/AccountService.java",
+      "line": 36,
+      "expr": "tariffRef202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/OrderService.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/AccountService.java",
+      "line": 38,
       "expr": "ledgerEntry203",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/TariffStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/TariffStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/TariffStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/TariffStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/PaymentBroker.java",
-      "line": 10,
-      "expr": "shipmentCode301",
+      "file": "service/src/main/java/com/northwind/billingsplit/service/PaymentBroker.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/PaymentBroker.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/PaymentBroker.java",
+      "line": 24,
       "expr": "shipmentCode301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/PaymentBroker.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/PaymentBroker.java",
+      "line": 25,
       "expr": "manifestKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/PaymentBroker.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/PaymentBroker.java",
+      "line": 26,
       "expr": "manifestKey302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/ChannelFacade.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/ChannelFacade.java",
+      "line": 20,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/billingsplit/service/ChannelFacade.java",
+      "line": 22,
       "expr": "receiptKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsplit/service/ChannelFacade.java",
-      "line": 9,
-      "expr": "accountRef402",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingsplit/service/ChannelFacade.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/billingsplit/service/ChannelFacade.java",
+      "line": 24,
       "expr": "accountRef402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingsplit/dao/ShipmentTranslator.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/billingsplit/dao/ShipmentTranslator.java",
+      "line": 19,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/billingsplit/dao/ShipmentTranslator.java",
+      "line": 20,
       "expr": "quoteRef501",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingsplit/dao/ShipmentTranslator.java",
-      "line": 9,
-      "expr": "tariffRef502",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/billingsplit/dao/ShipmentTranslator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/billingsplit/dao/ShipmentTranslator.java",
+      "line": 21,
       "expr": "tariffRef502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingsplit/dao/ChannelRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/billingsplit/dao/ChannelRepository.java",
+      "line": 25,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingsplit/dao/ChannelRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/billingsplit/dao/ChannelRepository.java",
+      "line": 29,
       "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingsplit/dao/ChannelRepository.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/billingsplit/dao/ChannelRepository.java",
+      "line": 30,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
   ],
@@ -272,6 +272,6 @@
     "payload_at_sink": "ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

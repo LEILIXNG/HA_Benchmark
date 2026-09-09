@@ -4,177 +4,177 @@
   "verdict": "safe",
   "title": "查询参数经 13 层调用、跨 3 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerreview/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerreview/web/RefundController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerreview/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerreview/web/RefundController.java",
+    "line": 25,
     "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customerreview/dao/RefundRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/customerreview/dao/RefundRepository.java",
+    "line": 30,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/customerreview/dao/TariffScreen.java",
-    "line": 11,
-    "expr": "value",
+    "file": "dao/src/main/java/com/northwind/customerreview/dao/TariffScreen.java",
+    "line": 27,
+    "expr": "matcher",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerreview/web/RefundController.java",
+      "line": 25,
       "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/RefundEnricher.java",
-      "line": 8,
-      "expr": "channelTag1",
+      "file": "web/src/main/java/com/northwind/customerreview/web/OrderCoordinator.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/RefundEnricher.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customerreview/web/OrderCoordinator.java",
+      "line": 26,
       "expr": "catalogKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/RefundEnricher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/customerreview/web/OrderCoordinator.java",
+      "line": 27,
       "expr": "catalogKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/ReceiptRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/customerreview/web/ReceiptRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/ReceiptRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/customerreview/web/ReceiptRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/LedgerResolver.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/customerreview/web/LedgerResolver.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/LedgerResolver.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerreview/web/LedgerResolver.java",
+      "line": 24,
       "expr": "batchTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/LedgerResolver.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerreview/web/LedgerResolver.java",
+      "line": 25,
       "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/AccountAssembler.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/customerreview/web/BatchResolver.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/AccountAssembler.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerreview/web/BatchResolver.java",
+      "line": 25,
       "expr": "paymentTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreview/web/AccountAssembler.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerreview/web/BatchResolver.java",
+      "line": 26,
       "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreview/service/SessionAdapter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/customerreview/service/SessionRegistry.java",
+      "line": 19,
       "expr": "channelTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreview/service/SessionAdapter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/customerreview/service/SessionRegistry.java",
+      "line": 20,
       "expr": "channelTag301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreview/service/PaymentRuleSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/customerreview/service/PaymentRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreview/service/PaymentRuleStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/customerreview/service/PaymentRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreview/service/RefundComposer.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerreview/service/RefundComposer.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreview/service/RefundComposer.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerreview/service/RefundComposer.java",
+      "line": 29,
       "expr": "batchTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreview/service/RefundComposer.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerreview/service/RefundComposer.java",
+      "line": 30,
       "expr": "batchTag401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerreview/dao/PaymentBuilder.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/customerreview/dao/PaymentBuilder.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerreview/dao/PaymentBuilder.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerreview/dao/PaymentBuilder.java",
+      "line": 24,
       "expr": "paymentTag501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerreview/dao/PaymentBuilder.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/customerreview/dao/PaymentBuilder.java",
+      "line": 25,
       "expr": "paymentTag501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerreview/dao/TariffScreen.java",
-      "line": 11,
-      "expr": "value",
+      "file": "dao/src/main/java/com/northwind/customerreview/dao/TariffScreen.java",
+      "line": 27,
+      "expr": "matcher",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerreview/dao/RefundRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerreview/dao/RefundRepository.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerreview/dao/RefundRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/customerreview/dao/RefundRepository.java",
+      "line": 30,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -219,6 +219,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

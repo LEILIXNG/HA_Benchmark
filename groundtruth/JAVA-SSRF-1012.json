@@ -4,239 +4,239 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerdraft/web/ShipmentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerdraft/web/ShipmentController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerdraft/web/ShipmentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerdraft/web/ShipmentController.java",
+    "line": 27,
     "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customerdraft/dao/ShipmentFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "dao/src/main/java/com/northwind/customerdraft/dao/ShipmentFetcher.java",
+    "line": 23,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/ShipmentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/ShipmentController.java",
+      "line": 27,
       "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 22,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 12,
-      "expr": "quoteRef2",
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 23,
+      "expr": "orderRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 24,
       "expr": "quoteRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 29,
       "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 19,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 30,
+      "expr": "tariffRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 33,
       "expr": "ledgerEntry4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 34,
       "expr": "channelTag5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/RefundTranslator.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/RefundTranslator.java",
+      "line": 35,
       "expr": "channelTag5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/BundleTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/BundleTranslator.java",
+      "line": 23,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/BundleTranslator.java",
-      "line": 9,
-      "expr": "shipmentCode102",
+      "file": "web/src/main/java/com/northwind/customerdraft/web/BundleTranslator.java",
+      "line": 24,
+      "expr": "refundCode101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/BundleTranslator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/BundleTranslator.java",
+      "line": 25,
       "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/OrderCoordinator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/OrderCoordinator.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/OrderCoordinator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/OrderCoordinator.java",
+      "line": 30,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/OrderCoordinator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/OrderCoordinator.java",
+      "line": 31,
       "expr": "catalogKey201",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/OrderCoordinator.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/OrderCoordinator.java",
+      "line": 36,
       "expr": "receiptKey202",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/OrderCoordinator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/OrderCoordinator.java",
+      "line": 37,
       "expr": "accountRef203",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerdraft/web/OrderCoordinator.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customerdraft/web/OrderCoordinator.java",
+      "line": 38,
       "expr": "accountRef203",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 25,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 15,
-      "expr": "quoteRef302",
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 27,
+      "expr": "orderRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 29,
       "expr": "quoteRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 34,
       "expr": "tariffRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 35,
       "expr": "ledgerEntry304",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 36,
       "expr": "channelTag305",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/AccountBroker.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/AccountBroker.java",
+      "line": 37,
       "expr": "channelTag305",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/OrderComposer.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/OrderComposer.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/OrderComposer.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/OrderComposer.java",
+      "line": 25,
       "expr": "refundCode401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerdraft/service/OrderComposer.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerdraft/service/OrderComposer.java",
+      "line": 26,
       "expr": "refundCode401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerdraft/dao/ReceiptNormalizer.java",
-      "line": 8,
-      "expr": "catalogKey501",
+      "file": "dao/src/main/java/com/northwind/customerdraft/dao/ReceiptNormalizer.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerdraft/dao/ReceiptNormalizer.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/customerdraft/dao/ReceiptNormalizer.java",
+      "line": 26,
       "expr": "receiptKey502",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerdraft/dao/ReceiptNormalizer.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/customerdraft/dao/ReceiptNormalizer.java",
+      "line": 27,
       "expr": "receiptKey502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerdraft/dao/OrderBuilder.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/customerdraft/dao/OrderBuilder.java",
+      "line": 19,
       "expr": "orderRef601",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerdraft/dao/OrderBuilder.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/customerdraft/dao/OrderBuilder.java",
+      "line": 20,
       "expr": "orderRef601",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerdraft/dao/ShipmentFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/customerdraft/dao/ShipmentFetcher.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerdraft/dao/ShipmentFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "dao/src/main/java/com/northwind/customerdraft/dao/ShipmentFetcher.java",
+      "line": 23,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -290,9 +290,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

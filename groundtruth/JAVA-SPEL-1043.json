@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 20 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/reporttrace/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reporttrace/web/SessionController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reporttrace/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reporttrace/web/SessionController.java",
+    "line": 27,
     "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reporttrace/dao/SessionEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/reporttrace/dao/SessionEvaluator.java",
+    "line": 22,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,326 +24,326 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/SessionController.java",
+      "line": 27,
       "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 31,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 32,
       "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 21,
-      "expr": "invoiceKey2",
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 33,
+      "expr": "manifestKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 34,
       "expr": "invoiceKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 39,
       "expr": "batchTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 42,
       "expr": "batchTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 43,
       "expr": "orderRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 44,
       "expr": "orderRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 49,
       "expr": "quoteRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 50,
       "expr": "tariffRef6",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 51,
       "expr": "tariffRef6",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 44,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 56,
       "expr": "ledgerEntry7",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 45,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 57,
+      "expr": "ledgerEntry7",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 58,
       "expr": "channelTag8",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 46,
-      "expr": "catalogKey9",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reporttrace/web/BatchResolver.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/BatchResolver.java",
+      "line": 59,
       "expr": "catalogKey9",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/QuoteTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/QuoteTranslator.java",
+      "line": 23,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/QuoteTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/QuoteTranslator.java",
+      "line": 24,
       "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/InvoiceAssembler.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/InvoiceAssembler.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/InvoiceAssembler.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/InvoiceAssembler.java",
+      "line": 25,
       "expr": "tariffRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttrace/web/InvoiceAssembler.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reporttrace/web/InvoiceAssembler.java",
+      "line": 26,
       "expr": "tariffRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 30,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 31,
       "expr": "manifestKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 34,
       "expr": "manifestKey301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 35,
       "expr": "invoiceKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 36,
       "expr": "invoiceKey302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 41,
       "expr": "batchTag303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 42,
+      "expr": "batchTag303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 43,
       "expr": "orderRef304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 26,
-      "expr": "quoteRef305",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reporttrace/service/TariffAdapter.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/reporttrace/service/TariffAdapter.java",
+      "line": 44,
       "expr": "quoteRef305",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/BundleRegistry.java",
-      "line": 11,
-      "expr": "accountRef401",
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/BundleRegistry.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/BundleRegistry.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/BundleRegistry.java",
+      "line": 27,
       "expr": "voucherRef402",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/BundleRegistry.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/BundleRegistry.java",
+      "line": 28,
       "expr": "voucherRef402",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/BundleRegistry.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/BundleRegistry.java",
+      "line": 33,
       "expr": "paymentTag403",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/BundleRegistry.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/BundleRegistry.java",
+      "line": 36,
       "expr": "paymentTag403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/BundleRegistry.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/BundleRegistry.java",
+      "line": 37,
       "expr": "refundCode404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/BundleRegistry.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/BundleRegistry.java",
+      "line": 38,
       "expr": "refundCode404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/InvoiceNormalizer.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/InvoiceNormalizer.java",
+      "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/InvoiceNormalizer.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/InvoiceNormalizer.java",
+      "line": 23,
       "expr": "tariffRef501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/InvoiceNormalizer.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/InvoiceNormalizer.java",
+      "line": 24,
       "expr": "ledgerEntry502",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/InvoiceNormalizer.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/InvoiceNormalizer.java",
+      "line": 25,
       "expr": "ledgerEntry502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/PaymentStrategySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/PaymentStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/PaymentStrategyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/PaymentStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/AccountService.java",
-      "line": 8,
-      "expr": "manifestKey601",
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/AccountService.java",
+      "line": 11,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/AccountService.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/AccountService.java",
+      "line": 12,
       "expr": "invoiceKey602",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/AccountService.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/AccountService.java",
+      "line": 13,
       "expr": "invoiceKey602",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/TariffPolicySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/TariffPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/TariffPolicyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/TariffPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/PaymentBuilder.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/PaymentBuilder.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/PaymentBuilder.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/PaymentBuilder.java",
+      "line": 17,
       "expr": "accountRef701",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/PaymentBuilder.java",
-      "line": 14,
-      "expr": "voucherRef702",
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/PaymentBuilder.java",
+      "line": 19,
+      "expr": "accountRef701",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/PaymentBuilder.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/PaymentBuilder.java",
+      "line": 21,
       "expr": "voucherRef702",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/SessionEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/SessionEvaluator.java",
+      "line": 17,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttrace/dao/SessionEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/reporttrace/dao/SessionEvaluator.java",
+      "line": 22,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -406,9 +406,9 @@
     "neutralized": false,
     "call_depth_observed": 20,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;;'",
+    "payload_at_sink": "'seq-' + 'ref:ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

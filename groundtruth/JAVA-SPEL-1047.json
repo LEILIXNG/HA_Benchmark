@@ -4,161 +4,161 @@
   "verdict": "vulnerable",
   "title": "路径变量经 9 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilsubmit/web/ReceiptController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ReceiptController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilsubmit/web/ReceiptController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ReceiptController.java",
+    "line": 23,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ReceiptEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ReceiptEvaluator.java",
+    "line": 28,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ReceiptController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ReceiptController.java",
+      "line": 23,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 25,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 26,
       "expr": "invoiceKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 31,
       "expr": "batchTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
-      "line": 16,
-      "expr": "orderRef3",
+      "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 32,
+      "expr": "batchTag2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsubmit/web/ShipmentFacade.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/fulfilsubmit/web/ShipmentFacade.java",
+      "line": 33,
       "expr": "orderRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundleComposer.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/fulfilsubmit/service/BundleComposer.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundleComposer.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/fulfilsubmit/service/BundleComposer.java",
+      "line": 25,
       "expr": "voucherRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsubmit/service/BundleComposer.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/fulfilsubmit/service/BundleComposer.java",
+      "line": 26,
       "expr": "voucherRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 31,
       "expr": "ledgerEntry201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 34,
       "expr": "ledgerEntry201",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 35,
       "expr": "channelTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 36,
       "expr": "channelTag202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 41,
       "expr": "catalogKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 42,
       "expr": "receiptKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 29,
-      "expr": "accountRef205",
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 43,
+      "expr": "receiptKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 44,
       "expr": "accountRef205",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 35,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 49,
       "expr": "voucherRef206",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 36,
-      "expr": "paymentTag207",
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 50,
+      "expr": "voucherRef206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 37,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 51,
       "expr": "refundCode208",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ShipmentCoordinator.java",
-      "line": 38,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ShipmentCoordinator.java",
+      "line": 52,
       "expr": "refundCode208",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ReceiptEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ReceiptEvaluator.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsubmit/dao/ReceiptEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "dao/src/main/java/com/northwind/fulfilsubmit/dao/ReceiptEvaluator.java",
+      "line": 28,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -204,6 +204,6 @@
     "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,273 +4,273 @@
   "verdict": "safe",
   "title": "查询参数经 17 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilassign/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilassign/web/SessionController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilassign/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilassign/web/SessionController.java",
+    "line": 25,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/fulfilassign/service/SessionEvaluator.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/fulfilassign/service/SessionEvaluator.java",
+    "line": 27,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/fulfilassign/service/SessionEvaluator.java",
-    "line": 15,
+    "file": "service/src/main/java/com/northwind/fulfilassign/service/SessionEvaluator.java",
+    "line": 25,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
   },
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/SessionController.java",
+      "line": 25,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 27,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 29,
       "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 17,
-      "expr": "manifestKey2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 30,
       "expr": "manifestKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 35,
       "expr": "invoiceKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 24,
-      "expr": "batchTag4",
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 36,
+      "expr": "invoiceKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 39,
       "expr": "batchTag4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 40,
       "expr": "orderRef5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 41,
       "expr": "orderRef5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 46,
       "expr": "quoteRef6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 47,
       "expr": "tariffRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 48,
       "expr": "tariffRef7",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 53,
       "expr": "ledgerEntry8",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 42,
-      "expr": "channelTag9",
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 54,
+      "expr": "ledgerEntry8",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 55,
       "expr": "channelTag9",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 48,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 60,
       "expr": "catalogKey10",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 49,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 61,
       "expr": "receiptKey11",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 50,
-      "expr": "accountRef12",
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 62,
+      "expr": "receiptKey11",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilassign/web/BatchRegistry.java",
-      "line": 51,
+      "file": "web/src/main/java/com/northwind/fulfilassign/web/BatchRegistry.java",
+      "line": 63,
       "expr": "accountRef12",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 21,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 22,
       "expr": "receiptKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 27,
       "expr": "accountRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 28,
       "expr": "voucherRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 29,
       "expr": "voucherRef103",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 34,
       "expr": "paymentTag104",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 35,
       "expr": "refundCode105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 36,
       "expr": "refundCode105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 41,
       "expr": "shipmentCode106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 42,
       "expr": "manifestKey107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 43,
       "expr": "manifestKey107",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 44,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 48,
       "expr": "invoiceKey108",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 47,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 51,
       "expr": "invoiceKey108",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 48,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 52,
       "expr": "batchTag109",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/BundleBroker.java",
-      "line": 49,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/BundleBroker.java",
+      "line": 53,
       "expr": "batchTag109",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/QuotePlanSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/QuotePlanSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/QuotePlanStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/QuotePlanStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/AccountFacade.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/AccountFacade.java",
+      "line": 11,
       "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/AccountFacade.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/AccountFacade.java",
+      "line": 12,
       "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/SessionEvaluator.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/SessionEvaluator.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/SessionEvaluator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/SessionEvaluator.java",
+      "line": 25,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilassign/service/SessionEvaluator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/fulfilassign/service/SessionEvaluator.java",
+      "line": 27,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
@@ -324,9 +324,9 @@
     "neutralized": true,
     "call_depth_observed": 17,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
+    "payload_at_sink": "'tag-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

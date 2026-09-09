@@ -4,141 +4,141 @@
   "verdict": "safe",
   "title": "请求头经 9 层调用、跨 2 个模块流入命令执行，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customermerge/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customermerge/web/AccountController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customermerge/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customermerge/web/AccountController.java",
+    "line": 25,
     "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/customermerge/service/AccountExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/customermerge/service/AccountExecutor.java",
+    "line": 20,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/customermerge/service/PaymentGuard.java",
-    "line": 11,
-    "expr": "value",
+    "file": "service/src/main/java/com/northwind/customermerge/service/PaymentGuard.java",
+    "line": 17,
+    "expr": "matcher",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customermerge/web/AccountController.java",
+      "line": 25,
       "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customermerge/web/CatalogService.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customermerge/web/CatalogService.java",
+      "line": 30,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customermerge/web/CatalogService.java",
+      "line": 31,
       "expr": "accountRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/customermerge/web/CatalogService.java",
+      "line": 36,
       "expr": "voucherRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/customermerge/web/CatalogService.java",
+      "line": 37,
       "expr": "paymentTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customermerge/web/CatalogService.java",
+      "line": 38,
       "expr": "refundCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customermerge/web/CatalogService.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/customermerge/web/CatalogService.java",
+      "line": 39,
       "expr": "refundCode4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/OrderService.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/customermerge/service/OrderService.java",
+      "line": 18,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/OrderService.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/customermerge/service/OrderService.java",
+      "line": 19,
       "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/OrderRuleSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/customermerge/service/OrderRuleSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/OrderRuleStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/customermerge/service/OrderRuleStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customermerge/service/CatalogFacade.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customermerge/service/CatalogFacade.java",
+      "line": 17,
       "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
-      "line": 14,
-      "expr": "invoiceKey202",
+      "file": "service/src/main/java/com/northwind/customermerge/service/CatalogFacade.java",
+      "line": 19,
+      "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/CatalogFacade.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/customermerge/service/CatalogFacade.java",
+      "line": 21,
       "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/PaymentGuard.java",
-      "line": 11,
-      "expr": "value",
+      "file": "service/src/main/java/com/northwind/customermerge/service/PaymentGuard.java",
+      "line": 17,
+      "expr": "matcher",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/AccountExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/customermerge/service/AccountExecutor.java",
+      "line": 16,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/customermerge/service/AccountExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customermerge/service/AccountExecutor.java",
+      "line": 20,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -180,6 +180,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

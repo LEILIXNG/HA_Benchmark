@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 11 层调用、跨 3 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorrelease/web/LedgerController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorrelease/web/LedgerController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorrelease/web/LedgerController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorrelease/web/LedgerController.java",
+    "line": 24,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/vendorrelease/dao/LedgerMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/vendorrelease/dao/LedgerMapper.xml",
     "line": 9,
     "expr": "accountRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,151 +24,151 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/LedgerController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorrelease/web/LedgerController.java",
+      "line": 24,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/ManifestNormalizer.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/vendorrelease/web/ManifestNormalizer.java",
+      "line": 24,
       "expr": "tariffRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorrelease/web/ManifestNormalizer.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorrelease/web/ManifestNormalizer.java",
+      "line": 25,
       "expr": "tariffRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/QuoteRegistry.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/QuoteRegistry.java",
+      "line": 25,
       "expr": "manifestKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
-      "line": 15,
-      "expr": "invoiceKey102",
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/QuoteRegistry.java",
+      "line": 26,
+      "expr": "manifestKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/QuoteRegistry.java",
+      "line": 27,
       "expr": "invoiceKey102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/QuoteRegistry.java",
+      "line": 32,
       "expr": "batchTag103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
-      "line": 22,
-      "expr": "orderRef104",
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/QuoteRegistry.java",
+      "line": 33,
+      "expr": "batchTag103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/QuoteRegistry.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/QuoteRegistry.java",
+      "line": 34,
       "expr": "orderRef104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 25,
       "expr": "accountRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 26,
       "expr": "voucherRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorrelease/service/ShipmentCoordinator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/vendorrelease/service/ShipmentCoordinator.java",
+      "line": 27,
       "expr": "voucherRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/OrderAssembler.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/OrderAssembler.java",
+      "line": 19,
       "expr": "tariffRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/OrderAssembler.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/OrderAssembler.java",
+      "line": 20,
       "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
-      "line": 16,
-      "expr": "manifestKey401",
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/InvoiceService.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/InvoiceService.java",
+      "line": 26,
       "expr": "manifestKey401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/InvoiceService.java",
+      "line": 31,
       "expr": "invoiceKey402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
-      "line": 25,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/InvoiceService.java",
+      "line": 34,
       "expr": "invoiceKey402",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/InvoiceService.java",
+      "line": 35,
       "expr": "batchTag403",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/InvoiceService.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/InvoiceService.java",
+      "line": 36,
       "expr": "batchTag403",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/LedgerGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/LedgerGateway.java",
+      "line": 16,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorrelease/dao/LedgerGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/vendorrelease/dao/LedgerGateway.java",
+      "line": 23,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/vendorrelease/dao/LedgerMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/vendorrelease/dao/LedgerMapper.xml",
       "line": 9,
       "expr": "accountRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -214,9 +214,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE title LIKE '%ref:ref:ref:zz' OR 1=1--;;;%'      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

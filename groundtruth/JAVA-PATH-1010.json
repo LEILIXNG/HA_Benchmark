@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingsettlequeue/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/CatalogController.java",
+    "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingsettlequeue/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/CatalogController.java",
+    "line": 20,
     "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogLoader.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/CatalogLoader.java",
+    "line": 23,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,164 +24,164 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/CatalogController.java",
+      "line": 20,
       "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ChannelAdapter.java",
-      "line": 8,
-      "expr": "ledgerEntry1",
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/ChannelAdapter.java",
+      "line": 16,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ChannelAdapter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/ChannelAdapter.java",
+      "line": 17,
       "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 15,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 12,
-      "expr": "batchTag102",
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 16,
+      "expr": "invoiceKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 17,
       "expr": "batchTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 22,
       "expr": "orderRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 25,
       "expr": "orderRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 26,
       "expr": "quoteRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 27,
       "expr": "quoteRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 32,
       "expr": "tariffRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 29,
-      "expr": "ledgerEntry106",
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 33,
+      "expr": "tariffRef105",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/AccountBuilder.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/AccountBuilder.java",
+      "line": 34,
       "expr": "ledgerEntry106",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/VoucherPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/VoucherPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/VoucherPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/VoucherPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ManifestBuilder.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/ManifestBuilder.java",
+      "line": 17,
       "expr": "voucherRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsettlequeue/web/ManifestBuilder.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/pricingsettlequeue/web/ManifestBuilder.java",
+      "line": 18,
       "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/ShipmentComposer.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/ShipmentComposer.java",
+      "line": 16,
       "expr": "ledgerEntry301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/ShipmentComposer.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/ShipmentComposer.java",
+      "line": 17,
       "expr": "channelTag302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/ShipmentComposer.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/ShipmentComposer.java",
+      "line": 18,
       "expr": "channelTag302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogRuleSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/CatalogRuleSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogRuleStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/CatalogRuleStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/VoucherTranslator.java",
+      "line": 16,
       "expr": "invoiceKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 9,
-      "expr": "batchTag402",
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/VoucherTranslator.java",
+      "line": 17,
+      "expr": "invoiceKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/VoucherTranslator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/VoucherTranslator.java",
+      "line": 18,
       "expr": "batchTag402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogLoader.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/CatalogLoader.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsettlequeue/service/CatalogLoader.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/pricingsettlequeue/service/CatalogLoader.java",
+      "line": 23,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -227,9 +227,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:../../../etc/passwd;;;;",
+    "payload_at_sink": "/data/pricing/archive/ref:ref:ref:ref:../../../etc/passwd;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

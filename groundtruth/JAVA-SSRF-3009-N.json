@@ -4,243 +4,243 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-3009 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountapprove/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountapprove/web/InvoiceController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountapprove/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountapprove/web/InvoiceController.java",
+    "line": 22,
     "expr": "resource",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
-    "line": 23,
+    "file": "service/src/main/java/com/northwind/accountapprove/service/InvoiceFetcher.java",
+    "line": 31,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
-    "line": 19,
+    "file": "service/src/main/java/com/northwind/accountapprove/service/InvoiceFetcher.java",
+    "line": 27,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
   },
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/InvoiceController.java",
+      "line": 22,
       "expr": "resource",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/SessionResolver.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/ManifestRegistry.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/SessionResolver.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/ManifestRegistry.java",
+      "line": 28,
       "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/SessionResolver.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/ManifestRegistry.java",
+      "line": 29,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/LedgerPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/LedgerPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/LedgerPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/LedgerPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 27,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 30,
       "expr": "refundCode101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 31,
       "expr": "shipmentCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 32,
       "expr": "shipmentCode102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 37,
       "expr": "manifestKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 38,
       "expr": "invoiceKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 39,
       "expr": "invoiceKey104",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 44,
       "expr": "batchTag105",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 45,
+      "expr": "batchTag105",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 46,
       "expr": "orderRef106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 36,
-      "expr": "quoteRef107",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 47,
       "expr": "quoteRef107",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 52,
       "expr": "tariffRef108",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 53,
       "expr": "ledgerEntry109",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 46,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 56,
       "expr": "ledgerEntry109",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 57,
       "expr": "channelTag110",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/CatalogRegistry.java",
-      "line": 48,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/CatalogRegistry.java",
+      "line": 58,
       "expr": "channelTag110",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/QuoteCollector.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/QuoteCollector.java",
+      "line": 25,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
-      "line": 14,
-      "expr": "receiptKey202",
+      "file": "web/src/main/java/com/northwind/accountapprove/web/QuoteCollector.java",
+      "line": 26,
+      "expr": "catalogKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountapprove/web/QuoteCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/accountapprove/web/QuoteCollector.java",
+      "line": 27,
       "expr": "receiptKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/ChannelEnricher.java",
+      "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/ChannelEnricher.java",
+      "line": 33,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/ChannelEnricher.java",
+      "line": 34,
       "expr": "orderRef301",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/ChannelEnricher.java",
+      "line": 39,
       "expr": "quoteRef302",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/ChannelEnricher.java",
+      "line": 42,
       "expr": "quoteRef302",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/ChannelEnricher.java",
+      "line": 43,
       "expr": "tariffRef303",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/ChannelEnricher.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/ChannelEnricher.java",
+      "line": 44,
       "expr": "tariffRef303",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/InvoiceFetcher.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/InvoiceFetcher.java",
+      "line": 27,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/accountapprove/service/InvoiceFetcher.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/accountapprove/service/InvoiceFetcher.java",
+      "line": 31,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
     }
@@ -292,6 +292,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

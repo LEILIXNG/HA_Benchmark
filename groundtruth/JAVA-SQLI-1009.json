@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendordraft/web/ManifestController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendordraft/web/ManifestController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendordraft/web/ManifestController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendordraft/web/ManifestController.java",
+    "line": 27,
     "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/vendordraft/dao/ManifestRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/vendordraft/dao/ManifestRepository.java",
+    "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,152 +24,152 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendordraft/web/ManifestController.java",
+      "line": 27,
       "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
-      "line": 10,
-      "expr": "catalogKey1",
+      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
+      "line": 27,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
+      "line": 31,
       "expr": "catalogKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
+      "line": 32,
       "expr": "receiptKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordraft/web/ManifestRegistry.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
+      "line": 33,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordraft/service/AccountResolver.java",
-      "line": 8,
-      "expr": "orderRef101",
+      "file": "service/src/main/java/com/northwind/vendordraft/service/PaymentEnricher.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordraft/service/AccountResolver.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendordraft/service/PaymentEnricher.java",
+      "line": 21,
       "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordraft/service/AccountResolver.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/vendordraft/service/PaymentEnricher.java",
+      "line": 22,
       "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/VoucherFacade.java",
-      "line": 11,
-      "expr": "refundCode201",
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/VoucherFacade.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "line": 27,
       "expr": "shipmentCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/VoucherFacade.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "line": 28,
       "expr": "shipmentCode202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/VoucherFacade.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "line": 33,
       "expr": "manifestKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/VoucherFacade.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "line": 36,
       "expr": "manifestKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/VoucherFacade.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "line": 37,
       "expr": "invoiceKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/VoucherFacade.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "line": 38,
       "expr": "invoiceKey204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/AccountPolicySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/AccountPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/AccountPolicyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/AccountPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/InvoiceBroker.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "line": 20,
       "expr": "catalogKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/InvoiceBroker.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "line": 21,
       "expr": "receiptKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/InvoiceBroker.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "line": 22,
       "expr": "receiptKey302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/InvoiceBroker.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "line": 27,
       "expr": "accountRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/InvoiceBroker.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "line": 28,
       "expr": "voucherRef304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/InvoiceBroker.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "line": 29,
       "expr": "voucherRef304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/ManifestRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/ManifestRepository.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendordraft/dao/ManifestRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/vendordraft/dao/ManifestRepository.java",
+      "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -214,9 +214,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, code, created_at FROM invoices WHERE title = 'ref:ref:ref:zz' OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

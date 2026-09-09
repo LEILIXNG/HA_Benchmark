@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentrevise/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentrevise/web/InvoiceController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentrevise/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentrevise/web/InvoiceController.java",
+    "line": 26,
     "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/paymentrevise/service/InvoiceRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/paymentrevise/service/InvoiceRepository.java",
+    "line": 28,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,98 +24,98 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentrevise/web/InvoiceController.java",
+      "line": 26,
       "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
-      "line": 9,
-      "expr": "batchTag1",
+      "file": "web/src/main/java/com/northwind/paymentrevise/web/VoucherTranslator.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/paymentrevise/web/VoucherTranslator.java",
+      "line": 21,
       "expr": "batchTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/paymentrevise/web/VoucherTranslator.java",
+      "line": 26,
       "expr": "orderRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
-      "line": 16,
-      "expr": "quoteRef3",
+      "file": "web/src/main/java/com/northwind/paymentrevise/web/VoucherTranslator.java",
+      "line": 27,
+      "expr": "orderRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentrevise/web/VoucherTranslator.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/paymentrevise/web/VoucherTranslator.java",
+      "line": 28,
       "expr": "quoteRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 16,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 18,
       "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 12,
-      "expr": "refundCode102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 19,
       "expr": "refundCode102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 24,
       "expr": "shipmentCode103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 25,
       "expr": "manifestKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 28,
       "expr": "manifestKey104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 29,
       "expr": "invoiceKey105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/ShipmentAdapter.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/ShipmentAdapter.java",
+      "line": 30,
       "expr": "invoiceKey105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/InvoiceRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/InvoiceRepository.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentrevise/service/InvoiceRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/paymentrevise/service/InvoiceRepository.java",
+      "line": 28,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -154,9 +154,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, ref_no, total FROM orders WHERE label = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

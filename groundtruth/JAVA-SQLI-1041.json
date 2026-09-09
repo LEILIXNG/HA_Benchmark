@@ -4,195 +4,195 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerreopen/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerreopen/web/TariffController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerreopen/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerreopen/web/TariffController.java",
+    "line": 23,
     "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/customerreopen/service/TariffRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/customerreopen/service/TariffRepository.java",
+    "line": 25,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/customerreopen/service/VoucherScreen.java",
-    "line": 9,
+    "file": "service/src/main/java/com/northwind/customerreopen/service/VoucherScreen.java",
+    "line": 20,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/TariffController.java",
+      "line": 23,
       "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
-      "line": 10,
-      "expr": "orderRef1",
+      "file": "web/src/main/java/com/northwind/customerreopen/web/ManifestRouter.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/ManifestRouter.java",
+      "line": 28,
       "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/ManifestRouter.java",
+      "line": 29,
       "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/ManifestRouter.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/ManifestRouter.java",
+      "line": 30,
       "expr": "quoteRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/OrderFacade.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/OrderFacade.java",
+      "line": 25,
       "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/OrderFacade.java",
+      "line": 26,
       "expr": "shipmentCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerreopen/web/OrderFacade.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customerreopen/web/OrderFacade.java",
+      "line": 27,
       "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/BundleBuilder.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/BundleBuilder.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/BundleBuilder.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/BundleBuilder.java",
+      "line": 24,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/BundleBuilder.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/BundleBuilder.java",
+      "line": 25,
       "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 31,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 33,
       "expr": "orderRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 18,
-      "expr": "quoteRef302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 34,
       "expr": "quoteRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 39,
       "expr": "tariffRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 42,
       "expr": "tariffRef303",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 43,
       "expr": "ledgerEntry304",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 46,
       "expr": "ledgerEntry304",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 47,
       "expr": "channelTag305",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 48,
       "expr": "channelTag305",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 53,
       "expr": "catalogKey306",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 41,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 56,
       "expr": "catalogKey306",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 42,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 57,
       "expr": "receiptKey307",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffEnricher.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffEnricher.java",
+      "line": 58,
       "expr": "receiptKey307",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/VoucherScreen.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/VoucherScreen.java",
+      "line": 20,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffRepository.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/customerreopen/service/TariffRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/customerreopen/service/TariffRepository.java",
+      "line": 25,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -237,9 +237,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:zz OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, code, created_at FROM quote_items WHERE name = 'ref:ref:ref:zz OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,129 +4,129 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1018 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportsubmit/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportsubmit/web/InvoiceController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportsubmit/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportsubmit/web/InvoiceController.java",
+    "line": 22,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceFetcher.java",
-    "line": 23,
+    "file": "service/src/main/java/com/northwind/reportsubmit/service/InvoiceFetcher.java",
+    "line": 32,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceFetcher.java",
-    "line": 19,
+    "file": "service/src/main/java/com/northwind/reportsubmit/service/InvoiceFetcher.java",
+    "line": 28,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
   },
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportsubmit/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportsubmit/web/InvoiceController.java",
+      "line": 22,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsubmit/web/OrderCollector.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportsubmit/web/OrderCollector.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsubmit/web/OrderCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportsubmit/web/OrderCollector.java",
+      "line": 25,
       "expr": "paymentTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsubmit/web/OrderCollector.java",
-      "line": 14,
-      "expr": "refundCode2",
+      "file": "web/src/main/java/com/northwind/reportsubmit/web/OrderCollector.java",
+      "line": 26,
+      "expr": "paymentTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsubmit/web/OrderCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reportsubmit/web/OrderCollector.java",
+      "line": 27,
       "expr": "refundCode2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 15,
-      "expr": "channelTag101",
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 21,
       "expr": "channelTag101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 26,
       "expr": "catalogKey102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 22,
-      "expr": "receiptKey103",
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 27,
+      "expr": "catalogKey102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 28,
       "expr": "accountRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 29,
       "expr": "accountRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 34,
       "expr": "voucherRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 35,
       "expr": "paymentTag106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/VoucherService.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/VoucherService.java",
+      "line": 36,
       "expr": "paymentTag106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceFetcher.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/InvoiceFetcher.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceFetcher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/InvoiceFetcher.java",
+      "line": 28,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsubmit/service/InvoiceFetcher.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reportsubmit/service/InvoiceFetcher.java",
+      "line": 32,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
     }
@@ -168,6 +168,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

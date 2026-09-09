@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Cookie经 14 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingmanifest/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingmanifest/web/QuoteController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingmanifest/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingmanifest/web/QuoteController.java",
+    "line": 24,
     "expr": "label",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/pricingmanifest/dao/QuoteRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/QuoteRepository.java",
+    "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,230 +24,230 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/QuoteController.java",
+      "line": 24,
       "expr": "label",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 22,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 25,
       "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 26,
       "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 27,
       "expr": "quoteRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 32,
       "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 22,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 33,
+      "expr": "tariffRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 36,
       "expr": "ledgerEntry4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 37,
       "expr": "channelTag5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/CatalogEnricher.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/CatalogEnricher.java",
+      "line": 38,
       "expr": "channelTag5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractBuilder.java",
-      "line": 8,
-      "expr": "refundCode101",
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/ContractBuilder.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractBuilder.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/ContractBuilder.java",
+      "line": 24,
       "expr": "shipmentCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/ContractBuilder.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/ContractBuilder.java",
+      "line": 25,
       "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 23,
       "expr": "catalogKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 12,
-      "expr": "receiptKey202",
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 24,
+      "expr": "catalogKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 25,
       "expr": "receiptKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 30,
       "expr": "accountRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 33,
       "expr": "accountRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 34,
       "expr": "voucherRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 35,
       "expr": "paymentTag205",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingmanifest/web/AccountComposer.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/pricingmanifest/web/AccountComposer.java",
+      "line": 36,
       "expr": "paymentTag205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingmanifest/service/VoucherRegistry.java",
-      "line": 8,
-      "expr": "orderRef301",
+      "file": "service/src/main/java/com/northwind/pricingmanifest/service/VoucherRegistry.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingmanifest/service/VoucherRegistry.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingmanifest/service/VoucherRegistry.java",
+      "line": 23,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/VoucherRouter.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/VoucherRouter.java",
+      "line": 26,
       "expr": "refundCode401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/VoucherRouter.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/VoucherRouter.java",
+      "line": 27,
       "expr": "refundCode401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/VoucherRouter.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/VoucherRouter.java",
+      "line": 32,
       "expr": "shipmentCode402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/VoucherRouter.java",
-      "line": 25,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/VoucherRouter.java",
+      "line": 35,
       "expr": "shipmentCode402",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/VoucherRouter.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/VoucherRouter.java",
+      "line": 36,
       "expr": "manifestKey403",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/VoucherRouter.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/VoucherRouter.java",
+      "line": 37,
       "expr": "manifestKey403",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/TariffNormalizer.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/TariffNormalizer.java",
+      "line": 30,
       "expr": "catalogKey501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/TariffNormalizer.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/TariffNormalizer.java",
+      "line": 33,
       "expr": "catalogKey501",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/TariffNormalizer.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/TariffNormalizer.java",
+      "line": 34,
       "expr": "receiptKey502",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/TariffNormalizer.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/TariffNormalizer.java",
+      "line": 35,
       "expr": "receiptKey502",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/TariffNormalizer.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/TariffNormalizer.java",
+      "line": 40,
       "expr": "accountRef503",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/TariffNormalizer.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/TariffNormalizer.java",
+      "line": 41,
       "expr": "voucherRef504",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/TariffNormalizer.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/TariffNormalizer.java",
+      "line": 42,
       "expr": "voucherRef504",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/QuoteRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/QuoteRepository.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/pricingmanifest/dao/QuoteRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/pricingmanifest/dao/QuoteRepository.java",
+      "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -302,9 +302,9 @@
     "neutralized": false,
     "call_depth_observed": 14,
     "payload_sent": "zz'/**/OR/**/1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM payment_records WHERE title = 'ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

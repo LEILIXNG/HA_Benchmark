@@ -4,117 +4,117 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 1 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorsubmit/web/BundleController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorsubmit/web/BundleController.java",
+    "line": 27,
     "expr": "tag",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleFetcher.java",
-    "line": 14,
+    "file": "web/src/main/java/com/northwind/vendorsubmit/web/BundleFetcher.java",
+    "line": 24,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/vendorsubmit/web/ManifestPolicy.java",
-    "line": 10,
+    "file": "web/src/main/java/com/northwind/vendorsubmit/web/ManifestPolicy.java",
+    "line": 14,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
   },
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/BundleController.java",
+      "line": 27,
       "expr": "tag",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 19,
       "expr": "refundCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 12,
-      "expr": "shipmentCode2",
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 20,
+      "expr": "refundCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 21,
       "expr": "shipmentCode2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 26,
       "expr": "manifestKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 29,
       "expr": "manifestKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 30,
       "expr": "invoiceKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 31,
       "expr": "invoiceKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 36,
       "expr": "batchTag5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 39,
       "expr": "batchTag5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 40,
       "expr": "orderRef6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ContractRouter.java",
-      "line": 33,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ContractRouter.java",
+      "line": 41,
       "expr": "orderRef6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/ManifestPolicy.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/ManifestPolicy.java",
+      "line": 14,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleFetcher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/BundleFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorsubmit/web/BundleFetcher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendorsubmit/web/BundleFetcher.java",
+      "line": 24,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -150,9 +150,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:127.0.0.1:1;/status",
+    "payload_at_sink": "http://ref:127.0.0.1:1;/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

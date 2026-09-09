@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 14 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportissue/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportissue/web/ContractController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportissue/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportissue/web/ContractController.java",
+    "line": 27,
     "expr": "resource",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/reportissue/service/ContractFetcher.java",
-    "line": 14,
+    "file": "service/src/main/java/com/northwind/reportissue/service/ContractFetcher.java",
+    "line": 23,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
@@ -24,212 +24,212 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportissue/web/ContractController.java",
+      "line": 27,
       "expr": "resource",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/BatchEnricher.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportissue/web/PaymentNormalizer.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/BatchEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportissue/web/PaymentNormalizer.java",
+      "line": 28,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/BatchEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportissue/web/PaymentNormalizer.java",
+      "line": 29,
       "expr": "tariffRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/QuotePlanSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/reportissue/web/QuotePlanSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/QuotePlanStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/reportissue/web/QuotePlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 33,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 36,
       "expr": "manifestKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 37,
       "expr": "invoiceKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 38,
       "expr": "invoiceKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 43,
       "expr": "batchTag103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 44,
       "expr": "orderRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 45,
       "expr": "orderRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 50,
       "expr": "quoteRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 51,
+      "expr": "quoteRef105",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 52,
       "expr": "tariffRef106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 36,
-      "expr": "ledgerEntry107",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 53,
       "expr": "ledgerEntry107",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 58,
       "expr": "channelTag108",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 59,
       "expr": "catalogKey109",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 46,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 62,
       "expr": "catalogKey109",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 63,
       "expr": "receiptKey110",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/SessionRouter.java",
-      "line": 48,
+      "file": "web/src/main/java/com/northwind/reportissue/web/SessionRouter.java",
+      "line": 64,
       "expr": "receiptKey110",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/VoucherResolver.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportissue/web/VoucherResolver.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/VoucherResolver.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportissue/web/VoucherResolver.java",
+      "line": 29,
       "expr": "accountRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/VoucherResolver.java",
-      "line": 14,
-      "expr": "voucherRef202",
+      "file": "web/src/main/java/com/northwind/reportissue/web/VoucherResolver.java",
+      "line": 30,
+      "expr": "accountRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportissue/web/VoucherResolver.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reportissue/web/VoucherResolver.java",
+      "line": 31,
       "expr": "voucherRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/AccountService.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reportissue/service/AccountService.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/AccountService.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/reportissue/service/AccountService.java",
+      "line": 24,
       "expr": "tariffRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/AccountService.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/reportissue/service/AccountService.java",
+      "line": 25,
       "expr": "tariffRef301",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/AccountService.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/reportissue/service/AccountService.java",
+      "line": 30,
       "expr": "ledgerEntry302",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/AccountService.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/reportissue/service/AccountService.java",
+      "line": 33,
       "expr": "ledgerEntry302",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/AccountService.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/reportissue/service/AccountService.java",
+      "line": 34,
       "expr": "channelTag303",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/AccountService.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/reportissue/service/AccountService.java",
+      "line": 35,
       "expr": "channelTag303",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/ContractFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportissue/service/ContractFetcher.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/reportissue/service/ContractFetcher.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/reportissue/service/ContractFetcher.java",
+      "line": 23,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -278,9 +278,9 @@
     "neutralized": false,
     "call_depth_observed": 14,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

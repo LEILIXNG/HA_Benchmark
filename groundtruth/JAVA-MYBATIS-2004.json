@@ -4,254 +4,254 @@
   "verdict": "vulnerable",
   "title": "路径变量经 20 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerrollup/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerrollup/web/AccountController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerrollup/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerrollup/web/AccountController.java",
+    "line": 22,
     "expr": "tag",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/customerrollup/dao/AccountMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/customerrollup/dao/AccountMapper.xml",
     "line": 9,
     "expr": "orderRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/customerrollup/dao/QuoteScreen.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/customerrollup/dao/QuoteScreen.java",
+    "line": 23,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerrollup/web/AccountController.java",
+      "line": 22,
       "expr": "tag",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchComposer.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerrollup/web/BatchComposer.java",
+      "line": 25,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchComposer.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customerrollup/web/BatchComposer.java",
+      "line": 26,
       "expr": "catalogKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchComposer.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/customerrollup/web/BatchComposer.java",
+      "line": 31,
       "expr": "receiptKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchComposer.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/customerrollup/web/BatchComposer.java",
+      "line": 32,
       "expr": "accountRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrollup/web/BatchComposer.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customerrollup/web/BatchComposer.java",
+      "line": 33,
       "expr": "accountRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/ContractCollector.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/ContractCollector.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/ContractCollector.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/ContractCollector.java",
+      "line": 24,
       "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/ContractCollector.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/ContractCollector.java",
+      "line": 25,
       "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/ContractCollector.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/ContractCollector.java",
+      "line": 26,
       "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 25,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 26,
       "expr": "refundCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 16,
-      "expr": "shipmentCode202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 27,
       "expr": "shipmentCode202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 32,
       "expr": "manifestKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 33,
       "expr": "invoiceKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 34,
       "expr": "invoiceKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 39,
       "expr": "batchTag205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 30,
-      "expr": "orderRef206",
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 40,
+      "expr": "batchTag205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderComposer.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderComposer.java",
+      "line": 41,
       "expr": "orderRef206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderService.java",
-      "line": 8,
-      "expr": "catalogKey301",
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderService.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/OrderService.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/OrderService.java",
+      "line": 24,
       "expr": "catalogKey301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceComposer.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/InvoiceComposer.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceComposer.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/InvoiceComposer.java",
+      "line": 25,
       "expr": "orderRef401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrollup/service/InvoiceComposer.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerrollup/service/InvoiceComposer.java",
+      "line": 26,
       "expr": "orderRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BatchTranslator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/VoucherAdapter.java",
+      "line": 24,
       "expr": "refundCode501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BatchTranslator.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/VoucherAdapter.java",
+      "line": 25,
       "expr": "refundCode501",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BatchTranslator.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/VoucherAdapter.java",
+      "line": 30,
       "expr": "shipmentCode502",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BatchTranslator.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/VoucherAdapter.java",
+      "line": 31,
       "expr": "manifestKey503",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BatchTranslator.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/VoucherAdapter.java",
+      "line": 32,
       "expr": "manifestKey503",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ShipmentStrategySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/ShipmentStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/ShipmentStrategyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/ShipmentStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BundleTranslator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/BundleTranslator.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BundleTranslator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/BundleTranslator.java",
+      "line": 24,
       "expr": "catalogKey601",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/BundleTranslator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/BundleTranslator.java",
+      "line": 25,
       "expr": "catalogKey601",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/QuoteScreen.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/QuoteScreen.java",
+      "line": 23,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/AccountGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/AccountGateway.java",
+      "line": 18,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerrollup/dao/AccountGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/customerrollup/dao/AccountGateway.java",
+      "line": 25,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/customerrollup/dao/AccountMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/customerrollup/dao/AccountMapper.xml",
       "line": 9,
       "expr": "orderRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -305,9 +305,9 @@
     "neutralized": false,
     "call_depth_observed": 20,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:zz OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, code, created_at       FROM shipments      WHERE name = 'ref:ref:ref:ref:zz OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

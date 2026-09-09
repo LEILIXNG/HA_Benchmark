@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 9 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingdigest/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingdigest/web/ChannelController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingdigest/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingdigest/web/ChannelController.java",
+    "line": 24,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/billingdigest/web/ChannelLoader.java",
-    "line": 17,
+    "file": "web/src/main/java/com/northwind/billingdigest/web/ChannelLoader.java",
+    "line": 28,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,104 +24,104 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ChannelController.java",
+      "line": 24,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/InvoiceBuilder.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/InvoiceBuilder.java",
+      "line": 14,
       "expr": "voucherRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/InvoiceBuilder.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/InvoiceBuilder.java",
+      "line": 15,
       "expr": "voucherRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestRouter.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestRouter.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestRouter.java",
+      "line": 17,
       "expr": "ledgerEntry101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestRouter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestRouter.java",
+      "line": 18,
       "expr": "ledgerEntry101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/BatchPlanSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/BatchPlanSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/BatchPlanStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/BatchPlanStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestAdapter.java",
+      "line": 22,
       "expr": "invoiceKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestAdapter.java",
+      "line": 23,
       "expr": "batchTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestAdapter.java",
+      "line": 24,
       "expr": "batchTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestAdapter.java",
+      "line": 29,
       "expr": "orderRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestAdapter.java",
+      "line": 30,
       "expr": "quoteRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestAdapter.java",
+      "line": 31,
       "expr": "tariffRef205",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ManifestAdapter.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ManifestAdapter.java",
+      "line": 32,
       "expr": "tariffRef205",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ChannelLoader.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ChannelLoader.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/billingdigest/web/ChannelLoader.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/billingdigest/web/ChannelLoader.java",
+      "line": 28,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -160,9 +160,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
+    "payload_at_sink": "/var/lib/billing/data/../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

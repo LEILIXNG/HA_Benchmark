@@ -4,110 +4,110 @@
   "verdict": "vulnerable",
   "title": "Cookie经 9 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorverify/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorverify/web/ChannelController.java",
+    "line": 15,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorverify/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorverify/web/ChannelController.java",
+    "line": 17,
     "expr": "target",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/resources/com/habench/vendorverify/service/ChannelMapper.xml",
+    "file": "service/src/main/resources/com/northwind/vendorverify/service/ChannelMapper.xml",
     "line": 9,
     "expr": "tariffRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/vendorverify/service/PaymentFilter.java",
-    "line": 9,
+    "file": "service/src/main/java/com/northwind/vendorverify/service/PaymentFilter.java",
+    "line": 16,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorverify/web/ChannelController.java",
+      "line": 17,
       "expr": "target",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/CatalogAssembler.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/vendorverify/web/CatalogAssembler.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/CatalogAssembler.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorverify/web/CatalogAssembler.java",
+      "line": 21,
       "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/CatalogAssembler.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendorverify/web/CatalogAssembler.java",
+      "line": 22,
       "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/RefundPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/vendorverify/web/RefundPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/RefundPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/vendorverify/web/RefundPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/OrderRouter.java",
-      "line": 8,
-      "expr": "invoiceKey101",
+      "file": "web/src/main/java/com/northwind/vendorverify/web/OrderRouter.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorverify/web/OrderRouter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorverify/web/OrderRouter.java",
+      "line": 18,
       "expr": "invoiceKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorverify/service/ShipmentEnricher.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/vendorverify/service/ShipmentEnricher.java",
+      "line": 16,
       "expr": "voucherRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorverify/service/ShipmentEnricher.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendorverify/service/ShipmentEnricher.java",
+      "line": 17,
       "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorverify/service/PaymentFilter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendorverify/service/PaymentFilter.java",
+      "line": 16,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorverify/service/ChannelGateway.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/vendorverify/service/ChannelGateway.java",
+      "line": 16,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorverify/service/ChannelGateway.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/vendorverify/service/ChannelGateway.java",
+      "line": 23,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/habench/vendorverify/service/ChannelMapper.xml",
+      "file": "service/src/main/resources/com/northwind/vendorverify/service/ChannelMapper.xml",
       "line": 9,
       "expr": "tariffRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -143,9 +143,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz'/**/OR/**/1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:zz/**/OR/**/1=1--;'",
+    "payload_at_sink": "SELECT id, code, created_at       FROM orders      WHERE code = 'ref:zz/**/OR/**/1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,107 +4,107 @@
   "verdict": "vulnerable",
   "title": "Cookie经 7 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingdraft/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingdraft/web/CatalogController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingdraft/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingdraft/web/CatalogController.java",
+    "line": 25,
     "expr": "resource",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingdraft/dao/CatalogFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "dao/src/main/java/com/northwind/shippingdraft/dao/CatalogFetcher.java",
+    "line": 30,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingdraft/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingdraft/web/CatalogController.java",
+      "line": 25,
       "expr": "resource",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingdraft/web/RefundAdapter.java",
-      "line": 14,
-      "expr": "manifestKey1",
+      "file": "web/src/main/java/com/northwind/shippingdraft/web/RefundAdapter.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingdraft/web/RefundAdapter.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/shippingdraft/web/RefundAdapter.java",
+      "line": 26,
       "expr": "manifestKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingdraft/web/RefundAdapter.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/shippingdraft/web/RefundAdapter.java",
+      "line": 31,
       "expr": "invoiceKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingdraft/web/RefundAdapter.java",
-      "line": 21,
-      "expr": "batchTag3",
+      "file": "web/src/main/java/com/northwind/shippingdraft/web/RefundAdapter.java",
+      "line": 32,
+      "expr": "invoiceKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingdraft/web/RefundAdapter.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/shippingdraft/web/RefundAdapter.java",
+      "line": 33,
       "expr": "batchTag3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingdraft/service/SessionBuilder.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/shippingdraft/service/SessionBuilder.java",
+      "line": 20,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/shippingdraft/service/SessionBuilder.java",
+      "line": 21,
       "expr": "accountRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingdraft/service/SessionBuilder.java",
-      "line": 9,
-      "expr": "voucherRef102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/shippingdraft/service/SessionBuilder.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/shippingdraft/service/SessionBuilder.java",
+      "line": 22,
       "expr": "voucherRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingdraft/dao/ChannelComposer.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/shippingdraft/dao/ChannelComposer.java",
+      "line": 23,
       "expr": "tariffRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingdraft/dao/ChannelComposer.java",
-      "line": 9,
-      "expr": "ledgerEntry202",
+      "file": "dao/src/main/java/com/northwind/shippingdraft/dao/ChannelComposer.java",
+      "line": 25,
+      "expr": "tariffRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingdraft/dao/ChannelComposer.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingdraft/dao/ChannelComposer.java",
+      "line": 27,
       "expr": "ledgerEntry202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingdraft/dao/CatalogFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingdraft/dao/CatalogFetcher.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingdraft/dao/CatalogFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "dao/src/main/java/com/northwind/shippingdraft/dao/CatalogFetcher.java",
+      "line": 30,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -142,9 +142,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:ref:ref:127.0.0.1:1;;;;;/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

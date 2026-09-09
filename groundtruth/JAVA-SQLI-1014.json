@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 16 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogrenewal/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogrenewal/web/ContractController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogrenewal/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogrenewal/web/ContractController.java",
+    "line": 25,
     "expr": "token",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogrenewal/dao/ContractRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/catalogrenewal/dao/ContractRepository.java",
+    "line": 23,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,260 +24,260 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/ContractController.java",
+      "line": 25,
       "expr": "token",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 17,
-      "expr": "orderRef1",
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 32,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 36,
       "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 37,
       "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 38,
       "expr": "quoteRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 43,
       "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 28,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 44,
+      "expr": "tariffRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 47,
       "expr": "ledgerEntry4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 48,
       "expr": "channelTag5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 33,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 49,
       "expr": "channelTag5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 54,
       "expr": "catalogKey6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 39,
-      "expr": "receiptKey7",
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 55,
+      "expr": "catalogKey6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerCollector.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentComposer.java",
+      "line": 56,
       "expr": "receiptKey7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/PaymentRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/PaymentRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/PaymentRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerBroker.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/LedgerBroker.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerBroker.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/LedgerBroker.java",
+      "line": 25,
       "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogrenewal/web/LedgerBroker.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/catalogrenewal/web/LedgerBroker.java",
+      "line": 26,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 30,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 31,
       "expr": "catalogKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 36,
       "expr": "receiptKey202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 39,
       "expr": "receiptKey202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 40,
       "expr": "accountRef203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 41,
       "expr": "voucherRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/LedgerRouter.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/LedgerRouter.java",
+      "line": 42,
       "expr": "voucherRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 25,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 26,
       "expr": "quoteRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 27,
       "expr": "quoteRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 32,
       "expr": "tariffRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 22,
-      "expr": "ledgerEntry304",
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 33,
+      "expr": "tariffRef303",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 34,
       "expr": "channelTag305",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/ManifestService.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/ManifestService.java",
+      "line": 35,
       "expr": "channelTag305",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/BundleCoordinator.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/BundleCoordinator.java",
+      "line": 19,
       "expr": "refundCode401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/BundleCoordinator.java",
-      "line": 9,
-      "expr": "shipmentCode402",
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/BundleCoordinator.java",
+      "line": 20,
+      "expr": "refundCode401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogrenewal/service/BundleCoordinator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogrenewal/service/BundleCoordinator.java",
+      "line": 21,
       "expr": "shipmentCode402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogrenewal/dao/ShipmentRouter.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/catalogrenewal/dao/ShipmentRouter.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogrenewal/dao/ShipmentRouter.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogrenewal/dao/ShipmentRouter.java",
+      "line": 17,
       "expr": "catalogKey501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogrenewal/dao/ShipmentRouter.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/catalogrenewal/dao/ShipmentRouter.java",
+      "line": 18,
       "expr": "receiptKey502",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogrenewal/dao/ShipmentRouter.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/catalogrenewal/dao/ShipmentRouter.java",
+      "line": 19,
       "expr": "receiptKey502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogrenewal/dao/ContractRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogrenewal/dao/ContractRepository.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogrenewal/dao/ContractRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/catalogrenewal/dao/ContractRepository.java",
+      "line": 23,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -333,9 +333,9 @@
     "neutralized": false,
     "call_depth_observed": 16,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
+    "payload_at_sink": "SELECT id, total FROM quote_items WHERE ref_no = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,118 +4,118 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1008 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogledger/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogledger/web/TariffController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogledger/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogledger/web/TariffController.java",
+    "line": 28,
     "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/catalogledger/service/TariffFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "service/src/main/java/com/northwind/catalogledger/service/TariffFetcher.java",
+    "line": 21,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/catalogledger/web/TariffValidator.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogledger/web/TariffValidator.java",
+    "line": 22,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/TariffController.java",
+      "line": 28,
       "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/TariffValidator.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/TariffValidator.java",
+      "line": 22,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/PaymentNormalizer.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/CatalogAssembler.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/PaymentNormalizer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/CatalogAssembler.java",
+      "line": 24,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/PaymentNormalizer.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/CatalogAssembler.java",
+      "line": 25,
       "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/VoucherStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/VoucherStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/VoucherStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/VoucherStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/ShipmentAdapter.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/ShipmentAdapter.java",
+      "line": 24,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogledger/web/ShipmentAdapter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/catalogledger/web/ShipmentAdapter.java",
+      "line": 25,
       "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogledger/service/ShipmentResolver.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/catalogledger/service/ShipmentResolver.java",
+      "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogledger/service/ShipmentResolver.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/catalogledger/service/ShipmentResolver.java",
+      "line": 23,
       "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogledger/service/ShipmentResolver.java",
-      "line": 14,
-      "expr": "invoiceKey202",
+      "file": "service/src/main/java/com/northwind/catalogledger/service/ShipmentResolver.java",
+      "line": 25,
+      "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogledger/service/ShipmentResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogledger/service/ShipmentResolver.java",
+      "line": 27,
       "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogledger/service/TariffFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogledger/service/TariffFetcher.java",
+      "line": 16,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogledger/service/TariffFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "service/src/main/java/com/northwind/catalogledger/service/TariffFetcher.java",
+      "line": 21,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -153,6 +153,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

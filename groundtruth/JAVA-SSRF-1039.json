@@ -4,141 +4,141 @@
   "verdict": "safe",
   "title": "路径变量经 6 层调用、跨 1 个模块流入URL 抓取，经 ssrf_host_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerController.java",
+    "line": 22,
     "expr": "resource",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
-    "line": 23,
+    "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerFetcher.java",
+    "line": 33,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
-    "line": 19,
+    "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerFetcher.java",
+    "line": 29,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
   },
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerController.java",
+      "line": 22,
       "expr": "resource",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 23,
       "expr": "ledgerEntry1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 26,
       "expr": "ledgerEntry1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 27,
       "expr": "channelTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 28,
       "expr": "channelTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 33,
       "expr": "catalogKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 36,
       "expr": "catalogKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 37,
       "expr": "receiptKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 40,
       "expr": "receiptKey4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 41,
       "expr": "accountRef5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 42,
       "expr": "accountRef5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 47,
       "expr": "voucherRef6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 44,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 50,
       "expr": "voucherRef6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 45,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 51,
       "expr": "paymentTag7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 46,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 52,
       "expr": "refundCode8",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/PaymentRouter.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/PaymentRouter.java",
+      "line": 53,
       "expr": "refundCode8",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerFetcher.java",
+      "line": 26,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerFetcher.java",
+      "line": 29,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfildraft/web/LedgerFetcher.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/fulfildraft/web/LedgerFetcher.java",
+      "line": 33,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
     }
@@ -179,6 +179,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

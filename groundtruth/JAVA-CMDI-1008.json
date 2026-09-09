@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogarchive/web/ShipmentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogarchive/web/ShipmentController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogarchive/web/ShipmentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogarchive/web/ShipmentController.java",
+    "line": 25,
     "expr": "tag",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogarchive/dao/ShipmentExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/catalogarchive/dao/ShipmentExecutor.java",
+    "line": 20,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,182 +24,182 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/ShipmentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/ShipmentController.java",
+      "line": 25,
       "expr": "tag",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/BundleFacade.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/BundleFacade.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/BundleFacade.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/BundleFacade.java",
+      "line": 26,
       "expr": "invoiceKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/BundleFacade.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/BundleFacade.java",
+      "line": 29,
       "expr": "invoiceKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/BundleFacade.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/BundleFacade.java",
+      "line": 30,
       "expr": "batchTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/BundleFacade.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/BundleFacade.java",
+      "line": 31,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/VoucherService.java",
-      "line": 8,
-      "expr": "voucherRef101",
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/VoucherService.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogarchive/web/VoucherService.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/catalogarchive/web/VoucherService.java",
+      "line": 21,
       "expr": "voucherRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogarchive/service/BundleResolver.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/catalogarchive/service/BundleResolver.java",
+      "line": 24,
       "expr": "ledgerEntry201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogarchive/service/BundleResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogarchive/service/BundleResolver.java",
+      "line": 25,
       "expr": "ledgerEntry201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogarchive/service/BundleResolver.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/catalogarchive/service/BundleResolver.java",
+      "line": 30,
       "expr": "channelTag202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogarchive/service/BundleResolver.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogarchive/service/BundleResolver.java",
+      "line": 32,
+      "expr": "channelTag202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/catalogarchive/service/BundleResolver.java",
+      "line": 34,
       "expr": "catalogKey203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogarchive/service/BundleResolver.java",
-      "line": 22,
-      "expr": "receiptKey204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogarchive/service/BundleResolver.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/catalogarchive/service/BundleResolver.java",
+      "line": 35,
       "expr": "receiptKey204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 30,
       "expr": "invoiceKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 31,
       "expr": "batchTag302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 32,
       "expr": "batchTag302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 37,
       "expr": "orderRef303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 38,
       "expr": "quoteRef304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 39,
       "expr": "quoteRef304",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 34,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 44,
       "expr": "tariffRef305",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 35,
-      "expr": "ledgerEntry306",
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 46,
+      "expr": "tariffRef305",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 36,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 48,
       "expr": "ledgerEntry306",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 41,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 53,
       "expr": "channelTag307",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 44,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 56,
       "expr": "channelTag307",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 45,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 57,
       "expr": "catalogKey308",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/VoucherRouter.java",
-      "line": 46,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/VoucherRouter.java",
+      "line": 58,
       "expr": "catalogKey308",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/ShipmentExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/ShipmentExecutor.java",
+      "line": 15,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogarchive/dao/ShipmentExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogarchive/dao/ShipmentExecutor.java",
+      "line": 20,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -250,6 +250,6 @@
     "payload_at_sink": "echo ref:ref:ref:ref:zz$(id);;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

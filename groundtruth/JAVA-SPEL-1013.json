@@ -4,125 +4,125 @@
   "verdict": "vulnerable",
   "title": "路径变量经 8 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingbatch/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingbatch/web/PaymentController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingbatch/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingbatch/web/PaymentController.java",
+    "line": 27,
     "expr": "category",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingbatch/dao/PaymentEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "dao/src/main/java/com/northwind/billingbatch/dao/PaymentEvaluator.java",
+    "line": 22,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingbatch/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingbatch/web/PaymentController.java",
+      "line": 27,
       "expr": "category",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/billingbatch/web/ReceiptService.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/billingbatch/web/ReceiptService.java",
+      "line": 21,
       "expr": "receiptKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingbatch/web/ReceiptService.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/billingbatch/web/ReceiptService.java",
+      "line": 22,
       "expr": "receiptKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingbatch/web/ReceiptService.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/billingbatch/web/ReceiptService.java",
+      "line": 27,
       "expr": "accountRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingbatch/web/ReceiptService.java",
-      "line": 16,
-      "expr": "voucherRef3",
+      "file": "web/src/main/java/com/northwind/billingbatch/web/ReceiptService.java",
+      "line": 29,
+      "expr": "accountRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingbatch/web/ReceiptService.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/billingbatch/web/ReceiptService.java",
+      "line": 31,
       "expr": "voucherRef3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingbatch/service/ContractAdapter.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/billingbatch/service/ContractAdapter.java",
+      "line": 31,
       "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingbatch/service/ContractAdapter.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/billingbatch/service/ContractAdapter.java",
+      "line": 32,
       "expr": "quoteRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingbatch/service/ContractAdapter.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/billingbatch/service/ContractAdapter.java",
+      "line": 37,
       "expr": "tariffRef102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingbatch/service/ContractAdapter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/billingbatch/service/ContractAdapter.java",
+      "line": 40,
       "expr": "tariffRef102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingbatch/service/ContractAdapter.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/billingbatch/service/ContractAdapter.java",
+      "line": 41,
       "expr": "ledgerEntry103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingbatch/service/ContractAdapter.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/billingbatch/service/ContractAdapter.java",
+      "line": 42,
       "expr": "channelTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingbatch/service/ContractAdapter.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/billingbatch/service/ContractAdapter.java",
+      "line": 43,
       "expr": "channelTag104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingbatch/dao/SessionBuilder.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/billingbatch/dao/SessionBuilder.java",
+      "line": 18,
       "expr": "shipmentCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingbatch/dao/SessionBuilder.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/billingbatch/dao/SessionBuilder.java",
+      "line": 19,
       "expr": "shipmentCode201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingbatch/dao/PaymentEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/billingbatch/dao/PaymentEvaluator.java",
+      "line": 17,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingbatch/dao/PaymentEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "dao/src/main/java/com/northwind/billingbatch/dao/PaymentEvaluator.java",
+      "line": 22,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -164,6 +164,6 @@
     "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

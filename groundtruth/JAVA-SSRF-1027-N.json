@@ -4,123 +4,123 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1027 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentimport/web/LedgerController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentimport/web/LedgerController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentimport/web/LedgerController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentimport/web/LedgerController.java",
+    "line": 25,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/paymentimport/dao/LedgerFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/paymentimport/dao/LedgerFetcher.java",
+    "line": 24,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/paymentimport/web/RefundGuard.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentimport/web/RefundGuard.java",
+    "line": 19,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/LedgerController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/LedgerController.java",
+      "line": 25,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/RefundGuard.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/RefundGuard.java",
+      "line": 19,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 26,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 27,
       "expr": "ledgerEntry2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 28,
       "expr": "ledgerEntry2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 33,
       "expr": "channelTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 36,
       "expr": "channelTag3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 37,
       "expr": "catalogKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentimport/web/ContractService.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/paymentimport/web/ContractService.java",
+      "line": 38,
       "expr": "catalogKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentimport/service/ContractNormalizer.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/paymentimport/service/ContractNormalizer.java",
+      "line": 13,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentimport/service/ContractNormalizer.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/paymentimport/service/ContractNormalizer.java",
+      "line": 14,
       "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentimport/dao/BatchCollector.java",
-      "line": 8,
-      "expr": "accountRef201",
+      "file": "dao/src/main/java/com/northwind/paymentimport/dao/BatchCollector.java",
+      "line": 12,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentimport/dao/BatchCollector.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/paymentimport/dao/BatchCollector.java",
+      "line": 14,
       "expr": "accountRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentimport/dao/LedgerFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/paymentimport/dao/LedgerFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentimport/dao/LedgerFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/paymentimport/dao/LedgerFetcher.java",
+      "line": 24,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -161,6 +161,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

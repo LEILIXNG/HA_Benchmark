@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/orderrevise/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/orderrevise/web/BundleController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/orderrevise/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/orderrevise/web/BundleController.java",
+    "line": 26,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/orderrevise/service/BundleExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/orderrevise/service/BundleExecutor.java",
+    "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,80 +24,80 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/orderrevise/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/orderrevise/web/BundleController.java",
+      "line": 26,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/orderrevise/web/InvoiceCollector.java",
-      "line": 8,
-      "expr": "catalogKey1",
+      "file": "web/src/main/java/com/northwind/orderrevise/web/InvoiceCollector.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderrevise/web/InvoiceCollector.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/orderrevise/web/InvoiceCollector.java",
+      "line": 25,
       "expr": "receiptKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderrevise/web/InvoiceCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/orderrevise/web/InvoiceCollector.java",
+      "line": 26,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptResolver.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/ReceiptResolver.java",
+      "line": 30,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/orderrevise/service/ReceiptResolver.java",
+      "line": 31,
       "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptResolver.java",
-      "line": 17,
-      "expr": "quoteRef102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptResolver.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/ReceiptResolver.java",
+      "line": 32,
       "expr": "quoteRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptResolver.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/ReceiptResolver.java",
+      "line": 37,
       "expr": "tariffRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptResolver.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/ReceiptResolver.java",
+      "line": 40,
       "expr": "tariffRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptResolver.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/ReceiptResolver.java",
+      "line": 41,
       "expr": "ledgerEntry104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/ReceiptResolver.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/ReceiptResolver.java",
+      "line": 42,
       "expr": "ledgerEntry104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/BundleExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/BundleExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/orderrevise/service/BundleExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/orderrevise/service/BundleExecutor.java",
+      "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -137,6 +137,6 @@
     "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

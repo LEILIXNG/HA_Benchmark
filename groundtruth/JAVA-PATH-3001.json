@@ -4,99 +4,99 @@
   "verdict": "safe",
   "title": "Spring 请求头经 7 层调用、跨 2 个模块流入文件读取，经 path_canonical_check 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorintake/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorintake/web/QuoteController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorintake/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorintake/web/QuoteController.java",
+    "line": 25,
     "expr": "resource",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
-    "line": 20,
+    "file": "service/src/main/java/com/northwind/vendorintake/service/QuoteLoader.java",
+    "line": 31,
     "expr": "resolved",
     "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
-    "line": 15,
+    "file": "service/src/main/java/com/northwind/vendorintake/service/QuoteLoader.java",
+    "line": 26,
     "expr": "resolved",
     "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
   },
   "sanitizer_kind": "path_canonical_check",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorintake/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorintake/web/QuoteController.java",
+      "line": 25,
       "expr": "resource",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorintake/web/AccountTranslator.java",
-      "line": 8,
-      "expr": "refundCode1",
+      "file": "web/src/main/java/com/northwind/vendorintake/web/AccountTranslator.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorintake/web/AccountTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorintake/web/AccountTranslator.java",
+      "line": 21,
       "expr": "refundCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/ContractFacade.java",
-      "line": 8,
-      "expr": "catalogKey101",
+      "file": "service/src/main/java/com/northwind/vendorintake/service/OrderTranslator.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/ContractFacade.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/OrderTranslator.java",
+      "line": 20,
       "expr": "catalogKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/ReceiptRuleSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/ReceiptRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/ReceiptRuleStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/ReceiptRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/CatalogCoordinator.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/CatalogCoordinator.java",
+      "line": 23,
       "expr": "orderRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/CatalogCoordinator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/CatalogCoordinator.java",
+      "line": 24,
       "expr": "orderRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/QuoteLoader.java",
+      "line": 25,
       "expr": "value",
       "note": "解析并规范化路径"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/QuoteLoader.java",
+      "line": 26,
       "expr": "resolved",
       "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorintake/service/QuoteLoader.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/vendorintake/service/QuoteLoader.java",
+      "line": 31,
       "expr": "resolved",
       "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
     }
@@ -134,6 +134,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

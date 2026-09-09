@@ -4,285 +4,285 @@
   "verdict": "safe",
   "title": "请求头经 17 层调用、跨 2 个模块流入命令执行，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingledger/web/BatchController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingledger/web/BatchController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingledger/web/BatchController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingledger/web/BatchController.java",
+    "line": 27,
     "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/shippingledger/service/BatchExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/shippingledger/service/BatchExecutor.java",
+    "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/shippingledger/service/RefundValidator.java",
-    "line": 11,
-    "expr": "value",
+    "file": "service/src/main/java/com/northwind/shippingledger/service/RefundValidator.java",
+    "line": 27,
+    "expr": "matcher",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/BatchController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/BatchController.java",
+      "line": 27,
       "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/CatalogService.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ManifestBroker.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/CatalogService.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ManifestBroker.java",
+      "line": 24,
       "expr": "quoteRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/CatalogService.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ManifestBroker.java",
+      "line": 25,
       "expr": "quoteRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ShipmentRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ShipmentRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ShipmentRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ShipmentRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ShipmentRouter.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ShipmentRouter.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ShipmentRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ShipmentRouter.java",
+      "line": 24,
       "expr": "shipmentCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ShipmentRouter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ShipmentRouter.java",
+      "line": 25,
       "expr": "manifestKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ShipmentRouter.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ShipmentRouter.java",
+      "line": 26,
       "expr": "manifestKey102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 16,
-      "expr": "receiptKey201",
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 31,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 32,
       "expr": "receiptKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 37,
       "expr": "accountRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 38,
+      "expr": "accountRef202",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 39,
       "expr": "voucherRef203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 24,
-      "expr": "paymentTag204",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 40,
       "expr": "paymentTag204",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 45,
       "expr": "refundCode205",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 31,
-      "expr": "shipmentCode206",
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 46,
+      "expr": "refundCode205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 47,
       "expr": "shipmentCode206",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 52,
       "expr": "manifestKey207",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 55,
       "expr": "manifestKey207",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 56,
       "expr": "invoiceKey208",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 42,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 57,
       "expr": "batchTag209",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingledger/web/ChannelBuilder.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/shippingledger/web/ChannelBuilder.java",
+      "line": 58,
       "expr": "batchTag209",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 17,
-      "expr": "quoteRef301",
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 34,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 37,
       "expr": "quoteRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 38,
       "expr": "tariffRef302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 39,
       "expr": "tariffRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 44,
       "expr": "ledgerEntry303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 47,
       "expr": "ledgerEntry303",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 48,
       "expr": "channelTag304",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 51,
       "expr": "channelTag304",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 52,
       "expr": "catalogKey305",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 53,
       "expr": "catalogKey305",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 41,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 58,
       "expr": "receiptKey306",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 42,
-      "expr": "accountRef307",
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 60,
+      "expr": "receiptKey306",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 62,
       "expr": "accountRef307",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 48,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 67,
       "expr": "voucherRef308",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 49,
-      "expr": "paymentTag309",
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 68,
+      "expr": "voucherRef308",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/ChannelCollector.java",
-      "line": 50,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/ChannelCollector.java",
+      "line": 69,
       "expr": "paymentTag309",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/RefundValidator.java",
-      "line": 11,
-      "expr": "value",
+      "file": "service/src/main/java/com/northwind/shippingledger/service/RefundValidator.java",
+      "line": 27,
+      "expr": "matcher",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/BatchExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/BatchExecutor.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingledger/service/BatchExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/shippingledger/service/BatchExecutor.java",
+      "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -339,6 +339,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

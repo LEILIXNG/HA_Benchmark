@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "请求头经 15 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryledger/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryledger/web/OrderController.java",
+    "line": 16,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryledger/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryledger/web/OrderController.java",
+    "line": 18,
     "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/inventoryledger/dao/OrderMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/inventoryledger/dao/OrderMapper.xml",
     "line": 9,
     "expr": "ledgerEntry",
     "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
   },
   "sanitizer": {
-    "file": "dao/src/main/resources/com/habench/inventoryledger/dao/OrderMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/inventoryledger/dao/OrderMapper.xml",
     "line": 9,
     "expr": "ledgerEntry",
     "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
@@ -29,181 +29,181 @@
   "sanitizer_kind": "mybatis_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryledger/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryledger/web/OrderController.java",
+      "line": 18,
       "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryledger/web/QuoteTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/inventoryledger/web/QuoteTranslator.java",
+      "line": 11,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/inventoryledger/web/QuoteTranslator.java",
+      "line": 12,
       "expr": "paymentTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryledger/web/QuoteTranslator.java",
-      "line": 9,
-      "expr": "refundCode2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryledger/web/QuoteTranslator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/inventoryledger/web/QuoteTranslator.java",
+      "line": 13,
       "expr": "refundCode2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryledger/web/AccountTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/inventoryledger/web/AccountTranslator.java",
+      "line": 17,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/inventoryledger/web/AccountTranslator.java",
+      "line": 18,
       "expr": "channelTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryledger/web/AccountTranslator.java",
-      "line": 9,
-      "expr": "catalogKey102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/inventoryledger/web/AccountTranslator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/inventoryledger/web/AccountTranslator.java",
+      "line": 19,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 26,
       "expr": "batchTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 27,
       "expr": "batchTag201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 32,
       "expr": "orderRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 35,
       "expr": "orderRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 36,
       "expr": "quoteRef203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 37,
       "expr": "tariffRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryledger/service/TariffAdapter.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/inventoryledger/service/TariffAdapter.java",
+      "line": 38,
       "expr": "tariffRef204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ChannelBroker.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ChannelBroker.java",
+      "line": 21,
       "expr": "paymentTag301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
-      "line": 14,
-      "expr": "refundCode302",
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ChannelBroker.java",
+      "line": 22,
+      "expr": "paymentTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelBroker.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ChannelBroker.java",
+      "line": 23,
       "expr": "refundCode302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/TariffPlanSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/TariffPlanSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/TariffPlanStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/TariffPlanStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelEnricher.java",
-      "line": 8,
-      "expr": "channelTag401",
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ChannelEnricher.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ChannelEnricher.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ChannelEnricher.java",
+      "line": 19,
       "expr": "channelTag401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/BatchPlanSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/BatchPlanSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/BatchPlanStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/BatchPlanStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ManifestBroker.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ManifestBroker.java",
+      "line": 11,
       "expr": "batchTag501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/ManifestBroker.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/ManifestBroker.java",
+      "line": 12,
       "expr": "batchTag501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/OrderGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/OrderGateway.java",
+      "line": 19,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryledger/dao/OrderGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/inventoryledger/dao/OrderGateway.java",
+      "line": 26,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/inventoryledger/dao/OrderMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/inventoryledger/dao/OrderMapper.xml",
       "line": 9,
       "expr": "ledgerEntry",
       "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
@@ -251,9 +251,9 @@
     "neutralized": true,
     "call_depth_observed": 15,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = ?",
+    "payload_at_sink": "SELECT id, total       FROM payment_records      WHERE label = ?",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

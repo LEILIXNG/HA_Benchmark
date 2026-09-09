@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 7 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogverify/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogverify/web/PaymentController.java",
+    "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogverify/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogverify/web/PaymentController.java",
+    "line": 20,
     "expr": "userName",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/catalogverify/service/PaymentEvaluator.java",
-    "line": 14,
+    "file": "service/src/main/java/com/northwind/catalogverify/service/PaymentEvaluator.java",
+    "line": 23,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,80 +24,80 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogverify/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogverify/web/PaymentController.java",
+      "line": 20,
       "expr": "userName",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogverify/web/ChannelRouter.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/catalogverify/web/ChannelRouter.java",
+      "line": 17,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogverify/web/ChannelRouter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/catalogverify/web/ChannelRouter.java",
+      "line": 18,
       "expr": "invoiceKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 23,
       "expr": "voucherRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 24,
       "expr": "voucherRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 29,
       "expr": "paymentTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 22,
-      "expr": "refundCode103",
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 30,
+      "expr": "paymentTag102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 31,
       "expr": "refundCode103",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 36,
       "expr": "shipmentCode104",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 37,
       "expr": "manifestKey105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/LedgerRouter.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/LedgerRouter.java",
+      "line": 38,
       "expr": "manifestKey105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/PaymentEvaluator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/PaymentEvaluator.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogverify/service/PaymentEvaluator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/catalogverify/service/PaymentEvaluator.java",
+      "line": 23,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -137,6 +137,6 @@
     "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

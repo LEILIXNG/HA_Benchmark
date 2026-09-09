@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Cookie经 12 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportmerge/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportmerge/web/ContractController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportmerge/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportmerge/web/ContractController.java",
+    "line": 23,
     "expr": "token",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reportmerge/dao/ContractRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/reportmerge/dao/ContractRepository.java",
+    "line": 26,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,182 +24,182 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/ContractController.java",
+      "line": 23,
       "expr": "token",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/QuoteBroker.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/QuoteBroker.java",
+      "line": 25,
       "expr": "receiptKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/QuoteBroker.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/QuoteBroker.java",
+      "line": 26,
       "expr": "receiptKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/QuoteBroker.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/QuoteBroker.java",
+      "line": 31,
       "expr": "accountRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/QuoteBroker.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/QuoteBroker.java",
+      "line": 34,
       "expr": "accountRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/QuoteBroker.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/QuoteBroker.java",
+      "line": 35,
       "expr": "voucherRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/QuoteBroker.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/QuoteBroker.java",
+      "line": 36,
       "expr": "paymentTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportmerge/web/QuoteBroker.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/reportmerge/web/QuoteBroker.java",
+      "line": 37,
       "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 18,
       "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 19,
       "expr": "quoteRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 24,
       "expr": "tariffRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 16,
-      "expr": "ledgerEntry103",
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 25,
+      "expr": "tariffRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 26,
       "expr": "ledgerEntry103",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 31,
       "expr": "channelTag104",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 23,
-      "expr": "catalogKey105",
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 32,
+      "expr": "channelTag104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportmerge/service/ShipmentEnricher.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/reportmerge/service/ShipmentEnricher.java",
+      "line": 33,
       "expr": "catalogKey105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 25,
       "expr": "shipmentCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 26,
       "expr": "manifestKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 27,
       "expr": "manifestKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 32,
       "expr": "invoiceKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 28,
-      "expr": "batchTag204",
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 33,
+      "expr": "invoiceKey203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 34,
       "expr": "batchTag204",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 34,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 39,
       "expr": "orderRef205",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 37,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 42,
       "expr": "orderRef205",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 38,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 43,
       "expr": "quoteRef206",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 39,
-      "expr": "tariffRef207",
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 44,
+      "expr": "quoteRef206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ManifestResolver.java",
-      "line": 40,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ManifestResolver.java",
+      "line": 45,
       "expr": "tariffRef207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ContractRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ContractRepository.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportmerge/dao/ContractRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/reportmerge/dao/ContractRepository.java",
+      "line": 26,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -247,9 +247,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "zz'/**/OR/**/1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;'",
+    "payload_at_sink": "SELECT id, ref_no, total FROM shipments WHERE name = 'ref:ref:ref:ref:zz'/**/OR/**/1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

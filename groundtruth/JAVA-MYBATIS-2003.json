@@ -4,320 +4,320 @@
   "verdict": "safe",
   "title": "请求头经 17 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendormerge/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendormerge/web/CatalogController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendormerge/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendormerge/web/CatalogController.java",
+    "line": 24,
     "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/resources/com/habench/vendormerge/service/CatalogMapper.xml",
+    "file": "service/src/main/resources/com/northwind/vendormerge/service/CatalogMapper.xml",
     "line": 9,
     "expr": "invoiceKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/vendormerge/service/AccountFilter.java",
-    "line": 11,
+    "file": "service/src/main/java/com/northwind/vendormerge/service/AccountFilter.java",
+    "line": 20,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/CatalogController.java",
+      "line": 24,
       "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 11,
-      "expr": "paymentTag1",
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 30,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 34,
       "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 35,
       "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 36,
       "expr": "refundCode2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 41,
       "expr": "shipmentCode3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 44,
       "expr": "shipmentCode3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 45,
       "expr": "manifestKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 26,
-      "expr": "invoiceKey5",
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 46,
+      "expr": "manifestKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendormerge/web/ShipmentBuilder.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/vendormerge/web/ShipmentBuilder.java",
+      "line": 47,
       "expr": "invoiceKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 31,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 33,
       "expr": "channelTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 18,
-      "expr": "catalogKey102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 35,
       "expr": "catalogKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 40,
       "expr": "receiptKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 43,
       "expr": "receiptKey103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 44,
       "expr": "accountRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 45,
       "expr": "accountRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 50,
       "expr": "voucherRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 53,
       "expr": "voucherRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 54,
       "expr": "paymentTag106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 55,
       "expr": "refundCode107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/ShipmentCollector.java",
-      "line": 40,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/ManifestEnricher.java",
+      "line": 56,
       "expr": "refundCode107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 29,
       "expr": "batchTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 30,
       "expr": "orderRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 31,
       "expr": "orderRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 36,
       "expr": "quoteRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 39,
       "expr": "quoteRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 40,
       "expr": "tariffRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 41,
       "expr": "tariffRef204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 46,
       "expr": "ledgerEntry205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 47,
       "expr": "channelTag206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 50,
       "expr": "channelTag206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 51,
       "expr": "catalogKey207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 52,
       "expr": "catalogKey207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 57,
       "expr": "receiptKey208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 40,
-      "expr": "accountRef209",
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 58,
+      "expr": "receiptKey208",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 61,
       "expr": "accountRef209",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 44,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 62,
       "expr": "voucherRef210",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/InvoiceBroker.java",
-      "line": 45,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/PaymentBroker.java",
+      "line": 63,
       "expr": "voucherRef210",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/CatalogPolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/CatalogPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/CatalogPolicyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/CatalogPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/BatchFacade.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/BatchFacade.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/BatchFacade.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/BatchFacade.java",
+      "line": 28,
       "expr": "paymentTag301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/BatchFacade.java",
-      "line": 14,
-      "expr": "refundCode302",
+      "file": "service/src/main/java/com/northwind/vendormerge/service/BatchFacade.java",
+      "line": 29,
+      "expr": "paymentTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/BatchFacade.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/BatchFacade.java",
+      "line": 30,
       "expr": "refundCode302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/AccountFilter.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/AccountFilter.java",
+      "line": 20,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/CatalogGateway.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/CatalogGateway.java",
+      "line": 18,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/habench/vendormerge/service/CatalogGateway.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/vendormerge/service/CatalogGateway.java",
+      "line": 25,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/habench/vendormerge/service/CatalogMapper.xml",
+      "file": "service/src/main/resources/com/northwind/vendormerge/service/CatalogMapper.xml",
       "line": 9,
       "expr": "invoiceKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -378,6 +378,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

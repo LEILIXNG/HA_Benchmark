@@ -4,225 +4,225 @@
   "verdict": "safe",
   "title": "请求头经 13 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportarchive/web/SessionController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportarchive/web/SessionController.java",
+    "line": 25,
     "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/reportarchive/dao/SessionEvaluator.java",
+    "line": 27,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
-    "line": 15,
+    "file": "dao/src/main/java/com/northwind/reportarchive/dao/SessionEvaluator.java",
+    "line": 25,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
   },
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportarchive/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportarchive/web/SessionController.java",
+      "line": 25,
       "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/reportarchive/web/ManifestTranslator2.java",
+      "line": 22,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportarchive/web/ManifestTranslator2.java",
+      "line": 25,
       "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportarchive/web/ManifestTranslator2.java",
+      "line": 26,
       "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportarchive/web/ManifestTranslator2.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reportarchive/web/ManifestTranslator2.java",
+      "line": 27,
       "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/reportarchive/service/ShipmentResolver.java",
+      "line": 16,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportarchive/service/ShipmentResolver.java",
+      "line": 17,
       "expr": "tariffRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/reportarchive/service/ShipmentResolver.java",
+      "line": 22,
       "expr": "ledgerEntry102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportarchive/service/ShipmentResolver.java",
+      "line": 23,
+      "expr": "ledgerEntry102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/reportarchive/service/ShipmentResolver.java",
+      "line": 24,
       "expr": "channelTag103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
-      "line": 17,
-      "expr": "catalogKey104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportarchive/service/ShipmentResolver.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reportarchive/service/ShipmentResolver.java",
+      "line": 25,
       "expr": "catalogKey104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestTranslator.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestTranslator.java",
+      "line": 12,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestTranslator.java",
+      "line": 14,
       "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestTranslator.java",
-      "line": 9,
-      "expr": "invoiceKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestTranslator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestTranslator.java",
+      "line": 15,
       "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 18,
       "expr": "accountRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 16,
-      "expr": "voucherRef302",
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 19,
+      "expr": "accountRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 20,
       "expr": "voucherRef302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 25,
       "expr": "paymentTag303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 27,
+      "expr": "paymentTag303",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 29,
       "expr": "refundCode304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 24,
-      "expr": "shipmentCode305",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 25,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 30,
       "expr": "shipmentCode305",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 35,
       "expr": "manifestKey306",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 31,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 36,
       "expr": "invoiceKey307",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/ManifestComposer.java",
-      "line": 32,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/ManifestComposer.java",
+      "line": 37,
       "expr": "invoiceKey307",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/QuoteStrategySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/QuoteStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/QuoteStrategyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/QuoteStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/TariffCollector.java",
+      "line": 14,
       "expr": "tariffRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/TariffCollector.java",
+      "line": 17,
       "expr": "tariffRef401",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/TariffCollector.java",
+      "line": 18,
       "expr": "ledgerEntry402",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/TariffCollector.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/TariffCollector.java",
+      "line": 19,
       "expr": "ledgerEntry402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/SessionEvaluator.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/SessionEvaluator.java",
+      "line": 25,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportarchive/dao/SessionEvaluator.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/reportarchive/dao/SessionEvaluator.java",
+      "line": 27,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
@@ -276,6 +276,6 @@
     "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

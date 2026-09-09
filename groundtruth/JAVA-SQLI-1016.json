@@ -4,141 +4,141 @@
   "verdict": "safe",
   "title": "查询参数经 11 层调用、跨 2 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingsplit/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingsplit/web/BundleController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingsplit/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingsplit/web/BundleController.java",
+    "line": 25,
     "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/pricingsplit/service/BundleRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/pricingsplit/service/BundleRepository.java",
+    "line": 23,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/pricingsplit/service/BatchGuard.java",
-    "line": 11,
-    "expr": "value",
+    "file": "service/src/main/java/com/northwind/pricingsplit/service/BatchGuard.java",
+    "line": 24,
+    "expr": "matcher",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingsplit/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingsplit/web/BundleController.java",
+      "line": 25,
       "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsplit/web/AccountTranslator.java",
-      "line": 14,
-      "expr": "channelTag1",
+      "file": "web/src/main/java/com/northwind/pricingsplit/web/AccountTranslator.java",
+      "line": 29,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsplit/web/AccountTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/pricingsplit/web/AccountTranslator.java",
+      "line": 30,
       "expr": "channelTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsplit/web/AccountTranslator.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/pricingsplit/web/AccountTranslator.java",
+      "line": 35,
       "expr": "catalogKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsplit/web/AccountTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/pricingsplit/web/AccountTranslator.java",
+      "line": 36,
       "expr": "receiptKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingsplit/web/AccountTranslator.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/pricingsplit/web/AccountTranslator.java",
+      "line": 37,
       "expr": "receiptKey3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/BatchGuard.java",
-      "line": 11,
-      "expr": "value",
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/BatchGuard.java",
+      "line": 24,
+      "expr": "matcher",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/CatalogFacade.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/CatalogFacade.java",
+      "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/CatalogFacade.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/CatalogFacade.java",
+      "line": 23,
       "expr": "batchTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/CatalogFacade.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/CatalogFacade.java",
+      "line": 24,
       "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/BundleEnricher.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/BundleEnricher.java",
+      "line": 11,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/BundleEnricher.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/BundleEnricher.java",
+      "line": 12,
       "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/PaymentStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/PaymentStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/PaymentStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/PaymentStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/TariffRegistry.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/TariffRegistry.java",
+      "line": 17,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/TariffRegistry.java",
+      "line": 19,
       "expr": "channelTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/TariffRegistry.java",
-      "line": 9,
-      "expr": "catalogKey302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/TariffRegistry.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/TariffRegistry.java",
+      "line": 20,
       "expr": "catalogKey302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/BundleRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/BundleRepository.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingsplit/service/BundleRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/pricingsplit/service/BundleRepository.java",
+      "line": 23,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -181,6 +181,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

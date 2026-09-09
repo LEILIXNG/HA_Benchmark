@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventorylookup/web/BatchController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventorylookup/web/BatchController.java",
+    "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventorylookup/web/BatchController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventorylookup/web/BatchController.java",
+    "line": 20,
     "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/inventorylookup/service/BatchExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/inventorylookup/service/BatchExecutor.java",
+    "line": 19,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,152 +24,152 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/BatchController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventorylookup/web/BatchController.java",
+      "line": 20,
       "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/inventorylookup/web/AccountService.java",
+      "line": 19,
       "expr": "tariffRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/inventorylookup/web/AccountService.java",
+      "line": 20,
       "expr": "tariffRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/inventorylookup/web/AccountService.java",
+      "line": 25,
       "expr": "ledgerEntry2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/inventorylookup/web/AccountService.java",
+      "line": 26,
       "expr": "channelTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorylookup/web/AccountService.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/inventorylookup/web/AccountService.java",
+      "line": 27,
       "expr": "channelTag3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ShipmentBroker.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ShipmentBroker.java",
+      "line": 21,
       "expr": "manifestKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ShipmentBroker.java",
+      "line": 24,
       "expr": "manifestKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ShipmentBroker.java",
+      "line": 25,
       "expr": "invoiceKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ShipmentBroker.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ShipmentBroker.java",
+      "line": 26,
       "expr": "invoiceKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 27,
       "expr": "accountRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 18,
-      "expr": "voucherRef202",
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 28,
+      "expr": "accountRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 29,
       "expr": "voucherRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 34,
       "expr": "paymentTag203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 37,
       "expr": "paymentTag203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 38,
       "expr": "refundCode204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 39,
       "expr": "refundCode204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 44,
       "expr": "shipmentCode205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 35,
-      "expr": "manifestKey206",
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 45,
+      "expr": "shipmentCode205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 48,
       "expr": "manifestKey206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 49,
       "expr": "invoiceKey207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/ReceiptCollector.java",
-      "line": 40,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/ReceiptCollector.java",
+      "line": 50,
       "expr": "invoiceKey207",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/BatchExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/BatchExecutor.java",
+      "line": 15,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorylookup/service/BatchExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/inventorylookup/service/BatchExecutor.java",
+      "line": 19,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -216,6 +216,6 @@
     "payload_at_sink": "echo ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

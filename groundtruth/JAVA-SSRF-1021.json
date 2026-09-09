@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 12 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingsubmit/web/BatchController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingsubmit/web/BatchController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingsubmit/web/BatchController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingsubmit/web/BatchController.java",
+    "line": 27,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/billingsubmit/service/BatchFetcher.java",
-    "line": 14,
+    "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchFetcher.java",
+    "line": 21,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
@@ -24,230 +24,230 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/BatchController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/BatchController.java",
+      "line": 27,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/CatalogFacade.java",
-      "line": 9,
-      "expr": "channelTag1",
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/CatalogFacade.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/CatalogFacade.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/CatalogFacade.java",
+      "line": 27,
       "expr": "channelTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/CatalogFacade.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/CatalogFacade.java",
+      "line": 32,
       "expr": "catalogKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/CatalogFacade.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/CatalogFacade.java",
+      "line": 34,
+      "expr": "catalogKey2",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/CatalogFacade.java",
+      "line": 36,
       "expr": "receiptKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/CatalogFacade.java",
-      "line": 17,
-      "expr": "accountRef4",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/CatalogFacade.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/CatalogFacade.java",
+      "line": 37,
       "expr": "accountRef4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/ManifestFacade.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/ManifestFacade.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/ManifestFacade.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/ManifestFacade.java",
+      "line": 25,
       "expr": "batchTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/ManifestFacade.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/ManifestFacade.java",
+      "line": 26,
       "expr": "orderRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingsubmit/web/ManifestFacade.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/billingsubmit/web/ManifestFacade.java",
+      "line": 27,
       "expr": "orderRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 11,
-      "expr": "paymentTag201",
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 28,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 29,
       "expr": "paymentTag201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 34,
       "expr": "refundCode202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 35,
       "expr": "shipmentCode203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 36,
       "expr": "manifestKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 37,
       "expr": "manifestKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 42,
       "expr": "invoiceKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 43,
+      "expr": "invoiceKey205",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 44,
       "expr": "batchTag206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 27,
-      "expr": "orderRef207",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 45,
       "expr": "orderRef207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 50,
       "expr": "quoteRef208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 53,
       "expr": "quoteRef208",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 54,
       "expr": "tariffRef209",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 40,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 57,
       "expr": "tariffRef209",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 41,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 58,
       "expr": "ledgerEntry210",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 42,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 59,
       "expr": "ledgerEntry210",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 47,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 64,
       "expr": "channelTag211",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 48,
-      "expr": "catalogKey212",
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 65,
+      "expr": "channelTag211",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 49,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 66,
       "expr": "receiptKey213",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/ShipmentEnricher.java",
-      "line": 50,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/ShipmentEnricher.java",
+      "line": 67,
       "expr": "receiptKey213",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/BatchComposer.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchComposer.java",
+      "line": 24,
       "expr": "channelTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/BatchComposer.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchComposer.java",
+      "line": 25,
       "expr": "channelTag301",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/BatchComposer.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchComposer.java",
+      "line": 30,
       "expr": "catalogKey302",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/BatchComposer.java",
-      "line": 16,
-      "expr": "receiptKey303",
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchComposer.java",
+      "line": 31,
+      "expr": "catalogKey302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/BatchComposer.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchComposer.java",
+      "line": 32,
       "expr": "receiptKey303",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/BatchFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchFetcher.java",
+      "line": 17,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/billingsubmit/service/BatchFetcher.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/billingsubmit/service/BatchFetcher.java",
+      "line": 21,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -302,9 +302,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:ref:ref:ref:ref:ref:127.0.0.1:1;;;;;;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:ref:ref:ref:ref:ref:127.0.0.1:1;;;;;;;;/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

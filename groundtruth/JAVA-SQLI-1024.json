@@ -4,153 +4,153 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 3 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/accounthold/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accounthold/web/SessionController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accounthold/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accounthold/web/SessionController.java",
+    "line": 23,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accounthold/dao/SessionRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/accounthold/dao/SessionRepository.java",
+    "line": 27,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/accounthold/dao/BatchFilter.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/accounthold/dao/BatchFilter.java",
+    "line": 19,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accounthold/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accounthold/web/SessionController.java",
+      "line": 23,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/accounthold/web/CatalogAdapter.java",
-      "line": 8,
-      "expr": "orderRef1",
+      "file": "web/src/main/java/com/northwind/accounthold/web/CatalogAdapter.java",
+      "line": 13,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accounthold/web/CatalogAdapter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/accounthold/web/CatalogAdapter.java",
+      "line": 14,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accounthold/service/SessionAssembler.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/accounthold/service/SessionAssembler.java",
+      "line": 21,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accounthold/service/SessionAssembler.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/accounthold/service/SessionAssembler.java",
+      "line": 22,
       "expr": "refundCode101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounthold/service/SessionAssembler.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/accounthold/service/SessionAssembler.java",
+      "line": 27,
       "expr": "shipmentCode102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounthold/service/SessionAssembler.java",
-      "line": 23,
-      "expr": "manifestKey103",
+      "file": "service/src/main/java/com/northwind/accounthold/service/SessionAssembler.java",
+      "line": 28,
+      "expr": "shipmentCode102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accounthold/service/SessionAssembler.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/accounthold/service/SessionAssembler.java",
+      "line": 31,
       "expr": "manifestKey103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounthold/service/SessionAssembler.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/accounthold/service/SessionAssembler.java",
+      "line": 32,
       "expr": "invoiceKey104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounthold/service/SessionAssembler.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/accounthold/service/SessionAssembler.java",
+      "line": 33,
       "expr": "invoiceKey104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 21,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 23,
       "expr": "catalogKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 17,
-      "expr": "receiptKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 24,
       "expr": "receiptKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 29,
       "expr": "accountRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 24,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 30,
       "expr": "voucherRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 33,
       "expr": "voucherRef204",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 34,
       "expr": "paymentTag205",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/OrderComposer.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/OrderComposer.java",
+      "line": 35,
       "expr": "paymentTag205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/BatchFilter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/BatchFilter.java",
+      "line": 19,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/SessionRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/SessionRepository.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/accounthold/dao/SessionRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/accounthold/dao/SessionRepository.java",
+      "line": 27,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -192,9 +192,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total FROM quote_items WHERE ref_no = 'ref:ref:ref:ref:zz OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

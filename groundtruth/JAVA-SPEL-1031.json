@@ -4,147 +4,147 @@
   "verdict": "safe",
   "title": "查询参数经 6 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountrollup/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountrollup/web/ContractController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountrollup/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountrollup/web/ContractController.java",
+    "line": 27,
     "expr": "tag",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/accountrollup/service/ContractEvaluator.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/accountrollup/service/ContractEvaluator.java",
+    "line": 25,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/accountrollup/service/ContractEvaluator.java",
-    "line": 15,
+    "file": "service/src/main/java/com/northwind/accountrollup/service/ContractEvaluator.java",
+    "line": 23,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
   },
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountrollup/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountrollup/web/ContractController.java",
+      "line": 27,
       "expr": "tag",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrollup/web/AccountBuilder.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/accountrollup/web/AccountBuilder.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrollup/web/AccountBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountrollup/web/AccountBuilder.java",
+      "line": 29,
       "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrollup/web/AccountBuilder.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accountrollup/web/AccountBuilder.java",
+      "line": 30,
       "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 26,
       "expr": "invoiceKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 29,
       "expr": "invoiceKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 30,
       "expr": "batchTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 31,
       "expr": "batchTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 36,
       "expr": "orderRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 37,
       "expr": "quoteRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 38,
       "expr": "quoteRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 43,
       "expr": "tariffRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 46,
       "expr": "tariffRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 47,
       "expr": "ledgerEntry106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 48,
       "expr": "channelTag107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/BundleAdapter.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/BundleAdapter.java",
+      "line": 49,
       "expr": "channelTag107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/ContractEvaluator.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/ContractEvaluator.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/ContractEvaluator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/ContractEvaluator.java",
+      "line": 23,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrollup/service/ContractEvaluator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/accountrollup/service/ContractEvaluator.java",
+      "line": 25,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
@@ -183,9 +183,9 @@
     "neutralized": true,
     "call_depth_observed": 6,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'zz' + T(java.lang.Runtime) + 'zz'",
+    "payload_at_sink": "'seq-' + 'zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

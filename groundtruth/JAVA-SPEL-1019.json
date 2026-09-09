@@ -4,221 +4,221 @@
   "verdict": "vulnerable",
   "title": "查询参数经 15 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymenttrace/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymenttrace/web/SessionController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymenttrace/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymenttrace/web/SessionController.java",
+    "line": 23,
     "expr": "orderNo",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/paymenttrace/dao/SessionEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "dao/src/main/java/com/northwind/paymenttrace/dao/SessionEvaluator.java",
+    "line": 25,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymenttrace/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymenttrace/web/SessionController.java",
+      "line": 23,
       "expr": "orderNo",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttrace/web/ChannelBuilder.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/paymenttrace/web/ChannelBuilder.java",
+      "line": 19,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/paymenttrace/web/ChannelBuilder.java",
+      "line": 21,
       "expr": "ledgerEntry1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttrace/web/ChannelBuilder.java",
-      "line": 9,
-      "expr": "channelTag2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymenttrace/web/ChannelBuilder.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/paymenttrace/web/ChannelBuilder.java",
+      "line": 23,
       "expr": "channelTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttrace/web/BatchBroker.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/paymenttrace/web/BatchBroker.java",
+      "line": 25,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/paymenttrace/web/BatchBroker.java",
+      "line": 27,
       "expr": "invoiceKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymenttrace/web/BatchBroker.java",
-      "line": 9,
-      "expr": "batchTag102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/paymenttrace/web/BatchBroker.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/paymenttrace/web/BatchBroker.java",
+      "line": 28,
       "expr": "batchTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 16,
-      "expr": "voucherRef201",
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 29,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 30,
       "expr": "voucherRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 35,
       "expr": "paymentTag202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 23,
-      "expr": "refundCode203",
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 36,
+      "expr": "paymentTag202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 39,
       "expr": "refundCode203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 40,
       "expr": "shipmentCode204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 41,
       "expr": "shipmentCode204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 46,
       "expr": "manifestKey205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 49,
       "expr": "manifestKey205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 50,
       "expr": "invoiceKey206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 38,
-      "expr": "batchTag207",
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 52,
+      "expr": "invoiceKey206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymenttrace/service/VoucherCoordinator.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/paymenttrace/service/VoucherCoordinator.java",
+      "line": 54,
       "expr": "batchTag207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/AccountCoordinator.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/CatalogResolver.java",
+      "line": 19,
       "expr": "ledgerEntry301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/AccountCoordinator.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/CatalogResolver.java",
+      "line": 20,
       "expr": "ledgerEntry301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/OrderStrategySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/OrderStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/OrderStrategyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/OrderStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 29,
       "expr": "invoiceKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 30,
       "expr": "invoiceKey401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 35,
       "expr": "batchTag402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 22,
-      "expr": "orderRef403",
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 36,
+      "expr": "batchTag402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 37,
       "expr": "orderRef403",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 42,
       "expr": "quoteRef404",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 29,
-      "expr": "tariffRef405",
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 43,
+      "expr": "quoteRef404",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/InvoiceService.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/InvoiceService.java",
+      "line": 44,
       "expr": "tariffRef405",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/SessionEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/SessionEvaluator.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymenttrace/dao/SessionEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "dao/src/main/java/com/northwind/paymenttrace/dao/SessionEvaluator.java",
+      "line": 25,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -268,9 +268,9 @@
     "neutralized": false,
     "call_depth_observed": 15,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;;;'",
+    "payload_at_sink": "'tag-' + 'ref:ref:ref:ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

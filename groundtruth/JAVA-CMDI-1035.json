@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 9 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportsync/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportsync/web/RefundController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportsync/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportsync/web/RefundController.java",
+    "line": 28,
     "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/reportsync/service/RefundExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/reportsync/service/RefundExecutor.java",
+    "line": 22,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,98 +24,98 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportsync/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportsync/web/RefundController.java",
+      "line": 28,
       "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsync/web/InvoiceBroker.java",
-      "line": 8,
-      "expr": "batchTag1",
+      "file": "web/src/main/java/com/northwind/reportsync/web/InvoiceBroker.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsync/web/InvoiceBroker.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/reportsync/web/InvoiceBroker.java",
+      "line": 20,
       "expr": "batchTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/CatalogAdapter.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/reportsync/service/CatalogAdapter.java",
+      "line": 22,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/reportsync/service/CatalogAdapter.java",
+      "line": 23,
       "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/CatalogAdapter.java",
-      "line": 15,
-      "expr": "refundCode102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportsync/service/CatalogAdapter.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportsync/service/CatalogAdapter.java",
+      "line": 24,
       "expr": "refundCode102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/CatalogAdapter.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/reportsync/service/CatalogAdapter.java",
+      "line": 29,
       "expr": "shipmentCode103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/CatalogAdapter.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/reportsync/service/CatalogAdapter.java",
+      "line": 30,
       "expr": "manifestKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/CatalogAdapter.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reportsync/service/CatalogAdapter.java",
+      "line": 31,
       "expr": "manifestKey104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/QuotePlanSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/reportsync/service/QuotePlanSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/QuotePlanStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/reportsync/service/QuotePlanStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/ChannelCoordinator.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/reportsync/service/ChannelCoordinator.java",
+      "line": 11,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/reportsync/service/ChannelCoordinator.java",
+      "line": 13,
       "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/ChannelCoordinator.java",
-      "line": 9,
-      "expr": "catalogKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reportsync/service/ChannelCoordinator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportsync/service/ChannelCoordinator.java",
+      "line": 15,
       "expr": "catalogKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/RefundExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/reportsync/service/RefundExecutor.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsync/service/RefundExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/reportsync/service/RefundExecutor.java",
+      "line": 22,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -157,6 +157,6 @@
     "payload_at_sink": "echo ref:ref:ref:ref:ref:zz$(id);;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -8,6 +8,8 @@
   污点要跨过 Java → XML 才能到达 sink
 * Java 11 + Spring Boot 2.7 + Maven 多模块
 * 5 种 source × 4 种载体（query / path / header / cookie）
+* 同一个 sink / 净化器 / 传播算子有若干**等价写法**，按用例确定性选取；
+  一半的类走 Spring 构造器注入，一半是静态工具类 —— 没有一份可以被正则记住的模板
 * 单条污点链路平均跨 7.4 个文件、穿越 11.4 层方法调用、经过 27.7 条传播语句
 * 全部通过动态验证：载荷能否到达 sink、是否保持攻击语义、调用链长度，
   三者都是运行时实测的，不是标注出来的
@@ -63,7 +65,7 @@ mvn -DskipTests compile
 ## 标答是被验证过的，不是声称的
 
 多数测试集的标答靠人工标注，可能那条路径其实根本不可达。这里每个 sink 之前都埋了探针
-（`common/.../TaintOracle.java`），发布前会把工程真的跑起来、按载体
+（`common/.../AuditTrail.java`），发布前会把工程真的跑起来、按载体
 （query / path / header / cookie）发 PoC 请求，再核对：
 
 * `vulnerable` 用例 —— 必须命中探针，且攻击载荷到达 sink 时仍然完整
@@ -88,7 +90,7 @@ safe 用例不是简单地"加个过滤函数"，而是按每类漏洞的**惯�
 | 净化器 | 适用 sink | 有效 | 说明 |
 |---|---|:---:|---|
 | `whitelist_regex` | 全部 | ✔ | 通用字符白名单 `^[A-Za-z0-9_]{1,64}$`，有效但不是任何一类的惯用写法 |
-| `sql_parameterized` | jdbc_concat | ✔ | 改用 `PreparedStatement` + `setString`，CWE-89 的正解 |
+| `sql_parameterized` | jdbc_concat | ✔ | 改用 `PreparedStatement` 参数绑定（`setString` / `setObject`），CWE-89 的正解 |
 | `command_allowlist` | runtime_exec | ✔ | 取值必须落在固定集合内 |
 | `exec_no_shell` | runtime_exec | ✔ | `ProcessBuilder` 传参数数组，不经 shell，元字符不被解释 |
 | `path_canonical_check` | file_read | ✔ | `normalize()` 后校验前缀，CWE-22 的正解 |
@@ -174,6 +176,56 @@ XML 渲染出的最终 SQL，看参数值是否被拼了进去：
 | `${}`，只剥单引号 | `… WHERE name = 'zz OR 1=1--'` ← 仍带注入语义 |
 | `#{}`（参数化） | `… WHERE name = ?` ← 值从未进入 SQL 文本 |
 
+## 写法不重复
+
+命名业务化只换了门牌。如果每条用例的 sink 都是逐字符相同的一句
+`Runtime.getRuntime().exec(argv)`，一条正则就能把整批命令注入用例拿满分，
+测出来的是"认不认得出这份模板"，不是分析能力。
+
+所以每个片段都备了若干**语义等价、写法不同**的版本，按用例 id 确定性选取
+（同一条用例重新生成必然得到同一份代码，标答才稳定）：
+
+| 片段 | 等价写法 |
+|---|---|
+| 拼串（进 SQL / 命令 / 路径 / URL / 表达式 前的那一步） | `+` 拼接、`String.format`、`StringBuilder.append`、`String.concat` |
+| 命令执行 | `Runtime.getRuntime().exec(argv)`、`new ProcessBuilder(argv).start()`、`ProcessBuilder(List)` |
+| 文件读取 | `Files.readAllBytes`、`Files.readAllLines`、`Files.newInputStream` |
+| SQL 执行 | `Statement.executeQuery(sql)`、`Statement.execute(sql)`，连接的取法也分两种 |
+| SpEL 求值 | 链式 `parseExpression(t).getValue()`、先取出 `Expression` 再求值、匿名 parser |
+| URL 抓取 | `openStream()`、`openConnection().getInputStream()`、先拿 `URLConnection` 再取流 |
+| 局部传递 | 直接赋值、`final` 赋值、`String.valueOf`、`new StringBuilder(v).toString()` |
+| 集合传递 | `HashMap.get`、`LinkedHashMap.getOrDefault`、`ArrayList.add/get` |
+| 剥字符型净化 | `replace`、`replaceAll`、三目 `contains ? replace : 原值`、`if` 块内替换 |
+| 白名单校验 | 静态 `Pattern` + `matcher().matches()`、`String.matches`、先取 `Matcher` 再判 |
+| 取值白名单 | `HashSet.contains`、`Collections.unmodifiableList`、`Arrays.asList(...).contains` |
+
+字面量同样按用例散开：表名、投影列、WHERE 列、h2 库名、文件根目录、shell 命令、
+URL 路径、SpEL 前缀、异常类型（JDK 的还是工程自己的 `ProcessingException` /
+`ValidationException`）。
+
+## 工程形态
+
+调用链上的类有两种装配方式，同一条链路里可以混着用：
+
+* **Spring bean** —— `@Service` / `@Component` / `@Repository` + 构造器注入，
+  下一跳是注入进来的字段，调用点上只有 `this.xxx.method(v)`，看不到目标类名；
+  接口派发那一档注入的是 `Map<String, 策略接口>`，靠一个常量 bean 名取出实现 ——
+  真实工程里最常见的策略注册表写法
+* **静态工具类** —— `public final class` + 静态方法，调用点上写着目标类名
+
+412 条用例里 159 条整条链都走注入，其余是"前半截注入、后半截静态工具类"的混合形态
+（静态方法拿不到容器里的 bean，所以注入只出现在链路前缀）。3789 个业务类里 48% 是 bean。
+**两种风格的调用帧数完全一致**，所以 `metrics.call_depth` 与运行时实测在两种风格下都对得上。
+
+其余让它更像一个在维护中的工程、而不是一份测试集的地方：
+
+* 包名是 `com.northwind`（一个虚构的订单平台），模块叫 `northwind-web` / `-service` /
+  `-dao` / `-common`，代码里没有任何 benchmark / habench 字样
+* 类上有业务口径的 Javadoc，约一半的类有 slf4j 日志器与日志语句
+* controller 一半把公共前缀提到类上的 `@RequestMapping`，方法上只写余下一段；
+  返回值一半是 `String`、一半是 `ResponseEntity<String>`
+* 净化器里的注释只讲业务理由（"历史脚本里带分号会切断参数"），不写"这是无效净化"
+
 ## 代码形态
 
 生成的代码按三层分组：一个**文件**里若干**方法**互相调用，一个方法体里若干条**传播语句**。
@@ -252,5 +304,9 @@ DR = |检出正样本 且 未报其 paired_negative| / 配对数
 
 ## 说明
 
-`common/` 下的 `TaintOracle.java`、`SqlProbe.java`、`MapperSessions.java` 是动态验证用的
-探针与会话工厂，属于测试基础设施，不是被测语义的一部分——工具在这三个文件里报出的问题请忽略。
+`common/src/main/java/com/northwind/platform/` 下的 `AuditTrail.java`、`StatementAudit.java`、
+`MapperSessions.java` 是动态验证用的探针与会话工厂，属于测试基础设施，不是被测语义的一部分——
+工具在这几个文件里报出的问题请忽略。
+
+它们刻意不叫 `TaintOracle` / `reached()` / `neutralized()`：那样的命名等于在每个 sink 前面
+写明答案。代码里也不出现用例 id —— 探针从调用栈自取包段作为标识。

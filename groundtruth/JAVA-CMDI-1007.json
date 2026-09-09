@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 10 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/accounttrace/web/BatchController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accounttrace/web/BatchController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accounttrace/web/BatchController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accounttrace/web/BatchController.java",
+    "line": 26,
     "expr": "reference",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/accounttrace/service/BatchExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/accounttrace/service/BatchExecutor.java",
+    "line": 18,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,140 +24,140 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accounttrace/web/BatchController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accounttrace/web/BatchController.java",
+      "line": 26,
       "expr": "reference",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/accounttrace/web/QuoteCoordinator.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/accounttrace/web/QuoteCoordinator.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accounttrace/web/QuoteCoordinator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accounttrace/web/QuoteCoordinator.java",
+      "line": 25,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accounttrace/web/QuoteCoordinator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accounttrace/web/QuoteCoordinator.java",
+      "line": 26,
       "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 33,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 34,
       "expr": "receiptKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 35,
       "expr": "receiptKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 40,
       "expr": "accountRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 42,
+      "expr": "accountRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 44,
       "expr": "voucherRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 28,
-      "expr": "paymentTag104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 45,
       "expr": "paymentTag104",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 50,
       "expr": "refundCode105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 35,
-      "expr": "shipmentCode106",
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 51,
+      "expr": "refundCode105",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/SessionEnricher.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/SessionEnricher.java",
+      "line": 52,
       "expr": "shipmentCode106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/ReceiptBuilder.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/ReceiptBuilder.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/ReceiptBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/ReceiptBuilder.java",
+      "line": 29,
       "expr": "quoteRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/ReceiptBuilder.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/ReceiptBuilder.java",
+      "line": 30,
       "expr": "quoteRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/ReceiptBuilder.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/ReceiptBuilder.java",
+      "line": 35,
       "expr": "tariffRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/ReceiptBuilder.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/ReceiptBuilder.java",
+      "line": 38,
       "expr": "tariffRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/ReceiptBuilder.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/ReceiptBuilder.java",
+      "line": 39,
       "expr": "ledgerEntry203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/ReceiptBuilder.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/ReceiptBuilder.java",
+      "line": 40,
       "expr": "ledgerEntry203",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/BatchExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/BatchExecutor.java",
+      "line": 14,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/accounttrace/service/BatchExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/accounttrace/service/BatchExecutor.java",
+      "line": 18,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -199,9 +199,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
+    "payload_at_sink": "printf ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

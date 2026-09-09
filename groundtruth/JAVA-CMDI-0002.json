@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经接口多态与静态字段流入 Runtime.exec",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentgrant/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentgrant/web/BundleController.java",
+    "line": 15,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentgrant/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentgrant/web/BundleController.java",
+    "line": 17,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/paymentgrant/dao/BundleExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/paymentgrant/dao/BundleExecutor.java",
+    "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,74 +24,74 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentgrant/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentgrant/web/BundleController.java",
+      "line": 17,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentgrant/web/ReceiptTranslator.java",
-      "line": 8,
-      "expr": "quoteRef1",
+      "file": "web/src/main/java/com/northwind/paymentgrant/web/ReceiptTranslator.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentgrant/web/ReceiptTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/paymentgrant/web/ReceiptTranslator.java",
+      "line": 18,
       "expr": "quoteRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentgrant/service/InvoiceFacade.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/paymentgrant/service/InvoiceFacade.java",
+      "line": 11,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentgrant/service/ShipmentPolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/paymentgrant/service/ShipmentPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentgrant/service/ShipmentPolicyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/paymentgrant/service/ShipmentPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentgrant/service/SessionBroker.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/paymentgrant/service/SessionBroker.java",
+      "line": 17,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentgrant/dao/VoucherBroker.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/paymentgrant/dao/VoucherBroker.java",
+      "line": 17,
       "expr": "value",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentgrant/dao/VoucherBroker.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/paymentgrant/dao/VoucherBroker.java",
+      "line": 22,
       "expr": "quoteRef301",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentgrant/dao/VoucherBroker.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/paymentgrant/dao/VoucherBroker.java",
+      "line": 23,
       "expr": "quoteRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentgrant/dao/BundleExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/paymentgrant/dao/BundleExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentgrant/dao/BundleExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/paymentgrant/dao/BundleExecutor.java",
+      "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -129,6 +129,6 @@
     "payload_at_sink": "echo ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

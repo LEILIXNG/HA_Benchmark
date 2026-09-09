@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 5 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryexport/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryexport/web/RefundController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryexport/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryexport/web/RefundController.java",
+    "line": 28,
     "expr": "category",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/resources/com/habench/inventoryexport/service/RefundMapper.xml",
+    "file": "service/src/main/resources/com/northwind/inventoryexport/service/RefundMapper.xml",
     "line": 9,
     "expr": "orderRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,61 +24,61 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryexport/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryexport/web/RefundController.java",
+      "line": 28,
       "expr": "category",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryexport/web/ContractAssembler.java",
-      "line": 8,
-      "expr": "quoteRef1",
+      "file": "web/src/main/java/com/northwind/inventoryexport/web/ContractAssembler.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryexport/web/ContractAssembler.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/inventoryexport/web/ContractAssembler.java",
+      "line": 25,
       "expr": "quoteRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryexport/service/LedgerRouter.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryexport/service/LedgerRouter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "line": 28,
       "expr": "shipmentCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryexport/service/LedgerRouter.java",
-      "line": 14,
-      "expr": "manifestKey102",
+      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "line": 29,
+      "expr": "shipmentCode101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryexport/service/LedgerRouter.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "line": 30,
       "expr": "manifestKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryexport/service/RefundGateway.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/inventoryexport/service/RefundGateway.java",
+      "line": 21,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryexport/service/RefundGateway.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/inventoryexport/service/RefundGateway.java",
+      "line": 28,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/habench/inventoryexport/service/RefundMapper.xml",
+      "file": "service/src/main/resources/com/northwind/inventoryexport/service/RefundMapper.xml",
       "line": 9,
       "expr": "orderRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -113,9 +113,9 @@
     "neutralized": false,
     "call_depth_observed": 5,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, code, created_at       FROM invoices      WHERE title IN ('ref:ref:zz' OR 1=1--;;')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

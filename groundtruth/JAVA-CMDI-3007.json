@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Cookie经 15 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/orderreview/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/orderreview/web/PaymentController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/orderreview/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/orderreview/web/PaymentController.java",
+    "line": 22,
     "expr": "orderNo",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/orderreview/dao/PaymentExecutor.java",
+    "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,236 +24,236 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/orderreview/web/PaymentController.java",
+      "line": 22,
       "expr": "orderNo",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/RefundResolver.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ContractBroker.java",
+      "line": 19,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/RefundResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ContractBroker.java",
+      "line": 20,
       "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/RefundResolver.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ContractBroker.java",
+      "line": 21,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ManifestStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ManifestStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ManifestStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ManifestStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
-      "line": 9,
-      "expr": "voucherRef101",
+      "file": "web/src/main/java/com/northwind/orderreview/web/InvoiceCollector.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/orderreview/web/InvoiceCollector.java",
+      "line": 25,
       "expr": "paymentTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/orderreview/web/InvoiceCollector.java",
+      "line": 26,
       "expr": "paymentTag102",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/orderreview/web/InvoiceCollector.java",
+      "line": 31,
       "expr": "refundCode103",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
-      "line": 17,
-      "expr": "shipmentCode104",
+      "file": "web/src/main/java/com/northwind/orderreview/web/InvoiceCollector.java",
+      "line": 33,
+      "expr": "refundCode103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/InvoiceCollector.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/orderreview/web/InvoiceCollector.java",
+      "line": 35,
       "expr": "shipmentCode104",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 34,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 35,
       "expr": "ledgerEntry201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 38,
       "expr": "ledgerEntry201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 39,
       "expr": "channelTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 40,
       "expr": "channelTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 45,
       "expr": "catalogKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 30,
-      "expr": "receiptKey204",
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 46,
+      "expr": "catalogKey203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderreview/web/ChannelAssembler.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/orderreview/web/ChannelAssembler.java",
+      "line": 47,
       "expr": "receiptKey204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderreview/service/OrderCoordinator.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/orderreview/service/OrderCoordinator.java",
+      "line": 24,
       "expr": "invoiceKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderreview/service/OrderCoordinator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/orderreview/service/OrderCoordinator.java",
+      "line": 25,
       "expr": "invoiceKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 17,
-      "expr": "voucherRef401",
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 31,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 35,
       "expr": "voucherRef401",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 36,
       "expr": "paymentTag402",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 37,
       "expr": "paymentTag402",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 42,
       "expr": "refundCode403",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 28,
-      "expr": "shipmentCode404",
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 43,
+      "expr": "refundCode403",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 31,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 46,
       "expr": "shipmentCode404",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 32,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 47,
       "expr": "manifestKey405",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 33,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 48,
       "expr": "manifestKey405",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 38,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 53,
       "expr": "invoiceKey406",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 41,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 56,
       "expr": "invoiceKey406",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 42,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 57,
       "expr": "batchTag407",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 45,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 60,
       "expr": "batchTag407",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 46,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 61,
       "expr": "orderRef408",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/InvoiceTranslator.java",
-      "line": 47,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/InvoiceTranslator.java",
+      "line": 62,
       "expr": "orderRef408",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/PaymentExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderreview/dao/PaymentExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/orderreview/dao/PaymentExecutor.java",
+      "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -306,9 +306,9 @@
     "neutralized": false,
     "call_depth_observed": 15,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:zz$(id);;;;;",
+    "payload_at_sink": "echo -n ref:ref:ref:ref:ref:zz$(id);;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

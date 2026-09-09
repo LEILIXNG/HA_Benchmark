@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/reporttransfer/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reporttransfer/web/InvoiceController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reporttransfer/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reporttransfer/web/InvoiceController.java",
+    "line": 22,
     "expr": "orderNo",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reporttransfer/dao/InvoiceRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/reporttransfer/dao/InvoiceRepository.java",
+    "line": 26,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,158 +24,158 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/InvoiceController.java",
+      "line": 22,
       "expr": "orderNo",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/ManifestNormalizer.java",
-      "line": 10,
-      "expr": "batchTag1",
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/ManifestNormalizer.java",
+      "line": 14,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/ManifestNormalizer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/ManifestNormalizer.java",
+      "line": 17,
       "expr": "batchTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/ManifestNormalizer.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/ManifestNormalizer.java",
+      "line": 18,
       "expr": "orderRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/ManifestNormalizer.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/ManifestNormalizer.java",
+      "line": 19,
       "expr": "orderRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/SessionRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/SessionRuleSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/SessionRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/SessionRuleStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/ShipmentTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/ShipmentTranslator.java",
+      "line": 13,
       "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reporttransfer/web/ShipmentTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/reporttransfer/web/ShipmentTranslator.java",
+      "line": 14,
       "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/QuoteNormalizer.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/QuoteNormalizer.java",
+      "line": 22,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/QuoteNormalizer.java",
+      "line": 23,
       "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/QuoteNormalizer.java",
-      "line": 15,
-      "expr": "catalogKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/QuoteNormalizer.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/QuoteNormalizer.java",
+      "line": 24,
       "expr": "catalogKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/QuoteNormalizer.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/QuoteNormalizer.java",
+      "line": 29,
       "expr": "receiptKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/QuoteNormalizer.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/QuoteNormalizer.java",
+      "line": 30,
       "expr": "accountRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/QuoteNormalizer.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/QuoteNormalizer.java",
+      "line": 31,
       "expr": "accountRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/ContractPlanSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/ContractPlanSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/ContractPlanStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/ContractPlanStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/TariffAssembler.java",
-      "line": 8,
-      "expr": "batchTag301",
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/TariffAssembler.java",
+      "line": 14,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/TariffAssembler.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/TariffAssembler.java",
+      "line": 16,
       "expr": "orderRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reporttransfer/service/TariffAssembler.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reporttransfer/service/TariffAssembler.java",
+      "line": 17,
       "expr": "orderRef302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttransfer/dao/ChannelTranslator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/reporttransfer/dao/ChannelTranslator.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttransfer/dao/ChannelTranslator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reporttransfer/dao/ChannelTranslator.java",
+      "line": 21,
       "expr": "paymentTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttransfer/dao/ChannelTranslator.java",
-      "line": 14,
-      "expr": "refundCode402",
+      "file": "dao/src/main/java/com/northwind/reporttransfer/dao/ChannelTranslator.java",
+      "line": 22,
+      "expr": "paymentTag401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttransfer/dao/ChannelTranslator.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reporttransfer/dao/ChannelTranslator.java",
+      "line": 23,
       "expr": "refundCode402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttransfer/dao/InvoiceRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reporttransfer/dao/InvoiceRepository.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/reporttransfer/dao/InvoiceRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/reporttransfer/dao/InvoiceRepository.java",
+      "line": 26,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -220,9 +220,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
+    "payload_at_sink": "SELECT id, code, created_at FROM invoices WHERE title = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,279 +4,279 @@
   "verdict": "safe",
   "title": "Spring 请求头经 18 层调用、跨 3 个模块流入文件读取，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportrefund/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportrefund/web/TariffController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportrefund/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportrefund/web/TariffController.java",
+    "line": 27,
     "expr": "reference",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reportrefund/dao/TariffLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/reportrefund/dao/TariffLoader.java",
+    "line": 22,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/reportrefund/dao/PaymentPolicy.java",
-    "line": 11,
+    "file": "dao/src/main/java/com/northwind/reportrefund/dao/PaymentPolicy.java",
+    "line": 16,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportrefund/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportrefund/web/TariffController.java",
+      "line": 27,
       "expr": "reference",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/reportrefund/web/InvoiceRouter.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/reportrefund/web/InvoiceRouter.java",
+      "line": 15,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reportrefund/web/InvoiceRouter.java",
+      "line": 16,
       "expr": "quoteRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportrefund/web/InvoiceRouter.java",
-      "line": 9,
-      "expr": "tariffRef2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportrefund/web/InvoiceRouter.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/reportrefund/web/InvoiceRouter.java",
+      "line": 17,
       "expr": "tariffRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/CatalogRouter.java",
+      "line": 19,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
-      "line": 12,
-      "expr": "manifestKey102",
+      "file": "service/src/main/java/com/northwind/reportrefund/service/CatalogRouter.java",
+      "line": 20,
+      "expr": "shipmentCode101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/CatalogRouter.java",
+      "line": 21,
       "expr": "manifestKey102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/CatalogRouter.java",
+      "line": 26,
       "expr": "invoiceKey103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/CatalogRouter.java",
+      "line": 29,
       "expr": "invoiceKey103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/CatalogRouter.java",
+      "line": 30,
       "expr": "batchTag104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/CatalogRouter.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/CatalogRouter.java",
+      "line": 31,
       "expr": "batchTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 26,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 27,
       "expr": "receiptKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 28,
       "expr": "receiptKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 33,
       "expr": "accountRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 34,
       "expr": "voucherRef203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 35,
       "expr": "voucherRef203",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 40,
       "expr": "paymentTag204",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 41,
       "expr": "refundCode205",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/ReceiptAdapter.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/ReceiptAdapter.java",
+      "line": 42,
       "expr": "refundCode205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/PaymentTranslator.java",
+      "line": 18,
       "expr": "quoteRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
-      "line": 10,
-      "expr": "tariffRef302",
+      "file": "service/src/main/java/com/northwind/reportrefund/service/PaymentTranslator.java",
+      "line": 19,
+      "expr": "quoteRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/PaymentTranslator.java",
+      "line": 20,
       "expr": "tariffRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/PaymentTranslator.java",
+      "line": 25,
       "expr": "ledgerEntry303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/PaymentTranslator.java",
+      "line": 26,
       "expr": "channelTag304",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportrefund/service/PaymentTranslator.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/reportrefund/service/PaymentTranslator.java",
+      "line": 27,
       "expr": "channelTag304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
-      "line": 14,
-      "expr": "shipmentCode401",
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/LedgerRegistry.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/LedgerRegistry.java",
+      "line": 25,
       "expr": "manifestKey402",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/LedgerRegistry.java",
+      "line": 26,
       "expr": "manifestKey402",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/LedgerRegistry.java",
+      "line": 31,
       "expr": "invoiceKey403",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/LedgerRegistry.java",
+      "line": 32,
       "expr": "batchTag404",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
-      "line": 23,
-      "expr": "orderRef405",
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/LedgerRegistry.java",
+      "line": 33,
+      "expr": "batchTag404",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/LedgerRegistry.java",
-      "line": 24,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/LedgerRegistry.java",
+      "line": 34,
       "expr": "orderRef405",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/OrderPolicySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/OrderPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/OrderPolicyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/OrderPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
-      "line": 10,
-      "expr": "receiptKey501",
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/InvoiceAssembler.java",
+      "line": 18,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/InvoiceAssembler.java",
+      "line": 21,
       "expr": "receiptKey501",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/InvoiceAssembler.java",
+      "line": 22,
       "expr": "accountRef502",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/InvoiceAssembler.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/InvoiceAssembler.java",
+      "line": 23,
       "expr": "accountRef502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/PaymentPolicy.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/PaymentPolicy.java",
+      "line": 16,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/TariffLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/TariffLoader.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportrefund/dao/TariffLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/reportrefund/dao/TariffLoader.java",
+      "line": 22,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -336,6 +336,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,105 +4,105 @@
   "verdict": "safe",
   "title": "与 JAVA-PATH-1000 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingarchive/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingarchive/web/SessionController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingarchive/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingarchive/web/SessionController.java",
+    "line": 27,
     "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/shippingarchive/service/SessionLoader.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/shippingarchive/service/SessionLoader.java",
+    "line": 23,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/shippingarchive/service/LedgerGuard.java",
-    "line": 11,
+    "file": "service/src/main/java/com/northwind/shippingarchive/service/LedgerGuard.java",
+    "line": 19,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingarchive/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingarchive/web/SessionController.java",
+      "line": 27,
       "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingarchive/web/CatalogCollector.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/shippingarchive/web/CatalogCollector.java",
+      "line": 15,
       "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingarchive/web/CatalogCollector.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingarchive/web/CatalogCollector.java",
+      "line": 16,
       "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
-      "line": 16,
-      "expr": "receiptKey101",
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 23,
       "expr": "receiptKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 24,
       "expr": "accountRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 25,
       "expr": "accountRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 30,
       "expr": "voucherRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 31,
       "expr": "paymentTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/ShipmentCoordinator.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/ShipmentCoordinator.java",
+      "line": 32,
       "expr": "paymentTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/LedgerGuard.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/LedgerGuard.java",
+      "line": 19,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/SessionLoader.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/SessionLoader.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingarchive/service/SessionLoader.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/shippingarchive/service/SessionLoader.java",
+      "line": 23,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -141,6 +141,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

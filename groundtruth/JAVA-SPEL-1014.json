@@ -4,143 +4,143 @@
   "verdict": "vulnerable",
   "title": "路径变量经 8 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportimport/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportimport/web/BundleController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportimport/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportimport/web/BundleController.java",
+    "line": 28,
     "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reportimport/dao/BundleEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "dao/src/main/java/com/northwind/reportimport/dao/BundleEvaluator.java",
+    "line": 24,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportimport/web/BundleController.java",
+      "line": 28,
       "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ContractFacade.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ContractFacade.java",
+      "line": 24,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ContractFacade.java",
+      "line": 27,
       "expr": "voucherRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ContractFacade.java",
+      "line": 28,
       "expr": "paymentTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/BatchBuilder.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ContractFacade.java",
+      "line": 29,
       "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/ManifestStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ManifestStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/ManifestStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ManifestStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ReceiptCoordinator.java",
+      "line": 26,
       "expr": "ledgerEntry101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ReceiptCoordinator.java",
+      "line": 29,
       "expr": "ledgerEntry101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ReceiptCoordinator.java",
+      "line": 30,
       "expr": "channelTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportimport/web/ReceiptCoordinator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reportimport/web/ReceiptCoordinator.java",
+      "line": 31,
       "expr": "channelTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportimport/service/InvoiceTranslator.java",
-      "line": 8,
-      "expr": "invoiceKey201",
+      "file": "service/src/main/java/com/northwind/reportimport/service/InvoiceTranslator.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportimport/service/InvoiceTranslator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/reportimport/service/InvoiceTranslator.java",
+      "line": 20,
       "expr": "invoiceKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reportimport/dao/LedgerBroker.java",
+      "line": 18,
       "expr": "voucherRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/reportimport/dao/LedgerBroker.java",
+      "line": 21,
       "expr": "voucherRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/reportimport/dao/LedgerBroker.java",
+      "line": 22,
       "expr": "paymentTag302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/LedgerBroker.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reportimport/dao/LedgerBroker.java",
+      "line": 23,
       "expr": "paymentTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/BundleEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reportimport/dao/BundleEvaluator.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportimport/dao/BundleEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "dao/src/main/java/com/northwind/reportimport/dao/BundleEvaluator.java",
+      "line": 24,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -182,6 +182,6 @@
     "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

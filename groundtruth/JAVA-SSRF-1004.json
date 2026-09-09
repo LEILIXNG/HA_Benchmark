@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingrelease/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingrelease/web/QuoteController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingrelease/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingrelease/web/QuoteController.java",
+    "line": 28,
     "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingrelease/dao/QuoteFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/shippingrelease/dao/QuoteFetcher.java",
+    "line": 25,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
@@ -24,116 +24,116 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/QuoteController.java",
+      "line": 28,
       "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/ManifestFacade.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/ManifestFacade.java",
+      "line": 21,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/ManifestFacade.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/ManifestFacade.java",
+      "line": 24,
       "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/ManifestFacade.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/ManifestFacade.java",
+      "line": 25,
       "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/ManifestFacade.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/ManifestFacade.java",
+      "line": 26,
       "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/OrderCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/OrderCollector.java",
+      "line": 26,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/OrderCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/OrderCollector.java",
+      "line": 29,
       "expr": "tariffRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/OrderCollector.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/OrderCollector.java",
+      "line": 30,
       "expr": "ledgerEntry102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrelease/web/OrderCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/shippingrelease/web/OrderCollector.java",
+      "line": 31,
       "expr": "ledgerEntry102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrelease/service/AccountResolver.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/shippingrelease/service/AccountResolver.java",
+      "line": 20,
       "expr": "manifestKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrelease/service/AccountResolver.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/shippingrelease/service/AccountResolver.java",
+      "line": 21,
       "expr": "manifestKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/CatalogBroker.java",
-      "line": 9,
-      "expr": "accountRef301",
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/CatalogBroker.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/CatalogBroker.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/CatalogBroker.java",
+      "line": 21,
       "expr": "accountRef301",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/CatalogBroker.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/CatalogBroker.java",
+      "line": 26,
       "expr": "voucherRef302",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/CatalogBroker.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/CatalogBroker.java",
+      "line": 27,
+      "expr": "voucherRef302",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/CatalogBroker.java",
+      "line": 28,
       "expr": "paymentTag303",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/CatalogBroker.java",
-      "line": 17,
-      "expr": "refundCode304",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/CatalogBroker.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/CatalogBroker.java",
+      "line": 29,
       "expr": "refundCode304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/QuoteFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/QuoteFetcher.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingrelease/dao/QuoteFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/shippingrelease/dao/QuoteFetcher.java",
+      "line": 25,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -178,6 +178,6 @@
     "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

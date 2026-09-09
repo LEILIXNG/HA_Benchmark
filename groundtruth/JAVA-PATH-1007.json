@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryrenewal/web/LedgerController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryrenewal/web/LedgerController.java",
+    "line": 25,
     "expr": "tag",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/inventoryrenewal/service/LedgerLoader.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/inventoryrenewal/service/LedgerLoader.java",
+    "line": 30,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,104 +24,104 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/LedgerController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryrenewal/web/LedgerController.java",
+      "line": 25,
       "expr": "tag",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/QuoteAssembler.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/inventoryrenewal/web/QuoteAssembler.java",
+      "line": 20,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrenewal/web/QuoteAssembler.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/inventoryrenewal/web/QuoteAssembler.java",
+      "line": 21,
       "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 26,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 18,
-      "expr": "ledgerEntry102",
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 27,
+      "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 28,
       "expr": "ledgerEntry102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 33,
       "expr": "channelTag103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 34,
       "expr": "catalogKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 26,
-      "expr": "receiptKey105",
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 35,
+      "expr": "catalogKey104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 36,
       "expr": "receiptKey105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 41,
       "expr": "accountRef106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 42,
       "expr": "voucherRef107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 45,
       "expr": "voucherRef107",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 46,
       "expr": "paymentTag108",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/RefundCoordinator.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "line": 47,
       "expr": "paymentTag108",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/LedgerLoader.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/LedgerLoader.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrenewal/service/LedgerLoader.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/LedgerLoader.java",
+      "line": 30,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -161,9 +161,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../../etc/passwd;;",
+    "payload_at_sink": "/srv/inventory/inbox/ref:ref:../../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

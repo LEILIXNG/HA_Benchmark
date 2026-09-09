@@ -4,201 +4,201 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-3002 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportexport/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportexport/web/PaymentController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportexport/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportexport/web/PaymentController.java",
+    "line": 25,
     "expr": "token",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/reportexport/dao/PaymentFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/reportexport/dao/PaymentFetcher.java",
+    "line": 19,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/reportexport/dao/TariffValidator.java",
-    "line": 11,
+    "file": "dao/src/main/java/com/northwind/reportexport/dao/TariffValidator.java",
+    "line": 18,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportexport/web/PaymentController.java",
+      "line": 25,
       "expr": "token",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ManifestEnricher.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ManifestEnricher.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ManifestEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ManifestEnricher.java",
+      "line": 28,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ManifestEnricher.java",
-      "line": 14,
-      "expr": "voucherRef2",
+      "file": "web/src/main/java/com/northwind/reportexport/web/ManifestEnricher.java",
+      "line": 29,
+      "expr": "accountRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ManifestEnricher.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ManifestEnricher.java",
+      "line": 30,
       "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ManifestStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ManifestStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ManifestStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ManifestStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ReceiptCollector.java",
-      "line": 9,
-      "expr": "tariffRef101",
+      "file": "web/src/main/java/com/northwind/reportexport/web/ReceiptCollector.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ReceiptCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ReceiptCollector.java",
+      "line": 22,
       "expr": "tariffRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ReceiptCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ReceiptCollector.java",
+      "line": 27,
       "expr": "ledgerEntry102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ReceiptCollector.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ReceiptCollector.java",
+      "line": 28,
       "expr": "channelTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ReceiptCollector.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ReceiptCollector.java",
+      "line": 29,
       "expr": "catalogKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportexport/web/ReceiptCollector.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/reportexport/web/ReceiptCollector.java",
+      "line": 30,
       "expr": "catalogKey104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportexport/service/ContractRegistry.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/reportexport/service/ContractRegistry.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportexport/service/ContractRegistry.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/reportexport/service/ContractRegistry.java",
+      "line": 21,
       "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportexport/service/ContractRegistry.java",
-      "line": 15,
-      "expr": "invoiceKey202",
+      "file": "service/src/main/java/com/northwind/reportexport/service/ContractRegistry.java",
+      "line": 22,
+      "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportexport/service/ContractRegistry.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/reportexport/service/ContractRegistry.java",
+      "line": 23,
       "expr": "invoiceKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportexport/service/ContractRegistry.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/reportexport/service/ContractRegistry.java",
+      "line": 28,
       "expr": "batchTag203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/reportexport/service/ContractRegistry.java",
-      "line": 22,
-      "expr": "orderRef204",
+      "file": "service/src/main/java/com/northwind/reportexport/service/ContractRegistry.java",
+      "line": 30,
+      "expr": "batchTag203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/reportexport/service/ContractRegistry.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/reportexport/service/ContractRegistry.java",
+      "line": 32,
       "expr": "orderRef204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/RefundAdapter.java",
-      "line": 9,
-      "expr": "accountRef301",
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/RefundAdapter.java",
+      "line": 13,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/RefundAdapter.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/RefundAdapter.java",
+      "line": 15,
       "expr": "accountRef301",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/RefundAdapter.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/RefundAdapter.java",
+      "line": 20,
       "expr": "voucherRef302",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/RefundAdapter.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/RefundAdapter.java",
+      "line": 21,
       "expr": "paymentTag303",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/RefundAdapter.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/RefundAdapter.java",
+      "line": 22,
       "expr": "refundCode304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/RefundAdapter.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/RefundAdapter.java",
+      "line": 23,
       "expr": "refundCode304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/TariffValidator.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/TariffValidator.java",
+      "line": 18,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/PaymentFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/PaymentFetcher.java",
+      "line": 15,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/reportexport/dao/PaymentFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/reportexport/dao/PaymentFetcher.java",
+      "line": 19,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -248,6 +248,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

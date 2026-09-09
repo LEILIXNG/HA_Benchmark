@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryimport/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryimport/web/OrderController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryimport/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryimport/web/OrderController.java",
+    "line": 25,
     "expr": "tag",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/inventoryimport/web/OrderLoader.java",
-    "line": 17,
+    "file": "web/src/main/java/com/northwind/inventoryimport/web/OrderLoader.java",
+    "line": 28,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,122 +24,122 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/OrderController.java",
+      "line": 25,
       "expr": "tag",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 26,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 27,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 30,
       "expr": "accountRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 31,
       "expr": "voucherRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 32,
       "expr": "voucherRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 37,
       "expr": "paymentTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 38,
       "expr": "refundCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleEnricher.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteRegistry.java",
+      "line": 39,
       "expr": "refundCode4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/ContractService.java",
-      "line": 8,
-      "expr": "tariffRef101",
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/ContractTranslator.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/ContractService.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/ContractTranslator.java",
+      "line": 24,
       "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/BundleRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/BundleRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/BundleRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteTranslator.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteTranslator.java",
+      "line": 26,
       "expr": "manifestKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteTranslator.java",
+      "line": 29,
       "expr": "manifestKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteTranslator.java",
+      "line": 30,
       "expr": "invoiceKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/QuoteTranslator.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/QuoteTranslator.java",
+      "line": 31,
       "expr": "invoiceKey202",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/OrderLoader.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/OrderLoader.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryimport/web/OrderLoader.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/inventoryimport/web/OrderLoader.java",
+      "line": 28,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -178,9 +178,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
+    "payload_at_sink": "/data/inventory/archive/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

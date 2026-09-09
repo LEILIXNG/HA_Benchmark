@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 17 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingissue/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingissue/web/BundleController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingissue/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingissue/web/BundleController.java",
+    "line": 25,
     "expr": "resource",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/resources/com/habench/pricingissue/service/BundleMapper.xml",
+    "file": "service/src/main/resources/com/northwind/pricingissue/service/BundleMapper.xml",
     "line": 9,
     "expr": "catalogKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,235 +24,235 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingissue/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingissue/web/BundleController.java",
+      "line": 25,
       "expr": "resource",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/pricingissue/web/CatalogResolver.java",
+      "line": 30,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingissue/web/CatalogResolver.java",
+      "line": 31,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/pricingissue/web/CatalogResolver.java",
+      "line": 34,
       "expr": "tariffRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/pricingissue/web/CatalogResolver.java",
+      "line": 35,
       "expr": "ledgerEntry2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingissue/web/PaymentBuilder.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/pricingissue/web/CatalogResolver.java",
+      "line": 36,
       "expr": "ledgerEntry2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 17,
-      "expr": "manifestKey101",
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 31,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 32,
       "expr": "invoiceKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 33,
       "expr": "invoiceKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 38,
       "expr": "batchTag103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 25,
-      "expr": "orderRef104",
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 39,
+      "expr": "batchTag103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 40,
       "expr": "quoteRef105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 41,
       "expr": "quoteRef105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 46,
       "expr": "tariffRef106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 49,
       "expr": "tariffRef106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 50,
       "expr": "ledgerEntry107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 51,
       "expr": "ledgerEntry107",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 42,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 56,
       "expr": "channelTag108",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 57,
       "expr": "catalogKey109",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 44,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 58,
       "expr": "receiptKey110",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 45,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 59,
       "expr": "receiptKey110",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 50,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 64,
       "expr": "accountRef111",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 51,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 65,
       "expr": "voucherRef112",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 52,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 66,
       "expr": "voucherRef112",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 57,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 71,
       "expr": "paymentTag113",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 58,
-      "expr": "refundCode114",
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 73,
+      "expr": "paymentTag113",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/ManifestBuilder.java",
-      "line": 59,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerNormalizer.java",
+      "line": 75,
       "expr": "refundCode114",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/QuotePolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/QuotePolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/QuotePolicyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/QuotePolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogFacade.java",
-      "line": 8,
-      "expr": "accountRef201",
+      "file": "service/src/main/java/com/northwind/pricingissue/service/CatalogFacade.java",
+      "line": 18,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogFacade.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/CatalogFacade.java",
+      "line": 19,
       "expr": "voucherRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogFacade.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/CatalogFacade.java",
+      "line": 20,
       "expr": "voucherRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/LedgerStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/LedgerStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/LedgerStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogEnricher.java",
-      "line": 8,
-      "expr": "tariffRef301",
+      "file": "service/src/main/java/com/northwind/pricingissue/service/CatalogEnricher.java",
+      "line": 12,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/CatalogEnricher.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/CatalogEnricher.java",
+      "line": 14,
       "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/BundleGateway.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/BundleGateway.java",
+      "line": 15,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingissue/service/BundleGateway.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/pricingissue/service/BundleGateway.java",
+      "line": 22,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/habench/pricingissue/service/BundleMapper.xml",
+      "file": "service/src/main/resources/com/northwind/pricingissue/service/BundleMapper.xml",
       "line": 9,
       "expr": "catalogKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -305,9 +305,9 @@
     "neutralized": false,
     "call_depth_observed": 17,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;'",
+    "payload_at_sink": "SELECT id, code, created_at       FROM orders      WHERE code LIKE '%ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;%'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

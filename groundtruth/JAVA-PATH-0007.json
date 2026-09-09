@@ -4,93 +4,93 @@
   "verdict": "safe",
   "title": "入口处即净化——考验工具能否识别早期校验，避免误报",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingarchive/web/ShipmentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingarchive/web/ShipmentController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingarchive/web/ShipmentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingarchive/web/ShipmentController.java",
+    "line": 25,
     "expr": "file",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/billingarchive/dao/ShipmentLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/billingarchive/dao/ShipmentLoader.java",
+    "line": 30,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/billingarchive/web/SessionGuard.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingarchive/web/SessionGuard.java",
+    "line": 22,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingarchive/web/ShipmentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingarchive/web/ShipmentController.java",
+      "line": 25,
       "expr": "file",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/billingarchive/web/SessionGuard.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/billingarchive/web/SessionGuard.java",
+      "line": 22,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingarchive/web/AccountFacade.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/billingarchive/web/AccountFacade.java",
+      "line": 20,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingarchive/web/AccountFacade.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/billingarchive/web/AccountFacade.java",
+      "line": 21,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingarchive/service/SessionService.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/billingarchive/service/SessionService.java",
+      "line": 23,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingarchive/service/AccountComposer.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/billingarchive/service/AccountComposer.java",
+      "line": 24,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingarchive/dao/AccountEnricher.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/billingarchive/dao/AccountEnricher.java",
+      "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingarchive/dao/AccountEnricher.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/billingarchive/dao/AccountEnricher.java",
+      "line": 23,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingarchive/dao/AccountEnricher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/billingarchive/dao/AccountEnricher.java",
+      "line": 24,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingarchive/dao/ShipmentLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/billingarchive/dao/ShipmentLoader.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingarchive/dao/ShipmentLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/billingarchive/dao/ShipmentLoader.java",
+      "line": 30,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -128,6 +128,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

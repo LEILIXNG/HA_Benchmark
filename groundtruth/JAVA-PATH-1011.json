@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 13 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingreconcile/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingreconcile/web/PaymentController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingreconcile/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingreconcile/web/PaymentController.java",
+    "line": 24,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentLoader.java",
+    "line": 27,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,194 +24,194 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingreconcile/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingreconcile/web/PaymentController.java",
+      "line": 24,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreconcile/web/BundleBroker.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/shippingreconcile/web/ShipmentRouter.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreconcile/web/BundleBroker.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingreconcile/web/ShipmentRouter.java",
+      "line": 25,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingreconcile/web/BundleBroker.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingreconcile/web/ShipmentRouter.java",
+      "line": 26,
       "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 25,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 26,
       "expr": "tariffRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 31,
       "expr": "ledgerEntry102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 34,
       "expr": "ledgerEntry102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 35,
       "expr": "channelTag103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 38,
       "expr": "channelTag103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 39,
       "expr": "catalogKey104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingreconcile/service/PaymentRouter.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/shippingreconcile/service/RefundCollector.java",
+      "line": 40,
       "expr": "catalogKey104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentResolver.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentAssembler.java",
+      "line": 24,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentAssembler.java",
+      "line": 25,
       "expr": "manifestKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentResolver.java",
-      "line": 15,
-      "expr": "invoiceKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentResolver.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentAssembler.java",
+      "line": 26,
       "expr": "invoiceKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentResolver.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentAssembler.java",
+      "line": 31,
       "expr": "batchTag203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentResolver.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentAssembler.java",
+      "line": 32,
+      "expr": "batchTag203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentAssembler.java",
+      "line": 34,
       "expr": "orderRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentResolver.java",
-      "line": 23,
-      "expr": "quoteRef205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentResolver.java",
-      "line": 24,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentAssembler.java",
+      "line": 36,
       "expr": "quoteRef205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/InvoiceRuleSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/InvoiceRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/InvoiceRuleStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/InvoiceRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/QuoteRouter.java",
-      "line": 8,
-      "expr": "accountRef301",
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/QuoteRouter.java",
+      "line": 14,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/QuoteRouter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/QuoteRouter.java",
+      "line": 15,
       "expr": "accountRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/ReceiptResolver.java",
-      "line": 8,
-      "expr": "tariffRef401",
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/ReceiptResolver.java",
+      "line": 16,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/ReceiptResolver.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/ReceiptResolver.java",
+      "line": 17,
       "expr": "tariffRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/ContractNormalizer.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/ContractNormalizer.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/ContractNormalizer.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/ContractNormalizer.java",
+      "line": 21,
       "expr": "manifestKey501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/ContractNormalizer.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/ContractNormalizer.java",
+      "line": 24,
       "expr": "manifestKey501",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/ContractNormalizer.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/ContractNormalizer.java",
+      "line": 25,
       "expr": "invoiceKey502",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/ContractNormalizer.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/ContractNormalizer.java",
+      "line": 26,
       "expr": "invoiceKey502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentLoader.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/shippingreconcile/dao/PaymentLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/shippingreconcile/dao/PaymentLoader.java",
+      "line": 27,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -260,9 +260,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;",
+    "payload_at_sink": "/opt/shipping/exchange/ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

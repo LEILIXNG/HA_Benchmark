@@ -4,141 +4,141 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 3 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/orderadjust/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/orderadjust/web/BundleController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/orderadjust/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/orderadjust/web/BundleController.java",
+    "line": 26,
     "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/orderadjust/dao/BundleFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/orderadjust/dao/BundleFetcher.java",
+    "line": 21,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/orderadjust/dao/CatalogScreen.java",
-    "line": 10,
+    "file": "dao/src/main/java/com/northwind/orderadjust/dao/CatalogScreen.java",
+    "line": 12,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
   },
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/orderadjust/web/BundleController.java",
+      "line": 26,
       "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/BatchBroker.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/orderadjust/web/BatchBroker.java",
+      "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/BatchBroker.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/orderadjust/web/BatchBroker.java",
+      "line": 20,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/BatchBroker.java",
-      "line": 14,
-      "expr": "paymentTag2",
+      "file": "web/src/main/java/com/northwind/orderadjust/web/BatchBroker.java",
+      "line": 21,
+      "expr": "voucherRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/orderadjust/web/BatchBroker.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/orderadjust/web/BatchBroker.java",
+      "line": 22,
       "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 16,
-      "expr": "ledgerEntry101",
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 28,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 30,
       "expr": "channelTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 31,
       "expr": "channelTag102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 36,
       "expr": "catalogKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 39,
       "expr": "catalogKey103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 40,
       "expr": "receiptKey104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 43,
       "expr": "receiptKey104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 44,
       "expr": "accountRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderadjust/service/VoucherTranslator.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/orderadjust/service/VoucherTranslator.java",
+      "line": 45,
       "expr": "accountRef105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderadjust/dao/ReceiptAdapter.java",
-      "line": 8,
-      "expr": "invoiceKey201",
+      "file": "dao/src/main/java/com/northwind/orderadjust/dao/ReceiptAdapter.java",
+      "line": 16,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderadjust/dao/ReceiptAdapter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/orderadjust/dao/ReceiptAdapter.java",
+      "line": 17,
       "expr": "invoiceKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderadjust/dao/CatalogScreen.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/orderadjust/dao/CatalogScreen.java",
+      "line": 12,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderadjust/dao/BundleFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/orderadjust/dao/BundleFetcher.java",
+      "line": 16,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/orderadjust/dao/BundleFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/orderadjust/dao/BundleFetcher.java",
+      "line": 21,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -178,9 +178,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

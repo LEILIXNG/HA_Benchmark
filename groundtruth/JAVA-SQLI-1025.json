@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 9 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingrelease/web/QuoteController.java",
+    "line": 17,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingrelease/web/QuoteController.java",
+    "line": 19,
     "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/pricingrelease/service/QuoteRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/pricingrelease/service/QuoteRepository.java",
+    "line": 22,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,128 +24,128 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/QuoteController.java",
+      "line": 19,
       "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 23,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 26,
       "expr": "catalogKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 27,
       "expr": "receiptKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 28,
       "expr": "receiptKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 33,
       "expr": "accountRef3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 36,
       "expr": "accountRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 37,
       "expr": "voucherRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 33,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 40,
       "expr": "voucherRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 41,
       "expr": "paymentTag5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrelease/web/SessionCollector.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/pricingrelease/web/SessionCollector.java",
+      "line": 42,
       "expr": "paymentTag5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/BatchCollector.java",
+      "line": 11,
       "expr": "orderRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BatchCollector.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/BatchCollector.java",
+      "line": 12,
       "expr": "orderRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/QuotePolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/QuotePolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/QuotePolicyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/QuotePolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
-      "line": 10,
-      "expr": "refundCode201",
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/BundleResolver.java",
+      "line": 15,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/BundleResolver.java",
+      "line": 19,
       "expr": "refundCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/BundleResolver.java",
+      "line": 20,
       "expr": "shipmentCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/BundleResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/BundleResolver.java",
+      "line": 21,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/QuoteRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/QuoteRepository.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrelease/service/QuoteRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/pricingrelease/service/QuoteRepository.java",
+      "line": 22,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -185,9 +185,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
+    "payload_at_sink": "SELECT id, amount, status FROM invoices WHERE label = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

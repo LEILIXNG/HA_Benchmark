@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 18 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogsplit/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogsplit/web/AccountController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogsplit/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogsplit/web/AccountController.java",
+    "line": 25,
     "expr": "filename",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogsplit/dao/AccountLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/catalogsplit/dao/AccountLoader.java",
+    "line": 22,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,272 +24,272 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogsplit/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogsplit/web/AccountController.java",
+      "line": 25,
       "expr": "filename",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsplit/web/InvoiceBuilder.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogsplit/web/ReceiptService.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsplit/web/InvoiceBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogsplit/web/ReceiptService.java",
+      "line": 29,
       "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsplit/web/InvoiceBuilder.java",
-      "line": 14,
-      "expr": "accountRef2",
+      "file": "web/src/main/java/com/northwind/catalogsplit/web/ReceiptService.java",
+      "line": 31,
+      "expr": "receiptKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsplit/web/InvoiceBuilder.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/catalogsplit/web/ReceiptService.java",
+      "line": 33,
       "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/TariffComposer.java",
-      "line": 9,
-      "expr": "quoteRef101",
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/OrderBuilder.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/TariffComposer.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/OrderBuilder.java",
+      "line": 25,
       "expr": "quoteRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/TariffComposer.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/OrderBuilder.java",
+      "line": 30,
       "expr": "tariffRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/TariffComposer.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/OrderBuilder.java",
+      "line": 31,
+      "expr": "tariffRef102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/OrderBuilder.java",
+      "line": 33,
       "expr": "ledgerEntry103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/TariffComposer.java",
-      "line": 17,
-      "expr": "channelTag104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/TariffComposer.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/OrderBuilder.java",
+      "line": 35,
       "expr": "channelTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/ContractPlanSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/ContractPlanSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/ContractPlanStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/ContractPlanStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/ChannelAdapter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/ChannelAdapter.java",
+      "line": 19,
       "expr": "shipmentCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/ChannelAdapter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/ChannelAdapter.java",
+      "line": 20,
       "expr": "manifestKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/ChannelAdapter.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/ChannelAdapter.java",
+      "line": 21,
       "expr": "manifestKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/BatchTranslator.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/BatchTranslator.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/BatchTranslator.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/BatchTranslator.java",
+      "line": 29,
       "expr": "receiptKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogsplit/service/BatchTranslator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/catalogsplit/service/BatchTranslator.java",
+      "line": 30,
       "expr": "receiptKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 23,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 25,
       "expr": "quoteRef401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 18,
-      "expr": "tariffRef402",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 26,
       "expr": "tariffRef402",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 24,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 31,
       "expr": "ledgerEntry403",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 25,
-      "expr": "channelTag404",
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 32,
+      "expr": "ledgerEntry403",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 35,
       "expr": "channelTag404",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 36,
       "expr": "catalogKey405",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 37,
       "expr": "catalogKey405",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 35,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 42,
       "expr": "receiptKey406",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 36,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 43,
+      "expr": "receiptKey406",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 45,
       "expr": "accountRef407",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 37,
-      "expr": "voucherRef408",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 38,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 47,
       "expr": "voucherRef408",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 43,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 52,
       "expr": "paymentTag409",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 44,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 53,
       "expr": "refundCode410",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 45,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 54,
       "expr": "shipmentCode411",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 46,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 55,
       "expr": "shipmentCode411",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 51,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 60,
       "expr": "manifestKey412",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 52,
-      "expr": "invoiceKey413",
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 61,
+      "expr": "manifestKey412",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 53,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 62,
       "expr": "batchTag414",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ManifestRouter.java",
-      "line": 54,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ManifestRouter.java",
+      "line": 63,
       "expr": "batchTag414",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ShipmentRuleSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ShipmentRuleSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/ShipmentRuleStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/ShipmentRuleStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/SessionRouter.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/SessionRouter.java",
+      "line": 11,
       "expr": "shipmentCode501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/SessionRouter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/SessionRouter.java",
+      "line": 12,
       "expr": "shipmentCode501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/AccountLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/AccountLoader.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogsplit/dao/AccountLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/catalogsplit/dao/AccountLoader.java",
+      "line": 22,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -348,9 +348,9 @@
     "neutralized": false,
     "call_depth_observed": 18,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;;;;;",
+    "payload_at_sink": "/data/catalog/archive/ref:ref:ref:ref:ref:ref:ref:ref:ref:ref:../../../etc/passwd;;;;;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

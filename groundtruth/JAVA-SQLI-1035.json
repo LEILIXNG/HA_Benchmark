@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountgrant/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountgrant/web/TariffController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountgrant/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountgrant/web/TariffController.java",
+    "line": 28,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/accountgrant/web/TariffRepository.java",
-    "line": 17,
+    "file": "web/src/main/java/com/northwind/accountgrant/web/TariffRepository.java",
+    "line": 25,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,86 +24,86 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/TariffController.java",
+      "line": 28,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 17,
-      "expr": "paymentTag1",
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 29,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 31,
       "expr": "refundCode2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 32,
       "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 37,
       "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 40,
       "expr": "shipmentCode3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 41,
       "expr": "manifestKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 42,
       "expr": "manifestKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 47,
       "expr": "invoiceKey5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 50,
       "expr": "invoiceKey5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 51,
       "expr": "batchTag6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/ManifestCollector.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/ManifestCollector.java",
+      "line": 52,
       "expr": "batchTag6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/TariffRepository.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/TariffRepository.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/habench/accountgrant/web/TariffRepository.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/accountgrant/web/TariffRepository.java",
+      "line": 25,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -139,9 +139,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
+    "payload_at_sink": "SELECT id, code, created_at FROM shipments WHERE code = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

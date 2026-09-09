@@ -4,152 +4,152 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 1 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customersplit/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customersplit/web/OrderController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customersplit/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customersplit/web/OrderController.java",
+    "line": 24,
     "expr": "category",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/resources/com/habench/customersplit/web/OrderMapper.xml",
+    "file": "web/src/main/resources/com/northwind/customersplit/web/OrderMapper.xml",
     "line": 9,
     "expr": "quoteRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/customersplit/web/TariffValidator.java",
-    "line": 9,
+    "file": "web/src/main/java/com/northwind/customersplit/web/TariffValidator.java",
+    "line": 16,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customersplit/web/OrderController.java",
+      "line": 24,
       "expr": "category",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 30,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 31,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 32,
       "expr": "paymentTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 33,
       "expr": "paymentTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 38,
       "expr": "refundCode3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 28,
-      "expr": "shipmentCode4",
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 39,
+      "expr": "refundCode3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 40,
       "expr": "shipmentCode4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 45,
       "expr": "manifestKey5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 37,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 48,
       "expr": "manifestKey5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 49,
       "expr": "invoiceKey6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 50,
       "expr": "batchTag7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 51,
       "expr": "batchTag7",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 45,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 56,
       "expr": "orderRef8",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 46,
-      "expr": "quoteRef9",
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 58,
+      "expr": "orderRef8",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 60,
       "expr": "tariffRef10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/VoucherAdapter.java",
-      "line": 48,
+      "file": "web/src/main/java/com/northwind/customersplit/web/VoucherAdapter.java",
+      "line": 61,
       "expr": "tariffRef10",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/TariffValidator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customersplit/web/TariffValidator.java",
+      "line": 16,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/OrderGateway.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/customersplit/web/OrderGateway.java",
+      "line": 19,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "web/src/main/java/com/habench/customersplit/web/OrderGateway.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/customersplit/web/OrderGateway.java",
+      "line": 26,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "web/src/main/resources/com/habench/customersplit/web/OrderMapper.xml",
+      "file": "web/src/main/resources/com/northwind/customersplit/web/OrderMapper.xml",
       "line": 9,
       "expr": "quoteRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -190,9 +190,9 @@
     "neutralized": false,
     "call_depth_observed": 9,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:zz OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, amount, status       FROM shipments      WHERE label = 'ref:ref:zz OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

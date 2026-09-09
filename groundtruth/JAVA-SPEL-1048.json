@@ -4,267 +4,267 @@
   "verdict": "safe",
   "title": "路径变量经 16 层调用、跨 3 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogbind/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogbind/web/TariffController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogbind/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogbind/web/TariffController.java",
+    "line": 23,
     "expr": "category",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogbind/dao/TariffEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/catalogbind/dao/TariffEvaluator.java",
+    "line": 21,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/catalogbind/dao/InvoiceValidator.java",
-    "line": 11,
+    "file": "dao/src/main/java/com/northwind/catalogbind/dao/InvoiceValidator.java",
+    "line": 23,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/TariffController.java",
+      "line": 23,
       "expr": "category",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 17,
-      "expr": "receiptKey1",
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 30,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 31,
       "expr": "receiptKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 36,
       "expr": "accountRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 39,
       "expr": "accountRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 40,
       "expr": "voucherRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 41,
       "expr": "voucherRef3",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 33,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 46,
       "expr": "paymentTag4",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 47,
       "expr": "refundCode5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 48,
       "expr": "refundCode5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 53,
       "expr": "shipmentCode6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 54,
       "expr": "manifestKey7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 44,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 57,
       "expr": "manifestKey7",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 45,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 58,
       "expr": "invoiceKey8",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 46,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 59,
       "expr": "invoiceKey8",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 51,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 64,
       "expr": "batchTag9",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 52,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 65,
       "expr": "orderRef10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 53,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 66,
       "expr": "quoteRef11",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 54,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 67,
       "expr": "quoteRef11",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 59,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 72,
       "expr": "tariffRef12",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 62,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 75,
       "expr": "tariffRef12",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 63,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 76,
       "expr": "ledgerEntry13",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 64,
-      "expr": "channelTag14",
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 77,
+      "expr": "ledgerEntry13",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbind/web/PaymentAssembler.java",
-      "line": 65,
+      "file": "web/src/main/java/com/northwind/catalogbind/web/PaymentAssembler.java",
+      "line": 78,
       "expr": "channelTag14",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/catalogbind/service/RefundResolver.java",
+      "line": 25,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/catalogbind/service/RefundResolver.java",
+      "line": 27,
       "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
-      "line": 15,
-      "expr": "tariffRef102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/catalogbind/service/RefundResolver.java",
+      "line": 29,
       "expr": "tariffRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogbind/service/RefundResolver.java",
+      "line": 34,
       "expr": "ledgerEntry103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
-      "line": 22,
-      "expr": "channelTag104",
+      "file": "service/src/main/java/com/northwind/catalogbind/service/RefundResolver.java",
+      "line": 35,
+      "expr": "ledgerEntry103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbind/service/RefundResolver.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/catalogbind/service/RefundResolver.java",
+      "line": 36,
       "expr": "channelTag104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/ShipmentRouter.java",
+      "line": 28,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/ShipmentRouter.java",
+      "line": 29,
       "expr": "shipmentCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 15,
-      "expr": "manifestKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/ShipmentRouter.java",
+      "line": 30,
       "expr": "manifestKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/ShipmentRouter.java",
+      "line": 35,
       "expr": "invoiceKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/ShipmentRouter.java",
+      "line": 37,
+      "expr": "invoiceKey203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/ShipmentRouter.java",
+      "line": 39,
       "expr": "batchTag204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 23,
-      "expr": "orderRef205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/ShipmentRouter.java",
-      "line": 24,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/ShipmentRouter.java",
+      "line": 40,
       "expr": "orderRef205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/InvoiceValidator.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/InvoiceValidator.java",
+      "line": 23,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/TariffEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/TariffEvaluator.java",
+      "line": 17,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbind/dao/TariffEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/catalogbind/dao/TariffEvaluator.java",
+      "line": 21,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -322,6 +322,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

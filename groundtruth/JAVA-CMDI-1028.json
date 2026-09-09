@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 8 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilimport/web/CatalogController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilimport/web/CatalogController.java",
+    "line": 28,
     "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilimport/dao/CatalogExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/fulfilimport/dao/CatalogExecutor.java",
+    "line": 22,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,140 +24,140 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/CatalogController.java",
+      "line": 28,
       "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/OrderBroker.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/OrderBroker.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/OrderBroker.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/OrderBroker.java",
+      "line": 24,
       "expr": "batchTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/OrderBroker.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/OrderBroker.java",
+      "line": 25,
       "expr": "batchTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/BundleService.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/BundleService.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/BundleService.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/BundleService.java",
+      "line": 24,
       "expr": "paymentTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/BundleService.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/BundleService.java",
+      "line": 25,
       "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 23,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 24,
       "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 12,
-      "expr": "catalogKey202",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 25,
       "expr": "catalogKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 30,
       "expr": "receiptKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 19,
-      "expr": "accountRef204",
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 32,
+      "expr": "receiptKey203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 36,
       "expr": "accountRef204",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 37,
       "expr": "voucherRef205",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilimport/web/AccountCoordinator.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/fulfilimport/web/AccountCoordinator.java",
+      "line": 38,
       "expr": "voucherRef205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilimport/service/ChannelCoordinator.java",
-      "line": 10,
-      "expr": "batchTag301",
+      "file": "service/src/main/java/com/northwind/fulfilimport/service/ChannelCoordinator.java",
+      "line": 27,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilimport/service/ChannelCoordinator.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/fulfilimport/service/ChannelCoordinator.java",
+      "line": 31,
       "expr": "batchTag301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilimport/service/ChannelCoordinator.java",
+      "file": "service/src/main/java/com/northwind/fulfilimport/service/ChannelCoordinator.java",
+      "line": 32,
+      "expr": "orderRef302",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/fulfilimport/service/ChannelCoordinator.java",
+      "line": 33,
+      "expr": "orderRef302",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/fulfilimport/dao/ChannelService.java",
       "line": 14,
-      "expr": "orderRef302",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/fulfilimport/service/ChannelCoordinator.java",
-      "line": 15,
-      "expr": "orderRef302",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/fulfilimport/dao/ChannelService.java",
-      "line": 8,
       "expr": "paymentTag401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilimport/dao/ChannelService.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilimport/dao/ChannelService.java",
+      "line": 15,
       "expr": "paymentTag401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilimport/dao/CatalogExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilimport/dao/CatalogExecutor.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilimport/dao/CatalogExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilimport/dao/CatalogExecutor.java",
+      "line": 22,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -201,9 +201,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:zz$(id);;;;",
+    "payload_at_sink": "printf ref:ref:ref:ref:zz$(id);;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

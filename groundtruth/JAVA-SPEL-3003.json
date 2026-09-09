@@ -4,292 +4,292 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 18 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentcapture/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentcapture/web/BundleController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentcapture/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentcapture/web/BundleController.java",
+    "line": 23,
     "expr": "label",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/paymentcapture/dao/BundleEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "dao/src/main/java/com/northwind/paymentcapture/dao/BundleEvaluator.java",
+    "line": 30,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/paymentcapture/dao/QuoteScreen.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/paymentcapture/dao/QuoteScreen.java",
+    "line": 25,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
   },
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/BundleController.java",
+      "line": 23,
       "expr": "label",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 27,
       "expr": "refundCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 30,
       "expr": "refundCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 31,
       "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 32,
       "expr": "shipmentCode2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 37,
       "expr": "manifestKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 38,
       "expr": "invoiceKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 39,
       "expr": "invoiceKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 44,
       "expr": "batchTag5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 29,
-      "expr": "orderRef6",
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 45,
+      "expr": "batchTag5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 46,
       "expr": "quoteRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 47,
       "expr": "quoteRef7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 52,
       "expr": "tariffRef8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 55,
       "expr": "tariffRef8",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 56,
       "expr": "ledgerEntry9",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentcapture/web/RefundResolver.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/paymentcapture/web/ReceiptBroker.java",
+      "line": 57,
       "expr": "ledgerEntry9",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 32,
       "expr": "catalogKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 33,
       "expr": "catalogKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 38,
       "expr": "receiptKey102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 24,
-      "expr": "accountRef103",
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 40,
+      "expr": "receiptKey102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 42,
       "expr": "accountRef103",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 47,
       "expr": "voucherRef104",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 50,
       "expr": "voucherRef104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 51,
       "expr": "paymentTag105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 54,
       "expr": "paymentTag105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 55,
       "expr": "refundCode106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/ChannelRegistry.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/OrderRouter.java",
+      "line": 56,
       "expr": "refundCode106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/PaymentStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/PaymentStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/PaymentStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/PaymentStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/BundleRegistry.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/BundleRegistry.java",
+      "line": 22,
       "expr": "orderRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/BundleRegistry.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/BundleRegistry.java",
+      "line": 25,
       "expr": "orderRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/BundleRegistry.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/BundleRegistry.java",
+      "line": 26,
       "expr": "quoteRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentcapture/service/BundleRegistry.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/paymentcapture/service/BundleRegistry.java",
+      "line": 27,
       "expr": "quoteRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 15,
-      "expr": "refundCode301",
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 26,
       "expr": "refundCode301",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 31,
       "expr": "shipmentCode302",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 32,
       "expr": "manifestKey303",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 33,
       "expr": "manifestKey303",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 38,
       "expr": "invoiceKey304",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 29,
-      "expr": "batchTag305",
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 39,
+      "expr": "invoiceKey304",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/VoucherRouter.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/VoucherRouter.java",
+      "line": 40,
       "expr": "batchTag305",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/QuoteScreen.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/QuoteScreen.java",
+      "line": 25,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/BundleEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/BundleEvaluator.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentcapture/dao/BundleEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "dao/src/main/java/com/northwind/paymentcapture/dao/BundleEvaluator.java",
+      "line": 30,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -343,9 +343,9 @@
     "neutralized": false,
     "call_depth_observed": 18,
     "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
+    "payload_at_sink": "'chn-' + 'ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

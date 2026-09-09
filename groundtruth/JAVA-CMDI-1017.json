@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 10 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryassign/web/ManifestController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryassign/web/ManifestController.java",
+    "line": 25,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestExecutor.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryassign/web/ManifestExecutor.java",
+    "line": 23,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,116 +24,116 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/ManifestController.java",
+      "line": 25,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/RefundTranslator.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/RefundTranslator.java",
+      "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/RefundTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/RefundTranslator.java",
+      "line": 19,
       "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/RefundTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/RefundTranslator.java",
+      "line": 20,
       "expr": "catalogKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/AccountPlanSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/AccountPlanSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/AccountPlanStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/AccountPlanStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/InvoiceRegistry.java",
-      "line": 9,
-      "expr": "orderRef101",
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/InvoiceRegistry.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/InvoiceRegistry.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/InvoiceRegistry.java",
+      "line": 18,
       "expr": "orderRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/InvoiceRegistry.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/InvoiceRegistry.java",
+      "line": 23,
       "expr": "quoteRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/InvoiceRegistry.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/InvoiceRegistry.java",
+      "line": 24,
       "expr": "tariffRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/InvoiceRegistry.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/InvoiceRegistry.java",
+      "line": 25,
       "expr": "tariffRef103",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/VoucherPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/VoucherPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/VoucherPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/VoucherPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/AccountEnricher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/AccountEnricher.java",
+      "line": 18,
       "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/AccountEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/AccountEnricher.java",
+      "line": 21,
       "expr": "refundCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/AccountEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/AccountEnricher.java",
+      "line": 22,
       "expr": "shipmentCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/AccountEnricher.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/AccountEnricher.java",
+      "line": 23,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestExecutor.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/ManifestExecutor.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryassign/web/ManifestExecutor.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryassign/web/ManifestExecutor.java",
+      "line": 23,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -171,9 +171,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id);",
+    "payload_at_sink": "echo -n ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

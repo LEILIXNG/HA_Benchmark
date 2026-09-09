@@ -4,153 +4,153 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 1 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogsync/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogsync/web/SessionController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogsync/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogsync/web/SessionController.java",
+    "line": 25,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/catalogsync/web/SessionFetcher.java",
-    "line": 14,
+    "file": "web/src/main/java/com/northwind/catalogsync/web/SessionFetcher.java",
+    "line": 25,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/catalogsync/web/AccountGuard.java",
-    "line": 10,
+    "file": "web/src/main/java/com/northwind/catalogsync/web/AccountGuard.java",
+    "line": 12,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
   },
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/SessionController.java",
+      "line": 25,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 28,
       "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 18,
-      "expr": "catalogKey2",
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 30,
+      "expr": "channelTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 32,
       "expr": "catalogKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 37,
       "expr": "receiptKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 25,
-      "expr": "accountRef4",
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 38,
+      "expr": "receiptKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 41,
       "expr": "accountRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 42,
       "expr": "voucherRef5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 43,
       "expr": "voucherRef5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 35,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 48,
       "expr": "paymentTag6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 51,
       "expr": "paymentTag6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 52,
       "expr": "refundCode7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 40,
-      "expr": "shipmentCode8",
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 53,
+      "expr": "refundCode7",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 54,
       "expr": "shipmentCode8",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 46,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 59,
       "expr": "manifestKey9",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 47,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 60,
       "expr": "invoiceKey10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 48,
-      "expr": "batchTag11",
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 61,
+      "expr": "invoiceKey10",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/ContractCoordinator.java",
-      "line": 49,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/ContractCoordinator.java",
+      "line": 62,
       "expr": "batchTag11",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/AccountGuard.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/AccountGuard.java",
+      "line": 12,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/SessionFetcher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/SessionFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogsync/web/SessionFetcher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/catalogsync/web/SessionFetcher.java",
+      "line": 25,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -191,9 +191,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:ref:ref:ref:127.0.0.1:1;;;;/status",
+    "payload_at_sink": "http://ref:ref:ref:ref:127.0.0.1:1;;;;/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

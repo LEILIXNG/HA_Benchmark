@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 7 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/reportsettle/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/reportsettle/web/ChannelController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/reportsettle/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/reportsettle/web/ChannelController.java",
+    "line": 22,
     "expr": "query",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/reportsettle/service/ChannelRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/reportsettle/service/ChannelRepository.java",
+    "line": 26,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,134 +24,134 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ChannelController.java",
+      "line": 22,
       "expr": "query",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ShipmentEnricher.java",
-      "line": 9,
-      "expr": "refundCode1",
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ShipmentEnricher.java",
+      "line": 13,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ShipmentEnricher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ShipmentEnricher.java",
+      "line": 15,
       "expr": "shipmentCode2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ShipmentEnricher.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ShipmentEnricher.java",
+      "line": 16,
       "expr": "shipmentCode2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ShipmentEnricher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ShipmentEnricher.java",
+      "line": 21,
       "expr": "manifestKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ShipmentEnricher.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ShipmentEnricher.java",
+      "line": 22,
       "expr": "invoiceKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ShipmentEnricher.java",
-      "line": 18,
-      "expr": "batchTag5",
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ShipmentEnricher.java",
+      "line": 23,
+      "expr": "invoiceKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/ShipmentEnricher.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/ShipmentEnricher.java",
+      "line": 24,
       "expr": "batchTag5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/VoucherCollector.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/VoucherCollector.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/VoucherCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/VoucherCollector.java",
+      "line": 21,
       "expr": "catalogKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/VoucherCollector.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/VoucherCollector.java",
+      "line": 22,
       "expr": "catalogKey101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/RefundEnricher.java",
-      "line": 12,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportsettle/web/RefundEnricher.java",
-      "line": 13,
-      "expr": "orderRef201",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportsettle/web/RefundEnricher.java",
-      "line": 16,
-      "expr": "orderRef201",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/reportsettle/web/RefundEnricher.java",
+      "file": "web/src/main/java/com/northwind/reportsettle/web/RefundEnricher.java",
       "line": 17,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reportsettle/web/RefundEnricher.java",
+      "line": 18,
+      "expr": "orderRef201",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reportsettle/web/RefundEnricher.java",
+      "line": 21,
+      "expr": "orderRef201",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/reportsettle/web/RefundEnricher.java",
+      "line": 22,
       "expr": "quoteRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/reportsettle/web/RefundEnricher.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/reportsettle/web/RefundEnricher.java",
+      "line": 23,
       "expr": "quoteRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsettle/service/QuoteCoordinator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/reportsettle/service/QuoteCoordinator.java",
+      "line": 14,
       "expr": "refundCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsettle/service/QuoteCoordinator.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/reportsettle/service/QuoteCoordinator.java",
+      "line": 17,
       "expr": "refundCode301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsettle/service/QuoteCoordinator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/reportsettle/service/QuoteCoordinator.java",
+      "line": 18,
       "expr": "shipmentCode302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsettle/service/QuoteCoordinator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/reportsettle/service/QuoteCoordinator.java",
+      "line": 19,
       "expr": "shipmentCode302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsettle/service/ChannelRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/reportsettle/service/ChannelRepository.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/reportsettle/service/ChannelRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/reportsettle/service/ChannelRepository.java",
+      "line": 26,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -194,9 +194,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM invoices WHERE title = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 13 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilrollup/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilrollup/web/QuoteController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilrollup/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilrollup/web/QuoteController.java",
+    "line": 26,
     "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilrollup/dao/QuoteRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/QuoteRepository.java",
+    "line": 27,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,170 +24,170 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/QuoteController.java",
+      "line": 26,
       "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 11,
-      "expr": "manifestKey1",
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 22,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 23,
       "expr": "manifestKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 28,
       "expr": "invoiceKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 29,
       "expr": "batchTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 30,
       "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 31,
       "expr": "orderRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 36,
       "expr": "quoteRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 39,
       "expr": "quoteRef5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 40,
       "expr": "tariffRef6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 41,
       "expr": "ledgerEntry7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/LedgerBroker.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "line": 42,
       "expr": "ledgerEntry7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/BatchRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/BatchRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/BatchRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/BatchRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/ManifestTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/ManifestTranslator.java",
+      "line": 20,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrollup/web/ManifestTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/fulfilrollup/web/ManifestTranslator.java",
+      "line": 21,
       "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrollup/service/BatchComposer.java",
-      "line": 14,
-      "expr": "tariffRef201",
+      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
+      "line": 29,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrollup/service/BatchComposer.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
+      "line": 30,
       "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrollup/service/BatchComposer.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
+      "line": 35,
       "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrollup/service/BatchComposer.java",
-      "line": 21,
-      "expr": "channelTag203",
+      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
+      "line": 36,
+      "expr": "ledgerEntry202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrollup/service/BatchComposer.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
+      "line": 37,
       "expr": "channelTag203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrollup/dao/OrderBroker.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/OrderBroker.java",
+      "line": 19,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrollup/dao/OrderBroker.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/OrderBroker.java",
+      "line": 20,
       "expr": "invoiceKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrollup/dao/OrderBroker.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/OrderBroker.java",
+      "line": 21,
       "expr": "invoiceKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrollup/dao/PaymentCollector.java",
-      "line": 8,
-      "expr": "accountRef401",
+      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/PaymentCollector.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrollup/dao/PaymentCollector.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/PaymentCollector.java",
+      "line": 20,
       "expr": "accountRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrollup/dao/QuoteRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/QuoteRepository.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrollup/dao/QuoteRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/QuoteRepository.java",
+      "line": 27,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -235,9 +235,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, ref_no, total FROM shipments WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

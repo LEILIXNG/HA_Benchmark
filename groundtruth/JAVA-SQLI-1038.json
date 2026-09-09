@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountrelease/web/ManifestController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountrelease/web/ManifestController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountrelease/web/ManifestController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountrelease/web/ManifestController.java",
+    "line": 24,
     "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/accountrelease/service/ManifestRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/accountrelease/service/ManifestRepository.java",
+    "line": 31,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,86 +24,86 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/ManifestController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountrelease/web/ManifestController.java",
+      "line": 24,
       "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/QuoteEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accountrelease/web/QuoteEnricher.java",
+      "line": 29,
       "expr": "manifestKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/QuoteEnricher.java",
-      "line": 15,
-      "expr": "invoiceKey2",
+      "file": "web/src/main/java/com/northwind/accountrelease/web/QuoteEnricher.java",
+      "line": 31,
+      "expr": "manifestKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/QuoteEnricher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/accountrelease/web/QuoteEnricher.java",
+      "line": 33,
       "expr": "invoiceKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/QuoteEnricher.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/accountrelease/web/QuoteEnricher.java",
+      "line": 38,
       "expr": "batchTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/QuoteEnricher.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/accountrelease/web/QuoteEnricher.java",
+      "line": 39,
       "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/QuoteEnricher.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/accountrelease/web/QuoteEnricher.java",
+      "line": 40,
       "expr": "quoteRef5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountrelease/web/QuoteEnricher.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/accountrelease/web/QuoteEnricher.java",
+      "line": 41,
       "expr": "quoteRef5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrelease/service/BundleAssembler.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/accountrelease/service/BundleAssembler.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrelease/service/BundleAssembler.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/accountrelease/service/BundleAssembler.java",
+      "line": 24,
       "expr": "accountRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrelease/service/BundleAssembler.java",
-      "line": 14,
-      "expr": "voucherRef102",
+      "file": "service/src/main/java/com/northwind/accountrelease/service/BundleAssembler.java",
+      "line": 25,
+      "expr": "accountRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrelease/service/BundleAssembler.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/accountrelease/service/BundleAssembler.java",
+      "line": 26,
       "expr": "voucherRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrelease/service/ManifestRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/accountrelease/service/ManifestRepository.java",
+      "line": 26,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/accountrelease/service/ManifestRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/accountrelease/service/ManifestRepository.java",
+      "line": 31,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -141,9 +141,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, ref_no, total FROM shipments WHERE code = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

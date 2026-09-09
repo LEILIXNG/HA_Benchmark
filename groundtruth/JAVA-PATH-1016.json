@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 14 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerquote/web/AccountController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerquote/web/AccountController.java",
+    "line": 23,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customerquote/dao/AccountLoader.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/customerquote/dao/AccountLoader.java",
+    "line": 25,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,194 +24,194 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerquote/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerquote/web/AccountController.java",
+      "line": 23,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentResolver.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/customerquote/web/ShipmentResolver.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentResolver.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerquote/web/ShipmentResolver.java",
+      "line": 25,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerquote/web/ShipmentResolver.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customerquote/web/ShipmentResolver.java",
+      "line": 26,
       "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerquote/service/BatchRouter.java",
-      "line": 8,
-      "expr": "receiptKey101",
+      "file": "service/src/main/java/com/northwind/customerquote/service/AccountAdapter.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerquote/service/BatchRouter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/customerquote/service/AccountAdapter.java",
+      "line": 25,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
-      "line": 16,
-      "expr": "quoteRef201",
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector2.java",
+      "line": 30,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector2.java",
+      "line": 31,
       "expr": "quoteRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector2.java",
+      "line": 36,
       "expr": "tariffRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
-      "line": 25,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector2.java",
+      "line": 39,
       "expr": "tariffRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector2.java",
+      "line": 40,
       "expr": "ledgerEntry203",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/TariffCollector.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector2.java",
+      "line": 41,
       "expr": "ledgerEntry203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/BundlePolicySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/BundlePolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/BundlePolicyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/BundlePolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 18,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 30,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 31,
       "expr": "shipmentCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 32,
       "expr": "manifestKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 33,
       "expr": "manifestKey302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 38,
       "expr": "invoiceKey303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 27,
-      "expr": "batchTag304",
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 39,
+      "expr": "invoiceKey303",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 42,
       "expr": "batchTag304",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 31,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 43,
       "expr": "orderRef305",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 32,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 44,
       "expr": "orderRef305",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 37,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 49,
       "expr": "quoteRef306",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 38,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 50,
       "expr": "tariffRef307",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 39,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 51,
       "expr": "tariffRef307",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 44,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 56,
       "expr": "ledgerEntry308",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 45,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 57,
       "expr": "channelTag309",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 46,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 58,
       "expr": "catalogKey310",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/ReceiptCollector.java",
-      "line": 47,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/ReceiptCollector.java",
+      "line": 59,
       "expr": "catalogKey310",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/AccountLoader.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/AccountLoader.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerquote/dao/AccountLoader.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/customerquote/dao/AccountLoader.java",
+      "line": 25,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -259,9 +259,9 @@
     "neutralized": false,
     "call_depth_observed": 14,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:ref:../../../etc/passwd;;;",
+    "payload_at_sink": "/var/lib/customer/data/ref:ref:ref:../../../etc/passwd;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

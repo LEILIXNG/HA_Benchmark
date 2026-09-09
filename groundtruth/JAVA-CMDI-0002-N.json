@@ -4,105 +4,105 @@
   "verdict": "safe",
   "title": "与 JAVA-CMDI-0002 逐行相同，仅插入有效白名单校验",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilreconcile/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilreconcile/web/RefundController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilreconcile/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilreconcile/web/RefundController.java",
+    "line": 24,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/RefundExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/RefundExecutor.java",
+    "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/RefundValidator.java",
-    "line": 11,
-    "expr": "value",
+    "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/RefundValidator.java",
+    "line": 28,
+    "expr": "matcher",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilreconcile/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilreconcile/web/RefundController.java",
+      "line": 24,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilreconcile/web/PaymentService2.java",
-      "line": 8,
-      "expr": "orderRef1",
+      "file": "web/src/main/java/com/northwind/fulfilreconcile/web/ContractFacade.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilreconcile/web/PaymentService2.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/fulfilreconcile/web/ContractFacade.java",
+      "line": 23,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreconcile/service/RefundBroker.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/fulfilreconcile/service/BundleCoordinator.java",
+      "line": 23,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreconcile/service/VoucherStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/fulfilreconcile/service/VoucherStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreconcile/service/VoucherStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/fulfilreconcile/service/VoucherStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilreconcile/service/TariffBuilder.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/fulfilreconcile/service/TariffBuilder.java",
+      "line": 24,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/PaymentService.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/PaymentService.java",
+      "line": 24,
       "expr": "value",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/PaymentService.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/PaymentService.java",
+      "line": 29,
       "expr": "orderRef301",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/PaymentService.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/PaymentService.java",
+      "line": 30,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/RefundValidator.java",
-      "line": 11,
-      "expr": "value",
+      "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/RefundValidator.java",
+      "line": 28,
+      "expr": "matcher",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/RefundExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/RefundExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilreconcile/dao/RefundExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilreconcile/dao/RefundExecutor.java",
+      "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -140,6 +140,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

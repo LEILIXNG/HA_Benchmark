@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 17 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendordigest/web/TariffController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendordigest/web/TariffController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendordigest/web/TariffController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendordigest/web/TariffController.java",
+    "line": 25,
     "expr": "filename",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendordigest/service/TariffEvaluator.java",
-    "line": 14,
+    "file": "service/src/main/java/com/northwind/vendordigest/service/TariffEvaluator.java",
+    "line": 27,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,230 +24,230 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/TariffController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/TariffController.java",
+      "line": 25,
       "expr": "filename",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/BundleCoordinator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/SessionRegistry.java",
+      "line": 24,
       "expr": "tariffRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/BundleCoordinator.java",
-      "line": 15,
-      "expr": "ledgerEntry2",
+      "file": "web/src/main/java/com/northwind/vendordigest/web/SessionRegistry.java",
+      "line": 25,
+      "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/BundleCoordinator.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/SessionRegistry.java",
+      "line": 26,
       "expr": "ledgerEntry2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/BundleCoordinator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/SessionRegistry.java",
+      "line": 31,
       "expr": "channelTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/BundleCoordinator.java",
-      "line": 22,
-      "expr": "catalogKey4",
+      "file": "web/src/main/java/com/northwind/vendordigest/web/SessionRegistry.java",
+      "line": 33,
+      "expr": "channelTag3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/BundleCoordinator.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/SessionRegistry.java",
+      "line": 35,
       "expr": "catalogKey4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/AccountRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/ManifestPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/AccountRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/ManifestPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/ReceiptBroker.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/PaymentAssembler.java",
+      "line": 27,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/ReceiptBroker.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/PaymentAssembler.java",
+      "line": 28,
       "expr": "manifestKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/ReceiptBroker.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/PaymentAssembler.java",
+      "line": 33,
       "expr": "invoiceKey102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/ReceiptBroker.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/PaymentAssembler.java",
+      "line": 34,
       "expr": "batchTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/ReceiptBroker.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/PaymentAssembler.java",
+      "line": 37,
       "expr": "batchTag103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/ReceiptBroker.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/PaymentAssembler.java",
+      "line": 38,
       "expr": "orderRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendordigest/web/ReceiptBroker.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/vendordigest/web/PaymentAssembler.java",
+      "line": 39,
       "expr": "orderRef104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 35,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 36,
       "expr": "accountRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 37,
       "expr": "accountRef201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 42,
       "expr": "voucherRef202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 43,
       "expr": "paymentTag203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 44,
       "expr": "paymentTag203",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 49,
       "expr": "refundCode204",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 52,
       "expr": "refundCode204",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 53,
       "expr": "shipmentCode205",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 54,
       "expr": "shipmentCode205",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 59,
       "expr": "manifestKey206",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 44,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 60,
       "expr": "invoiceKey207",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 47,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 63,
       "expr": "invoiceKey207",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 48,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 64,
       "expr": "batchTag208",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/ShipmentBroker.java",
-      "line": 49,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/ManifestEnricher.java",
+      "line": 65,
       "expr": "batchTag208",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/BatchStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/BatchStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/BatchStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/BatchStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/OrderBuilder.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/OrderBuilder.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/OrderBuilder.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/OrderBuilder.java",
+      "line": 24,
       "expr": "tariffRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/OrderBuilder.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/OrderBuilder.java",
+      "line": 25,
       "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/TariffEvaluator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/TariffEvaluator.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/vendordigest/service/TariffEvaluator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/vendordigest/service/TariffEvaluator.java",
+      "line": 27,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -297,9 +297,9 @@
     "neutralized": false,
     "call_depth_observed": 17,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "payload_at_sink": "'chn-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

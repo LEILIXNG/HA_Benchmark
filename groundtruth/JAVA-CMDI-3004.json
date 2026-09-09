@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 11 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerarchive/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerarchive/web/SessionController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerarchive/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerarchive/web/SessionController.java",
+    "line": 25,
     "expr": "filename",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/customerarchive/dao/SessionExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/customerarchive/dao/SessionExecutor.java",
+    "line": 27,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,194 +24,194 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerarchive/web/SessionController.java",
+      "line": 25,
       "expr": "filename",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/BundleEnricher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/customerarchive/web/QuoteBroker.java",
+      "line": 26,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/BundleEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerarchive/web/QuoteBroker.java",
+      "line": 29,
       "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customerarchive/web/BundleEnricher.java",
-      "line": 14,
-      "expr": "quoteRef2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/habench/customerarchive/web/BundleEnricher.java",
-      "line": 15,
-      "expr": "quoteRef2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 11,
-      "expr": "refundCode101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 12,
-      "expr": "refundCode101",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 17,
-      "expr": "shipmentCode102",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 20,
-      "expr": "shipmentCode102",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 21,
-      "expr": "manifestKey103",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 22,
-      "expr": "manifestKey103",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 27,
-      "expr": "invoiceKey104",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
+      "file": "web/src/main/java/com/northwind/customerarchive/web/QuoteBroker.java",
       "line": 30,
+      "expr": "quoteRef2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/customerarchive/web/QuoteBroker.java",
+      "line": 31,
+      "expr": "quoteRef2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 26,
+      "expr": "refundCode101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 27,
+      "expr": "refundCode101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 32,
+      "expr": "shipmentCode102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 35,
+      "expr": "shipmentCode102",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 36,
+      "expr": "manifestKey103",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 37,
+      "expr": "manifestKey103",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 42,
+      "expr": "invoiceKey104",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 45,
       "expr": "invoiceKey104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 46,
       "expr": "batchTag105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 49,
       "expr": "batchTag105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 50,
       "expr": "orderRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/ManifestFacade.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/ContractRouter.java",
+      "line": 51,
       "expr": "orderRef106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/PaymentStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/PaymentStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/PaymentStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/PaymentStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 26,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 27,
       "expr": "receiptKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 28,
       "expr": "receiptKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 33,
       "expr": "accountRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 35,
+      "expr": "accountRef203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 37,
       "expr": "voucherRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 23,
-      "expr": "paymentTag205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/customerarchive/service/CatalogFacade.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/customerarchive/service/CatalogFacade.java",
+      "line": 38,
       "expr": "paymentTag205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerarchive/dao/SessionTranslator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/customerarchive/dao/SessionTranslator.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerarchive/dao/SessionTranslator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerarchive/dao/SessionTranslator.java",
+      "line": 24,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerarchive/dao/SessionTranslator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/customerarchive/dao/SessionTranslator.java",
+      "line": 25,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerarchive/dao/SessionExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/customerarchive/dao/SessionExecutor.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/customerarchive/dao/SessionExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/customerarchive/dao/SessionExecutor.java",
+      "line": 27,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -258,9 +258,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:zz$(id);;",
+    "payload_at_sink": "printf ref:ref:zz$(id);;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

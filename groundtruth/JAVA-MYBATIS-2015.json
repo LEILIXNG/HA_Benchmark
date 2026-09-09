@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 12 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricingrollup/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricingrollup/web/ChannelController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricingrollup/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricingrollup/web/ChannelController.java",
+    "line": 28,
     "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/resources/com/habench/pricingrollup/service/ChannelMapper.xml",
+    "file": "service/src/main/resources/com/northwind/pricingrollup/service/ChannelMapper.xml",
     "line": 9,
     "expr": "orderRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,169 +24,169 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ChannelController.java",
+      "line": 28,
       "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 26,
       "expr": "batchTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 27,
       "expr": "orderRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 28,
       "expr": "orderRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 33,
       "expr": "quoteRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 36,
       "expr": "quoteRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 37,
       "expr": "tariffRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 40,
       "expr": "tariffRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 41,
       "expr": "ledgerEntry5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/VoucherFacade.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "line": 42,
       "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/OrderBroker.java",
-      "line": 8,
-      "expr": "paymentTag101",
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ManifestCollector.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/OrderBroker.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ManifestCollector.java",
+      "line": 24,
       "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/InvoiceStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/InvoiceStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/InvoiceStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/InvoiceStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 16,
-      "expr": "channelTag201",
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 25,
       "expr": "catalogKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 26,
       "expr": "catalogKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 31,
       "expr": "receiptKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 34,
       "expr": "receiptKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 35,
       "expr": "accountRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 28,
-      "expr": "voucherRef205",
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 36,
+      "expr": "accountRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricingrollup/web/ContractTranslator.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
+      "line": 37,
       "expr": "voucherRef205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelCoordinator.java",
-      "line": 8,
-      "expr": "batchTag301",
+      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelCoordinator.java",
+      "line": 16,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelCoordinator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelCoordinator.java",
+      "line": 17,
       "expr": "batchTag301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelGateway.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelGateway.java",
+      "line": 19,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/habench/pricingrollup/service/ChannelGateway.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelGateway.java",
+      "line": 26,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/habench/pricingrollup/service/ChannelMapper.xml",
+      "file": "service/src/main/resources/com/northwind/pricingrollup/service/ChannelMapper.xml",
       "line": 9,
       "expr": "orderRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -232,9 +232,9 @@
     "neutralized": false,
     "call_depth_observed": 12,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, total       FROM orders      WHERE ref_no IN ('ref:ref:ref:ref:zz' OR 1=1--;;;;')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

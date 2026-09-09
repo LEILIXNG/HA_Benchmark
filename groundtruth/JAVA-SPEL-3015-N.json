@@ -4,111 +4,111 @@
   "verdict": "safe",
   "title": "与 JAVA-SPEL-3015 逐行相同，仅把净化改为 spel_restricted_context",
   "entry": {
-    "file": "web/src/main/java/com/habench/orderposting/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/orderposting/web/AccountController.java",
+    "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/orderposting/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/orderposting/web/AccountController.java",
+    "line": 24,
     "expr": "userName",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/orderposting/service/AccountEvaluator.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/orderposting/service/AccountEvaluator.java",
+    "line": 28,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/orderposting/service/AccountEvaluator.java",
-    "line": 15,
+    "file": "service/src/main/java/com/northwind/orderposting/service/AccountEvaluator.java",
+    "line": 26,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
   },
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/orderposting/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/orderposting/web/AccountController.java",
+      "line": 24,
       "expr": "userName",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/orderposting/web/ReceiptRouter.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/orderposting/web/ReceiptRouter.java",
+      "line": 24,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderposting/web/ReceiptRouter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/orderposting/web/ReceiptRouter.java",
+      "line": 25,
       "expr": "catalogKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 29,
       "expr": "orderRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 30,
       "expr": "orderRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 35,
       "expr": "quoteRef102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 22,
-      "expr": "tariffRef103",
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 36,
+      "expr": "quoteRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 37,
       "expr": "tariffRef103",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 42,
       "expr": "ledgerEntry104",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 43,
       "expr": "channelTag105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/ChannelBroker.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/orderposting/service/ChannelBroker.java",
+      "line": 44,
       "expr": "channelTag105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/AccountEvaluator.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/orderposting/service/AccountEvaluator.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/AccountEvaluator.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/orderposting/service/AccountEvaluator.java",
+      "line": 26,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/orderposting/service/AccountEvaluator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/orderposting/service/AccountEvaluator.java",
+      "line": 28,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
@@ -145,9 +145,9 @@
     "neutralized": true,
     "call_depth_observed": 7,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
+    "payload_at_sink": "'chn-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 10 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/orderdigest/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/orderdigest/web/RefundController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/orderdigest/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/orderdigest/web/RefundController.java",
+    "line": 27,
     "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/orderdigest/service/RefundEvaluator.java",
-    "line": 14,
+    "file": "service/src/main/java/com/northwind/orderdigest/service/RefundEvaluator.java",
+    "line": 26,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,164 +24,164 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/orderdigest/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/orderdigest/web/RefundController.java",
+      "line": 27,
       "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/orderdigest/web/ChannelComposer.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/orderdigest/web/ChannelComposer.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderdigest/web/ChannelComposer.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/orderdigest/web/ChannelComposer.java",
+      "line": 25,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/orderdigest/web/ChannelComposer.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/orderdigest/web/ChannelComposer.java",
+      "line": 26,
       "expr": "paymentTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/orderdigest/web/ChannelComposer.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/orderdigest/web/ChannelComposer.java",
+      "line": 27,
       "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 17,
-      "expr": "ledgerEntry101",
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 28,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 30,
       "expr": "ledgerEntry101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 35,
       "expr": "channelTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 36,
       "expr": "catalogKey103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 39,
       "expr": "catalogKey103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 40,
       "expr": "receiptKey104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 41,
       "expr": "receiptKey104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 46,
       "expr": "accountRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 47,
       "expr": "voucherRef106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 48,
       "expr": "voucherRef106",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 41,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 53,
       "expr": "paymentTag107",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 42,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 54,
       "expr": "refundCode108",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 55,
       "expr": "shipmentCode109",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 44,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 56,
       "expr": "shipmentCode109",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 49,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 61,
       "expr": "manifestKey110",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 50,
-      "expr": "invoiceKey111",
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 62,
+      "expr": "manifestKey110",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 51,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 63,
       "expr": "invoiceKey111",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 56,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 68,
       "expr": "batchTag112",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 57,
-      "expr": "orderRef113",
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 69,
+      "expr": "batchTag112",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/VoucherBroker.java",
-      "line": 58,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/VoucherBroker.java",
+      "line": 70,
       "expr": "orderRef113",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/RefundEvaluator.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/RefundEvaluator.java",
+      "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/habench/orderdigest/service/RefundEvaluator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/orderdigest/service/RefundEvaluator.java",
+      "line": 26,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -227,9 +227,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
+    "payload_at_sink": "'chn-' + 'ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

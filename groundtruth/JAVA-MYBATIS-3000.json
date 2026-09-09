@@ -4,122 +4,122 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 10 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/billingnotice/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/billingnotice/web/ContractController.java",
+    "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/billingnotice/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/billingnotice/web/ContractController.java",
+    "line": 20,
     "expr": "userName",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/billingnotice/dao/ContractMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/billingnotice/dao/ContractMapper.xml",
     "line": 9,
     "expr": "invoiceKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/billingnotice/dao/ChannelValidator.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/billingnotice/dao/ChannelValidator.java",
+    "line": 14,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
   },
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/billingnotice/web/ContractController.java",
+      "line": 20,
       "expr": "userName",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/ContractAdapter.java",
-      "line": 8,
-      "expr": "channelTag1",
+      "file": "web/src/main/java/com/northwind/billingnotice/web/ContractAdapter.java",
+      "line": 11,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/ContractAdapter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/billingnotice/web/ContractAdapter.java",
+      "line": 12,
       "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/ContractStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/billingnotice/web/ContractStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/ContractStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/billingnotice/web/ContractStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/OrderTranslator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/billingnotice/web/OrderTranslator.java",
+      "line": 17,
       "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/billingnotice/web/OrderTranslator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/billingnotice/web/OrderTranslator.java",
+      "line": 18,
       "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffRouter.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/billingnotice/service/TariffRouter.java",
+      "line": 17,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffRouter.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/billingnotice/service/TariffRouter.java",
+      "line": 18,
       "expr": "paymentTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/billingnotice/service/TariffRouter.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/billingnotice/service/TariffRouter.java",
+      "line": 19,
       "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/RefundComposer.java",
-      "line": 8,
-      "expr": "channelTag301",
+      "file": "dao/src/main/java/com/northwind/billingnotice/dao/RefundComposer.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/RefundComposer.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/billingnotice/dao/RefundComposer.java",
+      "line": 19,
       "expr": "channelTag301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/ChannelValidator.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/billingnotice/dao/ChannelValidator.java",
+      "line": 14,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/ContractGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/billingnotice/dao/ContractGateway.java",
+      "line": 15,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/billingnotice/dao/ContractGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/billingnotice/dao/ContractGateway.java",
+      "line": 22,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/billingnotice/dao/ContractMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/billingnotice/dao/ContractMapper.xml",
       "line": 9,
       "expr": "invoiceKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -157,9 +157,9 @@
     "neutralized": false,
     "call_depth_observed": 10,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:zz OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, amount, status       FROM orders      WHERE ref_no LIKE '%ref:ref:zz OR 1=1--;;%'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

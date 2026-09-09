@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 8 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogbatch/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogbatch/web/AccountController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogbatch/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogbatch/web/AccountController.java",
+    "line": 27,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogbatch/dao/AccountExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/catalogbatch/dao/AccountExecutor.java",
+    "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,110 +24,110 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogbatch/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogbatch/web/AccountController.java",
+      "line": 27,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbatch/web/VoucherFacade.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/catalogbatch/web/VoucherFacade.java",
+      "line": 23,
       "expr": "refundCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbatch/web/VoucherFacade.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogbatch/web/VoucherFacade.java",
+      "line": 24,
       "expr": "refundCode1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbatch/web/VoucherFacade.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/catalogbatch/web/VoucherFacade.java",
+      "line": 29,
       "expr": "shipmentCode2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbatch/web/VoucherFacade.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/catalogbatch/web/VoucherFacade.java",
+      "line": 32,
       "expr": "shipmentCode2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbatch/web/VoucherFacade.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/catalogbatch/web/VoucherFacade.java",
+      "line": 33,
       "expr": "manifestKey3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogbatch/web/VoucherFacade.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/catalogbatch/web/VoucherFacade.java",
+      "line": 34,
       "expr": "manifestKey3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbatch/service/ReceiptNormalizer.java",
-      "line": 14,
-      "expr": "catalogKey101",
+      "file": "service/src/main/java/com/northwind/catalogbatch/service/ReceiptNormalizer.java",
+      "line": 29,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbatch/service/ReceiptNormalizer.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogbatch/service/ReceiptNormalizer.java",
+      "line": 30,
       "expr": "catalogKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbatch/service/ReceiptNormalizer.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/catalogbatch/service/ReceiptNormalizer.java",
+      "line": 35,
       "expr": "receiptKey102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbatch/service/ReceiptNormalizer.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogbatch/service/ReceiptNormalizer.java",
+      "line": 36,
       "expr": "accountRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbatch/service/ReceiptNormalizer.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/catalogbatch/service/ReceiptNormalizer.java",
+      "line": 37,
       "expr": "voucherRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogbatch/service/ReceiptNormalizer.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/catalogbatch/service/ReceiptNormalizer.java",
+      "line": 38,
       "expr": "voucherRef104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbatch/dao/ReceiptCoordinator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/catalogbatch/dao/ReceiptCoordinator.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbatch/dao/ReceiptCoordinator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogbatch/dao/ReceiptCoordinator.java",
+      "line": 24,
       "expr": "orderRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbatch/dao/ReceiptCoordinator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/catalogbatch/dao/ReceiptCoordinator.java",
+      "line": 25,
       "expr": "orderRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbatch/dao/AccountExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/catalogbatch/dao/AccountExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogbatch/dao/AccountExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogbatch/dao/AccountExecutor.java",
+      "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -167,9 +167,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id);",
+    "payload_at_sink": "echo -n ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

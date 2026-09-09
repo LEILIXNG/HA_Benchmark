@@ -4,131 +4,131 @@
   "verdict": "vulnerable",
   "title": "路径变量经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogtransfer/web/RefundController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogtransfer/web/RefundController.java",
+    "line": 28,
     "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/catalogtransfer/service/RefundFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "service/src/main/java/com/northwind/catalogtransfer/service/RefundFetcher.java",
+    "line": 26,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/RefundController.java",
+      "line": 28,
       "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/ChannelAdapter.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/ChannelAdapter.java",
+      "line": 29,
       "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/ChannelAdapter.java",
+      "line": 32,
       "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/ChannelAdapter.java",
+      "line": 33,
       "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/ContractEnricher.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/ChannelAdapter.java",
+      "line": 34,
       "expr": "invoiceKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/RefundRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/RefundRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/RefundRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/CatalogCoordinator.java",
+      "line": 21,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/CatalogCoordinator.java",
+      "line": 24,
       "expr": "accountRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/CatalogCoordinator.java",
+      "line": 25,
       "expr": "voucherRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogtransfer/web/CatalogCoordinator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/catalogtransfer/web/CatalogCoordinator.java",
+      "line": 26,
       "expr": "voucherRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/catalogtransfer/service/VoucherCollector.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/catalogtransfer/service/VoucherCollector.java",
+      "line": 17,
       "expr": "tariffRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
-      "line": 14,
-      "expr": "ledgerEntry202",
+      "file": "service/src/main/java/com/northwind/catalogtransfer/service/VoucherCollector.java",
+      "line": 18,
+      "expr": "tariffRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtransfer/service/VoucherCollector.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogtransfer/service/VoucherCollector.java",
+      "line": 19,
       "expr": "ledgerEntry202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtransfer/service/RefundFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogtransfer/service/RefundFetcher.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogtransfer/service/RefundFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "service/src/main/java/com/northwind/catalogtransfer/service/RefundFetcher.java",
+      "line": 26,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -165,9 +165,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:127.0.0.1:1;/status",
+    "payload_at_sink": "http://ref:127.0.0.1:1;/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

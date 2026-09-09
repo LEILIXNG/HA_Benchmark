@@ -4,123 +4,123 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 8 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryrevise/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryrevise/web/PaymentController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryrevise/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryrevise/web/PaymentController.java",
+    "line": 26,
     "expr": "label",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/inventoryrevise/dao/PaymentExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/PaymentExecutor.java",
+    "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/inventoryrevise/dao/LedgerValidator.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/LedgerValidator.java",
+    "line": 12,
     "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/PaymentController.java",
+      "line": 26,
       "expr": "label",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 31,
       "expr": "quoteRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 34,
       "expr": "quoteRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 35,
       "expr": "tariffRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 36,
       "expr": "tariffRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 41,
       "expr": "ledgerEntry3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 42,
       "expr": "channelTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 28,
-      "expr": "catalogKey5",
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 44,
+      "expr": "channelTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryrevise/web/CatalogBuilder.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
+      "line": 46,
       "expr": "catalogKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrevise/service/BundleBuilder.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/inventoryrevise/service/BundleBuilder.java",
+      "line": 19,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventoryrevise/service/BundleBuilder.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/inventoryrevise/service/BundleBuilder.java",
+      "line": 20,
       "expr": "shipmentCode101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/SessionNormalizer.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/SessionNormalizer.java",
+      "line": 11,
       "expr": "receiptKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/SessionNormalizer.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/SessionNormalizer.java",
+      "line": 12,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/LedgerValidator.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/LedgerValidator.java",
+      "line": 12,
       "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/PaymentExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/PaymentExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventoryrevise/dao/PaymentExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/PaymentExecutor.java",
+      "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -159,9 +159,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id)",
+    "payload_at_sink": "echo -n ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

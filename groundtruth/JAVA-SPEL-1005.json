@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 14 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/habench/ordernotice/web/ReceiptController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/ordernotice/web/ReceiptController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/ordernotice/web/ReceiptController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/ordernotice/web/ReceiptController.java",
+    "line": 23,
     "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/ordernotice/dao/ReceiptEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/ordernotice/dao/ReceiptEvaluator.java",
+    "line": 18,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
@@ -24,158 +24,158 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ReceiptController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/ordernotice/web/ReceiptController.java",
+      "line": 23,
       "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/ordernotice/web/VoucherService.java",
+      "line": 25,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/ordernotice/web/VoucherService.java",
+      "line": 26,
       "expr": "paymentTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
-      "line": 15,
-      "expr": "refundCode2",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/ordernotice/web/VoucherService.java",
+      "line": 27,
       "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/ordernotice/web/VoucherService.java",
+      "line": 32,
       "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/ordernotice/web/VoucherService.java",
+      "line": 33,
       "expr": "manifestKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
-      "line": 23,
-      "expr": "invoiceKey5",
+      "file": "web/src/main/java/com/northwind/ordernotice/web/VoucherService.java",
+      "line": 34,
+      "expr": "manifestKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/ordernotice/web/ChannelCollector.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/ordernotice/web/VoucherService.java",
+      "line": 35,
       "expr": "invoiceKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/ShipmentFacade.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/QuoteEnricher.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/ShipmentFacade.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/QuoteEnricher.java",
+      "line": 28,
       "expr": "channelTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/ShipmentFacade.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/QuoteEnricher.java",
+      "line": 29,
       "expr": "channelTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/QuotePolicySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/InvoicePolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/QuotePolicyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/InvoicePolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/AccountService.java",
-      "line": 8,
-      "expr": "batchTag201",
+      "file": "service/src/main/java/com/northwind/ordernotice/service/CatalogBroker.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/AccountService.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/CatalogBroker.java",
+      "line": 26,
       "expr": "batchTag201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/LedgerAdapter.java",
-      "line": 8,
-      "expr": "paymentTag301",
+      "file": "service/src/main/java/com/northwind/ordernotice/service/OrderNormalizer.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/LedgerAdapter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/OrderNormalizer.java",
+      "line": 25,
       "expr": "refundCode302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/ordernotice/service/LedgerAdapter.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/ordernotice/service/OrderNormalizer.java",
+      "line": 26,
       "expr": "refundCode302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/SessionAssembler.java",
-      "line": 8,
-      "expr": "channelTag401",
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/TariffCollector.java",
+      "line": 23,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/SessionAssembler.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/TariffCollector.java",
+      "line": 24,
       "expr": "channelTag401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/VoucherRuleSelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/VoucherRuleSelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/VoucherRuleStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/VoucherRuleStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/BatchTranslator.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/BatchTranslator.java",
+      "line": 14,
       "expr": "batchTag501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/BatchTranslator.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/BatchTranslator.java",
+      "line": 15,
       "expr": "batchTag501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/ReceiptEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/ReceiptEvaluator.java",
+      "line": 15,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/ordernotice/dao/ReceiptEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/ordernotice/dao/ReceiptEvaluator.java",
+      "line": 18,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -221,9 +221,9 @@
     "neutralized": false,
     "call_depth_observed": 14,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;'",
+    "payload_at_sink": "'chn-' + 'ref:ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

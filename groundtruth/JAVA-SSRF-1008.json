@@ -4,107 +4,107 @@
   "verdict": "vulnerable",
   "title": "路径变量经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendortrace/web/InvoiceController.java",
+    "line": 15,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendortrace/web/InvoiceController.java",
+    "line": 17,
     "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendortrace/service/InvoiceFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "service/src/main/java/com/northwind/vendortrace/service/InvoiceFetcher.java",
+    "line": 25,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/InvoiceController.java",
+      "line": 17,
       "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/TariffAssembler.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/TariffAssembler.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/TariffAssembler.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/TariffAssembler.java",
+      "line": 17,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/TariffAssembler.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/TariffAssembler.java",
+      "line": 18,
       "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/RefundPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/RefundPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/RefundPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/RefundPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceCoordinator.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/InvoiceCoordinator.java",
+      "line": 13,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendortrace/web/InvoiceCoordinator.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendortrace/web/InvoiceCoordinator.java",
+      "line": 14,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/vendortrace/service/SessionEnricher.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendortrace/service/SessionEnricher.java",
+      "line": 21,
       "expr": "quoteRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
-      "line": 14,
-      "expr": "tariffRef202",
+      "file": "service/src/main/java/com/northwind/vendortrace/service/SessionEnricher.java",
+      "line": 23,
+      "expr": "quoteRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendortrace/service/SessionEnricher.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/vendortrace/service/SessionEnricher.java",
+      "line": 25,
       "expr": "tariffRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendortrace/service/InvoiceFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/vendortrace/service/InvoiceFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/vendortrace/service/InvoiceFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "service/src/main/java/com/northwind/vendortrace/service/InvoiceFetcher.java",
+      "line": 25,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -139,9 +139,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "127.0.0.1:1",
-    "payload_at_sink": "http://ref:127.0.0.1:1;/status",
+    "payload_at_sink": "http://ref:127.0.0.1:1;/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 5 层调用、跨 1 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingverify/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingverify/web/CatalogController.java",
+    "line": 17,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingverify/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingverify/web/CatalogController.java",
+    "line": 19,
     "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/resources/com/habench/shippingverify/web/CatalogMapper.xml",
+    "file": "web/src/main/resources/com/northwind/shippingverify/web/CatalogMapper.xml",
     "line": 9,
     "expr": "refundCode",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,67 +24,67 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/CatalogController.java",
+      "line": 19,
       "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/RefundRouter.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/RefundRouter.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/RefundRouter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/RefundRouter.java",
+      "line": 21,
       "expr": "paymentTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/RefundRouter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/RefundRouter.java",
+      "line": 22,
       "expr": "refundCode2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/RefundRouter.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/RefundRouter.java",
+      "line": 23,
       "expr": "refundCode2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/OrderRegistry.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/OrderRegistry.java",
+      "line": 11,
       "expr": "channelTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/OrderRegistry.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/OrderRegistry.java",
+      "line": 12,
       "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/OrderRegistry.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/OrderRegistry.java",
+      "line": 13,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/CatalogGateway.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/CatalogGateway.java",
+      "line": 19,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingverify/web/CatalogGateway.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/shippingverify/web/CatalogGateway.java",
+      "line": 26,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "web/src/main/resources/com/habench/shippingverify/web/CatalogMapper.xml",
+      "file": "web/src/main/resources/com/northwind/shippingverify/web/CatalogMapper.xml",
       "line": 9,
       "expr": "refundCode",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -120,9 +120,9 @@
     "neutralized": false,
     "call_depth_observed": 5,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "SELECT id, code, created_at       FROM orders      WHERE ref_no LIKE '%zz' OR 1=1--%'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

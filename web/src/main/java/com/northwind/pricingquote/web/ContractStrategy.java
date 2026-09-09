@@ -1,0 +1,7 @@
+package com.northwind.pricingquote.web;
+
+/** 定价处理策略。按渠道挑一个实现。 */
+public interface ContractStrategy {
+
+    void handle(String value);
+}

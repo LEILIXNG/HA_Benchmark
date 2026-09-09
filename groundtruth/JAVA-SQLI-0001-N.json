@@ -4,105 +4,105 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-0001 逐行相同，仅在 sink 前插入有效白名单校验",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountmanifest/web/VoucherController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountmanifest/web/VoucherController.java",
+    "line": 16,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountmanifest/web/VoucherController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountmanifest/web/VoucherController.java",
+    "line": 18,
     "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountmanifest/dao/VoucherRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/accountmanifest/dao/VoucherRepository.java",
+    "line": 27,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/accountmanifest/dao/QuoteGuard.java",
-    "line": 11,
-    "expr": "value",
+    "file": "dao/src/main/java/com/northwind/accountmanifest/dao/QuoteGuard.java",
+    "line": 18,
+    "expr": "matcher",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountmanifest/web/VoucherController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountmanifest/web/VoucherController.java",
+      "line": 18,
       "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/accountmanifest/web/BatchAdapter.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/accountmanifest/web/BatchAdapter.java",
+      "line": 13,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountmanifest/web/BatchAdapter.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/accountmanifest/web/BatchAdapter.java",
+      "line": 14,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountmanifest/service/ShipmentFacade.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/accountmanifest/service/ShipmentFacade.java",
+      "line": 11,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountmanifest/service/LedgerCoordinator.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/accountmanifest/service/LedgerCoordinator.java",
+      "line": 19,
       "expr": "value",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountmanifest/service/LedgerCoordinator.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/accountmanifest/service/LedgerCoordinator.java",
+      "line": 24,
       "expr": "catalogKey201",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountmanifest/service/LedgerCoordinator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/accountmanifest/service/LedgerCoordinator.java",
+      "line": 25,
       "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountmanifest/dao/BatchNormalizer.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/accountmanifest/dao/BatchNormalizer.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountmanifest/dao/BatchNormalizer.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accountmanifest/dao/BatchNormalizer.java",
+      "line": 21,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountmanifest/dao/BatchNormalizer.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/accountmanifest/dao/BatchNormalizer.java",
+      "line": 22,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountmanifest/dao/QuoteGuard.java",
-      "line": 11,
-      "expr": "value",
+      "file": "dao/src/main/java/com/northwind/accountmanifest/dao/QuoteGuard.java",
+      "line": 18,
+      "expr": "matcher",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountmanifest/dao/VoucherRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accountmanifest/dao/VoucherRepository.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountmanifest/dao/VoucherRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/accountmanifest/dao/VoucherRepository.java",
+      "line": 27,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -141,6 +141,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

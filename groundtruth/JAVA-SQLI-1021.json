@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountbind/web/ReceiptController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountbind/web/ReceiptController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountbind/web/ReceiptController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountbind/web/ReceiptController.java",
+    "line": 26,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/accountbind/service/ReceiptRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/accountbind/service/ReceiptRepository.java",
+    "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,80 +24,80 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountbind/web/ReceiptController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountbind/web/ReceiptController.java",
+      "line": 26,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/accountbind/web/VoucherAdapter.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/accountbind/web/VoucherAdapter.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountbind/web/VoucherAdapter.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountbind/web/VoucherAdapter.java",
+      "line": 29,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountbind/web/VoucherAdapter.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accountbind/web/VoucherAdapter.java",
+      "line": 30,
       "expr": "ledgerEntry2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountbind/web/VoucherAdapter.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/accountbind/web/VoucherAdapter.java",
+      "line": 31,
       "expr": "ledgerEntry2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/LedgerNormalizer.java",
-      "line": 16,
-      "expr": "manifestKey101",
+      "file": "service/src/main/java/com/northwind/accountbind/service/LedgerNormalizer.java",
+      "line": 30,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/LedgerNormalizer.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/accountbind/service/LedgerNormalizer.java",
+      "line": 31,
       "expr": "manifestKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/LedgerNormalizer.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/accountbind/service/LedgerNormalizer.java",
+      "line": 36,
       "expr": "invoiceKey102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/LedgerNormalizer.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/accountbind/service/LedgerNormalizer.java",
+      "line": 39,
       "expr": "invoiceKey102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/LedgerNormalizer.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/accountbind/service/LedgerNormalizer.java",
+      "line": 40,
       "expr": "batchTag103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/LedgerNormalizer.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/accountbind/service/LedgerNormalizer.java",
+      "line": 41,
       "expr": "batchTag103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/ReceiptRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/accountbind/service/ReceiptRepository.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/accountbind/service/ReceiptRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/accountbind/service/ReceiptRepository.java",
+      "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -133,9 +133,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:zz' OR 1=1--;'",
+    "payload_at_sink": "SELECT id, code, created_at FROM shipments WHERE name = 'ref:zz' OR 1=1--;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -4,93 +4,93 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 1 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorissue/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorissue/web/PaymentController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorissue/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorissue/web/PaymentController.java",
+    "line": 26,
     "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/vendorissue/web/PaymentLoader.java",
-    "line": 17,
+    "file": "web/src/main/java/com/northwind/vendorissue/web/PaymentLoader.java",
+    "line": 26,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/vendorissue/web/TariffScreen.java",
-    "line": 9,
+    "file": "web/src/main/java/com/northwind/vendorissue/web/TariffScreen.java",
+    "line": 14,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 ../（无效）"
   },
   "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/PaymentController.java",
+      "line": 26,
       "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/ChannelService.java",
-      "line": 8,
-      "expr": "shipmentCode1",
+      "file": "web/src/main/java/com/northwind/vendorissue/web/ChannelService.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/ChannelService.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/ChannelService.java",
+      "line": 20,
       "expr": "shipmentCode1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/RefundCollector.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/RefundCollector.java",
+      "line": 23,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/RefundCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/RefundCollector.java",
+      "line": 24,
       "expr": "receiptKey101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/RefundCollector.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/RefundCollector.java",
+      "line": 29,
       "expr": "accountRef102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/RefundCollector.java",
-      "line": 21,
-      "expr": "voucherRef103",
+      "file": "web/src/main/java/com/northwind/vendorissue/web/RefundCollector.java",
+      "line": 30,
+      "expr": "accountRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/RefundCollector.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/RefundCollector.java",
+      "line": 31,
       "expr": "voucherRef103",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/TariffScreen.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/TariffScreen.java",
+      "line": 14,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 ../（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/PaymentLoader.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/PaymentLoader.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorissue/web/PaymentLoader.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/vendorissue/web/PaymentLoader.java",
+      "line": 26,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -125,9 +125,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "....//....//etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:ref:../../etc/passwd;;",
+    "payload_at_sink": "/srv/vendor/inbox/ref:ref:../../etc/passwd;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

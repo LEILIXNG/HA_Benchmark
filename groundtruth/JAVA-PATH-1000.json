@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/customerrenewal/web/QuoteController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customerrenewal/web/QuoteController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customerrenewal/web/QuoteController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customerrenewal/web/QuoteController.java",
+    "line": 27,
     "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/customerrenewal/service/QuoteLoader.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/customerrenewal/service/QuoteLoader.java",
+    "line": 25,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,74 +24,74 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/QuoteController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customerrenewal/web/QuoteController.java",
+      "line": 27,
       "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/VoucherAssembler.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/customerrenewal/web/VoucherAssembler.java",
+      "line": 20,
       "expr": "quoteRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customerrenewal/web/VoucherAssembler.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customerrenewal/web/VoucherAssembler.java",
+      "line": 21,
       "expr": "quoteRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/ContractComposer.java",
-      "line": 16,
-      "expr": "shipmentCode101",
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/ContractComposer.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/ContractComposer.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/ContractComposer.java",
+      "line": 29,
       "expr": "shipmentCode101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/ContractComposer.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/ContractComposer.java",
+      "line": 30,
       "expr": "manifestKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/ContractComposer.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/ContractComposer.java",
+      "line": 31,
       "expr": "manifestKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/ContractComposer.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/ContractComposer.java",
+      "line": 36,
       "expr": "invoiceKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/ContractComposer.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/ContractComposer.java",
+      "line": 37,
       "expr": "batchTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/ContractComposer.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/ContractComposer.java",
+      "line": 38,
       "expr": "batchTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/QuoteLoader.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/QuoteLoader.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/habench/customerrenewal/service/QuoteLoader.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/customerrenewal/service/QuoteLoader.java",
+      "line": 25,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -127,9 +127,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/ref:../../../etc/passwd;",
+    "payload_at_sink": "/data/customer/archive/ref:../../../etc/passwd;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

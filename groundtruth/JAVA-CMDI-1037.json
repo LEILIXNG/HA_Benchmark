@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorbind/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorbind/web/RefundController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorbind/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorbind/web/RefundController.java",
+    "line": 26,
     "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/vendorbind/service/RefundExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/vendorbind/service/RefundExecutor.java",
+    "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,122 +24,122 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorbind/web/RefundController.java",
+      "line": 26,
       "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/TariffEnricher.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/vendorbind/web/TariffEnricher.java",
+      "line": 23,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/TariffEnricher.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorbind/web/TariffEnricher.java",
+      "line": 24,
       "expr": "receiptKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/TariffEnricher.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/vendorbind/web/TariffEnricher.java",
+      "line": 25,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundCollector.java",
-      "line": 8,
-      "expr": "orderRef101",
+      "file": "web/src/main/java/com/northwind/vendorbind/web/RefundCollector.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundCollector.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorbind/web/RefundCollector.java",
+      "line": 21,
       "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorbind/web/RefundCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/vendorbind/web/RefundCollector.java",
+      "line": 22,
       "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 33,
       "expr": "refundCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 34,
       "expr": "refundCode201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 39,
       "expr": "shipmentCode202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 42,
       "expr": "shipmentCode202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 43,
       "expr": "manifestKey203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 44,
       "expr": "invoiceKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 45,
       "expr": "invoiceKey204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 50,
       "expr": "batchTag205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 51,
       "expr": "orderRef206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/BatchTranslator.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/BatchTranslator.java",
+      "line": 52,
       "expr": "orderRef206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/RefundExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/RefundExecutor.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorbind/service/RefundExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/vendorbind/service/RefundExecutor.java",
+      "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -181,9 +181,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:zz$(id);",
+    "payload_at_sink": "printf ref:zz$(id);",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

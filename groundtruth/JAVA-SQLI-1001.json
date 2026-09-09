@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 11 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalognotice/web/OrderController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalognotice/web/OrderController.java",
+    "line": 26,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/catalognotice/dao/OrderRepository.java",
+    "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,146 +24,146 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/OrderController.java",
+      "line": 26,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 33,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 36,
       "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 37,
       "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 38,
       "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 43,
       "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 46,
       "expr": "shipmentCode3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 47,
       "expr": "manifestKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 31,
-      "expr": "invoiceKey5",
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 49,
+      "expr": "manifestKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalognotice/web/PaymentBuilder.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
+      "line": 51,
       "expr": "invoiceKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountAdapter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/catalognotice/service/AccountAdapter.java",
+      "line": 20,
       "expr": "channelTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalognotice/service/AccountAdapter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/catalognotice/service/AccountAdapter.java",
+      "line": 21,
       "expr": "channelTag101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
-      "line": 11,
-      "expr": "batchTag201",
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "line": 27,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "line": 29,
       "expr": "batchTag201",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "line": 34,
       "expr": "orderRef202",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "line": 37,
       "expr": "orderRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "line": 38,
       "expr": "quoteRef203",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/ManifestResolver.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "line": 39,
       "expr": "quoteRef203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/AccountStrategySelector.java",
-      "line": 7,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/AccountStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/AccountStrategyStandard.java",
-      "line": 6,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/AccountStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/InvoiceAdapter.java",
+      "line": 23,
       "expr": "paymentTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/InvoiceAdapter.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/InvoiceAdapter.java",
+      "line": 24,
       "expr": "paymentTag301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/OrderRepository.java",
+      "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalognotice/dao/OrderRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/catalognotice/dao/OrderRepository.java",
+      "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -206,9 +206,9 @@
     "neutralized": false,
     "call_depth_observed": 11,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, amount, status FROM payment_records WHERE code = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

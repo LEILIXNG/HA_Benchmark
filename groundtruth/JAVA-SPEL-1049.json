@@ -4,118 +4,118 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 1 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingexport/web/ChannelController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingexport/web/ChannelController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingexport/web/ChannelController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingexport/web/ChannelController.java",
+    "line": 23,
     "expr": "token",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/shippingexport/web/ChannelEvaluator.java",
-    "line": 14,
-    "expr": "template",
+    "file": "web/src/main/java/com/northwind/shippingexport/web/ChannelEvaluator.java",
+    "line": 22,
+    "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/shippingexport/web/BundlePolicy.java",
-    "line": 9,
+    "file": "web/src/main/java/com/northwind/shippingexport/web/BundlePolicy.java",
+    "line": 14,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
   },
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/ChannelController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/ChannelController.java",
+      "line": 23,
       "expr": "token",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
-      "line": 10,
-      "expr": "ledgerEntry1",
+      "file": "web/src/main/java/com/northwind/shippingexport/web/BundleTranslator.java",
+      "line": 18,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/BundleTranslator.java",
+      "line": 21,
       "expr": "ledgerEntry1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/BundleTranslator.java",
+      "line": 22,
       "expr": "channelTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/BundleTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/BundleTranslator.java",
+      "line": 23,
       "expr": "channelTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/ManifestComposer.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/ManifestComposer.java",
+      "line": 16,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/ManifestComposer.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/ManifestComposer.java",
+      "line": 17,
       "expr": "invoiceKey101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/QuoteStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/QuoteStrategySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/QuoteStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/QuoteStrategyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/PaymentResolver.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/PaymentResolver.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/PaymentResolver.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/PaymentResolver.java",
+      "line": 17,
       "expr": "voucherRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/PaymentResolver.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/PaymentResolver.java",
+      "line": 18,
       "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/BundlePolicy.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/BundlePolicy.java",
+      "line": 14,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/ChannelEvaluator.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/shippingexport/web/ChannelEvaluator.java",
+      "line": 17,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingexport/web/ChannelEvaluator.java",
-      "line": 14,
-      "expr": "template",
+      "file": "web/src/main/java/com/northwind/shippingexport/web/ChannelEvaluator.java",
+      "line": 22,
+      "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
   ],
@@ -150,9 +150,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz' + TT((java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
+    "payload_at_sink": "'chn-' + 'ref:zz' + T(java.lang.Runtime) + 'zz;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

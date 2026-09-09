@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/customersubmit/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customersubmit/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogController.java",
+    "line": 25,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/customersubmit/service/CatalogRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/customersubmit/service/CatalogRepository.java",
+    "line": 23,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,92 +24,92 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogController.java",
+      "line": 25,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
+      "line": 29,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
-      "line": 14,
-      "expr": "manifestKey2",
+      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
+      "line": 31,
+      "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customersubmit/web/CatalogCollector.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
+      "line": 33,
       "expr": "manifestKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 30,
       "expr": "receiptKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 20,
-      "expr": "accountRef102",
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 31,
+      "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 32,
       "expr": "accountRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 37,
       "expr": "voucherRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 40,
       "expr": "voucherRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 41,
       "expr": "paymentTag104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/VoucherEnricher.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "line": 42,
       "expr": "paymentTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/CatalogRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/CatalogRepository.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/habench/customersubmit/service/CatalogRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/customersubmit/service/CatalogRepository.java",
+      "line": 23,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -146,9 +146,9 @@
     "neutralized": false,
     "call_depth_observed": 6,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:zz' OR 1=1--;;'",
+    "payload_at_sink": "SELECT id, total FROM orders WHERE code = 'ref:ref:zz' OR 1=1--;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

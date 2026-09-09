@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 17 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractController.java",
+    "line": 25,
     "expr": "target",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/ContractRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/fulfilrenewal/dao/ContractRepository.java",
+    "line": 28,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,296 +24,296 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractController.java",
+      "line": 25,
       "expr": "target",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 36,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 37,
       "expr": "refundCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 40,
       "expr": "refundCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 41,
       "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 42,
       "expr": "shipmentCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 47,
       "expr": "manifestKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 31,
-      "expr": "invoiceKey4",
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 48,
+      "expr": "manifestKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 49,
       "expr": "batchTag5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 33,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 50,
       "expr": "batchTag5",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 55,
       "expr": "orderRef6",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 39,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 56,
       "expr": "quoteRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 40,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 57,
       "expr": "quoteRef7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 45,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 62,
       "expr": "tariffRef8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 46,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 63,
       "expr": "ledgerEntry9",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 49,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 66,
       "expr": "ledgerEntry9",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 50,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 67,
       "expr": "channelTag10",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/TariffService.java",
-      "line": 51,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractEnricher.java",
+      "line": 68,
       "expr": "channelTag10",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ReceiptStrategySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ReceiptStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ReceiptStrategyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ReceiptStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 30,
       "expr": "catalogKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 33,
       "expr": "catalogKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 34,
       "expr": "receiptKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 35,
       "expr": "receiptKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 40,
       "expr": "accountRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 41,
       "expr": "voucherRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 31,
-      "expr": "paymentTag105",
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 42,
+      "expr": "voucherRef104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilrenewal/web/ContractService.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/fulfilrenewal/web/ContractService.java",
+      "line": 43,
       "expr": "paymentTag105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 30,
       "expr": "orderRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 18,
-      "expr": "quoteRef202",
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 31,
+      "expr": "orderRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 32,
       "expr": "quoteRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 37,
       "expr": "tariffRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 40,
       "expr": "tariffRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 41,
       "expr": "ledgerEntry204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 29,
-      "expr": "channelTag205",
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 43,
+      "expr": "ledgerEntry204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 45,
       "expr": "channelTag205",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 50,
       "expr": "catalogKey206",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 38,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 53,
       "expr": "catalogKey206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 54,
       "expr": "receiptKey207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 42,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 57,
       "expr": "receiptKey207",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 43,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 58,
       "expr": "accountRef208",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilrenewal/service/CatalogCoordinator.java",
-      "line": 44,
+      "file": "service/src/main/java/com/northwind/fulfilrenewal/service/CatalogCoordinator.java",
+      "line": 59,
       "expr": "accountRef208",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/fulfilrenewal/dao/OrderComposer.java",
+      "line": 14,
       "expr": "refundCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilrenewal/dao/OrderComposer.java",
+      "line": 17,
       "expr": "refundCode301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/fulfilrenewal/dao/OrderComposer.java",
+      "line": 18,
       "expr": "shipmentCode302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/OrderComposer.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/fulfilrenewal/dao/OrderComposer.java",
+      "line": 19,
       "expr": "shipmentCode302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/ContractRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilrenewal/dao/ContractRepository.java",
+      "line": 23,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilrenewal/dao/ContractRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/fulfilrenewal/dao/ContractRepository.java",
+      "line": 28,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -371,9 +371,9 @@
     "neutralized": false,
     "call_depth_observed": 17,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
+    "payload_at_sink": "SELECT id, ref_no, total FROM quote_items WHERE ref_no = 'ref:ref:ref:ref:zz' OR 1=1--;;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

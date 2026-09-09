@@ -4,165 +4,165 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-3011 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilledger/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilledger/web/PaymentController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilledger/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilledger/web/PaymentController.java",
+    "line": 22,
     "expr": "userName",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/fulfilledger/service/PaymentFetcher.java",
-    "line": 23,
+    "file": "service/src/main/java/com/northwind/fulfilledger/service/PaymentFetcher.java",
+    "line": 35,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/fulfilledger/service/PaymentFetcher.java",
-    "line": 19,
+    "file": "service/src/main/java/com/northwind/fulfilledger/service/PaymentFetcher.java",
+    "line": 31,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
   },
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/PaymentController.java",
+      "line": 22,
       "expr": "userName",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/CatalogBuilder.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/LedgerCollector.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/CatalogBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/LedgerCollector.java",
+      "line": 28,
       "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/CatalogBuilder.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/LedgerCollector.java",
+      "line": 29,
       "expr": "catalogKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/TariffPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/TariffPolicySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/TariffPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/TariffPolicyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/RefundFacade.java",
-      "line": 8,
-      "expr": "orderRef101",
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/RefundFacade.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilledger/web/RefundFacade.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/fulfilledger/web/RefundFacade.java",
+      "line": 21,
       "expr": "orderRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 11,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 24,
       "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 27,
       "expr": "refundCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 28,
       "expr": "shipmentCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 29,
       "expr": "shipmentCode202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 34,
       "expr": "manifestKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 22,
-      "expr": "invoiceKey204",
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 35,
+      "expr": "manifestKey203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 36,
       "expr": "invoiceKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 41,
       "expr": "batchTag205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 44,
       "expr": "batchTag205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 45,
       "expr": "orderRef206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 33,
-      "expr": "quoteRef207",
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 46,
+      "expr": "orderRef206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/InvoiceResolver.java",
-      "line": 34,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/InvoiceResolver.java",
+      "line": 47,
       "expr": "quoteRef207",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/PaymentFetcher.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/PaymentFetcher.java",
+      "line": 28,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/PaymentFetcher.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/PaymentFetcher.java",
+      "line": 31,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilledger/service/PaymentFetcher.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/fulfilledger/service/PaymentFetcher.java",
+      "line": 35,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
     }
@@ -206,6 +206,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

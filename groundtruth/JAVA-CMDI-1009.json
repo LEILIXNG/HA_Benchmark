@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingbatch/web/CatalogController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingbatch/web/CatalogController.java",
+    "line": 26,
     "expr": "filename",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogExecutor.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingbatch/web/CatalogExecutor.java",
+    "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,134 +24,134 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/CatalogController.java",
+      "line": 26,
       "expr": "filename",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 26,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 27,
       "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 30,
       "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 31,
       "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 32,
       "expr": "quoteRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 37,
       "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 40,
       "expr": "tariffRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 28,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 41,
       "expr": "ledgerEntry4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 29,
-      "expr": "channelTag5",
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 42,
+      "expr": "ledgerEntry4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/RefundEnricher.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/RefundEnricher.java",
+      "line": 43,
       "expr": "channelTag5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerPolicySelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/LedgerPolicySelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerPolicyStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/LedgerPolicyStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/PaymentResolver.java",
-      "line": 8,
-      "expr": "refundCode101",
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/PaymentResolver.java",
+      "line": 11,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/PaymentResolver.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/PaymentResolver.java",
+      "line": 12,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/InvoiceRuleSelector.java",
-      "line": 7,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/InvoiceRuleSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/InvoiceRuleStandard.java",
-      "line": 6,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/InvoiceRuleStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerCollector.java",
-      "line": 8,
-      "expr": "catalogKey201",
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/LedgerCollector.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerCollector.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/LedgerCollector.java",
+      "line": 19,
       "expr": "receiptKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/LedgerCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/LedgerCollector.java",
+      "line": 20,
       "expr": "receiptKey202",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogExecutor.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/CatalogExecutor.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingbatch/web/CatalogExecutor.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingbatch/web/CatalogExecutor.java",
+      "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -194,6 +194,6 @@
     "payload_at_sink": "echo ref:ref:ref:zz$(id);;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

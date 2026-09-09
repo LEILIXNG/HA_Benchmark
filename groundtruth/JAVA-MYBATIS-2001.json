@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 16 层调用、跨 3 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventorysplit/web/ManifestController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventorysplit/web/ManifestController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventorysplit/web/ManifestController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventorysplit/web/ManifestController.java",
+    "line": 23,
     "expr": "orderNo",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/inventorysplit/dao/ManifestMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/inventorysplit/dao/ManifestMapper.xml",
     "line": 9,
     "expr": "refundCode",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,283 +24,283 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/ManifestController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/ManifestController.java",
+      "line": 23,
       "expr": "orderNo",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 31,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 32,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 33,
       "expr": "shipmentCode1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 38,
       "expr": "manifestKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 41,
       "expr": "manifestKey2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 42,
       "expr": "invoiceKey3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 25,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 43,
       "expr": "batchTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorysplit/web/RefundAssembler.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/inventorysplit/web/RefundAssembler.java",
+      "line": 44,
       "expr": "batchTag4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 16,
-      "expr": "receiptKey101",
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 30,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 33,
       "expr": "receiptKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 20,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 34,
       "expr": "accountRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 35,
       "expr": "accountRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 40,
       "expr": "voucherRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 41,
       "expr": "paymentTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 28,
-      "expr": "refundCode105",
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 42,
+      "expr": "paymentTag104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/CatalogService.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/CatalogService.java",
+      "line": 43,
       "expr": "refundCode105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 32,
       "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 18,
-      "expr": "tariffRef202",
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 34,
+      "expr": "quoteRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 36,
       "expr": "tariffRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 41,
       "expr": "ledgerEntry203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 25,
-      "expr": "channelTag204",
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 42,
+      "expr": "ledgerEntry203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 43,
       "expr": "channelTag204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 48,
       "expr": "catalogKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 49,
       "expr": "receiptKey206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 35,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 52,
       "expr": "receiptKey206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 53,
       "expr": "accountRef207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 37,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 54,
       "expr": "accountRef207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 42,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 59,
       "expr": "voucherRef208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 45,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 62,
       "expr": "voucherRef208",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 46,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 63,
       "expr": "paymentTag209",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 47,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 64,
       "expr": "paymentTag209",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 52,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 69,
       "expr": "refundCode210",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 53,
-      "expr": "shipmentCode211",
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 70,
+      "expr": "refundCode210",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 56,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 73,
       "expr": "shipmentCode211",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 57,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 74,
       "expr": "manifestKey212",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorysplit/service/PaymentComposer.java",
-      "line": 58,
+      "file": "service/src/main/java/com/northwind/inventorysplit/service/PaymentComposer.java",
+      "line": 75,
       "expr": "manifestKey212",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/LedgerTranslator.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/LedgerTranslator.java",
+      "line": 17,
       "expr": "shipmentCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/LedgerTranslator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/LedgerTranslator.java",
+      "line": 18,
       "expr": "shipmentCode301",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/LedgerTranslator.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/LedgerTranslator.java",
+      "line": 23,
       "expr": "manifestKey302",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/LedgerTranslator.java",
-      "line": 18,
-      "expr": "invoiceKey303",
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/LedgerTranslator.java",
+      "line": 24,
+      "expr": "manifestKey302",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/LedgerTranslator.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/LedgerTranslator.java",
+      "line": 27,
       "expr": "invoiceKey303",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/LedgerTranslator.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/LedgerTranslator.java",
+      "line": 28,
       "expr": "batchTag304",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/LedgerTranslator.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/LedgerTranslator.java",
+      "line": 29,
       "expr": "batchTag304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/ManifestGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/ManifestGateway.java",
+      "line": 19,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorysplit/dao/ManifestGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/inventorysplit/dao/ManifestGateway.java",
+      "line": 26,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/inventorysplit/dao/ManifestMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/inventorysplit/dao/ManifestMapper.xml",
       "line": 9,
       "expr": "refundCode",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -359,9 +359,9 @@
     "neutralized": false,
     "call_depth_observed": 16,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;'",
+    "payload_at_sink": "SELECT id, total       FROM invoices      WHERE label LIKE '%ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;%'      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

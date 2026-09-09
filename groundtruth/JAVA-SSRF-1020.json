@@ -4,117 +4,117 @@
   "verdict": "vulnerable",
   "title": "路径变量经 8 层调用、跨 3 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/vendorlookup/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/vendorlookup/web/RefundController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/vendorlookup/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/vendorlookup/web/RefundController.java",
+    "line": 28,
     "expr": "query",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/vendorlookup/dao/RefundFetcher.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/vendorlookup/dao/RefundFetcher.java",
+    "line": 24,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/vendorlookup/dao/BatchPolicy.java",
-    "line": 10,
+    "file": "dao/src/main/java/com/northwind/vendorlookup/dao/BatchPolicy.java",
+    "line": 14,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
   },
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/vendorlookup/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/vendorlookup/web/RefundController.java",
+      "line": 28,
       "expr": "query",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorlookup/web/BundleFacade.java",
-      "line": 8,
-      "expr": "refundCode1",
+      "file": "web/src/main/java/com/northwind/vendorlookup/web/BundleFacade.java",
+      "line": 19,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/vendorlookup/web/BundleFacade.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/vendorlookup/web/BundleFacade.java",
+      "line": 20,
       "expr": "refundCode1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorlookup/service/BundleResolver.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/vendorlookup/service/BundleResolver.java",
+      "line": 25,
       "expr": "catalogKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorlookup/service/BundleResolver.java",
-      "line": 17,
-      "expr": "receiptKey102",
+      "file": "service/src/main/java/com/northwind/vendorlookup/service/BundleResolver.java",
+      "line": 26,
+      "expr": "catalogKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorlookup/service/BundleResolver.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/vendorlookup/service/BundleResolver.java",
+      "line": 27,
       "expr": "receiptKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorlookup/service/BundleResolver.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/vendorlookup/service/BundleResolver.java",
+      "line": 32,
       "expr": "accountRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorlookup/service/BundleResolver.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/vendorlookup/service/BundleResolver.java",
+      "line": 35,
       "expr": "accountRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorlookup/service/BundleResolver.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/vendorlookup/service/BundleResolver.java",
+      "line": 36,
       "expr": "voucherRef104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/vendorlookup/service/BundleResolver.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/vendorlookup/service/BundleResolver.java",
+      "line": 37,
       "expr": "voucherRef104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorlookup/dao/ChannelFacade.java",
-      "line": 8,
-      "expr": "orderRef201",
+      "file": "dao/src/main/java/com/northwind/vendorlookup/dao/ChannelFacade.java",
+      "line": 16,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorlookup/dao/ChannelFacade.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/vendorlookup/dao/ChannelFacade.java",
+      "line": 17,
       "expr": "orderRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorlookup/dao/BatchPolicy.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/vendorlookup/dao/BatchPolicy.java",
+      "line": 14,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorlookup/dao/RefundFetcher.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/vendorlookup/dao/RefundFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/vendorlookup/dao/RefundFetcher.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/vendorlookup/dao/RefundFetcher.java",
+      "line": 24,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
@@ -155,6 +155,6 @@
     "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

@@ -1,0 +1,40 @@
+package com.northwind.catalogcapture.dao;
+
+import com.northwind.platform.AuditTrail;
+import com.northwind.platform.ProcessingException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
+/**
+ * 商品受理链路上的一环。
+ *
+ * <p>这段逻辑原先散在几个 service 里，重构时集中到这里统一维护。
+ */
+@Repository("catalogcaptureInvoiceFetcher")
+public class InvoiceFetcher {
+    private static final Logger LOG = LoggerFactory.getLogger(InvoiceFetcher.class);
+    private static final Set<String> ALLOWED_HOSTS =
+            new HashSet<String>(Arrays.asList("api.internal.example",
+                    "cdn.example"));
+
+    public void assemble(String value) {
+        LOG.debug("接收到一次商品处理请求");
+        String endpointUrl = "http://" + value + "/v1/state";
+        try {
+            URL endpoint = new URL(endpointUrl);
+            if (!ALLOWED_HOSTS.contains(endpoint.getHost())) {
+                throw new IllegalArgumentException("host not allowed");
+            }
+            AuditTrail.emit("http", endpointUrl);
+            endpoint.openStream().close();
+        } catch (IOException e) {
+            throw new ProcessingException("fetch failed", e);
+        }
+    }
+}

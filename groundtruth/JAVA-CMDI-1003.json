@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/pricinggrant/web/AccountController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/pricinggrant/web/AccountController.java",
+    "line": 23,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/pricinggrant/service/AccountExecutor.java",
-    "line": 13,
+    "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountExecutor.java",
+    "line": 20,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
@@ -24,218 +24,218 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/AccountController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/AccountController.java",
+      "line": 23,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
-      "line": 10,
-      "expr": "refundCode1",
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "line": 21,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "line": 24,
       "expr": "refundCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "line": 25,
       "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/LedgerBuilder.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "line": 26,
       "expr": "shipmentCode2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelCollector.java",
-      "line": 8,
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/ChannelFacade.java",
+      "line": 20,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/ChannelFacade.java",
+      "line": 21,
       "expr": "catalogKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelCollector.java",
-      "line": 9,
-      "expr": "receiptKey102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/pricinggrant/web/ChannelCollector.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/pricinggrant/web/ChannelFacade.java",
+      "line": 22,
       "expr": "receiptKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 33,
       "expr": "orderRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 36,
       "expr": "orderRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 37,
       "expr": "quoteRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 38,
       "expr": "quoteRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 43,
       "expr": "tariffRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 44,
+      "expr": "tariffRef203",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 45,
       "expr": "ledgerEntry204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 31,
-      "expr": "channelTag205",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/VoucherBroker.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "line": 46,
       "expr": "channelTag205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 29,
       "expr": "refundCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 15,
-      "expr": "shipmentCode302",
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 30,
+      "expr": "refundCode301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 31,
       "expr": "shipmentCode302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 36,
       "expr": "manifestKey303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 37,
       "expr": "invoiceKey304",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 38,
       "expr": "invoiceKey304",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 28,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 43,
       "expr": "batchTag305",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 46,
       "expr": "batchTag305",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 32,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 47,
       "expr": "orderRef306",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/ChannelService.java",
-      "line": 33,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "line": 48,
       "expr": "orderRef306",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 10,
-      "expr": "catalogKey401",
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "line": 30,
       "expr": "catalogKey401",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "line": 31,
       "expr": "receiptKey402",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "line": 32,
       "expr": "receiptKey402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountExecutor.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountExecutor.java",
+      "line": 16,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/habench/pricinggrant/service/AccountExecutor.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountExecutor.java",
+      "line": 20,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -286,9 +286,9 @@
     "neutralized": false,
     "call_depth_observed": 13,
     "payload_sent": "zz$(id)",
-    "payload_at_sink": "echo ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;",
+    "payload_at_sink": "echo -n ref:ref:ref:ref:ref:ref:ref:zz$(id);;;;;;;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

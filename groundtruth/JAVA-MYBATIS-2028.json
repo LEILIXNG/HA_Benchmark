@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 19 层调用、跨 3 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentquote/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentquote/web/OrderController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentquote/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentquote/web/OrderController.java",
+    "line": 23,
     "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/paymentquote/dao/OrderMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/paymentquote/dao/OrderMapper.xml",
     "line": 9,
     "expr": "batchTag",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,247 +24,247 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderController.java",
+      "line": 23,
       "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 25,
       "expr": "invoiceKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 26,
       "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 27,
       "expr": "batchTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 27,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 32,
       "expr": "orderRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 28,
-      "expr": "quoteRef4",
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 33,
+      "expr": "orderRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 34,
       "expr": "quoteRef4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 34,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 39,
       "expr": "tariffRef5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 35,
-      "expr": "ledgerEntry6",
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 40,
+      "expr": "tariffRef5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 41,
       "expr": "ledgerEntry6",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 41,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 46,
       "expr": "channelTag7",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 42,
-      "expr": "catalogKey8",
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 47,
+      "expr": "channelTag7",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentquote/web/OrderTranslator.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/paymentquote/web/OrderTranslator.java",
+      "line": 48,
       "expr": "catalogKey8",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ShipmentResolver.java",
-      "line": 14,
-      "expr": "voucherRef101",
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ShipmentResolver.java",
+      "line": 22,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ShipmentResolver.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ShipmentResolver.java",
+      "line": 23,
       "expr": "paymentTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ShipmentResolver.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ShipmentResolver.java",
+      "line": 24,
       "expr": "paymentTag102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ShipmentResolver.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ShipmentResolver.java",
+      "line": 29,
       "expr": "refundCode103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ShipmentResolver.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ShipmentResolver.java",
+      "line": 30,
       "expr": "shipmentCode104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ShipmentResolver.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ShipmentResolver.java",
+      "line": 31,
       "expr": "shipmentCode104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ContractRuleSelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ContractRuleSelector.java",
+      "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/ContractRuleStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/ContractRuleStandard.java",
+      "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/InvoiceResolver.java",
-      "line": 8,
-      "expr": "ledgerEntry201",
+      "file": "service/src/main/java/com/northwind/paymentquote/service/InvoiceResolver.java",
+      "line": 13,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentquote/service/InvoiceResolver.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/paymentquote/service/InvoiceResolver.java",
+      "line": 14,
       "expr": "ledgerEntry201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/InvoiceRouter.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/InvoiceRouter.java",
+      "line": 11,
       "expr": "invoiceKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/InvoiceRouter.java",
-      "line": 9,
-      "expr": "batchTag302",
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/InvoiceRouter.java",
+      "line": 12,
+      "expr": "invoiceKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/InvoiceRouter.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/InvoiceRouter.java",
+      "line": 13,
       "expr": "batchTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 28,
       "expr": "voucherRef401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 29,
       "expr": "paymentTag402",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 22,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 30,
       "expr": "paymentTag402",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 35,
       "expr": "refundCode403",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 36,
       "expr": "shipmentCode404",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 29,
-      "expr": "manifestKey405",
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 37,
+      "expr": "shipmentCode404",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 38,
       "expr": "manifestKey405",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 35,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 43,
       "expr": "invoiceKey406",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 36,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 44,
       "expr": "batchTag407",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/RefundAssembler.java",
-      "line": 37,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/RefundAssembler.java",
+      "line": 45,
       "expr": "batchTag407",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/OrderGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/OrderGateway.java",
+      "line": 15,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentquote/dao/OrderGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/paymentquote/dao/OrderGateway.java",
+      "line": 22,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/paymentquote/dao/OrderMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/paymentquote/dao/OrderMapper.xml",
       "line": 9,
       "expr": "batchTag",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -321,9 +321,9 @@
     "neutralized": false,
     "call_depth_observed": 19,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;'",
+    "payload_at_sink": "SELECT id, amount, status       FROM shipments      WHERE ref_no IN ('ref:ref:ref:ref:ref:ref:ref:zz' OR 1=1--;;;;;;;')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

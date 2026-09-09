@@ -4,119 +4,119 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogdraft/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogdraft/web/PaymentController.java",
+    "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogdraft/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogdraft/web/PaymentController.java",
+    "line": 28,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/catalogdraft/service/PaymentFetcher.java",
-    "line": 14,
-    "expr": "endpoint",
+    "file": "service/src/main/java/com/northwind/catalogdraft/service/PaymentFetcher.java",
+    "line": 25,
+    "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": null,
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogdraft/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogdraft/web/PaymentController.java",
+      "line": 28,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogdraft/web/VoucherBuilder.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogdraft/web/VoucherBuilder.java",
+      "line": 29,
       "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
-      "line": 14,
-      "expr": "accountRef2",
+      "file": "web/src/main/java/com/northwind/catalogdraft/web/VoucherBuilder.java",
+      "line": 30,
+      "expr": "receiptKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogdraft/web/VoucherBuilder.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/catalogdraft/web/VoucherBuilder.java",
+      "line": 31,
       "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 15,
-      "expr": "quoteRef101",
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 16,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 21,
       "expr": "quoteRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 26,
       "expr": "tariffRef102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 22,
-      "expr": "ledgerEntry103",
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 27,
+      "expr": "tariffRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 23,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 28,
       "expr": "channelTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 24,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 29,
       "expr": "channelTag104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 34,
       "expr": "catalogKey105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 35,
       "expr": "receiptKey106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/ChannelCollector.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/ChannelCollector.java",
+      "line": 36,
       "expr": "receiptKey106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/PaymentFetcher.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/PaymentFetcher.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogdraft/service/PaymentFetcher.java",
-      "line": 14,
-      "expr": "endpoint",
+      "file": "service/src/main/java/com/northwind/catalogdraft/service/PaymentFetcher.java",
+      "line": 25,
+      "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
     }
   ],
@@ -157,6 +157,6 @@
     "payload_at_sink": "http://ref:ref:ref:127.0.0.1:1;;;/status",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

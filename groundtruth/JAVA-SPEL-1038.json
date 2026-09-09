@@ -4,159 +4,159 @@
   "verdict": "safe",
   "title": "路径变量经 8 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/paymentreview/web/LedgerController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/paymentreview/web/LedgerController.java",
+    "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/paymentreview/web/LedgerController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/paymentreview/web/LedgerController.java",
+    "line": 22,
     "expr": "tag",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/paymentreview/dao/LedgerEvaluator.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/paymentreview/dao/LedgerEvaluator.java",
+    "line": 24,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/paymentreview/dao/LedgerEvaluator.java",
-    "line": 15,
+    "file": "dao/src/main/java/com/northwind/paymentreview/dao/LedgerEvaluator.java",
+    "line": 22,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
   },
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/paymentreview/web/LedgerController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentreview/web/LedgerController.java",
+      "line": 22,
       "expr": "tag",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentreview/web/QuoteRegistry.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/paymentreview/web/QuoteRegistry.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentreview/web/QuoteRegistry.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/paymentreview/web/QuoteRegistry.java",
+      "line": 25,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/paymentreview/web/QuoteRegistry.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/paymentreview/web/QuoteRegistry.java",
+      "line": 26,
       "expr": "voucherRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentreview/service/ContractTranslator.java",
-      "line": 8,
-      "expr": "ledgerEntry101",
+      "file": "service/src/main/java/com/northwind/paymentreview/service/ContractTranslator.java",
+      "line": 20,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/paymentreview/service/ContractTranslator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/paymentreview/service/ContractTranslator.java",
+      "line": 21,
       "expr": "ledgerEntry101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 36,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 37,
       "expr": "invoiceKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 21,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 38,
       "expr": "invoiceKey201",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 26,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 43,
       "expr": "batchTag202",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 27,
-      "expr": "orderRef203",
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 44,
+      "expr": "batchTag202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 30,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 47,
       "expr": "orderRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 31,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 48,
       "expr": "quoteRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 32,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 49,
       "expr": "quoteRef204",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 37,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 54,
       "expr": "tariffRef205",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 40,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 57,
       "expr": "tariffRef205",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 41,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 58,
       "expr": "ledgerEntry206",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 42,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 59,
       "expr": "channelTag207",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/QuoteCoordinator.java",
-      "line": 43,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/QuoteCoordinator.java",
+      "line": 60,
       "expr": "channelTag207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/LedgerEvaluator.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/LedgerEvaluator.java",
+      "line": 19,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/LedgerEvaluator.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/LedgerEvaluator.java",
+      "line": 22,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/paymentreview/dao/LedgerEvaluator.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/paymentreview/dao/LedgerEvaluator.java",
+      "line": 24,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
     }
@@ -197,9 +197,9 @@
     "neutralized": true,
     "call_depth_observed": 8,
     "payload_sent": "zz' + T(java.lang.Runtime) + 'zz",
-    "payload_at_sink": "'ref-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
+    "payload_at_sink": "'tag-' + 'ref:ref:zz' + T(java.lang.Runtime) + 'zz;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

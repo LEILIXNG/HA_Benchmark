@@ -4,237 +4,237 @@
   "verdict": "vulnerable",
   "title": "请求头经 13 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/CatalogController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/CatalogController.java",
+    "line": 25,
     "expr": "keyword",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/CatalogEvaluator.java",
-    "line": 14,
+    "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/CatalogEvaluator.java",
+    "line": 23,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionPolicy.java",
-    "line": 9,
+    "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionPolicy.java",
+    "line": 21,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
   },
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/CatalogController.java",
+      "line": 25,
       "expr": "keyword",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 15,
-      "expr": "catalogKey1",
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 26,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 27,
       "expr": "receiptKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 28,
       "expr": "receiptKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 33,
       "expr": "accountRef3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 34,
       "expr": "voucherRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 35,
       "expr": "voucherRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 40,
       "expr": "paymentTag5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 41,
       "expr": "refundCode6",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 42,
       "expr": "refundCode6",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 36,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 47,
       "expr": "shipmentCode7",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 37,
-      "expr": "manifestKey8",
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 48,
+      "expr": "shipmentCode7",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 38,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 49,
       "expr": "manifestKey8",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 43,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 54,
       "expr": "invoiceKey9",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 44,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 55,
+      "expr": "invoiceKey9",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 57,
       "expr": "batchTag10",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 45,
-      "expr": "orderRef11",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 46,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 59,
       "expr": "orderRef11",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 51,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 64,
       "expr": "quoteRef12",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 52,
-      "expr": "tariffRef13",
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 66,
+      "expr": "quoteRef12",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/fulfilsettlequeue/web/ManifestService.java",
-      "line": 53,
+      "file": "web/src/main/java/com/northwind/fulfilsettlequeue/web/ManifestService.java",
+      "line": 68,
       "expr": "tariffRef13",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsettlequeue/service/ManifestRouter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/fulfilsettlequeue/service/ManifestRouter.java",
+      "line": 20,
       "expr": "orderRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsettlequeue/service/ManifestRouter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/fulfilsettlequeue/service/ManifestRouter.java",
+      "line": 21,
       "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/fulfilsettlequeue/service/ManifestRouter.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/fulfilsettlequeue/service/ManifestRouter.java",
+      "line": 22,
       "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 25,
       "expr": "refundCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 26,
       "expr": "refundCode201",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 20,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 31,
       "expr": "shipmentCode202",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 34,
       "expr": "shipmentCode202",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 24,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 35,
       "expr": "manifestKey203",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 27,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 38,
       "expr": "manifestKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 28,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 39,
       "expr": "invoiceKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionTranslator.java",
-      "line": 29,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionTranslator.java",
+      "line": 40,
       "expr": "invoiceKey204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/SessionPolicy.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/SessionPolicy.java",
+      "line": 21,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/CatalogEvaluator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/CatalogEvaluator.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/habench/fulfilsettlequeue/dao/CatalogEvaluator.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/fulfilsettlequeue/dao/CatalogEvaluator.java",
+      "line": 23,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
     }
@@ -288,6 +288,6 @@
     "payload_at_sink": "'ref-' + 'ref:ref:ref:ref:ref:zz' + T(java.lang.Runtime) + 'zz;;;;;'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

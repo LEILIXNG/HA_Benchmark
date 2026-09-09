@@ -4,219 +4,219 @@
   "verdict": "safe",
   "title": "Cookie经 12 层调用、跨 3 个模块流入命令执行，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/catalogadjust/web/InvoiceController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/catalogadjust/web/InvoiceController.java",
+    "line": 26,
     "expr": "target",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/catalogadjust/dao/InvoiceExecutor.java",
-    "line": 13,
+    "file": "dao/src/main/java/com/northwind/catalogadjust/dao/InvoiceExecutor.java",
+    "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/catalogadjust/dao/ChannelValidator.java",
-    "line": 11,
+    "file": "dao/src/main/java/com/northwind/catalogadjust/dao/ChannelValidator.java",
+    "line": 19,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
   },
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogadjust/web/InvoiceController.java",
+      "line": 26,
       "expr": "target",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/catalogadjust/web/PaymentAdapter.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/catalogadjust/web/PaymentAdapter.java",
+      "line": 25,
       "expr": "batchTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
-      "line": 16,
+      "file": "web/src/main/java/com/northwind/catalogadjust/web/PaymentAdapter.java",
+      "line": 28,
       "expr": "batchTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/catalogadjust/web/PaymentAdapter.java",
+      "line": 29,
       "expr": "orderRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/catalogadjust/web/InvoiceBuilder.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/catalogadjust/web/PaymentAdapter.java",
+      "line": 30,
       "expr": "orderRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/ReceiptCollector.java",
+      "line": 21,
       "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/ReceiptCollector.java",
+      "line": 24,
       "expr": "paymentTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/ReceiptCollector.java",
+      "line": 25,
       "expr": "refundCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherService.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/ReceiptCollector.java",
+      "line": 26,
       "expr": "refundCode102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/QuoteStrategySelector.java",
-      "line": 7,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/QuoteStrategySelector.java",
+      "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/QuoteStrategyStandard.java",
-      "line": 6,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/QuoteStrategyStandard.java",
+      "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 31,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 32,
       "expr": "channelTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 20,
-      "expr": "catalogKey202",
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 33,
+      "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 21,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 34,
       "expr": "catalogKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 39,
       "expr": "receiptKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 29,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 42,
       "expr": "receiptKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 30,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 43,
       "expr": "accountRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 31,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 44,
       "expr": "accountRef204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 36,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 49,
       "expr": "voucherRef205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 39,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 52,
       "expr": "voucherRef205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 40,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 53,
       "expr": "paymentTag206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 41,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 54,
       "expr": "refundCode207",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/catalogadjust/service/VoucherBuilder.java",
-      "line": 42,
+      "file": "service/src/main/java/com/northwind/catalogadjust/service/VoucherBuilder.java",
+      "line": 55,
       "expr": "refundCode207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
-      "line": 10,
-      "expr": "batchTag301",
+      "file": "dao/src/main/java/com/northwind/catalogadjust/dao/VoucherRegistry.java",
+      "line": 17,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogadjust/dao/VoucherRegistry.java",
+      "line": 21,
       "expr": "batchTag301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/catalogadjust/dao/VoucherRegistry.java",
+      "line": 22,
       "expr": "orderRef302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogadjust/dao/VoucherRegistry.java",
-      "line": 15,
+      "file": "dao/src/main/java/com/northwind/catalogadjust/dao/VoucherRegistry.java",
+      "line": 23,
       "expr": "orderRef302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogadjust/dao/ChannelValidator.java",
-      "line": 11,
+      "file": "dao/src/main/java/com/northwind/catalogadjust/dao/ChannelValidator.java",
+      "line": 19,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogadjust/dao/InvoiceExecutor.java",
-      "line": 9,
+      "file": "dao/src/main/java/com/northwind/catalogadjust/dao/InvoiceExecutor.java",
+      "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/habench/catalogadjust/dao/InvoiceExecutor.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/catalogadjust/dao/InvoiceExecutor.java",
+      "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -265,6 +265,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

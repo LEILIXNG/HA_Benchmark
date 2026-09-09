@@ -4,87 +4,87 @@
   "verdict": "vulnerable",
   "title": "查询参数经 6 层调用、跨 1 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/customernotice/web/RefundController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customernotice/web/RefundController.java",
+    "line": 27,
     "expr": "target",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/customernotice/web/RefundExecutor.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/customernotice/web/RefundExecutor.java",
+    "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/habench/customernotice/web/VoucherScreen.java",
-    "line": 9,
+    "file": "web/src/main/java/com/northwind/customernotice/web/VoucherScreen.java",
+    "line": 12,
     "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
   },
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/RefundController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customernotice/web/RefundController.java",
+      "line": 27,
       "expr": "target",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/customernotice/web/ReceiptRegistry.java",
+      "line": 19,
       "expr": "receiptKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/customernotice/web/ReceiptRegistry.java",
+      "line": 20,
       "expr": "receiptKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/customernotice/web/ReceiptRegistry.java",
+      "line": 25,
       "expr": "accountRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/customernotice/web/ReceiptRegistry.java",
+      "line": 26,
       "expr": "voucherRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
-      "line": 22,
-      "expr": "paymentTag4",
+      "file": "web/src/main/java/com/northwind/customernotice/web/ReceiptRegistry.java",
+      "line": 27,
+      "expr": "voucherRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/ReceiptRegistry.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/customernotice/web/ReceiptRegistry.java",
+      "line": 28,
       "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/VoucherScreen.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customernotice/web/VoucherScreen.java",
+      "line": 12,
       "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/RefundExecutor.java",
-      "line": 9,
+      "file": "web/src/main/java/com/northwind/customernotice/web/RefundExecutor.java",
+      "line": 21,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/habench/customernotice/web/RefundExecutor.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/customernotice/web/RefundExecutor.java",
+      "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
     }
@@ -121,6 +121,6 @@
     "payload_at_sink": "echo ref:zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

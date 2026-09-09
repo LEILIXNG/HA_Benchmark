@@ -4,109 +4,109 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1021 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/habench/shippingrevise/web/PaymentController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/shippingrevise/web/PaymentController.java",
+    "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/shippingrevise/web/PaymentController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/shippingrevise/web/PaymentController.java",
+    "line": 20,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
-    "line": 18,
+    "file": "service/src/main/java/com/northwind/shippingrevise/service/PaymentRepository.java",
+    "line": 23,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
-    "line": 17,
+    "file": "service/src/main/java/com/northwind/shippingrevise/service/PaymentRepository.java",
+    "line": 22,
     "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
   },
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/shippingrevise/web/PaymentController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingrevise/web/PaymentController.java",
+      "line": 20,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/shippingrevise/web/LedgerResolver.java",
+      "line": 21,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/shippingrevise/web/LedgerResolver.java",
+      "line": 22,
       "expr": "invoiceKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/shippingrevise/web/LedgerResolver.java",
+      "line": 23,
       "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/shippingrevise/web/LedgerResolver.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/shippingrevise/web/LedgerResolver.java",
+      "line": 24,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
-      "line": 16,
-      "expr": "voucherRef101",
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/ShipmentAdapter.java",
+      "line": 24,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/ShipmentAdapter.java",
+      "line": 25,
       "expr": "voucherRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
-      "line": 22,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/ShipmentAdapter.java",
+      "line": 30,
       "expr": "paymentTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
-      "line": 25,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/ShipmentAdapter.java",
+      "line": 33,
       "expr": "paymentTag102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
-      "line": 26,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/ShipmentAdapter.java",
+      "line": 34,
       "expr": "refundCode103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/ShipmentAdapter.java",
-      "line": 27,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/ShipmentAdapter.java",
+      "line": 35,
       "expr": "refundCode103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/PaymentRepository.java",
+      "line": 18,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
-      "line": 17,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/PaymentRepository.java",
+      "line": 22,
       "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/habench/shippingrevise/service/PaymentRepository.java",
-      "line": 18,
+      "file": "service/src/main/java/com/northwind/shippingrevise/service/PaymentRepository.java",
+      "line": 23,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
   ],
@@ -144,6 +144,6 @@
     "payload_at_sink": "ref:zz' OR 1=1--;",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

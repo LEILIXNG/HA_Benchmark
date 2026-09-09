@@ -4,117 +4,117 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-3000 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountsubmit/web/SessionController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountsubmit/web/SessionController.java",
+    "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountsubmit/web/SessionController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountsubmit/web/SessionController.java",
+    "line": 23,
     "expr": "resource",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
-    "line": 23,
+    "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+    "line": 31,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
-    "line": 19,
+    "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+    "line": 27,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
   },
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountsubmit/web/SessionController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountsubmit/web/SessionController.java",
+      "line": 23,
       "expr": "resource",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
-      "line": 14,
-      "expr": "paymentTag1",
+      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
+      "line": 25,
+      "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
+      "line": 26,
       "expr": "paymentTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
+      "line": 31,
       "expr": "refundCode2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
-      "line": 21,
-      "expr": "shipmentCode3",
+      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
+      "line": 32,
+      "expr": "refundCode2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/accountsubmit/web/ManifestEnricher.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
+      "line": 33,
       "expr": "shipmentCode3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountsubmit/service/ContractComposer.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/accountsubmit/service/ContractComposer.java",
+      "line": 20,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/com/northwind/accountsubmit/service/ContractComposer.java",
+      "line": 21,
       "expr": "channelTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/habench/accountsubmit/service/ContractComposer.java",
-      "line": 9,
-      "expr": "catalogKey102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/habench/accountsubmit/service/ContractComposer.java",
-      "line": 10,
+      "file": "service/src/main/java/com/northwind/accountsubmit/service/ContractComposer.java",
+      "line": 22,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsubmit/dao/BatchComposer.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/BatchComposer.java",
+      "line": 19,
       "expr": "batchTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsubmit/dao/BatchComposer.java",
-      "line": 9,
-      "expr": "orderRef202",
+      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/BatchComposer.java",
+      "line": 20,
+      "expr": "batchTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsubmit/dao/BatchComposer.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/BatchComposer.java",
+      "line": 21,
       "expr": "orderRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
-      "line": 16,
+      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
-      "line": 19,
+      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+      "line": 27,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountsubmit/dao/SessionFetcher.java",
-      "line": 23,
+      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+      "line": 31,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
     }
@@ -156,6 +156,6 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

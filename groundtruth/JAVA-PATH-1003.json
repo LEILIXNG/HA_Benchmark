@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "请求头经 5 层调用、跨 1 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventoryhold/web/BundleController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventoryhold/web/BundleController.java",
+    "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventoryhold/web/BundleController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventoryhold/web/BundleController.java",
+    "line": 27,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/habench/inventoryhold/web/BundleLoader.java",
-    "line": 17,
+    "file": "web/src/main/java/com/northwind/inventoryhold/web/BundleLoader.java",
+    "line": 28,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
@@ -24,74 +24,74 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/BundleController.java",
+      "line": 27,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 18,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 19,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 30,
       "expr": "paymentTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 33,
       "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 34,
       "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 35,
       "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 29,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 40,
       "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 30,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 41,
       "expr": "manifestKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 31,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 42,
       "expr": "invoiceKey5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/AccountCollector.java",
-      "line": 32,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/AccountCollector.java",
+      "line": 43,
       "expr": "invoiceKey5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleLoader.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/BundleLoader.java",
+      "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "web/src/main/java/com/habench/inventoryhold/web/BundleLoader.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/inventoryhold/web/BundleLoader.java",
+      "line": 28,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
     }
@@ -126,9 +126,9 @@
     "neutralized": false,
     "call_depth_observed": 5,
     "payload_sent": "../../../etc/passwd",
-    "payload_at_sink": "/var/lib/habench/data/../../../etc/passwd",
+    "payload_at_sink": "/var/lib/inventory/data/../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

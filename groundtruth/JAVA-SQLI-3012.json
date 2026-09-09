@@ -4,19 +4,19 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 7 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/accountreview/web/CatalogController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/accountreview/web/CatalogController.java",
+    "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/accountreview/web/CatalogController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/accountreview/web/CatalogController.java",
+    "line": 25,
     "expr": "token",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/habench/accountreview/dao/CatalogRepository.java",
-    "line": 17,
+    "file": "dao/src/main/java/com/northwind/accountreview/dao/CatalogRepository.java",
+    "line": 22,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
@@ -24,122 +24,122 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/CatalogController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountreview/web/CatalogController.java",
+      "line": 25,
       "expr": "token",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/BundleService.java",
-      "line": 10,
+      "file": "web/src/main/java/com/northwind/accountreview/web/BundleService.java",
+      "line": 21,
       "expr": "voucherRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/BundleService.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/accountreview/web/BundleService.java",
+      "line": 24,
       "expr": "voucherRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/BundleService.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/accountreview/web/BundleService.java",
+      "line": 25,
       "expr": "paymentTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/BundleService.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/accountreview/web/BundleService.java",
+      "line": 26,
       "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/SessionFacade.java",
-      "line": 11,
+      "file": "web/src/main/java/com/northwind/accountreview/web/SessionFacade.java",
+      "line": 27,
       "expr": "ledgerEntry101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/SessionFacade.java",
-      "line": 12,
+      "file": "web/src/main/java/com/northwind/accountreview/web/SessionFacade.java",
+      "line": 28,
       "expr": "ledgerEntry101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/SessionFacade.java",
-      "line": 17,
+      "file": "web/src/main/java/com/northwind/accountreview/web/SessionFacade.java",
+      "line": 33,
       "expr": "channelTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/SessionFacade.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/accountreview/web/SessionFacade.java",
+      "line": 36,
       "expr": "channelTag102",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/SessionFacade.java",
-      "line": 21,
+      "file": "web/src/main/java/com/northwind/accountreview/web/SessionFacade.java",
+      "line": 37,
       "expr": "catalogKey103",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/accountreview/web/SessionFacade.java",
-      "line": 22,
+      "file": "web/src/main/java/com/northwind/accountreview/web/SessionFacade.java",
+      "line": 38,
       "expr": "catalogKey103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreview/service/SessionRegistry.java",
-      "line": 12,
+      "file": "service/src/main/java/com/northwind/accountreview/service/SessionRegistry.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreview/service/SessionRegistry.java",
-      "line": 13,
+      "file": "service/src/main/java/com/northwind/accountreview/service/SessionRegistry.java",
+      "line": 24,
       "expr": "invoiceKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreview/service/SessionRegistry.java",
-      "line": 14,
+      "file": "service/src/main/java/com/northwind/accountreview/service/SessionRegistry.java",
+      "line": 25,
       "expr": "batchTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/accountreview/service/SessionRegistry.java",
-      "line": 15,
+      "file": "service/src/main/java/com/northwind/accountreview/service/SessionRegistry.java",
+      "line": 26,
       "expr": "batchTag202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreview/dao/BatchBroker.java",
-      "line": 12,
+      "file": "dao/src/main/java/com/northwind/accountreview/dao/BatchBroker.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreview/dao/BatchBroker.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accountreview/dao/BatchBroker.java",
+      "line": 21,
       "expr": "voucherRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreview/dao/BatchBroker.java",
-      "line": 14,
+      "file": "dao/src/main/java/com/northwind/accountreview/dao/BatchBroker.java",
+      "line": 22,
       "expr": "voucherRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreview/dao/CatalogRepository.java",
-      "line": 13,
+      "file": "dao/src/main/java/com/northwind/accountreview/dao/CatalogRepository.java",
+      "line": 18,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/habench/accountreview/dao/CatalogRepository.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/accountreview/dao/CatalogRepository.java",
+      "line": 22,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
     }
@@ -180,9 +180,9 @@
     "neutralized": false,
     "call_depth_observed": 7,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total FROM orders WHERE name = 'zz' OR 1=1--'",
+    "payload_at_sink": "SELECT id, amount, status FROM shipments WHERE ref_no = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }

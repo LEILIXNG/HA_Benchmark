@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 8 层调用、跨 3 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/habench/inventorygrant/web/OrderController.java",
-    "line": 11,
+    "file": "web/src/main/java/com/northwind/inventorygrant/web/OrderController.java",
+    "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/habench/inventorygrant/web/OrderController.java",
-    "line": 13,
+    "file": "web/src/main/java/com/northwind/inventorygrant/web/OrderController.java",
+    "line": 26,
     "expr": "label",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/habench/inventorygrant/dao/OrderMapper.xml",
+    "file": "dao/src/main/resources/com/northwind/inventorygrant/dao/OrderMapper.xml",
     "line": 9,
     "expr": "tariffRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,115 +24,115 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/OrderController.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/OrderController.java",
+      "line": 26,
       "expr": "label",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 13,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 21,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 14,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 22,
       "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 15,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 23,
       "expr": "orderRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 28,
       "expr": "quoteRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 23,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 31,
       "expr": "quoteRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 24,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 32,
       "expr": "tariffRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 25,
-      "expr": "ledgerEntry4",
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 34,
+      "expr": "tariffRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/habench/inventorygrant/web/AccountBuilder.java",
-      "line": 26,
+      "file": "web/src/main/java/com/northwind/inventorygrant/web/AccountBuilder.java",
+      "line": 36,
       "expr": "ledgerEntry4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorygrant/service/SessionRouter.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/inventorygrant/service/SessionRouter.java",
+      "line": 16,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorygrant/service/SessionRouter.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/inventorygrant/service/SessionRouter.java",
+      "line": 17,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorygrant/service/ReceiptTranslator.java",
-      "line": 8,
+      "file": "service/src/main/java/com/northwind/inventorygrant/service/ReceiptTranslator.java",
+      "line": 13,
       "expr": "catalogKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/habench/inventorygrant/service/ReceiptTranslator.java",
-      "line": 9,
+      "file": "service/src/main/java/com/northwind/inventorygrant/service/ReceiptTranslator.java",
+      "line": 14,
       "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorygrant/dao/ContractCoordinator.java",
-      "line": 8,
+      "file": "dao/src/main/java/com/northwind/inventorygrant/dao/ContractCoordinator.java",
+      "line": 16,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/com/northwind/inventorygrant/dao/ContractCoordinator.java",
+      "line": 17,
       "expr": "orderRef301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorygrant/dao/ContractCoordinator.java",
-      "line": 9,
-      "expr": "quoteRef302",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "dao/src/main/java/com/habench/inventorygrant/dao/ContractCoordinator.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/inventorygrant/dao/ContractCoordinator.java",
+      "line": 18,
       "expr": "quoteRef302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorygrant/dao/OrderGateway.java",
-      "line": 10,
+      "file": "dao/src/main/java/com/northwind/inventorygrant/dao/OrderGateway.java",
+      "line": 20,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/habench/inventorygrant/dao/OrderGateway.java",
-      "line": 17,
+      "file": "dao/src/main/java/com/northwind/inventorygrant/dao/OrderGateway.java",
+      "line": 27,
       "expr": "value",
-      "note": "污点交给 MyBatis mapper，下一跳在 XML 里"
+      "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/habench/inventorygrant/dao/OrderMapper.xml",
+      "file": "dao/src/main/resources/com/northwind/inventorygrant/dao/OrderMapper.xml",
       "line": 9,
       "expr": "tariffRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -174,9 +174,9 @@
     "neutralized": false,
     "call_depth_observed": 8,
     "payload_sent": "zz' OR 1=1--",
-    "payload_at_sink": "SELECT id, total       FROM orders      WHERE name = 'ref:ref:ref:zz' OR 1=1--;;;'",
+    "payload_at_sink": "SELECT id, ref_no, total       FROM orders      WHERE title = 'ref:ref:ref:zz' OR 1=1--;;;'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-08T15:50:45+08:00"
+    "checked_at": "2026-09-09T15:49:09+08:00"
   }
 }
