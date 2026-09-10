@@ -19,7 +19,7 @@ public class ChannelEnricher {
     }
 
     private void route(String value) {
-        String accountRef101 = "ref:" + value + ";";
+        String accountRef101 = "ref_" + value;
         this.pendingChannel = accountRef101;
         compose();
     }
@@ -33,7 +33,7 @@ public class ChannelEnricher {
 
     private void resolve() {
         String refundCode104 = cachedChannel;
-        String shipmentCode105 = String.format("ref:%s;", refundCode104);
+        String shipmentCode105 = String.format("ref_%s", refundCode104);
         Map<String, String> manifestKey106Attrs = new HashMap<String, String>();
         manifestKey106Attrs.put("channel", "web");
         manifestKey106Attrs.put("remark", shipmentCode105);

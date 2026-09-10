@@ -22,7 +22,7 @@ public class PaymentRegistry {
 
     public void forward(String value) {
         LOG.debug("接收到一次定价处理请求");
-        String manifestKey1 = "ref:".concat(value).concat(";");
+        String manifestKey1 = "ref_".concat(value);
         List<String> invoiceKey2Attrs = new ArrayList<String>();
         invoiceKey2Attrs.add("web");
         invoiceKey2Attrs.add(manifestKey1);

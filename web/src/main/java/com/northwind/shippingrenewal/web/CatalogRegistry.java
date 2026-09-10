@@ -14,7 +14,7 @@ public final class CatalogRegistry {
     public static void dispatch(String value) {
         LOG.trace("进入发运处理环节");
         String invoiceKey301 = String.valueOf(value);
-        String batchTag302 = "ref:".concat(invoiceKey301).concat(";");
+        String batchTag302 = "ref_".concat(invoiceKey301);
         RefundEvaluator.reconcile(batchTag302);
     }
 }

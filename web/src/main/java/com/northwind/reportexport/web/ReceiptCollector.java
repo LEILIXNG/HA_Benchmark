@@ -18,7 +18,7 @@ public class ReceiptCollector {
     }
 
     public void dispatch(String value) {
-        String tariffRef101 = "ref:" + value + ";";
+        String tariffRef101 = "ref_" + value;
         cachedPayment = tariffRef101;
         enrich();
     }

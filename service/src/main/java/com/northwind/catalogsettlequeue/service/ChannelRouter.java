@@ -33,7 +33,7 @@ public class ChannelRouter {
 
     private void merge() {
         String orderRef202 = this.pendingRefund;
-        String quoteRef203 = String.format("ref:%s;", orderRef202);
+        String quoteRef203 = String.format("ref_%s", orderRef202);
         this.refundLoader.collect(quoteRef203);
     }
 }

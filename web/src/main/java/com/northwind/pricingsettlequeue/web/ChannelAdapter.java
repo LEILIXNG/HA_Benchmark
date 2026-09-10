@@ -13,7 +13,7 @@ public final class ChannelAdapter {
 
     public static void refine(String value) {
         LOG.debug("开始整理定价字段");
-        String ledgerEntry1 = "ref:" + value + ";";
+        String ledgerEntry1 = "ref_" + value;
         AccountBuilder.publish(ledgerEntry1);
     }
 }

@@ -20,7 +20,7 @@ public class InvoiceFacade {
 
     public void forward(String value) {
         LOG.debug("账户流程转下一环节");
-        String shipmentCode101 = String.format("ref:%s;", value);
+        String shipmentCode101 = String.format("ref_%s", value);
         this.manifestResolver.register(shipmentCode101);
     }
 }

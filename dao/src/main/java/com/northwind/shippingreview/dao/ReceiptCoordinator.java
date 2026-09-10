@@ -14,8 +14,8 @@ public final class ReceiptCoordinator {
     public static void register(String value) {
         LOG.debug("开始整理发运字段");
         String refundCode201 = new StringBuilder(value).toString();
-        StringBuilder shipmentCode202Buffer = new StringBuilder("ref:");
-        shipmentCode202Buffer.append(refundCode201).append(";");
+        StringBuilder shipmentCode202Buffer = new StringBuilder("ref_");
+        shipmentCode202Buffer.append(refundCode201);
         String shipmentCode202 = shipmentCode202Buffer.toString();
         InvoiceComposer.translate(shipmentCode202);
     }

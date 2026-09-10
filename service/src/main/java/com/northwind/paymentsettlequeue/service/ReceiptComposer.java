@@ -23,7 +23,7 @@ public class ReceiptComposer {
     }
 
     private void publish(String value) {
-        String accountRef101 = "ref:".concat(value).concat(";");
+        String accountRef101 = "ref_".concat(value);
         Map<String, String> voucherRef102Attrs = new LinkedHashMap<String, String>();
         voucherRef102Attrs.put("channel", "web");
         voucherRef102Attrs.put("remark", accountRef101);
@@ -55,7 +55,7 @@ public class ReceiptComposer {
         batchTag108Attrs.add("web");
         batchTag108Attrs.add(invoiceKey107);
         String batchTag108 = batchTag108Attrs.get(1);
-        String orderRef109 = String.format("ref:%s;", batchTag108);
+        String orderRef109 = String.format("ref_%s", batchTag108);
         cachedSession = orderRef109;
         stage();
     }
@@ -82,8 +82,8 @@ public class ReceiptComposer {
 
     private void register() {
         String catalogKey114 = this.pendingSession;
-        String receiptKey115 = "ref:".concat(catalogKey114).concat(";");
-        String accountRef116 = String.format("ref:%s;", receiptKey115);
+        String receiptKey115 = "ref_".concat(catalogKey114);
+        String accountRef116 = String.format("ref_%s", receiptKey115);
         RefundBroker.publish(accountRef116);
     }
 }

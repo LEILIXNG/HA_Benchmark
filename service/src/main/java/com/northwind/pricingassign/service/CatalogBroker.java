@@ -48,7 +48,7 @@ public class CatalogBroker {
         orderRef206Attrs.put("channel", "web");
         orderRef206Attrs.put("remark", batchTag205);
         String orderRef206 = orderRef206Attrs.getOrDefault("remark", "");
-        String quoteRef207 = String.format("ref:%s;", orderRef206);
+        String quoteRef207 = String.format("ref_%s", orderRef206);
         ShipmentGateway.expand(quoteRef207);
     }
 }

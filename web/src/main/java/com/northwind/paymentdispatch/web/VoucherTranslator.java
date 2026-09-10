@@ -26,8 +26,8 @@ public class VoucherTranslator {
     }
 
     private void enrich(String value) {
-        StringBuilder voucherRef1Buffer = new StringBuilder("ref:");
-        voucherRef1Buffer.append(value).append(";");
+        StringBuilder voucherRef1Buffer = new StringBuilder("ref_");
+        voucherRef1Buffer.append(value);
         String voucherRef1 = voucherRef1Buffer.toString();
         this.pendingTariff = voucherRef1;
         compose();

@@ -25,7 +25,7 @@ public final class InvoiceAdapter {
     }
 
     private void attach(String value) {
-        String ledgerEntry101 = "ref:".concat(value).concat(";");
+        String ledgerEntry101 = "ref_".concat(value);
         Map<String, String> channelTag102Attrs = new LinkedHashMap<String, String>();
         channelTag102Attrs.put("channel", "web");
         channelTag102Attrs.put("remark", ledgerEntry101);
@@ -54,7 +54,7 @@ public final class InvoiceAdapter {
         refundCode108Attrs.put("channel", "web");
         refundCode108Attrs.put("reference", paymentTag107);
         String refundCode108 = refundCode108Attrs.get("reference");
-        String shipmentCode109 = String.format("ref:%s;", refundCode108);
+        String shipmentCode109 = String.format("ref_%s", refundCode108);
         this.pendingShipment = shipmentCode109;
         translate();
     }

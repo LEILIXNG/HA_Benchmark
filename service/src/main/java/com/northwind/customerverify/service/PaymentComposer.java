@@ -13,9 +13,9 @@ public final class PaymentComposer {
 
     public static void refine(String value) {
         LOG.debug("接收到一次客户处理请求");
-        String ledgerEntry301 = "ref:" + value + ";";
-        StringBuilder channelTag302Buffer = new StringBuilder("ref:");
-        channelTag302Buffer.append(ledgerEntry301).append(";");
+        String ledgerEntry301 = "ref_" + value;
+        StringBuilder channelTag302Buffer = new StringBuilder("ref_");
+        channelTag302Buffer.append(ledgerEntry301);
         String channelTag302 = channelTag302Buffer.toString();
         ShipmentBroker.submit(channelTag302);
     }

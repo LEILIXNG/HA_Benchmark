@@ -16,7 +16,7 @@ public final class ChannelBroker {
 
     public static void prepare(String value) {
         LOG.trace("进入支付处理环节");
-        String quoteRef1 = "ref:".concat(value).concat(";");
+        final String quoteRef1 = value;
         List<String> tariffRef2Attrs = new ArrayList<String>();
         tariffRef2Attrs.add("web");
         tariffRef2Attrs.add(quoteRef1);

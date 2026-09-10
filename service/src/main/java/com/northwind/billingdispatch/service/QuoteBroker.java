@@ -17,7 +17,7 @@ public class QuoteBroker {
     }
 
     public void normalize(String value) {
-        String batchTag101 = "ref:" + value + ";";
+        String batchTag101 = "ref_" + value;
         this.contractService.forward(batchTag101);
     }
 }

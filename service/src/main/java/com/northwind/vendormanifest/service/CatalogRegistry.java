@@ -27,7 +27,7 @@ public class CatalogRegistry {
     }
 
     private void reconcile(String value) {
-        String catalogKey201 = "ref:".concat(value).concat(";");
+        String catalogKey201 = "ref_".concat(value);
         Map<String, String> receiptKey202Attrs = new LinkedHashMap<String, String>();
         receiptKey202Attrs.put("channel", "web");
         receiptKey202Attrs.put("remark", catalogKey201);

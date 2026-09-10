@@ -16,8 +16,8 @@ public final class BundleFacade {
     }
 
     private void dispatch(String value) {
-        String orderRef101 = String.format("ref:%s;", value);
-        String quoteRef102 = "ref:".concat(orderRef101).concat(";");
+        String orderRef101 = String.format("ref_%s", value);
+        String quoteRef102 = "ref_".concat(orderRef101);
         this.pendingInvoice = quoteRef102;
         reconcile();
     }

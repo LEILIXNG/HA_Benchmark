@@ -13,10 +13,10 @@ public final class TariffRegistry {
 
     public static void publish(String value) {
         LOG.debug("开始整理定价字段");
-        StringBuilder channelTag301Buffer = new StringBuilder("ref:");
-        channelTag301Buffer.append(value).append(";");
+        StringBuilder channelTag301Buffer = new StringBuilder("ref_");
+        channelTag301Buffer.append(value);
         String channelTag301 = channelTag301Buffer.toString();
-        String catalogKey302 = "ref:" + channelTag301 + ";";
+        String catalogKey302 = "ref_" + channelTag301;
         BundleRepository.route(catalogKey302);
     }
 }

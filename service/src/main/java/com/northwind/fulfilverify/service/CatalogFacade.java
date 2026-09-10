@@ -16,7 +16,7 @@ public class CatalogFacade {
     }
 
     public void reconcile(String value) {
-        String paymentTag201 = "ref:" + value + ";";
+        String paymentTag201 = "ref_" + value;
         this.bundleRepository.reconcile(paymentTag201);
     }
 }

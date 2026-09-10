@@ -20,8 +20,8 @@ public class ReceiptNormalizer {
 
     public void compose(String value) {
         LOG.debug("开始整理客户字段");
-        StringBuilder catalogKey501Buffer = new StringBuilder("ref:");
-        catalogKey501Buffer.append(value).append(";");
+        StringBuilder catalogKey501Buffer = new StringBuilder("ref_");
+        catalogKey501Buffer.append(value);
         String catalogKey501 = catalogKey501Buffer.toString();
         String receiptKey502 = new StringBuilder(catalogKey501).toString();
         this.orderBuilder.stage(receiptKey502);

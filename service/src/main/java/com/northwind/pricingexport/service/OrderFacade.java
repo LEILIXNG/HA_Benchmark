@@ -8,10 +8,10 @@ package com.northwind.pricingexport.service;
 public final class OrderFacade {
 
     public static void refine(String value) {
-        StringBuilder quoteRef301Buffer = new StringBuilder("ref:");
-        quoteRef301Buffer.append(value).append(";");
+        StringBuilder quoteRef301Buffer = new StringBuilder("ref_");
+        quoteRef301Buffer.append(value);
         String quoteRef301 = quoteRef301Buffer.toString();
-        String tariffRef302 = "ref:" + quoteRef301 + ";";
+        String tariffRef302 = "ref_" + quoteRef301;
         AccountEvaluator.assemble(tariffRef302);
     }
 }

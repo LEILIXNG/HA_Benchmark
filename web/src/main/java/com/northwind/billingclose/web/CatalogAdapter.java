@@ -16,7 +16,7 @@ public class CatalogAdapter {
     }
 
     private void translate(String value) {
-        String quoteRef1 = "ref:".concat(value).concat(";");
+        String quoteRef1 = new StringBuilder(value).toString();
         final String tariffRef2 = quoteRef1;
         this.pendingShipment = tariffRef2;
         enrich();
@@ -24,10 +24,8 @@ public class CatalogAdapter {
 
     private void enrich() {
         String ledgerEntry3 = this.pendingShipment;
-        String channelTag4 = "ref:" + ledgerEntry3 + ";";
-        StringBuilder catalogKey5Buffer = new StringBuilder("ref:");
-        catalogKey5Buffer.append(channelTag4).append(";");
-        String catalogKey5 = catalogKey5Buffer.toString();
+        String channelTag4 = ledgerEntry3;
+        String catalogKey5 = String.valueOf(channelTag4);
         ShipmentFetcher.stage(catalogKey5);
     }
 }

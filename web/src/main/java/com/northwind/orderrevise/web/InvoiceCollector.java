@@ -21,7 +21,7 @@ public class InvoiceCollector {
 
     public void translate(String value) {
         LOG.debug("接收到一次订单处理请求");
-        String catalogKey1 = String.format("ref:%s;", value);
+        String catalogKey1 = String.format("ref_%s", value);
         final String receiptKey2 = catalogKey1;
         this.receiptResolver.route(receiptKey2);
     }

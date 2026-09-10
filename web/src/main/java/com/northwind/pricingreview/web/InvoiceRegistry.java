@@ -37,9 +37,9 @@ public class InvoiceRegistry {
 
     private void route() {
         String orderRef5 = this.pendingReceipt;
-        String quoteRef6 = "ref:" + orderRef5 + ";";
-        StringBuilder tariffRef7Buffer = new StringBuilder("ref:");
-        tariffRef7Buffer.append(quoteRef6).append(";");
+        String quoteRef6 = "ref_" + orderRef5;
+        StringBuilder tariffRef7Buffer = new StringBuilder("ref_");
+        tariffRef7Buffer.append(quoteRef6);
         String tariffRef7 = tariffRef7Buffer.toString();
         this.paymentCollector.collect(tariffRef7);
     }

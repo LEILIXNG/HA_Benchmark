@@ -18,7 +18,7 @@ public class RefundBroker {
     }
 
     public void reconcile(String value) {
-        String refundCode1 = "ref:".concat(value).concat(";");
+        String refundCode1 = "ref_".concat(value);
         Map<String, String> shipmentCode2Attrs = new LinkedHashMap<String, String>();
         shipmentCode2Attrs.put("channel", "web");
         shipmentCode2Attrs.put("remark", refundCode1);

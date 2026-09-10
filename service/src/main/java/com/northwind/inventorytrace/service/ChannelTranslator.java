@@ -15,8 +15,8 @@ public final class ChannelTranslator {
         orderRef101Attrs.add("web");
         orderRef101Attrs.add(value);
         String orderRef101 = orderRef101Attrs.get(1);
-        StringBuilder quoteRef102Buffer = new StringBuilder("ref:");
-        quoteRef102Buffer.append(orderRef101).append(";");
+        StringBuilder quoteRef102Buffer = new StringBuilder("ref_");
+        quoteRef102Buffer.append(orderRef101);
         String quoteRef102 = quoteRef102Buffer.toString();
         OrderRepository.enrich(quoteRef102);
     }

@@ -20,7 +20,7 @@ public class ChannelNormalizer {
 
     public void collect(String value) {
         LOG.debug("商品流程转下一环节");
-        String accountRef101 = "ref:".concat(value).concat(";");
+        final String accountRef101 = value;
         this.tariffRuleSelector.attach(accountRef101);
     }
 }

@@ -22,8 +22,8 @@ public class AccountResolver {
 
     public void reconcile(String value) {
         LOG.trace("进入定价处理环节");
-        StringBuilder catalogKey401Buffer = new StringBuilder("ref:");
-        catalogKey401Buffer.append(value).append(";");
+        StringBuilder catalogKey401Buffer = new StringBuilder("ref_");
+        catalogKey401Buffer.append(value);
         String catalogKey401 = catalogKey401Buffer.toString();
         Map<String, String> receiptKey402Attrs = new LinkedHashMap<String, String>();
         receiptKey402Attrs.put("channel", "web");

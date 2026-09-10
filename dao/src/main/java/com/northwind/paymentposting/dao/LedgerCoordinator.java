@@ -16,7 +16,7 @@ public final class LedgerCoordinator {
 
     public static void route(String value) {
         LOG.debug("支付流程转下一环节");
-        String accountRef401 = "ref:" + value + ";";
+        String accountRef401 = "ref_" + value;
         String voucherRef402 = String.valueOf(accountRef401);
         cachedSession = voucherRef402;
         compose();

@@ -16,8 +16,8 @@ public final class BundleBuilder {
 
     public static void enrich(String value) {
         LOG.debug("订单流程转下一环节");
-        String batchTag1 = String.format("ref:%s;", value);
-        String orderRef2 = "ref:".concat(batchTag1).concat(";");
+        String batchTag1 = String.format("ref_%s", value);
+        String orderRef2 = "ref_".concat(batchTag1);
         cachedReceipt = orderRef2;
         stage();
     }
@@ -34,8 +34,8 @@ public final class BundleBuilder {
 
     private static void assemble() {
         String ledgerEntry5 = cachedReceipt;
-        StringBuilder channelTag6Buffer = new StringBuilder("ref:");
-        channelTag6Buffer.append(ledgerEntry5).append(";");
+        StringBuilder channelTag6Buffer = new StringBuilder("ref_");
+        channelTag6Buffer.append(ledgerEntry5);
         String channelTag6 = channelTag6Buffer.toString();
         ChannelGuard.prepare(channelTag6);
     }

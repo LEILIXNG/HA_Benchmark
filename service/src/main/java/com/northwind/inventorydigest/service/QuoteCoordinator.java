@@ -57,8 +57,8 @@ public class QuoteCoordinator {
         paymentTag109Attrs.put("channel", "web");
         paymentTag109Attrs.put("detail", voucherRef108);
         String paymentTag109 = paymentTag109Attrs.getOrDefault("detail", "");
-        StringBuilder refundCode110Buffer = new StringBuilder("ref:");
-        refundCode110Buffer.append(paymentTag109).append(";");
+        StringBuilder refundCode110Buffer = new StringBuilder("ref_");
+        refundCode110Buffer.append(paymentTag109);
         String refundCode110 = refundCode110Buffer.toString();
         this.pendingAccount = refundCode110;
         compose();
@@ -66,8 +66,8 @@ public class QuoteCoordinator {
 
     private void compose() {
         String shipmentCode111 = this.pendingAccount;
-        StringBuilder manifestKey112Buffer = new StringBuilder("ref:");
-        manifestKey112Buffer.append(shipmentCode111).append(";");
+        StringBuilder manifestKey112Buffer = new StringBuilder("ref_");
+        manifestKey112Buffer.append(shipmentCode111);
         String manifestKey112 = manifestKey112Buffer.toString();
         String invoiceKey113 = new StringBuilder(manifestKey112).toString();
         this.pendingAccount = invoiceKey113;

@@ -26,7 +26,7 @@ public final class ReceiptTranslator {
     }
 
     private void reconcile(String value) {
-        String orderRef101 = "ref:" + value + ";";
+        String orderRef101 = "ref_" + value;
         List<String> quoteRef102Attrs = new ArrayList<String>();
         quoteRef102Attrs.add("web");
         quoteRef102Attrs.add(orderRef101);
@@ -37,7 +37,7 @@ public final class ReceiptTranslator {
 
     private void normalize() {
         String tariffRef103 = cachedOrder;
-        String ledgerEntry104 = "ref:".concat(tariffRef103).concat(";");
+        String ledgerEntry104 = "ref_".concat(tariffRef103);
         final String channelTag105 = ledgerEntry104;
         this.pendingOrder = channelTag105;
         enrich();
@@ -52,8 +52,8 @@ public final class ReceiptTranslator {
 
     private void register() {
         String accountRef108 = this.pendingOrder;
-        StringBuilder voucherRef109Buffer = new StringBuilder("ref:");
-        voucherRef109Buffer.append(accountRef108).append(";");
+        StringBuilder voucherRef109Buffer = new StringBuilder("ref_");
+        voucherRef109Buffer.append(accountRef108);
         String voucherRef109 = voucherRef109Buffer.toString();
         Map<String, String> paymentTag110Attrs = new LinkedHashMap<String, String>();
         paymentTag110Attrs.put("channel", "web");
@@ -65,7 +65,7 @@ public final class ReceiptTranslator {
 
     private void expand() {
         String refundCode111 = this.pendingOrder;
-        String shipmentCode112 = "ref:".concat(refundCode111).concat(";");
+        String shipmentCode112 = "ref_".concat(refundCode111);
         Map<String, String> manifestKey113Attrs = new HashMap<String, String>();
         manifestKey113Attrs.put("channel", "web");
         manifestKey113Attrs.put("detail", shipmentCode112);

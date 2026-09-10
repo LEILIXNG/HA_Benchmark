@@ -21,16 +21,16 @@ public class CatalogTranslator {
     }
 
     private void collect(String value) {
-        String channelTag201 = String.format("ref:%s;", value);
+        String channelTag201 = String.format("ref_%s", value);
         this.pendingOrder = channelTag201;
         attach();
     }
 
     private void attach() {
         String catalogKey202 = this.pendingOrder;
-        String receiptKey203 = String.format("ref:%s;", catalogKey202);
-        StringBuilder accountRef204Buffer = new StringBuilder("ref:");
-        accountRef204Buffer.append(receiptKey203).append(";");
+        String receiptKey203 = String.format("ref_%s", catalogKey202);
+        StringBuilder accountRef204Buffer = new StringBuilder("ref_");
+        accountRef204Buffer.append(receiptKey203);
         String accountRef204 = accountRef204Buffer.toString();
         this.pendingOrder = accountRef204;
         prepare();

@@ -8,7 +8,7 @@ package com.northwind.reporttrace.dao;
 public final class AccountService {
 
     public static void submit(String value) {
-        String manifestKey601 = "ref:".concat(value).concat(";");
+        String manifestKey601 = "ref_".concat(value);
         String invoiceKey602 = new StringBuilder(manifestKey601).toString();
         TariffPolicySelector.prepare(invoiceKey602);
     }

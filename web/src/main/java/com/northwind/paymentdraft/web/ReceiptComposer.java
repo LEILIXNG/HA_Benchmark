@@ -39,24 +39,24 @@ public class ReceiptComposer {
 
     private void submit() {
         String channelTag2 = cachedBatch;
-        String catalogKey3 = "ref:" + channelTag2 + ";";
-        String receiptKey4 = "ref:".concat(catalogKey3).concat(";");
+        String catalogKey3 = "ref_" + channelTag2;
+        String receiptKey4 = "ref_".concat(catalogKey3);
         cachedBatch = receiptKey4;
         enrich();
     }
 
     private void enrich() {
         String accountRef5 = cachedBatch;
-        String voucherRef6 = "ref:".concat(accountRef5).concat(";");
-        String paymentTag7 = String.format("ref:%s;", voucherRef6);
+        String voucherRef6 = "ref_".concat(accountRef5);
+        String paymentTag7 = String.format("ref_%s", voucherRef6);
         this.pendingBatch = paymentTag7;
         refine();
     }
 
     private void refine() {
         String refundCode8 = this.pendingBatch;
-        StringBuilder shipmentCode9Buffer = new StringBuilder("ref:");
-        shipmentCode9Buffer.append(refundCode8).append(";");
+        StringBuilder shipmentCode9Buffer = new StringBuilder("ref_");
+        shipmentCode9Buffer.append(refundCode8);
         String shipmentCode9 = shipmentCode9Buffer.toString();
         this.pendingBatch = shipmentCode9;
         translate();
@@ -64,8 +64,8 @@ public class ReceiptComposer {
 
     private void translate() {
         String manifestKey10 = this.pendingBatch;
-        StringBuilder invoiceKey11Buffer = new StringBuilder("ref:");
-        invoiceKey11Buffer.append(manifestKey10).append(";");
+        StringBuilder invoiceKey11Buffer = new StringBuilder("ref_");
+        invoiceKey11Buffer.append(manifestKey10);
         String invoiceKey11 = invoiceKey11Buffer.toString();
         this.invoiceFacade.enrich(invoiceKey11);
     }

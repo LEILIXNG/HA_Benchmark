@@ -27,7 +27,7 @@ public final class LedgerRouter {
 
     private void resolve() {
         String paymentTag102 = this.pendingPayment;
-        String refundCode103 = String.format("ref:%s;", paymentTag102);
+        String refundCode103 = String.format("ref_%s", paymentTag102);
         cachedPayment = refundCode103;
         translate();
     }

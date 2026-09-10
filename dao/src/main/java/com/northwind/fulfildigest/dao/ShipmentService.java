@@ -33,7 +33,7 @@ public class ShipmentService {
 
     private void register() {
         String receiptKey202 = cachedReceipt;
-        String accountRef203 = "ref:" + receiptKey202 + ";";
+        String accountRef203 = "ref_" + receiptKey202;
         this.quoteBuilder.attach(accountRef203);
     }
 }

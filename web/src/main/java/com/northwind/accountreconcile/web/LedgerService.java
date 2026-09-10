@@ -21,7 +21,7 @@ public class LedgerService {
 
     public void translate(String value) {
         LOG.debug("开始整理账户字段");
-        String manifestKey201 = String.format("ref:%s;", value);
+        String manifestKey201 = String.format("ref_%s", value);
         this.sessionTranslator.expand(manifestKey201);
     }
 }

@@ -11,7 +11,7 @@ public final class VoucherCollector {
     private static String cachedShipment;
 
     public static void expand(String value) {
-        String catalogKey101 = "ref:" + value + ";";
+        String catalogKey101 = "ref_" + value;
         cachedShipment = catalogKey101;
         submit();
     }

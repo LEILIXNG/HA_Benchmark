@@ -26,7 +26,7 @@ public class BatchCoordinator {
     }
 
     private void merge(String value) {
-        String ledgerEntry301 = String.format("ref:%s;", value);
+        String ledgerEntry301 = String.format("ref_%s", value);
         cachedBatch = ledgerEntry301;
         collect();
     }
@@ -34,8 +34,8 @@ public class BatchCoordinator {
     private void collect() {
         String channelTag302 = cachedBatch;
         String catalogKey303 = String.valueOf(channelTag302);
-        StringBuilder receiptKey304Buffer = new StringBuilder("ref:");
-        receiptKey304Buffer.append(catalogKey303).append(";");
+        StringBuilder receiptKey304Buffer = new StringBuilder("ref_");
+        receiptKey304Buffer.append(catalogKey303);
         String receiptKey304 = receiptKey304Buffer.toString();
         this.pendingBatch = receiptKey304;
         translate();
@@ -43,8 +43,8 @@ public class BatchCoordinator {
 
     private void translate() {
         String accountRef305 = this.pendingBatch;
-        StringBuilder voucherRef306Buffer = new StringBuilder("ref:");
-        voucherRef306Buffer.append(accountRef305).append(";");
+        StringBuilder voucherRef306Buffer = new StringBuilder("ref_");
+        voucherRef306Buffer.append(accountRef305);
         String voucherRef306 = voucherRef306Buffer.toString();
         String paymentTag307 = new StringBuilder(voucherRef306).toString();
         this.batchExecutor.forward(paymentTag307);

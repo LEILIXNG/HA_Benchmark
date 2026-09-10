@@ -13,7 +13,7 @@ public final class ManifestBuilder {
 
     public static void forward(String value) {
         LOG.trace("进入发运处理环节");
-        String tariffRef101 = "ref:".concat(value).concat(";");
+        String tariffRef101 = "ref_".concat(value);
         PaymentComposer.forward(tariffRef101);
     }
 }

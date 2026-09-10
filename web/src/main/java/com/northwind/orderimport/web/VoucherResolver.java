@@ -20,7 +20,7 @@ public final class VoucherResolver {
         refundCode101Attrs.add("web");
         refundCode101Attrs.add(value);
         String refundCode101 = refundCode101Attrs.get(1);
-        String shipmentCode102 = "ref:".concat(refundCode101).concat(";");
+        String shipmentCode102 = "ref_".concat(refundCode101);
         BatchBroker.expand(shipmentCode102);
     }
 }

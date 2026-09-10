@@ -32,7 +32,7 @@ public class ReceiptTranslator {
 
     private void publish() {
         String orderRef402 = this.pendingChannel;
-        String quoteRef403 = "ref:".concat(orderRef402).concat(";");
+        String quoteRef403 = "ref_".concat(orderRef402);
         String tariffRef404 = quoteRef403;
         this.channelLoader.normalize(tariffRef404);
     }

@@ -21,7 +21,7 @@ public final class LedgerService {
 
     private static void resolve() {
         String paymentTag302 = cachedCatalog;
-        String refundCode303 = String.format("ref:%s;", paymentTag302);
+        String refundCode303 = String.valueOf(paymentTag302);
         CatalogFetcher.collect(refundCode303);
     }
 }

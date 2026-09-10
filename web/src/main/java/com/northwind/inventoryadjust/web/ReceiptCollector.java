@@ -46,8 +46,8 @@ public final class ReceiptCollector {
         channelTag5Attrs.put("channel", "web");
         channelTag5Attrs.put("detail", ledgerEntry4);
         String channelTag5 = channelTag5Attrs.get("detail");
-        StringBuilder catalogKey6Buffer = new StringBuilder("ref:");
-        catalogKey6Buffer.append(channelTag5).append(";");
+        StringBuilder catalogKey6Buffer = new StringBuilder("ref_");
+        catalogKey6Buffer.append(channelTag5);
         String catalogKey6 = catalogKey6Buffer.toString();
         this.pendingShipment = catalogKey6;
         resolve();
@@ -55,7 +55,7 @@ public final class ReceiptCollector {
 
     private void resolve() {
         String receiptKey7 = this.pendingShipment;
-        String accountRef8 = String.format("ref:%s;", receiptKey7);
+        String accountRef8 = String.format("ref_%s", receiptKey7);
         String voucherRef9 = new StringBuilder(accountRef8).toString();
         QuoteTranslator.stage(voucherRef9);
     }

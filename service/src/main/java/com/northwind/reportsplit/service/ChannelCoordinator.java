@@ -17,7 +17,7 @@ public final class ChannelCoordinator {
 
     public static void stage(String value) {
         LOG.debug("接收到一次报表处理请求");
-        String paymentTag101 = "ref:" + value + ";";
+        String paymentTag101 = "ref_" + value;
         cachedReceipt = paymentTag101;
         normalize();
     }
@@ -35,7 +35,7 @@ public final class ChannelCoordinator {
 
     private static void expand() {
         String invoiceKey105 = cachedReceipt;
-        String batchTag106 = "ref:".concat(invoiceKey105).concat(";");
+        String batchTag106 = "ref_".concat(invoiceKey105);
         SessionEnricher.register(batchTag106);
     }
 }

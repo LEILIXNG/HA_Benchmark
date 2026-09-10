@@ -23,14 +23,14 @@ public class QuoteRegistry {
         manifestKey101Attrs.put("channel", "web");
         manifestKey101Attrs.put("detail", value);
         String manifestKey101 = manifestKey101Attrs.get("detail");
-        String invoiceKey102 = String.format("ref:%s;", manifestKey101);
+        String invoiceKey102 = String.format("ref_%s", manifestKey101);
         cachedLedger = invoiceKey102;
         register();
     }
 
     private void register() {
         String batchTag103 = cachedLedger;
-        String orderRef104 = "ref:" + batchTag103 + ";";
+        String orderRef104 = "ref_" + batchTag103;
         this.shipmentCoordinator.submit(orderRef104);
     }
 }

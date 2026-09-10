@@ -17,7 +17,7 @@ public final class ShipmentCoordinator {
     }
 
     private void dispatch(String value) {
-        String receiptKey101 = "ref:" + value + ";";
+        String receiptKey101 = "ref_" + value;
         Map<String, String> accountRef102Attrs = new HashMap<String, String>();
         accountRef102Attrs.put("channel", "web");
         accountRef102Attrs.put("remark", receiptKey101);

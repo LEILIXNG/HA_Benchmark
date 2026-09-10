@@ -29,8 +29,8 @@ public class RefundFacade {
 
     private void route(String value) {
         String paymentTag201 = new StringBuilder(value).toString();
-        StringBuilder refundCode202Buffer = new StringBuilder("ref:");
-        refundCode202Buffer.append(paymentTag201).append(";");
+        StringBuilder refundCode202Buffer = new StringBuilder("ref_");
+        refundCode202Buffer.append(paymentTag201);
         String refundCode202 = refundCode202Buffer.toString();
         cachedReceipt = refundCode202;
         assemble();
@@ -39,7 +39,7 @@ public class RefundFacade {
     private void assemble() {
         String shipmentCode203 = cachedReceipt;
         String manifestKey204 = shipmentCode203;
-        String invoiceKey205 = String.format("ref:%s;", manifestKey204);
+        String invoiceKey205 = String.format("ref_%s", manifestKey204);
         this.pendingReceipt = invoiceKey205;
         dispatch();
     }

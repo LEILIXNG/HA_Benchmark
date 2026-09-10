@@ -19,7 +19,7 @@ public final class ShipmentResolver {
     }
 
     private void refine(String value) {
-        String voucherRef101 = String.format("ref:%s;", value);
+        String voucherRef101 = String.format("ref_%s", value);
         String paymentTag102 = voucherRef101;
         this.pendingOrder = paymentTag102;
         forward();

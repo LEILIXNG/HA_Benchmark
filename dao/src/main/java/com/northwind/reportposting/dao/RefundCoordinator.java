@@ -20,8 +20,8 @@ public class RefundCoordinator {
 
     public void route(String value) {
         LOG.debug("开始整理报表字段");
-        StringBuilder quoteRef401Buffer = new StringBuilder("ref:");
-        quoteRef401Buffer.append(value).append(";");
+        StringBuilder quoteRef401Buffer = new StringBuilder("ref_");
+        quoteRef401Buffer.append(value);
         String quoteRef401 = quoteRef401Buffer.toString();
         this.manifestRepository.submit(quoteRef401);
     }

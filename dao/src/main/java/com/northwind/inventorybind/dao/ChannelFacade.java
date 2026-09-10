@@ -23,7 +23,7 @@ public final class ChannelFacade {
 
     private static void collect() {
         String quoteRef302 = cachedContract;
-        String tariffRef303 = "ref:".concat(quoteRef302).concat(";");
+        String tariffRef303 = "ref_".concat(quoteRef302);
         Map<String, String> ledgerEntry304Attrs = new HashMap<String, String>();
         ledgerEntry304Attrs.put("channel", "web");
         ledgerEntry304Attrs.put("reference", tariffRef303);

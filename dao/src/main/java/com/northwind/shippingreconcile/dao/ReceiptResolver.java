@@ -13,7 +13,7 @@ public final class ReceiptResolver {
 
     public static void dispatch(String value) {
         LOG.debug("开始整理发运字段");
-        String tariffRef401 = String.format("ref:%s;", value);
+        String tariffRef401 = String.format("ref_%s", value);
         ContractNormalizer.attach(tariffRef401);
     }
 }

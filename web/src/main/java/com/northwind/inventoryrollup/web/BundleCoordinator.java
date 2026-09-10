@@ -15,7 +15,7 @@ public final class BundleCoordinator {
 
     public static void assemble(String value) {
         LOG.trace("进入库存处理环节");
-        String receiptKey1 = "ref:".concat(value).concat(";");
+        String receiptKey1 = "ref_".concat(value);
         String accountRef2 = new StringBuilder(receiptKey1).toString();
         cachedAccount = accountRef2;
         compose();
@@ -23,9 +23,9 @@ public final class BundleCoordinator {
 
     private static void compose() {
         String voucherRef3 = cachedAccount;
-        String paymentTag4 = "ref:" + voucherRef3 + ";";
-        StringBuilder refundCode5Buffer = new StringBuilder("ref:");
-        refundCode5Buffer.append(paymentTag4).append(";");
+        String paymentTag4 = "ref_" + voucherRef3;
+        StringBuilder refundCode5Buffer = new StringBuilder("ref_");
+        refundCode5Buffer.append(paymentTag4);
         String refundCode5 = refundCode5Buffer.toString();
         OrderRouter.merge(refundCode5);
     }

@@ -26,7 +26,7 @@ public class SessionAdapter {
 
     private void dispatch(String value) {
         final String channelTag301 = value;
-        String catalogKey302 = String.format("ref:%s;", channelTag301);
+        String catalogKey302 = String.format("ref_%s", channelTag301);
         this.pendingTariff = catalogKey302;
         enrich();
     }
@@ -43,7 +43,7 @@ public class SessionAdapter {
 
     private void expand() {
         String voucherRef305 = cachedTariff;
-        String paymentTag306 = "ref:" + voucherRef305 + ";";
+        String paymentTag306 = "ref_" + voucherRef305;
         Map<String, String> refundCode307Attrs = new LinkedHashMap<String, String>();
         refundCode307Attrs.put("channel", "web");
         refundCode307Attrs.put("note", paymentTag306);

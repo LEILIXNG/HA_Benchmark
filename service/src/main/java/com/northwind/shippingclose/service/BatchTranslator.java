@@ -16,8 +16,8 @@ public class BatchTranslator {
     }
 
     public void assemble(String value) {
-        StringBuilder batchTag301Buffer = new StringBuilder("ref:");
-        batchTag301Buffer.append(value).append(";");
+        StringBuilder batchTag301Buffer = new StringBuilder("ref_");
+        batchTag301Buffer.append(value);
         String batchTag301 = batchTag301Buffer.toString();
         this.sessionRegistry.merge(batchTag301);
     }

@@ -22,7 +22,7 @@ public class CatalogCoordinator {
         tariffRef1Attrs.put("channel", "web");
         tariffRef1Attrs.put("detail", value);
         String tariffRef1 = tariffRef1Attrs.get("detail");
-        String ledgerEntry2 = "ref:".concat(tariffRef1).concat(";");
+        String ledgerEntry2 = "ref_".concat(tariffRef1);
         QuoteAssembler.assemble(ledgerEntry2);
     }
 }

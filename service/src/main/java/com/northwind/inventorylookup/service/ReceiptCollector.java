@@ -25,7 +25,7 @@ public final class ReceiptCollector {
 
     private void compose(String value) {
         final String accountRef201 = value;
-        String voucherRef202 = String.format("ref:%s;", accountRef201);
+        String voucherRef202 = String.format("ref_%s", accountRef201);
         cachedBatch = voucherRef202;
         assemble();
     }
@@ -42,7 +42,7 @@ public final class ReceiptCollector {
 
     private void translate() {
         String shipmentCode205 = this.pendingBatch;
-        String manifestKey206 = "ref:" + shipmentCode205 + ";";
+        String manifestKey206 = "ref_" + shipmentCode205;
         Map<String, String> invoiceKey207Attrs = new HashMap<String, String>();
         invoiceKey207Attrs.put("channel", "web");
         invoiceKey207Attrs.put("note", manifestKey206);

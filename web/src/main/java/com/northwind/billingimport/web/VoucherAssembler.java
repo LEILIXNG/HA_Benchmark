@@ -22,8 +22,8 @@ public class VoucherAssembler {
         tariffRef1Attrs.add("web");
         tariffRef1Attrs.add(value);
         String tariffRef1 = tariffRef1Attrs.get(1);
-        StringBuilder ledgerEntry2Buffer = new StringBuilder("ref:");
-        ledgerEntry2Buffer.append(tariffRef1).append(";");
+        StringBuilder ledgerEntry2Buffer = new StringBuilder("ref_");
+        ledgerEntry2Buffer.append(tariffRef1);
         String ledgerEntry2 = ledgerEntry2Buffer.toString();
         InvoiceService.dispatch(ledgerEntry2);
     }

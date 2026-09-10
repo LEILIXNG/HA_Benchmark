@@ -37,14 +37,14 @@ public final class TariffCollector {
 
     private void prepare() {
         String tariffRef4 = this.pendingReceipt;
-        String ledgerEntry5 = String.format("ref:%s;", tariffRef4);
+        String ledgerEntry5 = String.format("ref_%s", tariffRef4);
         cachedReceipt = ledgerEntry5;
         dispatch();
     }
 
     private void dispatch() {
         String channelTag6 = cachedReceipt;
-        String catalogKey7 = String.format("ref:%s;", channelTag6);
+        String catalogKey7 = String.format("ref_%s", channelTag6);
         String receiptKey8 = String.valueOf(catalogKey7);
         cachedReceipt = receiptKey8;
         publish();

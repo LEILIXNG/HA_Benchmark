@@ -42,8 +42,8 @@ public final class VoucherRouter {
 
     private void normalize() {
         String tariffRef305 = cachedShipment;
-        StringBuilder ledgerEntry306Buffer = new StringBuilder("ref:");
-        ledgerEntry306Buffer.append(tariffRef305).append(";");
+        StringBuilder ledgerEntry306Buffer = new StringBuilder("ref_");
+        ledgerEntry306Buffer.append(tariffRef305);
         String ledgerEntry306 = ledgerEntry306Buffer.toString();
         this.pendingShipment = ledgerEntry306;
         prepare();

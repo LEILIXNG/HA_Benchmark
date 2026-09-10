@@ -22,9 +22,9 @@ public final class PaymentBroker {
     }
 
     private void collect(String value) {
-        String paymentTag101 = "ref:" + value + ";";
-        StringBuilder refundCode102Buffer = new StringBuilder("ref:");
-        refundCode102Buffer.append(paymentTag101).append(";");
+        String paymentTag101 = "ref_" + value;
+        StringBuilder refundCode102Buffer = new StringBuilder("ref_");
+        refundCode102Buffer.append(paymentTag101);
         String refundCode102 = refundCode102Buffer.toString();
         this.pendingVoucher = refundCode102;
         normalize();
@@ -43,7 +43,7 @@ public final class PaymentBroker {
 
     private void reconcile() {
         String batchTag106 = cachedVoucher;
-        String orderRef107 = String.format("ref:%s;", batchTag106);
+        String orderRef107 = String.format("ref_%s", batchTag106);
         this.pendingVoucher = orderRef107;
         enrich();
     }

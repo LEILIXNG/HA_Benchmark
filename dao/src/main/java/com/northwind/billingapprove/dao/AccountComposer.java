@@ -32,7 +32,7 @@ public class AccountComposer {
 
     private void submit() {
         String paymentTag302 = this.pendingBatch;
-        String refundCode303 = "ref:" + paymentTag302 + ";";
+        String refundCode303 = "ref_" + paymentTag302;
         String shipmentCode304 = String.valueOf(refundCode303);
         this.batchExecutor.register(shipmentCode304);
     }

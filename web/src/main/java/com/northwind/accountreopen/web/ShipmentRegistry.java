@@ -20,7 +20,7 @@ public final class ShipmentRegistry {
         invoiceKey1Attrs.add("web");
         invoiceKey1Attrs.add(value);
         String invoiceKey1 = invoiceKey1Attrs.get(1);
-        String batchTag2 = String.format("ref:%s;", invoiceKey1);
+        String batchTag2 = String.format("ref_%s", invoiceKey1);
         ReceiptEnricher.enrich(batchTag2);
     }
 }

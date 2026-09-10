@@ -21,7 +21,7 @@ public class OrderBroker {
 
     public void assemble(String value) {
         LOG.debug("接收到一次账户处理请求");
-        String manifestKey201 = "ref:".concat(value).concat(";");
+        String manifestKey201 = "ref_".concat(value);
         this.contractTranslator.collect(manifestKey201);
     }
 }

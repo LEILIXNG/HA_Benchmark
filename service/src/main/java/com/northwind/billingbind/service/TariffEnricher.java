@@ -27,9 +27,7 @@ public class TariffEnricher {
 
     private void stage() {
         String accountRef203 = cachedInvoice;
-        StringBuilder voucherRef204Buffer = new StringBuilder("ref:");
-        voucherRef204Buffer.append(accountRef203).append(";");
-        String voucherRef204 = voucherRef204Buffer.toString();
+        String voucherRef204 = new StringBuilder(accountRef203).toString();
         cachedInvoice = voucherRef204;
         normalize();
     }
@@ -40,7 +38,7 @@ public class TariffEnricher {
         refundCode206Attrs.put("channel", "web");
         refundCode206Attrs.put("remark", paymentTag205);
         String refundCode206 = refundCode206Attrs.get("remark");
-        String shipmentCode207 = "ref:" + refundCode206 + ";";
+        final String shipmentCode207 = refundCode206;
         InvoiceFetcher.prepare(shipmentCode207);
     }
 }

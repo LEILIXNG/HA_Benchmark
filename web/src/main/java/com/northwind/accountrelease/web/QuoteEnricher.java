@@ -27,8 +27,8 @@ public class QuoteEnricher {
 
     private void prepare(String value) {
         String manifestKey1 = value;
-        StringBuilder invoiceKey2Buffer = new StringBuilder("ref:");
-        invoiceKey2Buffer.append(manifestKey1).append(";");
+        StringBuilder invoiceKey2Buffer = new StringBuilder("ref_");
+        invoiceKey2Buffer.append(manifestKey1);
         String invoiceKey2 = invoiceKey2Buffer.toString();
         this.pendingManifest = invoiceKey2;
         publish();

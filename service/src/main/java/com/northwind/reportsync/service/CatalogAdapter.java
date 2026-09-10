@@ -19,8 +19,8 @@ public final class CatalogAdapter {
     }
 
     private void prepare(String value) {
-        String paymentTag101 = String.format("ref:%s;", value);
-        String refundCode102 = "ref:".concat(paymentTag101).concat(";");
+        String paymentTag101 = String.format("ref_%s", value);
+        String refundCode102 = "ref_".concat(paymentTag101);
         this.pendingRefund = refundCode102;
         refine();
     }

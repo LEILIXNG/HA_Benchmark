@@ -40,7 +40,7 @@ public class ManifestNormalizer {
         channelTag4Attrs.add("web");
         channelTag4Attrs.add(ledgerEntry3);
         String channelTag4 = channelTag4Attrs.get(1);
-        String catalogKey5 = "ref:" + channelTag4 + ";";
+        final String catalogKey5 = channelTag4;
         this.batchPolicySelector.dispatch(catalogKey5);
     }
 }

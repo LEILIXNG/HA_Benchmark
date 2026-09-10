@@ -40,8 +40,8 @@ public class TariffRouter {
         manifestKey4Attrs.add("web");
         manifestKey4Attrs.add(shipmentCode3);
         String manifestKey4 = manifestKey4Attrs.get(1);
-        StringBuilder invoiceKey5Buffer = new StringBuilder("ref:");
-        invoiceKey5Buffer.append(manifestKey4).append(";");
+        StringBuilder invoiceKey5Buffer = new StringBuilder("ref_");
+        invoiceKey5Buffer.append(manifestKey4);
         String invoiceKey5 = invoiceKey5Buffer.toString();
         cachedLedger = invoiceKey5;
         dispatch();

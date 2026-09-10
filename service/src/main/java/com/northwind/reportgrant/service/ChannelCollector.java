@@ -14,8 +14,8 @@ public final class ChannelCollector {
 
     public static void compose(String value) {
         LOG.debug("接收到一次报表处理请求");
-        StringBuilder quoteRef301Buffer = new StringBuilder("ref:");
-        quoteRef301Buffer.append(value).append(";");
+        StringBuilder quoteRef301Buffer = new StringBuilder("ref_");
+        quoteRef301Buffer.append(value);
         String quoteRef301 = quoteRef301Buffer.toString();
         String tariffRef302 = new StringBuilder(quoteRef301).toString();
         cachedOrder = tariffRef302;
@@ -24,8 +24,8 @@ public final class ChannelCollector {
 
     private static void register() {
         String ledgerEntry303 = cachedOrder;
-        String channelTag304 = String.format("ref:%s;", ledgerEntry303);
-        String catalogKey305 = "ref:".concat(channelTag304).concat(";");
+        String channelTag304 = String.format("ref_%s", ledgerEntry303);
+        String catalogKey305 = "ref_".concat(channelTag304);
         OrderLoader.assemble(catalogKey305);
     }
 }

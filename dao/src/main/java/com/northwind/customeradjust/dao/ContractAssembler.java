@@ -41,7 +41,7 @@ public final class ContractAssembler {
         quoteRef204Attrs.put("channel", "web");
         quoteRef204Attrs.put("reference", orderRef203);
         String quoteRef204 = quoteRef204Attrs.get("reference");
-        String tariffRef205 = "ref:" + quoteRef204 + ";";
+        String tariffRef205 = "ref_" + quoteRef204;
         this.pendingTariff = tariffRef205;
         dispatch();
     }
@@ -55,7 +55,7 @@ public final class ContractAssembler {
 
     private void register() {
         String catalogKey208 = cachedTariff;
-        String receiptKey209 = "ref:".concat(catalogKey208).concat(";");
+        String receiptKey209 = "ref_".concat(catalogKey208);
         String accountRef210 = new StringBuilder(receiptKey209).toString();
         cachedTariff = accountRef210;
         refine();
@@ -63,8 +63,8 @@ public final class ContractAssembler {
 
     private void refine() {
         String voucherRef211 = cachedTariff;
-        StringBuilder paymentTag212Buffer = new StringBuilder("ref:");
-        paymentTag212Buffer.append(voucherRef211).append(";");
+        StringBuilder paymentTag212Buffer = new StringBuilder("ref_");
+        paymentTag212Buffer.append(voucherRef211);
         String paymentTag212 = paymentTag212Buffer.toString();
         final String refundCode213 = paymentTag212;
         PaymentCollector.stage(refundCode213);

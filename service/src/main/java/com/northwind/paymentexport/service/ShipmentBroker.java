@@ -18,14 +18,14 @@ public final class ShipmentBroker {
         orderRef101Attrs.put("channel", "web");
         orderRef101Attrs.put("detail", value);
         String orderRef101 = orderRef101Attrs.getOrDefault("detail", "");
-        String quoteRef102 = String.format("ref:%s;", orderRef101);
+        String quoteRef102 = String.format("ref_%s", orderRef101);
         cachedOrder = quoteRef102;
         dispatch();
     }
 
     private static void dispatch() {
         String tariffRef103 = cachedOrder;
-        String ledgerEntry104 = "ref:" + tariffRef103 + ";";
+        String ledgerEntry104 = "ref_" + tariffRef103;
         List<String> channelTag105Attrs = new ArrayList<String>();
         channelTag105Attrs.add("web");
         channelTag105Attrs.add(ledgerEntry104);

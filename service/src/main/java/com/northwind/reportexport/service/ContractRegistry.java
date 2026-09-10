@@ -19,15 +19,15 @@ public class ContractRegistry {
         manifestKey201Attrs.put("channel", "web");
         manifestKey201Attrs.put("detail", value);
         String manifestKey201 = manifestKey201Attrs.getOrDefault("detail", "");
-        String invoiceKey202 = "ref:".concat(manifestKey201).concat(";");
+        String invoiceKey202 = "ref_".concat(manifestKey201);
         cachedPayment = invoiceKey202;
         translate();
     }
 
     private void translate() {
         String batchTag203 = cachedPayment;
-        StringBuilder orderRef204Buffer = new StringBuilder("ref:");
-        orderRef204Buffer.append(batchTag203).append(";");
+        StringBuilder orderRef204Buffer = new StringBuilder("ref_");
+        orderRef204Buffer.append(batchTag203);
         String orderRef204 = orderRef204Buffer.toString();
         RefundAdapter.refine(orderRef204);
     }

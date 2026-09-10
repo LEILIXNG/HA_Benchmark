@@ -23,7 +23,7 @@ public class OrderCollector {
         paymentTag1Attrs.add("web");
         paymentTag1Attrs.add(value);
         String paymentTag1 = paymentTag1Attrs.get(1);
-        String refundCode2 = "ref:" + paymentTag1 + ";";
+        String refundCode2 = new StringBuilder(paymentTag1).toString();
         this.voucherService.merge(refundCode2);
     }
 }

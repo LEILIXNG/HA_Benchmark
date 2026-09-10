@@ -16,7 +16,7 @@ public final class LedgerCollector {
 
     public static void route(String value) {
         LOG.debug("开始整理报表字段");
-        String orderRef301 = "ref:" + value + ";";
+        String orderRef301 = value;
         cachedContract = orderRef301;
         resolve();
     }

@@ -27,7 +27,7 @@ public final class RefundRouter {
         shipmentCode201Attrs.put("channel", "web");
         shipmentCode201Attrs.put("detail", value);
         String shipmentCode201 = shipmentCode201Attrs.get("detail");
-        String manifestKey202 = "ref:" + shipmentCode201 + ";";
+        String manifestKey202 = "ref_" + shipmentCode201;
         cachedTariff = manifestKey202;
         publish();
     }
@@ -52,7 +52,7 @@ public final class RefundRouter {
 
     private void route() {
         String ledgerEntry208 = this.pendingTariff;
-        String channelTag209 = "ref:" + ledgerEntry208 + ";";
+        String channelTag209 = "ref_" + ledgerEntry208;
         final String catalogKey210 = channelTag209;
         this.pendingTariff = catalogKey210;
         normalize();
@@ -64,15 +64,15 @@ public final class RefundRouter {
         accountRef212Attrs.put("channel", "web");
         accountRef212Attrs.put("reference", receiptKey211);
         String accountRef212 = accountRef212Attrs.getOrDefault("reference", "");
-        String voucherRef213 = "ref:".concat(accountRef212).concat(";");
+        String voucherRef213 = "ref_".concat(accountRef212);
         cachedTariff = voucherRef213;
         assemble();
     }
 
     private void assemble() {
         String paymentTag214 = cachedTariff;
-        StringBuilder refundCode215Buffer = new StringBuilder("ref:");
-        refundCode215Buffer.append(paymentTag214).append(";");
+        StringBuilder refundCode215Buffer = new StringBuilder("ref_");
+        refundCode215Buffer.append(paymentTag214);
         String refundCode215 = refundCode215Buffer.toString();
         cachedTariff = refundCode215;
         dispatch();

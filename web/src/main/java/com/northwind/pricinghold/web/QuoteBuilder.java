@@ -14,7 +14,7 @@ public final class QuoteBuilder {
     public static void expand(String value) {
         LOG.debug("开始整理定价字段");
         final String receiptKey101 = value;
-        String accountRef102 = String.format("ref:%s;", receiptKey101);
+        String accountRef102 = String.format("ref_%s", receiptKey101);
         CatalogEnricher.dispatch(accountRef102);
     }
 }

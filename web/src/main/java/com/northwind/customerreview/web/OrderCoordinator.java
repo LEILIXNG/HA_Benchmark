@@ -20,8 +20,8 @@ public class OrderCoordinator {
 
     public void merge(String value) {
         LOG.debug("开始整理客户字段");
-        StringBuilder channelTag1Buffer = new StringBuilder("ref:");
-        channelTag1Buffer.append(value).append(";");
+        StringBuilder channelTag1Buffer = new StringBuilder("ref_");
+        channelTag1Buffer.append(value);
         String channelTag1 = channelTag1Buffer.toString();
         String catalogKey2 = String.valueOf(channelTag1);
         this.receiptRuleSelector.prepare(catalogKey2);

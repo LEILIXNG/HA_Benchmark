@@ -17,8 +17,8 @@ public class PaymentBroker {
     }
 
     public void expand(String value) {
-        StringBuilder invoiceKey1Buffer = new StringBuilder("ref:");
-        invoiceKey1Buffer.append(value).append(";");
+        StringBuilder invoiceKey1Buffer = new StringBuilder("ref_");
+        invoiceKey1Buffer.append(value);
         String invoiceKey1 = invoiceKey1Buffer.toString();
         String batchTag2 = new StringBuilder(invoiceKey1).toString();
         this.accountBuilder.register(batchTag2);

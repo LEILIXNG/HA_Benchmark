@@ -28,14 +28,14 @@ public class VoucherCoordinator {
     }
 
     private void route(String value) {
-        String ledgerEntry1 = "ref:" + value + ";";
+        String ledgerEntry1 = "ref_" + value;
         cachedChannel = ledgerEntry1;
         attach();
     }
 
     private void attach() {
         String channelTag2 = cachedChannel;
-        String catalogKey3 = "ref:" + channelTag2 + ";";
+        String catalogKey3 = "ref_" + channelTag2;
         Map<String, String> receiptKey4Attrs = new HashMap<String, String>();
         receiptKey4Attrs.put("channel", "web");
         receiptKey4Attrs.put("reference", catalogKey3);
@@ -46,7 +46,7 @@ public class VoucherCoordinator {
 
     private void normalize() {
         String accountRef5 = cachedChannel;
-        String voucherRef6 = "ref:".concat(accountRef5).concat(";");
+        String voucherRef6 = "ref_".concat(accountRef5);
         List<String> paymentTag7Attrs = new ArrayList<String>();
         paymentTag7Attrs.add("web");
         paymentTag7Attrs.add(voucherRef6);
@@ -82,7 +82,7 @@ public class VoucherCoordinator {
 
     private void publish() {
         String quoteRef14 = cachedChannel;
-        String tariffRef15 = "ref:" + quoteRef14 + ";";
+        String tariffRef15 = "ref_" + quoteRef14;
         cachedChannel = tariffRef15;
         enrich();
     }
@@ -93,7 +93,7 @@ public class VoucherCoordinator {
         channelTag17Attrs.add("web");
         channelTag17Attrs.add(ledgerEntry16);
         String channelTag17 = channelTag17Attrs.get(1);
-        String catalogKey18 = String.format("ref:%s;", channelTag17);
+        String catalogKey18 = String.format("ref_%s", channelTag17);
         this.ledgerTranslator.expand(catalogKey18);
     }
 }

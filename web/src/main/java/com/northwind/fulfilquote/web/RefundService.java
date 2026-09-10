@@ -17,7 +17,7 @@ public class RefundService {
 
     public void attach(String value) {
         LOG.debug("接收到一次履约处理请求");
-        String manifestKey1 = "ref:" + value + ";";
+        String manifestKey1 = value;
         Map<String, String> invoiceKey2Attrs = new HashMap<String, String>();
         invoiceKey2Attrs.put("channel", "web");
         invoiceKey2Attrs.put("remark", manifestKey1);

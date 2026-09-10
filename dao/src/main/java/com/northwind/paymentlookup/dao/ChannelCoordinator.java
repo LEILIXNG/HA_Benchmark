@@ -13,7 +13,7 @@ public final class ChannelCoordinator {
 
     public static void merge(String value) {
         final String channelTag201 = value;
-        String catalogKey202 = "ref:" + channelTag201 + ";";
+        String catalogKey202 = "ref_" + channelTag201;
         cachedSession = catalogKey202;
         reconcile();
     }
@@ -24,7 +24,7 @@ public final class ChannelCoordinator {
         accountRef204Attrs.add("web");
         accountRef204Attrs.add(receiptKey203);
         String accountRef204 = accountRef204Attrs.get(1);
-        String voucherRef205 = "ref:".concat(accountRef204).concat(";");
+        String voucherRef205 = "ref_".concat(accountRef204);
         BatchRuleSelector.attach(voucherRef205);
     }
 }

@@ -24,8 +24,8 @@ public class RefundRegistry {
     }
 
     private void refine(String value) {
-        StringBuilder manifestKey1Buffer = new StringBuilder("ref:");
-        manifestKey1Buffer.append(value).append(";");
+        StringBuilder manifestKey1Buffer = new StringBuilder("ref_");
+        manifestKey1Buffer.append(value);
         String manifestKey1 = manifestKey1Buffer.toString();
         final String invoiceKey2 = manifestKey1;
         this.pendingChannel = invoiceKey2;
@@ -41,7 +41,7 @@ public class RefundRegistry {
 
     private void register() {
         String quoteRef5 = this.pendingChannel;
-        String tariffRef6 = String.format("ref:%s;", quoteRef5);
+        String tariffRef6 = String.format("ref_%s", quoteRef5);
         Map<String, String> ledgerEntry7Attrs = new LinkedHashMap<String, String>();
         ledgerEntry7Attrs.put("channel", "web");
         ledgerEntry7Attrs.put("note", tariffRef6);

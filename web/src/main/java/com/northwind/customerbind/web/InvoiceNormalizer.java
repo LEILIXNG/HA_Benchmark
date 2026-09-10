@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 public class InvoiceNormalizer {
 
     public void compose(String value) {
-        String manifestKey1 = "ref:".concat(value).concat(";");
-        String invoiceKey2 = String.format("ref:%s;", manifestKey1);
+        final String manifestKey1 = value;
+        String invoiceKey2 = new StringBuilder(manifestKey1).toString();
         ReceiptComposer.merge(invoiceKey2);
     }
 }

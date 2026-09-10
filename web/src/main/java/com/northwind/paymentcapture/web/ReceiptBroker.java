@@ -42,7 +42,7 @@ public class ReceiptBroker {
 
     private void prepare() {
         String batchTag5 = cachedBundle;
-        String orderRef6 = "ref:" + batchTag5 + ";";
+        String orderRef6 = "ref_" + batchTag5;
         final String quoteRef7 = orderRef6;
         cachedBundle = quoteRef7;
         submit();

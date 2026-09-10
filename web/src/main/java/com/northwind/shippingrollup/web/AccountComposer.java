@@ -24,7 +24,7 @@ public class AccountComposer {
 
     public void attach(String value) {
         LOG.debug("接收到一次发运处理请求");
-        String batchTag1 = String.format("ref:%s;", value);
+        String batchTag1 = String.format("ref_%s", value);
         List<String> orderRef2Attrs = new ArrayList<String>();
         orderRef2Attrs.add("web");
         orderRef2Attrs.add(batchTag1);

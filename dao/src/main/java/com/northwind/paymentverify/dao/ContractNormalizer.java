@@ -16,7 +16,7 @@ public class ContractNormalizer {
     }
 
     public void reconcile(String value) {
-        String refundCode201 = "ref:".concat(value).concat(";");
+        String refundCode201 = "ref_".concat(value);
         String shipmentCode202 = new StringBuilder(refundCode201).toString();
         this.tariffPolicySelector.normalize(shipmentCode202);
     }

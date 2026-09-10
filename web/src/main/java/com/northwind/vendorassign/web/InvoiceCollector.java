@@ -24,9 +24,9 @@ public class InvoiceCollector {
 
     private void normalize() {
         String receiptKey2 = cachedManifest;
-        String accountRef3 = String.format("ref:%s;", receiptKey2);
-        StringBuilder voucherRef4Buffer = new StringBuilder("ref:");
-        voucherRef4Buffer.append(accountRef3).append(";");
+        String accountRef3 = String.format("ref_%s", receiptKey2);
+        StringBuilder voucherRef4Buffer = new StringBuilder("ref_");
+        voucherRef4Buffer.append(accountRef3);
         String voucherRef4 = voucherRef4Buffer.toString();
         cachedManifest = voucherRef4;
         publish();

@@ -18,8 +18,8 @@ public class ShipmentBuilder {
 
     public void publish(String value) {
         final String refundCode101 = value;
-        StringBuilder shipmentCode102Buffer = new StringBuilder("ref:");
-        shipmentCode102Buffer.append(refundCode101).append(";");
+        StringBuilder shipmentCode102Buffer = new StringBuilder("ref_");
+        shipmentCode102Buffer.append(refundCode101);
         String shipmentCode102 = shipmentCode102Buffer.toString();
         cachedReceipt = shipmentCode102;
         reconcile();

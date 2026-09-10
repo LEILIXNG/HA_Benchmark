@@ -20,8 +20,8 @@ public class BundleCoordinator {
 
     public void prepare(String value) {
         LOG.trace("进入账户处理环节");
-        StringBuilder shipmentCode301Buffer = new StringBuilder("ref:");
-        shipmentCode301Buffer.append(value).append(";");
+        StringBuilder shipmentCode301Buffer = new StringBuilder("ref_");
+        shipmentCode301Buffer.append(value);
         String shipmentCode301 = shipmentCode301Buffer.toString();
         this.ledgerCoordinator.submit(shipmentCode301);
     }

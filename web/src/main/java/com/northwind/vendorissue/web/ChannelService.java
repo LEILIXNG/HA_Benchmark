@@ -16,7 +16,7 @@ public class ChannelService {
     }
 
     public void refine(String value) {
-        String shipmentCode1 = "ref:" + value + ";";
+        String shipmentCode1 = "ref_" + value;
         this.refundCollector.compose(shipmentCode1);
     }
 }

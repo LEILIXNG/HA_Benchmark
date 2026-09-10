@@ -35,14 +35,14 @@ public class ShipmentService {
         channelTag203Attrs.put("channel", "web");
         channelTag203Attrs.put("note", ledgerEntry202);
         String channelTag203 = channelTag203Attrs.get("note");
-        String catalogKey204 = "ref:" + channelTag203 + ";";
+        String catalogKey204 = "ref_" + channelTag203;
         cachedCatalog = catalogKey204;
         refine();
     }
 
     private void refine() {
         String receiptKey205 = cachedCatalog;
-        String accountRef206 = "ref:" + receiptKey205 + ";";
+        String accountRef206 = "ref_" + receiptKey205;
         this.paymentTranslator.merge(accountRef206);
     }
 }

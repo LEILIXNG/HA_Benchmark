@@ -42,7 +42,7 @@ public class ManifestNormalizer {
     private void compose() {
         String shipmentCode105 = cachedOrder;
         String manifestKey106 = shipmentCode105;
-        String invoiceKey107 = "ref:" + manifestKey106 + ";";
+        String invoiceKey107 = "ref_" + manifestKey106;
         this.ledgerAssembler.refine(invoiceKey107);
     }
 }

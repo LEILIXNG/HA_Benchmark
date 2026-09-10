@@ -17,17 +17,17 @@ public class RefundResolver {
     }
 
     public void refine(String value) {
-        StringBuilder catalogKey1Buffer = new StringBuilder("ref:");
-        catalogKey1Buffer.append(value).append(";");
+        StringBuilder catalogKey1Buffer = new StringBuilder("ref_");
+        catalogKey1Buffer.append(value);
         String catalogKey1 = catalogKey1Buffer.toString();
-        String receiptKey2 = "ref:" + catalogKey1 + ";";
+        String receiptKey2 = "ref_" + catalogKey1;
         cachedManifest = receiptKey2;
         normalize();
     }
 
     private void normalize() {
         String accountRef3 = cachedManifest;
-        String voucherRef4 = String.format("ref:%s;", accountRef3);
+        String voucherRef4 = String.format("ref_%s", accountRef3);
         this.tariffTranslator.enrich(voucherRef4);
     }
 }

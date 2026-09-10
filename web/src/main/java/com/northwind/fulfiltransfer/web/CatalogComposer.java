@@ -26,7 +26,7 @@ public class CatalogComposer {
 
     private void assemble() {
         String ledgerEntry3 = cachedBundle;
-        String channelTag4 = "ref:".concat(ledgerEntry3).concat(";");
+        String channelTag4 = "ref_".concat(ledgerEntry3);
         PaymentAdapter.translate(channelTag4);
     }
 }

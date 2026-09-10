@@ -27,9 +27,7 @@ public class LedgerCoordinator {
     }
 
     private void submit(String value) {
-        StringBuilder batchTag1Buffer = new StringBuilder("ref:");
-        batchTag1Buffer.append(value).append(";");
-        String batchTag1 = batchTag1Buffer.toString();
+        final String batchTag1 = value;
         this.pendingRefund = batchTag1;
         prepare();
     }

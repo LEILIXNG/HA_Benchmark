@@ -37,7 +37,7 @@ public class CatalogRouter {
 
     private void merge() {
         String quoteRef203 = this.pendingQuote;
-        String tariffRef204 = "ref:".concat(quoteRef203).concat(";");
+        String tariffRef204 = "ref_".concat(quoteRef203);
         Map<String, String> ledgerEntry205Attrs = new HashMap<String, String>();
         ledgerEntry205Attrs.put("channel", "web");
         ledgerEntry205Attrs.put("detail", tariffRef204);
@@ -59,7 +59,7 @@ public class CatalogRouter {
     private void refine() {
         String receiptKey208 = cachedQuote;
         String accountRef209 = String.valueOf(receiptKey208);
-        String voucherRef210 = "ref:".concat(accountRef209).concat(";");
+        String voucherRef210 = "ref_".concat(accountRef209);
         cachedQuote = voucherRef210;
         collect();
     }
@@ -89,7 +89,7 @@ public class CatalogRouter {
 
     private void expand() {
         String tariffRef219 = cachedQuote;
-        String ledgerEntry220 = "ref:" + tariffRef219 + ";";
+        String ledgerEntry220 = "ref_" + tariffRef219;
         this.pendingQuote = ledgerEntry220;
         attach();
     }

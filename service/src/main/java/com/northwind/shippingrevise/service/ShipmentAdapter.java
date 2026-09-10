@@ -21,7 +21,7 @@ public final class ShipmentAdapter {
     }
 
     private void prepare(String value) {
-        String voucherRef101 = "ref:" + value + ";";
+        String voucherRef101 = "ref_" + value;
         this.pendingPayment = voucherRef101;
         reconcile();
     }

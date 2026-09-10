@@ -22,7 +22,7 @@ public class AccountRouter {
 
     public void submit(String value) {
         LOG.trace("进入履约处理环节");
-        String paymentTag201 = "ref:" + value + ";";
+        String paymentTag201 = "ref_" + value;
         Map<String, String> refundCode202Attrs = new HashMap<String, String>();
         refundCode202Attrs.put("channel", "web");
         refundCode202Attrs.put("remark", paymentTag201);

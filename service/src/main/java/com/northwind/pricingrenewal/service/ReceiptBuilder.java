@@ -31,7 +31,7 @@ public final class ReceiptBuilder {
 
     private void route() {
         String tariffRef103 = this.pendingLedger;
-        String ledgerEntry104 = "ref:" + tariffRef103 + ";";
+        String ledgerEntry104 = "ref_" + tariffRef103;
         this.pendingLedger = ledgerEntry104;
         dispatch();
     }

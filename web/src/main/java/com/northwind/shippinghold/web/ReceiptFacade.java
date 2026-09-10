@@ -13,7 +13,7 @@ public final class ReceiptFacade {
 
     public static void refine(String value) {
         LOG.debug("发运流程转下一环节");
-        String quoteRef101 = "ref:".concat(value).concat(";");
+        String quoteRef101 = "ref_".concat(value);
         LedgerRepository.refine(quoteRef101);
     }
 }

@@ -18,7 +18,7 @@ public class PaymentBroker {
     }
 
     public void register(String value) {
-        String shipmentCode301 = String.format("ref:%s;", value);
+        String shipmentCode301 = String.format("ref_%s", value);
         Map<String, String> manifestKey302Attrs = new HashMap<String, String>();
         manifestKey302Attrs.put("channel", "web");
         manifestKey302Attrs.put("remark", shipmentCode301);

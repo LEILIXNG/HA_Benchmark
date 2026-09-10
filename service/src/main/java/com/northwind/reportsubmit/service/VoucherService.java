@@ -17,14 +17,14 @@ public class VoucherService {
     }
 
     private void route(String value) {
-        String channelTag101 = "ref:" + value + ";";
+        String channelTag101 = String.valueOf(value);
         this.pendingInvoice = channelTag101;
         stage();
     }
 
     private void stage() {
         String catalogKey102 = this.pendingInvoice;
-        String receiptKey103 = "ref:" + catalogKey102 + ";";
+        String receiptKey103 = String.valueOf(catalogKey102);
         final String accountRef104 = receiptKey103;
         cachedInvoice = accountRef104;
         submit();

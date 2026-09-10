@@ -16,8 +16,8 @@ public class BundleResolver {
 
     public void assemble(String value) {
         LOG.debug("开始整理供应商字段");
-        StringBuilder orderRef1Buffer = new StringBuilder("ref:");
-        orderRef1Buffer.append(value).append(";");
+        StringBuilder orderRef1Buffer = new StringBuilder("ref_");
+        orderRef1Buffer.append(value);
         String orderRef1 = orderRef1Buffer.toString();
         String quoteRef2 = orderRef1;
         BundleAssembler.expand(quoteRef2);

@@ -37,8 +37,8 @@ public class OrderBroker {
 
     private void translate() {
         String channelTag3 = cachedBatch;
-        StringBuilder catalogKey4Buffer = new StringBuilder("ref:");
-        catalogKey4Buffer.append(channelTag3).append(";");
+        StringBuilder catalogKey4Buffer = new StringBuilder("ref_");
+        catalogKey4Buffer.append(channelTag3);
         String catalogKey4 = catalogKey4Buffer.toString();
         List<String> receiptKey5Attrs = new ArrayList<String>();
         receiptKey5Attrs.add("web");

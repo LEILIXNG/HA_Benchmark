@@ -23,7 +23,7 @@ public class SessionTranslator {
     }
 
     private void stage(String value) {
-        String batchTag101 = "ref:" + value + ";";
+        String batchTag101 = "ref_" + value;
         this.pendingInvoice = batchTag101;
         refine();
     }
@@ -34,7 +34,7 @@ public class SessionTranslator {
         quoteRef103Attrs.put("channel", "web");
         quoteRef103Attrs.put("note", orderRef102);
         String quoteRef103 = quoteRef103Attrs.get("note");
-        String tariffRef104 = "ref:".concat(quoteRef103).concat(";");
+        String tariffRef104 = "ref_".concat(quoteRef103);
         ManifestResolver.reconcile(tariffRef104);
     }
 }

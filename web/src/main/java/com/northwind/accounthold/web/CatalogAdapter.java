@@ -10,7 +10,7 @@ import com.northwind.accounthold.service.SessionAssembler;
 public final class CatalogAdapter {
 
     public static void enrich(String value) {
-        String orderRef1 = String.format("ref:%s;", value);
+        String orderRef1 = String.format("ref_%s", value);
         SessionAssembler.publish(orderRef1);
     }
 }

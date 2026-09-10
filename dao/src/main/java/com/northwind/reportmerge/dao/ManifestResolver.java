@@ -30,7 +30,7 @@ public final class ManifestResolver {
 
     private void stage() {
         String invoiceKey203 = cachedContract;
-        String batchTag204 = "ref:".concat(invoiceKey203).concat(";");
+        String batchTag204 = "ref_".concat(invoiceKey203);
         this.pendingContract = batchTag204;
         dispatch();
     }
@@ -41,7 +41,7 @@ public final class ManifestResolver {
         quoteRef206Attrs.put("channel", "web");
         quoteRef206Attrs.put("remark", orderRef205);
         String quoteRef206 = quoteRef206Attrs.getOrDefault("remark", "");
-        String tariffRef207 = String.format("ref:%s;", quoteRef206);
+        String tariffRef207 = String.format("ref_%s", quoteRef206);
         ContractRepository.reconcile(tariffRef207);
     }
 }

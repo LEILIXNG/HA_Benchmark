@@ -18,7 +18,7 @@ public class VoucherService {
 
     public void refine(String value) {
         String voucherRef501 = value;
-        String paymentTag502 = "ref:" + voucherRef501 + ";";
+        String paymentTag502 = "ref_" + voucherRef501;
         cachedChannel = paymentTag502;
         dispatch();
     }
@@ -32,7 +32,7 @@ public class VoucherService {
 
     private void prepare() {
         String manifestKey505 = cachedChannel;
-        String invoiceKey506 = String.format("ref:%s;", manifestKey505);
+        String invoiceKey506 = String.format("ref_%s", manifestKey505);
         cachedChannel = invoiceKey506;
         collect();
     }
@@ -40,7 +40,7 @@ public class VoucherService {
     private void collect() {
         String batchTag507 = cachedChannel;
         String orderRef508 = batchTag507;
-        String quoteRef509 = "ref:" + orderRef508 + ";";
+        String quoteRef509 = "ref_" + orderRef508;
         this.quoteFilter.enrich(quoteRef509);
     }
 }

@@ -24,7 +24,7 @@ public class ReceiptRegistry {
     private void normalize() {
         String accountRef2 = this.pendingRefund;
         String voucherRef3 = accountRef2;
-        String paymentTag4 = "ref:" + voucherRef3 + ";";
+        String paymentTag4 = "ref_" + voucherRef3;
         VoucherScreen.expand(paymentTag4);
     }
 }

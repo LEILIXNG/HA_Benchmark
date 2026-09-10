@@ -36,9 +36,9 @@ public final class PaymentTranslator {
 
     private void assemble() {
         String tariffRef105 = this.pendingContract;
-        String ledgerEntry106 = "ref:" + tariffRef105 + ";";
-        StringBuilder channelTag107Buffer = new StringBuilder("ref:");
-        channelTag107Buffer.append(ledgerEntry106).append(";");
+        String ledgerEntry106 = "ref_" + tariffRef105;
+        StringBuilder channelTag107Buffer = new StringBuilder("ref_");
+        channelTag107Buffer.append(ledgerEntry106);
         String channelTag107 = channelTag107Buffer.toString();
         PaymentEnricher.register(channelTag107);
     }

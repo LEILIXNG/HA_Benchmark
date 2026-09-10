@@ -26,7 +26,7 @@ public class ReceiptCoordinator {
         ledgerEntry101Attrs.add("web");
         ledgerEntry101Attrs.add(value);
         String ledgerEntry101 = ledgerEntry101Attrs.get(1);
-        String channelTag102 = "ref:".concat(ledgerEntry101).concat(";");
+        String channelTag102 = "ref_".concat(ledgerEntry101);
         this.accountNormalizer.attach(channelTag102);
     }
 }

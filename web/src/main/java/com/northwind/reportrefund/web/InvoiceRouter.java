@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 public class InvoiceRouter {
 
     public void enrich(String value) {
-        String quoteRef1 = "ref:".concat(value).concat(";");
-        String tariffRef2 = String.format("ref:%s;", quoteRef1);
+        String quoteRef1 = "ref_".concat(value);
+        String tariffRef2 = String.format("ref_%s", quoteRef1);
         CatalogRouter.stage(tariffRef2);
     }
 }

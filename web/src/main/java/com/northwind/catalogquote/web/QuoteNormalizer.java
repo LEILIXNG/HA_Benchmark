@@ -24,10 +24,10 @@ public class QuoteNormalizer {
 
     public void register(String value) {
         LOG.debug("开始整理商品字段");
-        StringBuilder accountRef1Buffer = new StringBuilder("ref:");
-        accountRef1Buffer.append(value).append(";");
+        StringBuilder accountRef1Buffer = new StringBuilder("ref_");
+        accountRef1Buffer.append(value);
         String accountRef1 = accountRef1Buffer.toString();
-        String voucherRef2 = "ref:" + accountRef1 + ";";
+        String voucherRef2 = "ref_" + accountRef1;
         cachedTariff = voucherRef2;
         refine();
     }

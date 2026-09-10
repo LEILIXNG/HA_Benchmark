@@ -20,8 +20,8 @@ public final class AccountEnricher {
     }
 
     private void submit(String value) {
-        String paymentTag201 = "ref:".concat(value).concat(";");
-        String refundCode202 = String.format("ref:%s;", paymentTag201);
+        String paymentTag201 = "ref_".concat(value);
+        String refundCode202 = String.format("ref_%s", paymentTag201);
         this.pendingBatch = refundCode202;
         collect();
     }
@@ -35,7 +35,7 @@ public final class AccountEnricher {
 
     private void prepare() {
         String invoiceKey205 = cachedBatch;
-        String batchTag206 = "ref:" + invoiceKey205 + ";";
+        String batchTag206 = "ref_" + invoiceKey205;
         this.pendingBatch = batchTag206;
         reconcile();
     }

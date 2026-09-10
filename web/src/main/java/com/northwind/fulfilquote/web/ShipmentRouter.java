@@ -23,7 +23,7 @@ public final class ShipmentRouter {
 
     private static void enrich() {
         String paymentTag103 = cachedTariff;
-        String refundCode104 = String.format("ref:%s;", paymentTag103);
+        String refundCode104 = String.valueOf(paymentTag103);
         AccountResolver.resolve(refundCode104);
     }
 }

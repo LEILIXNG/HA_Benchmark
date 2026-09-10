@@ -33,7 +33,7 @@ public class CatalogTranslator {
 
     private void publish() {
         String ledgerEntry2 = this.pendingBundle;
-        String channelTag3 = "ref:".concat(ledgerEntry2).concat(";");
+        String channelTag3 = "ref_".concat(ledgerEntry2);
         String catalogKey4 = channelTag3;
         this.invoicePolicy.resolve(catalogKey4);
     }

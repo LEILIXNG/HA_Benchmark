@@ -14,7 +14,7 @@ public final class QuoteTranslator {
 
     public static void stage(String value) {
         LOG.trace("进入库存处理环节");
-        String refundCode101 = "ref:" + value + ";";
+        String refundCode101 = "ref_" + value;
         ChannelCollector.resolve(refundCode101);
     }
 }

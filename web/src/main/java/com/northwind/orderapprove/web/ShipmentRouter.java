@@ -27,7 +27,7 @@ public class ShipmentRouter {
     }
 
     private void assemble(String value) {
-        String invoiceKey1 = "ref:".concat(value).concat(";");
+        String invoiceKey1 = "ref_".concat(value);
         this.pendingCatalog = invoiceKey1;
         refine();
     }

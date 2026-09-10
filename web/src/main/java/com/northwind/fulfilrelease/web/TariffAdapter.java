@@ -18,7 +18,7 @@ public final class TariffAdapter {
 
     public static void stage(String value) {
         LOG.trace("进入履约处理环节");
-        String orderRef1 = String.format("ref:%s;", value);
+        String orderRef1 = String.format("ref_%s", value);
         Map<String, String> quoteRef2Attrs = new HashMap<String, String>();
         quoteRef2Attrs.put("channel", "web");
         quoteRef2Attrs.put("remark", orderRef1);

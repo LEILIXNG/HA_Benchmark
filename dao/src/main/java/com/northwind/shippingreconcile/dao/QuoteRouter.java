@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class QuoteRouter {
 
     public void expand(String value) {
-        String accountRef301 = "ref:" + value + ";";
+        String accountRef301 = "ref_" + value;
         ReceiptResolver.dispatch(accountRef301);
     }
 }

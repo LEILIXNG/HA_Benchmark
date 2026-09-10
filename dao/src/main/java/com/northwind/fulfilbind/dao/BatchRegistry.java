@@ -53,8 +53,8 @@ public final class BatchRegistry {
 
     private void stage() {
         String accountRef308 = this.pendingCatalog;
-        String voucherRef309 = "ref:" + accountRef308 + ";";
-        String paymentTag310 = String.format("ref:%s;", voucherRef309);
+        String voucherRef309 = "ref_" + accountRef308;
+        String paymentTag310 = String.format("ref_%s", voucherRef309);
         CatalogEvaluator.register(paymentTag310);
     }
 }

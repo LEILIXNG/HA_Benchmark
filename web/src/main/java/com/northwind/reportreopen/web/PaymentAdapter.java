@@ -23,8 +23,8 @@ public class PaymentAdapter {
         voucherRef101Attrs.put("channel", "web");
         voucherRef101Attrs.put("detail", value);
         String voucherRef101 = voucherRef101Attrs.get("detail");
-        StringBuilder paymentTag102Buffer = new StringBuilder("ref:");
-        paymentTag102Buffer.append(voucherRef101).append(";");
+        StringBuilder paymentTag102Buffer = new StringBuilder("ref_");
+        paymentTag102Buffer.append(voucherRef101);
         String paymentTag102 = paymentTag102Buffer.toString();
         this.bundleBuilder.submit(paymentTag102);
     }

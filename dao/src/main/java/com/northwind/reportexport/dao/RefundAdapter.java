@@ -9,8 +9,8 @@ public final class RefundAdapter {
     private static String cachedPayment;
 
     public static void refine(String value) {
-        StringBuilder accountRef301Buffer = new StringBuilder("ref:");
-        accountRef301Buffer.append(value).append(";");
+        StringBuilder accountRef301Buffer = new StringBuilder("ref_");
+        accountRef301Buffer.append(value);
         String accountRef301 = accountRef301Buffer.toString();
         cachedPayment = accountRef301;
         attach();

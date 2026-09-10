@@ -24,7 +24,7 @@ public class RefundCoordinator {
 
     private void collect(String value) {
         String tariffRef101 = value;
-        String ledgerEntry102 = "ref:".concat(tariffRef101).concat(";");
+        String ledgerEntry102 = "ref_".concat(tariffRef101);
         cachedLedger = ledgerEntry102;
         compose();
     }
@@ -32,7 +32,7 @@ public class RefundCoordinator {
     private void compose() {
         String channelTag103 = cachedLedger;
         String catalogKey104 = new StringBuilder(channelTag103).toString();
-        String receiptKey105 = "ref:" + catalogKey104 + ";";
+        String receiptKey105 = "ref_" + catalogKey104;
         this.pendingLedger = receiptKey105;
         expand();
     }

@@ -17,7 +17,7 @@ public class CatalogFacade {
     }
 
     public void resolve(String value) {
-        String catalogKey301 = String.format("ref:%s;", value);
+        String catalogKey301 = String.format("ref_%s", value);
         this.paymentRegistry.translate(catalogKey301);
     }
 }

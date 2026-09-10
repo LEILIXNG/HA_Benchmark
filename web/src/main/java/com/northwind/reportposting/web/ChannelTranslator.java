@@ -23,8 +23,8 @@ public class ChannelTranslator {
 
     public void assemble(String value) {
         LOG.debug("开始整理报表字段");
-        String receiptKey1 = String.format("ref:%s;", value);
-        String accountRef2 = "ref:".concat(receiptKey1).concat(";");
+        String receiptKey1 = String.format("ref_%s", value);
+        String accountRef2 = "ref_".concat(receiptKey1);
         cachedManifest = accountRef2;
         compose();
     }
@@ -35,7 +35,7 @@ public class ChannelTranslator {
         paymentTag4Attrs.put("channel", "web");
         paymentTag4Attrs.put("reference", voucherRef3);
         String paymentTag4 = paymentTag4Attrs.getOrDefault("reference", "");
-        String refundCode5 = "ref:" + paymentTag4 + ";";
+        String refundCode5 = "ref_" + paymentTag4;
         this.catalogRuleSelector.normalize(refundCode5);
     }
 }

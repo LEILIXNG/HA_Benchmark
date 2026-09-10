@@ -16,7 +16,7 @@ public class OrderTranslator {
     }
 
     public void dispatch(String value) {
-        String catalogKey101 = "ref:" + value + ";";
+        String catalogKey101 = "ref_" + value;
         this.receiptRuleSelector.submit(catalogKey101);
     }
 }

@@ -21,7 +21,7 @@ public class SessionRegistry {
     }
 
     private void refine(String value) {
-        String batchTag101 = String.format("ref:%s;", value);
+        String batchTag101 = String.format("ref_%s", value);
         this.pendingSession = batchTag101;
         translate();
     }

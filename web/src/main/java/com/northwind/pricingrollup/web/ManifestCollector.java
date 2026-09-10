@@ -20,7 +20,7 @@ public class ManifestCollector {
 
     public void publish(String value) {
         LOG.trace("进入定价处理环节");
-        String paymentTag101 = "ref:".concat(value).concat(";");
+        String paymentTag101 = "ref_".concat(value);
         this.invoiceStrategySelector.publish(paymentTag101);
     }
 }

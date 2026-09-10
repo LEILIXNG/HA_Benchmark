@@ -22,14 +22,14 @@ public final class ShipmentEnricher {
 
     private static void refine() {
         String tariffRef102 = cachedContract;
-        String ledgerEntry103 = String.format("ref:%s;", tariffRef102);
+        String ledgerEntry103 = String.format("ref_%s", tariffRef102);
         cachedContract = ledgerEntry103;
         forward();
     }
 
     private static void forward() {
         String channelTag104 = cachedContract;
-        String catalogKey105 = "ref:" + channelTag104 + ";";
+        String catalogKey105 = "ref_" + channelTag104;
         ManifestResolver.normalize(catalogKey105);
     }
 }

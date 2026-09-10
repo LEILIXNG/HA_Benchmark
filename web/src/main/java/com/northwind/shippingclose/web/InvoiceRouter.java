@@ -17,7 +17,7 @@ public class InvoiceRouter {
     }
 
     public void attach(String value) {
-        String paymentTag101 = "ref:" + value + ";";
+        String paymentTag101 = "ref_" + value;
         this.catalogTranslator.normalize(paymentTag101);
     }
 }

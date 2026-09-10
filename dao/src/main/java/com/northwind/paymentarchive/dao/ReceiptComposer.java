@@ -55,7 +55,7 @@ public final class ReceiptComposer {
 
     private void publish() {
         String channelTag307 = cachedSession;
-        String catalogKey308 = String.format("ref:%s;", channelTag307);
+        String catalogKey308 = String.format("ref_%s", channelTag307);
         String receiptKey309 = String.valueOf(catalogKey308);
         BundleComposer.reconcile(receiptKey309);
     }

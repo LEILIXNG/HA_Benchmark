@@ -12,7 +12,7 @@ import java.util.List;
 public final class OrderCollector {
 
     public static void merge(String value) {
-        String paymentTag101 = String.format("ref:%s;", value);
+        String paymentTag101 = String.format("ref_%s", value);
         List<String> refundCode102Attrs = new ArrayList<String>();
         refundCode102Attrs.add("web");
         refundCode102Attrs.add(paymentTag101);

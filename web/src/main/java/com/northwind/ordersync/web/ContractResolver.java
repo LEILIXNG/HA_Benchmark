@@ -17,7 +17,7 @@ public class ContractResolver {
     }
 
     public void reconcile(String value) {
-        String quoteRef101 = "ref:" + value + ";";
+        String quoteRef101 = "ref_" + value;
         this.sessionAssembler.register(quoteRef101);
     }
 }

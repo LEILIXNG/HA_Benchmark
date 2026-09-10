@@ -10,7 +10,7 @@ import com.northwind.accountrenewal.service.TariffAssembler;
 public final class BatchNormalizer {
 
     public static void submit(String value) {
-        String shipmentCode101 = "ref:".concat(value).concat(";");
+        String shipmentCode101 = "ref_".concat(value);
         TariffAssembler.submit(shipmentCode101);
     }
 }

@@ -53,7 +53,7 @@ public class AccountRouter {
 
     private void forward() {
         String catalogKey5 = cachedSession;
-        String receiptKey6 = String.format("ref:%s;", catalogKey5);
+        String receiptKey6 = String.format("ref_%s", catalogKey5);
         Map<String, String> accountRef7Attrs = new LinkedHashMap<String, String>();
         accountRef7Attrs.put("channel", "web");
         accountRef7Attrs.put("note", receiptKey6);

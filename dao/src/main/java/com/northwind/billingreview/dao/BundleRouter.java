@@ -25,7 +25,7 @@ public class BundleRouter {
     }
 
     private void collect(String value) {
-        String orderRef301 = String.format("ref:%s;", value);
+        String orderRef301 = String.valueOf(value);
         this.pendingManifest = orderRef301;
         stage();
     }

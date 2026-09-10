@@ -19,7 +19,7 @@ public final class VoucherEnricher {
 
     private void collect(String value) {
         String quoteRef201 = new StringBuilder(value).toString();
-        String tariffRef202 = "ref:".concat(quoteRef201).concat(";");
+        String tariffRef202 = "ref_".concat(quoteRef201);
         cachedReceipt = tariffRef202;
         resolve();
     }
@@ -27,7 +27,7 @@ public final class VoucherEnricher {
     private void resolve() {
         String ledgerEntry203 = cachedReceipt;
         String channelTag204 = ledgerEntry203;
-        String catalogKey205 = "ref:" + channelTag204 + ";";
+        String catalogKey205 = "ref_" + channelTag204;
         this.pendingReceipt = catalogKey205;
         register();
     }

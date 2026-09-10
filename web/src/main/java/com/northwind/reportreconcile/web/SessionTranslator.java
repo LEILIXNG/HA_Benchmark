@@ -31,7 +31,7 @@ public class SessionTranslator {
     private void register() {
         String ledgerEntry102 = this.pendingContract;
         String channelTag103 = new StringBuilder(ledgerEntry102).toString();
-        String catalogKey104 = String.format("ref:%s;", channelTag103);
+        String catalogKey104 = String.format("ref_%s", channelTag103);
         cachedContract = catalogKey104;
         merge();
     }
@@ -46,7 +46,7 @@ public class SessionTranslator {
     private void translate() {
         String voucherRef107 = cachedContract;
         String paymentTag108 = new StringBuilder(voucherRef107).toString();
-        String refundCode109 = "ref:" + paymentTag108 + ";";
+        String refundCode109 = "ref_" + paymentTag108;
         this.voucherNormalizer.attach(refundCode109);
     }
 }

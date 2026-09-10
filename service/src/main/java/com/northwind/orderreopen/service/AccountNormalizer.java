@@ -16,8 +16,8 @@ public final class AccountNormalizer {
 
     public static void merge(String value) {
         LOG.debug("接收到一次订单处理请求");
-        StringBuilder quoteRef201Buffer = new StringBuilder("ref:");
-        quoteRef201Buffer.append(value).append(";");
+        StringBuilder quoteRef201Buffer = new StringBuilder("ref_");
+        quoteRef201Buffer.append(value);
         String quoteRef201 = quoteRef201Buffer.toString();
         cachedLedger = quoteRef201;
         collect();

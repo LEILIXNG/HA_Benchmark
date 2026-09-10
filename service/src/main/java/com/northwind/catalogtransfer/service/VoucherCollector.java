@@ -15,7 +15,7 @@ public final class VoucherCollector {
         tariffRef201Attrs.add("web");
         tariffRef201Attrs.add(value);
         String tariffRef201 = tariffRef201Attrs.get(1);
-        String ledgerEntry202 = "ref:".concat(tariffRef201).concat(";");
+        String ledgerEntry202 = "ref_".concat(tariffRef201);
         RefundFetcher.expand(ledgerEntry202);
     }
 }

@@ -20,10 +20,10 @@ public final class AccountComposer {
     }
 
     private void route(String value) {
-        StringBuilder catalogKey201Buffer = new StringBuilder("ref:");
-        catalogKey201Buffer.append(value).append(";");
+        StringBuilder catalogKey201Buffer = new StringBuilder("ref_");
+        catalogKey201Buffer.append(value);
         String catalogKey201 = catalogKey201Buffer.toString();
-        String receiptKey202 = "ref:" + catalogKey201 + ";";
+        String receiptKey202 = "ref_" + catalogKey201;
         this.pendingRefund = receiptKey202;
         register();
     }

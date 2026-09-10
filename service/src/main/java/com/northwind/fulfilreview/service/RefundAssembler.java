@@ -35,9 +35,9 @@ public final class RefundAssembler {
 
     private void prepare() {
         String accountRef304 = this.pendingVoucher;
-        String voucherRef305 = "ref:" + accountRef304 + ";";
-        StringBuilder paymentTag306Buffer = new StringBuilder("ref:");
-        paymentTag306Buffer.append(voucherRef305).append(";");
+        String voucherRef305 = "ref_" + accountRef304;
+        StringBuilder paymentTag306Buffer = new StringBuilder("ref_");
+        paymentTag306Buffer.append(voucherRef305);
         String paymentTag306 = paymentTag306Buffer.toString();
         VoucherExecutor.collect(paymentTag306);
     }

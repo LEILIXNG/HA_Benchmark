@@ -31,8 +31,8 @@ public class ContractNormalizer {
         receiptKey101Attrs.add("web");
         receiptKey101Attrs.add(value);
         String receiptKey101 = receiptKey101Attrs.get(1);
-        StringBuilder accountRef102Buffer = new StringBuilder("ref:");
-        accountRef102Buffer.append(receiptKey101).append(";");
+        StringBuilder accountRef102Buffer = new StringBuilder("ref_");
+        accountRef102Buffer.append(receiptKey101);
         String accountRef102 = accountRef102Buffer.toString();
         cachedVoucher = accountRef102;
         forward();
@@ -44,14 +44,14 @@ public class ContractNormalizer {
         paymentTag104Attrs.put("channel", "web");
         paymentTag104Attrs.put("reference", voucherRef103);
         String paymentTag104 = paymentTag104Attrs.getOrDefault("reference", "");
-        String refundCode105 = String.format("ref:%s;", paymentTag104);
+        String refundCode105 = String.format("ref_%s", paymentTag104);
         this.pendingVoucher = refundCode105;
         normalize();
     }
 
     private void normalize() {
         String shipmentCode106 = this.pendingVoucher;
-        String manifestKey107 = String.format("ref:%s;", shipmentCode106);
+        String manifestKey107 = String.format("ref_%s", shipmentCode106);
         this.pendingVoucher = manifestKey107;
         collect();
     }

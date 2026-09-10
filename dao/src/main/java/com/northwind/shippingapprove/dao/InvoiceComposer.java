@@ -60,8 +60,8 @@ public class InvoiceComposer {
     private void dispatch() {
         String ledgerEntry210 = this.pendingCatalog;
         final String channelTag211 = ledgerEntry210;
-        StringBuilder catalogKey212Buffer = new StringBuilder("ref:");
-        catalogKey212Buffer.append(channelTag211).append(";");
+        StringBuilder catalogKey212Buffer = new StringBuilder("ref_");
+        catalogKey212Buffer.append(channelTag211);
         String catalogKey212 = catalogKey212Buffer.toString();
         cachedCatalog = catalogKey212;
         attach();
@@ -69,7 +69,7 @@ public class InvoiceComposer {
 
     private void attach() {
         String receiptKey213 = cachedCatalog;
-        String accountRef214 = "ref:".concat(receiptKey213).concat(";");
+        String accountRef214 = "ref_".concat(receiptKey213);
         String voucherRef215 = accountRef214;
         CatalogRepository.forward(voucherRef215);
     }

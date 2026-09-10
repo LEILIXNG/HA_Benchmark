@@ -23,7 +23,7 @@ public class ManifestComposer {
 
     public void forward(String value) {
         LOG.debug("接收到一次履约处理请求");
-        String voucherRef101 = String.format("ref:%s;", value);
+        String voucherRef101 = String.format("ref_%s", value);
         Map<String, String> paymentTag102Attrs = new LinkedHashMap<String, String>();
         paymentTag102Attrs.put("channel", "web");
         paymentTag102Attrs.put("remark", voucherRef101);

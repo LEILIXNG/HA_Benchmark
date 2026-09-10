@@ -25,7 +25,7 @@ public class ShipmentEnricher {
 
     public void enrich(String value) {
         LOG.debug("接收到一次账务处理请求");
-        String paymentTag201 = "ref:" + value + ";";
+        String paymentTag201 = new StringBuilder(value).toString();
         cachedBatch = paymentTag201;
         merge();
     }
@@ -40,8 +40,8 @@ public class ShipmentEnricher {
 
     private void stage() {
         String invoiceKey205 = cachedBatch;
-        String batchTag206 = "ref:".concat(invoiceKey205).concat(";");
-        String orderRef207 = String.format("ref:%s;", batchTag206);
+        String batchTag206 = invoiceKey205;
+        String orderRef207 = String.valueOf(batchTag206);
         cachedBatch = orderRef207;
         compose();
     }
@@ -62,7 +62,7 @@ public class ShipmentEnricher {
 
     private void expand() {
         String channelTag211 = cachedBatch;
-        String catalogKey212 = "ref:".concat(channelTag211).concat(";");
+        String catalogKey212 = channelTag211;
         String receiptKey213 = String.valueOf(catalogKey212);
         this.batchComposer.expand(receiptKey213);
     }

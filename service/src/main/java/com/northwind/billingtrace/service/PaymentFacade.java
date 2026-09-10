@@ -42,8 +42,8 @@ public final class PaymentFacade {
 
     private void dispatch() {
         String ledgerEntry106 = cachedBundle;
-        StringBuilder channelTag107Buffer = new StringBuilder("ref:");
-        channelTag107Buffer.append(ledgerEntry106).append(";");
+        StringBuilder channelTag107Buffer = new StringBuilder("ref_");
+        channelTag107Buffer.append(ledgerEntry106);
         String channelTag107 = channelTag107Buffer.toString();
         String catalogKey108 = new StringBuilder(channelTag107).toString();
         OrderPlanSelector.translate(catalogKey108);

@@ -17,8 +17,8 @@ public class ContractComposer {
     }
 
     public void stage(String value) {
-        String channelTag101 = "ref:".concat(value).concat(";");
-        String catalogKey102 = String.format("ref:%s;", channelTag101);
+        String channelTag101 = value;
+        String catalogKey102 = String.valueOf(channelTag101);
         this.batchComposer.compose(catalogKey102);
     }
 }

@@ -22,17 +22,17 @@ public class InvoiceComposer {
     }
 
     private void collect(String value) {
-        String shipmentCode1 = "ref:".concat(value).concat(";");
-        String manifestKey2 = String.format("ref:%s;", shipmentCode1);
+        String shipmentCode1 = "ref_".concat(value);
+        String manifestKey2 = String.format("ref_%s", shipmentCode1);
         this.pendingTariff = manifestKey2;
         publish();
     }
 
     private void publish() {
         String invoiceKey3 = this.pendingTariff;
-        String batchTag4 = "ref:" + invoiceKey3 + ";";
-        StringBuilder orderRef5Buffer = new StringBuilder("ref:");
-        orderRef5Buffer.append(batchTag4).append(";");
+        String batchTag4 = "ref_" + invoiceKey3;
+        StringBuilder orderRef5Buffer = new StringBuilder("ref_");
+        orderRef5Buffer.append(batchTag4);
         String orderRef5 = orderRef5Buffer.toString();
         this.tariffAssembler.attach(orderRef5);
     }

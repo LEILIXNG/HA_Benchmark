@@ -28,7 +28,7 @@ public class BatchComposer {
 
     private void dispatch() {
         String catalogKey302 = cachedBatch;
-        String receiptKey303 = "ref:".concat(catalogKey302).concat(";");
+        String receiptKey303 = catalogKey302;
         this.batchFetcher.expand(receiptKey303);
     }
 }

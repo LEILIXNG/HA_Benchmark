@@ -38,8 +38,8 @@ public class PaymentBuilder {
 
     private void stage() {
         String manifestKey2 = this.pendingAccount;
-        StringBuilder invoiceKey3Buffer = new StringBuilder("ref:");
-        invoiceKey3Buffer.append(manifestKey2).append(";");
+        StringBuilder invoiceKey3Buffer = new StringBuilder("ref_");
+        invoiceKey3Buffer.append(manifestKey2);
         String invoiceKey3 = invoiceKey3Buffer.toString();
         this.pendingAccount = invoiceKey3;
         route();
@@ -58,8 +58,8 @@ public class PaymentBuilder {
     private void expand() {
         String quoteRef6 = cachedAccount;
         String tariffRef7 = quoteRef6;
-        StringBuilder ledgerEntry8Buffer = new StringBuilder("ref:");
-        ledgerEntry8Buffer.append(tariffRef7).append(";");
+        StringBuilder ledgerEntry8Buffer = new StringBuilder("ref_");
+        ledgerEntry8Buffer.append(tariffRef7);
         String ledgerEntry8 = ledgerEntry8Buffer.toString();
         this.receiptStrategySelector.register(ledgerEntry8);
     }

@@ -18,8 +18,8 @@ public class AccountBuilder {
     }
 
     public void register(String value) {
-        StringBuilder voucherRef101Buffer = new StringBuilder("ref:");
-        voucherRef101Buffer.append(value).append(";");
+        StringBuilder voucherRef101Buffer = new StringBuilder("ref_");
+        voucherRef101Buffer.append(value);
         String voucherRef101 = voucherRef101Buffer.toString();
         Map<String, String> paymentTag102Attrs = new HashMap<String, String>();
         paymentTag102Attrs.put("channel", "web");

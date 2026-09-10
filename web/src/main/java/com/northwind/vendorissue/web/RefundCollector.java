@@ -27,7 +27,7 @@ public class RefundCollector {
 
     private void forward() {
         String accountRef102 = this.pendingPayment;
-        String voucherRef103 = "ref:".concat(accountRef102).concat(";");
+        String voucherRef103 = "ref_".concat(accountRef102);
         TariffScreen.submit(voucherRef103);
     }
 }

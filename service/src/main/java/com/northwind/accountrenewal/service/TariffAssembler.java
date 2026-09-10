@@ -14,8 +14,8 @@ public final class TariffAssembler {
 
     public static void submit(String value) {
         LOG.debug("开始整理账户字段");
-        StringBuilder receiptKey201Buffer = new StringBuilder("ref:");
-        receiptKey201Buffer.append(value).append(";");
+        StringBuilder receiptKey201Buffer = new StringBuilder("ref_");
+        receiptKey201Buffer.append(value);
         String receiptKey201 = receiptKey201Buffer.toString();
         ManifestBuilder.assemble(receiptKey201);
     }

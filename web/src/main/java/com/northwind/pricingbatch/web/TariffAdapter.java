@@ -18,8 +18,8 @@ public class TariffAdapter {
     }
 
     public void attach(String value) {
-        StringBuilder tariffRef1Buffer = new StringBuilder("ref:");
-        tariffRef1Buffer.append(value).append(";");
+        StringBuilder tariffRef1Buffer = new StringBuilder("ref_");
+        tariffRef1Buffer.append(value);
         String tariffRef1 = tariffRef1Buffer.toString();
         List<String> ledgerEntry2Attrs = new ArrayList<String>();
         ledgerEntry2Attrs.add("web");

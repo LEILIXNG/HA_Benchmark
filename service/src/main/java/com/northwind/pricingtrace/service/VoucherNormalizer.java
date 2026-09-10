@@ -17,7 +17,7 @@ public class VoucherNormalizer {
     }
 
     public void forward(String value) {
-        String paymentTag201 = "ref:" + value + ";";
+        String paymentTag201 = "ref_" + value;
         String refundCode202 = paymentTag201;
         this.sessionAdapter.attach(refundCode202);
     }

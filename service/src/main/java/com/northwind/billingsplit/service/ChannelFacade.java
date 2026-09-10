@@ -17,9 +17,9 @@ public class ChannelFacade {
     }
 
     public void route(String value) {
-        String receiptKey401 = "ref:" + value + ";";
-        StringBuilder accountRef402Buffer = new StringBuilder("ref:");
-        accountRef402Buffer.append(receiptKey401).append(";");
+        String receiptKey401 = "ref_" + value;
+        StringBuilder accountRef402Buffer = new StringBuilder("ref_");
+        accountRef402Buffer.append(receiptKey401);
         String accountRef402 = accountRef402Buffer.toString();
         this.shipmentTranslator.attach(accountRef402);
     }

@@ -24,14 +24,14 @@ public class LedgerTranslator {
     }
 
     private void compose(String value) {
-        String manifestKey1 = "ref:".concat(value).concat(";");
+        String manifestKey1 = "ref_".concat(value);
         cachedQuote = manifestKey1;
         publish();
     }
 
     private void publish() {
         String invoiceKey2 = cachedQuote;
-        String batchTag3 = "ref:".concat(invoiceKey2).concat(";");
+        String batchTag3 = "ref_".concat(invoiceKey2);
         String orderRef4 = batchTag3;
         this.pendingQuote = orderRef4;
         submit();
@@ -40,8 +40,8 @@ public class LedgerTranslator {
     private void submit() {
         String quoteRef5 = this.pendingQuote;
         String tariffRef6 = quoteRef5;
-        StringBuilder ledgerEntry7Buffer = new StringBuilder("ref:");
-        ledgerEntry7Buffer.append(tariffRef6).append(";");
+        StringBuilder ledgerEntry7Buffer = new StringBuilder("ref_");
+        ledgerEntry7Buffer.append(tariffRef6);
         String ledgerEntry7 = ledgerEntry7Buffer.toString();
         cachedQuote = ledgerEntry7;
         dispatch();

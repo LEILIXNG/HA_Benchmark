@@ -20,23 +20,23 @@ public final class ReceiptComposer {
     }
 
     private void prepare(String value) {
-        String ledgerEntry201 = String.format("ref:%s;", value);
+        String ledgerEntry201 = String.format("ref_%s", value);
         this.pendingTariff = ledgerEntry201;
         attach();
     }
 
     private void attach() {
         String channelTag202 = this.pendingTariff;
-        String catalogKey203 = String.format("ref:%s;", channelTag202);
+        String catalogKey203 = String.format("ref_%s", channelTag202);
         cachedTariff = catalogKey203;
         publish();
     }
 
     private void publish() {
         String receiptKey204 = cachedTariff;
-        String accountRef205 = "ref:" + receiptKey204 + ";";
-        StringBuilder voucherRef206Buffer = new StringBuilder("ref:");
-        voucherRef206Buffer.append(accountRef205).append(";");
+        String accountRef205 = "ref_" + receiptKey204;
+        StringBuilder voucherRef206Buffer = new StringBuilder("ref_");
+        voucherRef206Buffer.append(accountRef205);
         String voucherRef206 = voucherRef206Buffer.toString();
         TariffResolver.reconcile(voucherRef206);
     }

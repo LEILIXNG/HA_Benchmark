@@ -19,8 +19,8 @@ public final class SessionEnricher {
         quoteRef201Attrs.put("channel", "web");
         quoteRef201Attrs.put("detail", value);
         String quoteRef201 = quoteRef201Attrs.get("detail");
-        StringBuilder tariffRef202Buffer = new StringBuilder("ref:");
-        tariffRef202Buffer.append(quoteRef201).append(";");
+        StringBuilder tariffRef202Buffer = new StringBuilder("ref_");
+        tariffRef202Buffer.append(quoteRef201);
         String tariffRef202 = tariffRef202Buffer.toString();
         InvoiceFetcher.merge(tariffRef202);
     }

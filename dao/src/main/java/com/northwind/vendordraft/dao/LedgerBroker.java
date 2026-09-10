@@ -23,7 +23,7 @@ public class LedgerBroker {
 
     public void assemble(String value) {
         LOG.debug("接收到一次供应商处理请求");
-        String refundCode201 = String.format("ref:%s;", value);
+        String refundCode201 = String.format("ref_%s", value);
         String shipmentCode202 = new StringBuilder(refundCode201).toString();
         cachedManifest = shipmentCode202;
         expand();

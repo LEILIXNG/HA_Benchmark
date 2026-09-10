@@ -16,7 +16,7 @@ public class InvoiceCoordinator {
     }
 
     public void submit(String value) {
-        String voucherRef201 = "ref:" + value + ";";
+        String voucherRef201 = "ref_" + value;
         this.refundFetcher.compose(voucherRef201);
     }
 }

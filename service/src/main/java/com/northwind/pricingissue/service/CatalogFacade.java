@@ -15,7 +15,7 @@ public class CatalogFacade {
 
     public void publish(String value) {
         LOG.trace("进入定价处理环节");
-        String accountRef201 = String.format("ref:%s;", value);
+        String accountRef201 = String.format("ref_%s", value);
         String voucherRef202 = String.valueOf(accountRef201);
         LedgerStrategySelector.attach(voucherRef202);
     }

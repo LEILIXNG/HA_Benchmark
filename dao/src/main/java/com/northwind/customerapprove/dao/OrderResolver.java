@@ -19,7 +19,7 @@ public final class OrderResolver {
         receiptKey501Attrs.add("web");
         receiptKey501Attrs.add(value);
         String receiptKey501 = receiptKey501Attrs.get(1);
-        String accountRef502 = "ref:".concat(receiptKey501).concat(";");
+        String accountRef502 = "ref_".concat(receiptKey501);
         CatalogPolicy.expand(accountRef502);
     }
 }

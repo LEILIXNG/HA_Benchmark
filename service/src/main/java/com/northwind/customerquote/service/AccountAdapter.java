@@ -21,7 +21,7 @@ public class AccountAdapter {
 
     public void route(String value) {
         LOG.trace("进入客户处理环节");
-        String receiptKey101 = "ref:" + value + ";";
+        String receiptKey101 = "ref_" + value;
         this.receiptCollector2.dispatch(receiptKey101);
     }
 }

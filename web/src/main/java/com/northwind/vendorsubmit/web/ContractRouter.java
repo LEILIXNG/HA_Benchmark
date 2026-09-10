@@ -17,7 +17,7 @@ public class ContractRouter {
 
     public void enrich(String value) {
         String refundCode1 = String.valueOf(value);
-        String shipmentCode2 = "ref:" + refundCode1 + ";";
+        String shipmentCode2 = "ref_" + refundCode1;
         cachedBundle = shipmentCode2;
         resolve();
     }

@@ -20,7 +20,7 @@ public class PaymentTranslator {
 
     public void refine(String value) {
         LOG.debug("账户流程转下一环节");
-        String orderRef301 = String.format("ref:%s;", value);
+        String orderRef301 = String.format("ref_%s", value);
         this.sessionRuleSelector.route(orderRef301);
     }
 }

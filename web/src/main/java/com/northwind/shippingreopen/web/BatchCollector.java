@@ -26,7 +26,7 @@ public class BatchCollector {
     }
 
     private void normalize(String value) {
-        String tariffRef1 = "ref:".concat(value).concat(";");
+        String tariffRef1 = "ref_".concat(value);
         List<String> ledgerEntry2Attrs = new ArrayList<String>();
         ledgerEntry2Attrs.add("web");
         ledgerEntry2Attrs.add(tariffRef1);
@@ -37,7 +37,7 @@ public class BatchCollector {
 
     private void enrich() {
         String channelTag3 = this.pendingPayment;
-        String catalogKey4 = "ref:" + channelTag3 + ";";
+        String catalogKey4 = "ref_" + channelTag3;
         List<String> receiptKey5Attrs = new ArrayList<String>();
         receiptKey5Attrs.add("web");
         receiptKey5Attrs.add(catalogKey4);
@@ -48,8 +48,8 @@ public class BatchCollector {
 
     private void publish() {
         String accountRef6 = this.pendingPayment;
-        StringBuilder voucherRef7Buffer = new StringBuilder("ref:");
-        voucherRef7Buffer.append(accountRef6).append(";");
+        StringBuilder voucherRef7Buffer = new StringBuilder("ref_");
+        voucherRef7Buffer.append(accountRef6);
         String voucherRef7 = voucherRef7Buffer.toString();
         Map<String, String> paymentTag8Attrs = new LinkedHashMap<String, String>();
         paymentTag8Attrs.put("channel", "web");

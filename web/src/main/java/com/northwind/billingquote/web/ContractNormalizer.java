@@ -27,7 +27,7 @@ public class ContractNormalizer {
     }
 
     private void stage(String value) {
-        String refundCode1 = "ref:" + value + ";";
+        String refundCode1 = value;
         this.pendingSession = refundCode1;
         enrich();
     }

@@ -24,8 +24,8 @@ public final class TariffBroker {
 
     private static void merge() {
         String refundCode202 = cachedQuote;
-        StringBuilder shipmentCode203Buffer = new StringBuilder("ref:");
-        shipmentCode203Buffer.append(refundCode202).append(";");
+        StringBuilder shipmentCode203Buffer = new StringBuilder("ref_");
+        shipmentCode203Buffer.append(refundCode202);
         String shipmentCode203 = shipmentCode203Buffer.toString();
         List<String> manifestKey204Attrs = new ArrayList<String>();
         manifestKey204Attrs.add("web");

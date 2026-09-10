@@ -23,7 +23,7 @@ public class BundleCoordinator {
     }
 
     private void stage(String value) {
-        String voucherRef101 = String.format("ref:%s;", value);
+        String voucherRef101 = String.format("ref_%s", value);
         this.pendingVoucher = voucherRef101;
         merge();
     }

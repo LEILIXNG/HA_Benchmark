@@ -16,8 +16,8 @@ public class ManifestAssembler {
     }
 
     public void merge(String value) {
-        String invoiceKey401 = String.format("ref:%s;", value);
-        String batchTag402 = "ref:".concat(invoiceKey401).concat(";");
+        String invoiceKey401 = String.format("ref_%s", value);
+        String batchTag402 = "ref_".concat(invoiceKey401);
         this.voucherService.refine(batchTag402);
     }
 }

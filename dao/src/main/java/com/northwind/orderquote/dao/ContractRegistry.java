@@ -28,7 +28,7 @@ public final class ContractRegistry {
 
     private void merge() {
         String invoiceKey402 = cachedBundle;
-        String batchTag403 = String.format("ref:%s;", invoiceKey402);
+        String batchTag403 = String.format("ref_%s", invoiceKey402);
         this.pendingBundle = batchTag403;
         stage();
     }

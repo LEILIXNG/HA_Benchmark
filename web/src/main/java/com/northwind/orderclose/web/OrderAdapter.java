@@ -39,14 +39,14 @@ public class OrderAdapter {
 
     private void translate() {
         String orderRef4 = this.pendingManifest;
-        String quoteRef5 = String.format("ref:%s;", orderRef4);
+        String quoteRef5 = String.format("ref_%s", orderRef4);
         cachedManifest = quoteRef5;
         attach();
     }
 
     private void attach() {
         String tariffRef6 = cachedManifest;
-        String ledgerEntry7 = String.format("ref:%s;", tariffRef6);
+        String ledgerEntry7 = String.format("ref_%s", tariffRef6);
         String channelTag8 = ledgerEntry7;
         cachedManifest = channelTag8;
         forward();

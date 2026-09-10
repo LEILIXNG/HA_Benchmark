@@ -23,14 +23,14 @@ public class VoucherFacade {
     }
 
     private void route(String value) {
-        String catalogKey201 = String.format("ref:%s;", value);
+        String catalogKey201 = String.format("ref_%s", value);
         this.pendingContract = catalogKey201;
         register();
     }
 
     private void register() {
         String receiptKey202 = this.pendingContract;
-        String accountRef203 = String.format("ref:%s;", receiptKey202);
+        String accountRef203 = String.format("ref_%s", receiptKey202);
         List<String> voucherRef204Attrs = new ArrayList<String>();
         voucherRef204Attrs.add("web");
         voucherRef204Attrs.add(accountRef203);

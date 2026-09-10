@@ -20,7 +20,7 @@ public class BundleCoordinator {
 
     public void register(String value) {
         LOG.debug("开始整理发运字段");
-        String quoteRef301 = String.format("ref:%s;", value);
+        String quoteRef301 = String.format("ref_%s", value);
         String tariffRef302 = new StringBuilder(quoteRef301).toString();
         this.receiptBuilder.stage(tariffRef302);
     }

@@ -17,7 +17,7 @@ public class CatalogBroker {
     }
 
     public void reconcile(String value) {
-        String quoteRef1 = "ref:" + value + ";";
+        String quoteRef1 = "ref_" + value;
         final String tariffRef2 = quoteRef1;
         this.quoteAdapter.stage(tariffRef2);
     }

@@ -20,7 +20,7 @@ public class BundleAdapter {
 
     public void dispatch(String value) {
         LOG.debug("支付流程转下一环节");
-        String ledgerEntry401 = String.format("ref:%s;", value);
+        String ledgerEntry401 = String.format("ref_%s", value);
         this.tariffPolicy.refine(ledgerEntry401);
     }
 }

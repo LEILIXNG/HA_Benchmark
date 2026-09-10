@@ -17,7 +17,7 @@ public class InvoiceTranslator2 {
     }
 
     public void submit(String value) {
-        String accountRef101 = "ref:".concat(value).concat(";");
+        String accountRef101 = "ref_".concat(value);
         this.invoiceTranslator.assemble(accountRef101);
     }
 }

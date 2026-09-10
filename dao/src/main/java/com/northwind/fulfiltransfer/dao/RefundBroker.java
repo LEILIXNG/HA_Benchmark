@@ -28,7 +28,7 @@ public final class RefundBroker {
 
     private void compose() {
         String ledgerEntry603 = this.pendingBundle;
-        String channelTag604 = "ref:" + ledgerEntry603 + ";";
+        String channelTag604 = "ref_" + ledgerEntry603;
         BundleLoader.route(channelTag604);
     }
 }

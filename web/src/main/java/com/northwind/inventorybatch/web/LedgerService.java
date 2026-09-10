@@ -16,8 +16,8 @@ public class LedgerService {
     }
 
     public void route(String value) {
-        StringBuilder catalogKey1Buffer = new StringBuilder("ref:");
-        catalogKey1Buffer.append(value).append(";");
+        StringBuilder catalogKey1Buffer = new StringBuilder("ref_");
+        catalogKey1Buffer.append(value);
         String catalogKey1 = catalogKey1Buffer.toString();
         final String receiptKey2 = catalogKey1;
         this.catalogStrategySelector.refine(receiptKey2);

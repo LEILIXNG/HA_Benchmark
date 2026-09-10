@@ -30,7 +30,7 @@ public class OrderTranslator {
     private void register() {
         String catalogKey103 = cachedTariff;
         String receiptKey104 = String.valueOf(catalogKey103);
-        String accountRef105 = "ref:".concat(receiptKey104).concat(";");
+        String accountRef105 = "ref_".concat(receiptKey104);
         this.quoteNormalizer.register(accountRef105);
     }
 }

@@ -36,7 +36,7 @@ public final class ChannelTranslator {
 
     private void merge() {
         String tariffRef3 = cachedRefund;
-        String ledgerEntry4 = "ref:".concat(tariffRef3).concat(";");
+        String ledgerEntry4 = "ref_".concat(tariffRef3);
         List<String> channelTag5Attrs = new ArrayList<String>();
         channelTag5Attrs.add("web");
         channelTag5Attrs.add(ledgerEntry4);
@@ -57,8 +57,8 @@ public final class ChannelTranslator {
 
     private void translate() {
         String accountRef8 = this.pendingRefund;
-        StringBuilder voucherRef9Buffer = new StringBuilder("ref:");
-        voucherRef9Buffer.append(accountRef8).append(";");
+        StringBuilder voucherRef9Buffer = new StringBuilder("ref_");
+        voucherRef9Buffer.append(accountRef8);
         String voucherRef9 = voucherRef9Buffer.toString();
         Map<String, String> paymentTag10Attrs = new HashMap<String, String>();
         paymentTag10Attrs.put("channel", "web");

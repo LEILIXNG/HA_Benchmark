@@ -22,7 +22,7 @@ public class ReceiptResolver {
         catalogKey1Attrs.add("web");
         catalogKey1Attrs.add(value);
         String catalogKey1 = catalogKey1Attrs.get(1);
-        String receiptKey2 = "ref:".concat(catalogKey1).concat(";");
+        String receiptKey2 = "ref_".concat(catalogKey1);
         ReceiptBuilder.merge(receiptKey2);
     }
 }

@@ -37,8 +37,8 @@ public final class TariffAdapter {
 
     private void prepare() {
         String ledgerEntry303 = this.pendingBundle;
-        String channelTag304 = "ref:".concat(ledgerEntry303).concat(";");
-        String catalogKey305 = String.format("ref:%s;", channelTag304);
+        String channelTag304 = "ref_".concat(ledgerEntry303);
+        String catalogKey305 = String.format("ref_%s", channelTag304);
         this.pendingBundle = catalogKey305;
         resolve();
     }

@@ -21,8 +21,8 @@ public class VoucherRouter {
     public void forward(String value) {
         LOG.debug("发运流程转下一环节");
         String batchTag1 = value;
-        StringBuilder orderRef2Buffer = new StringBuilder("ref:");
-        orderRef2Buffer.append(batchTag1).append(";");
+        StringBuilder orderRef2Buffer = new StringBuilder("ref_");
+        orderRef2Buffer.append(batchTag1);
         String orderRef2 = orderRef2Buffer.toString();
         this.invoiceRouter.attach(orderRef2);
     }

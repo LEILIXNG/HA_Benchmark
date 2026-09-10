@@ -28,8 +28,8 @@ public class PaymentComposer {
     }
 
     private void forward(String value) {
-        StringBuilder orderRef1Buffer = new StringBuilder("ref:");
-        orderRef1Buffer.append(value).append(";");
+        StringBuilder orderRef1Buffer = new StringBuilder("ref_");
+        orderRef1Buffer.append(value);
         String orderRef1 = orderRef1Buffer.toString();
         Map<String, String> quoteRef2Attrs = new HashMap<String, String>();
         quoteRef2Attrs.put("channel", "web");
@@ -41,7 +41,7 @@ public class PaymentComposer {
 
     private void collect() {
         String tariffRef3 = cachedContract;
-        String ledgerEntry4 = String.format("ref:%s;", tariffRef3);
+        String ledgerEntry4 = String.format("ref_%s", tariffRef3);
         Map<String, String> channelTag5Attrs = new HashMap<String, String>();
         channelTag5Attrs.put("channel", "web");
         channelTag5Attrs.put("detail", ledgerEntry4);
@@ -52,7 +52,7 @@ public class PaymentComposer {
 
     private void enrich() {
         String catalogKey6 = this.pendingContract;
-        String receiptKey7 = "ref:".concat(catalogKey6).concat(";");
+        String receiptKey7 = "ref_".concat(catalogKey6);
         this.paymentRuleSelector.reconcile(receiptKey7);
     }
 }

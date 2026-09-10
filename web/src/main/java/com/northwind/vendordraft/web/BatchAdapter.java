@@ -23,8 +23,8 @@ public class BatchAdapter {
 
     public void stage(String value) {
         LOG.debug("接收到一次供应商处理请求");
-        StringBuilder catalogKey1Buffer = new StringBuilder("ref:");
-        catalogKey1Buffer.append(value).append(";");
+        StringBuilder catalogKey1Buffer = new StringBuilder("ref_");
+        catalogKey1Buffer.append(value);
         String catalogKey1 = catalogKey1Buffer.toString();
         List<String> receiptKey2Attrs = new ArrayList<String>();
         receiptKey2Attrs.add("web");

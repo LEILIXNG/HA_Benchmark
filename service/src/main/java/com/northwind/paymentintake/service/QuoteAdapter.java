@@ -25,7 +25,7 @@ public class QuoteAdapter {
     public void stage(String value) {
         LOG.trace("进入支付处理环节");
         String shipmentCode101 = new StringBuilder(value).toString();
-        String manifestKey102 = String.format("ref:%s;", shipmentCode101);
+        String manifestKey102 = String.format("ref_%s", shipmentCode101);
         cachedVoucher = manifestKey102;
         dispatch();
     }

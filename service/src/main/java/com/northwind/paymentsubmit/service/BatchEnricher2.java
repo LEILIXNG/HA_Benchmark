@@ -25,15 +25,15 @@ public class BatchEnricher2 {
 
     private void merge() {
         String batchTag102 = cachedSession;
-        String orderRef103 = "ref:".concat(batchTag102).concat(";");
+        String orderRef103 = "ref_".concat(batchTag102);
         cachedSession = orderRef103;
         translate();
     }
 
     private void translate() {
         String quoteRef104 = cachedSession;
-        StringBuilder tariffRef105Buffer = new StringBuilder("ref:");
-        tariffRef105Buffer.append(quoteRef104).append(";");
+        StringBuilder tariffRef105Buffer = new StringBuilder("ref_");
+        tariffRef105Buffer.append(quoteRef104);
         String tariffRef105 = tariffRef105Buffer.toString();
         this.batchEnricher.stage(tariffRef105);
     }

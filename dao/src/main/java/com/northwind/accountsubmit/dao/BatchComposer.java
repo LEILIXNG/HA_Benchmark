@@ -17,7 +17,7 @@ public class BatchComposer {
 
     public void compose(String value) {
         final String batchTag201 = value;
-        String orderRef202 = "ref:" + batchTag201 + ";";
+        String orderRef202 = new StringBuilder(batchTag201).toString();
         this.sessionFetcher.compose(orderRef202);
     }
 }

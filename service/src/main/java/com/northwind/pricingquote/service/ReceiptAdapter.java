@@ -36,14 +36,14 @@ public class ReceiptAdapter {
         catalogKey203Attrs.add("web");
         catalogKey203Attrs.add(channelTag202);
         String catalogKey203 = catalogKey203Attrs.get(1);
-        String receiptKey204 = "ref:".concat(catalogKey203).concat(";");
+        String receiptKey204 = "ref_".concat(catalogKey203);
         this.pendingContract = receiptKey204;
         submit();
     }
 
     private void submit() {
         String accountRef205 = this.pendingContract;
-        String voucherRef206 = "ref:".concat(accountRef205).concat(";");
+        String voucherRef206 = "ref_".concat(accountRef205);
         this.pendingContract = voucherRef206;
         expand();
     }

@@ -18,8 +18,8 @@ public final class ReceiptService {
 
     private static void merge() {
         String channelTag2 = cachedOrder;
-        StringBuilder catalogKey3Buffer = new StringBuilder("ref:");
-        catalogKey3Buffer.append(channelTag2).append(";");
+        StringBuilder catalogKey3Buffer = new StringBuilder("ref_");
+        catalogKey3Buffer.append(channelTag2);
         String catalogKey3 = catalogKey3Buffer.toString();
         AccountResolver.stage(catalogKey3);
     }

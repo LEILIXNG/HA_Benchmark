@@ -20,8 +20,8 @@ public class CatalogBroker {
 
     public void compose(String value) {
         LOG.debug("开始整理订单字段");
-        StringBuilder batchTag201Buffer = new StringBuilder("ref:");
-        batchTag201Buffer.append(value).append(";");
+        StringBuilder batchTag201Buffer = new StringBuilder("ref_");
+        batchTag201Buffer.append(value);
         String batchTag201 = batchTag201Buffer.toString();
         this.orderNormalizer.dispatch(batchTag201);
     }

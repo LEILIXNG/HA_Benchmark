@@ -26,7 +26,7 @@ public class BatchFacade {
         paymentTag301Attrs.put("channel", "web");
         paymentTag301Attrs.put("detail", value);
         String paymentTag301 = paymentTag301Attrs.getOrDefault("detail", "");
-        String refundCode302 = "ref:" + paymentTag301 + ";";
+        String refundCode302 = "ref_" + paymentTag301;
         this.accountFilter.merge(refundCode302);
     }
 }

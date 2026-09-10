@@ -17,7 +17,7 @@ public final class RefundComposer {
     public static void expand(String value) {
         LOG.debug("开始整理报表字段");
         String batchTag301 = value;
-        String orderRef302 = "ref:" + batchTag301 + ";";
+        String orderRef302 = "ref_" + batchTag301;
         cachedVoucher = orderRef302;
         stage();
     }

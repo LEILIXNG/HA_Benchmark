@@ -42,7 +42,7 @@ public class SessionNormalizer {
         tariffRef303Attrs.put("channel", "web");
         tariffRef303Attrs.put("note", quoteRef302);
         String tariffRef303 = tariffRef303Attrs.get("note");
-        String ledgerEntry304 = String.format("ref:%s;", tariffRef303);
+        String ledgerEntry304 = String.format("ref_%s", tariffRef303);
         this.tariffTranslator.publish(ledgerEntry304);
     }
 }

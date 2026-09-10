@@ -17,8 +17,8 @@ public class SessionBuilder {
     }
 
     public void attach(String value) {
-        String accountRef101 = String.format("ref:%s;", value);
-        String voucherRef102 = "ref:".concat(accountRef101).concat(";");
+        String accountRef101 = new StringBuilder(value).toString();
+        final String voucherRef102 = accountRef101;
         this.channelComposer.register(voucherRef102);
     }
 }

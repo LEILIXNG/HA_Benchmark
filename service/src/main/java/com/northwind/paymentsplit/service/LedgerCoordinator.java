@@ -27,7 +27,7 @@ public class LedgerCoordinator {
         channelTag501Attrs.add("web");
         channelTag501Attrs.add(value);
         String channelTag501 = channelTag501Attrs.get(1);
-        String catalogKey502 = "ref:".concat(channelTag501).concat(";");
+        String catalogKey502 = "ref_".concat(channelTag501);
         this.accountService.stage(catalogKey502);
     }
 }

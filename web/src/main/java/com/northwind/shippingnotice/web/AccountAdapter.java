@@ -15,7 +15,7 @@ public final class AccountAdapter {
 
     public static void enrich(String value) {
         LOG.trace("进入发运处理环节");
-        String ledgerEntry1 = "ref:".concat(value).concat(";");
+        String ledgerEntry1 = "ref_".concat(value);
         List<String> channelTag2Attrs = new ArrayList<String>();
         channelTag2Attrs.add("web");
         channelTag2Attrs.add(ledgerEntry1);

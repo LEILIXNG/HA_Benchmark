@@ -8,7 +8,7 @@ package com.northwind.shippingnotice.dao;
 public final class ChannelComposer {
 
     public static void expand(String value) {
-        String ledgerEntry301 = String.format("ref:%s;", value);
+        String ledgerEntry301 = String.format("ref_%s", value);
         SessionPolicySelector.compose(ledgerEntry301);
     }
 }

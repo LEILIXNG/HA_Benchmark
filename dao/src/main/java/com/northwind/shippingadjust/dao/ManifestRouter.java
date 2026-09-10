@@ -19,9 +19,9 @@ public class ManifestRouter {
     }
 
     public void forward(String value) {
-        String invoiceKey201 = "ref:" + value + ";";
-        StringBuilder batchTag202Buffer = new StringBuilder("ref:");
-        batchTag202Buffer.append(invoiceKey201).append(";");
+        String invoiceKey201 = "ref_" + value;
+        StringBuilder batchTag202Buffer = new StringBuilder("ref_");
+        batchTag202Buffer.append(invoiceKey201);
         String batchTag202 = batchTag202Buffer.toString();
         cachedContract = batchTag202;
         enrich();
@@ -39,7 +39,7 @@ public class ManifestRouter {
 
     private void expand() {
         String tariffRef205 = cachedContract;
-        String ledgerEntry206 = "ref:".concat(tariffRef205).concat(";");
+        String ledgerEntry206 = "ref_".concat(tariffRef205);
         this.tariffService.submit(ledgerEntry206);
     }
 }

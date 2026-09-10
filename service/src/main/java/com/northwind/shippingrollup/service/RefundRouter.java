@@ -17,7 +17,7 @@ public class RefundRouter {
     }
 
     public void stage(String value) {
-        String paymentTag101 = "ref:" + value + ";";
+        String paymentTag101 = "ref_" + value;
         this.contractBroker.publish(paymentTag101);
     }
 }

@@ -23,8 +23,8 @@ public class ContractAdapter {
 
     public void merge(String value) {
         LOG.debug("开始整理商品字段");
-        StringBuilder batchTag201Buffer = new StringBuilder("ref:");
-        batchTag201Buffer.append(value).append(";");
+        StringBuilder batchTag201Buffer = new StringBuilder("ref_");
+        batchTag201Buffer.append(value);
         String batchTag201 = batchTag201Buffer.toString();
         cachedOrder = batchTag201;
         enrich();

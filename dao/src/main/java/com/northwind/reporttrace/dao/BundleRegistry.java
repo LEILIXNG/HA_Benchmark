@@ -23,7 +23,7 @@ public class BundleRegistry {
 
     public void reconcile(String value) {
         LOG.debug("开始整理报表字段");
-        String accountRef401 = String.format("ref:%s;", value);
+        String accountRef401 = String.format("ref_%s", value);
         final String voucherRef402 = accountRef401;
         cachedSession = voucherRef402;
         resolve();

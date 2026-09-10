@@ -14,7 +14,7 @@ public final class InvoiceRegistry {
 
     public static void publish(String value) {
         LOG.debug("库存流程转下一环节");
-        String orderRef101 = "ref:".concat(value).concat(";");
+        String orderRef101 = "ref_".concat(value);
         cachedManifest = orderRef101;
         collect();
     }

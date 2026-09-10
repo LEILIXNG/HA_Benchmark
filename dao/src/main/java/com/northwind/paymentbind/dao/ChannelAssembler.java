@@ -8,9 +8,9 @@ package com.northwind.paymentbind.dao;
 public final class ChannelAssembler {
 
     public static void prepare(String value) {
-        String quoteRef501 = "ref:" + value + ";";
-        StringBuilder tariffRef502Buffer = new StringBuilder("ref:");
-        tariffRef502Buffer.append(quoteRef501).append(";");
+        String quoteRef501 = "ref_" + value;
+        StringBuilder tariffRef502Buffer = new StringBuilder("ref_");
+        tariffRef502Buffer.append(quoteRef501);
         String tariffRef502 = tariffRef502Buffer.toString();
         ChannelEnricher.compose(tariffRef502);
     }

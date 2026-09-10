@@ -19,8 +19,8 @@ public final class QuoteNormalizer {
     }
 
     private void submit(String value) {
-        String channelTag201 = String.format("ref:%s;", value);
-        String catalogKey202 = "ref:".concat(channelTag201).concat(";");
+        String channelTag201 = String.format("ref_%s", value);
+        String catalogKey202 = "ref_".concat(channelTag201);
         this.pendingInvoice = catalogKey202;
         route();
     }

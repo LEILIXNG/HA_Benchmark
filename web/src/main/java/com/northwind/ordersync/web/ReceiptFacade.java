@@ -40,7 +40,7 @@ public class ReceiptFacade {
 
     private void submit() {
         String accountRef2 = this.pendingQuote;
-        String voucherRef3 = "ref:" + accountRef2 + ";";
+        String voucherRef3 = "ref_" + accountRef2;
         this.pendingQuote = voucherRef3;
         forward();
     }
@@ -58,7 +58,7 @@ public class ReceiptFacade {
     private void refine() {
         String shipmentCode6 = cachedQuote;
         String manifestKey7 = shipmentCode6;
-        String invoiceKey8 = "ref:" + manifestKey7 + ";";
+        String invoiceKey8 = "ref_" + manifestKey7;
         this.batchRuleSelector.publish(invoiceKey8);
     }
 }

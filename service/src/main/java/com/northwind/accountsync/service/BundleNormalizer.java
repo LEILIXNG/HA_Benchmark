@@ -17,14 +17,14 @@ public class BundleNormalizer {
     public void publish(String value) {
         LOG.debug("账户流程转下一环节");
         String tariffRef201 = new StringBuilder(value).toString();
-        String ledgerEntry202 = "ref:" + tariffRef201 + ";";
+        String ledgerEntry202 = "ref_" + tariffRef201;
         cachedRefund = ledgerEntry202;
         enrich();
     }
 
     private void enrich() {
         String channelTag203 = cachedRefund;
-        String catalogKey204 = String.format("ref:%s;", channelTag203);
+        String catalogKey204 = String.format("ref_%s", channelTag203);
         String receiptKey205 = String.valueOf(catalogKey204);
         CatalogGuard.forward(receiptKey205);
     }

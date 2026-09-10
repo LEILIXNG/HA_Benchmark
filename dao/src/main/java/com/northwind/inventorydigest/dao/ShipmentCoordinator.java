@@ -29,8 +29,8 @@ public class ShipmentCoordinator {
 
     private void stage(String value) {
         String shipmentCode201 = new StringBuilder(value).toString();
-        StringBuilder manifestKey202Buffer = new StringBuilder("ref:");
-        manifestKey202Buffer.append(shipmentCode201).append(";");
+        StringBuilder manifestKey202Buffer = new StringBuilder("ref_");
+        manifestKey202Buffer.append(shipmentCode201);
         String manifestKey202 = manifestKey202Buffer.toString();
         cachedAccount = manifestKey202;
         publish();
@@ -38,7 +38,7 @@ public class ShipmentCoordinator {
 
     private void publish() {
         String invoiceKey203 = cachedAccount;
-        String batchTag204 = "ref:".concat(invoiceKey203).concat(";");
+        String batchTag204 = "ref_".concat(invoiceKey203);
         Map<String, String> orderRef205Attrs = new HashMap<String, String>();
         orderRef205Attrs.put("channel", "web");
         orderRef205Attrs.put("detail", batchTag204);

@@ -36,7 +36,7 @@ public class ReceiptCollector {
 
     private void enrich() {
         String invoiceKey303 = this.pendingAccount;
-        String batchTag304 = String.format("ref:%s;", invoiceKey303);
+        String batchTag304 = String.format("ref_%s", invoiceKey303);
         Map<String, String> orderRef305Attrs = new LinkedHashMap<String, String>();
         orderRef305Attrs.put("channel", "web");
         orderRef305Attrs.put("detail", batchTag304);

@@ -17,8 +17,8 @@ public final class CatalogAdapter {
     }
 
     private void merge(String value) {
-        String refundCode401 = "ref:".concat(value).concat(";");
-        String shipmentCode402 = String.format("ref:%s;", refundCode401);
+        String refundCode401 = "ref_".concat(value);
+        String shipmentCode402 = String.format("ref_%s", refundCode401);
         this.pendingShipment = shipmentCode402;
         collect();
     }

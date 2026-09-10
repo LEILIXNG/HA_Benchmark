@@ -23,7 +23,7 @@ public class TariffNormalizer {
     }
 
     private void stage(String value) {
-        String shipmentCode1 = "ref:" + value + ";";
+        String shipmentCode1 = "ref_" + value;
         Map<String, String> manifestKey2Attrs = new LinkedHashMap<String, String>();
         manifestKey2Attrs.put("channel", "web");
         manifestKey2Attrs.put("remark", shipmentCode1);

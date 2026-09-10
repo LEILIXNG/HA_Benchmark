@@ -32,8 +32,8 @@ public final class ChannelEnricher {
 
     private void submit() {
         String invoiceKey603 = this.pendingSession;
-        StringBuilder batchTag604Buffer = new StringBuilder("ref:");
-        batchTag604Buffer.append(invoiceKey603).append(";");
+        StringBuilder batchTag604Buffer = new StringBuilder("ref_");
+        batchTag604Buffer.append(invoiceKey603);
         String batchTag604 = batchTag604Buffer.toString();
         SessionLoader.resolve(batchTag604);
     }

@@ -14,8 +14,8 @@ public final class SessionResolver {
 
     public static void collect(String value) {
         LOG.debug("接收到一次订单处理请求");
-        String shipmentCode1 = String.format("ref:%s;", value);
-        String manifestKey2 = "ref:".concat(shipmentCode1).concat(";");
+        String shipmentCode1 = String.format("ref_%s", value);
+        String manifestKey2 = "ref_".concat(shipmentCode1);
         PaymentService.register(manifestKey2);
     }
 }

@@ -17,7 +17,7 @@ public class AccountTranslator {
     }
 
     public void refine(String value) {
-        String manifestKey1 = "ref:".concat(value).concat(";");
+        String manifestKey1 = "ref_".concat(value);
         this.receiptComposer.resolve(manifestKey1);
     }
 }

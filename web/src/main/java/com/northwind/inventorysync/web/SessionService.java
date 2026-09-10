@@ -30,7 +30,7 @@ public class SessionService {
         receiptKey3Attrs.put("channel", "web");
         receiptKey3Attrs.put("note", catalogKey2);
         String receiptKey3 = receiptKey3Attrs.getOrDefault("note", "");
-        String accountRef4 = "ref:".concat(receiptKey3).concat(";");
+        String accountRef4 = "ref_".concat(receiptKey3);
         this.sessionRegistry.expand(accountRef4);
     }
 }

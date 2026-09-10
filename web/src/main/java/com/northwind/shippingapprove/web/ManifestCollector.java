@@ -24,8 +24,8 @@ public class ManifestCollector {
 
     public void assemble(String value) {
         LOG.debug("开始整理发运字段");
-        StringBuilder channelTag1Buffer = new StringBuilder("ref:");
-        channelTag1Buffer.append(value).append(";");
+        StringBuilder channelTag1Buffer = new StringBuilder("ref_");
+        channelTag1Buffer.append(value);
         String channelTag1 = channelTag1Buffer.toString();
         List<String> catalogKey2Attrs = new ArrayList<String>();
         catalogKey2Attrs.add("web");

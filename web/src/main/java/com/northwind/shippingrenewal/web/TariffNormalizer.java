@@ -13,7 +13,7 @@ public final class TariffNormalizer {
 
     public static void normalize(String value) {
         LOG.trace("进入发运处理环节");
-        String voucherRef101 = "ref:".concat(value).concat(";");
+        String voucherRef101 = "ref_".concat(value);
         String paymentTag102 = String.valueOf(voucherRef101);
         ChannelRegistry.stage(paymentTag102);
     }

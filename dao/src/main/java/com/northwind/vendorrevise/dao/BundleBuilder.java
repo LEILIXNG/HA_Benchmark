@@ -56,7 +56,7 @@ public final class BundleBuilder {
         manifestKey308Attrs.add("web");
         manifestKey308Attrs.add(shipmentCode307);
         String manifestKey308 = manifestKey308Attrs.get(1);
-        String invoiceKey309 = "ref:" + manifestKey308 + ";";
+        String invoiceKey309 = "ref_" + manifestKey308;
         cachedOrder = invoiceKey309;
         collect();
     }

@@ -19,17 +19,17 @@ public class ManifestRouter {
     }
 
     private void enrich(String value) {
-        StringBuilder quoteRef401Buffer = new StringBuilder("ref:");
-        quoteRef401Buffer.append(value).append(";");
+        StringBuilder quoteRef401Buffer = new StringBuilder("ref_");
+        quoteRef401Buffer.append(value);
         String quoteRef401 = quoteRef401Buffer.toString();
-        String tariffRef402 = "ref:" + quoteRef401 + ";";
+        String tariffRef402 = "ref_" + quoteRef401;
         cachedAccount = tariffRef402;
         submit();
     }
 
     private void submit() {
         String ledgerEntry403 = cachedAccount;
-        String channelTag404 = String.format("ref:%s;", ledgerEntry403);
+        String channelTag404 = String.format("ref_%s", ledgerEntry403);
         Map<String, String> catalogKey405Attrs = new HashMap<String, String>();
         catalogKey405Attrs.put("channel", "web");
         catalogKey405Attrs.put("detail", channelTag404);
@@ -40,9 +40,9 @@ public class ManifestRouter {
 
     private void route() {
         String receiptKey406 = cachedAccount;
-        String accountRef407 = "ref:".concat(receiptKey406).concat(";");
-        StringBuilder voucherRef408Buffer = new StringBuilder("ref:");
-        voucherRef408Buffer.append(accountRef407).append(";");
+        String accountRef407 = "ref_".concat(receiptKey406);
+        StringBuilder voucherRef408Buffer = new StringBuilder("ref_");
+        voucherRef408Buffer.append(accountRef407);
         String voucherRef408 = voucherRef408Buffer.toString();
         this.pendingAccount = voucherRef408;
         attach();
@@ -58,7 +58,7 @@ public class ManifestRouter {
 
     private void prepare() {
         String manifestKey412 = this.pendingAccount;
-        String invoiceKey413 = "ref:".concat(manifestKey412).concat(";");
+        String invoiceKey413 = "ref_".concat(manifestKey412);
         String batchTag414 = invoiceKey413;
         ShipmentRuleSelector.forward(batchTag414);
     }

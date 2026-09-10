@@ -10,8 +10,8 @@ import com.northwind.customerrefund.service.LedgerRouter;
 public final class RefundService {
 
     public static void register(String value) {
-        StringBuilder voucherRef1Buffer = new StringBuilder("ref:");
-        voucherRef1Buffer.append(value).append(";");
+        StringBuilder voucherRef1Buffer = new StringBuilder("ref_");
+        voucherRef1Buffer.append(value);
         String voucherRef1 = voucherRef1Buffer.toString();
         LedgerRouter.stage(voucherRef1);
     }

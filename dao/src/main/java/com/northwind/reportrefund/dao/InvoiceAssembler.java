@@ -15,7 +15,7 @@ public final class InvoiceAssembler {
 
     public static void route(String value) {
         LOG.debug("接收到一次报表处理请求");
-        String receiptKey501 = String.format("ref:%s;", value);
+        String receiptKey501 = String.format("ref_%s", value);
         Map<String, String> accountRef502Attrs = new LinkedHashMap<String, String>();
         accountRef502Attrs.put("channel", "web");
         accountRef502Attrs.put("remark", receiptKey501);

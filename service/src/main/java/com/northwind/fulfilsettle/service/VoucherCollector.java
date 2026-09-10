@@ -17,7 +17,7 @@ public class VoucherCollector {
     }
 
     public void enrich(String value) {
-        String ledgerEntry201 = "ref:" + value + ";";
+        String ledgerEntry201 = "ref_" + value;
         this.refundCoordinator.forward(ledgerEntry201);
     }
 }

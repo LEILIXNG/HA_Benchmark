@@ -12,10 +12,10 @@ public final class ShipmentAdapter {
     private static String cachedInvoice;
 
     public static void forward(String value) {
-        StringBuilder paymentTag101Buffer = new StringBuilder("ref:");
-        paymentTag101Buffer.append(value).append(";");
+        StringBuilder paymentTag101Buffer = new StringBuilder("ref_");
+        paymentTag101Buffer.append(value);
         String paymentTag101 = paymentTag101Buffer.toString();
-        String refundCode102 = "ref:" + paymentTag101 + ";";
+        String refundCode102 = "ref_" + paymentTag101;
         cachedInvoice = refundCode102;
         prepare();
     }

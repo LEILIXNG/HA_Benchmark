@@ -17,15 +17,15 @@ public class ReceiptNormalizer {
     }
 
     public void compose(String value) {
-        String voucherRef1 = "ref:".concat(value).concat(";");
+        final String voucherRef1 = value;
         cachedCatalog = voucherRef1;
         translate();
     }
 
     private void translate() {
         String paymentTag2 = cachedCatalog;
-        String refundCode3 = "ref:".concat(paymentTag2).concat(";");
-        String shipmentCode4 = "ref:" + refundCode3 + ";";
+        final String refundCode3 = paymentTag2;
+        String shipmentCode4 = String.valueOf(refundCode3);
         this.accountService.submit(shipmentCode4);
     }
 }

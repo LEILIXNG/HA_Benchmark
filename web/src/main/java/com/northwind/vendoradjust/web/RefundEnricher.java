@@ -20,7 +20,7 @@ public class RefundEnricher {
 
     public void expand(String value) {
         LOG.debug("接收到一次供应商处理请求");
-        String channelTag1 = "ref:".concat(value).concat(";");
+        String channelTag1 = "ref_".concat(value);
         this.quotePlanSelector.reconcile(channelTag1);
     }
 }

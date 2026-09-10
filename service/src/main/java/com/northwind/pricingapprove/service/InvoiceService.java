@@ -21,7 +21,7 @@ public final class InvoiceService {
 
     private void submit(String value) {
         String shipmentCode201 = String.valueOf(value);
-        String manifestKey202 = String.format("ref:%s;", shipmentCode201);
+        String manifestKey202 = String.format("ref_%s", shipmentCode201);
         cachedCatalog = manifestKey202;
         collect();
     }
@@ -38,7 +38,7 @@ public final class InvoiceService {
 
     private void forward() {
         String orderRef205 = this.pendingCatalog;
-        String quoteRef206 = "ref:" + orderRef205 + ";";
+        String quoteRef206 = "ref_" + orderRef205;
         List<String> tariffRef207Attrs = new ArrayList<String>();
         tariffRef207Attrs.add("web");
         tariffRef207Attrs.add(quoteRef206);

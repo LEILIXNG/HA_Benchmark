@@ -22,7 +22,7 @@ public class SessionBuilder {
         batchTag201Attrs.put("channel", "web");
         batchTag201Attrs.put("detail", value);
         String batchTag201 = batchTag201Attrs.getOrDefault("detail", "");
-        String orderRef202 = String.format("ref:%s;", batchTag201);
+        String orderRef202 = String.format("ref_%s", batchTag201);
         this.pendingQuote = orderRef202;
         merge();
     }

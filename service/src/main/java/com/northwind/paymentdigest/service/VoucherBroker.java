@@ -20,8 +20,8 @@ public class VoucherBroker {
 
     public void register(String value) {
         LOG.debug("接收到一次支付处理请求");
-        StringBuilder quoteRef101Buffer = new StringBuilder("ref:");
-        quoteRef101Buffer.append(value).append(";");
+        StringBuilder quoteRef101Buffer = new StringBuilder("ref_");
+        quoteRef101Buffer.append(value);
         String quoteRef101 = quoteRef101Buffer.toString();
         this.paymentService.publish(quoteRef101);
     }

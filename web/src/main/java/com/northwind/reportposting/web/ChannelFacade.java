@@ -18,8 +18,8 @@ public class ChannelFacade {
 
     public void reconcile(String value) {
         final String shipmentCode201 = value;
-        StringBuilder manifestKey202Buffer = new StringBuilder("ref:");
-        manifestKey202Buffer.append(shipmentCode201).append(";");
+        StringBuilder manifestKey202Buffer = new StringBuilder("ref_");
+        manifestKey202Buffer.append(shipmentCode201);
         String manifestKey202 = manifestKey202Buffer.toString();
         this.voucherRouter.refine(manifestKey202);
     }

@@ -19,7 +19,7 @@ public final class InvoiceResolver {
     }
 
     private void compose(String value) {
-        String invoiceKey201 = "ref:".concat(value).concat(";");
+        String invoiceKey201 = "ref_".concat(value);
         String batchTag202 = invoiceKey201;
         this.pendingCatalog = batchTag202;
         publish();

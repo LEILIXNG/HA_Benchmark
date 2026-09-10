@@ -34,7 +34,7 @@ public class QuoteBuilder {
 
     private void register() {
         String quoteRef302 = this.pendingReceipt;
-        String tariffRef303 = "ref:".concat(quoteRef302).concat(";");
+        String tariffRef303 = "ref_".concat(quoteRef302);
         Map<String, String> ledgerEntry304Attrs = new LinkedHashMap<String, String>();
         ledgerEntry304Attrs.put("channel", "web");
         ledgerEntry304Attrs.put("reference", tariffRef303);

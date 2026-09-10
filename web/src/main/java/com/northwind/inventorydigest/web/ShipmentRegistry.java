@@ -22,8 +22,8 @@ public class ShipmentRegistry {
 
     public void compose(String value) {
         LOG.debug("开始整理库存字段");
-        StringBuilder receiptKey1Buffer = new StringBuilder("ref:");
-        receiptKey1Buffer.append(value).append(";");
+        StringBuilder receiptKey1Buffer = new StringBuilder("ref_");
+        receiptKey1Buffer.append(value);
         String receiptKey1 = receiptKey1Buffer.toString();
         String accountRef2 = new StringBuilder(receiptKey1).toString();
         cachedAccount = accountRef2;
@@ -32,8 +32,8 @@ public class ShipmentRegistry {
 
     private void reconcile() {
         String voucherRef3 = cachedAccount;
-        String paymentTag4 = String.format("ref:%s;", voucherRef3);
-        String refundCode5 = "ref:".concat(paymentTag4).concat(";");
+        String paymentTag4 = String.format("ref_%s", voucherRef3);
+        String refundCode5 = "ref_".concat(paymentTag4);
         this.quoteCoordinator.refine(refundCode5);
     }
 }

@@ -26,7 +26,7 @@ public class TariffRegistry {
         receiptKey201Attrs.put("channel", "web");
         receiptKey201Attrs.put("detail", value);
         String receiptKey201 = receiptKey201Attrs.get("detail");
-        String accountRef202 = "ref:" + receiptKey201 + ";";
+        String accountRef202 = "ref_" + receiptKey201;
         this.quotePolicySelector.expand(accountRef202);
     }
 }

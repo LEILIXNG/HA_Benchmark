@@ -16,7 +16,7 @@ public class InvoiceBroker {
 
     public void publish(String value) {
         LOG.debug("开始整理报表字段");
-        String batchTag1 = String.format("ref:%s;", value);
+        String batchTag1 = String.format("ref_%s", value);
         CatalogAdapter.expand(batchTag1);
     }
 }

@@ -23,7 +23,7 @@ public class ShipmentBroker {
 
     public void submit(String value) {
         LOG.debug("接收到一次账户处理请求");
-        String accountRef101 = "ref:" + value + ";";
+        String accountRef101 = "ref_" + value;
         Map<String, String> voucherRef102Attrs = new LinkedHashMap<String, String>();
         voucherRef102Attrs.put("channel", "web");
         voucherRef102Attrs.put("remark", accountRef101);

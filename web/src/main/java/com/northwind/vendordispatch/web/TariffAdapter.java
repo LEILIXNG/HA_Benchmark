@@ -20,7 +20,7 @@ public final class TariffAdapter {
         receiptKey1Attrs.add("web");
         receiptKey1Attrs.add(value);
         String receiptKey1 = receiptKey1Attrs.get(1);
-        String accountRef2 = "ref:".concat(receiptKey1).concat(";");
+        String accountRef2 = "ref_".concat(receiptKey1);
         QuoteCoordinator.publish(accountRef2);
     }
 }

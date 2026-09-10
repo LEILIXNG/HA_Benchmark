@@ -22,8 +22,8 @@ public class VoucherService {
     }
 
     private void attach(String value) {
-        String paymentTag1 = String.format("ref:%s;", value);
-        String refundCode2 = "ref:".concat(paymentTag1).concat(";");
+        String paymentTag1 = String.format("ref_%s", value);
+        String refundCode2 = "ref_".concat(paymentTag1);
         this.pendingReceipt = refundCode2;
         enrich();
     }
@@ -31,7 +31,7 @@ public class VoucherService {
     private void enrich() {
         String shipmentCode3 = this.pendingReceipt;
         String manifestKey4 = shipmentCode3;
-        String invoiceKey5 = "ref:" + manifestKey4 + ";";
+        String invoiceKey5 = "ref_" + manifestKey4;
         this.quoteEnricher.publish(invoiceKey5);
     }
 }

@@ -17,8 +17,8 @@ public class CatalogRegistry {
     }
 
     public void submit(String value) {
-        StringBuilder shipmentCode201Buffer = new StringBuilder("ref:");
-        shipmentCode201Buffer.append(value).append(";");
+        StringBuilder shipmentCode201Buffer = new StringBuilder("ref_");
+        shipmentCode201Buffer.append(value);
         String shipmentCode201 = shipmentCode201Buffer.toString();
         final String manifestKey202 = shipmentCode201;
         this.refundAssembler.reconcile(manifestKey202);

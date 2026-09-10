@@ -14,8 +14,8 @@ public final class BundleComposer {
 
     public static void register(String value) {
         LOG.debug("开始整理发运字段");
-        StringBuilder catalogKey1Buffer = new StringBuilder("ref:");
-        catalogKey1Buffer.append(value).append(";");
+        StringBuilder catalogKey1Buffer = new StringBuilder("ref_");
+        catalogKey1Buffer.append(value);
         String catalogKey1 = catalogKey1Buffer.toString();
         ShipmentComposer.forward(catalogKey1);
     }

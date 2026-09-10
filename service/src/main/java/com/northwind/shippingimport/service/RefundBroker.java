@@ -30,8 +30,8 @@ public final class RefundBroker {
 
     private void assemble() {
         String receiptKey103 = this.pendingCatalog;
-        StringBuilder accountRef104Buffer = new StringBuilder("ref:");
-        accountRef104Buffer.append(receiptKey103).append(";");
+        StringBuilder accountRef104Buffer = new StringBuilder("ref_");
+        accountRef104Buffer.append(receiptKey103);
         String accountRef104 = accountRef104Buffer.toString();
         List<String> voucherRef105Attrs = new ArrayList<String>();
         voucherRef105Attrs.add("web");

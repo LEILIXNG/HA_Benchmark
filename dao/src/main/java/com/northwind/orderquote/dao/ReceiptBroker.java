@@ -11,7 +11,7 @@ import java.util.List;
 public final class ReceiptBroker {
 
     public static void enrich(String value) {
-        String tariffRef301 = "ref:" + value + ";";
+        String tariffRef301 = "ref_" + value;
         List<String> ledgerEntry302Attrs = new ArrayList<String>();
         ledgerEntry302Attrs.add("web");
         ledgerEntry302Attrs.add(tariffRef301);

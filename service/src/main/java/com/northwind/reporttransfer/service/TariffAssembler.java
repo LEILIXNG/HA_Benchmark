@@ -10,8 +10,8 @@ import com.northwind.reporttransfer.dao.ChannelTranslator;
 public final class TariffAssembler {
 
     public static void stage(String value) {
-        StringBuilder batchTag301Buffer = new StringBuilder("ref:");
-        batchTag301Buffer.append(value).append(";");
+        StringBuilder batchTag301Buffer = new StringBuilder("ref_");
+        batchTag301Buffer.append(value);
         String batchTag301 = batchTag301Buffer.toString();
         String orderRef302 = new StringBuilder(batchTag301).toString();
         ChannelTranslator.resolve(orderRef302);

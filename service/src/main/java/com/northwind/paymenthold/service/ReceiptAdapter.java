@@ -38,7 +38,7 @@ public class ReceiptAdapter {
 
     private void normalize() {
         String manifestKey204 = cachedPayment;
-        String invoiceKey205 = "ref:".concat(manifestKey204).concat(";");
+        String invoiceKey205 = "ref_".concat(manifestKey204);
         this.pendingPayment = invoiceKey205;
         compose();
     }
@@ -65,8 +65,8 @@ public class ReceiptAdapter {
 
     private void resolve() {
         String ledgerEntry210 = this.pendingPayment;
-        String channelTag211 = "ref:".concat(ledgerEntry210).concat(";");
-        String catalogKey212 = String.format("ref:%s;", channelTag211);
+        String channelTag211 = "ref_".concat(ledgerEntry210);
+        String catalogKey212 = String.format("ref_%s", channelTag211);
         this.shipmentRouter.compose(catalogKey212);
     }
 }

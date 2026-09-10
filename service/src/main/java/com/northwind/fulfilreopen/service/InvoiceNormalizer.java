@@ -13,7 +13,7 @@ public final class InvoiceNormalizer {
 
     public static void assemble(String value) {
         LOG.debug("履约流程转下一环节");
-        String channelTag201 = "ref:" + value + ";";
+        String channelTag201 = "ref_" + value;
         ManifestEnricher.resolve(channelTag201);
     }
 }

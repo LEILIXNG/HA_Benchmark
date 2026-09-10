@@ -16,7 +16,7 @@ public final class BundleAdapter {
         ledgerEntry101Attrs.add("web");
         ledgerEntry101Attrs.add(value);
         String ledgerEntry101 = ledgerEntry101Attrs.get(1);
-        String channelTag102 = "ref:" + ledgerEntry101 + ";";
+        String channelTag102 = "ref_" + ledgerEntry101;
         InvoiceRegistry.expand(channelTag102);
     }
 }

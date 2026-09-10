@@ -25,8 +25,8 @@ public final class CatalogResolver {
 
     private void merge() {
         String manifestKey502 = cachedTariff;
-        StringBuilder invoiceKey503Buffer = new StringBuilder("ref:");
-        invoiceKey503Buffer.append(manifestKey502).append(";");
+        StringBuilder invoiceKey503Buffer = new StringBuilder("ref_");
+        invoiceKey503Buffer.append(manifestKey502);
         String invoiceKey503 = invoiceKey503Buffer.toString();
         this.pendingTariff = invoiceKey503;
         expand();
@@ -34,7 +34,7 @@ public final class CatalogResolver {
 
     private void expand() {
         String batchTag504 = this.pendingTariff;
-        String orderRef505 = "ref:".concat(batchTag504).concat(";");
+        String orderRef505 = "ref_".concat(batchTag504);
         Map<String, String> quoteRef506Attrs = new HashMap<String, String>();
         quoteRef506Attrs.put("channel", "web");
         quoteRef506Attrs.put("remark", orderRef505);

@@ -26,8 +26,8 @@ public final class ContractCollector {
 
     private static void refine() {
         String accountRef202 = cachedBundle;
-        String voucherRef203 = "ref:".concat(accountRef202).concat(";");
-        String paymentTag204 = "ref:" + voucherRef203 + ";";
+        String voucherRef203 = "ref_".concat(accountRef202);
+        String paymentTag204 = "ref_" + voucherRef203;
         TariffAdapter.merge(paymentTag204);
     }
 }

@@ -23,7 +23,7 @@ public final class BundleResolver {
 
     private void register(String value) {
         String catalogKey101 = value;
-        String receiptKey102 = "ref:".concat(catalogKey101).concat(";");
+        String receiptKey102 = "ref_".concat(catalogKey101);
         this.pendingRefund = receiptKey102;
         merge();
     }

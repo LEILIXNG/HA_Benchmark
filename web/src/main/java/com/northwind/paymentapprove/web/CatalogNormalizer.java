@@ -22,7 +22,7 @@ public final class CatalogNormalizer {
     }
 
     private void translate(String value) {
-        String paymentTag101 = "ref:".concat(value).concat(";");
+        final String paymentTag101 = value;
         Map<String, String> refundCode102Attrs = new LinkedHashMap<String, String>();
         refundCode102Attrs.put("channel", "web");
         refundCode102Attrs.put("remark", paymentTag101);

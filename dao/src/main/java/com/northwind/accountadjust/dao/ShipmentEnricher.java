@@ -22,7 +22,7 @@ public class ShipmentEnricher {
         manifestKey301Attrs.add("web");
         manifestKey301Attrs.add(value);
         String manifestKey301 = manifestKey301Attrs.get(1);
-        String invoiceKey302 = "ref:" + manifestKey301 + ";";
+        String invoiceKey302 = "ref_" + manifestKey301;
         this.quoteEvaluator.forward(invoiceKey302);
     }
 }

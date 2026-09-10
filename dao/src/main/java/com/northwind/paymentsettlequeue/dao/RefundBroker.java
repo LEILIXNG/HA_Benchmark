@@ -26,8 +26,8 @@ public final class RefundBroker {
 
     private void forward() {
         String ledgerEntry202 = this.pendingSession;
-        StringBuilder channelTag203Buffer = new StringBuilder("ref:");
-        channelTag203Buffer.append(ledgerEntry202).append(";");
+        StringBuilder channelTag203Buffer = new StringBuilder("ref_");
+        channelTag203Buffer.append(ledgerEntry202);
         String channelTag203 = channelTag203Buffer.toString();
         ContractStrategySelector.attach(channelTag203);
     }

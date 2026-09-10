@@ -21,7 +21,7 @@ public class InvoiceCollector {
 
     public void route(String value) {
         LOG.debug("开始整理订单字段");
-        String voucherRef101 = String.format("ref:%s;", value);
+        String voucherRef101 = String.format("ref_%s", value);
         String paymentTag102 = String.valueOf(voucherRef101);
         cachedPayment = paymentTag102;
         submit();
@@ -29,8 +29,8 @@ public class InvoiceCollector {
 
     private void submit() {
         String refundCode103 = cachedPayment;
-        StringBuilder shipmentCode104Buffer = new StringBuilder("ref:");
-        shipmentCode104Buffer.append(refundCode103).append(";");
+        StringBuilder shipmentCode104Buffer = new StringBuilder("ref_");
+        shipmentCode104Buffer.append(refundCode103);
         String shipmentCode104 = shipmentCode104Buffer.toString();
         this.channelAssembler.publish(shipmentCode104);
     }

@@ -20,7 +20,7 @@ public class TariffCollector {
 
     public void route(String value) {
         LOG.debug("开始整理订单字段");
-        String channelTag401 = "ref:" + value + ";";
+        String channelTag401 = "ref_" + value;
         this.voucherRuleSelector.attach(channelTag401);
     }
 }

@@ -36,7 +36,7 @@ public class RefundFacade {
 
     private void stage() {
         String orderRef3 = cachedRefund;
-        String quoteRef4 = "ref:".concat(orderRef3).concat(";");
+        String quoteRef4 = "ref_".concat(orderRef3);
         this.pendingRefund = quoteRef4;
         publish();
     }
@@ -57,8 +57,8 @@ public class RefundFacade {
         catalogKey8Attrs.put("channel", "web");
         catalogKey8Attrs.put("reference", channelTag7);
         String catalogKey8 = catalogKey8Attrs.getOrDefault("reference", "");
-        StringBuilder receiptKey9Buffer = new StringBuilder("ref:");
-        receiptKey9Buffer.append(catalogKey8).append(";");
+        StringBuilder receiptKey9Buffer = new StringBuilder("ref_");
+        receiptKey9Buffer.append(catalogKey8);
         String receiptKey9 = receiptKey9Buffer.toString();
         this.pendingRefund = receiptKey9;
         prepare();

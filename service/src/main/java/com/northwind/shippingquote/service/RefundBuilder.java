@@ -44,8 +44,8 @@ public class RefundBuilder {
         manifestKey206Attrs.put("channel", "web");
         manifestKey206Attrs.put("remark", shipmentCode205);
         String manifestKey206 = manifestKey206Attrs.get("remark");
-        StringBuilder invoiceKey207Buffer = new StringBuilder("ref:");
-        invoiceKey207Buffer.append(manifestKey206).append(";");
+        StringBuilder invoiceKey207Buffer = new StringBuilder("ref_");
+        invoiceKey207Buffer.append(manifestKey206);
         String invoiceKey207 = invoiceKey207Buffer.toString();
         this.pendingAccount = invoiceKey207;
         enrich();
@@ -53,7 +53,7 @@ public class RefundBuilder {
 
     private void enrich() {
         String batchTag208 = this.pendingAccount;
-        String orderRef209 = String.format("ref:%s;", batchTag208);
+        String orderRef209 = String.format("ref_%s", batchTag208);
         List<String> quoteRef210Attrs = new ArrayList<String>();
         quoteRef210Attrs.add("web");
         quoteRef210Attrs.add(orderRef209);

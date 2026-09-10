@@ -27,8 +27,8 @@ public class ReceiptService {
         receiptKey1Attrs.add("web");
         receiptKey1Attrs.add(value);
         String receiptKey1 = receiptKey1Attrs.get(1);
-        StringBuilder accountRef2Buffer = new StringBuilder("ref:");
-        accountRef2Buffer.append(receiptKey1).append(";");
+        StringBuilder accountRef2Buffer = new StringBuilder("ref_");
+        accountRef2Buffer.append(receiptKey1);
         String accountRef2 = accountRef2Buffer.toString();
         this.orderBuilder.dispatch(accountRef2);
     }

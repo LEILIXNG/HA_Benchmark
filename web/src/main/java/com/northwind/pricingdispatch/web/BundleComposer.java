@@ -21,7 +21,7 @@ public final class BundleComposer {
     }
 
     private void refine(String value) {
-        String accountRef101 = "ref:".concat(value).concat(";");
+        String accountRef101 = "ref_".concat(value);
         this.pendingAccount = accountRef101;
         normalize();
     }

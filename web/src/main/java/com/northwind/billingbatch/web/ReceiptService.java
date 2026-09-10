@@ -25,8 +25,8 @@ public class ReceiptService {
 
     private void route() {
         String accountRef2 = cachedPayment;
-        StringBuilder voucherRef3Buffer = new StringBuilder("ref:");
-        voucherRef3Buffer.append(accountRef2).append(";");
+        StringBuilder voucherRef3Buffer = new StringBuilder("ref_");
+        voucherRef3Buffer.append(accountRef2);
         String voucherRef3 = voucherRef3Buffer.toString();
         this.contractAdapter.translate(voucherRef3);
     }

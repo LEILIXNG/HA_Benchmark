@@ -21,17 +21,17 @@ public class ShipmentRouter {
     }
 
     private void forward(String value) {
-        String ledgerEntry201 = "ref:".concat(value).concat(";");
-        String channelTag202 = String.format("ref:%s;", ledgerEntry201);
+        String ledgerEntry201 = "ref_".concat(value);
+        String channelTag202 = String.format("ref_%s", ledgerEntry201);
         this.pendingManifest = channelTag202;
         route();
     }
 
     private void route() {
         String catalogKey203 = this.pendingManifest;
-        String receiptKey204 = "ref:" + catalogKey203 + ";";
-        StringBuilder accountRef205Buffer = new StringBuilder("ref:");
-        accountRef205Buffer.append(receiptKey204).append(";");
+        String receiptKey204 = "ref_" + catalogKey203;
+        StringBuilder accountRef205Buffer = new StringBuilder("ref_");
+        accountRef205Buffer.append(receiptKey204);
         String accountRef205 = accountRef205Buffer.toString();
         this.catalogPlanSelector.stage(accountRef205);
     }

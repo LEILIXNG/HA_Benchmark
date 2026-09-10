@@ -18,26 +18,22 @@ public class OrderNormalizer {
     }
 
     private void refine(String value) {
-        StringBuilder refundCode101Buffer = new StringBuilder("ref:");
-        refundCode101Buffer.append(value).append(";");
-        String refundCode101 = refundCode101Buffer.toString();
+        String refundCode101 = String.valueOf(value);
         this.pendingContract = refundCode101;
         resolve();
     }
 
     private void resolve() {
         String shipmentCode102 = this.pendingContract;
-        StringBuilder manifestKey103Buffer = new StringBuilder("ref:");
-        manifestKey103Buffer.append(shipmentCode102).append(";");
-        String manifestKey103 = manifestKey103Buffer.toString();
-        String invoiceKey104 = String.format("ref:%s;", manifestKey103);
+        String manifestKey103 = String.valueOf(shipmentCode102);
+        final String invoiceKey104 = manifestKey103;
         this.pendingContract = invoiceKey104;
         translate();
     }
 
     private void translate() {
         String batchTag105 = this.pendingContract;
-        String orderRef106 = String.format("ref:%s;", batchTag105);
+        final String orderRef106 = batchTag105;
         Map<String, String> quoteRef107Attrs = new HashMap<String, String>();
         quoteRef107Attrs.put("channel", "web");
         quoteRef107Attrs.put("note", orderRef106);
@@ -49,7 +45,7 @@ public class OrderNormalizer {
     private void attach() {
         String tariffRef108 = this.pendingContract;
         String ledgerEntry109 = tariffRef108;
-        String channelTag110 = String.format("ref:%s;", ledgerEntry109);
+        final String channelTag110 = ledgerEntry109;
         SessionEnricher.dispatch(channelTag110);
     }
 }

@@ -23,8 +23,8 @@ public class LedgerTranslator {
         invoiceKey101Attrs.add("web");
         invoiceKey101Attrs.add(value);
         String invoiceKey101 = invoiceKey101Attrs.get(1);
-        StringBuilder batchTag102Buffer = new StringBuilder("ref:");
-        batchTag102Buffer.append(invoiceKey101).append(";");
+        StringBuilder batchTag102Buffer = new StringBuilder("ref_");
+        batchTag102Buffer.append(invoiceKey101);
         String batchTag102 = batchTag102Buffer.toString();
         this.receiptEnricher.resolve(batchTag102);
     }

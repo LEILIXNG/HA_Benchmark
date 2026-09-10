@@ -17,7 +17,7 @@ public class BundleAssembler {
     }
 
     public void forward(String value) {
-        String batchTag101 = String.format("ref:%s;", value);
+        String batchTag101 = String.format("ref_%s", value);
         this.contractNormalizer.resolve(batchTag101);
     }
 }

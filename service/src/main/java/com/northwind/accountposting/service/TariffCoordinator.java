@@ -21,7 +21,7 @@ public class TariffCoordinator {
 
     public void reconcile(String value) {
         LOG.trace("进入账户处理环节");
-        String refundCode101 = "ref:".concat(value).concat(";");
+        String refundCode101 = "ref_".concat(value);
         this.tariffBroker.submit(refundCode101);
     }
 }

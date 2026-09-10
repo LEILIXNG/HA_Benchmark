@@ -23,7 +23,7 @@ public class CatalogTranslator {
 
     public void register(String value) {
         LOG.trace("进入定价处理环节");
-        String voucherRef401 = String.format("ref:%s;", value);
+        String voucherRef401 = String.format("ref_%s", value);
         Map<String, String> paymentTag402Attrs = new HashMap<String, String>();
         paymentTag402Attrs.put("channel", "web");
         paymentTag402Attrs.put("remark", voucherRef401);

@@ -15,10 +15,10 @@ public final class VoucherResolver {
 
     public static void attach(String value) {
         LOG.debug("接收到一次定价处理请求");
-        StringBuilder tariffRef201Buffer = new StringBuilder("ref:");
-        tariffRef201Buffer.append(value).append(";");
+        StringBuilder tariffRef201Buffer = new StringBuilder("ref_");
+        tariffRef201Buffer.append(value);
         String tariffRef201 = tariffRef201Buffer.toString();
-        String ledgerEntry202 = "ref:" + tariffRef201 + ";";
+        String ledgerEntry202 = "ref_" + tariffRef201;
         cachedAccount = ledgerEntry202;
         dispatch();
     }

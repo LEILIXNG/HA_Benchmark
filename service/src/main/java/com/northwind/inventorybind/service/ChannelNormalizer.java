@@ -21,7 +21,7 @@ public final class ChannelNormalizer {
     }
 
     private void submit(String value) {
-        String refundCode101 = String.format("ref:%s;", value);
+        String refundCode101 = String.format("ref_%s", value);
         Map<String, String> shipmentCode102Attrs = new LinkedHashMap<String, String>();
         shipmentCode102Attrs.put("channel", "web");
         shipmentCode102Attrs.put("remark", refundCode101);
@@ -33,7 +33,7 @@ public final class ChannelNormalizer {
     private void resolve() {
         String manifestKey103 = this.pendingContract;
         final String invoiceKey104 = manifestKey103;
-        String batchTag105 = "ref:" + invoiceKey104 + ";";
+        String batchTag105 = "ref_" + invoiceKey104;
         ShipmentRegistry.submit(batchTag105);
     }
 }

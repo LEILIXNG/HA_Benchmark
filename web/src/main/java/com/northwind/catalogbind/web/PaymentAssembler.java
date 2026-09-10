@@ -27,7 +27,7 @@ public class PaymentAssembler {
     }
 
     private void prepare(String value) {
-        String receiptKey1 = "ref:" + value + ";";
+        String receiptKey1 = "ref_" + value;
         this.pendingTariff = receiptKey1;
         publish();
     }
@@ -74,7 +74,7 @@ public class PaymentAssembler {
         ledgerEntry13Attrs.put("channel", "web");
         ledgerEntry13Attrs.put("detail", tariffRef12);
         String ledgerEntry13 = ledgerEntry13Attrs.get("detail");
-        String channelTag14 = "ref:" + ledgerEntry13 + ";";
+        String channelTag14 = "ref_" + ledgerEntry13;
         this.refundResolver.expand(channelTag14);
     }
 }

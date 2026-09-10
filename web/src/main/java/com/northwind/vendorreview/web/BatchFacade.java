@@ -51,8 +51,8 @@ public class BatchFacade {
 
     private void assemble() {
         String ledgerEntry106 = this.pendingCatalog;
-        StringBuilder channelTag107Buffer = new StringBuilder("ref:");
-        channelTag107Buffer.append(ledgerEntry106).append(";");
+        StringBuilder channelTag107Buffer = new StringBuilder("ref_");
+        channelTag107Buffer.append(ledgerEntry106);
         String channelTag107 = channelTag107Buffer.toString();
         cachedCatalog = channelTag107;
         enrich();
@@ -60,7 +60,7 @@ public class BatchFacade {
 
     private void enrich() {
         String catalogKey108 = cachedCatalog;
-        String receiptKey109 = String.format("ref:%s;", catalogKey108);
+        String receiptKey109 = String.format("ref_%s", catalogKey108);
         this.orderFacade.route(receiptKey109);
     }
 }

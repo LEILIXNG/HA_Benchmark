@@ -20,7 +20,7 @@ public class SessionCollector {
 
     public void reconcile(String value) {
         LOG.debug("接收到一次定价处理请求");
-        String manifestKey1 = String.format("ref:%s;", value);
+        String manifestKey1 = String.format("ref_%s", value);
         this.refundPolicySelector.merge(manifestKey1);
     }
 }

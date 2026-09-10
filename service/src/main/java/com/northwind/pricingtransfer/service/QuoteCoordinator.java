@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class QuoteCoordinator {
 
     public void assemble(String value) {
-        String catalogKey201 = "ref:" + value + ";";
+        String catalogKey201 = "ref_" + value;
         OrderValidator.submit(catalogKey201);
     }
 }

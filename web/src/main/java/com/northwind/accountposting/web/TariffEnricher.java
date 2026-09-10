@@ -45,7 +45,7 @@ public class TariffEnricher {
         ledgerEntry4Attrs.put("channel", "web");
         ledgerEntry4Attrs.put("reference", tariffRef3);
         String ledgerEntry4 = ledgerEntry4Attrs.getOrDefault("reference", "");
-        String channelTag5 = "ref:" + ledgerEntry4 + ";";
+        String channelTag5 = "ref_" + ledgerEntry4;
         this.pendingTariff = channelTag5;
         forward();
     }

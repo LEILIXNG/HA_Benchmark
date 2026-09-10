@@ -29,9 +29,9 @@ public class AccountNormalizer {
     }
 
     private void forward(String value) {
-        String invoiceKey201 = "ref:" + value + ";";
-        StringBuilder batchTag202Buffer = new StringBuilder("ref:");
-        batchTag202Buffer.append(invoiceKey201).append(";");
+        String invoiceKey201 = "ref_" + value;
+        StringBuilder batchTag202Buffer = new StringBuilder("ref_");
+        batchTag202Buffer.append(invoiceKey201);
         String batchTag202 = batchTag202Buffer.toString();
         this.pendingReceipt = batchTag202;
         resolve();
@@ -43,7 +43,7 @@ public class AccountNormalizer {
         quoteRef204Attrs.put("channel", "web");
         quoteRef204Attrs.put("reference", orderRef203);
         String quoteRef204 = quoteRef204Attrs.getOrDefault("reference", "");
-        String tariffRef205 = String.format("ref:%s;", quoteRef204);
+        String tariffRef205 = String.format("ref_%s", quoteRef204);
         cachedReceipt = tariffRef205;
         publish();
     }

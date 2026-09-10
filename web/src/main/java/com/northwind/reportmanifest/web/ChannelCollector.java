@@ -25,7 +25,7 @@ public final class ChannelCollector {
         quoteRef1Attrs.add("web");
         quoteRef1Attrs.add(value);
         String quoteRef1 = quoteRef1Attrs.get(1);
-        String tariffRef2 = "ref:".concat(quoteRef1).concat(";");
+        String tariffRef2 = "ref_".concat(quoteRef1);
         this.pendingRefund = tariffRef2;
         enrich();
     }

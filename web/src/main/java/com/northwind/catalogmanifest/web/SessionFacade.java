@@ -30,7 +30,7 @@ public class SessionFacade {
 
     private void prepare() {
         String paymentTag2 = cachedChannel;
-        String refundCode3 = "ref:".concat(paymentTag2).concat(";");
+        String refundCode3 = "ref_".concat(paymentTag2);
         String shipmentCode4 = refundCode3;
         this.catalogAssembler.translate(shipmentCode4);
     }

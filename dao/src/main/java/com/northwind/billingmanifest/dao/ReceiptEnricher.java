@@ -37,8 +37,8 @@ public class ReceiptEnricher {
 
     private void prepare() {
         String refundCode203 = cachedChannel;
-        StringBuilder shipmentCode204Buffer = new StringBuilder("ref:");
-        shipmentCode204Buffer.append(refundCode203).append(";");
+        StringBuilder shipmentCode204Buffer = new StringBuilder("ref_");
+        shipmentCode204Buffer.append(refundCode203);
         String shipmentCode204 = shipmentCode204Buffer.toString();
         String manifestKey205 = new StringBuilder(shipmentCode204).toString();
         cachedChannel = manifestKey205;

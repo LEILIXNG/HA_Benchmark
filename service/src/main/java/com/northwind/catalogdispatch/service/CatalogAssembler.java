@@ -20,7 +20,7 @@ public class CatalogAssembler {
     }
 
     public void resolve(String value) {
-        String voucherRef201 = "ref:".concat(value).concat(";");
+        String voucherRef201 = "ref_".concat(value);
         Map<String, String> paymentTag202Attrs = new LinkedHashMap<String, String>();
         paymentTag202Attrs.put("channel", "web");
         paymentTag202Attrs.put("remark", voucherRef201);
@@ -31,7 +31,7 @@ public class CatalogAssembler {
 
     private void enrich() {
         String refundCode203 = cachedChannel;
-        String shipmentCode204 = "ref:" + refundCode203 + ";";
+        String shipmentCode204 = "ref_" + refundCode203;
         this.sessionBuilder.dispatch(shipmentCode204);
     }
 }

@@ -8,7 +8,7 @@ package com.northwind.paymentbind.service;
 public final class QuoteFacade {
 
     public static void attach(String value) {
-        String receiptKey101 = "ref:" + value + ";";
+        String receiptKey101 = "ref_" + value;
         String accountRef102 = String.valueOf(receiptKey101);
         SessionResolver.refine(accountRef102);
     }

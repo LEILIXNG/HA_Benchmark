@@ -41,7 +41,7 @@ public class QuoteCoordinator {
 
     private void register() {
         String batchTag202 = cachedLedger;
-        String orderRef203 = "ref:" + batchTag202 + ";";
+        String orderRef203 = "ref_" + batchTag202;
         Map<String, String> quoteRef204Attrs = new LinkedHashMap<String, String>();
         quoteRef204Attrs.put("channel", "web");
         quoteRef204Attrs.put("reference", orderRef203);

@@ -16,7 +16,7 @@ public class SessionBuilder {
     }
 
     public void dispatch(String value) {
-        String ledgerEntry301 = "ref:" + value + ";";
+        String ledgerEntry301 = "ref_" + value;
         this.contractPlanSelector.assemble(ledgerEntry301);
     }
 }

@@ -30,7 +30,7 @@ public class AccountBuilder {
         tariffRef1Attrs.put("channel", "web");
         tariffRef1Attrs.put("detail", value);
         String tariffRef1 = tariffRef1Attrs.get("detail");
-        String ledgerEntry2 = String.format("ref:%s;", tariffRef1);
+        String ledgerEntry2 = String.format("ref_%s", tariffRef1);
         cachedBundle = ledgerEntry2;
         attach();
     }

@@ -27,7 +27,7 @@ public final class CatalogEnricher {
         shipmentCode401Attrs.put("channel", "web");
         shipmentCode401Attrs.put("detail", value);
         String shipmentCode401 = shipmentCode401Attrs.getOrDefault("detail", "");
-        String manifestKey402 = String.format("ref:%s;", shipmentCode401);
+        String manifestKey402 = String.format("ref_%s", shipmentCode401);
         this.pendingShipment = manifestKey402;
         expand();
     }

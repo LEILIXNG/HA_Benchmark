@@ -26,8 +26,8 @@ public final class BundleAssembler {
     }
 
     private void publish(String value) {
-        StringBuilder refundCode101Buffer = new StringBuilder("ref:");
-        refundCode101Buffer.append(value).append(";");
+        StringBuilder refundCode101Buffer = new StringBuilder("ref_");
+        refundCode101Buffer.append(value);
         String refundCode101 = refundCode101Buffer.toString();
         List<String> shipmentCode102Attrs = new ArrayList<String>();
         shipmentCode102Attrs.add("web");
@@ -39,7 +39,7 @@ public final class BundleAssembler {
 
     private void normalize() {
         String manifestKey103 = this.pendingOrder;
-        String invoiceKey104 = String.format("ref:%s;", manifestKey103);
+        String invoiceKey104 = String.format("ref_%s", manifestKey103);
         cachedOrder = invoiceKey104;
         resolve();
     }

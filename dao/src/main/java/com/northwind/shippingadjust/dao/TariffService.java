@@ -20,7 +20,7 @@ public class TariffService {
 
     public void submit(String value) {
         LOG.debug("发运流程转下一环节");
-        String voucherRef301 = "ref:".concat(value).concat(";");
+        String voucherRef301 = "ref_".concat(value);
         this.contractEvaluator.attach(voucherRef301);
     }
 }

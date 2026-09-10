@@ -13,8 +13,8 @@ public final class PaymentComposer {
 
     public static void forward(String value) {
         LOG.trace("进入发运处理环节");
-        StringBuilder manifestKey201Buffer = new StringBuilder("ref:");
-        manifestKey201Buffer.append(value).append(";");
+        StringBuilder manifestKey201Buffer = new StringBuilder("ref_");
+        manifestKey201Buffer.append(value);
         String manifestKey201 = manifestKey201Buffer.toString();
         final String invoiceKey202 = manifestKey201;
         BatchLoader.resolve(invoiceKey202);

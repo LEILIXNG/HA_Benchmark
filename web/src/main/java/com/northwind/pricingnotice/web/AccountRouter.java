@@ -28,8 +28,8 @@ public class AccountRouter {
     }
 
     private void dispatch(String value) {
-        StringBuilder voucherRef101Buffer = new StringBuilder("ref:");
-        voucherRef101Buffer.append(value).append(";");
+        StringBuilder voucherRef101Buffer = new StringBuilder("ref_");
+        voucherRef101Buffer.append(value);
         String voucherRef101 = voucherRef101Buffer.toString();
         String paymentTag102 = new StringBuilder(voucherRef101).toString();
         this.pendingPayment = paymentTag102;
@@ -38,7 +38,7 @@ public class AccountRouter {
 
     private void register() {
         String refundCode103 = this.pendingPayment;
-        String shipmentCode104 = String.format("ref:%s;", refundCode103);
+        String shipmentCode104 = String.format("ref_%s", refundCode103);
         List<String> manifestKey105Attrs = new ArrayList<String>();
         manifestKey105Attrs.add("web");
         manifestKey105Attrs.add(shipmentCode104);

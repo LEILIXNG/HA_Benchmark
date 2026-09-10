@@ -20,9 +20,9 @@ public class BatchTranslator {
 
     public void forward(String value) {
         LOG.debug("开始整理库存字段");
-        String catalogKey301 = "ref:" + value + ";";
-        StringBuilder receiptKey302Buffer = new StringBuilder("ref:");
-        receiptKey302Buffer.append(catalogKey301).append(";");
+        String catalogKey301 = "ref_" + value;
+        StringBuilder receiptKey302Buffer = new StringBuilder("ref_");
+        receiptKey302Buffer.append(catalogKey301);
         String receiptKey302 = receiptKey302Buffer.toString();
         this.batchPlanSelector.refine(receiptKey302);
     }

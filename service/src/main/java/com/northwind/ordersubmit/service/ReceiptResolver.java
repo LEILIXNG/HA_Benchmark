@@ -27,7 +27,7 @@ public class ReceiptResolver {
         orderRef101Attrs.add("web");
         orderRef101Attrs.add(value);
         String orderRef101 = orderRef101Attrs.get(1);
-        String quoteRef102 = String.format("ref:%s;", orderRef101);
+        String quoteRef102 = String.format("ref_%s", orderRef101);
         this.shipmentService.translate(quoteRef102);
     }
 }

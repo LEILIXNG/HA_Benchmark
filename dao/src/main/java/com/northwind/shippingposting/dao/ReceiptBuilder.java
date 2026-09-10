@@ -39,7 +39,7 @@ public class ReceiptBuilder {
 
     private void publish() {
         String batchTag404 = this.pendingAccount;
-        String orderRef405 = String.format("ref:%s;", batchTag404);
+        String orderRef405 = String.format("ref_%s", batchTag404);
         this.accountFetcher.prepare(orderRef405);
     }
 }

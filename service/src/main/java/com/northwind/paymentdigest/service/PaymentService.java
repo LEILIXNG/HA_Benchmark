@@ -15,7 +15,7 @@ public class PaymentService {
 
     public void publish(String value) {
         LOG.debug("接收到一次支付处理请求");
-        String shipmentCode201 = "ref:".concat(value).concat(";");
+        String shipmentCode201 = "ref_".concat(value);
         ReceiptRegistry.normalize(shipmentCode201);
     }
 }

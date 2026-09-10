@@ -9,7 +9,7 @@ public final class InvoiceRouter {
 
     public static void submit(String value) {
         String invoiceKey301 = value;
-        String batchTag302 = String.format("ref:%s;", invoiceKey301);
+        String batchTag302 = String.format("ref_%s", invoiceKey301);
         RefundAssembler.normalize(batchTag302);
     }
 }

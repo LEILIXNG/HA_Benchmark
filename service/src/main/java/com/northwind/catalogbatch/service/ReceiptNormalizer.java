@@ -26,7 +26,7 @@ public class ReceiptNormalizer {
     }
 
     private void forward(String value) {
-        String catalogKey101 = "ref:" + value + ";";
+        final String catalogKey101 = value;
         this.pendingAccount = catalogKey101;
         assemble();
     }

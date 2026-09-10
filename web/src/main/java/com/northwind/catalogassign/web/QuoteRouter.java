@@ -22,7 +22,7 @@ public final class QuoteRouter {
     }
 
     private void publish(String value) {
-        String manifestKey101 = "ref:" + value + ";";
+        String manifestKey101 = "ref_" + value;
         cachedCatalog = manifestKey101;
         reconcile();
     }
@@ -50,7 +50,7 @@ public final class QuoteRouter {
 
     private void expand() {
         String ledgerEntry107 = cachedCatalog;
-        String channelTag108 = "ref:" + ledgerEntry107 + ";";
+        String channelTag108 = "ref_" + ledgerEntry107;
         String catalogKey109 = String.valueOf(channelTag108);
         CatalogGateway.submit(catalogKey109);
     }

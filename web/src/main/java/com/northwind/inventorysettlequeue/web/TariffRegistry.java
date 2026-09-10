@@ -20,7 +20,7 @@ public class TariffRegistry {
 
     public void stage(String value) {
         LOG.debug("开始整理库存字段");
-        String refundCode1 = "ref:".concat(value).concat(";");
+        String refundCode1 = "ref_".concat(value);
         this.catalogPolicySelector.route(refundCode1);
     }
 }

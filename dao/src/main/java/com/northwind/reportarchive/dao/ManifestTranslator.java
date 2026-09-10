@@ -8,10 +8,10 @@ package com.northwind.reportarchive.dao;
 public final class ManifestTranslator {
 
     public static void forward(String value) {
-        StringBuilder manifestKey201Buffer = new StringBuilder("ref:");
-        manifestKey201Buffer.append(value).append(";");
+        StringBuilder manifestKey201Buffer = new StringBuilder("ref_");
+        manifestKey201Buffer.append(value);
         String manifestKey201 = manifestKey201Buffer.toString();
-        String invoiceKey202 = "ref:" + manifestKey201 + ";";
+        String invoiceKey202 = "ref_" + manifestKey201;
         ManifestComposer.collect(invoiceKey202);
     }
 }

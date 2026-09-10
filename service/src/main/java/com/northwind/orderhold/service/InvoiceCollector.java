@@ -39,7 +39,7 @@ public class InvoiceCollector {
 
     private void compose() {
         String receiptKey103 = this.pendingBundle;
-        String accountRef104 = "ref:" + receiptKey103 + ";";
+        String accountRef104 = "ref_" + receiptKey103;
         this.shipmentService.route(accountRef104);
     }
 }

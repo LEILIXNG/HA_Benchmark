@@ -15,8 +15,8 @@ public final class CatalogFacade {
         manifestKey201Attrs.put("channel", "web");
         manifestKey201Attrs.put("detail", value);
         String manifestKey201 = manifestKey201Attrs.getOrDefault("detail", "");
-        StringBuilder invoiceKey202Buffer = new StringBuilder("ref:");
-        invoiceKey202Buffer.append(manifestKey201).append(";");
+        StringBuilder invoiceKey202Buffer = new StringBuilder("ref_");
+        invoiceKey202Buffer.append(manifestKey201);
         String invoiceKey202 = invoiceKey202Buffer.toString();
         PaymentGuard.stage(invoiceKey202);
     }

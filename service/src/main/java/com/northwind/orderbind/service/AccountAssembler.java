@@ -34,7 +34,7 @@ public class AccountAssembler {
 
     private void forward() {
         String batchTag102 = this.pendingBatch;
-        String orderRef103 = String.format("ref:%s;", batchTag102);
+        String orderRef103 = String.format("ref_%s", batchTag102);
         this.tariffBuilder.assemble(orderRef103);
     }
 }

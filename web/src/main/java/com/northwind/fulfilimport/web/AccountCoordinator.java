@@ -20,16 +20,16 @@ public class AccountCoordinator {
     }
 
     public void register(String value) {
-        String channelTag201 = String.format("ref:%s;", value);
-        String catalogKey202 = "ref:".concat(channelTag201).concat(";");
+        String channelTag201 = String.format("ref_%s", value);
+        String catalogKey202 = "ref_".concat(channelTag201);
         cachedCatalog = catalogKey202;
         dispatch();
     }
 
     private void dispatch() {
         String receiptKey203 = cachedCatalog;
-        StringBuilder accountRef204Buffer = new StringBuilder("ref:");
-        accountRef204Buffer.append(receiptKey203).append(";");
+        StringBuilder accountRef204Buffer = new StringBuilder("ref_");
+        accountRef204Buffer.append(receiptKey203);
         String accountRef204 = accountRef204Buffer.toString();
         Map<String, String> voucherRef205Attrs = new LinkedHashMap<String, String>();
         voucherRef205Attrs.put("channel", "web");

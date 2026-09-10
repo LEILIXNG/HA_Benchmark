@@ -31,10 +31,10 @@ public class CatalogFacade {
 
     private void refine() {
         String accountRef203 = cachedSession;
-        StringBuilder voucherRef204Buffer = new StringBuilder("ref:");
-        voucherRef204Buffer.append(accountRef203).append(";");
+        StringBuilder voucherRef204Buffer = new StringBuilder("ref_");
+        voucherRef204Buffer.append(accountRef203);
         String voucherRef204 = voucherRef204Buffer.toString();
-        String paymentTag205 = "ref:" + voucherRef204 + ";";
+        String paymentTag205 = "ref_" + voucherRef204;
         this.sessionTranslator.compose(paymentTag205);
     }
 }

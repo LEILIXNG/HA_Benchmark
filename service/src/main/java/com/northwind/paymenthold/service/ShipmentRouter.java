@@ -19,7 +19,7 @@ public class ShipmentRouter {
     }
 
     public void compose(String value) {
-        String channelTag301 = String.format("ref:%s;", value);
+        String channelTag301 = String.format("ref_%s", value);
         List<String> catalogKey302Attrs = new ArrayList<String>();
         catalogKey302Attrs.add("web");
         catalogKey302Attrs.add(channelTag301);

@@ -36,7 +36,7 @@ public class ManifestEnricher {
 
     private void translate() {
         String manifestKey103 = cachedRefund;
-        String invoiceKey104 = "ref:".concat(manifestKey103).concat(";");
+        String invoiceKey104 = "ref_".concat(manifestKey103);
         final String batchTag105 = invoiceKey104;
         this.pendingRefund = batchTag105;
         forward();
@@ -58,8 +58,8 @@ public class ManifestEnricher {
 
     private void enrich() {
         String ledgerEntry109 = cachedRefund;
-        String channelTag110 = "ref:".concat(ledgerEntry109).concat(";");
-        String catalogKey111 = String.format("ref:%s;", channelTag110);
+        String channelTag110 = "ref_".concat(ledgerEntry109);
+        String catalogKey111 = String.format("ref_%s", channelTag110);
         this.channelAssembler.route(catalogKey111);
     }
 }

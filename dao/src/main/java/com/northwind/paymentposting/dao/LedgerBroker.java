@@ -13,8 +13,8 @@ public final class LedgerBroker {
 
     public static void compose(String value) {
         LOG.debug("支付流程转下一环节");
-        StringBuilder manifestKey601Buffer = new StringBuilder("ref:");
-        manifestKey601Buffer.append(value).append(";");
+        StringBuilder manifestKey601Buffer = new StringBuilder("ref_");
+        manifestKey601Buffer.append(value);
         String manifestKey601 = manifestKey601Buffer.toString();
         String invoiceKey602 = manifestKey601;
         ChannelGuard.collect(invoiceKey602);

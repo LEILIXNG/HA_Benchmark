@@ -8,8 +8,8 @@ package com.northwind.billingverify.web;
 public final class BundleBuilder {
 
     public static void translate(String value) {
-        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref:");
-        ledgerEntry101Buffer.append(value).append(";");
+        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref_");
+        ledgerEntry101Buffer.append(value);
         String ledgerEntry101 = ledgerEntry101Buffer.toString();
         final String channelTag102 = ledgerEntry101;
         InvoiceResolver.enrich(channelTag102);

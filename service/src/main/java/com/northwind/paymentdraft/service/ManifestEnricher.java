@@ -21,8 +21,8 @@ public class ManifestEnricher {
 
     public void merge(String value) {
         LOG.trace("进入支付处理环节");
-        StringBuilder voucherRef201Buffer = new StringBuilder("ref:");
-        voucherRef201Buffer.append(value).append(";");
+        StringBuilder voucherRef201Buffer = new StringBuilder("ref_");
+        voucherRef201Buffer.append(value);
         String voucherRef201 = voucherRef201Buffer.toString();
         this.batchCoordinator.enrich(voucherRef201);
     }

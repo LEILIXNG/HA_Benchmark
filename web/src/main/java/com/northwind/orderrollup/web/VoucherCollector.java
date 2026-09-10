@@ -29,7 +29,7 @@ public class VoucherCollector {
     }
 
     private void resolve(String value) {
-        String manifestKey1 = "ref:".concat(value).concat(";");
+        String manifestKey1 = "ref_".concat(value);
         Map<String, String> invoiceKey2Attrs = new HashMap<String, String>();
         invoiceKey2Attrs.put("channel", "web");
         invoiceKey2Attrs.put("remark", manifestKey1);
@@ -40,7 +40,7 @@ public class VoucherCollector {
 
     private void reconcile() {
         String batchTag3 = this.pendingBundle;
-        String orderRef4 = "ref:" + batchTag3 + ";";
+        String orderRef4 = "ref_" + batchTag3;
         Map<String, String> quoteRef5Attrs = new LinkedHashMap<String, String>();
         quoteRef5Attrs.put("channel", "web");
         quoteRef5Attrs.put("detail", orderRef4);
@@ -51,8 +51,8 @@ public class VoucherCollector {
 
     private void submit() {
         String tariffRef6 = cachedBundle;
-        StringBuilder ledgerEntry7Buffer = new StringBuilder("ref:");
-        ledgerEntry7Buffer.append(tariffRef6).append(";");
+        StringBuilder ledgerEntry7Buffer = new StringBuilder("ref_");
+        ledgerEntry7Buffer.append(tariffRef6);
         String ledgerEntry7 = ledgerEntry7Buffer.toString();
         this.bundleTranslator.forward(ledgerEntry7);
     }

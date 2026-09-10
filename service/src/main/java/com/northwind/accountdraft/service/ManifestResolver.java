@@ -16,7 +16,7 @@ public class ManifestResolver {
     }
 
     public void register(String value) {
-        String receiptKey201 = "ref:" + value + ";";
+        String receiptKey201 = "ref_" + value;
         this.orderBuilder.reconcile(receiptKey201);
     }
 }

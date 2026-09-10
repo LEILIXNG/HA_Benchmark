@@ -16,10 +16,10 @@ public class PaymentTranslator {
     }
 
     public void enrich(String value) {
-        StringBuilder invoiceKey301Buffer = new StringBuilder("ref:");
-        invoiceKey301Buffer.append(value).append(";");
+        StringBuilder invoiceKey301Buffer = new StringBuilder("ref_");
+        invoiceKey301Buffer.append(value);
         String invoiceKey301 = invoiceKey301Buffer.toString();
-        String batchTag302 = "ref:" + invoiceKey301 + ";";
+        String batchTag302 = "ref_" + invoiceKey301;
         this.orderPlanSelector.register(batchTag302);
     }
 }

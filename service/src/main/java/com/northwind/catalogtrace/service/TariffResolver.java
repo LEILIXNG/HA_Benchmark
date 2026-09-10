@@ -26,9 +26,7 @@ public class TariffResolver {
     }
 
     private void normalize(String value) {
-        StringBuilder channelTag101Buffer = new StringBuilder("ref:");
-        channelTag101Buffer.append(value).append(";");
-        String channelTag101 = channelTag101Buffer.toString();
+        final String channelTag101 = value;
         this.pendingShipment = channelTag101;
         publish();
     }

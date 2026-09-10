@@ -22,7 +22,7 @@ public class ReceiptBroker {
         orderRef501Attrs.add("web");
         orderRef501Attrs.add(value);
         String orderRef501 = orderRef501Attrs.get(1);
-        String quoteRef502 = "ref:".concat(orderRef501).concat(";");
+        String quoteRef502 = "ref_".concat(orderRef501);
         this.orderRepository.normalize(quoteRef502);
     }
 }

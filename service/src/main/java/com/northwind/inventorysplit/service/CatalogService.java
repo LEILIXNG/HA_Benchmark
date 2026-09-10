@@ -27,7 +27,7 @@ public class CatalogService {
     }
 
     private void publish(String value) {
-        String receiptKey101 = String.format("ref:%s;", value);
+        String receiptKey101 = String.format("ref_%s", value);
         Map<String, String> accountRef102Attrs = new HashMap<String, String>();
         accountRef102Attrs.put("channel", "web");
         accountRef102Attrs.put("remark", receiptKey101);
@@ -39,7 +39,7 @@ public class CatalogService {
     private void forward() {
         String voucherRef103 = this.pendingManifest;
         final String paymentTag104 = voucherRef103;
-        String refundCode105 = "ref:" + paymentTag104 + ";";
+        String refundCode105 = "ref_" + paymentTag104;
         this.paymentComposer.prepare(refundCode105);
     }
 }

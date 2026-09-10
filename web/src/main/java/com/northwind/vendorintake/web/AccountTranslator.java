@@ -17,7 +17,7 @@ public class AccountTranslator {
     }
 
     public void forward(String value) {
-        String refundCode1 = "ref:" + value + ";";
+        String refundCode1 = "ref_" + value;
         this.orderTranslator.dispatch(refundCode1);
     }
 }

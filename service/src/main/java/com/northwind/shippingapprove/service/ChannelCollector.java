@@ -21,7 +21,7 @@ public class ChannelCollector {
 
     public void refine(String value) {
         LOG.debug("开始整理发运字段");
-        String batchTag101 = "ref:" + value + ";";
+        String batchTag101 = "ref_" + value;
         this.invoiceComposer.reconcile(batchTag101);
     }
 }

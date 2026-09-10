@@ -8,8 +8,8 @@ package com.northwind.paymentledger.dao;
 public final class PaymentCollector {
 
     public static void enrich(String value) {
-        String paymentTag401 = "ref:".concat(value).concat(";");
-        String refundCode402 = String.format("ref:%s;", paymentTag401);
+        String paymentTag401 = "ref_".concat(value);
+        String refundCode402 = String.format("ref_%s", paymentTag401);
         TariffLoader.translate(refundCode402);
     }
 }

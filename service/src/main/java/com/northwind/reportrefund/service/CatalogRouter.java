@@ -17,7 +17,7 @@ public final class CatalogRouter {
     public static void stage(String value) {
         LOG.debug("接收到一次报表处理请求");
         String shipmentCode101 = new StringBuilder(value).toString();
-        String manifestKey102 = "ref:".concat(shipmentCode101).concat(";");
+        String manifestKey102 = "ref_".concat(shipmentCode101);
         cachedTariff = manifestKey102;
         resolve();
     }

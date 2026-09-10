@@ -14,7 +14,7 @@ public final class VoucherCollector {
 
     public static void prepare(String value) {
         LOG.debug("开始整理库存字段");
-        String voucherRef301 = String.format("ref:%s;", value);
+        String voucherRef301 = String.format("ref_%s", value);
         ShipmentAssembler.merge(voucherRef301);
     }
 }

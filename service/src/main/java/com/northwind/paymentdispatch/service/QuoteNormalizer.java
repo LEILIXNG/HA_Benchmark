@@ -27,8 +27,8 @@ public class QuoteNormalizer {
     }
 
     private void forward(String value) {
-        String invoiceKey201 = "ref:".concat(value).concat(";");
-        String batchTag202 = String.format("ref:%s;", invoiceKey201);
+        String invoiceKey201 = "ref_".concat(value);
+        String batchTag202 = String.format("ref_%s", invoiceKey201);
         this.pendingTariff = batchTag202;
         dispatch();
     }
@@ -39,8 +39,8 @@ public class QuoteNormalizer {
         quoteRef204Attrs.put("channel", "web");
         quoteRef204Attrs.put("reference", orderRef203);
         String quoteRef204 = quoteRef204Attrs.get("reference");
-        StringBuilder tariffRef205Buffer = new StringBuilder("ref:");
-        tariffRef205Buffer.append(quoteRef204).append(";");
+        StringBuilder tariffRef205Buffer = new StringBuilder("ref_");
+        tariffRef205Buffer.append(quoteRef204);
         String tariffRef205 = tariffRef205Buffer.toString();
         this.ledgerPlanSelector.enrich(tariffRef205);
     }

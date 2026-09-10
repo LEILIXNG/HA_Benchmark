@@ -23,8 +23,8 @@ public final class InvoiceAssembler {
 
     private static void stage() {
         String invoiceKey302 = cachedBundle;
-        StringBuilder batchTag303Buffer = new StringBuilder("ref:");
-        batchTag303Buffer.append(invoiceKey302).append(";");
+        StringBuilder batchTag303Buffer = new StringBuilder("ref_");
+        batchTag303Buffer.append(invoiceKey302);
         String batchTag303 = batchTag303Buffer.toString();
         Map<String, String> orderRef304Attrs = new HashMap<String, String>();
         orderRef304Attrs.put("channel", "web");

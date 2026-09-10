@@ -47,14 +47,14 @@ public final class InvoiceComposer {
 
     private void refine() {
         String batchTag106 = this.pendingRefund;
-        String orderRef107 = "ref:" + batchTag106 + ";";
+        String orderRef107 = "ref_" + batchTag106;
         cachedRefund = orderRef107;
         expand();
     }
 
     private void expand() {
         String quoteRef108 = cachedRefund;
-        String tariffRef109 = "ref:".concat(quoteRef108).concat(";");
+        String tariffRef109 = "ref_".concat(quoteRef108);
         InvoiceNormalizer.assemble(tariffRef109);
     }
 }

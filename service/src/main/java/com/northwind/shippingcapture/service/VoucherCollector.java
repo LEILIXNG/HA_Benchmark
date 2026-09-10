@@ -14,8 +14,8 @@ public final class VoucherCollector {
 
     public static void attach(String value) {
         LOG.debug("发运流程转下一环节");
-        StringBuilder manifestKey301Buffer = new StringBuilder("ref:");
-        manifestKey301Buffer.append(value).append(";");
+        StringBuilder manifestKey301Buffer = new StringBuilder("ref_");
+        manifestKey301Buffer.append(value);
         String manifestKey301 = manifestKey301Buffer.toString();
         ReceiptRegistry.enrich(manifestKey301);
     }

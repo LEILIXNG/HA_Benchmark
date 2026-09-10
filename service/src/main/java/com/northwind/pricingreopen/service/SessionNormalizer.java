@@ -30,7 +30,7 @@ public class SessionNormalizer {
     private void merge() {
         String ledgerEntry202 = this.pendingAccount;
         String channelTag203 = String.valueOf(ledgerEntry202);
-        String catalogKey204 = String.format("ref:%s;", channelTag203);
+        String catalogKey204 = String.format("ref_%s", channelTag203);
         this.pendingAccount = catalogKey204;
         route();
     }

@@ -21,7 +21,7 @@ public final class ReceiptRegistry {
 
     private static void route() {
         String accountRef302 = cachedTariff;
-        String voucherRef303 = "ref:" + accountRef302 + ";";
+        String voucherRef303 = "ref_" + accountRef302;
         VoucherAdapter.assemble(voucherRef303);
     }
 }

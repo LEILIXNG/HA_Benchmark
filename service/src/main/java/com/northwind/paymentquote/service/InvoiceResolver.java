@@ -10,7 +10,7 @@ import com.northwind.paymentquote.dao.InvoiceRouter;
 public final class InvoiceResolver {
 
     public static void assemble(String value) {
-        String ledgerEntry201 = "ref:" + value + ";";
+        String ledgerEntry201 = "ref_" + value;
         InvoiceRouter.submit(ledgerEntry201);
     }
 }

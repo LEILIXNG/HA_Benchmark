@@ -21,7 +21,7 @@ public class AccountComposer {
 
     public void compose(String value) {
         String catalogKey201 = value;
-        String receiptKey202 = "ref:".concat(catalogKey201).concat(";");
+        String receiptKey202 = "ref_".concat(catalogKey201);
         cachedQuote = receiptKey202;
         forward();
     }

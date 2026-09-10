@@ -13,7 +13,7 @@ public final class InvoiceResolver {
 
     public static void normalize(String value) {
         LOG.debug("开始整理库存字段");
-        String shipmentCode101 = "ref:".concat(value).concat(";");
+        String shipmentCode101 = "ref_".concat(value);
         OrderCollector.translate(shipmentCode101);
     }
 }

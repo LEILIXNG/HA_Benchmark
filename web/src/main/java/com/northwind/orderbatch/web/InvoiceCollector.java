@@ -21,10 +21,10 @@ public final class InvoiceCollector {
 
     private void prepare() {
         String refundCode2 = this.pendingOrder;
-        StringBuilder shipmentCode3Buffer = new StringBuilder("ref:");
-        shipmentCode3Buffer.append(refundCode2).append(";");
+        StringBuilder shipmentCode3Buffer = new StringBuilder("ref_");
+        shipmentCode3Buffer.append(refundCode2);
         String shipmentCode3 = shipmentCode3Buffer.toString();
-        String manifestKey4 = String.format("ref:%s;", shipmentCode3);
+        String manifestKey4 = String.format("ref_%s", shipmentCode3);
         ChannelRuleSelector.dispatch(manifestKey4);
     }
 }

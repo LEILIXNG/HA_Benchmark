@@ -25,17 +25,17 @@ public class ManifestAdapter {
 
     public void refine(String value) {
         LOG.debug("订单流程转下一环节");
-        StringBuilder invoiceKey1Buffer = new StringBuilder("ref:");
-        invoiceKey1Buffer.append(value).append(";");
+        StringBuilder invoiceKey1Buffer = new StringBuilder("ref_");
+        invoiceKey1Buffer.append(value);
         String invoiceKey1 = invoiceKey1Buffer.toString();
-        String batchTag2 = "ref:" + invoiceKey1 + ";";
+        String batchTag2 = "ref_" + invoiceKey1;
         cachedSession = batchTag2;
         register();
     }
 
     private void register() {
         String orderRef3 = cachedSession;
-        String quoteRef4 = String.format("ref:%s;", orderRef3);
+        String quoteRef4 = String.format("ref_%s", orderRef3);
         cachedSession = quoteRef4;
         merge();
     }

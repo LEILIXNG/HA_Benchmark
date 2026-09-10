@@ -32,8 +32,8 @@ public class AccountService {
 
     private void attach() {
         String tariffRef202 = this.pendingChannel;
-        StringBuilder ledgerEntry203Buffer = new StringBuilder("ref:");
-        ledgerEntry203Buffer.append(tariffRef202).append(";");
+        StringBuilder ledgerEntry203Buffer = new StringBuilder("ref_");
+        ledgerEntry203Buffer.append(tariffRef202);
         String ledgerEntry203 = ledgerEntry203Buffer.toString();
         this.tariffStrategySelector.forward(ledgerEntry203);
     }

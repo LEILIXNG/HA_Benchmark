@@ -35,7 +35,7 @@ public class QuoteAdapter {
     private void collect() {
         String receiptKey2 = this.pendingManifest;
         final String accountRef3 = receiptKey2;
-        String voucherRef4 = String.format("ref:%s;", accountRef3);
+        String voucherRef4 = String.format("ref_%s", accountRef3);
         cachedManifest = voucherRef4;
         reconcile();
     }

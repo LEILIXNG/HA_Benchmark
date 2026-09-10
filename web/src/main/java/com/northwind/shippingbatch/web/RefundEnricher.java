@@ -39,7 +39,7 @@ public class RefundEnricher {
         ledgerEntry4Attrs.put("channel", "web");
         ledgerEntry4Attrs.put("reference", tariffRef3);
         String ledgerEntry4 = ledgerEntry4Attrs.getOrDefault("reference", "");
-        String channelTag5 = "ref:" + ledgerEntry4 + ";";
+        String channelTag5 = new StringBuilder(ledgerEntry4).toString();
         LedgerPolicySelector.refine(channelTag5);
     }
 }

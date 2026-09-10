@@ -24,8 +24,8 @@ public class InvoiceEnricher {
 
     public void enrich(String value) {
         LOG.debug("订单流程转下一环节");
-        StringBuilder accountRef101Buffer = new StringBuilder("ref:");
-        accountRef101Buffer.append(value).append(";");
+        StringBuilder accountRef101Buffer = new StringBuilder("ref_");
+        accountRef101Buffer.append(value);
         String accountRef101 = accountRef101Buffer.toString();
         cachedManifest = accountRef101;
         prepare();
@@ -44,7 +44,7 @@ public class InvoiceEnricher {
 
     private void expand() {
         String shipmentCode105 = cachedManifest;
-        String manifestKey106 = String.format("ref:%s;", shipmentCode105);
+        String manifestKey106 = String.format("ref_%s", shipmentCode105);
         this.bundleBuilder.refine(manifestKey106);
     }
 }

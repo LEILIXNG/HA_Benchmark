@@ -33,7 +33,7 @@ public class VoucherTranslator {
 
     private void normalize() {
         String paymentTag102 = this.pendingSession;
-        String refundCode103 = "ref:" + paymentTag102 + ";";
+        String refundCode103 = "ref_" + paymentTag102;
         String shipmentCode104 = refundCode103;
         this.batchRegistry.submit(shipmentCode104);
     }

@@ -20,7 +20,7 @@ public final class BundleNormalizer {
         receiptKey501Attrs.add("web");
         receiptKey501Attrs.add(value);
         String receiptKey501 = receiptKey501Attrs.get(1);
-        String accountRef502 = String.format("ref:%s;", receiptKey501);
+        String accountRef502 = String.format("ref_%s", receiptKey501);
         QuoteEnricher.publish(accountRef502);
     }
 }

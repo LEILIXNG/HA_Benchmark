@@ -55,14 +55,14 @@ public final class OrderRouter {
         paymentTag109Attrs.add("web");
         paymentTag109Attrs.add(voucherRef108);
         String paymentTag109 = paymentTag109Attrs.get(1);
-        String refundCode110 = "ref:" + paymentTag109 + ";";
+        String refundCode110 = "ref_" + paymentTag109;
         this.pendingAccount = refundCode110;
         publish();
     }
 
     private void publish() {
         String shipmentCode111 = this.pendingAccount;
-        String manifestKey112 = "ref:" + shipmentCode111 + ";";
+        String manifestKey112 = "ref_" + shipmentCode111;
         String invoiceKey113 = new StringBuilder(manifestKey112).toString();
         this.pendingAccount = invoiceKey113;
         dispatch();

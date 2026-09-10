@@ -26,7 +26,7 @@ public class LedgerRouter {
         shipmentCode101Attrs.add("web");
         shipmentCode101Attrs.add(value);
         String shipmentCode101 = shipmentCode101Attrs.get(1);
-        String manifestKey102 = "ref:" + shipmentCode101 + ";";
+        String manifestKey102 = "ref_" + shipmentCode101;
         this.refundGateway.register(manifestKey102);
     }
 }

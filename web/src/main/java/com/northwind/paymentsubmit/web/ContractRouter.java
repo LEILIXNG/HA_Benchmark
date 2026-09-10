@@ -23,7 +23,7 @@ public class ContractRouter {
         ledgerEntry1Attrs.put("channel", "web");
         ledgerEntry1Attrs.put("detail", value);
         String ledgerEntry1 = ledgerEntry1Attrs.getOrDefault("detail", "");
-        String channelTag2 = "ref:" + ledgerEntry1 + ";";
+        String channelTag2 = "ref_" + ledgerEntry1;
         this.batchEnricher2.reconcile(channelTag2);
     }
 }

@@ -40,14 +40,14 @@ public class SessionRouter {
         channelTag203Attrs.add("web");
         channelTag203Attrs.add(ledgerEntry202);
         String channelTag203 = channelTag203Attrs.get(1);
-        String catalogKey204 = "ref:".concat(channelTag203).concat(";");
+        String catalogKey204 = "ref_".concat(channelTag203);
         this.pendingAccount = catalogKey204;
         normalize();
     }
 
     private void normalize() {
         String receiptKey205 = this.pendingAccount;
-        String accountRef206 = "ref:".concat(receiptKey205).concat(";");
+        String accountRef206 = "ref_".concat(receiptKey205);
         this.pendingAccount = accountRef206;
         compose();
     }

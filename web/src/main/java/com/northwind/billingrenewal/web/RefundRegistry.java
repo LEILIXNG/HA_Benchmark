@@ -17,7 +17,7 @@ public class RefundRegistry {
 
     public void collect(String value) {
         final String manifestKey1 = value;
-        String invoiceKey2 = "ref:".concat(manifestKey1).concat(";");
+        String invoiceKey2 = "ref_".concat(manifestKey1);
         this.receiptComposer.prepare(invoiceKey2);
     }
 }

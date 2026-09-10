@@ -26,7 +26,7 @@ public final class VoucherAssembler {
 
     private static void prepare() {
         String manifestKey2 = cachedShipment;
-        String invoiceKey3 = String.format("ref:%s;", manifestKey2);
+        String invoiceKey3 = String.format("ref_%s", manifestKey2);
         Map<String, String> batchTag4Attrs = new LinkedHashMap<String, String>();
         batchTag4Attrs.put("channel", "web");
         batchTag4Attrs.put("reference", invoiceKey3);

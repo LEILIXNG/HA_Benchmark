@@ -17,7 +17,7 @@ public class LedgerBuilder {
     }
 
     public void normalize(String value) {
-        String tariffRef1 = String.format("ref:%s;", value);
+        String tariffRef1 = String.format("ref_%s", value);
         this.tariffFacade.enrich(tariffRef1);
     }
 }

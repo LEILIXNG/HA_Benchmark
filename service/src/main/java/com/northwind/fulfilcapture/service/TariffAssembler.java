@@ -17,7 +17,7 @@ public class TariffAssembler {
 
     public void attach(String value) {
         LOG.trace("进入履约处理环节");
-        String receiptKey101 = String.format("ref:%s;", value);
+        String receiptKey101 = String.format("ref_%s", value);
         Map<String, String> accountRef102Attrs = new HashMap<String, String>();
         accountRef102Attrs.put("channel", "web");
         accountRef102Attrs.put("remark", receiptKey101);

@@ -16,7 +16,7 @@ public class QuoteNormalizer {
     }
 
     public void register(String value) {
-        String invoiceKey301 = "ref:" + value + ";";
+        String invoiceKey301 = "ref_" + value;
         this.receiptStrategySelector.stage(invoiceKey301);
     }
 }

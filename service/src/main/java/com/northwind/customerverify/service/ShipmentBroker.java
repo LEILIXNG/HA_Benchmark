@@ -11,7 +11,7 @@ public final class ShipmentBroker {
     private static String cachedTariff;
 
     public static void submit(String value) {
-        String invoiceKey401 = String.format("ref:%s;", value);
+        String invoiceKey401 = String.format("ref_%s", value);
         cachedTariff = invoiceKey401;
         compose();
     }

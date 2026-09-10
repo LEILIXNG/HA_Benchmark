@@ -17,8 +17,8 @@ public class SessionRouter {
     }
 
     public void merge(String value) {
-        StringBuilder channelTag1Buffer = new StringBuilder("ref:");
-        channelTag1Buffer.append(value).append(";");
+        StringBuilder channelTag1Buffer = new StringBuilder("ref_");
+        channelTag1Buffer.append(value);
         String channelTag1 = channelTag1Buffer.toString();
         this.contractAdapter.translate(channelTag1);
     }

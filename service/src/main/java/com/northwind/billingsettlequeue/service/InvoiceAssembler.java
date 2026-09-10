@@ -24,8 +24,8 @@ public class InvoiceAssembler {
         receiptKey201Attrs.put("channel", "web");
         receiptKey201Attrs.put("detail", value);
         String receiptKey201 = receiptKey201Attrs.get("detail");
-        StringBuilder accountRef202Buffer = new StringBuilder("ref:");
-        accountRef202Buffer.append(receiptKey201).append(";");
+        StringBuilder accountRef202Buffer = new StringBuilder("ref_");
+        accountRef202Buffer.append(receiptKey201);
         String accountRef202 = accountRef202Buffer.toString();
         cachedTariff = accountRef202;
         translate();

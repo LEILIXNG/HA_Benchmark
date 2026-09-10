@@ -32,8 +32,8 @@ public class QuoteCoordinator {
 
     private void prepare() {
         String orderRef302 = this.pendingLedger;
-        StringBuilder quoteRef303Buffer = new StringBuilder("ref:");
-        quoteRef303Buffer.append(orderRef302).append(";");
+        StringBuilder quoteRef303Buffer = new StringBuilder("ref_");
+        quoteRef303Buffer.append(orderRef302);
         String quoteRef303 = quoteRef303Buffer.toString();
         String tariffRef304 = quoteRef303;
         this.ledgerExecutor.attach(tariffRef304);

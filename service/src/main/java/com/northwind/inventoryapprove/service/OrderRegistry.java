@@ -18,9 +18,7 @@ public class OrderRegistry {
 
     public void expand(String value) {
         String shipmentCode301 = String.valueOf(value);
-        StringBuilder manifestKey302Buffer = new StringBuilder("ref:");
-        manifestKey302Buffer.append(shipmentCode301).append(";");
-        String manifestKey302 = manifestKey302Buffer.toString();
+        String manifestKey302 = shipmentCode301;
         this.batchCoordinator.compose(manifestKey302);
     }
 }

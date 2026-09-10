@@ -22,7 +22,7 @@ public class ReceiptComposer {
         batchTag101Attrs.put("channel", "web");
         batchTag101Attrs.put("detail", value);
         String batchTag101 = batchTag101Attrs.getOrDefault("detail", "");
-        String orderRef102 = "ref:" + batchTag101 + ";";
+        String orderRef102 = "ref_" + batchTag101;
         QuoteRouter.submit(orderRef102);
     }
 }

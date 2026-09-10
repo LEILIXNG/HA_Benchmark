@@ -30,7 +30,7 @@ public class OrderResolver {
     private void stage() {
         String batchTag102 = cachedVoucher;
         String orderRef103 = new StringBuilder(batchTag102).toString();
-        String quoteRef104 = "ref:".concat(orderRef103).concat(";");
+        String quoteRef104 = "ref_".concat(orderRef103);
         this.contractEnricher.expand(quoteRef104);
     }
 }

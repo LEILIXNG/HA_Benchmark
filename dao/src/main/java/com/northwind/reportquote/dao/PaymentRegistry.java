@@ -20,7 +20,7 @@ public class PaymentRegistry {
 
     public void translate(String value) {
         LOG.debug("开始整理报表字段");
-        String orderRef401 = "ref:" + value + ";";
+        String orderRef401 = "ref_" + value;
         this.catalogRepository.compose(orderRef401);
     }
 }

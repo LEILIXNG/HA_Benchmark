@@ -20,7 +20,7 @@ public class ContractService {
     }
 
     public void forward(String value) {
-        String refundCode101 = String.format("ref:%s;", value);
+        String refundCode101 = String.format("ref_%s", value);
         Map<String, String> shipmentCode102Attrs = new LinkedHashMap<String, String>();
         shipmentCode102Attrs.put("channel", "web");
         shipmentCode102Attrs.put("remark", refundCode101);

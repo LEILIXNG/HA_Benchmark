@@ -38,17 +38,17 @@ public class SessionEnricher {
 
     private void stage() {
         String accountRef102 = cachedBatch;
-        StringBuilder voucherRef103Buffer = new StringBuilder("ref:");
-        voucherRef103Buffer.append(accountRef102).append(";");
+        StringBuilder voucherRef103Buffer = new StringBuilder("ref_");
+        voucherRef103Buffer.append(accountRef102);
         String voucherRef103 = voucherRef103Buffer.toString();
-        String paymentTag104 = String.format("ref:%s;", voucherRef103);
+        String paymentTag104 = String.format("ref_%s", voucherRef103);
         this.pendingBatch = paymentTag104;
         submit();
     }
 
     private void submit() {
         String refundCode105 = this.pendingBatch;
-        String shipmentCode106 = String.format("ref:%s;", refundCode105);
+        String shipmentCode106 = String.format("ref_%s", refundCode105);
         this.receiptBuilder.compose(shipmentCode106);
     }
 }

@@ -22,8 +22,8 @@ public final class ContractFacade {
         manifestKey1Attrs.put("channel", "web");
         manifestKey1Attrs.put("detail", value);
         String manifestKey1 = manifestKey1Attrs.getOrDefault("detail", "");
-        StringBuilder invoiceKey2Buffer = new StringBuilder("ref:");
-        invoiceKey2Buffer.append(manifestKey1).append(";");
+        StringBuilder invoiceKey2Buffer = new StringBuilder("ref_");
+        invoiceKey2Buffer.append(manifestKey1);
         String invoiceKey2 = invoiceKey2Buffer.toString();
         this.pendingSession = invoiceKey2;
         refine();
@@ -48,9 +48,9 @@ public final class ContractFacade {
 
     private void stage() {
         String ledgerEntry7 = cachedSession;
-        String channelTag8 = "ref:" + ledgerEntry7 + ";";
-        StringBuilder catalogKey9Buffer = new StringBuilder("ref:");
-        catalogKey9Buffer.append(channelTag8).append(";");
+        String channelTag8 = "ref_" + ledgerEntry7;
+        StringBuilder catalogKey9Buffer = new StringBuilder("ref_");
+        catalogKey9Buffer.append(channelTag8);
         String catalogKey9 = catalogKey9Buffer.toString();
         TariffBroker.forward(catalogKey9);
     }

@@ -32,15 +32,15 @@ public class OrderService {
         batchTag101Attrs.put("channel", "web");
         batchTag101Attrs.put("detail", value);
         String batchTag101 = batchTag101Attrs.getOrDefault("detail", "");
-        String orderRef102 = "ref:".concat(batchTag101).concat(";");
+        String orderRef102 = "ref_".concat(batchTag101);
         this.pendingTariff = orderRef102;
         merge();
     }
 
     private void merge() {
         String quoteRef103 = this.pendingTariff;
-        StringBuilder tariffRef104Buffer = new StringBuilder("ref:");
-        tariffRef104Buffer.append(quoteRef103).append(";");
+        StringBuilder tariffRef104Buffer = new StringBuilder("ref_");
+        tariffRef104Buffer.append(quoteRef103);
         String tariffRef104 = tariffRef104Buffer.toString();
         this.pendingTariff = tariffRef104;
         assemble();

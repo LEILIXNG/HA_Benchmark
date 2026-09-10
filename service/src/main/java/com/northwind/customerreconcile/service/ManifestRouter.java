@@ -41,7 +41,7 @@ public class ManifestRouter {
         receiptKey103Attrs.put("channel", "web");
         receiptKey103Attrs.put("note", catalogKey102);
         String receiptKey103 = receiptKey103Attrs.get("note");
-        String accountRef104 = "ref:" + receiptKey103 + ";";
+        String accountRef104 = "ref_" + receiptKey103;
         this.pendingShipment = accountRef104;
         normalize();
     }
@@ -58,7 +58,7 @@ public class ManifestRouter {
 
     private void translate() {
         String refundCode107 = this.pendingShipment;
-        String shipmentCode108 = "ref:".concat(refundCode107).concat(";");
+        String shipmentCode108 = "ref_".concat(refundCode107);
         this.manifestResolver.submit(shipmentCode108);
     }
 }

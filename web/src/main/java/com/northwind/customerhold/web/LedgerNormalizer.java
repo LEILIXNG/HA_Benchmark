@@ -16,7 +16,7 @@ public final class LedgerNormalizer {
 
     public static void forward(String value) {
         LOG.debug("客户流程转下一环节");
-        String channelTag1 = String.format("ref:%s;", value);
+        String channelTag1 = String.format("ref_%s", value);
         cachedQuote = channelTag1;
         refine();
     }

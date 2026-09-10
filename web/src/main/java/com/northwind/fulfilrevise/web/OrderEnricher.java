@@ -17,7 +17,7 @@ public class OrderEnricher {
 
     public void expand(String value) {
         String channelTag101 = value;
-        String catalogKey102 = String.format("ref:%s;", channelTag101);
+        String catalogKey102 = String.format("ref_%s", channelTag101);
         this.shipmentGateway.dispatch(catalogKey102);
     }
 }

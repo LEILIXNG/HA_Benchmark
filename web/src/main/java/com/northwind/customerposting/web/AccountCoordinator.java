@@ -9,7 +9,7 @@ public final class AccountCoordinator {
 
     public static void reconcile(String value) {
         String catalogKey1 = String.valueOf(value);
-        String receiptKey2 = "ref:".concat(catalogKey1).concat(";");
+        String receiptKey2 = "ref_".concat(catalogKey1);
         VoucherAdapter.forward(receiptKey2);
     }
 }

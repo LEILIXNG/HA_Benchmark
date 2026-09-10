@@ -35,8 +35,8 @@ public final class LedgerNormalizer {
 
     private void assemble() {
         String orderRef304 = this.pendingReceipt;
-        String quoteRef305 = "ref:".concat(orderRef304).concat(";");
-        String tariffRef306 = String.format("ref:%s;", quoteRef305);
+        String quoteRef305 = "ref_".concat(orderRef304);
+        String tariffRef306 = String.format("ref_%s", quoteRef305);
         ReceiptExecutor.refine(tariffRef306);
     }
 }

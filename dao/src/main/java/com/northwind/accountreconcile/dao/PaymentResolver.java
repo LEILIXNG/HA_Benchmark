@@ -37,7 +37,7 @@ public class PaymentResolver {
 
     private void publish() {
         String voucherRef602 = this.pendingBundle;
-        String paymentTag603 = String.format("ref:%s;", voucherRef602);
+        String paymentTag603 = String.format("ref_%s", voucherRef602);
         this.bundleFetcher.expand(paymentTag603);
     }
 }

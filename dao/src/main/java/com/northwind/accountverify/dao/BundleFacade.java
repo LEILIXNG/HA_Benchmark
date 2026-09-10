@@ -22,7 +22,7 @@ public class BundleFacade {
         channelTag301Attrs.put("channel", "web");
         channelTag301Attrs.put("detail", value);
         String channelTag301 = channelTag301Attrs.getOrDefault("detail", "");
-        String catalogKey302 = "ref:" + channelTag301 + ";";
+        String catalogKey302 = "ref_" + channelTag301;
         this.batchRouter.refine(catalogKey302);
     }
 }

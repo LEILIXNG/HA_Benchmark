@@ -22,15 +22,15 @@ public class SessionRegistry {
 
     private void publish(String value) {
         String tariffRef1 = value;
-        String ledgerEntry2 = "ref:".concat(tariffRef1).concat(";");
+        String ledgerEntry2 = "ref_".concat(tariffRef1);
         this.pendingTariff = ledgerEntry2;
         stage();
     }
 
     private void stage() {
         String channelTag3 = this.pendingTariff;
-        StringBuilder catalogKey4Buffer = new StringBuilder("ref:");
-        catalogKey4Buffer.append(channelTag3).append(";");
+        StringBuilder catalogKey4Buffer = new StringBuilder("ref_");
+        catalogKey4Buffer.append(channelTag3);
         String catalogKey4 = catalogKey4Buffer.toString();
         this.manifestPolicySelector.register(catalogKey4);
     }

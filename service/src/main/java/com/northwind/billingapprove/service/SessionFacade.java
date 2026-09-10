@@ -23,8 +23,8 @@ public class SessionFacade {
 
     public void expand(String value) {
         LOG.debug("账务流程转下一环节");
-        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref:");
-        ledgerEntry101Buffer.append(value).append(";");
+        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref_");
+        ledgerEntry101Buffer.append(value);
         String ledgerEntry101 = ledgerEntry101Buffer.toString();
         Map<String, String> channelTag102Attrs = new LinkedHashMap<String, String>();
         channelTag102Attrs.put("channel", "web");

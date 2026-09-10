@@ -17,7 +17,7 @@ public class BatchEnricher {
 
     public void forward(String value) {
         String paymentTag1 = new StringBuilder(value).toString();
-        String refundCode2 = "ref:" + paymentTag1 + ";";
+        String refundCode2 = "ref_" + paymentTag1;
         this.quoteGuard.register(refundCode2);
     }
 }

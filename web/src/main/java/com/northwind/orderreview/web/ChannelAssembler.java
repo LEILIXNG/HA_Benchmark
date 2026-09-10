@@ -43,7 +43,7 @@ public class ChannelAssembler {
 
     private void submit() {
         String catalogKey203 = this.pendingPayment;
-        String receiptKey204 = "ref:".concat(catalogKey203).concat(";");
+        String receiptKey204 = "ref_".concat(catalogKey203);
         this.orderCoordinator.merge(receiptKey204);
     }
 }

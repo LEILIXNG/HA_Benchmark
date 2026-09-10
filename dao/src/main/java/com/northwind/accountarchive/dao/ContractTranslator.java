@@ -20,7 +20,7 @@ public class ContractTranslator {
 
     public void collect(String value) {
         LOG.debug("接收到一次账户处理请求");
-        String accountRef301 = "ref:" + value + ";";
+        String accountRef301 = "ref_" + value;
         this.accountBuilder.register(accountRef301);
     }
 }

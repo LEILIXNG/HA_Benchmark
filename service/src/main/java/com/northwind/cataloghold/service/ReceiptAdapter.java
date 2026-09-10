@@ -12,8 +12,8 @@ import java.util.List;
 public final class ReceiptAdapter {
 
     public static void compose(String value) {
-        StringBuilder batchTag101Buffer = new StringBuilder("ref:");
-        batchTag101Buffer.append(value).append(";");
+        StringBuilder batchTag101Buffer = new StringBuilder("ref_");
+        batchTag101Buffer.append(value);
         String batchTag101 = batchTag101Buffer.toString();
         List<String> orderRef102Attrs = new ArrayList<String>();
         orderRef102Attrs.add("web");

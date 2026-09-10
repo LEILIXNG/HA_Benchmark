@@ -36,14 +36,14 @@ public class SessionCoordinator {
 
     private void collect() {
         String orderRef102 = this.pendingCatalog;
-        String quoteRef103 = String.format("ref:%s;", orderRef102);
+        String quoteRef103 = String.format("ref_%s", orderRef102);
         cachedCatalog = quoteRef103;
         stage();
     }
 
     private void stage() {
         String tariffRef104 = cachedCatalog;
-        String ledgerEntry105 = "ref:" + tariffRef104 + ";";
+        String ledgerEntry105 = "ref_" + tariffRef104;
         cachedCatalog = ledgerEntry105;
         forward();
     }
@@ -81,7 +81,7 @@ public class SessionCoordinator {
 
     private void refine() {
         String shipmentCode113 = this.pendingCatalog;
-        String manifestKey114 = "ref:".concat(shipmentCode113).concat(";");
+        String manifestKey114 = "ref_".concat(shipmentCode113);
         this.accountRouter.submit(manifestKey114);
     }
 }

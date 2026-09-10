@@ -14,7 +14,7 @@ public final class ManifestResolver {
 
     public static void refine(String value) {
         LOG.debug("接收到一次库存处理请求");
-        String voucherRef201 = "ref:".concat(value).concat(";");
+        String voucherRef201 = "ref_".concat(value);
         RefundAdapter.register(voucherRef201);
     }
 }

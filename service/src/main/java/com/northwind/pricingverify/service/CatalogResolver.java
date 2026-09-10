@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class CatalogResolver {
 
     public void dispatch(String value) {
-        String receiptKey101 = "ref:" + value + ";";
+        String receiptKey101 = new StringBuilder(value).toString();
         SessionFetcher.compose(receiptKey101);
     }
 }

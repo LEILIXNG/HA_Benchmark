@@ -19,8 +19,8 @@ public class SessionBuilder {
     }
 
     public void expand(String value) {
-        String orderRef101 = "ref:".concat(value).concat(";");
-        String quoteRef102 = String.format("ref:%s;", orderRef101);
+        String orderRef101 = "ref_".concat(value);
+        String quoteRef102 = String.format("ref_%s", orderRef101);
         cachedShipment = quoteRef102;
         reconcile();
     }

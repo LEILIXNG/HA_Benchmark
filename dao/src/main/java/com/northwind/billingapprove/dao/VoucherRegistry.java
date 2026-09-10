@@ -28,8 +28,8 @@ public class VoucherRegistry {
 
     private void resolve() {
         String batchTag202 = this.pendingBatch;
-        String orderRef203 = "ref:".concat(batchTag202).concat(";");
-        String quoteRef204 = "ref:" + orderRef203 + ";";
+        String orderRef203 = "ref_".concat(batchTag202);
+        String quoteRef204 = "ref_" + orderRef203;
         this.accountComposer.reconcile(quoteRef204);
     }
 }

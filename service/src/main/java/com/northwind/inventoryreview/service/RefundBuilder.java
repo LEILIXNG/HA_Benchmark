@@ -17,7 +17,7 @@ public class RefundBuilder {
         invoiceKey101Attrs.put("channel", "web");
         invoiceKey101Attrs.put("detail", value);
         String invoiceKey101 = invoiceKey101Attrs.getOrDefault("detail", "");
-        String batchTag102 = "ref:" + invoiceKey101 + ";";
+        String batchTag102 = "ref_" + invoiceKey101;
         ShipmentPlanSelector.publish(batchTag102);
     }
 }

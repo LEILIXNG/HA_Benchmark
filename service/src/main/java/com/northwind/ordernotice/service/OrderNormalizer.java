@@ -21,7 +21,7 @@ public class OrderNormalizer {
 
     public void dispatch(String value) {
         LOG.debug("开始整理订单字段");
-        String paymentTag301 = String.format("ref:%s;", value);
+        String paymentTag301 = String.format("ref_%s", value);
         String refundCode302 = String.valueOf(paymentTag301);
         this.tariffCollector.route(refundCode302);
     }

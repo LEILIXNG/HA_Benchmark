@@ -28,22 +28,22 @@ public class ChannelBuilder {
     }
 
     private void register(String value) {
-        String receiptKey201 = "ref:" + value + ";";
+        String receiptKey201 = "ref_" + value;
         this.pendingBatch = receiptKey201;
         refine();
     }
 
     private void refine() {
         String accountRef202 = this.pendingBatch;
-        String voucherRef203 = "ref:" + accountRef202 + ";";
-        String paymentTag204 = "ref:".concat(voucherRef203).concat(";");
+        String voucherRef203 = "ref_" + accountRef202;
+        String paymentTag204 = "ref_".concat(voucherRef203);
         this.pendingBatch = paymentTag204;
         merge();
     }
 
     private void merge() {
         String refundCode205 = this.pendingBatch;
-        String shipmentCode206 = "ref:".concat(refundCode205).concat(";");
+        String shipmentCode206 = "ref_".concat(refundCode205);
         this.pendingBatch = shipmentCode206;
         dispatch();
     }

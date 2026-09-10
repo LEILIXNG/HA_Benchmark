@@ -15,7 +15,7 @@ public final class ManifestResolver {
         accountRef701Attrs.put("channel", "web");
         accountRef701Attrs.put("detail", value);
         String accountRef701 = accountRef701Attrs.get("detail");
-        String voucherRef702 = "ref:".concat(accountRef701).concat(";");
+        String voucherRef702 = "ref_".concat(accountRef701);
         SessionEvaluator.translate(voucherRef702);
     }
 }

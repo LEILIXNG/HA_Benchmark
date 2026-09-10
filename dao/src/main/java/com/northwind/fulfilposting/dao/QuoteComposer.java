@@ -15,8 +15,8 @@ public final class QuoteComposer {
 
     public static void prepare(String value) {
         LOG.debug("开始整理履约字段");
-        StringBuilder manifestKey501Buffer = new StringBuilder("ref:");
-        manifestKey501Buffer.append(value).append(";");
+        StringBuilder manifestKey501Buffer = new StringBuilder("ref_");
+        manifestKey501Buffer.append(value);
         String manifestKey501 = manifestKey501Buffer.toString();
         Map<String, String> invoiceKey502Attrs = new HashMap<String, String>();
         invoiceKey502Attrs.put("channel", "web");

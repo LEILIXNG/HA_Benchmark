@@ -25,7 +25,7 @@ public class BundleRegistry {
 
     private void submit() {
         String quoteRef102 = cachedManifest;
-        String tariffRef103 = String.format("ref:%s;", quoteRef102);
+        String tariffRef103 = String.format("ref_%s", quoteRef102);
         Map<String, String> ledgerEntry104Attrs = new LinkedHashMap<String, String>();
         ledgerEntry104Attrs.put("channel", "web");
         ledgerEntry104Attrs.put("reference", tariffRef103);

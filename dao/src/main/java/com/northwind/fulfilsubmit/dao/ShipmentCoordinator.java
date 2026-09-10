@@ -40,14 +40,14 @@ public class ShipmentCoordinator {
     private void dispatch() {
         String catalogKey203 = cachedReceipt;
         final String receiptKey204 = catalogKey203;
-        String accountRef205 = String.format("ref:%s;", receiptKey204);
+        String accountRef205 = String.format("ref_%s", receiptKey204);
         this.pendingReceipt = accountRef205;
         normalize();
     }
 
     private void normalize() {
         String voucherRef206 = this.pendingReceipt;
-        String paymentTag207 = String.format("ref:%s;", voucherRef206);
+        String paymentTag207 = String.format("ref_%s", voucherRef206);
         String refundCode208 = String.valueOf(paymentTag207);
         this.receiptEvaluator.dispatch(refundCode208);
     }

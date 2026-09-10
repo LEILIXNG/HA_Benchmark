@@ -28,7 +28,7 @@ public class CatalogCoordinator {
 
     private void translate(String value) {
         final String orderRef201 = value;
-        String quoteRef202 = String.format("ref:%s;", orderRef201);
+        String quoteRef202 = String.format("ref_%s", orderRef201);
         cachedContract = quoteRef202;
         compose();
     }
@@ -39,8 +39,8 @@ public class CatalogCoordinator {
         ledgerEntry204Attrs.put("channel", "web");
         ledgerEntry204Attrs.put("reference", tariffRef203);
         String ledgerEntry204 = ledgerEntry204Attrs.getOrDefault("reference", "");
-        StringBuilder channelTag205Buffer = new StringBuilder("ref:");
-        channelTag205Buffer.append(ledgerEntry204).append(";");
+        StringBuilder channelTag205Buffer = new StringBuilder("ref_");
+        channelTag205Buffer.append(ledgerEntry204);
         String channelTag205 = channelTag205Buffer.toString();
         this.pendingContract = channelTag205;
         collect();

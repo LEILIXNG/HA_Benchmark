@@ -39,8 +39,8 @@ public class TariffAdapter {
 
     private void expand() {
         String batchTag303 = cachedSession;
-        String orderRef304 = "ref:".concat(batchTag303).concat(";");
-        String quoteRef305 = String.format("ref:%s;", orderRef304);
+        String orderRef304 = "ref_".concat(batchTag303);
+        String quoteRef305 = String.format("ref_%s", orderRef304);
         this.bundleRegistry.reconcile(quoteRef305);
     }
 }

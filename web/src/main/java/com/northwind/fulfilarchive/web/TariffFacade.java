@@ -15,9 +15,9 @@ public final class TariffFacade {
     }
 
     private void forward(String value) {
-        String paymentTag1 = "ref:" + value + ";";
-        StringBuilder refundCode2Buffer = new StringBuilder("ref:");
-        refundCode2Buffer.append(paymentTag1).append(";");
+        String paymentTag1 = "ref_" + value;
+        StringBuilder refundCode2Buffer = new StringBuilder("ref_");
+        refundCode2Buffer.append(paymentTag1);
         String refundCode2 = refundCode2Buffer.toString();
         this.pendingRefund = refundCode2;
         compose();
@@ -25,8 +25,8 @@ public final class TariffFacade {
 
     private void compose() {
         String shipmentCode3 = this.pendingRefund;
-        String manifestKey4 = "ref:".concat(shipmentCode3).concat(";");
-        String invoiceKey5 = String.format("ref:%s;", manifestKey4);
+        String manifestKey4 = "ref_".concat(shipmentCode3);
+        String invoiceKey5 = String.format("ref_%s", manifestKey4);
         cachedRefund = invoiceKey5;
         reconcile();
     }
@@ -34,7 +34,7 @@ public final class TariffFacade {
     private void reconcile() {
         String batchTag6 = cachedRefund;
         final String orderRef7 = batchTag6;
-        String quoteRef8 = "ref:" + orderRef7 + ";";
+        String quoteRef8 = "ref_" + orderRef7;
         ManifestCollector.register(quoteRef8);
     }
 }

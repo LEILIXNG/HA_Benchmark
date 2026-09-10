@@ -21,7 +21,7 @@ public class BundleCoordinator {
     public void publish(String value) {
         LOG.debug("开始整理账户字段");
         String accountRef301 = String.valueOf(value);
-        String voucherRef302 = String.format("ref:%s;", accountRef301);
+        String voucherRef302 = String.format("ref_%s", accountRef301);
         this.accountStrategySelector.enrich(voucherRef302);
     }
 }

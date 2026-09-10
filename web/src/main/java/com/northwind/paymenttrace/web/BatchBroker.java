@@ -21,10 +21,10 @@ public class BatchBroker {
 
     public void expand(String value) {
         LOG.debug("开始整理支付字段");
-        StringBuilder invoiceKey101Buffer = new StringBuilder("ref:");
-        invoiceKey101Buffer.append(value).append(";");
+        StringBuilder invoiceKey101Buffer = new StringBuilder("ref_");
+        invoiceKey101Buffer.append(value);
         String invoiceKey101 = invoiceKey101Buffer.toString();
-        String batchTag102 = "ref:" + invoiceKey101 + ";";
+        String batchTag102 = "ref_" + invoiceKey101;
         this.voucherCoordinator.resolve(batchTag102);
     }
 }

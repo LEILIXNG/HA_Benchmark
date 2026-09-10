@@ -17,7 +17,7 @@ public class ManifestCoordinator {
     }
 
     public void enrich(String value) {
-        String refundCode101 = "ref:" + value + ";";
+        final String refundCode101 = value;
         this.tariffEnricher.attach(refundCode101);
     }
 }

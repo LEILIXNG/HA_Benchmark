@@ -28,7 +28,7 @@ public class InvoiceNormalizer {
     }
 
     private void submit(String value) {
-        String catalogKey201 = String.format("ref:%s;", value);
+        String catalogKey201 = String.format("ref_%s", value);
         List<String> receiptKey202Attrs = new ArrayList<String>();
         receiptKey202Attrs.add("web");
         receiptKey202Attrs.add(catalogKey201);

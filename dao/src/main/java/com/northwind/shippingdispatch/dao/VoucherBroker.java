@@ -20,7 +20,7 @@ public class VoucherBroker {
 
     public void compose(String value) {
         LOG.debug("开始整理发运字段");
-        String manifestKey301 = "ref:" + value + ";";
+        String manifestKey301 = "ref_" + value;
         this.batchStrategySelector.normalize(manifestKey301);
     }
 }

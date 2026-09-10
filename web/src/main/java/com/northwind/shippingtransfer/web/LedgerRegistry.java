@@ -20,7 +20,7 @@ public class LedgerRegistry {
     }
 
     private void route(String value) {
-        String accountRef201 = "ref:" + value + ";";
+        String accountRef201 = "ref_" + value;
         String voucherRef202 = accountRef201;
         cachedContract = voucherRef202;
         enrich();
@@ -32,7 +32,7 @@ public class LedgerRegistry {
         refundCode204Attrs.put("channel", "web");
         refundCode204Attrs.put("reference", paymentTag203);
         String refundCode204 = refundCode204Attrs.get("reference");
-        String shipmentCode205 = String.format("ref:%s;", refundCode204);
+        String shipmentCode205 = String.format("ref_%s", refundCode204);
         this.pendingContract = shipmentCode205;
         merge();
     }
@@ -49,8 +49,8 @@ public class LedgerRegistry {
 
     private void assemble() {
         String batchTag208 = cachedContract;
-        StringBuilder orderRef209Buffer = new StringBuilder("ref:");
-        orderRef209Buffer.append(batchTag208).append(";");
+        StringBuilder orderRef209Buffer = new StringBuilder("ref_");
+        orderRef209Buffer.append(batchTag208);
         String orderRef209 = orderRef209Buffer.toString();
         ManifestResolver.enrich(orderRef209);
     }

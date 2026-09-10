@@ -22,7 +22,7 @@ public class ContractEnricher {
 
     public void expand(String value) {
         LOG.debug("发运流程转下一环节");
-        String channelTag501 = "ref:" + value + ";";
+        String channelTag501 = "ref_" + value;
         Map<String, String> catalogKey502Attrs = new LinkedHashMap<String, String>();
         catalogKey502Attrs.put("channel", "web");
         catalogKey502Attrs.put("remark", channelTag501);

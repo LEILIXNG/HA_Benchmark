@@ -24,9 +24,9 @@ public class BundleTranslator {
     }
 
     private void compose(String value) {
-        String accountRef101 = "ref:" + value + ";";
-        StringBuilder voucherRef102Buffer = new StringBuilder("ref:");
-        voucherRef102Buffer.append(accountRef101).append(";");
+        String accountRef101 = "ref_" + value;
+        StringBuilder voucherRef102Buffer = new StringBuilder("ref_");
+        voucherRef102Buffer.append(accountRef101);
         String voucherRef102 = voucherRef102Buffer.toString();
         this.pendingBundle = voucherRef102;
         dispatch();

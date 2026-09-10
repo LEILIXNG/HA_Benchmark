@@ -23,17 +23,17 @@ public class BatchRegistry {
     }
 
     private void refine(String value) {
-        StringBuilder shipmentCode1Buffer = new StringBuilder("ref:");
-        shipmentCode1Buffer.append(value).append(";");
+        StringBuilder shipmentCode1Buffer = new StringBuilder("ref_");
+        shipmentCode1Buffer.append(value);
         String shipmentCode1 = shipmentCode1Buffer.toString();
-        String manifestKey2 = "ref:" + shipmentCode1 + ";";
+        String manifestKey2 = "ref_" + shipmentCode1;
         this.pendingSession = manifestKey2;
         normalize();
     }
 
     private void normalize() {
         String invoiceKey3 = this.pendingSession;
-        String batchTag4 = String.format("ref:%s;", invoiceKey3);
+        String batchTag4 = String.format("ref_%s", invoiceKey3);
         List<String> orderRef5Attrs = new ArrayList<String>();
         orderRef5Attrs.add("web");
         orderRef5Attrs.add(batchTag4);
@@ -51,7 +51,7 @@ public class BatchRegistry {
 
     private void expand() {
         String ledgerEntry8 = this.pendingSession;
-        String channelTag9 = "ref:" + ledgerEntry8 + ";";
+        String channelTag9 = "ref_" + ledgerEntry8;
         this.pendingSession = channelTag9;
         resolve();
     }
@@ -59,7 +59,7 @@ public class BatchRegistry {
     private void resolve() {
         String catalogKey10 = this.pendingSession;
         String receiptKey11 = catalogKey10;
-        String accountRef12 = "ref:".concat(receiptKey11).concat(";");
+        String accountRef12 = "ref_".concat(receiptKey11);
         BundleBroker.register(accountRef12);
     }
 }

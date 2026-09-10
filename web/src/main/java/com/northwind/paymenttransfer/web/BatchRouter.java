@@ -25,7 +25,7 @@ public class BatchRouter {
     }
 
     private void resolve(String value) {
-        String channelTag1 = String.format("ref:%s;", value);
+        String channelTag1 = String.format("ref_%s", value);
         String catalogKey2 = String.valueOf(channelTag1);
         this.pendingInvoice = catalogKey2;
         refine();
@@ -33,8 +33,8 @@ public class BatchRouter {
 
     private void refine() {
         String receiptKey3 = this.pendingInvoice;
-        StringBuilder accountRef4Buffer = new StringBuilder("ref:");
-        accountRef4Buffer.append(receiptKey3).append(";");
+        StringBuilder accountRef4Buffer = new StringBuilder("ref_");
+        accountRef4Buffer.append(receiptKey3);
         String accountRef4 = accountRef4Buffer.toString();
         final String voucherRef5 = accountRef4;
         this.sessionTranslator.publish(voucherRef5);

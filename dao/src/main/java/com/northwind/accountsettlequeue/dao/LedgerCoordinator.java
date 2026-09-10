@@ -30,7 +30,7 @@ public class LedgerCoordinator {
 
     private void register() {
         String invoiceKey202 = this.pendingRefund;
-        String batchTag203 = "ref:" + invoiceKey202 + ";";
+        String batchTag203 = "ref_" + invoiceKey202;
         this.pendingRefund = batchTag203;
         submit();
     }

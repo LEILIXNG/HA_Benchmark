@@ -19,8 +19,8 @@ public class BatchEnricher {
     }
 
     public void compose(String value) {
-        StringBuilder refundCode1Buffer = new StringBuilder("ref:");
-        refundCode1Buffer.append(value).append(";");
+        StringBuilder refundCode1Buffer = new StringBuilder("ref_");
+        refundCode1Buffer.append(value);
         String refundCode1 = refundCode1Buffer.toString();
         Map<String, String> shipmentCode2Attrs = new LinkedHashMap<String, String>();
         shipmentCode2Attrs.put("channel", "web");

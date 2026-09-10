@@ -22,10 +22,10 @@ public final class ManifestBuilder {
 
     private static void reconcile() {
         String ledgerEntry303 = cachedContract;
-        StringBuilder channelTag304Buffer = new StringBuilder("ref:");
-        channelTag304Buffer.append(ledgerEntry303).append(";");
+        StringBuilder channelTag304Buffer = new StringBuilder("ref_");
+        channelTag304Buffer.append(ledgerEntry303);
         String channelTag304 = channelTag304Buffer.toString();
-        String catalogKey305 = "ref:" + channelTag304 + ";";
+        String catalogKey305 = "ref_" + channelTag304;
         VoucherStrategySelector.assemble(catalogKey305);
     }
 }

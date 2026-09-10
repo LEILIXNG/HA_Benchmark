@@ -29,8 +29,8 @@ public class PaymentRouter {
     }
 
     private void dispatch(String value) {
-        StringBuilder accountRef1Buffer = new StringBuilder("ref:");
-        accountRef1Buffer.append(value).append(";");
+        StringBuilder accountRef1Buffer = new StringBuilder("ref_");
+        accountRef1Buffer.append(value);
         String accountRef1 = accountRef1Buffer.toString();
         final String voucherRef2 = accountRef1;
         cachedShipment = voucherRef2;
@@ -46,7 +46,7 @@ public class PaymentRouter {
 
     private void assemble() {
         String shipmentCode5 = this.pendingShipment;
-        String manifestKey6 = String.format("ref:%s;", shipmentCode5);
+        String manifestKey6 = String.format("ref_%s", shipmentCode5);
         List<String> invoiceKey7Attrs = new ArrayList<String>();
         invoiceKey7Attrs.add("web");
         invoiceKey7Attrs.add(manifestKey6);

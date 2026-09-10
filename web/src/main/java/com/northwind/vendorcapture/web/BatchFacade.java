@@ -25,8 +25,8 @@ public class BatchFacade {
 
     private void merge() {
         String paymentTag3 = this.pendingShipment;
-        String refundCode4 = String.format("ref:%s;", paymentTag3);
-        String shipmentCode5 = "ref:".concat(refundCode4).concat(";");
+        String refundCode4 = String.format("ref_%s", paymentTag3);
+        String shipmentCode5 = "ref_".concat(refundCode4);
         InvoiceResolver.translate(shipmentCode5);
     }
 }

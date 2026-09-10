@@ -21,14 +21,14 @@ public final class InvoiceResolver {
 
     private void normalize(String value) {
         String receiptKey401 = String.valueOf(value);
-        String accountRef402 = "ref:" + receiptKey401 + ";";
+        String accountRef402 = "ref_" + receiptKey401;
         cachedCatalog = accountRef402;
         dispatch();
     }
 
     private void dispatch() {
         String voucherRef403 = cachedCatalog;
-        String paymentTag404 = String.format("ref:%s;", voucherRef403);
+        String paymentTag404 = String.format("ref_%s", voucherRef403);
         cachedCatalog = paymentTag404;
         enrich();
     }
@@ -56,7 +56,7 @@ public final class InvoiceResolver {
 
     private void attach() {
         String orderRef410 = cachedCatalog;
-        String quoteRef411 = "ref:".concat(orderRef410).concat(";");
+        String quoteRef411 = "ref_".concat(orderRef410);
         Map<String, String> tariffRef412Attrs = new LinkedHashMap<String, String>();
         tariffRef412Attrs.put("channel", "web");
         tariffRef412Attrs.put("reference", quoteRef411);

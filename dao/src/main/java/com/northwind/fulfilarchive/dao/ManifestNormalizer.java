@@ -31,7 +31,7 @@ public final class ManifestNormalizer {
 
     private void submit() {
         String receiptKey403 = cachedRefund;
-        String accountRef404 = "ref:" + receiptKey403 + ";";
+        String accountRef404 = "ref_" + receiptKey403;
         String voucherRef405 = new StringBuilder(accountRef404).toString();
         cachedRefund = voucherRef405;
         dispatch();

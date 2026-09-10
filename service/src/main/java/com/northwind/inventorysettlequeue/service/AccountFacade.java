@@ -17,7 +17,7 @@ public class AccountFacade {
     }
 
     public void prepare(String value) {
-        String refundCode301 = String.format("ref:%s;", value);
+        String refundCode301 = String.format("ref_%s", value);
         this.batchRegistry.reconcile(refundCode301);
     }
 }

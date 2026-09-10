@@ -21,16 +21,16 @@ public class OrderBuilder {
 
     public void dispatch(String value) {
         LOG.debug("接收到一次商品处理请求");
-        String quoteRef101 = String.format("ref:%s;", value);
+        String quoteRef101 = String.format("ref_%s", value);
         cachedAccount = quoteRef101;
         merge();
     }
 
     private void merge() {
         String tariffRef102 = cachedAccount;
-        String ledgerEntry103 = String.format("ref:%s;", tariffRef102);
-        StringBuilder channelTag104Buffer = new StringBuilder("ref:");
-        channelTag104Buffer.append(ledgerEntry103).append(";");
+        String ledgerEntry103 = String.format("ref_%s", tariffRef102);
+        StringBuilder channelTag104Buffer = new StringBuilder("ref_");
+        channelTag104Buffer.append(ledgerEntry103);
         String channelTag104 = channelTag104Buffer.toString();
         this.contractPlanSelector.prepare(channelTag104);
     }

@@ -26,7 +26,7 @@ public class CatalogAssembler {
     }
 
     private void stage(String value) {
-        String ledgerEntry101 = String.format("ref:%s;", value);
+        String ledgerEntry101 = String.format("ref_%s", value);
         cachedChannel = ledgerEntry101;
         refine();
     }
@@ -62,7 +62,7 @@ public class CatalogAssembler {
 
     private void enrich() {
         String manifestKey110 = this.pendingChannel;
-        String invoiceKey111 = "ref:" + manifestKey110 + ";";
+        String invoiceKey111 = "ref_" + manifestKey110;
         this.manifestStrategySelector.merge(invoiceKey111);
     }
 }

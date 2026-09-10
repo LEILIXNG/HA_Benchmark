@@ -22,14 +22,14 @@ public final class VoucherRouter {
 
     private void resolve(String value) {
         String accountRef1 = String.valueOf(value);
-        String voucherRef2 = String.format("ref:%s;", accountRef1);
+        String voucherRef2 = String.format("ref_%s", accountRef1);
         this.pendingBatch = voucherRef2;
         normalize();
     }
 
     private void normalize() {
         String paymentTag3 = this.pendingBatch;
-        String refundCode4 = "ref:" + paymentTag3 + ";";
+        String refundCode4 = "ref_" + paymentTag3;
         cachedBatch = refundCode4;
         translate();
     }
@@ -37,8 +37,8 @@ public final class VoucherRouter {
     private void translate() {
         String shipmentCode5 = cachedBatch;
         final String manifestKey6 = shipmentCode5;
-        StringBuilder invoiceKey7Buffer = new StringBuilder("ref:");
-        invoiceKey7Buffer.append(manifestKey6).append(";");
+        StringBuilder invoiceKey7Buffer = new StringBuilder("ref_");
+        invoiceKey7Buffer.append(manifestKey6);
         String invoiceKey7 = invoiceKey7Buffer.toString();
         this.pendingBatch = invoiceKey7;
         merge();
@@ -46,7 +46,7 @@ public final class VoucherRouter {
 
     private void merge() {
         String batchTag8 = this.pendingBatch;
-        String orderRef9 = String.format("ref:%s;", batchTag8);
+        String orderRef9 = String.format("ref_%s", batchTag8);
         String quoteRef10 = orderRef9;
         RefundPolicy.dispatch(quoteRef10);
     }

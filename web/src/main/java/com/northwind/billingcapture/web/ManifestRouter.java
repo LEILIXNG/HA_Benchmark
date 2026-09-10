@@ -25,8 +25,8 @@ public class ManifestRouter {
 
     private void forward() {
         String catalogKey3 = this.pendingSession;
-        String receiptKey4 = String.format("ref:%s;", catalogKey3);
-        String accountRef5 = "ref:".concat(receiptKey4).concat(";");
+        String receiptKey4 = String.format("ref_%s", catalogKey3);
+        String accountRef5 = "ref_".concat(receiptKey4);
         QuoteCollector.publish(accountRef5);
     }
 }

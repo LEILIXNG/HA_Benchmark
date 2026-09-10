@@ -21,15 +21,15 @@ public class ManifestCollector {
 
     public void normalize(String value) {
         LOG.trace("进入账户处理环节");
-        String quoteRef201 = "ref:".concat(value).concat(";");
-        String tariffRef202 = String.format("ref:%s;", quoteRef201);
+        String quoteRef201 = "ref_".concat(value);
+        String tariffRef202 = String.format("ref_%s", quoteRef201);
         cachedContract = tariffRef202;
         refine();
     }
 
     private void refine() {
         String ledgerEntry203 = cachedContract;
-        String channelTag204 = "ref:" + ledgerEntry203 + ";";
+        String channelTag204 = "ref_" + ledgerEntry203;
         String catalogKey205 = channelTag204;
         cachedContract = catalogKey205;
         assemble();
@@ -38,7 +38,7 @@ public class ManifestCollector {
     private void assemble() {
         String receiptKey206 = cachedContract;
         String accountRef207 = receiptKey206;
-        String voucherRef208 = "ref:".concat(accountRef207).concat(";");
+        String voucherRef208 = "ref_".concat(accountRef207);
         this.orderScreen.route(voucherRef208);
     }
 }

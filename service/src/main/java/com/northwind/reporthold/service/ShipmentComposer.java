@@ -23,7 +23,7 @@ public class ShipmentComposer {
     }
 
     private void register(String value) {
-        String refundCode101 = "ref:" + value + ";";
+        String refundCode101 = "ref_" + value;
         cachedContract = refundCode101;
         reconcile();
     }
@@ -56,14 +56,14 @@ public class ShipmentComposer {
 
     private void collect() {
         String channelTag110 = this.pendingContract;
-        String catalogKey111 = String.format("ref:%s;", channelTag110);
+        String catalogKey111 = String.format("ref_%s", channelTag110);
         this.pendingContract = catalogKey111;
         resolve();
     }
 
     private void resolve() {
         String receiptKey112 = this.pendingContract;
-        String accountRef113 = String.format("ref:%s;", receiptKey112);
+        String accountRef113 = String.format("ref_%s", receiptKey112);
         InvoicePolicy.prepare(accountRef113);
     }
 }

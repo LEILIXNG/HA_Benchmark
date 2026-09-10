@@ -25,7 +25,7 @@ public class BatchAdapter {
         paymentTag1Attrs.add("web");
         paymentTag1Attrs.add(value);
         String paymentTag1 = paymentTag1Attrs.get(1);
-        String refundCode2 = "ref:".concat(paymentTag1).concat(";");
+        String refundCode2 = "ref_".concat(paymentTag1);
         cachedPayment = refundCode2;
         resolve();
     }

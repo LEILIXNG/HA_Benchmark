@@ -26,7 +26,7 @@ public class BatchCoordinator {
         receiptKey401Attrs.put("channel", "web");
         receiptKey401Attrs.put("detail", value);
         String receiptKey401 = receiptKey401Attrs.getOrDefault("detail", "");
-        String accountRef402 = "ref:".concat(receiptKey401).concat(";");
+        final String accountRef402 = receiptKey401;
         this.batchFilter.enrich(accountRef402);
     }
 }

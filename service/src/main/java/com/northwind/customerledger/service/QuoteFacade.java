@@ -21,15 +21,15 @@ public final class QuoteFacade {
         orderRef201Attrs.add("web");
         orderRef201Attrs.add(value);
         String orderRef201 = orderRef201Attrs.get(1);
-        String quoteRef202 = "ref:".concat(orderRef201).concat(";");
+        String quoteRef202 = "ref_".concat(orderRef201);
         cachedShipment = quoteRef202;
         merge();
     }
 
     private static void merge() {
         String tariffRef203 = cachedShipment;
-        StringBuilder ledgerEntry204Buffer = new StringBuilder("ref:");
-        ledgerEntry204Buffer.append(tariffRef203).append(";");
+        StringBuilder ledgerEntry204Buffer = new StringBuilder("ref_");
+        ledgerEntry204Buffer.append(tariffRef203);
         String ledgerEntry204 = ledgerEntry204Buffer.toString();
         ContractAssembler.prepare(ledgerEntry204);
     }

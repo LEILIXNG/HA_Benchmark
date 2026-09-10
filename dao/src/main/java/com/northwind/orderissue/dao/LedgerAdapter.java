@@ -17,7 +17,7 @@ public class LedgerAdapter {
         batchTag201Attrs.put("channel", "web");
         batchTag201Attrs.put("detail", value);
         String batchTag201 = batchTag201Attrs.getOrDefault("detail", "");
-        String orderRef202 = "ref:".concat(batchTag201).concat(";");
+        String orderRef202 = "ref_".concat(batchTag201);
         BundleBroker.resolve(orderRef202);
     }
 }

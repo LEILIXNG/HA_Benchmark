@@ -41,7 +41,7 @@ public final class QuoteNormalizer {
 
     private static void translate() {
         String manifestKey208 = cachedOrder;
-        String invoiceKey209 = String.format("ref:%s;", manifestKey208);
+        String invoiceKey209 = String.format("ref_%s", manifestKey208);
         OrderExecutor.forward(invoiceKey209);
     }
 }

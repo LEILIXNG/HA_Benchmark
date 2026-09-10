@@ -23,9 +23,9 @@ public class OrderBroker {
 
     private void submit() {
         String accountRef2 = this.pendingTariff;
-        String voucherRef3 = String.format("ref:%s;", accountRef2);
-        StringBuilder paymentTag4Buffer = new StringBuilder("ref:");
-        paymentTag4Buffer.append(voucherRef3).append(";");
+        String voucherRef3 = String.format("ref_%s", accountRef2);
+        StringBuilder paymentTag4Buffer = new StringBuilder("ref_");
+        paymentTag4Buffer.append(voucherRef3);
         String paymentTag4 = paymentTag4Buffer.toString();
         OrderTranslator.normalize(paymentTag4);
     }

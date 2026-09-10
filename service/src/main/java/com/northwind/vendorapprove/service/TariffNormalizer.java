@@ -35,7 +35,7 @@ public class TariffNormalizer {
 
     private void collect() {
         String batchTag103 = cachedReceipt;
-        String orderRef104 = String.format("ref:%s;", batchTag103);
+        String orderRef104 = String.format("ref_%s", batchTag103);
         cachedReceipt = orderRef104;
         enrich();
     }

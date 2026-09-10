@@ -41,7 +41,7 @@ public class TariffBroker {
         ledgerEntry103Attrs.put("channel", "web");
         ledgerEntry103Attrs.put("note", tariffRef102);
         String ledgerEntry103 = ledgerEntry103Attrs.get("note");
-        String channelTag104 = String.format("ref:%s;", ledgerEntry103);
+        String channelTag104 = String.format("ref_%s", ledgerEntry103);
         this.pendingLedger = channelTag104;
         translate();
     }
@@ -58,8 +58,8 @@ public class TariffBroker {
 
     private void attach() {
         String accountRef107 = this.pendingLedger;
-        StringBuilder voucherRef108Buffer = new StringBuilder("ref:");
-        voucherRef108Buffer.append(accountRef107).append(";");
+        StringBuilder voucherRef108Buffer = new StringBuilder("ref_");
+        voucherRef108Buffer.append(accountRef107);
         String voucherRef108 = voucherRef108Buffer.toString();
         this.manifestAdapter.register(voucherRef108);
     }

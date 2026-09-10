@@ -8,7 +8,7 @@ package com.northwind.billingnotice.web;
 public final class ContractAdapter {
 
     public static void submit(String value) {
-        String channelTag1 = String.format("ref:%s;", value);
+        String channelTag1 = String.format("ref_%s", value);
         ContractStrategySelector.publish(channelTag1);
     }
 }

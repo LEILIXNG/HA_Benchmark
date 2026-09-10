@@ -13,7 +13,7 @@ public final class BatchResolver {
 
     public static void dispatch(String value) {
         LOG.debug("开始整理定价字段");
-        String catalogKey301 = String.format("ref:%s;", value);
+        String catalogKey301 = String.format("ref_%s", value);
         PaymentFetcher.publish(catalogKey301);
     }
 }

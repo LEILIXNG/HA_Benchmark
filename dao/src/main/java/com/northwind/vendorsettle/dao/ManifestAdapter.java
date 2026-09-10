@@ -38,9 +38,9 @@ public class ManifestAdapter {
 
     private void reconcile() {
         String invoiceKey203 = this.pendingLedger;
-        String batchTag204 = "ref:" + invoiceKey203 + ";";
-        StringBuilder orderRef205Buffer = new StringBuilder("ref:");
-        orderRef205Buffer.append(batchTag204).append(";");
+        String batchTag204 = "ref_" + invoiceKey203;
+        StringBuilder orderRef205Buffer = new StringBuilder("ref_");
+        orderRef205Buffer.append(batchTag204);
         String orderRef205 = orderRef205Buffer.toString();
         this.ledgerRepository.dispatch(orderRef205);
     }

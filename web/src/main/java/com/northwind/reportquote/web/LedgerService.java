@@ -21,7 +21,7 @@ public class LedgerService {
 
     public void register(String value) {
         LOG.debug("开始整理报表字段");
-        String catalogKey1 = "ref:" + value + ";";
+        String catalogKey1 = "ref_" + value;
         this.shipmentCollector.refine(catalogKey1);
     }
 }

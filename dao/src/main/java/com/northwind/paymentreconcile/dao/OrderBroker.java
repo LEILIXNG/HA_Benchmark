@@ -8,10 +8,10 @@ package com.northwind.paymentreconcile.dao;
 public final class OrderBroker {
 
     public static void normalize(String value) {
-        StringBuilder ledgerEntry301Buffer = new StringBuilder("ref:");
-        ledgerEntry301Buffer.append(value).append(";");
+        StringBuilder ledgerEntry301Buffer = new StringBuilder("ref_");
+        ledgerEntry301Buffer.append(value);
         String ledgerEntry301 = ledgerEntry301Buffer.toString();
-        String channelTag302 = "ref:" + ledgerEntry301 + ";";
+        String channelTag302 = "ref_" + ledgerEntry301;
         ChannelPolicy.publish(channelTag302);
     }
 }

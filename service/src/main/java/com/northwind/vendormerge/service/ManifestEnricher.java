@@ -28,9 +28,9 @@ public class ManifestEnricher {
     }
 
     private void enrich(String value) {
-        String channelTag101 = "ref:" + value + ";";
-        StringBuilder catalogKey102Buffer = new StringBuilder("ref:");
-        catalogKey102Buffer.append(channelTag101).append(";");
+        String channelTag101 = "ref_" + value;
+        StringBuilder catalogKey102Buffer = new StringBuilder("ref_");
+        catalogKey102Buffer.append(channelTag101);
         String catalogKey102 = catalogKey102Buffer.toString();
         this.pendingCatalog = catalogKey102;
         submit();

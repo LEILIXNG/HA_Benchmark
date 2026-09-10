@@ -22,7 +22,7 @@ public class InvoiceService {
     }
 
     private void resolve(String value) {
-        String manifestKey401 = "ref:" + value + ";";
+        String manifestKey401 = "ref_" + value;
         this.pendingLedger = manifestKey401;
         forward();
     }

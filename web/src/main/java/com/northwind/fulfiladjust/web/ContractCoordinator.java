@@ -21,8 +21,8 @@ public class ContractCoordinator {
 
     public void assemble(String value) {
         LOG.trace("进入履约处理环节");
-        StringBuilder shipmentCode1Buffer = new StringBuilder("ref:");
-        shipmentCode1Buffer.append(value).append(";");
+        StringBuilder shipmentCode1Buffer = new StringBuilder("ref_");
+        shipmentCode1Buffer.append(value);
         String shipmentCode1 = shipmentCode1Buffer.toString();
         this.orderTranslator.expand(shipmentCode1);
     }

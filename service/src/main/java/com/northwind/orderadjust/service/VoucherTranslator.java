@@ -24,8 +24,8 @@ public final class VoucherTranslator {
     }
 
     private void route(String value) {
-        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref:");
-        ledgerEntry101Buffer.append(value).append(";");
+        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref_");
+        ledgerEntry101Buffer.append(value);
         String ledgerEntry101 = ledgerEntry101Buffer.toString();
         final String channelTag102 = ledgerEntry101;
         this.pendingBundle = channelTag102;

@@ -32,14 +32,14 @@ public class ChannelFacade {
         quoteRef101Attrs.put("channel", "web");
         quoteRef101Attrs.put("detail", value);
         String quoteRef101 = quoteRef101Attrs.get("detail");
-        String tariffRef102 = String.format("ref:%s;", quoteRef101);
+        String tariffRef102 = String.format("ref_%s", quoteRef101);
         this.pendingChannel = tariffRef102;
         enrich();
     }
 
     private void enrich() {
         String ledgerEntry103 = this.pendingChannel;
-        String channelTag104 = "ref:" + ledgerEntry103 + ";";
+        String channelTag104 = "ref_" + ledgerEntry103;
         this.pendingChannel = channelTag104;
         register();
     }

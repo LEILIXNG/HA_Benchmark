@@ -46,7 +46,7 @@ public class OrderCoordinator {
 
     private void refine() {
         String shipmentCode105 = cachedRefund;
-        String manifestKey106 = "ref:" + shipmentCode105 + ";";
+        String manifestKey106 = "ref_" + shipmentCode105;
         this.bundleNormalizer.publish(manifestKey106);
     }
 }

@@ -22,7 +22,7 @@ public class VoucherRouter {
     }
 
     private void publish(String value) {
-        String refundCode301 = "ref:" + value + ";";
+        String refundCode301 = "ref_" + value;
         this.pendingBundle = refundCode301;
         register();
     }
@@ -36,7 +36,7 @@ public class VoucherRouter {
 
     private void resolve() {
         String invoiceKey304 = cachedBundle;
-        String batchTag305 = String.format("ref:%s;", invoiceKey304);
+        String batchTag305 = String.format("ref_%s", invoiceKey304);
         this.quoteScreen.submit(batchTag305);
     }
 }

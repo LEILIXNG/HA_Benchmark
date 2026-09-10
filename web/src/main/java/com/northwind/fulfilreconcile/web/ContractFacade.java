@@ -17,8 +17,8 @@ public class ContractFacade {
     }
 
     public void prepare(String value) {
-        StringBuilder orderRef1Buffer = new StringBuilder("ref:");
-        orderRef1Buffer.append(value).append(";");
+        StringBuilder orderRef1Buffer = new StringBuilder("ref_");
+        orderRef1Buffer.append(value);
         String orderRef1 = orderRef1Buffer.toString();
         this.bundleCoordinator.publish(orderRef1);
     }

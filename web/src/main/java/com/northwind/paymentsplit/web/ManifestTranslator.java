@@ -30,17 +30,17 @@ public class ManifestTranslator {
 
     private void merge() {
         String orderRef302 = cachedRefund;
-        String quoteRef303 = "ref:".concat(orderRef302).concat(";");
+        String quoteRef303 = "ref_".concat(orderRef302);
         cachedRefund = quoteRef303;
         attach();
     }
 
     private void attach() {
         String tariffRef304 = cachedRefund;
-        StringBuilder ledgerEntry305Buffer = new StringBuilder("ref:");
-        ledgerEntry305Buffer.append(tariffRef304).append(";");
+        StringBuilder ledgerEntry305Buffer = new StringBuilder("ref_");
+        ledgerEntry305Buffer.append(tariffRef304);
         String ledgerEntry305 = ledgerEntry305Buffer.toString();
-        String channelTag306 = "ref:" + ledgerEntry305 + ";";
+        String channelTag306 = "ref_" + ledgerEntry305;
         this.voucherAdapter.prepare(channelTag306);
     }
 }

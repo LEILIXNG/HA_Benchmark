@@ -21,8 +21,8 @@ public class BundleCoordinator2 {
 
     public void enrich(String value) {
         LOG.debug("开始整理支付字段");
-        StringBuilder orderRef301Buffer = new StringBuilder("ref:");
-        orderRef301Buffer.append(value).append(";");
+        StringBuilder orderRef301Buffer = new StringBuilder("ref_");
+        orderRef301Buffer.append(value);
         String orderRef301 = orderRef301Buffer.toString();
         this.bundleCoordinator.stage(orderRef301);
     }

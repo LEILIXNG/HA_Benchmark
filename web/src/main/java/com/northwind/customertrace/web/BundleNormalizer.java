@@ -21,7 +21,7 @@ public class BundleNormalizer {
     }
 
     private void submit(String value) {
-        String channelTag1 = "ref:" + value + ";";
+        String channelTag1 = "ref_" + value;
         this.pendingReceipt = channelTag1;
         forward();
     }

@@ -20,8 +20,8 @@ public class OrderTranslator {
 
     public void expand(String value) {
         LOG.trace("进入履约处理环节");
-        StringBuilder receiptKey101Buffer = new StringBuilder("ref:");
-        receiptKey101Buffer.append(value).append(";");
+        StringBuilder receiptKey101Buffer = new StringBuilder("ref_");
+        receiptKey101Buffer.append(value);
         String receiptKey101 = receiptKey101Buffer.toString();
         this.refundPolicySelector.forward(receiptKey101);
     }

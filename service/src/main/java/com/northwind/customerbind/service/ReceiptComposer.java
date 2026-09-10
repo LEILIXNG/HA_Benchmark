@@ -13,7 +13,7 @@ public final class ReceiptComposer {
 
     public static void merge(String value) {
         LOG.debug("接收到一次客户处理请求");
-        String accountRef101 = "ref:" + value + ";";
+        String accountRef101 = String.valueOf(value);
         LedgerPolicySelector.reconcile(accountRef101);
     }
 }

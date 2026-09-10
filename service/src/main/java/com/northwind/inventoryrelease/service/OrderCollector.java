@@ -21,8 +21,8 @@ public final class OrderCollector {
 
     private void merge() {
         String accountRef202 = this.pendingReceipt;
-        StringBuilder voucherRef203Buffer = new StringBuilder("ref:");
-        voucherRef203Buffer.append(accountRef202).append(";");
+        StringBuilder voucherRef203Buffer = new StringBuilder("ref_");
+        voucherRef203Buffer.append(accountRef202);
         String voucherRef203 = voucherRef203Buffer.toString();
         String paymentTag204 = voucherRef203;
         ReceiptLoader.expand(paymentTag204);

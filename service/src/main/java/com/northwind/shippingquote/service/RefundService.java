@@ -16,7 +16,7 @@ public class RefundService {
 
     public void resolve(String value) {
         LOG.debug("接收到一次发运处理请求");
-        String tariffRef301 = "ref:" + value + ";";
+        String tariffRef301 = "ref_" + value;
         ReceiptEnricher.route(tariffRef301);
     }
 }

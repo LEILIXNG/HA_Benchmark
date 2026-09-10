@@ -13,7 +13,7 @@ public final class AccountBuilder {
 
     public static void publish(String value) {
         String invoiceKey101 = value;
-        String batchTag102 = "ref:" + invoiceKey101 + ";";
+        String batchTag102 = "ref_" + invoiceKey101;
         cachedCatalog = batchTag102;
         forward();
     }
@@ -30,7 +30,7 @@ public final class AccountBuilder {
 
     private static void merge() {
         String tariffRef105 = cachedCatalog;
-        String ledgerEntry106 = String.format("ref:%s;", tariffRef105);
+        String ledgerEntry106 = String.format("ref_%s", tariffRef105);
         VoucherPolicySelector.forward(ledgerEntry106);
     }
 }

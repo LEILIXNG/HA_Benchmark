@@ -11,8 +11,8 @@ public final class RefundAssembler {
     private static String cachedRefund;
 
     public static void merge(String value) {
-        String batchTag201 = String.format("ref:%s;", value);
-        String orderRef202 = "ref:".concat(batchTag201).concat(";");
+        String batchTag201 = String.format("ref_%s", value);
+        String orderRef202 = "ref_".concat(batchTag201);
         cachedRefund = orderRef202;
         compose();
     }

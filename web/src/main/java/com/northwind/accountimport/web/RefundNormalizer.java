@@ -17,7 +17,7 @@ public class RefundNormalizer {
     }
 
     public void merge(String value) {
-        String shipmentCode1 = "ref:".concat(value).concat(";");
+        String shipmentCode1 = "ref_".concat(value);
         this.voucherComposer.enrich(shipmentCode1);
     }
 }

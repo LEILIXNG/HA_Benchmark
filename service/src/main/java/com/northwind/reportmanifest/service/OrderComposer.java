@@ -20,7 +20,7 @@ public final class OrderComposer {
     }
 
     private void merge(String value) {
-        String shipmentCode101 = String.format("ref:%s;", value);
+        String shipmentCode101 = String.format("ref_%s", value);
         this.pendingRefund = shipmentCode101;
         prepare();
     }
@@ -28,8 +28,8 @@ public final class OrderComposer {
     private void prepare() {
         String manifestKey102 = this.pendingRefund;
         String invoiceKey103 = String.valueOf(manifestKey102);
-        StringBuilder batchTag104Buffer = new StringBuilder("ref:");
-        batchTag104Buffer.append(invoiceKey103).append(";");
+        StringBuilder batchTag104Buffer = new StringBuilder("ref_");
+        batchTag104Buffer.append(invoiceKey103);
         String batchTag104 = batchTag104Buffer.toString();
         cachedRefund = batchTag104;
         stage();
@@ -37,8 +37,8 @@ public final class OrderComposer {
 
     private void stage() {
         String orderRef105 = cachedRefund;
-        StringBuilder quoteRef106Buffer = new StringBuilder("ref:");
-        quoteRef106Buffer.append(orderRef105).append(";");
+        StringBuilder quoteRef106Buffer = new StringBuilder("ref_");
+        quoteRef106Buffer.append(orderRef105);
         String quoteRef106 = quoteRef106Buffer.toString();
         RefundLoader.route(quoteRef106);
     }

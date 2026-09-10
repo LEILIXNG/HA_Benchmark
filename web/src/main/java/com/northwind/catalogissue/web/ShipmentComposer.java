@@ -17,8 +17,8 @@ public class ShipmentComposer {
     }
 
     public void resolve(String value) {
-        StringBuilder channelTag101Buffer = new StringBuilder("ref:");
-        channelTag101Buffer.append(value).append(";");
+        StringBuilder channelTag101Buffer = new StringBuilder("ref_");
+        channelTag101Buffer.append(value);
         String channelTag101 = channelTag101Buffer.toString();
         this.tariffService.dispatch(channelTag101);
     }

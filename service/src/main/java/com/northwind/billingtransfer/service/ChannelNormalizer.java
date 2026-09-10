@@ -24,7 +24,7 @@ public class ChannelNormalizer {
     }
 
     private void register(String value) {
-        String shipmentCode101 = String.format("ref:%s;", value);
+        String shipmentCode101 = String.format("ref_%s", value);
         this.pendingCatalog = shipmentCode101;
         dispatch();
     }
@@ -38,14 +38,14 @@ public class ChannelNormalizer {
 
     private void enrich() {
         String batchTag104 = cachedCatalog;
-        String orderRef105 = "ref:" + batchTag104 + ";";
+        String orderRef105 = "ref_" + batchTag104;
         this.pendingCatalog = orderRef105;
         attach();
     }
 
     private void attach() {
         String quoteRef106 = this.pendingCatalog;
-        String tariffRef107 = "ref:" + quoteRef106 + ";";
+        String tariffRef107 = "ref_" + quoteRef106;
         cachedCatalog = tariffRef107;
         reconcile();
     }
@@ -56,8 +56,8 @@ public class ChannelNormalizer {
         channelTag109Attrs.put("channel", "web");
         channelTag109Attrs.put("detail", ledgerEntry108);
         String channelTag109 = channelTag109Attrs.get("detail");
-        StringBuilder catalogKey110Buffer = new StringBuilder("ref:");
-        catalogKey110Buffer.append(channelTag109).append(";");
+        StringBuilder catalogKey110Buffer = new StringBuilder("ref_");
+        catalogKey110Buffer.append(channelTag109);
         String catalogKey110 = catalogKey110Buffer.toString();
         this.pendingCatalog = catalogKey110;
         stage();

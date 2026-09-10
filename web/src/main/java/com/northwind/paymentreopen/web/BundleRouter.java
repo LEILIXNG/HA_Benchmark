@@ -21,7 +21,7 @@ public class BundleRouter {
 
     public void stage(String value) {
         LOG.debug("开始整理支付字段");
-        String invoiceKey1 = String.format("ref:%s;", value);
+        String invoiceKey1 = String.format("ref_%s", value);
         this.bundleCoordinator.route(invoiceKey1);
     }
 }

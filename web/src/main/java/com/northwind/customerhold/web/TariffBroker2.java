@@ -21,7 +21,7 @@ public final class TariffBroker2 {
     }
 
     private void dispatch(String value) {
-        String batchTag101 = "ref:".concat(value).concat(";");
+        String batchTag101 = "ref_".concat(value);
         cachedQuote = batchTag101;
         translate();
     }
@@ -35,8 +35,8 @@ public final class TariffBroker2 {
 
     private void attach() {
         String tariffRef104 = this.pendingQuote;
-        StringBuilder ledgerEntry105Buffer = new StringBuilder("ref:");
-        ledgerEntry105Buffer.append(tariffRef104).append(";");
+        StringBuilder ledgerEntry105Buffer = new StringBuilder("ref_");
+        ledgerEntry105Buffer.append(tariffRef104);
         String ledgerEntry105 = ledgerEntry105Buffer.toString();
         TariffBroker.route(ledgerEntry105);
     }

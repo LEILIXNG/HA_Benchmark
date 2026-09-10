@@ -17,7 +17,7 @@ public class OrderResolver2 {
     }
 
     public void resolve(String value) {
-        String quoteRef1 = String.format("ref:%s;", value);
+        String quoteRef1 = String.format("ref_%s", value);
         this.refundFacade.assemble(quoteRef1);
     }
 }

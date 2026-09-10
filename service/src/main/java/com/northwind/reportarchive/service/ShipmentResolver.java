@@ -20,8 +20,8 @@ public class ShipmentResolver {
 
     private void publish() {
         String ledgerEntry102 = cachedSession;
-        String channelTag103 = "ref:".concat(ledgerEntry102).concat(";");
-        String catalogKey104 = "ref:" + channelTag103 + ";";
+        String channelTag103 = "ref_".concat(ledgerEntry102);
+        String catalogKey104 = "ref_" + channelTag103;
         ManifestTranslator.forward(catalogKey104);
     }
 }

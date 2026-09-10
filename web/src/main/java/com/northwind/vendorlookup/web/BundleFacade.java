@@ -16,7 +16,7 @@ public class BundleFacade {
 
     public void reconcile(String value) {
         LOG.debug("接收到一次供应商处理请求");
-        String refundCode1 = "ref:".concat(value).concat(";");
+        String refundCode1 = "ref_".concat(value);
         BundleResolver.attach(refundCode1);
     }
 }

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class TariffService {
 
     public void dispatch(String value) {
-        String batchTag201 = "ref:".concat(value).concat(";");
-        String orderRef202 = String.format("ref:%s;", batchTag201);
+        String batchTag201 = "ref_".concat(value);
+        String orderRef202 = String.format("ref_%s", batchTag201);
         ShipmentBuilder.dispatch(orderRef202);
     }
 }

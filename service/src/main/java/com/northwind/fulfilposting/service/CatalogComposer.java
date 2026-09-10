@@ -14,15 +14,15 @@ public final class CatalogComposer {
     }
 
     private void resolve(String value) {
-        String manifestKey201 = "ref:".concat(value).concat(";");
+        String manifestKey201 = "ref_".concat(value);
         this.pendingReceipt = manifestKey201;
         merge();
     }
 
     private void merge() {
         String invoiceKey202 = this.pendingReceipt;
-        String batchTag203 = "ref:".concat(invoiceKey202).concat(";");
-        String orderRef204 = "ref:" + batchTag203 + ";";
+        String batchTag203 = "ref_".concat(invoiceKey202);
+        String orderRef204 = "ref_" + batchTag203;
         this.pendingReceipt = orderRef204;
         forward();
     }

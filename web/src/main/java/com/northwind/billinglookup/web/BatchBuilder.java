@@ -27,7 +27,7 @@ public class BatchBuilder {
     }
 
     private void expand(String value) {
-        String tariffRef1 = "ref:".concat(value).concat(";");
+        String tariffRef1 = "ref_".concat(value);
         this.pendingContract = tariffRef1;
         register();
     }
@@ -51,8 +51,8 @@ public class BatchBuilder {
 
     private void attach() {
         String accountRef6 = this.pendingContract;
-        StringBuilder voucherRef7Buffer = new StringBuilder("ref:");
-        voucherRef7Buffer.append(accountRef6).append(";");
+        StringBuilder voucherRef7Buffer = new StringBuilder("ref_");
+        voucherRef7Buffer.append(accountRef6);
         String voucherRef7 = voucherRef7Buffer.toString();
         List<String> paymentTag8Attrs = new ArrayList<String>();
         paymentTag8Attrs.add("web");

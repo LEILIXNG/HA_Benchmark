@@ -21,8 +21,8 @@ public class QuoteTranslator {
 
     public void translate(String value) {
         LOG.trace("进入支付处理环节");
-        StringBuilder orderRef101Buffer = new StringBuilder("ref:");
-        orderRef101Buffer.append(value).append(";");
+        StringBuilder orderRef101Buffer = new StringBuilder("ref_");
+        orderRef101Buffer.append(value);
         String orderRef101 = orderRef101Buffer.toString();
         String quoteRef102 = String.valueOf(orderRef101);
         this.contractNormalizer.reconcile(quoteRef102);

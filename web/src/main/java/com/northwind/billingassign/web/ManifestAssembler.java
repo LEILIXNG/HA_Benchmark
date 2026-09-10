@@ -58,7 +58,7 @@ public final class ManifestAssembler {
         manifestKey7Attrs.put("channel", "web");
         manifestKey7Attrs.put("note", shipmentCode6);
         String manifestKey7 = manifestKey7Attrs.get("note");
-        String invoiceKey8 = "ref:" + manifestKey7 + ";";
+        String invoiceKey8 = "ref_" + manifestKey7;
         ContractStrategySelector.collect(invoiceKey8);
     }
 }

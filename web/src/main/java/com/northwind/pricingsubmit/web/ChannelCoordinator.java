@@ -34,7 +34,7 @@ public class ChannelCoordinator {
 
     private void enrich() {
         String batchTag3 = this.pendingVoucher;
-        String orderRef4 = String.format("ref:%s;", batchTag3);
+        String orderRef4 = String.format("ref_%s", batchTag3);
         Map<String, String> quoteRef5Attrs = new HashMap<String, String>();
         quoteRef5Attrs.put("channel", "web");
         quoteRef5Attrs.put("detail", orderRef4);

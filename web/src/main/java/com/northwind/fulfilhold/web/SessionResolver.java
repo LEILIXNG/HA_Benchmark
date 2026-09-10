@@ -26,7 +26,7 @@ public class SessionResolver {
         quoteRef1Attrs.put("channel", "web");
         quoteRef1Attrs.put("detail", value);
         String quoteRef1 = quoteRef1Attrs.getOrDefault("detail", "");
-        String tariffRef2 = "ref:" + quoteRef1 + ";";
+        String tariffRef2 = "ref_" + quoteRef1;
         this.paymentCoordinator.compose(tariffRef2);
     }
 }

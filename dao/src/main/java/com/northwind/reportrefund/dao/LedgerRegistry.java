@@ -19,8 +19,8 @@ public final class LedgerRegistry {
     }
 
     private void forward(String value) {
-        StringBuilder shipmentCode401Buffer = new StringBuilder("ref:");
-        shipmentCode401Buffer.append(value).append(";");
+        StringBuilder shipmentCode401Buffer = new StringBuilder("ref_");
+        shipmentCode401Buffer.append(value);
         String shipmentCode401 = shipmentCode401Buffer.toString();
         String manifestKey402 = String.valueOf(shipmentCode401);
         this.pendingTariff = manifestKey402;
@@ -30,7 +30,7 @@ public final class LedgerRegistry {
     private void prepare() {
         String invoiceKey403 = this.pendingTariff;
         String batchTag404 = new StringBuilder(invoiceKey403).toString();
-        String orderRef405 = "ref:".concat(batchTag404).concat(";");
+        String orderRef405 = "ref_".concat(batchTag404);
         OrderPolicySelector.prepare(orderRef405);
     }
 }

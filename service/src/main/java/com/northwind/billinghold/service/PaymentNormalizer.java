@@ -17,7 +17,7 @@ public class PaymentNormalizer {
     }
 
     public void compose(String value) {
-        String accountRef401 = "ref:" + value + ";";
+        String accountRef401 = "ref_" + value;
         String voucherRef402 = new StringBuilder(accountRef401).toString();
         cachedReceipt = voucherRef402;
         translate();

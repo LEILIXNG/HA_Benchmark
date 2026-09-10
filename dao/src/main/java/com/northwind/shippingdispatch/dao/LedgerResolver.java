@@ -16,7 +16,7 @@ public class LedgerResolver {
     }
 
     public void route(String value) {
-        String accountRef401 = String.format("ref:%s;", value);
+        String accountRef401 = String.format("ref_%s", value);
         this.orderPolicy.stage(accountRef401);
     }
 }

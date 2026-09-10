@@ -21,9 +21,9 @@ public class BundleAssembler {
 
     public void stage(String value) {
         LOG.debug("接收到一次客户处理请求");
-        String batchTag1 = "ref:" + value + ";";
-        StringBuilder orderRef2Buffer = new StringBuilder("ref:");
-        orderRef2Buffer.append(batchTag1).append(";");
+        String batchTag1 = "ref_" + value;
+        StringBuilder orderRef2Buffer = new StringBuilder("ref_");
+        orderRef2Buffer.append(batchTag1);
         String orderRef2 = orderRef2Buffer.toString();
         this.sessionPolicy.resolve(orderRef2);
     }

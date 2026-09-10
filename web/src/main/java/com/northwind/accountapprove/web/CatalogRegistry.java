@@ -42,8 +42,8 @@ public class CatalogRegistry {
 
     private void reconcile() {
         String batchTag105 = cachedInvoice;
-        String orderRef106 = String.format("ref:%s;", batchTag105);
-        String quoteRef107 = "ref:".concat(orderRef106).concat(";");
+        final String orderRef106 = batchTag105;
+        String quoteRef107 = new StringBuilder(orderRef106).toString();
         cachedInvoice = quoteRef107;
         route();
     }

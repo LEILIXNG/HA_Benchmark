@@ -26,8 +26,8 @@ public class ShipmentBuilder {
 
     public void dispatch(String value) {
         LOG.trace("进入供应商处理环节");
-        StringBuilder paymentTag1Buffer = new StringBuilder("ref:");
-        paymentTag1Buffer.append(value).append(";");
+        StringBuilder paymentTag1Buffer = new StringBuilder("ref_");
+        paymentTag1Buffer.append(value);
         String paymentTag1 = paymentTag1Buffer.toString();
         Map<String, String> refundCode2Attrs = new HashMap<String, String>();
         refundCode2Attrs.put("channel", "web");
@@ -43,7 +43,7 @@ public class ShipmentBuilder {
         manifestKey4Attrs.add("web");
         manifestKey4Attrs.add(shipmentCode3);
         String manifestKey4 = manifestKey4Attrs.get(1);
-        String invoiceKey5 = "ref:".concat(manifestKey4).concat(";");
+        String invoiceKey5 = "ref_".concat(manifestKey4);
         this.manifestEnricher.reconcile(invoiceKey5);
     }
 }

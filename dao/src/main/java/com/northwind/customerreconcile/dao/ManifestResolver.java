@@ -34,8 +34,8 @@ public class ManifestResolver {
 
     private void reconcile() {
         String quoteRef203 = this.pendingShipment;
-        String tariffRef204 = String.format("ref:%s;", quoteRef203);
-        String ledgerEntry205 = "ref:".concat(tariffRef204).concat(";");
+        String tariffRef204 = String.format("ref_%s", quoteRef203);
+        String ledgerEntry205 = "ref_".concat(tariffRef204);
         this.invoiceGuard.attach(ledgerEntry205);
     }
 }

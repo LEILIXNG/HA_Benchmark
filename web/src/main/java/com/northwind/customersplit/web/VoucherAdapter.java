@@ -36,7 +36,7 @@ public class VoucherAdapter {
 
     private void normalize() {
         String refundCode3 = cachedOrder;
-        String shipmentCode4 = "ref:".concat(refundCode3).concat(";");
+        String shipmentCode4 = "ref_".concat(refundCode3);
         cachedOrder = shipmentCode4;
         assemble();
     }
@@ -54,8 +54,8 @@ public class VoucherAdapter {
 
     private void prepare() {
         String orderRef8 = this.pendingOrder;
-        StringBuilder quoteRef9Buffer = new StringBuilder("ref:");
-        quoteRef9Buffer.append(orderRef8).append(";");
+        StringBuilder quoteRef9Buffer = new StringBuilder("ref_");
+        quoteRef9Buffer.append(orderRef8);
         String quoteRef9 = quoteRef9Buffer.toString();
         final String tariffRef10 = quoteRef9;
         TariffValidator.stage(tariffRef10);

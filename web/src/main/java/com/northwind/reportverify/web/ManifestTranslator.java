@@ -22,8 +22,8 @@ public class ManifestTranslator {
         shipmentCode1Attrs.put("channel", "web");
         shipmentCode1Attrs.put("detail", value);
         String shipmentCode1 = shipmentCode1Attrs.get("detail");
-        StringBuilder manifestKey2Buffer = new StringBuilder("ref:");
-        manifestKey2Buffer.append(shipmentCode1).append(";");
+        StringBuilder manifestKey2Buffer = new StringBuilder("ref_");
+        manifestKey2Buffer.append(shipmentCode1);
         String manifestKey2 = manifestKey2Buffer.toString();
         PaymentNormalizer.prepare(manifestKey2);
     }

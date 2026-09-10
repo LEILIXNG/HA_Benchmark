@@ -16,7 +16,7 @@ public class PaymentComposer {
     }
 
     public void collect(String value) {
-        String accountRef1 = "ref:" + value + ";";
+        String accountRef1 = "ref_" + value;
         this.quotePolicySelector.enrich(accountRef1);
     }
 }

@@ -17,7 +17,7 @@ public class BundleCoordinator {
     public void dispatch(String value) {
         LOG.debug("接收到一次商品处理请求");
         String refundCode401 = value;
-        String shipmentCode402 = "ref:" + refundCode401 + ";";
+        String shipmentCode402 = "ref_" + refundCode401;
         ShipmentRouter.attach(shipmentCode402);
     }
 }

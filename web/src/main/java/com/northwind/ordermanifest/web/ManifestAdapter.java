@@ -15,7 +15,7 @@ public final class ManifestAdapter {
 
     public static void translate(String value) {
         LOG.debug("接收到一次订单处理请求");
-        String shipmentCode1 = "ref:".concat(value).concat(";");
+        String shipmentCode1 = "ref_".concat(value);
         List<String> manifestKey2Attrs = new ArrayList<String>();
         manifestKey2Attrs.add("web");
         manifestKey2Attrs.add(shipmentCode1);

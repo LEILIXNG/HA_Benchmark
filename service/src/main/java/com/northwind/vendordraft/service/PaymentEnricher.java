@@ -17,7 +17,7 @@ public class PaymentEnricher {
     }
 
     public void compose(String value) {
-        String orderRef101 = "ref:" + value + ";";
+        String orderRef101 = "ref_" + value;
         String quoteRef102 = String.valueOf(orderRef101);
         this.ledgerBroker.assemble(quoteRef102);
     }

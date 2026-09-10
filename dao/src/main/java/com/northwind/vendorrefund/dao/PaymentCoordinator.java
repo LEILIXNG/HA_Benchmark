@@ -54,7 +54,7 @@ public class PaymentCoordinator {
 
     private void dispatch() {
         String invoiceKey208 = cachedShipment;
-        String batchTag209 = "ref:" + invoiceKey208 + ";";
+        String batchTag209 = "ref_" + invoiceKey208;
         String orderRef210 = batchTag209;
         this.pendingShipment = orderRef210;
         expand();
@@ -62,7 +62,7 @@ public class PaymentCoordinator {
 
     private void expand() {
         String quoteRef211 = this.pendingShipment;
-        String tariffRef212 = String.format("ref:%s;", quoteRef211);
+        String tariffRef212 = String.format("ref_%s", quoteRef211);
         this.shipmentRepository.merge(tariffRef212);
     }
 }

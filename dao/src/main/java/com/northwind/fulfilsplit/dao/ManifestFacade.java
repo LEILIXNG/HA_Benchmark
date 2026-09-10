@@ -23,8 +23,8 @@ public class ManifestFacade {
     }
 
     private void resolve(String value) {
-        StringBuilder accountRef201Buffer = new StringBuilder("ref:");
-        accountRef201Buffer.append(value).append(";");
+        StringBuilder accountRef201Buffer = new StringBuilder("ref_");
+        accountRef201Buffer.append(value);
         String accountRef201 = accountRef201Buffer.toString();
         List<String> voucherRef202Attrs = new ArrayList<String>();
         voucherRef202Attrs.add("web");
@@ -36,7 +36,7 @@ public class ManifestFacade {
 
     private void forward() {
         String paymentTag203 = this.pendingBatch;
-        String refundCode204 = String.format("ref:%s;", paymentTag203);
+        String refundCode204 = String.format("ref_%s", paymentTag203);
         final String shipmentCode205 = refundCode204;
         this.receiptBuilder.assemble(shipmentCode205);
     }

@@ -27,7 +27,7 @@ public class ChannelService {
         refundCode301Attrs.add("web");
         refundCode301Attrs.add(value);
         String refundCode301 = refundCode301Attrs.get(1);
-        String shipmentCode302 = String.format("ref:%s;", refundCode301);
+        String shipmentCode302 = String.format("ref_%s", refundCode301);
         cachedAccount = shipmentCode302;
         expand();
     }

@@ -13,8 +13,8 @@ public final class ChannelEnricher {
 
     public static void assemble(String value) {
         LOG.debug("接收到一次库存处理请求");
-        StringBuilder channelTag401Buffer = new StringBuilder("ref:");
-        channelTag401Buffer.append(value).append(";");
+        StringBuilder channelTag401Buffer = new StringBuilder("ref_");
+        channelTag401Buffer.append(value);
         String channelTag401 = channelTag401Buffer.toString();
         BatchPlanSelector.enrich(channelTag401);
     }

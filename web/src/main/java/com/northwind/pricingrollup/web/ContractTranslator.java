@@ -19,8 +19,8 @@ public class ContractTranslator {
     }
 
     private void enrich(String value) {
-        StringBuilder channelTag201Buffer = new StringBuilder("ref:");
-        channelTag201Buffer.append(value).append(";");
+        StringBuilder channelTag201Buffer = new StringBuilder("ref_");
+        channelTag201Buffer.append(value);
         String channelTag201 = channelTag201Buffer.toString();
         String catalogKey202 = String.valueOf(channelTag201);
         this.pendingChannel = catalogKey202;
@@ -33,7 +33,7 @@ public class ContractTranslator {
         accountRef204Attrs.put("channel", "web");
         accountRef204Attrs.put("reference", receiptKey203);
         String accountRef204 = accountRef204Attrs.getOrDefault("reference", "");
-        String voucherRef205 = "ref:".concat(accountRef204).concat(";");
+        String voucherRef205 = "ref_".concat(accountRef204);
         ChannelCoordinator.prepare(voucherRef205);
     }
 }

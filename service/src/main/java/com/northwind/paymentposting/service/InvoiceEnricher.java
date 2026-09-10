@@ -33,10 +33,10 @@ public final class InvoiceEnricher {
 
     private static void collect() {
         String batchTag303 = cachedSession;
-        StringBuilder orderRef304Buffer = new StringBuilder("ref:");
-        orderRef304Buffer.append(batchTag303).append(";");
+        StringBuilder orderRef304Buffer = new StringBuilder("ref_");
+        orderRef304Buffer.append(batchTag303);
         String orderRef304 = orderRef304Buffer.toString();
-        String quoteRef305 = "ref:" + orderRef304 + ";";
+        String quoteRef305 = "ref_" + orderRef304;
         LedgerCoordinator.route(quoteRef305);
     }
 }

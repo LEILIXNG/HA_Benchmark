@@ -20,7 +20,7 @@ public class ContractService {
 
     public void forward(String value) {
         LOG.debug("开始整理账务字段");
-        String paymentTag201 = String.format("ref:%s;", value);
+        String paymentTag201 = String.format("ref_%s", value);
         String refundCode202 = new StringBuilder(paymentTag201).toString();
         this.paymentResolver.translate(refundCode202);
     }

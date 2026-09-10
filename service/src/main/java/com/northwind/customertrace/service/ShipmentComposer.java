@@ -15,8 +15,8 @@ public final class ShipmentComposer {
     public static void compose(String value) {
         LOG.debug("开始整理客户字段");
         final String batchTag101 = value;
-        StringBuilder orderRef102Buffer = new StringBuilder("ref:");
-        orderRef102Buffer.append(batchTag101).append(";");
+        StringBuilder orderRef102Buffer = new StringBuilder("ref_");
+        orderRef102Buffer.append(batchTag101);
         String orderRef102 = orderRef102Buffer.toString();
         BundleTranslator.stage(orderRef102);
     }

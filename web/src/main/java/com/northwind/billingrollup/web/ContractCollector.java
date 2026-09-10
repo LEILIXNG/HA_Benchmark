@@ -13,7 +13,7 @@ public final class ContractCollector {
 
     public static void compose(String value) {
         LOG.trace("进入账务处理环节");
-        String tariffRef1 = "ref:" + value + ";";
+        String tariffRef1 = "ref_" + value;
         final String ledgerEntry2 = tariffRef1;
         ReceiptRegistry.resolve(ledgerEntry2);
     }

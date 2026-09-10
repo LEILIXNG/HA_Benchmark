@@ -16,7 +16,7 @@ public final class PaymentTranslator {
     public static void compose(String value) {
         LOG.debug("接收到一次报表处理请求");
         final String quoteRef301 = value;
-        String tariffRef302 = String.format("ref:%s;", quoteRef301);
+        String tariffRef302 = String.format("ref_%s", quoteRef301);
         cachedTariff = tariffRef302;
         prepare();
     }

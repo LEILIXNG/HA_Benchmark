@@ -9,14 +9,14 @@ public final class OrderBroker {
     private static String cachedSession;
 
     public static void merge(String value) {
-        String manifestKey301 = String.format("ref:%s;", value);
+        String manifestKey301 = String.format("ref_%s", value);
         cachedSession = manifestKey301;
         translate();
     }
 
     private static void translate() {
         String invoiceKey302 = cachedSession;
-        String batchTag303 = String.format("ref:%s;", invoiceKey302);
+        String batchTag303 = String.format("ref_%s", invoiceKey302);
         VoucherScreen.expand(batchTag303);
     }
 }

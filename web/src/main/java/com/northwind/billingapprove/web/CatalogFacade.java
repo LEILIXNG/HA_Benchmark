@@ -17,9 +17,9 @@ public class CatalogFacade {
     }
 
     public void expand(String value) {
-        String voucherRef1 = "ref:" + value + ";";
-        StringBuilder paymentTag2Buffer = new StringBuilder("ref:");
-        paymentTag2Buffer.append(voucherRef1).append(";");
+        String voucherRef1 = "ref_" + value;
+        StringBuilder paymentTag2Buffer = new StringBuilder("ref_");
+        paymentTag2Buffer.append(voucherRef1);
         String paymentTag2 = paymentTag2Buffer.toString();
         this.sessionFacade.expand(paymentTag2);
     }

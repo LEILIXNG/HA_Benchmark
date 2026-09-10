@@ -27,8 +27,8 @@ public class LedgerResolver {
 
     private void prepare() {
         String manifestKey2 = cachedAccount;
-        StringBuilder invoiceKey3Buffer = new StringBuilder("ref:");
-        invoiceKey3Buffer.append(manifestKey2).append(";");
+        StringBuilder invoiceKey3Buffer = new StringBuilder("ref_");
+        invoiceKey3Buffer.append(manifestKey2);
         String invoiceKey3 = invoiceKey3Buffer.toString();
         Map<String, String> batchTag4Attrs = new HashMap<String, String>();
         batchTag4Attrs.put("channel", "web");
@@ -50,8 +50,8 @@ public class LedgerResolver {
 
     private void publish() {
         String tariffRef7 = this.pendingAccount;
-        StringBuilder ledgerEntry8Buffer = new StringBuilder("ref:");
-        ledgerEntry8Buffer.append(tariffRef7).append(";");
+        StringBuilder ledgerEntry8Buffer = new StringBuilder("ref_");
+        ledgerEntry8Buffer.append(tariffRef7);
         String ledgerEntry8 = ledgerEntry8Buffer.toString();
         ShipmentRouter.refine(ledgerEntry8);
     }

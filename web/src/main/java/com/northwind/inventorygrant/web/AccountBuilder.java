@@ -30,8 +30,8 @@ public class AccountBuilder {
         tariffRef3Attrs.put("channel", "web");
         tariffRef3Attrs.put("note", quoteRef2);
         String tariffRef3 = tariffRef3Attrs.get("note");
-        StringBuilder ledgerEntry4Buffer = new StringBuilder("ref:");
-        ledgerEntry4Buffer.append(tariffRef3).append(";");
+        StringBuilder ledgerEntry4Buffer = new StringBuilder("ref_");
+        ledgerEntry4Buffer.append(tariffRef3);
         String ledgerEntry4 = ledgerEntry4Buffer.toString();
         SessionRouter.collect(ledgerEntry4);
     }

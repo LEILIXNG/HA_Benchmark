@@ -13,7 +13,7 @@ public final class ChannelCoordinator {
 
     public static void prepare(String value) {
         LOG.trace("进入定价处理环节");
-        String batchTag301 = String.format("ref:%s;", value);
+        String batchTag301 = String.format("ref_%s", value);
         ChannelGateway.route(batchTag301);
     }
 }

@@ -13,8 +13,8 @@ public final class RefundComposer {
 
     public static void register(String value) {
         LOG.debug("开始整理账务字段");
-        StringBuilder channelTag301Buffer = new StringBuilder("ref:");
-        channelTag301Buffer.append(value).append(";");
+        StringBuilder channelTag301Buffer = new StringBuilder("ref_");
+        channelTag301Buffer.append(value);
         String channelTag301 = channelTag301Buffer.toString();
         ChannelValidator.compose(channelTag301);
     }

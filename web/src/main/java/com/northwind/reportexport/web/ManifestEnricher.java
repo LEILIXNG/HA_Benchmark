@@ -26,7 +26,7 @@ public class ManifestEnricher {
         accountRef1Attrs.add("web");
         accountRef1Attrs.add(value);
         String accountRef1 = accountRef1Attrs.get(1);
-        String voucherRef2 = "ref:" + accountRef1 + ";";
+        String voucherRef2 = "ref_" + accountRef1;
         this.manifestStrategySelector.resolve(voucherRef2);
     }
 }

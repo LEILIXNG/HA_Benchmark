@@ -25,7 +25,7 @@ public class BatchService {
     }
 
     private void normalize(String value) {
-        String orderRef1 = String.format("ref:%s;", value);
+        String orderRef1 = String.format("ref_%s", value);
         this.pendingContract = orderRef1;
         expand();
     }

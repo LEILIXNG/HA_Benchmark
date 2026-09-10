@@ -13,8 +13,8 @@ public final class InvoiceAssembler {
 
     public static void stage(String value) {
         LOG.debug("开始整理发运字段");
-        StringBuilder orderRef401Buffer = new StringBuilder("ref:");
-        orderRef401Buffer.append(value).append(";");
+        StringBuilder orderRef401Buffer = new StringBuilder("ref_");
+        orderRef401Buffer.append(value);
         String orderRef401 = orderRef401Buffer.toString();
         BundleRepository.dispatch(orderRef401);
     }

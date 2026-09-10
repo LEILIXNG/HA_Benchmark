@@ -17,7 +17,7 @@ public class ContractResolver {
     }
 
     public void normalize(String value) {
-        String quoteRef201 = String.format("ref:%s;", value);
+        String quoteRef201 = String.format("ref_%s", value);
         this.bundleCoordinator.prepare(quoteRef201);
     }
 }

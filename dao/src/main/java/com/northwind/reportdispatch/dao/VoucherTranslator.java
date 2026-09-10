@@ -8,7 +8,7 @@ package com.northwind.reportdispatch.dao;
 public final class VoucherTranslator {
 
     public static void route(String value) {
-        String quoteRef301 = String.format("ref:%s;", value);
+        String quoteRef301 = String.format("ref_%s", value);
         BundlePlanSelector.submit(quoteRef301);
     }
 }

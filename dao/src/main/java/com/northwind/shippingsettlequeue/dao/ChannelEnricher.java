@@ -8,8 +8,8 @@ package com.northwind.shippingsettlequeue.dao;
 public final class ChannelEnricher {
 
     public static void reconcile(String value) {
-        StringBuilder voucherRef201Buffer = new StringBuilder("ref:");
-        voucherRef201Buffer.append(value).append(";");
+        StringBuilder voucherRef201Buffer = new StringBuilder("ref_");
+        voucherRef201Buffer.append(value);
         String voucherRef201 = voucherRef201Buffer.toString();
         PaymentFetcher.refine(voucherRef201);
     }

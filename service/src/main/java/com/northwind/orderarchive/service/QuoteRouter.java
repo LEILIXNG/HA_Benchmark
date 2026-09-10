@@ -17,10 +17,10 @@ public class QuoteRouter {
     }
 
     public void normalize(String value) {
-        StringBuilder invoiceKey401Buffer = new StringBuilder("ref:");
-        invoiceKey401Buffer.append(value).append(";");
+        StringBuilder invoiceKey401Buffer = new StringBuilder("ref_");
+        invoiceKey401Buffer.append(value);
         String invoiceKey401 = invoiceKey401Buffer.toString();
-        String batchTag402 = "ref:" + invoiceKey401 + ";";
+        String batchTag402 = "ref_" + invoiceKey401;
         this.orderService.normalize(batchTag402);
     }
 }

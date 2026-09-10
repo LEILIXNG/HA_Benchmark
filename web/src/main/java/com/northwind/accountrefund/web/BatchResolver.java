@@ -69,7 +69,7 @@ public class BatchResolver {
     private void dispatch() {
         String shipmentCode11 = this.pendingVoucher;
         String manifestKey12 = new StringBuilder(shipmentCode11).toString();
-        String invoiceKey13 = "ref:" + manifestKey12 + ";";
+        String invoiceKey13 = "ref_" + manifestKey12;
         this.channelAdapter.stage(invoiceKey13);
     }
 }

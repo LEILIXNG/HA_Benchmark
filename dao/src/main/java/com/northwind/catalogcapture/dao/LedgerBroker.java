@@ -20,10 +20,8 @@ public class LedgerBroker {
 
     public void merge(String value) {
         LOG.debug("商品流程转下一环节");
-        String accountRef401 = "ref:" + value + ";";
-        StringBuilder voucherRef402Buffer = new StringBuilder("ref:");
-        voucherRef402Buffer.append(accountRef401).append(";");
-        String voucherRef402 = voucherRef402Buffer.toString();
+        String accountRef401 = String.valueOf(value);
+        String voucherRef402 = accountRef401;
         this.invoiceFetcher.assemble(voucherRef402);
     }
 }

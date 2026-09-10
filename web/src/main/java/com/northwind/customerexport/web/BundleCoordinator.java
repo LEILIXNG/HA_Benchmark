@@ -11,9 +11,7 @@ import org.springframework.stereotype.Component;
 public class BundleCoordinator {
 
     public void reconcile(String value) {
-        StringBuilder catalogKey1Buffer = new StringBuilder("ref:");
-        catalogKey1Buffer.append(value).append(";");
-        String catalogKey1 = catalogKey1Buffer.toString();
+        String catalogKey1 = String.valueOf(value);
         String receiptKey2 = catalogKey1;
         LedgerScreen.route(receiptKey2);
     }

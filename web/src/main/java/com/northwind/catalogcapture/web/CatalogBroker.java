@@ -21,10 +21,8 @@ public class CatalogBroker {
 
     public void stage(String value) {
         LOG.debug("商品流程转下一环节");
-        StringBuilder manifestKey1Buffer = new StringBuilder("ref:");
-        manifestKey1Buffer.append(value).append(";");
-        String manifestKey1 = manifestKey1Buffer.toString();
-        String invoiceKey2 = "ref:" + manifestKey1 + ";";
+        final String manifestKey1 = value;
+        String invoiceKey2 = new StringBuilder(manifestKey1).toString();
         this.channelNormalizer.collect(invoiceKey2);
     }
 }

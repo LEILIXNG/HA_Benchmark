@@ -17,8 +17,8 @@ public class OrderAdapter {
 
     public void assemble(String value) {
         LOG.debug("接收到一次库存处理请求");
-        StringBuilder orderRef201Buffer = new StringBuilder("ref:");
-        orderRef201Buffer.append(value).append(";");
+        StringBuilder orderRef201Buffer = new StringBuilder("ref_");
+        orderRef201Buffer.append(value);
         String orderRef201 = orderRef201Buffer.toString();
         Map<String, String> quoteRef202Attrs = new HashMap<String, String>();
         quoteRef202Attrs.put("channel", "web");

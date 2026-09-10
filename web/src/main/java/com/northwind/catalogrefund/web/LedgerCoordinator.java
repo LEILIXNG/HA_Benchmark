@@ -19,7 +19,7 @@ public class LedgerCoordinator {
     }
 
     public void route(String value) {
-        String ledgerEntry101 = String.format("ref:%s;", value);
+        String ledgerEntry101 = String.format("ref_%s", value);
         Map<String, String> channelTag102Attrs = new LinkedHashMap<String, String>();
         channelTag102Attrs.put("channel", "web");
         channelTag102Attrs.put("remark", ledgerEntry101);

@@ -39,7 +39,7 @@ public class OrderRouter {
     private void stage() {
         String refundCode2 = this.pendingLedger;
         String shipmentCode3 = String.valueOf(refundCode2);
-        String manifestKey4 = "ref:" + shipmentCode3 + ";";
+        String manifestKey4 = "ref_" + shipmentCode3;
         this.pendingLedger = manifestKey4;
         prepare();
     }
@@ -54,8 +54,8 @@ public class OrderRouter {
 
     private void compose() {
         String quoteRef8 = this.pendingLedger;
-        String tariffRef9 = String.format("ref:%s;", quoteRef8);
-        String ledgerEntry10 = "ref:".concat(tariffRef9).concat(";");
+        String tariffRef9 = String.format("ref_%s", quoteRef8);
+        String ledgerEntry10 = "ref_".concat(tariffRef9);
         this.refundAssembler.forward(ledgerEntry10);
     }
 }

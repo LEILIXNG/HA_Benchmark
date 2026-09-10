@@ -20,7 +20,7 @@ public class ChannelTranslator {
 
     public void normalize(String value) {
         LOG.debug("开始整理商品字段");
-        String receiptKey1 = "ref:" + value + ";";
+        String receiptKey1 = "ref_" + value;
         this.catalogResolver.stage(receiptKey1);
     }
 }

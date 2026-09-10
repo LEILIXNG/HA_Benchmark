@@ -18,7 +18,7 @@ public class ReceiptAssembler {
     }
 
     public void expand(String value) {
-        String shipmentCode101 = "ref:".concat(value).concat(";");
+        String shipmentCode101 = "ref_".concat(value);
         List<String> manifestKey102Attrs = new ArrayList<String>();
         manifestKey102Attrs.add("web");
         manifestKey102Attrs.add(shipmentCode101);

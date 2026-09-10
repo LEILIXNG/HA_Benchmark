@@ -20,8 +20,8 @@ public class BundleNormalizer {
     }
 
     private void expand(String value) {
-        StringBuilder tariffRef1Buffer = new StringBuilder("ref:");
-        tariffRef1Buffer.append(value).append(";");
+        StringBuilder tariffRef1Buffer = new StringBuilder("ref_");
+        tariffRef1Buffer.append(value);
         String tariffRef1 = tariffRef1Buffer.toString();
         Map<String, String> ledgerEntry2Attrs = new HashMap<String, String>();
         ledgerEntry2Attrs.put("channel", "web");
@@ -33,7 +33,7 @@ public class BundleNormalizer {
 
     private void collect() {
         String channelTag3 = cachedTariff;
-        String catalogKey4 = String.format("ref:%s;", channelTag3);
+        String catalogKey4 = String.format("ref_%s", channelTag3);
         this.pendingTariff = catalogKey4;
         attach();
     }

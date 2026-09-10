@@ -25,14 +25,14 @@ public final class ShipmentComposer {
     private void enrich() {
         String paymentTag202 = this.pendingBundle;
         String refundCode203 = String.valueOf(paymentTag202);
-        String shipmentCode204 = String.format("ref:%s;", refundCode203);
+        String shipmentCode204 = String.format("ref_%s", refundCode203);
         this.pendingBundle = shipmentCode204;
         resolve();
     }
 
     private void resolve() {
         String manifestKey205 = this.pendingBundle;
-        String invoiceKey206 = String.format("ref:%s;", manifestKey205);
+        String invoiceKey206 = String.format("ref_%s", manifestKey205);
         List<String> batchTag207Attrs = new ArrayList<String>();
         batchTag207Attrs.add("web");
         batchTag207Attrs.add(invoiceKey206);

@@ -23,8 +23,8 @@ public class AccountBroker {
         orderRef301Attrs.put("channel", "web");
         orderRef301Attrs.put("detail", value);
         String orderRef301 = orderRef301Attrs.getOrDefault("detail", "");
-        StringBuilder quoteRef302Buffer = new StringBuilder("ref:");
-        quoteRef302Buffer.append(orderRef301).append(";");
+        StringBuilder quoteRef302Buffer = new StringBuilder("ref_");
+        quoteRef302Buffer.append(orderRef301);
         String quoteRef302 = quoteRef302Buffer.toString();
         cachedShipment = quoteRef302;
         submit();

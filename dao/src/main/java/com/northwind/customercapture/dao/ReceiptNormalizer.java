@@ -21,8 +21,8 @@ public class ReceiptNormalizer {
     }
 
     private void prepare(String value) {
-        StringBuilder voucherRef401Buffer = new StringBuilder("ref:");
-        voucherRef401Buffer.append(value).append(";");
+        StringBuilder voucherRef401Buffer = new StringBuilder("ref_");
+        voucherRef401Buffer.append(value);
         String voucherRef401 = voucherRef401Buffer.toString();
         this.pendingRefund = voucherRef401;
         publish();

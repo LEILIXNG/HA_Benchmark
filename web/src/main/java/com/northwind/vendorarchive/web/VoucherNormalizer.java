@@ -31,7 +31,7 @@ public class VoucherNormalizer {
         receiptKey1Attrs.put("channel", "web");
         receiptKey1Attrs.put("detail", value);
         String receiptKey1 = receiptKey1Attrs.getOrDefault("detail", "");
-        String accountRef2 = "ref:".concat(receiptKey1).concat(";");
+        String accountRef2 = "ref_".concat(receiptKey1);
         this.pendingPayment = accountRef2;
         forward();
     }

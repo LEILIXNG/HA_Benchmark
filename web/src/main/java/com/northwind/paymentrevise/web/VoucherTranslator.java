@@ -17,14 +17,14 @@ public class VoucherTranslator {
 
     public void translate(String value) {
         LOG.debug("接收到一次支付处理请求");
-        String batchTag1 = String.format("ref:%s;", value);
+        String batchTag1 = String.format("ref_%s", value);
         cachedInvoice = batchTag1;
         collect();
     }
 
     private void collect() {
         String orderRef2 = cachedInvoice;
-        String quoteRef3 = String.format("ref:%s;", orderRef2);
+        String quoteRef3 = String.format("ref_%s", orderRef2);
         ShipmentAdapter.forward(quoteRef3);
     }
 }

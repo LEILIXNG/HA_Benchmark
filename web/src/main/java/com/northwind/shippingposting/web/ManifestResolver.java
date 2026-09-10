@@ -21,7 +21,7 @@ public class ManifestResolver {
 
     public void forward(String value) {
         LOG.debug("开始整理发运字段");
-        String quoteRef1 = String.format("ref:%s;", value);
+        String quoteRef1 = String.format("ref_%s", value);
         String tariffRef2 = new StringBuilder(quoteRef1).toString();
         this.receiptAssembler.expand(tariffRef2);
     }

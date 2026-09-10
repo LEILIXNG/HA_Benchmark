@@ -41,8 +41,8 @@ public class ContractAdapter {
     private void resolve() {
         String quoteRef103 = this.pendingPayment;
         String tariffRef104 = new StringBuilder(quoteRef103).toString();
-        StringBuilder ledgerEntry105Buffer = new StringBuilder("ref:");
-        ledgerEntry105Buffer.append(tariffRef104).append(";");
+        StringBuilder ledgerEntry105Buffer = new StringBuilder("ref_");
+        ledgerEntry105Buffer.append(tariffRef104);
         String ledgerEntry105 = ledgerEntry105Buffer.toString();
         this.pendingPayment = ledgerEntry105;
         submit();
@@ -50,8 +50,8 @@ public class ContractAdapter {
 
     private void submit() {
         String channelTag106 = this.pendingPayment;
-        StringBuilder catalogKey107Buffer = new StringBuilder("ref:");
-        catalogKey107Buffer.append(channelTag106).append(";");
+        StringBuilder catalogKey107Buffer = new StringBuilder("ref_");
+        catalogKey107Buffer.append(channelTag106);
         String catalogKey107 = catalogKey107Buffer.toString();
         Map<String, String> receiptKey108Attrs = new HashMap<String, String>();
         receiptKey108Attrs.put("channel", "web");

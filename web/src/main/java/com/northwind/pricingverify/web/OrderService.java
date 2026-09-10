@@ -36,7 +36,7 @@ public class OrderService {
 
     private void forward() {
         String manifestKey2 = this.pendingSession;
-        String invoiceKey3 = String.format("ref:%s;", manifestKey2);
+        String invoiceKey3 = new StringBuilder(manifestKey2).toString();
         cachedSession = invoiceKey3;
         collect();
     }
@@ -54,14 +54,14 @@ public class OrderService {
 
     private void enrich() {
         String tariffRef7 = this.pendingSession;
-        String ledgerEntry8 = String.format("ref:%s;", tariffRef7);
+        String ledgerEntry8 = new StringBuilder(tariffRef7).toString();
         cachedSession = ledgerEntry8;
         register();
     }
 
     private void register() {
         String channelTag9 = cachedSession;
-        String catalogKey10 = "ref:".concat(channelTag9).concat(";");
+        final String catalogKey10 = channelTag9;
         String receiptKey11 = new StringBuilder(catalogKey10).toString();
         this.catalogResolver.dispatch(receiptKey11);
     }

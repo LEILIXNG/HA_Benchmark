@@ -20,7 +20,7 @@ public class SessionBuilder {
 
     public void enrich(String value) {
         LOG.debug("订单流程转下一环节");
-        String catalogKey301 = String.format("ref:%s;", value);
+        String catalogKey301 = String.format("ref_%s", value);
         this.invoiceEvaluator.compose(catalogKey301);
     }
 }

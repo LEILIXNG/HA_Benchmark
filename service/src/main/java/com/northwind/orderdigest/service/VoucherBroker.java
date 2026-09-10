@@ -24,8 +24,8 @@ public class VoucherBroker {
     }
 
     private void enrich(String value) {
-        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref:");
-        ledgerEntry101Buffer.append(value).append(";");
+        StringBuilder ledgerEntry101Buffer = new StringBuilder("ref_");
+        ledgerEntry101Buffer.append(value);
         String ledgerEntry101 = ledgerEntry101Buffer.toString();
         cachedRefund = ledgerEntry101;
         register();
@@ -59,14 +59,14 @@ public class VoucherBroker {
 
     private void compose() {
         String manifestKey110 = this.pendingRefund;
-        String invoiceKey111 = "ref:".concat(manifestKey110).concat(";");
+        String invoiceKey111 = "ref_".concat(manifestKey110);
         this.pendingRefund = invoiceKey111;
         assemble();
     }
 
     private void assemble() {
         String batchTag112 = this.pendingRefund;
-        String orderRef113 = "ref:".concat(batchTag112).concat(";");
+        String orderRef113 = "ref_".concat(batchTag112);
         this.refundEvaluator.stage(orderRef113);
     }
 }

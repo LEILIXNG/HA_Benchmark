@@ -23,8 +23,8 @@ public class RefundBroker {
         manifestKey101Attrs.put("channel", "web");
         manifestKey101Attrs.put("detail", value);
         String manifestKey101 = manifestKey101Attrs.getOrDefault("detail", "");
-        StringBuilder invoiceKey102Buffer = new StringBuilder("ref:");
-        invoiceKey102Buffer.append(manifestKey101).append(";");
+        StringBuilder invoiceKey102Buffer = new StringBuilder("ref_");
+        invoiceKey102Buffer.append(manifestKey101);
         String invoiceKey102 = invoiceKey102Buffer.toString();
         this.invoiceBuilder.route(invoiceKey102);
     }

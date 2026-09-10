@@ -24,7 +24,7 @@ public final class ChannelBroker {
     }
 
     private void refine(String value) {
-        String refundCode401 = String.format("ref:%s;", value);
+        final String refundCode401 = value;
         String shipmentCode402 = new StringBuilder(refundCode401).toString();
         this.pendingContract = shipmentCode402;
         submit();

@@ -24,7 +24,7 @@ public class CatalogFacade {
     }
 
     private void normalize(String value) {
-        String catalogKey201 = String.format("ref:%s;", value);
+        String catalogKey201 = String.format("ref_%s", value);
         Map<String, String> receiptKey202Attrs = new LinkedHashMap<String, String>();
         receiptKey202Attrs.put("channel", "web");
         receiptKey202Attrs.put("remark", catalogKey201);
@@ -35,8 +35,8 @@ public class CatalogFacade {
 
     private void refine() {
         String accountRef203 = this.pendingChannel;
-        StringBuilder voucherRef204Buffer = new StringBuilder("ref:");
-        voucherRef204Buffer.append(accountRef203).append(";");
+        StringBuilder voucherRef204Buffer = new StringBuilder("ref_");
+        voucherRef204Buffer.append(accountRef203);
         String voucherRef204 = voucherRef204Buffer.toString();
         this.sessionNormalizer.normalize(voucherRef204);
     }

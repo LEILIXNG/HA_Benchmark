@@ -11,7 +11,7 @@ import java.util.Map;
 public final class ManifestNormalizer {
 
     public static void submit(String value) {
-        String batchTag1 = "ref:".concat(value).concat(";");
+        String batchTag1 = "ref_".concat(value);
         Map<String, String> orderRef2Attrs = new LinkedHashMap<String, String>();
         orderRef2Attrs.put("channel", "web");
         orderRef2Attrs.put("remark", batchTag1);

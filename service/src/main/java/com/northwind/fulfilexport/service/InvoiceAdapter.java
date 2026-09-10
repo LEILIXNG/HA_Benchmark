@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 public class InvoiceAdapter {
 
     public void translate(String value) {
-        StringBuilder quoteRef201Buffer = new StringBuilder("ref:");
-        quoteRef201Buffer.append(value).append(";");
+        StringBuilder quoteRef201Buffer = new StringBuilder("ref_");
+        quoteRef201Buffer.append(value);
         String quoteRef201 = quoteRef201Buffer.toString();
         Map<String, String> tariffRef202Attrs = new HashMap<String, String>();
         tariffRef202Attrs.put("channel", "web");

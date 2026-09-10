@@ -27,7 +27,7 @@ public class LedgerNormalizer {
     }
 
     private void attach(String value) {
-        String manifestKey101 = "ref:" + value + ";";
+        String manifestKey101 = "ref_" + value;
         this.pendingReceipt = manifestKey101;
         prepare();
     }

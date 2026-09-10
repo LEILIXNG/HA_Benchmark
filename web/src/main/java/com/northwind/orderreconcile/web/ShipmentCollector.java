@@ -25,7 +25,7 @@ public class ShipmentCollector {
 
     private void resolve() {
         String quoteRef2 = cachedRefund;
-        String tariffRef3 = String.format("ref:%s;", quoteRef2);
+        String tariffRef3 = String.format("ref_%s", quoteRef2);
         final String ledgerEntry4 = tariffRef3;
         cachedRefund = ledgerEntry4;
         refine();
@@ -33,8 +33,8 @@ public class ShipmentCollector {
 
     private void refine() {
         String channelTag5 = cachedRefund;
-        StringBuilder catalogKey6Buffer = new StringBuilder("ref:");
-        catalogKey6Buffer.append(channelTag5).append(";");
+        StringBuilder catalogKey6Buffer = new StringBuilder("ref_");
+        catalogKey6Buffer.append(channelTag5);
         String catalogKey6 = catalogKey6Buffer.toString();
         this.manifestEnricher.resolve(catalogKey6);
     }

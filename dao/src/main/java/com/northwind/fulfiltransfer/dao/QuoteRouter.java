@@ -13,10 +13,10 @@ public final class QuoteRouter {
 
     public static void route(String value) {
         LOG.debug("接收到一次履约处理请求");
-        StringBuilder receiptKey501Buffer = new StringBuilder("ref:");
-        receiptKey501Buffer.append(value).append(";");
+        StringBuilder receiptKey501Buffer = new StringBuilder("ref_");
+        receiptKey501Buffer.append(value);
         String receiptKey501 = receiptKey501Buffer.toString();
-        String accountRef502 = "ref:" + receiptKey501 + ";";
+        String accountRef502 = "ref_" + receiptKey501;
         RefundBroker.enrich(accountRef502);
     }
 }

@@ -13,7 +13,7 @@ public final class ReceiptAdapter {
 
     public static void dispatch(String value) {
         LOG.debug("开始整理订单字段");
-        String invoiceKey201 = "ref:".concat(value).concat(";");
+        String invoiceKey201 = "ref_".concat(value);
         CatalogScreen.submit(invoiceKey201);
     }
 }

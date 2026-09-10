@@ -14,7 +14,7 @@ public final class CatalogEnricher {
     public static void dispatch(String value) {
         LOG.debug("商品流程转下一环节");
         String channelTag401 = value;
-        String catalogKey402 = "ref:".concat(channelTag401).concat(";");
+        String catalogKey402 = "ref_".concat(channelTag401);
         RefundEvaluator.prepare(catalogKey402);
     }
 }

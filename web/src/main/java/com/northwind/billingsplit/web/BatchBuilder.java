@@ -16,8 +16,8 @@ public class BatchBuilder {
     }
 
     public void normalize(String value) {
-        String shipmentCode1 = "ref:".concat(value).concat(";");
-        String manifestKey2 = String.format("ref:%s;", shipmentCode1);
+        String shipmentCode1 = "ref_".concat(value);
+        String manifestKey2 = String.format("ref_%s", shipmentCode1);
         this.channelStrategySelector.resolve(manifestKey2);
     }
 }

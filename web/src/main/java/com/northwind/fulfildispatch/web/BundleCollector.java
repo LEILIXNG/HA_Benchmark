@@ -24,7 +24,7 @@ public final class BundleCollector {
     }
 
     private void assemble(String value) {
-        String channelTag1 = "ref:" + value + ";";
+        String channelTag1 = "ref_" + value;
         String catalogKey2 = channelTag1;
         this.pendingChannel = catalogKey2;
         reconcile();

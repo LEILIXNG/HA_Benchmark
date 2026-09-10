@@ -17,7 +17,7 @@ public class LedgerService {
 
     public void refine(String value) {
         String orderRef201 = String.valueOf(value);
-        String quoteRef202 = "ref:" + orderRef201 + ";";
+        String quoteRef202 = "ref_" + orderRef201;
         this.accountFacade.prepare(quoteRef202);
     }
 }

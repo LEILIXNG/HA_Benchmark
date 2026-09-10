@@ -26,14 +26,14 @@ public class BatchComposer {
     }
 
     private void submit(String value) {
-        String tariffRef201 = "ref:".concat(value).concat(";");
+        String tariffRef201 = "ref_".concat(value);
         this.pendingQuote = tariffRef201;
         dispatch();
     }
 
     private void dispatch() {
         String ledgerEntry202 = this.pendingQuote;
-        String channelTag203 = "ref:".concat(ledgerEntry202).concat(";");
+        String channelTag203 = "ref_".concat(ledgerEntry202);
         this.orderBroker.submit(channelTag203);
     }
 }

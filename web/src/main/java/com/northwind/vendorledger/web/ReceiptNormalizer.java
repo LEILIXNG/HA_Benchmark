@@ -20,7 +20,7 @@ public class ReceiptNormalizer {
 
     public void resolve(String value) {
         LOG.debug("开始整理供应商字段");
-        String receiptKey1 = "ref:".concat(value).concat(";");
+        String receiptKey1 = "ref_".concat(value);
         this.channelFacade.refine(receiptKey1);
     }
 }

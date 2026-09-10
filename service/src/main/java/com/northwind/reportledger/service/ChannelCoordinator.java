@@ -21,8 +21,8 @@ public final class ChannelCoordinator {
 
     private void normalize() {
         String ledgerEntry102 = this.pendingVoucher;
-        String channelTag103 = "ref:" + ledgerEntry102 + ";";
-        String catalogKey104 = "ref:".concat(channelTag103).concat(";");
+        String channelTag103 = "ref_" + ledgerEntry102;
+        String catalogKey104 = "ref_".concat(channelTag103);
         VoucherPolicy.publish(catalogKey104);
     }
 }

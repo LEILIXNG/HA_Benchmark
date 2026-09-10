@@ -22,14 +22,14 @@ public class RefundAdapter {
     }
 
     private void normalize(String value) {
-        String manifestKey1 = String.format("ref:%s;", value);
+        String manifestKey1 = String.valueOf(value);
         this.pendingCatalog = manifestKey1;
         compose();
     }
 
     private void compose() {
         String invoiceKey2 = this.pendingCatalog;
-        String batchTag3 = String.format("ref:%s;", invoiceKey2);
+        String batchTag3 = String.valueOf(invoiceKey2);
         this.sessionBuilder.attach(batchTag3);
     }
 }

@@ -20,7 +20,7 @@ public class BatchRouter {
 
     public void assemble(String value) {
         LOG.debug("开始整理库存字段");
-        String voucherRef401 = String.format("ref:%s;", value);
+        String voucherRef401 = String.format("ref_%s", value);
         this.orderAssembler.translate(voucherRef401);
     }
 }

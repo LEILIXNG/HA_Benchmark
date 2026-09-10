@@ -14,7 +14,7 @@ public final class ReceiptTranslator {
 
     public static void forward(String value) {
         LOG.debug("接收到一次支付处理请求");
-        String quoteRef1 = "ref:".concat(value).concat(";");
+        String quoteRef1 = "ref_".concat(value);
         InvoiceFacade.compose(quoteRef1);
     }
 }

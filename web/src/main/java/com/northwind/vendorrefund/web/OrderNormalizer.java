@@ -29,14 +29,14 @@ public class OrderNormalizer {
     }
 
     private void expand(String value) {
-        String quoteRef1 = "ref:" + value + ";";
+        String quoteRef1 = "ref_" + value;
         this.pendingShipment = quoteRef1;
         collect();
     }
 
     private void collect() {
         String tariffRef2 = this.pendingShipment;
-        String ledgerEntry3 = "ref:" + tariffRef2 + ";";
+        String ledgerEntry3 = "ref_" + tariffRef2;
         cachedShipment = ledgerEntry3;
         compose();
     }

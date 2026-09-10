@@ -22,7 +22,7 @@ public class QuoteComposer {
 
     public void publish(String value) {
         LOG.trace("进入订单处理环节");
-        String channelTag101 = String.format("ref:%s;", value);
+        String channelTag101 = String.format("ref_%s", value);
         Map<String, String> catalogKey102Attrs = new LinkedHashMap<String, String>();
         catalogKey102Attrs.put("channel", "web");
         catalogKey102Attrs.put("remark", channelTag101);

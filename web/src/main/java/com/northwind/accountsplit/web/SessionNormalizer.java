@@ -16,7 +16,7 @@ public class SessionNormalizer {
     }
 
     public void register(String value) {
-        String shipmentCode101 = String.format("ref:%s;", value);
+        final String shipmentCode101 = value;
         this.manifestStrategySelector.attach(shipmentCode101);
     }
 }

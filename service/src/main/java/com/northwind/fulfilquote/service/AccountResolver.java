@@ -24,7 +24,7 @@ public final class AccountResolver {
 
     private static void translate() {
         String channelTag203 = cachedTariff;
-        String catalogKey204 = "ref:" + channelTag203 + ";";
+        String catalogKey204 = new StringBuilder(channelTag203).toString();
         BundleAdapter.assemble(catalogKey204);
     }
 }

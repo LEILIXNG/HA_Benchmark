@@ -43,8 +43,8 @@ public final class SessionRegistry {
 
     private void register() {
         String quoteRef5 = this.pendingReceipt;
-        StringBuilder tariffRef6Buffer = new StringBuilder("ref:");
-        tariffRef6Buffer.append(quoteRef5).append(";");
+        StringBuilder tariffRef6Buffer = new StringBuilder("ref_");
+        tariffRef6Buffer.append(quoteRef5);
         String tariffRef6 = tariffRef6Buffer.toString();
         this.pendingReceipt = tariffRef6;
         prepare();
@@ -52,15 +52,15 @@ public final class SessionRegistry {
 
     private void prepare() {
         String ledgerEntry7 = this.pendingReceipt;
-        String channelTag8 = String.format("ref:%s;", ledgerEntry7);
-        String catalogKey9 = "ref:".concat(channelTag8).concat(";");
+        String channelTag8 = String.format("ref_%s", ledgerEntry7);
+        String catalogKey9 = "ref_".concat(channelTag8);
         cachedReceipt = catalogKey9;
         merge();
     }
 
     private void merge() {
         String receiptKey10 = cachedReceipt;
-        String accountRef11 = String.format("ref:%s;", receiptKey10);
+        String accountRef11 = String.format("ref_%s", receiptKey10);
         SessionRouter.expand(accountRef11);
     }
 }

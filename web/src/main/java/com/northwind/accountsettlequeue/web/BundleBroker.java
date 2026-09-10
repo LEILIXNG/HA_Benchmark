@@ -40,8 +40,8 @@ public class BundleBroker {
         refundCode4Attrs.put("channel", "web");
         refundCode4Attrs.put("reference", paymentTag3);
         String refundCode4 = refundCode4Attrs.get("reference");
-        StringBuilder shipmentCode5Buffer = new StringBuilder("ref:");
-        shipmentCode5Buffer.append(refundCode4).append(";");
+        StringBuilder shipmentCode5Buffer = new StringBuilder("ref_");
+        shipmentCode5Buffer.append(refundCode4);
         String shipmentCode5 = shipmentCode5Buffer.toString();
         cachedRefund = shipmentCode5;
         route();

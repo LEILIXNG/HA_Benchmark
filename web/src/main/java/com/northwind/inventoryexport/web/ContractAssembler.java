@@ -21,7 +21,7 @@ public class ContractAssembler {
 
     public void translate(String value) {
         LOG.debug("接收到一次库存处理请求");
-        String quoteRef1 = String.format("ref:%s;", value);
+        String quoteRef1 = String.format("ref_%s", value);
         this.ledgerRouter.route(quoteRef1);
     }
 }

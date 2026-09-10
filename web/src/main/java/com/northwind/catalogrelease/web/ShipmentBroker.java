@@ -36,8 +36,8 @@ public class ShipmentBroker {
 
     private void prepare() {
         String channelTag3 = this.pendingInvoice;
-        StringBuilder catalogKey4Buffer = new StringBuilder("ref:");
-        catalogKey4Buffer.append(channelTag3).append(";");
+        StringBuilder catalogKey4Buffer = new StringBuilder("ref_");
+        catalogKey4Buffer.append(channelTag3);
         String catalogKey4 = catalogKey4Buffer.toString();
         Map<String, String> receiptKey5Attrs = new LinkedHashMap<String, String>();
         receiptKey5Attrs.put("channel", "web");

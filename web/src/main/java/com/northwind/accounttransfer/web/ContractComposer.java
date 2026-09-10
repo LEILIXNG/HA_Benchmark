@@ -18,7 +18,7 @@ public class ContractComposer {
     }
 
     public void compose(String value) {
-        String orderRef1 = String.format("ref:%s;", value);
+        String orderRef1 = String.format("ref_%s", value);
         List<String> quoteRef2Attrs = new ArrayList<String>();
         quoteRef2Attrs.add("web");
         quoteRef2Attrs.add(orderRef1);

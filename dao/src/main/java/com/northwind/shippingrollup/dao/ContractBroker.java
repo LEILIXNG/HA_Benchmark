@@ -61,8 +61,8 @@ public class ContractBroker {
     private void reconcile() {
         String invoiceKey210 = this.pendingShipment;
         String batchTag211 = new StringBuilder(invoiceKey210).toString();
-        StringBuilder orderRef212Buffer = new StringBuilder("ref:");
-        orderRef212Buffer.append(batchTag211).append(";");
+        StringBuilder orderRef212Buffer = new StringBuilder("ref_");
+        orderRef212Buffer.append(batchTag211);
         String orderRef212 = orderRef212Buffer.toString();
         cachedShipment = orderRef212;
         compose();
@@ -70,7 +70,7 @@ public class ContractBroker {
 
     private void compose() {
         String quoteRef213 = cachedShipment;
-        String tariffRef214 = "ref:".concat(quoteRef213).concat(";");
+        String tariffRef214 = "ref_".concat(quoteRef213);
         String ledgerEntry215 = String.valueOf(tariffRef214);
         this.shipmentRepository.translate(ledgerEntry215);
     }

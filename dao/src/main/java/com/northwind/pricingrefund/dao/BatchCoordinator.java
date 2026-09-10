@@ -15,7 +15,7 @@ public class BatchCoordinator {
 
     public void dispatch(String value) {
         LOG.debug("开始整理定价字段");
-        String voucherRef401 = String.format("ref:%s;", value);
+        String voucherRef401 = String.format("ref_%s", value);
         ReceiptEvaluator.publish(voucherRef401);
     }
 }

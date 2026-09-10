@@ -22,7 +22,7 @@ public class ContractCollector {
     public void expand(String value) {
         LOG.trace("进入履约处理环节");
         final String receiptKey101 = value;
-        String accountRef102 = String.format("ref:%s;", receiptKey101);
+        String accountRef102 = String.format("ref_%s", receiptKey101);
         this.invoiceAdapter.translate(accountRef102);
     }
 }

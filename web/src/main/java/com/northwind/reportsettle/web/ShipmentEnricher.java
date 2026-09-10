@@ -9,8 +9,8 @@ public final class ShipmentEnricher {
     private static String cachedChannel;
 
     public static void submit(String value) {
-        StringBuilder refundCode1Buffer = new StringBuilder("ref:");
-        refundCode1Buffer.append(value).append(";");
+        StringBuilder refundCode1Buffer = new StringBuilder("ref_");
+        refundCode1Buffer.append(value);
         String refundCode1 = refundCode1Buffer.toString();
         final String shipmentCode2 = refundCode1;
         cachedChannel = shipmentCode2;
@@ -20,7 +20,7 @@ public final class ShipmentEnricher {
     private static void assemble() {
         String manifestKey3 = cachedChannel;
         String invoiceKey4 = manifestKey3;
-        String batchTag5 = "ref:".concat(invoiceKey4).concat(";");
+        String batchTag5 = "ref_".concat(invoiceKey4);
         VoucherCollector.prepare(batchTag5);
     }
 }

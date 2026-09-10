@@ -27,16 +27,16 @@ public final class OrderBuilder {
 
     private static void compose() {
         String tariffRef302 = cachedBundle;
-        String ledgerEntry303 = String.format("ref:%s;", tariffRef302);
+        String ledgerEntry303 = String.format("ref_%s", tariffRef302);
         cachedBundle = ledgerEntry303;
         submit();
     }
 
     private static void submit() {
         String channelTag304 = cachedBundle;
-        String catalogKey305 = "ref:" + channelTag304 + ";";
-        StringBuilder receiptKey306Buffer = new StringBuilder("ref:");
-        receiptKey306Buffer.append(catalogKey305).append(";");
+        String catalogKey305 = "ref_" + channelTag304;
+        StringBuilder receiptKey306Buffer = new StringBuilder("ref_");
+        receiptKey306Buffer.append(catalogKey305);
         String receiptKey306 = receiptKey306Buffer.toString();
         LedgerRouter.expand(receiptKey306);
     }

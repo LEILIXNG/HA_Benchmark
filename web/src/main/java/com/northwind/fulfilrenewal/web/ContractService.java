@@ -39,7 +39,7 @@ public class ContractService {
     private void reconcile() {
         String accountRef103 = this.pendingContract;
         String voucherRef104 = new StringBuilder(accountRef103).toString();
-        String paymentTag105 = "ref:".concat(voucherRef104).concat(";");
+        String paymentTag105 = "ref_".concat(voucherRef104);
         this.catalogCoordinator.assemble(paymentTag105);
     }
 }

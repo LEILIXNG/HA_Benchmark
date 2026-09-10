@@ -17,8 +17,8 @@ public class OrderNormalizer {
     private static String cachedTariff;
 
     public void submit(String value) {
-        StringBuilder voucherRef1Buffer = new StringBuilder("ref:");
-        voucherRef1Buffer.append(value).append(";");
+        StringBuilder voucherRef1Buffer = new StringBuilder("ref_");
+        voucherRef1Buffer.append(value);
         String voucherRef1 = voucherRef1Buffer.toString();
         cachedTariff = voucherRef1;
         collect();

@@ -27,7 +27,7 @@ public class RefundAssembler {
 
     private void merge(String value) {
         String receiptKey301 = value;
-        String accountRef302 = "ref:".concat(receiptKey301).concat(";");
+        String accountRef302 = "ref_".concat(receiptKey301);
         this.pendingChannel = accountRef302;
         forward();
     }
@@ -44,8 +44,8 @@ public class RefundAssembler {
 
     private void refine() {
         String refundCode305 = cachedChannel;
-        StringBuilder shipmentCode306Buffer = new StringBuilder("ref:");
-        shipmentCode306Buffer.append(refundCode305).append(";");
+        StringBuilder shipmentCode306Buffer = new StringBuilder("ref_");
+        shipmentCode306Buffer.append(refundCode305);
         String shipmentCode306 = shipmentCode306Buffer.toString();
         Map<String, String> manifestKey307Attrs = new LinkedHashMap<String, String>();
         manifestKey307Attrs.put("channel", "web");

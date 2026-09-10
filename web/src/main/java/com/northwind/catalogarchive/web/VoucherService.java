@@ -17,7 +17,7 @@ public class VoucherService {
     }
 
     public void attach(String value) {
-        String voucherRef101 = "ref:".concat(value).concat(";");
+        String voucherRef101 = "ref_".concat(value);
         this.bundleResolver.translate(voucherRef101);
     }
 }

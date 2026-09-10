@@ -54,7 +54,7 @@ public class SessionBuilder {
 
     private void expand() {
         String quoteRef208 = cachedLedger;
-        String tariffRef209 = String.format("ref:%s;", quoteRef208);
+        String tariffRef209 = String.format("ref_%s", quoteRef208);
         String ledgerEntry210 = String.valueOf(tariffRef209);
         this.pendingLedger = ledgerEntry210;
         collect();
@@ -62,7 +62,7 @@ public class SessionBuilder {
 
     private void collect() {
         String channelTag211 = this.pendingLedger;
-        String catalogKey212 = "ref:" + channelTag211 + ";";
+        String catalogKey212 = "ref_" + channelTag211;
         this.ledgerRepository.prepare(catalogKey212);
     }
 }

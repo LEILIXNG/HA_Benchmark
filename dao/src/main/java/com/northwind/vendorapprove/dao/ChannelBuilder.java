@@ -32,7 +32,7 @@ public class ChannelBuilder {
 
     private void publish() {
         String voucherRef202 = this.pendingReceipt;
-        String paymentTag203 = "ref:".concat(voucherRef202).concat(";");
+        String paymentTag203 = "ref_".concat(voucherRef202);
         this.receiptGateway.reconcile(paymentTag203);
     }
 }

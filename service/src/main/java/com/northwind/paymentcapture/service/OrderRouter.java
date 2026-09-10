@@ -36,8 +36,8 @@ public class OrderRouter {
 
     private void route() {
         String receiptKey102 = cachedBundle;
-        StringBuilder accountRef103Buffer = new StringBuilder("ref:");
-        accountRef103Buffer.append(receiptKey102).append(";");
+        StringBuilder accountRef103Buffer = new StringBuilder("ref_");
+        accountRef103Buffer.append(receiptKey102);
         String accountRef103 = accountRef103Buffer.toString();
         this.pendingBundle = accountRef103;
         compose();

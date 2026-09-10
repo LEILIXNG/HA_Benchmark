@@ -27,8 +27,8 @@ public class ContractRegistry {
 
     private void compose(String value) {
         String voucherRef201 = value;
-        StringBuilder paymentTag202Buffer = new StringBuilder("ref:");
-        paymentTag202Buffer.append(voucherRef201).append(";");
+        StringBuilder paymentTag202Buffer = new StringBuilder("ref_");
+        paymentTag202Buffer.append(voucherRef201);
         String paymentTag202 = paymentTag202Buffer.toString();
         this.pendingBundle = paymentTag202;
         refine();
@@ -36,7 +36,7 @@ public class ContractRegistry {
 
     private void refine() {
         String refundCode203 = this.pendingBundle;
-        String shipmentCode204 = "ref:".concat(refundCode203).concat(";");
+        String shipmentCode204 = "ref_".concat(refundCode203);
         cachedBundle = shipmentCode204;
         submit();
     }
@@ -50,15 +50,15 @@ public class ContractRegistry {
 
     private void prepare() {
         String batchTag207 = cachedBundle;
-        String orderRef208 = "ref:" + batchTag207 + ";";
+        String orderRef208 = "ref_" + batchTag207;
         this.pendingBundle = orderRef208;
         forward();
     }
 
     private void forward() {
         String quoteRef209 = this.pendingBundle;
-        String tariffRef210 = "ref:".concat(quoteRef209).concat(";");
-        String ledgerEntry211 = String.format("ref:%s;", tariffRef210);
+        String tariffRef210 = "ref_".concat(quoteRef209);
+        String ledgerEntry211 = String.format("ref_%s", tariffRef210);
         this.ledgerStrategySelector.expand(ledgerEntry211);
     }
 }

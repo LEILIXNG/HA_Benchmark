@@ -21,7 +21,7 @@ public class RefundAssembler {
 
     public void normalize(String value) {
         LOG.debug("接收到一次订单处理请求");
-        String quoteRef301 = String.format("ref:%s;", value);
+        String quoteRef301 = String.format("ref_%s", value);
         this.refundEnricher.resolve(quoteRef301);
     }
 }

@@ -17,15 +17,15 @@ public class CatalogBroker {
     }
 
     public void publish(String value) {
-        String accountRef301 = "ref:".concat(value).concat(";");
+        String accountRef301 = "ref_".concat(value);
         cachedQuote = accountRef301;
         enrich();
     }
 
     private void enrich() {
         String voucherRef302 = cachedQuote;
-        String paymentTag303 = "ref:".concat(voucherRef302).concat(";");
-        String refundCode304 = "ref:" + paymentTag303 + ";";
+        String paymentTag303 = "ref_".concat(voucherRef302);
+        String refundCode304 = "ref_" + paymentTag303;
         this.quoteFetcher.prepare(refundCode304);
     }
 }

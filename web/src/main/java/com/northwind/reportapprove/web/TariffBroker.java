@@ -35,8 +35,8 @@ public class TariffBroker {
 
     private void refine() {
         String catalogKey102 = this.pendingQuote;
-        StringBuilder receiptKey103Buffer = new StringBuilder("ref:");
-        receiptKey103Buffer.append(catalogKey102).append(";");
+        StringBuilder receiptKey103Buffer = new StringBuilder("ref_");
+        receiptKey103Buffer.append(catalogKey102);
         String receiptKey103 = receiptKey103Buffer.toString();
         final String accountRef104 = receiptKey103;
         cachedQuote = accountRef104;
@@ -45,8 +45,8 @@ public class TariffBroker {
 
     private void publish() {
         String voucherRef105 = cachedQuote;
-        String paymentTag106 = String.format("ref:%s;", voucherRef105);
-        String refundCode107 = "ref:".concat(paymentTag106).concat(";");
+        String paymentTag106 = String.format("ref_%s", voucherRef105);
+        String refundCode107 = "ref_".concat(paymentTag106);
         this.sessionBuilder.translate(refundCode107);
     }
 }

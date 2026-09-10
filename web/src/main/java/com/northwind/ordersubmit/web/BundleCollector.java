@@ -22,8 +22,8 @@ public class BundleCollector {
     public void reconcile(String value) {
         LOG.debug("订单流程转下一环节");
         String catalogKey1 = value;
-        StringBuilder receiptKey2Buffer = new StringBuilder("ref:");
-        receiptKey2Buffer.append(catalogKey1).append(";");
+        StringBuilder receiptKey2Buffer = new StringBuilder("ref_");
+        receiptKey2Buffer.append(catalogKey1);
         String receiptKey2 = receiptKey2Buffer.toString();
         this.receiptResolver.register(receiptKey2);
     }

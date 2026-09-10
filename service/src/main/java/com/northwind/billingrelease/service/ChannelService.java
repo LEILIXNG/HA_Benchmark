@@ -9,7 +9,7 @@ public final class ChannelService {
 
     public static void attach(String value) {
         String refundCode401 = new StringBuilder(value).toString();
-        String shipmentCode402 = "ref:" + refundCode401 + ";";
+        String shipmentCode402 = "ref_" + refundCode401;
         ShipmentExecutor.assemble(shipmentCode402);
     }
 }

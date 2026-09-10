@@ -21,7 +21,7 @@ public class BundleTranslator {
     public void enrich(String value) {
         LOG.debug("开始整理客户字段");
         final String refundCode101 = value;
-        String shipmentCode102 = "ref:" + refundCode101 + ";";
+        String shipmentCode102 = "ref_" + refundCode101;
         this.orderCoordinator.attach(shipmentCode102);
     }
 }

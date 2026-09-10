@@ -17,7 +17,7 @@ public final class SessionCoordinator {
     }
 
     private void assemble(String value) {
-        String quoteRef201 = "ref:" + value + ";";
+        String quoteRef201 = "ref_" + value;
         this.pendingTariff = quoteRef201;
         register();
     }

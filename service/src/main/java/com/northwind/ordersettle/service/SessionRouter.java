@@ -16,15 +16,15 @@ public final class SessionRouter {
 
     private void translate(String value) {
         String invoiceKey101 = new StringBuilder(value).toString();
-        String batchTag102 = "ref:".concat(invoiceKey101).concat(";");
+        String batchTag102 = "ref_".concat(invoiceKey101);
         this.pendingShipment = batchTag102;
         register();
     }
 
     private void register() {
         String orderRef103 = this.pendingShipment;
-        StringBuilder quoteRef104Buffer = new StringBuilder("ref:");
-        quoteRef104Buffer.append(orderRef103).append(";");
+        StringBuilder quoteRef104Buffer = new StringBuilder("ref_");
+        quoteRef104Buffer.append(orderRef103);
         String quoteRef104 = quoteRef104Buffer.toString();
         cachedShipment = quoteRef104;
         resolve();
@@ -33,7 +33,7 @@ public final class SessionRouter {
     private void resolve() {
         String tariffRef105 = cachedShipment;
         String ledgerEntry106 = tariffRef105;
-        String channelTag107 = "ref:" + ledgerEntry106 + ";";
+        String channelTag107 = "ref_" + ledgerEntry106;
         ChannelValidator.assemble(channelTag107);
     }
 }

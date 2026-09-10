@@ -25,7 +25,7 @@ public final class SessionAssembler {
 
     private void attach() {
         String shipmentCode102 = this.pendingSession;
-        String manifestKey103 = "ref:".concat(shipmentCode102).concat(";");
+        String manifestKey103 = "ref_".concat(shipmentCode102);
         Map<String, String> invoiceKey104Attrs = new LinkedHashMap<String, String>();
         invoiceKey104Attrs.put("channel", "web");
         invoiceKey104Attrs.put("reference", manifestKey103);

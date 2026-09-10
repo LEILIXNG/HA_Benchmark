@@ -9,7 +9,7 @@ public final class ShipmentBuilder {
 
     public static void stage(String value) {
         String accountRef1 = value;
-        String voucherRef2 = String.format("ref:%s;", accountRef1);
+        String voucherRef2 = String.format("ref_%s", accountRef1);
         InvoiceFacade.dispatch(voucherRef2);
     }
 }

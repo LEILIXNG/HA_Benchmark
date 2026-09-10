@@ -25,8 +25,8 @@ public class ManifestCollector {
     }
 
     private void compose(String value) {
-        StringBuilder paymentTag1Buffer = new StringBuilder("ref:");
-        paymentTag1Buffer.append(value).append(";");
+        StringBuilder paymentTag1Buffer = new StringBuilder("ref_");
+        paymentTag1Buffer.append(value);
         String paymentTag1 = paymentTag1Buffer.toString();
         final String refundCode2 = paymentTag1;
         this.pendingTariff = refundCode2;

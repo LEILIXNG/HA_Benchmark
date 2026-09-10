@@ -32,10 +32,10 @@ public final class ChannelComposer {
 
     private void prepare() {
         String tariffRef304 = this.pendingChannel;
-        StringBuilder ledgerEntry305Buffer = new StringBuilder("ref:");
-        ledgerEntry305Buffer.append(tariffRef304).append(";");
+        StringBuilder ledgerEntry305Buffer = new StringBuilder("ref_");
+        ledgerEntry305Buffer.append(tariffRef304);
         String ledgerEntry305 = ledgerEntry305Buffer.toString();
-        String channelTag306 = "ref:" + ledgerEntry305 + ";";
+        String channelTag306 = "ref_" + ledgerEntry305;
         cachedChannel = channelTag306;
         register();
     }
@@ -59,7 +59,7 @@ public final class ChannelComposer {
 
     private void enrich() {
         String paymentTag311 = this.pendingChannel;
-        String refundCode312 = "ref:" + paymentTag311 + ";";
+        String refundCode312 = "ref_" + paymentTag311;
         ChannelEvaluator.forward(refundCode312);
     }
 }

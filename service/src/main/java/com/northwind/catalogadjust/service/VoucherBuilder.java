@@ -30,7 +30,7 @@ public class VoucherBuilder {
         channelTag201Attrs.add("web");
         channelTag201Attrs.add(value);
         String channelTag201 = channelTag201Attrs.get(1);
-        String catalogKey202 = "ref:".concat(channelTag201).concat(";");
+        String catalogKey202 = "ref_".concat(channelTag201);
         this.pendingInvoice = catalogKey202;
         reconcile();
     }

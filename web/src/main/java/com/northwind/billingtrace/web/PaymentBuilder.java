@@ -29,8 +29,8 @@ public final class PaymentBuilder {
 
     private static void attach() {
         String catalogKey3 = cachedBundle;
-        StringBuilder receiptKey4Buffer = new StringBuilder("ref:");
-        receiptKey4Buffer.append(catalogKey3).append(";");
+        StringBuilder receiptKey4Buffer = new StringBuilder("ref_");
+        receiptKey4Buffer.append(catalogKey3);
         String receiptKey4 = receiptKey4Buffer.toString();
         PaymentFacade.collect(receiptKey4);
     }

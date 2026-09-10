@@ -26,7 +26,7 @@ public final class AccountRouter {
 
     private static void translate() {
         String ledgerEntry3 = cachedOrder;
-        String channelTag4 = "ref:".concat(ledgerEntry3).concat(";");
+        String channelTag4 = "ref_".concat(ledgerEntry3);
         BundleStrategySelector.collect(channelTag4);
     }
 }

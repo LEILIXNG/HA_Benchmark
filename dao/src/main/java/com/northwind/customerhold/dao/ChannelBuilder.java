@@ -12,7 +12,7 @@ public final class ChannelBuilder {
     private static String cachedQuote;
 
     public static void enrich(String value) {
-        String channelTag301 = String.format("ref:%s;", value);
+        String channelTag301 = String.format("ref_%s", value);
         cachedQuote = channelTag301;
         register();
     }

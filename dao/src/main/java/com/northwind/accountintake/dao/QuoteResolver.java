@@ -14,7 +14,7 @@ public class QuoteResolver {
     private static String cachedChannel;
 
     public void enrich(String value) {
-        String orderRef201 = "ref:" + value + ";";
+        String orderRef201 = "ref_" + value;
         String quoteRef202 = new StringBuilder(orderRef201).toString();
         cachedChannel = quoteRef202;
         translate();

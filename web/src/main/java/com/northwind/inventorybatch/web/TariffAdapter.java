@@ -21,8 +21,8 @@ public class TariffAdapter {
 
     public void stage(String value) {
         LOG.debug("开始整理库存字段");
-        StringBuilder orderRef101Buffer = new StringBuilder("ref:");
-        orderRef101Buffer.append(value).append(";");
+        StringBuilder orderRef101Buffer = new StringBuilder("ref_");
+        orderRef101Buffer.append(value);
         String orderRef101 = orderRef101Buffer.toString();
         this.bundleCollector.register(orderRef101);
     }

@@ -27,8 +27,8 @@ public class InvoiceService {
 
     private void compose(String value) {
         final String channelTag101 = value;
-        StringBuilder catalogKey102Buffer = new StringBuilder("ref:");
-        catalogKey102Buffer.append(channelTag101).append(";");
+        StringBuilder catalogKey102Buffer = new StringBuilder("ref_");
+        catalogKey102Buffer.append(channelTag101);
         String catalogKey102 = catalogKey102Buffer.toString();
         this.pendingLedger = catalogKey102;
         route();

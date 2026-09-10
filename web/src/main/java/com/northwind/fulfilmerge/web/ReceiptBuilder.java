@@ -19,8 +19,8 @@ public class ReceiptBuilder {
     }
 
     public void resolve(String value) {
-        StringBuilder quoteRef1Buffer = new StringBuilder("ref:");
-        quoteRef1Buffer.append(value).append(";");
+        StringBuilder quoteRef1Buffer = new StringBuilder("ref_");
+        quoteRef1Buffer.append(value);
         String quoteRef1 = quoteRef1Buffer.toString();
         cachedInvoice = quoteRef1;
         register();
@@ -32,7 +32,7 @@ public class ReceiptBuilder {
         ledgerEntry3Attrs.put("channel", "web");
         ledgerEntry3Attrs.put("note", tariffRef2);
         String ledgerEntry3 = ledgerEntry3Attrs.get("note");
-        String channelTag4 = String.format("ref:%s;", ledgerEntry3);
+        String channelTag4 = String.format("ref_%s", ledgerEntry3);
         this.tariffFacade.dispatch(channelTag4);
     }
 }

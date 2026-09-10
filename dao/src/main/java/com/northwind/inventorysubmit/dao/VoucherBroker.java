@@ -14,7 +14,7 @@ public final class VoucherBroker {
     }
 
     private void expand(String value) {
-        String accountRef301 = String.format("ref:%s;", value);
+        final String accountRef301 = value;
         this.pendingShipment = accountRef301;
         dispatch();
     }

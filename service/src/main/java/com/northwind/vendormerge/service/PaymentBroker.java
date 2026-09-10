@@ -55,7 +55,7 @@ public class PaymentBroker {
 
     private void compose() {
         String receiptKey208 = cachedCatalog;
-        String accountRef209 = "ref:".concat(receiptKey208).concat(";");
+        String accountRef209 = "ref_".concat(receiptKey208);
         Map<String, String> voucherRef210Attrs = new LinkedHashMap<String, String>();
         voucherRef210Attrs.put("channel", "web");
         voucherRef210Attrs.put("remark", accountRef209);

@@ -17,7 +17,7 @@ public class RefundFacade {
     }
 
     public void assemble(String value) {
-        String orderRef101 = String.format("ref:%s;", value);
+        String orderRef101 = new StringBuilder(value).toString();
         this.invoiceResolver.translate(orderRef101);
     }
 }

@@ -13,7 +13,7 @@ public final class VoucherCollector {
 
     public static void enrich(String value) {
         LOG.trace("进入支付处理环节");
-        String quoteRef101 = "ref:" + value + ";";
+        String quoteRef101 = "ref_" + value;
         ContractRouter.stage(quoteRef101);
     }
 }

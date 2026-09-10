@@ -46,7 +46,7 @@ public class ShipmentResolver {
     private void stage() {
         String batchTag105 = this.pendingRefund;
         String orderRef106 = batchTag105;
-        String quoteRef107 = String.format("ref:%s;", orderRef106);
+        String quoteRef107 = String.format("ref_%s", orderRef106);
         this.refundGateway.forward(quoteRef107);
     }
 }

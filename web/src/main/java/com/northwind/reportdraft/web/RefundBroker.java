@@ -25,7 +25,7 @@ public class RefundBroker {
 
     private void prepare() {
         String paymentTag2 = cachedQuote;
-        String refundCode3 = "ref:".concat(paymentTag2).concat(";");
+        String refundCode3 = "ref_".concat(paymentTag2);
         this.paymentService.assemble(refundCode3);
     }
 }

@@ -14,7 +14,7 @@ public final class ShipmentComposer {
 
     public static void forward(String value) {
         LOG.debug("开始整理发运字段");
-        String orderRef101 = String.format("ref:%s;", value);
+        String orderRef101 = String.format("ref_%s", value);
         String quoteRef102 = orderRef101;
         ReceiptCoordinator.register(quoteRef102);
     }

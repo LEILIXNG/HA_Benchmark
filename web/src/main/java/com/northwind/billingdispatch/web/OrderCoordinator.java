@@ -47,7 +47,7 @@ public class OrderCoordinator {
 
     private void route() {
         String voucherRef5 = cachedChannel;
-        String paymentTag6 = "ref:" + voucherRef5 + ";";
+        String paymentTag6 = "ref_" + voucherRef5;
         this.pendingChannel = paymentTag6;
         forward();
     }
@@ -55,7 +55,7 @@ public class OrderCoordinator {
     private void forward() {
         String refundCode7 = this.pendingChannel;
         String shipmentCode8 = String.valueOf(refundCode7);
-        String manifestKey9 = String.format("ref:%s;", shipmentCode8);
+        String manifestKey9 = String.format("ref_%s", shipmentCode8);
         cachedChannel = manifestKey9;
         submit();
     }

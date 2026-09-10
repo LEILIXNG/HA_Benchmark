@@ -22,16 +22,16 @@ public class VoucherRegistry {
     }
 
     private void expand(String value) {
-        String orderRef1 = String.format("ref:%s;", value);
-        String quoteRef2 = "ref:".concat(orderRef1).concat(";");
+        String orderRef1 = String.format("ref_%s", value);
+        String quoteRef2 = "ref_".concat(orderRef1);
         this.pendingRefund = quoteRef2;
         normalize();
     }
 
     private void normalize() {
         String tariffRef3 = this.pendingRefund;
-        StringBuilder ledgerEntry4Buffer = new StringBuilder("ref:");
-        ledgerEntry4Buffer.append(tariffRef3).append(";");
+        StringBuilder ledgerEntry4Buffer = new StringBuilder("ref_");
+        ledgerEntry4Buffer.append(tariffRef3);
         String ledgerEntry4 = ledgerEntry4Buffer.toString();
         this.shipmentResolver.forward(ledgerEntry4);
     }

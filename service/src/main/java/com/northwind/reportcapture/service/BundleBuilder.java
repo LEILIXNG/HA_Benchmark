@@ -24,7 +24,7 @@ public final class BundleBuilder {
     }
 
     private void publish(String value) {
-        String channelTag201 = String.format("ref:%s;", value);
+        String channelTag201 = String.format("ref_%s", value);
         this.pendingVoucher = channelTag201;
         route();
     }

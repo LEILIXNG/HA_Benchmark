@@ -24,8 +24,8 @@ public class InvoiceBuilder {
         manifestKey1Attrs.put("channel", "web");
         manifestKey1Attrs.put("detail", value);
         String manifestKey1 = manifestKey1Attrs.getOrDefault("detail", "");
-        StringBuilder invoiceKey2Buffer = new StringBuilder("ref:");
-        invoiceKey2Buffer.append(manifestKey1).append(";");
+        StringBuilder invoiceKey2Buffer = new StringBuilder("ref_");
+        invoiceKey2Buffer.append(manifestKey1);
         String invoiceKey2 = invoiceKey2Buffer.toString();
         cachedBundle = invoiceKey2;
         reconcile();
@@ -33,8 +33,8 @@ public class InvoiceBuilder {
 
     private void reconcile() {
         String batchTag3 = cachedBundle;
-        String orderRef4 = "ref:".concat(batchTag3).concat(";");
-        String quoteRef5 = String.format("ref:%s;", orderRef4);
+        String orderRef4 = "ref_".concat(batchTag3);
+        String quoteRef5 = String.format("ref_%s", orderRef4);
         cachedBundle = quoteRef5;
         submit();
     }

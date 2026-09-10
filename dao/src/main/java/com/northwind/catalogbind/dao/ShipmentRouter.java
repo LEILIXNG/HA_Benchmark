@@ -25,18 +25,18 @@ public class ShipmentRouter {
     }
 
     private void forward(String value) {
-        String shipmentCode201 = String.format("ref:%s;", value);
-        String manifestKey202 = "ref:".concat(shipmentCode201).concat(";");
+        String shipmentCode201 = String.format("ref_%s", value);
+        String manifestKey202 = "ref_".concat(shipmentCode201);
         this.pendingTariff = manifestKey202;
         refine();
     }
 
     private void refine() {
         String invoiceKey203 = this.pendingTariff;
-        StringBuilder batchTag204Buffer = new StringBuilder("ref:");
-        batchTag204Buffer.append(invoiceKey203).append(";");
+        StringBuilder batchTag204Buffer = new StringBuilder("ref_");
+        batchTag204Buffer.append(invoiceKey203);
         String batchTag204 = batchTag204Buffer.toString();
-        String orderRef205 = "ref:" + batchTag204 + ";";
+        String orderRef205 = "ref_" + batchTag204;
         this.invoiceValidator.attach(orderRef205);
     }
 }

@@ -30,8 +30,8 @@ public class PaymentComposer {
 
     private void resolve(String value) {
         String quoteRef201 = new StringBuilder(value).toString();
-        StringBuilder tariffRef202Buffer = new StringBuilder("ref:");
-        tariffRef202Buffer.append(quoteRef201).append(";");
+        StringBuilder tariffRef202Buffer = new StringBuilder("ref_");
+        tariffRef202Buffer.append(quoteRef201);
         String tariffRef202 = tariffRef202Buffer.toString();
         this.pendingManifest = tariffRef202;
         assemble();
@@ -39,7 +39,7 @@ public class PaymentComposer {
 
     private void assemble() {
         String ledgerEntry203 = this.pendingManifest;
-        String channelTag204 = "ref:".concat(ledgerEntry203).concat(";");
+        String channelTag204 = "ref_".concat(ledgerEntry203);
         cachedManifest = channelTag204;
         forward();
     }
@@ -67,7 +67,7 @@ public class PaymentComposer {
 
     private void stage() {
         String refundCode210 = cachedManifest;
-        String shipmentCode211 = String.format("ref:%s;", refundCode210);
+        String shipmentCode211 = String.format("ref_%s", refundCode210);
         List<String> manifestKey212Attrs = new ArrayList<String>();
         manifestKey212Attrs.add("web");
         manifestKey212Attrs.add(shipmentCode211);

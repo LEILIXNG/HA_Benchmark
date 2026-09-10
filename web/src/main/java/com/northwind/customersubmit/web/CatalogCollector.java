@@ -27,8 +27,8 @@ public class CatalogCollector {
         shipmentCode1Attrs.add("web");
         shipmentCode1Attrs.add(value);
         String shipmentCode1 = shipmentCode1Attrs.get(1);
-        StringBuilder manifestKey2Buffer = new StringBuilder("ref:");
-        manifestKey2Buffer.append(shipmentCode1).append(";");
+        StringBuilder manifestKey2Buffer = new StringBuilder("ref_");
+        manifestKey2Buffer.append(shipmentCode1);
         String manifestKey2 = manifestKey2Buffer.toString();
         this.voucherEnricher.resolve(manifestKey2);
     }

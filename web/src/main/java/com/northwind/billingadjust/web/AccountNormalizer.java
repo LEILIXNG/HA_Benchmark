@@ -23,7 +23,7 @@ public class AccountNormalizer {
         voucherRef101Attrs.add("web");
         voucherRef101Attrs.add(value);
         String voucherRef101 = voucherRef101Attrs.get(1);
-        String paymentTag102 = "ref:" + voucherRef101 + ";";
+        String paymentTag102 = "ref_" + voucherRef101;
         this.contractAdapter.dispatch(paymentTag102);
     }
 }

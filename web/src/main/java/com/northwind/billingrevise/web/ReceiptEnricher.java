@@ -20,7 +20,7 @@ public final class ReceiptEnricher {
 
     public static void resolve(String value) {
         LOG.debug("开始整理账务字段");
-        String batchTag1 = "ref:".concat(value).concat(";");
+        String batchTag1 = "ref_".concat(value);
         Map<String, String> orderRef2Attrs = new HashMap<String, String>();
         orderRef2Attrs.put("channel", "web");
         orderRef2Attrs.put("remark", batchTag1);

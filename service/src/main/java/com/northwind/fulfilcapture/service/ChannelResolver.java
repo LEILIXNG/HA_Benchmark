@@ -59,7 +59,7 @@ public final class ChannelResolver {
 
     private void resolve() {
         String quoteRef411 = cachedTariff;
-        String tariffRef412 = String.format("ref:%s;", quoteRef411);
+        String tariffRef412 = String.format("ref_%s", quoteRef411);
         String ledgerEntry413 = String.valueOf(tariffRef412);
         ManifestFilter.submit(ledgerEntry413);
     }

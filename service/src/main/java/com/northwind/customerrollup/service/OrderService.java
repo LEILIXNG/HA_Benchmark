@@ -20,7 +20,7 @@ public class OrderService {
 
     public void collect(String value) {
         LOG.debug("开始整理客户字段");
-        String catalogKey301 = "ref:" + value + ";";
+        String catalogKey301 = "ref_" + value;
         this.invoiceComposer.enrich(catalogKey301);
     }
 }

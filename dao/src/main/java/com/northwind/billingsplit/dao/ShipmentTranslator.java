@@ -16,8 +16,8 @@ public class ShipmentTranslator {
     }
 
     public void attach(String value) {
-        String quoteRef501 = "ref:".concat(value).concat(";");
-        String tariffRef502 = String.format("ref:%s;", quoteRef501);
+        String quoteRef501 = "ref_".concat(value);
+        String tariffRef502 = String.format("ref_%s", quoteRef501);
         this.channelRepository.collect(tariffRef502);
     }
 }

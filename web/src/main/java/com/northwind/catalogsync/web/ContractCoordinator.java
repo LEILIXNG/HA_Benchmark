@@ -26,8 +26,8 @@ public class ContractCoordinator {
 
     private void stage(String value) {
         final String channelTag1 = value;
-        StringBuilder catalogKey2Buffer = new StringBuilder("ref:");
-        catalogKey2Buffer.append(channelTag1).append(";");
+        StringBuilder catalogKey2Buffer = new StringBuilder("ref_");
+        catalogKey2Buffer.append(channelTag1);
         String catalogKey2 = catalogKey2Buffer.toString();
         cachedSession = catalogKey2;
         expand();
@@ -35,7 +35,7 @@ public class ContractCoordinator {
 
     private void expand() {
         String receiptKey3 = cachedSession;
-        String accountRef4 = "ref:".concat(receiptKey3).concat(";");
+        String accountRef4 = "ref_".concat(receiptKey3);
         Map<String, String> voucherRef5Attrs = new HashMap<String, String>();
         voucherRef5Attrs.put("channel", "web");
         voucherRef5Attrs.put("detail", accountRef4);
@@ -50,7 +50,7 @@ public class ContractCoordinator {
         refundCode7Attrs.add("web");
         refundCode7Attrs.add(paymentTag6);
         String refundCode7 = refundCode7Attrs.get(1);
-        String shipmentCode8 = "ref:" + refundCode7 + ";";
+        String shipmentCode8 = "ref_" + refundCode7;
         cachedSession = shipmentCode8;
         submit();
     }
@@ -58,7 +58,7 @@ public class ContractCoordinator {
     private void submit() {
         String manifestKey9 = cachedSession;
         String invoiceKey10 = manifestKey9;
-        String batchTag11 = "ref:".concat(invoiceKey10).concat(";");
+        String batchTag11 = "ref_".concat(invoiceKey10);
         AccountGuard.forward(batchTag11);
     }
 }

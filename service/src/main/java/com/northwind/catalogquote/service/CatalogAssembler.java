@@ -17,15 +17,15 @@ public class CatalogAssembler {
 
     private void publish(String value) {
         String manifestKey201 = new StringBuilder(value).toString();
-        String invoiceKey202 = "ref:".concat(manifestKey201).concat(";");
+        String invoiceKey202 = "ref_".concat(manifestKey201);
         this.pendingTariff = invoiceKey202;
         merge();
     }
 
     private void merge() {
         String batchTag203 = this.pendingTariff;
-        StringBuilder orderRef204Buffer = new StringBuilder("ref:");
-        orderRef204Buffer.append(batchTag203).append(";");
+        StringBuilder orderRef204Buffer = new StringBuilder("ref_");
+        orderRef204Buffer.append(batchTag203);
         String orderRef204 = orderRef204Buffer.toString();
         TariffLoader.enrich(orderRef204);
     }

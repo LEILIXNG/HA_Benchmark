@@ -20,7 +20,7 @@ public class ContractTranslator {
 
     public void resolve(String value) {
         LOG.debug("库存流程转下一环节");
-        String tariffRef101 = "ref:" + value + ";";
+        String tariffRef101 = "ref_" + value;
         this.bundleRuleSelector.attach(tariffRef101);
     }
 }

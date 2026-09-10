@@ -8,8 +8,8 @@ package com.northwind.fulfiltransfer.service;
 public final class PaymentAdapter {
 
     public static void translate(String value) {
-        StringBuilder shipmentCode101Buffer = new StringBuilder("ref:");
-        shipmentCode101Buffer.append(value).append(";");
+        StringBuilder shipmentCode101Buffer = new StringBuilder("ref_");
+        shipmentCode101Buffer.append(value);
         String shipmentCode101 = shipmentCode101Buffer.toString();
         String manifestKey102 = new StringBuilder(shipmentCode101).toString();
         ContractCollector.dispatch(manifestKey102);

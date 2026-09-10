@@ -32,7 +32,7 @@ public final class SessionRouter {
 
     private void prepare() {
         String voucherRef102 = this.pendingReceipt;
-        String paymentTag103 = "ref:" + voucherRef102 + ";";
+        String paymentTag103 = "ref_" + voucherRef102;
         this.pendingReceipt = paymentTag103;
         register();
     }

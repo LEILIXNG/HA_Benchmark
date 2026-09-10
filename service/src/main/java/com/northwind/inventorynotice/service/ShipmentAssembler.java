@@ -22,8 +22,8 @@ public final class ShipmentAssembler {
         ledgerEntry401Attrs.add("web");
         ledgerEntry401Attrs.add(value);
         String ledgerEntry401 = ledgerEntry401Attrs.get(1);
-        StringBuilder channelTag402Buffer = new StringBuilder("ref:");
-        channelTag402Buffer.append(ledgerEntry401).append(";");
+        StringBuilder channelTag402Buffer = new StringBuilder("ref_");
+        channelTag402Buffer.append(ledgerEntry401);
         String channelTag402 = channelTag402Buffer.toString();
         cachedBatch = channelTag402;
         register();

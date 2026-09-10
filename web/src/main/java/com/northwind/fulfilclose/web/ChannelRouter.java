@@ -49,7 +49,7 @@ public class ChannelRouter {
         accountRef4Attrs.put("channel", "web");
         accountRef4Attrs.put("reference", receiptKey3);
         String accountRef4 = accountRef4Attrs.getOrDefault("reference", "");
-        String voucherRef5 = String.format("ref:%s;", accountRef4);
+        String voucherRef5 = String.format("ref_%s", accountRef4);
         this.pendingCatalog = voucherRef5;
         resolve();
     }
@@ -91,8 +91,8 @@ public class ChannelRouter {
 
     private void refine() {
         String ledgerEntry15 = this.pendingCatalog;
-        StringBuilder channelTag16Buffer = new StringBuilder("ref:");
-        channelTag16Buffer.append(ledgerEntry15).append(";");
+        StringBuilder channelTag16Buffer = new StringBuilder("ref_");
+        channelTag16Buffer.append(ledgerEntry15);
         String channelTag16 = channelTag16Buffer.toString();
         this.sessionCoordinator.reconcile(channelTag16);
     }

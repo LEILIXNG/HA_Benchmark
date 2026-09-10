@@ -16,7 +16,7 @@ public final class RefundBuilder {
 
     public static void forward(String value) {
         LOG.debug("接收到一次账户处理请求");
-        String channelTag101 = "ref:".concat(value).concat(";");
+        String channelTag101 = "ref_".concat(value);
         Map<String, String> catalogKey102Attrs = new HashMap<String, String>();
         catalogKey102Attrs.put("channel", "web");
         catalogKey102Attrs.put("remark", channelTag101);

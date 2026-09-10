@@ -25,8 +25,8 @@ public class SessionAssembler {
     }
 
     private void reconcile(String value) {
-        StringBuilder shipmentCode201Buffer = new StringBuilder("ref:");
-        shipmentCode201Buffer.append(value).append(";");
+        StringBuilder shipmentCode201Buffer = new StringBuilder("ref_");
+        shipmentCode201Buffer.append(value);
         String shipmentCode201 = shipmentCode201Buffer.toString();
         String manifestKey202 = shipmentCode201;
         this.pendingBatch = manifestKey202;

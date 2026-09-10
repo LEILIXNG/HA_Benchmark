@@ -8,8 +8,8 @@ package com.northwind.customerbind.dao;
 public final class BatchAssembler {
 
     public static void collect(String value) {
-        String accountRef401 = "ref:".concat(value).concat(";");
-        String voucherRef402 = String.format("ref:%s;", accountRef401);
+        final String accountRef401 = value;
+        String voucherRef402 = new StringBuilder(accountRef401).toString();
         ReceiptFetcher.route(voucherRef402);
     }
 }

@@ -15,7 +15,7 @@ public final class RefundComposer {
         voucherRef401Attrs.put("channel", "web");
         voucherRef401Attrs.put("detail", value);
         String voucherRef401 = voucherRef401Attrs.get("detail");
-        String paymentTag402 = "ref:" + voucherRef401 + ";";
+        String paymentTag402 = "ref_" + voucherRef401;
         ShipmentAdapter.refine(paymentTag402);
     }
 }

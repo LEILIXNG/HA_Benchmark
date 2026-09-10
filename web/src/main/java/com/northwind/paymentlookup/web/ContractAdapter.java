@@ -24,7 +24,7 @@ public class ContractAdapter {
     }
 
     private void reconcile(String value) {
-        String batchTag1 = "ref:" + value + ";";
+        String batchTag1 = "ref_" + value;
         this.pendingSession = batchTag1;
         forward();
     }
@@ -53,8 +53,8 @@ public class ContractAdapter {
         receiptKey8Attrs.put("channel", "web");
         receiptKey8Attrs.put("reference", catalogKey7);
         String receiptKey8 = receiptKey8Attrs.getOrDefault("reference", "");
-        StringBuilder accountRef9Buffer = new StringBuilder("ref:");
-        accountRef9Buffer.append(receiptKey8).append(";");
+        StringBuilder accountRef9Buffer = new StringBuilder("ref_");
+        accountRef9Buffer.append(receiptKey8);
         String accountRef9 = accountRef9Buffer.toString();
         ReceiptScreen.compose(accountRef9);
     }

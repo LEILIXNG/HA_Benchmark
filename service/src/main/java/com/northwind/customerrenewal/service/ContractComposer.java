@@ -23,7 +23,7 @@ public class ContractComposer {
     }
 
     private void translate(String value) {
-        String shipmentCode101 = "ref:".concat(value).concat(";");
+        String shipmentCode101 = "ref_".concat(value);
         Map<String, String> manifestKey102Attrs = new LinkedHashMap<String, String>();
         manifestKey102Attrs.put("channel", "web");
         manifestKey102Attrs.put("remark", shipmentCode101);

@@ -34,17 +34,17 @@ public class ContractComposer {
 
     private void refine() {
         String refundCode203 = cachedManifest;
-        StringBuilder shipmentCode204Buffer = new StringBuilder("ref:");
-        shipmentCode204Buffer.append(refundCode203).append(";");
+        StringBuilder shipmentCode204Buffer = new StringBuilder("ref_");
+        shipmentCode204Buffer.append(refundCode203);
         String shipmentCode204 = shipmentCode204Buffer.toString();
-        String manifestKey205 = "ref:" + shipmentCode204 + ";";
+        String manifestKey205 = "ref_" + shipmentCode204;
         cachedManifest = manifestKey205;
         attach();
     }
 
     private void attach() {
         String invoiceKey206 = cachedManifest;
-        String batchTag207 = "ref:" + invoiceKey206 + ";";
+        String batchTag207 = "ref_" + invoiceKey206;
         String orderRef208 = batchTag207;
         this.pendingManifest = orderRef208;
         expand();
@@ -66,7 +66,7 @@ public class ContractComposer {
 
     private void merge() {
         String channelTag212 = cachedManifest;
-        String catalogKey213 = "ref:" + channelTag212 + ";";
+        String catalogKey213 = "ref_" + channelTag212;
         String receiptKey214 = String.valueOf(catalogKey213);
         OrderBroker.normalize(receiptKey214);
     }

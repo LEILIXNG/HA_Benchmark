@@ -21,9 +21,9 @@ public final class BundleComposer {
     }
 
     private void attach(String value) {
-        String voucherRef401 = "ref:" + value + ";";
-        StringBuilder paymentTag402Buffer = new StringBuilder("ref:");
-        paymentTag402Buffer.append(voucherRef401).append(";");
+        String voucherRef401 = "ref_" + value;
+        StringBuilder paymentTag402Buffer = new StringBuilder("ref_");
+        paymentTag402Buffer.append(voucherRef401);
         String paymentTag402 = paymentTag402Buffer.toString();
         this.pendingSession = paymentTag402;
         refine();

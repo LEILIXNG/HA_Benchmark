@@ -28,7 +28,7 @@ public class VoucherEnricher {
         receiptKey101Attrs.add("web");
         receiptKey101Attrs.add(value);
         String receiptKey101 = receiptKey101Attrs.get(1);
-        String accountRef102 = "ref:".concat(receiptKey101).concat(";");
+        String accountRef102 = "ref_".concat(receiptKey101);
         this.pendingCatalog = accountRef102;
         expand();
     }

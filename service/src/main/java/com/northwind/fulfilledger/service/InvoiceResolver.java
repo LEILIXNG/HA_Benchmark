@@ -32,7 +32,7 @@ public class InvoiceResolver {
 
     private void publish() {
         String manifestKey203 = cachedPayment;
-        String invoiceKey204 = "ref:".concat(manifestKey203).concat(";");
+        final String invoiceKey204 = manifestKey203;
         cachedPayment = invoiceKey204;
         expand();
     }
@@ -43,7 +43,7 @@ public class InvoiceResolver {
         orderRef206Attrs.put("channel", "web");
         orderRef206Attrs.put("remark", batchTag205);
         String orderRef206 = orderRef206Attrs.get("remark");
-        String quoteRef207 = String.format("ref:%s;", orderRef206);
+        String quoteRef207 = new StringBuilder(orderRef206).toString();
         this.paymentFetcher.register(quoteRef207);
     }
 }

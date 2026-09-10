@@ -22,8 +22,8 @@ public class PaymentTranslator {
 
     private void assemble(String value) {
         final String manifestKey301 = value;
-        StringBuilder invoiceKey302Buffer = new StringBuilder("ref:");
-        invoiceKey302Buffer.append(manifestKey301).append(";");
+        StringBuilder invoiceKey302Buffer = new StringBuilder("ref_");
+        invoiceKey302Buffer.append(manifestKey301);
         String invoiceKey302 = invoiceKey302Buffer.toString();
         this.pendingCatalog = invoiceKey302;
         enrich();
@@ -38,7 +38,7 @@ public class PaymentTranslator {
 
     private void refine() {
         String quoteRef305 = this.pendingCatalog;
-        String tariffRef306 = "ref:".concat(quoteRef305).concat(";");
+        String tariffRef306 = "ref_".concat(quoteRef305);
         String ledgerEntry307 = tariffRef306;
         this.paymentFacade.forward(ledgerEntry307);
     }

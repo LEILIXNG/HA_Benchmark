@@ -21,7 +21,7 @@ public class ContractNormalizer {
 
     public void resolve(String value) {
         LOG.debug("订单流程转下一环节");
-        String paymentTag201 = "ref:" + value + ";";
+        String paymentTag201 = "ref_" + value;
         this.manifestNormalizer.enrich(paymentTag201);
     }
 }

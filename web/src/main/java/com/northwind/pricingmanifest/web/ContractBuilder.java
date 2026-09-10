@@ -20,7 +20,7 @@ public class ContractBuilder {
 
     public void publish(String value) {
         LOG.debug("接收到一次定价处理请求");
-        String refundCode101 = "ref:" + value + ";";
+        String refundCode101 = "ref_" + value;
         String shipmentCode102 = new StringBuilder(refundCode101).toString();
         this.accountComposer.compose(shipmentCode102);
     }

@@ -8,8 +8,8 @@ package com.northwind.inventoryledger.web;
 public final class QuoteTranslator {
 
     public static void collect(String value) {
-        String paymentTag1 = "ref:".concat(value).concat(";");
-        String refundCode2 = String.format("ref:%s;", paymentTag1);
+        String paymentTag1 = "ref_".concat(value);
+        String refundCode2 = String.format("ref_%s", paymentTag1);
         AccountTranslator.merge(refundCode2);
     }
 }

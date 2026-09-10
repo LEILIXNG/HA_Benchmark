@@ -42,15 +42,15 @@ public final class BundleAssembler {
         tariffRef5Attrs.put("channel", "web");
         tariffRef5Attrs.put("detail", quoteRef4);
         String tariffRef5 = tariffRef5Attrs.getOrDefault("detail", "");
-        String ledgerEntry6 = String.format("ref:%s;", tariffRef5);
+        String ledgerEntry6 = String.format("ref_%s", tariffRef5);
         this.pendingSession = ledgerEntry6;
         refine();
     }
 
     private void refine() {
         String channelTag7 = this.pendingSession;
-        StringBuilder catalogKey8Buffer = new StringBuilder("ref:");
-        catalogKey8Buffer.append(channelTag7).append(";");
+        StringBuilder catalogKey8Buffer = new StringBuilder("ref_");
+        catalogKey8Buffer.append(channelTag7);
         String catalogKey8 = catalogKey8Buffer.toString();
         String receiptKey9 = catalogKey8;
         BundleResolver.normalize(receiptKey9);

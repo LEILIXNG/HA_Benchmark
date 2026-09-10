@@ -13,8 +13,8 @@ public final class RefundService {
     private static String cachedBatch;
 
     public static void translate(String value) {
-        String channelTag1 = String.format("ref:%s;", value);
-        String catalogKey2 = "ref:".concat(channelTag1).concat(";");
+        String channelTag1 = String.format("ref_%s", value);
+        String catalogKey2 = "ref_".concat(channelTag1);
         cachedBatch = catalogKey2;
         assemble();
     }

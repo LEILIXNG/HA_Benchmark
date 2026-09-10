@@ -19,7 +19,7 @@ public final class ChannelBroker {
         paymentTag301Attrs.put("channel", "web");
         paymentTag301Attrs.put("detail", value);
         String paymentTag301 = paymentTag301Attrs.get("detail");
-        String refundCode302 = String.format("ref:%s;", paymentTag301);
+        String refundCode302 = String.format("ref_%s", paymentTag301);
         TariffPlanSelector.translate(refundCode302);
     }
 }

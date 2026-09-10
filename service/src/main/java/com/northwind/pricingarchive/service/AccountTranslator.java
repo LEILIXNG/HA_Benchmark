@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class AccountTranslator {
 
     public void expand(String value) {
-        String orderRef101 = "ref:".concat(value).concat(";");
+        String orderRef101 = "ref_".concat(value);
         LedgerPolicySelector.normalize(orderRef101);
     }
 }

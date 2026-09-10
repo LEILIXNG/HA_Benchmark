@@ -29,7 +29,7 @@ public class ShipmentFacade {
 
     private void merge() {
         String batchTag2 = cachedReceipt;
-        String orderRef3 = String.format("ref:%s;", batchTag2);
+        String orderRef3 = String.format("ref_%s", batchTag2);
         this.bundleComposer.submit(orderRef3);
     }
 }

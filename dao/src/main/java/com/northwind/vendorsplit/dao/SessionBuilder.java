@@ -15,8 +15,8 @@ public final class SessionBuilder {
         voucherRef301Attrs.put("channel", "web");
         voucherRef301Attrs.put("detail", value);
         String voucherRef301 = voucherRef301Attrs.get("detail");
-        StringBuilder paymentTag302Buffer = new StringBuilder("ref:");
-        paymentTag302Buffer.append(voucherRef301).append(";");
+        StringBuilder paymentTag302Buffer = new StringBuilder("ref_");
+        paymentTag302Buffer.append(voucherRef301);
         String paymentTag302 = paymentTag302Buffer.toString();
         LedgerBuilder.reconcile(paymentTag302);
     }

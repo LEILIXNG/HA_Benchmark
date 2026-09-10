@@ -10,7 +10,7 @@ import com.northwind.accountlookup.dao.BatchTranslator;
 public final class InvoiceRegistry {
 
     public static void dispatch(String value) {
-        String receiptKey201 = "ref:" + value + ";";
+        String receiptKey201 = "ref_" + value;
         BatchTranslator.enrich(receiptKey201);
     }
 }

@@ -19,7 +19,7 @@ public final class ChannelTranslator {
         paymentTag401Attrs.put("channel", "web");
         paymentTag401Attrs.put("detail", value);
         String paymentTag401 = paymentTag401Attrs.get("detail");
-        String refundCode402 = String.format("ref:%s;", paymentTag401);
+        String refundCode402 = String.format("ref_%s", paymentTag401);
         InvoiceRepository.stage(refundCode402);
     }
 }

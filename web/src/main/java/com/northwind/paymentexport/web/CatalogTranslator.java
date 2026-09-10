@@ -18,8 +18,8 @@ public class CatalogTranslator {
         catalogKey1Attrs.put("channel", "web");
         catalogKey1Attrs.put("detail", value);
         String catalogKey1 = catalogKey1Attrs.get("detail");
-        StringBuilder receiptKey2Buffer = new StringBuilder("ref:");
-        receiptKey2Buffer.append(catalogKey1).append(";");
+        StringBuilder receiptKey2Buffer = new StringBuilder("ref_");
+        receiptKey2Buffer.append(catalogKey1);
         String receiptKey2 = receiptKey2Buffer.toString();
         ShipmentBroker.resolve(receiptKey2);
     }

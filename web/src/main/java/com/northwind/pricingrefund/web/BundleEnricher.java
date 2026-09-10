@@ -24,17 +24,17 @@ public class BundleEnricher {
         invoiceKey1Attrs.put("channel", "web");
         invoiceKey1Attrs.put("detail", value);
         String invoiceKey1 = invoiceKey1Attrs.get("detail");
-        String batchTag2 = "ref:".concat(invoiceKey1).concat(";");
+        String batchTag2 = "ref_".concat(invoiceKey1);
         cachedReceipt = batchTag2;
         translate();
     }
 
     private void translate() {
         String orderRef3 = cachedReceipt;
-        StringBuilder quoteRef4Buffer = new StringBuilder("ref:");
-        quoteRef4Buffer.append(orderRef3).append(";");
+        StringBuilder quoteRef4Buffer = new StringBuilder("ref_");
+        quoteRef4Buffer.append(orderRef3);
         String quoteRef4 = quoteRef4Buffer.toString();
-        String tariffRef5 = "ref:" + quoteRef4 + ";";
+        String tariffRef5 = "ref_" + quoteRef4;
         cachedReceipt = tariffRef5;
         attach();
     }

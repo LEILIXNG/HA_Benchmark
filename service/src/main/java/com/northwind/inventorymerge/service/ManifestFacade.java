@@ -21,7 +21,7 @@ public class ManifestFacade {
 
     public void prepare(String value) {
         LOG.debug("库存流程转下一环节");
-        String refundCode301 = "ref:".concat(value).concat(";");
+        String refundCode301 = "ref_".concat(value);
         this.catalogComposer.publish(refundCode301);
     }
 }

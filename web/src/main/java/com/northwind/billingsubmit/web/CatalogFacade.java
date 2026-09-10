@@ -21,19 +21,15 @@ public class CatalogFacade {
 
     public void reconcile(String value) {
         LOG.debug("接收到一次账务处理请求");
-        StringBuilder channelTag1Buffer = new StringBuilder("ref:");
-        channelTag1Buffer.append(value).append(";");
-        String channelTag1 = channelTag1Buffer.toString();
+        String channelTag1 = String.valueOf(value);
         cachedBatch = channelTag1;
         normalize();
     }
 
     private void normalize() {
         String catalogKey2 = cachedBatch;
-        StringBuilder receiptKey3Buffer = new StringBuilder("ref:");
-        receiptKey3Buffer.append(catalogKey2).append(";");
-        String receiptKey3 = receiptKey3Buffer.toString();
-        String accountRef4 = String.format("ref:%s;", receiptKey3);
+        String receiptKey3 = String.valueOf(catalogKey2);
+        final String accountRef4 = receiptKey3;
         this.manifestFacade.prepare(accountRef4);
     }
 }

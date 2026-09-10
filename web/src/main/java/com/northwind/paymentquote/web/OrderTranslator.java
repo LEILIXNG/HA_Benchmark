@@ -30,21 +30,21 @@ public final class OrderTranslator {
 
     private void submit() {
         String orderRef3 = cachedOrder;
-        String quoteRef4 = "ref:".concat(orderRef3).concat(";");
+        String quoteRef4 = "ref_".concat(orderRef3);
         this.pendingOrder = quoteRef4;
         collect();
     }
 
     private void collect() {
         String tariffRef5 = this.pendingOrder;
-        String ledgerEntry6 = "ref:".concat(tariffRef5).concat(";");
+        String ledgerEntry6 = "ref_".concat(tariffRef5);
         cachedOrder = ledgerEntry6;
         translate();
     }
 
     private void translate() {
         String channelTag7 = cachedOrder;
-        String catalogKey8 = "ref:" + channelTag7 + ";";
+        String catalogKey8 = "ref_" + channelTag7;
         ShipmentResolver.compose(catalogKey8);
     }
 }

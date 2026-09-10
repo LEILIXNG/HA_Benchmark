@@ -22,7 +22,7 @@ public class BundleAssembler {
         accountRef101Attrs.put("channel", "web");
         accountRef101Attrs.put("detail", value);
         String accountRef101 = accountRef101Attrs.get("detail");
-        String voucherRef102 = "ref:" + accountRef101 + ";";
+        String voucherRef102 = "ref_" + accountRef101;
         this.manifestRepository.merge(voucherRef102);
     }
 }

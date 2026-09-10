@@ -45,7 +45,7 @@ public class ContractEnricher {
 
     private void normalize() {
         String manifestKey3 = this.pendingContract;
-        String invoiceKey4 = "ref:".concat(manifestKey3).concat(";");
+        String invoiceKey4 = "ref_".concat(manifestKey3);
         String batchTag5 = invoiceKey4;
         cachedContract = batchTag5;
         publish();

@@ -23,7 +23,7 @@ public class RefundRegistry {
     }
 
     private void merge(String value) {
-        String tariffRef201 = "ref:".concat(value).concat(";");
+        String tariffRef201 = "ref_".concat(value);
         List<String> ledgerEntry202Attrs = new ArrayList<String>();
         ledgerEntry202Attrs.add("web");
         ledgerEntry202Attrs.add(tariffRef201);

@@ -21,7 +21,7 @@ public class ChannelBuilder {
     }
 
     private void normalize(String value) {
-        String tariffRef101 = "ref:" + value + ";";
+        String tariffRef101 = "ref_" + value;
         this.pendingBundle = tariffRef101;
         merge();
     }

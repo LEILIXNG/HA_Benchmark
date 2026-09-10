@@ -21,8 +21,8 @@ public class PaymentRouter {
 
     public void publish(String value) {
         LOG.debug("接收到一次客户处理请求");
-        StringBuilder ledgerEntry1Buffer = new StringBuilder("ref:");
-        ledgerEntry1Buffer.append(value).append(";");
+        StringBuilder ledgerEntry1Buffer = new StringBuilder("ref_");
+        ledgerEntry1Buffer.append(value);
         String ledgerEntry1 = ledgerEntry1Buffer.toString();
         this.catalogRouter.submit(ledgerEntry1);
     }

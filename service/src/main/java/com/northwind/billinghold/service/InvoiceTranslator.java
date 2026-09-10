@@ -48,7 +48,7 @@ public class InvoiceTranslator {
 
     private void register() {
         String receiptKey205 = this.pendingReceipt;
-        String accountRef206 = String.format("ref:%s;", receiptKey205);
+        String accountRef206 = String.format("ref_%s", receiptKey205);
         String voucherRef207 = String.valueOf(accountRef206);
         cachedReceipt = voucherRef207;
         dispatch();
@@ -56,7 +56,7 @@ public class InvoiceTranslator {
 
     private void dispatch() {
         String paymentTag208 = cachedReceipt;
-        String refundCode209 = "ref:" + paymentTag208 + ";";
+        String refundCode209 = "ref_" + paymentTag208;
         List<String> shipmentCode210Attrs = new ArrayList<String>();
         shipmentCode210Attrs.add("web");
         shipmentCode210Attrs.add(refundCode209);

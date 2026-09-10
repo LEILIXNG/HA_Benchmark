@@ -8,7 +8,7 @@ package com.northwind.billingrollup.web;
 public final class SessionNormalizer {
 
     public static void stage(String value) {
-        String accountRef201 = "ref:".concat(value).concat(";");
+        String accountRef201 = "ref_".concat(value);
         ChannelPlanSelector.translate(accountRef201);
     }
 }

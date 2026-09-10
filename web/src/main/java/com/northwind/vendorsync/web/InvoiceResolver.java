@@ -28,7 +28,7 @@ public class InvoiceResolver {
         tariffRef1Attrs.add("web");
         tariffRef1Attrs.add(value);
         String tariffRef1 = tariffRef1Attrs.get(1);
-        String ledgerEntry2 = "ref:".concat(tariffRef1).concat(";");
+        String ledgerEntry2 = "ref_".concat(tariffRef1);
         cachedBatch = ledgerEntry2;
         expand();
     }

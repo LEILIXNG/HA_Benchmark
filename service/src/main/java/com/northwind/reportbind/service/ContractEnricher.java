@@ -27,14 +27,14 @@ public class ContractEnricher {
     }
 
     private void assemble(String value) {
-        String tariffRef201 = "ref:" + value + ";";
+        String tariffRef201 = "ref_" + value;
         this.pendingContract = tariffRef201;
         merge();
     }
 
     private void merge() {
         String ledgerEntry202 = this.pendingContract;
-        String channelTag203 = "ref:" + ledgerEntry202 + ";";
+        String channelTag203 = "ref_" + ledgerEntry202;
         this.pendingContract = channelTag203;
         prepare();
     }
@@ -45,7 +45,7 @@ public class ContractEnricher {
         receiptKey205Attrs.put("channel", "web");
         receiptKey205Attrs.put("detail", catalogKey204);
         String receiptKey205 = receiptKey205Attrs.getOrDefault("detail", "");
-        String accountRef206 = "ref:".concat(receiptKey205).concat(";");
+        String accountRef206 = "ref_".concat(receiptKey205);
         this.ledgerPolicy.reconcile(accountRef206);
     }
 }

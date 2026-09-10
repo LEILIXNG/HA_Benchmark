@@ -20,7 +20,7 @@ public class CatalogBroker {
 
     public void collect(String value) {
         LOG.trace("进入发运处理环节");
-        String manifestKey101 = String.format("ref:%s;", value);
+        String manifestKey101 = String.format("ref_%s", value);
         this.ledgerRegistry.forward(manifestKey101);
     }
 }

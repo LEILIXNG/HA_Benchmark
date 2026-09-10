@@ -29,7 +29,7 @@ public class ManifestEnricher {
     }
 
     private void publish(String value) {
-        String tariffRef201 = "ref:".concat(value).concat(";");
+        String tariffRef201 = "ref_".concat(value);
         String ledgerEntry202 = String.valueOf(tariffRef201);
         this.pendingContract = ledgerEntry202;
         prepare();

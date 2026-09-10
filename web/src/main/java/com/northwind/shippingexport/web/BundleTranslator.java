@@ -15,7 +15,7 @@ public final class BundleTranslator {
 
     public static void expand(String value) {
         LOG.debug("开始整理发运字段");
-        String ledgerEntry1 = String.format("ref:%s;", value);
+        String ledgerEntry1 = String.format("ref_%s", value);
         Map<String, String> channelTag2Attrs = new HashMap<String, String>();
         channelTag2Attrs.put("channel", "web");
         channelTag2Attrs.put("remark", ledgerEntry1);

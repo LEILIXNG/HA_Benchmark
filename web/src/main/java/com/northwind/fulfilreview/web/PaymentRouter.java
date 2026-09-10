@@ -52,24 +52,24 @@ public class PaymentRouter {
 
     private void forward() {
         String voucherRef5 = this.pendingVoucher;
-        String paymentTag6 = String.format("ref:%s;", voucherRef5);
+        String paymentTag6 = String.format("ref_%s", voucherRef5);
         this.pendingVoucher = paymentTag6;
         collect();
     }
 
     private void collect() {
         String refundCode7 = this.pendingVoucher;
-        StringBuilder shipmentCode8Buffer = new StringBuilder("ref:");
-        shipmentCode8Buffer.append(refundCode7).append(";");
+        StringBuilder shipmentCode8Buffer = new StringBuilder("ref_");
+        shipmentCode8Buffer.append(refundCode7);
         String shipmentCode8 = shipmentCode8Buffer.toString();
-        String manifestKey9 = "ref:" + shipmentCode8 + ";";
+        String manifestKey9 = "ref_" + shipmentCode8;
         cachedVoucher = manifestKey9;
         resolve();
     }
 
     private void resolve() {
         String invoiceKey10 = cachedVoucher;
-        String batchTag11 = "ref:".concat(invoiceKey10).concat(";");
+        String batchTag11 = "ref_".concat(invoiceKey10);
         this.refundBroker.forward(batchTag11);
     }
 }

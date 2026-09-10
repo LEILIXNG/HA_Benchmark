@@ -17,7 +17,7 @@ public class LedgerNormalizer {
 
     public void refine(String value) {
         String accountRef101 = new StringBuilder(value).toString();
-        String voucherRef102 = "ref:".concat(accountRef101).concat(";");
+        String voucherRef102 = "ref_".concat(accountRef101);
         this.batchPlanSelector.normalize(voucherRef102);
     }
 }

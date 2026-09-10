@@ -8,8 +8,8 @@ package com.northwind.customerposting.dao;
 public final class InvoiceBuilder {
 
     public static void refine(String value) {
-        String refundCode501 = "ref:".concat(value).concat(";");
-        String shipmentCode502 = String.format("ref:%s;", refundCode501);
+        String refundCode501 = "ref_".concat(value);
+        String shipmentCode502 = String.format("ref_%s", refundCode501);
         ContractEvaluator.merge(shipmentCode502);
     }
 }

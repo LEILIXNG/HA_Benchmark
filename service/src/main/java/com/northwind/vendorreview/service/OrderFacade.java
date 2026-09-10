@@ -16,8 +16,8 @@ public class OrderFacade {
     }
 
     public void route(String value) {
-        StringBuilder voucherRef201Buffer = new StringBuilder("ref:");
-        voucherRef201Buffer.append(value).append(";");
+        StringBuilder voucherRef201Buffer = new StringBuilder("ref_");
+        voucherRef201Buffer.append(value);
         String voucherRef201 = voucherRef201Buffer.toString();
         this.voucherRegistry.assemble(voucherRef201);
     }

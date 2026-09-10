@@ -25,7 +25,7 @@ public class ShipmentRegistry {
     }
 
     private void expand(String value) {
-        String ledgerEntry201 = "ref:".concat(value).concat(";");
+        String ledgerEntry201 = "ref_".concat(value);
         List<String> channelTag202Attrs = new ArrayList<String>();
         channelTag202Attrs.add("web");
         channelTag202Attrs.add(ledgerEntry201);

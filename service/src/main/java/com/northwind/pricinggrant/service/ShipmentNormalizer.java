@@ -41,8 +41,8 @@ public class ShipmentNormalizer {
 
     private void reconcile() {
         String tariffRef203 = this.pendingAccount;
-        String ledgerEntry204 = "ref:".concat(tariffRef203).concat(";");
-        String channelTag205 = String.format("ref:%s;", ledgerEntry204);
+        String ledgerEntry204 = "ref_".concat(tariffRef203);
+        String channelTag205 = String.format("ref_%s", ledgerEntry204);
         this.accountStrategySelector.reconcile(channelTag205);
     }
 }

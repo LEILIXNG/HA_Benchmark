@@ -28,14 +28,14 @@ public class ManifestNormalizer {
         receiptKey101Attrs.add("web");
         receiptKey101Attrs.add(value);
         String receiptKey101 = receiptKey101Attrs.get(1);
-        String accountRef102 = String.format("ref:%s;", receiptKey101);
+        String accountRef102 = String.format("ref_%s", receiptKey101);
         cachedChannel = accountRef102;
         assemble();
     }
 
     private void assemble() {
         String voucherRef103 = cachedChannel;
-        String paymentTag104 = "ref:" + voucherRef103 + ";";
+        String paymentTag104 = "ref_" + voucherRef103;
         this.accountService.register(paymentTag104);
     }
 }

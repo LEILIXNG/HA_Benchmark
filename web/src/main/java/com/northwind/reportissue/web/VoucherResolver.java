@@ -27,7 +27,7 @@ public class VoucherResolver {
         accountRef201Attrs.add("web");
         accountRef201Attrs.add(value);
         String accountRef201 = accountRef201Attrs.get(1);
-        String voucherRef202 = String.format("ref:%s;", accountRef201);
+        String voucherRef202 = accountRef201;
         this.accountService.submit(voucherRef202);
     }
 }

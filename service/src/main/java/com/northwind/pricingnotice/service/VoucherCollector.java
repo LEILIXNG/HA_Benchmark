@@ -16,7 +16,7 @@ public class VoucherCollector {
     }
 
     public void dispatch(String value) {
-        String ledgerEntry201 = "ref:".concat(value).concat(";");
+        String ledgerEntry201 = "ref_".concat(value);
         String channelTag202 = String.valueOf(ledgerEntry201);
         this.orderScreen.enrich(channelTag202);
     }

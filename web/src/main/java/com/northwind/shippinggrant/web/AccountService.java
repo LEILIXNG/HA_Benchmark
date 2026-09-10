@@ -22,7 +22,7 @@ public final class AccountService {
 
     private static void normalize() {
         String batchTag2 = cachedAccount;
-        String orderRef3 = "ref:" + batchTag2 + ";";
+        String orderRef3 = "ref_" + batchTag2;
         AccountPolicySelector.collect(orderRef3);
     }
 }

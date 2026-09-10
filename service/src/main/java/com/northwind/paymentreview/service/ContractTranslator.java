@@ -17,7 +17,7 @@ public class ContractTranslator {
     }
 
     public void expand(String value) {
-        String ledgerEntry101 = String.format("ref:%s;", value);
+        String ledgerEntry101 = String.format("ref_%s", value);
         this.quoteCoordinator.resolve(ledgerEntry101);
     }
 }

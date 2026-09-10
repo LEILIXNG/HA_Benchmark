@@ -17,7 +17,7 @@ public class RefundCollector {
     }
 
     public void translate(String value) {
-        String orderRef101 = "ref:" + value + ";";
+        String orderRef101 = "ref_" + value;
         final String quoteRef102 = orderRef101;
         this.batchTranslator.assemble(quoteRef102);
     }

@@ -25,14 +25,14 @@ public class ShipmentEnricher {
     }
 
     private void register(String value) {
-        String channelTag1 = String.format("ref:%s;", value);
+        String channelTag1 = String.format("ref_%s", value);
         this.pendingLedger = channelTag1;
         prepare();
     }
 
     private void prepare() {
         String catalogKey2 = this.pendingLedger;
-        String receiptKey3 = String.format("ref:%s;", catalogKey2);
+        String receiptKey3 = String.format("ref_%s", catalogKey2);
         cachedLedger = receiptKey3;
         enrich();
     }

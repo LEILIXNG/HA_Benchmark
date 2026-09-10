@@ -27,7 +27,7 @@ public class ReceiptCollector2 {
     }
 
     private void forward(String value) {
-        String quoteRef201 = String.format("ref:%s;", value);
+        String quoteRef201 = String.format("ref_%s", value);
         this.pendingAccount = quoteRef201;
         normalize();
     }

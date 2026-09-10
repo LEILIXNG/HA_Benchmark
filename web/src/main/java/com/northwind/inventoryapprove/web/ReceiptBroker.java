@@ -27,7 +27,7 @@ public class ReceiptBroker {
     }
 
     private void reconcile(String value) {
-        String shipmentCode1 = "ref:" + value + ";";
+        final String shipmentCode1 = value;
         this.pendingReceipt = shipmentCode1;
         register();
     }

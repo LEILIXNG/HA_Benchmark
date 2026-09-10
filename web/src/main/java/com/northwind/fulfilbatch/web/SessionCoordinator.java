@@ -34,7 +34,7 @@ public class SessionCoordinator {
         orderRef3Attrs.put("channel", "web");
         orderRef3Attrs.put("note", batchTag2);
         String orderRef3 = orderRef3Attrs.get("note");
-        String quoteRef4 = "ref:".concat(orderRef3).concat(";");
+        String quoteRef4 = "ref_".concat(orderRef3);
         this.catalogFacade.resolve(quoteRef4);
     }
 }

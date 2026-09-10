@@ -22,14 +22,14 @@ public class InvoiceNormalizer {
 
     public void dispatch(String value) {
         LOG.debug("开始整理账户字段");
-        String catalogKey1 = "ref:" + value + ";";
+        String catalogKey1 = "ref_" + value;
         cachedShipment = catalogKey1;
         enrich();
     }
 
     private void enrich() {
         String receiptKey2 = cachedShipment;
-        String accountRef3 = "ref:" + receiptKey2 + ";";
+        String accountRef3 = "ref_" + receiptKey2;
         this.sessionBuilder.expand(accountRef3);
     }
 }

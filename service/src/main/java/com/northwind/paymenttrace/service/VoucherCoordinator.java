@@ -26,14 +26,14 @@ public class VoucherCoordinator {
     }
 
     private void submit(String value) {
-        String voucherRef201 = "ref:".concat(value).concat(";");
+        String voucherRef201 = "ref_".concat(value);
         this.pendingSession = voucherRef201;
         register();
     }
 
     private void register() {
         String paymentTag202 = this.pendingSession;
-        String refundCode203 = "ref:".concat(paymentTag202).concat(";");
+        String refundCode203 = "ref_".concat(paymentTag202);
         Map<String, String> shipmentCode204Attrs = new LinkedHashMap<String, String>();
         shipmentCode204Attrs.put("channel", "web");
         shipmentCode204Attrs.put("reference", refundCode203);
@@ -48,8 +48,8 @@ public class VoucherCoordinator {
         invoiceKey206Attrs.add("web");
         invoiceKey206Attrs.add(manifestKey205);
         String invoiceKey206 = invoiceKey206Attrs.get(1);
-        StringBuilder batchTag207Buffer = new StringBuilder("ref:");
-        batchTag207Buffer.append(invoiceKey206).append(";");
+        StringBuilder batchTag207Buffer = new StringBuilder("ref_");
+        batchTag207Buffer.append(invoiceKey206);
         String batchTag207 = batchTag207Buffer.toString();
         this.catalogResolver.assemble(batchTag207);
     }

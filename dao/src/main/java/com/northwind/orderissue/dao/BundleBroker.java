@@ -12,8 +12,8 @@ public final class BundleBroker {
     private static String cachedLedger;
 
     public static void resolve(String value) {
-        StringBuilder paymentTag301Buffer = new StringBuilder("ref:");
-        paymentTag301Buffer.append(value).append(";");
+        StringBuilder paymentTag301Buffer = new StringBuilder("ref_");
+        paymentTag301Buffer.append(value);
         String paymentTag301 = paymentTag301Buffer.toString();
         List<String> refundCode302Attrs = new ArrayList<String>();
         refundCode302Attrs.add("web");
@@ -25,7 +25,7 @@ public final class BundleBroker {
 
     private static void compose() {
         String shipmentCode303 = cachedLedger;
-        String manifestKey304 = String.format("ref:%s;", shipmentCode303);
+        String manifestKey304 = String.format("ref_%s", shipmentCode303);
         ChannelRuleSelector.merge(manifestKey304);
     }
 }

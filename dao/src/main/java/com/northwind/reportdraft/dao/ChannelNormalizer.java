@@ -31,14 +31,14 @@ public class ChannelNormalizer {
     private void dispatch() {
         String orderRef203 = cachedQuote;
         String quoteRef204 = String.valueOf(orderRef203);
-        String tariffRef205 = "ref:" + quoteRef204 + ";";
+        String tariffRef205 = "ref_" + quoteRef204;
         this.pendingQuote = tariffRef205;
         attach();
     }
 
     private void attach() {
         String ledgerEntry206 = this.pendingQuote;
-        String channelTag207 = "ref:" + ledgerEntry206 + ";";
+        String channelTag207 = "ref_" + ledgerEntry206;
         final String catalogKey208 = channelTag207;
         QuoteEvaluator.dispatch(catalogKey208);
     }

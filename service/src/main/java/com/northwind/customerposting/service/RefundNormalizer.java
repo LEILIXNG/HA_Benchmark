@@ -12,8 +12,8 @@ import java.util.List;
 public final class RefundNormalizer {
 
     public static void publish(String value) {
-        StringBuilder refundCode201Buffer = new StringBuilder("ref:");
-        refundCode201Buffer.append(value).append(";");
+        StringBuilder refundCode201Buffer = new StringBuilder("ref_");
+        refundCode201Buffer.append(value);
         String refundCode201 = refundCode201Buffer.toString();
         List<String> shipmentCode202Attrs = new ArrayList<String>();
         shipmentCode202Attrs.add("web");

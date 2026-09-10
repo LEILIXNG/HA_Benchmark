@@ -23,7 +23,7 @@ public class SessionCoordinator {
         accountRef301Attrs.put("channel", "web");
         accountRef301Attrs.put("detail", value);
         String accountRef301 = accountRef301Attrs.getOrDefault("detail", "");
-        String voucherRef302 = "ref:" + accountRef301 + ";";
+        String voucherRef302 = "ref_" + accountRef301;
         this.manifestBuilder.translate(voucherRef302);
     }
 }

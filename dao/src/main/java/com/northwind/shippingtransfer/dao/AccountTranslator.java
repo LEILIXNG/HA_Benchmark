@@ -8,7 +8,7 @@ package com.northwind.shippingtransfer.dao;
 public final class AccountTranslator {
 
     public static void attach(String value) {
-        String accountRef501 = String.format("ref:%s;", value);
+        String accountRef501 = String.format("ref_%s", value);
         final String voucherRef502 = accountRef501;
         OrderGuard.refine(voucherRef502);
     }

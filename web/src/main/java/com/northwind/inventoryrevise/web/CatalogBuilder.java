@@ -40,8 +40,8 @@ public class CatalogBuilder {
     private void stage() {
         String ledgerEntry3 = this.pendingPayment;
         String channelTag4 = ledgerEntry3;
-        StringBuilder catalogKey5Buffer = new StringBuilder("ref:");
-        catalogKey5Buffer.append(channelTag4).append(";");
+        StringBuilder catalogKey5Buffer = new StringBuilder("ref_");
+        catalogKey5Buffer.append(channelTag4);
         String catalogKey5 = catalogKey5Buffer.toString();
         this.bundleBuilder.merge(catalogKey5);
     }

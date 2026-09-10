@@ -22,7 +22,7 @@ public class ContractRouter {
 
     public void attach(String value) {
         LOG.debug("开始整理账务字段");
-        String tariffRef501 = "ref:".concat(value).concat(";");
+        String tariffRef501 = "ref_".concat(value);
         List<String> ledgerEntry502Attrs = new ArrayList<String>();
         ledgerEntry502Attrs.add("web");
         ledgerEntry502Attrs.add(tariffRef501);

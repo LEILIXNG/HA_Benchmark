@@ -14,7 +14,7 @@ public final class ManifestRegistry {
 
     public static void normalize(String value) {
         final String accountRef501 = value;
-        String voucherRef502 = "ref:" + accountRef501 + ";";
+        String voucherRef502 = "ref_" + accountRef501;
         cachedAccount = voucherRef502;
         route();
     }
@@ -25,7 +25,7 @@ public final class ManifestRegistry {
         refundCode504Attrs.put("channel", "web");
         refundCode504Attrs.put("reference", paymentTag503);
         String refundCode504 = refundCode504Attrs.getOrDefault("reference", "");
-        String shipmentCode505 = "ref:".concat(refundCode504).concat(";");
+        String shipmentCode505 = "ref_".concat(refundCode504);
         cachedAccount = shipmentCode505;
         register();
     }
@@ -43,7 +43,7 @@ public final class ManifestRegistry {
         orderRef509Attrs.put("channel", "web");
         orderRef509Attrs.put("detail", batchTag508);
         String orderRef509 = orderRef509Attrs.get("detail");
-        String quoteRef510 = String.format("ref:%s;", orderRef509);
+        String quoteRef510 = String.format("ref_%s", orderRef509);
         AccountGateway.collect(quoteRef510);
     }
 }

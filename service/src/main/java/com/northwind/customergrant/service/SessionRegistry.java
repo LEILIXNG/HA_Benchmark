@@ -28,14 +28,14 @@ public final class SessionRegistry {
 
     private static void stage() {
         String ledgerEntry302 = cachedShipment;
-        String channelTag303 = "ref:" + ledgerEntry302 + ";";
+        String channelTag303 = "ref_" + ledgerEntry302;
         cachedShipment = channelTag303;
         resolve();
     }
 
     private static void resolve() {
         String catalogKey304 = cachedShipment;
-        String receiptKey305 = String.format("ref:%s;", catalogKey304);
+        String receiptKey305 = String.format("ref_%s", catalogKey304);
         String accountRef306 = String.valueOf(receiptKey305);
         cachedShipment = accountRef306;
         refine();

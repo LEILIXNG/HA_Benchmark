@@ -33,14 +33,14 @@ public class InvoiceService {
 
     private void dispatch() {
         String batchTag402 = cachedSession;
-        String orderRef403 = String.format("ref:%s;", batchTag402);
+        String orderRef403 = String.format("ref_%s", batchTag402);
         this.pendingSession = orderRef403;
         stage();
     }
 
     private void stage() {
         String quoteRef404 = this.pendingSession;
-        String tariffRef405 = "ref:" + quoteRef404 + ";";
+        String tariffRef405 = "ref_" + quoteRef404;
         this.sessionEvaluator.publish(tariffRef405);
     }
 }

@@ -14,7 +14,7 @@ public final class VoucherEnricher {
     public static void normalize(String value) {
         LOG.debug("支付流程转下一环节");
         String batchTag401 = new StringBuilder(value).toString();
-        String orderRef402 = String.format("ref:%s;", batchTag401);
+        String orderRef402 = String.format("ref_%s", batchTag401);
         ShipmentBuilder.assemble(orderRef402);
     }
 }

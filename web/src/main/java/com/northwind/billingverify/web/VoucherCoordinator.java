@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class VoucherCoordinator {
 
     public void prepare(String value) {
-        String voucherRef1 = String.format("ref:%s;", value);
+        String voucherRef1 = String.format("ref_%s", value);
         BundleBuilder.translate(voucherRef1);
     }
 }

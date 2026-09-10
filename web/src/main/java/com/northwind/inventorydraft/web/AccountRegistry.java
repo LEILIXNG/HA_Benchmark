@@ -17,7 +17,7 @@ public class AccountRegistry {
 
     public void submit(String value) {
         String shipmentCode1 = new StringBuilder(value).toString();
-        String manifestKey2 = "ref:".concat(shipmentCode1).concat(";");
+        String manifestKey2 = "ref_".concat(shipmentCode1);
         this.channelPolicySelector.route(manifestKey2);
     }
 }

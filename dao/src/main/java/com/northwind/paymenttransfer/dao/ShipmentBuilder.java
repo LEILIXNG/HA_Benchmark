@@ -13,7 +13,7 @@ public final class ShipmentBuilder {
 
     public static void assemble(String value) {
         LOG.debug("支付流程转下一环节");
-        String paymentTag501 = "ref:" + value + ";";
+        String paymentTag501 = "ref_" + value;
         String refundCode502 = String.valueOf(paymentTag501);
         InvoiceEvaluator.forward(refundCode502);
     }

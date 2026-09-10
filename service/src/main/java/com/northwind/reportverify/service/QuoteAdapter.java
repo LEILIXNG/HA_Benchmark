@@ -23,14 +23,14 @@ public final class QuoteAdapter {
 
     private static void assemble() {
         String manifestKey302 = cachedAccount;
-        String invoiceKey303 = String.format("ref:%s;", manifestKey302);
+        String invoiceKey303 = String.format("ref_%s", manifestKey302);
         cachedAccount = invoiceKey303;
         resolve();
     }
 
     private static void resolve() {
         String batchTag304 = cachedAccount;
-        String orderRef305 = "ref:" + batchTag304 + ";";
+        String orderRef305 = "ref_" + batchTag304;
         String quoteRef306 = orderRef305;
         cachedAccount = quoteRef306;
         register();

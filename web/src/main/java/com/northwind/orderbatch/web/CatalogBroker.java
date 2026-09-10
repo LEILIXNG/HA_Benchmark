@@ -19,7 +19,7 @@ public final class CatalogBroker {
     private static void translate() {
         String catalogKey102 = cachedOrder;
         String receiptKey103 = String.valueOf(catalogKey102);
-        String accountRef104 = String.format("ref:%s;", receiptKey103);
+        String accountRef104 = String.format("ref_%s", receiptKey103);
         ContractEnricher.merge(accountRef104);
     }
 }

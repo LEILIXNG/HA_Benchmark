@@ -23,7 +23,7 @@ public class QuoteCollector {
         catalogKey201Attrs.add("web");
         catalogKey201Attrs.add(value);
         String catalogKey201 = catalogKey201Attrs.get(1);
-        String receiptKey202 = String.format("ref:%s;", catalogKey201);
+        final String receiptKey202 = catalogKey201;
         this.channelEnricher.normalize(receiptKey202);
     }
 }

@@ -16,7 +16,7 @@ public final class QuoteRegistry {
 
     public static void refine(String value) {
         LOG.debug("接收到一次支付处理请求");
-        String batchTag301 = String.format("ref:%s;", value);
+        String batchTag301 = String.format("ref_%s", value);
         String orderRef302 = batchTag301;
         cachedSession = orderRef302;
         stage();

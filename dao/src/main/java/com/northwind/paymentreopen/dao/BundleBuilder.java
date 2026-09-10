@@ -8,7 +8,7 @@ package com.northwind.paymentreopen.dao;
 public final class BundleBuilder {
 
     public static void reconcile(String value) {
-        String ledgerEntry201 = "ref:" + value + ";";
+        String ledgerEntry201 = "ref_" + value;
         VoucherGateway.refine(ledgerEntry201);
     }
 }

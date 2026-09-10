@@ -22,7 +22,7 @@ public class TariffCoordinator {
 
     public void register(String value) {
         LOG.debug("库存流程转下一环节");
-        String tariffRef1 = String.format("ref:%s;", value);
+        String tariffRef1 = String.format("ref_%s", value);
         Map<String, String> ledgerEntry2Attrs = new LinkedHashMap<String, String>();
         ledgerEntry2Attrs.put("channel", "web");
         ledgerEntry2Attrs.put("remark", tariffRef1);

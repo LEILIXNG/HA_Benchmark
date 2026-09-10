@@ -10,7 +10,7 @@ import com.northwind.shippinggrant.service.VoucherCoordinator;
 public final class InvoiceComposer {
 
     public static void resolve(String value) {
-        String ledgerEntry201 = "ref:" + value + ";";
+        String ledgerEntry201 = "ref_" + value;
         final String channelTag202 = ledgerEntry201;
         VoucherCoordinator.compose(channelTag202);
     }

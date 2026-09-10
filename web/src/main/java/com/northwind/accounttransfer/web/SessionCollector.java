@@ -38,9 +38,9 @@ public class SessionCollector {
 
     private void stage() {
         String batchTag105 = this.pendingChannel;
-        String orderRef106 = "ref:" + batchTag105 + ";";
-        StringBuilder quoteRef107Buffer = new StringBuilder("ref:");
-        quoteRef107Buffer.append(orderRef106).append(";");
+        String orderRef106 = "ref_" + batchTag105;
+        StringBuilder quoteRef107Buffer = new StringBuilder("ref_");
+        quoteRef107Buffer.append(orderRef106);
         String quoteRef107 = quoteRef107Buffer.toString();
         this.refundComposer.assemble(quoteRef107);
     }

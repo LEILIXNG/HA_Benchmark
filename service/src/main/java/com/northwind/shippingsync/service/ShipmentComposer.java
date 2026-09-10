@@ -26,8 +26,8 @@ public final class ShipmentComposer {
 
     private void compose() {
         String channelTag102 = this.pendingTariff;
-        String catalogKey103 = "ref:" + channelTag102 + ";";
-        String receiptKey104 = "ref:".concat(catalogKey103).concat(";");
+        String catalogKey103 = "ref_" + channelTag102;
+        String receiptKey104 = "ref_".concat(catalogKey103);
         TariffEvaluator.stage(receiptKey104);
     }
 }

@@ -8,7 +8,7 @@ package com.northwind.fulfilposting.service;
 public final class BundleRegistry {
 
     public static void dispatch(String value) {
-        String accountRef301 = "ref:" + value + ";";
+        String accountRef301 = "ref_" + value;
         BatchResolver.expand(accountRef301);
     }
 }

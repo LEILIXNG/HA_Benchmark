@@ -14,7 +14,7 @@ public final class RefundService {
     public static void resolve(String value) {
         LOG.debug("库存流程转下一环节");
         final String receiptKey101 = value;
-        String accountRef102 = "ref:" + receiptKey101 + ";";
+        String accountRef102 = "ref_" + receiptKey101;
         RefundEnricher.stage(accountRef102);
     }
 }

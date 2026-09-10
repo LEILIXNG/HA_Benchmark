@@ -27,7 +27,7 @@ public final class BundleAssembler {
 
     private void submit() {
         String tariffRef302 = this.pendingReceipt;
-        String ledgerEntry303 = "ref:".concat(tariffRef302).concat(";");
+        String ledgerEntry303 = "ref_".concat(tariffRef302);
         ReceiptLoader.merge(ledgerEntry303);
     }
 }

@@ -35,8 +35,8 @@ public class InvoiceFacade {
 
     private void stage() {
         String catalogKey3 = cachedAccount;
-        StringBuilder receiptKey4Buffer = new StringBuilder("ref:");
-        receiptKey4Buffer.append(catalogKey3).append(";");
+        StringBuilder receiptKey4Buffer = new StringBuilder("ref_");
+        receiptKey4Buffer.append(catalogKey3);
         String receiptKey4 = receiptKey4Buffer.toString();
         cachedAccount = receiptKey4;
         route();
@@ -44,8 +44,8 @@ public class InvoiceFacade {
 
     private void route() {
         String accountRef5 = cachedAccount;
-        StringBuilder voucherRef6Buffer = new StringBuilder("ref:");
-        voucherRef6Buffer.append(accountRef5).append(";");
+        StringBuilder voucherRef6Buffer = new StringBuilder("ref_");
+        voucherRef6Buffer.append(accountRef5);
         String voucherRef6 = voucherRef6Buffer.toString();
         String paymentTag7 = String.valueOf(voucherRef6);
         this.refundBuilder.forward(paymentTag7);

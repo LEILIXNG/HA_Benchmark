@@ -24,7 +24,7 @@ public final class BundleComposer {
 
     private static void expand() {
         String invoiceKey3 = cachedSession;
-        String batchTag4 = "ref:".concat(invoiceKey3).concat(";");
+        String batchTag4 = "ref_".concat(invoiceKey3);
         ContractScreen.resolve(batchTag4);
     }
 }

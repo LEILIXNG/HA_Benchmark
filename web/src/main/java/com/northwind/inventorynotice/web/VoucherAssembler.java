@@ -13,8 +13,8 @@ public final class VoucherAssembler {
 
     public static void prepare(String value) {
         LOG.debug("开始整理库存字段");
-        StringBuilder invoiceKey201Buffer = new StringBuilder("ref:");
-        invoiceKey201Buffer.append(value).append(";");
+        StringBuilder invoiceKey201Buffer = new StringBuilder("ref_");
+        invoiceKey201Buffer.append(value);
         String invoiceKey201 = invoiceKey201Buffer.toString();
         VoucherCollector.prepare(invoiceKey201);
     }

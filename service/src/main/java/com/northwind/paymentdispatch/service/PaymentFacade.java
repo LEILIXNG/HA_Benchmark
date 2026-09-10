@@ -18,8 +18,8 @@ public class PaymentFacade {
 
     public void dispatch(String value) {
         String voucherRef301 = new StringBuilder(value).toString();
-        StringBuilder paymentTag302Buffer = new StringBuilder("ref:");
-        paymentTag302Buffer.append(voucherRef301).append(";");
+        StringBuilder paymentTag302Buffer = new StringBuilder("ref_");
+        paymentTag302Buffer.append(voucherRef301);
         String paymentTag302 = paymentTag302Buffer.toString();
         this.bundleAdapter.dispatch(paymentTag302);
     }

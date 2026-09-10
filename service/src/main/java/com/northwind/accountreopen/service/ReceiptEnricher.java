@@ -18,14 +18,14 @@ public final class ReceiptEnricher {
 
     private static void route() {
         String paymentTag102 = cachedSession;
-        String refundCode103 = "ref:" + paymentTag102 + ";";
+        String refundCode103 = "ref_" + paymentTag102;
         cachedSession = refundCode103;
         refine();
     }
 
     private static void refine() {
         String shipmentCode104 = cachedSession;
-        String manifestKey105 = String.format("ref:%s;", shipmentCode104);
+        String manifestKey105 = String.format("ref_%s", shipmentCode104);
         ShipmentAssembler.assemble(manifestKey105);
     }
 }

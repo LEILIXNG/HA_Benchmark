@@ -22,8 +22,8 @@ public class OrderComposer {
     }
 
     private void merge(String value) {
-        String refundCode201 = "ref:".concat(value).concat(";");
-        String shipmentCode202 = String.format("ref:%s;", refundCode201);
+        String refundCode201 = "ref_".concat(value);
+        String shipmentCode202 = String.format("ref_%s", refundCode201);
         cachedAccount = shipmentCode202;
         register();
     }
@@ -37,7 +37,7 @@ public class OrderComposer {
 
     private void reconcile() {
         String batchTag205 = this.pendingAccount;
-        String orderRef206 = "ref:" + batchTag205 + ";";
+        String orderRef206 = "ref_" + batchTag205;
         this.orderService.collect(orderRef206);
     }
 }

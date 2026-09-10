@@ -19,8 +19,8 @@ public class ManifestResolver {
     }
 
     public void stage(String value) {
-        StringBuilder invoiceKey101Buffer = new StringBuilder("ref:");
-        invoiceKey101Buffer.append(value).append(";");
+        StringBuilder invoiceKey101Buffer = new StringBuilder("ref_");
+        invoiceKey101Buffer.append(value);
         String invoiceKey101 = invoiceKey101Buffer.toString();
         Map<String, String> batchTag102Attrs = new LinkedHashMap<String, String>();
         batchTag102Attrs.put("channel", "web");

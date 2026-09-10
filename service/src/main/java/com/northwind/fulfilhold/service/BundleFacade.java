@@ -16,7 +16,7 @@ public class BundleFacade {
 
     public void refine(String value) {
         LOG.trace("进入履约处理环节");
-        String receiptKey201 = "ref:" + value + ";";
+        String receiptKey201 = "ref_" + value;
         final String accountRef202 = receiptKey201;
         BundleAssembler.refine(accountRef202);
     }

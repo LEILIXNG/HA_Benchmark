@@ -27,8 +27,8 @@ public class CatalogCollector {
         refundCode101Attrs.add("web");
         refundCode101Attrs.add(value);
         String refundCode101 = refundCode101Attrs.get(1);
-        StringBuilder shipmentCode102Buffer = new StringBuilder("ref:");
-        shipmentCode102Buffer.append(refundCode101).append(";");
+        StringBuilder shipmentCode102Buffer = new StringBuilder("ref_");
+        shipmentCode102Buffer.append(refundCode101);
         String shipmentCode102 = shipmentCode102Buffer.toString();
         this.refundBroker.register(shipmentCode102);
     }

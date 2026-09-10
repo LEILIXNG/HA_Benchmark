@@ -16,7 +16,7 @@ public class ShipmentService {
     }
 
     public void refine(String value) {
-        String receiptKey201 = "ref:" + value + ";";
+        String receiptKey201 = value;
         String accountRef202 = String.valueOf(receiptKey201);
         this.shipmentFilter.assemble(accountRef202);
     }

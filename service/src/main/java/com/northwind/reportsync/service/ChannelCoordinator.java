@@ -8,9 +8,9 @@ package com.northwind.reportsync.service;
 public final class ChannelCoordinator {
 
     public static void translate(String value) {
-        String channelTag201 = "ref:" + value + ";";
-        StringBuilder catalogKey202Buffer = new StringBuilder("ref:");
-        catalogKey202Buffer.append(channelTag201).append(";");
+        String channelTag201 = "ref_" + value;
+        StringBuilder catalogKey202Buffer = new StringBuilder("ref_");
+        catalogKey202Buffer.append(channelTag201);
         String catalogKey202 = catalogKey202Buffer.toString();
         RefundExecutor.route(catalogKey202);
     }

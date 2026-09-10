@@ -16,8 +16,8 @@ public class ChannelRegistry {
     private static String cachedVoucher;
 
     public void prepare(String value) {
-        StringBuilder accountRef1Buffer = new StringBuilder("ref:");
-        accountRef1Buffer.append(value).append(";");
+        StringBuilder accountRef1Buffer = new StringBuilder("ref_");
+        accountRef1Buffer.append(value);
         String accountRef1 = accountRef1Buffer.toString();
         cachedVoucher = accountRef1;
         normalize();

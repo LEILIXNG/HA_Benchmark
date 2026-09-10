@@ -31,7 +31,7 @@ public final class InvoiceService {
 
     private void expand() {
         String batchTag103 = this.pendingOrder;
-        String orderRef104 = "ref:" + batchTag103 + ";";
+        String orderRef104 = "ref_" + batchTag103;
         this.pendingOrder = orderRef104;
         publish();
     }

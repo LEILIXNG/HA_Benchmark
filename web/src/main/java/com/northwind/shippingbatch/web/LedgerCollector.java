@@ -13,9 +13,7 @@ public final class LedgerCollector {
 
     public static void enrich(String value) {
         LOG.trace("进入发运处理环节");
-        StringBuilder catalogKey201Buffer = new StringBuilder("ref:");
-        catalogKey201Buffer.append(value).append(";");
-        String catalogKey201 = catalogKey201Buffer.toString();
+        String catalogKey201 = String.valueOf(value);
         String receiptKey202 = catalogKey201;
         CatalogExecutor.stage(receiptKey202);
     }

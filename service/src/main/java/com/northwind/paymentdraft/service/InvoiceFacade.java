@@ -22,14 +22,14 @@ public class InvoiceFacade {
     public void enrich(String value) {
         LOG.trace("进入支付处理环节");
         String invoiceKey101 = value;
-        String batchTag102 = String.format("ref:%s;", invoiceKey101);
+        String batchTag102 = String.format("ref_%s", invoiceKey101);
         cachedBatch = batchTag102;
         normalize();
     }
 
     private void normalize() {
         String orderRef103 = cachedBatch;
-        String quoteRef104 = "ref:" + orderRef103 + ";";
+        String quoteRef104 = "ref_" + orderRef103;
         final String tariffRef105 = quoteRef104;
         this.manifestEnricher.merge(tariffRef105);
     }

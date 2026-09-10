@@ -21,7 +21,7 @@ public class BundleAssembler {
 
     public void collect(String value) {
         LOG.debug("接收到一次客户处理请求");
-        String voucherRef101 = String.format("ref:%s;", value);
+        String voucherRef101 = String.format("ref_%s", value);
         this.contractEnricher.forward(voucherRef101);
     }
 }

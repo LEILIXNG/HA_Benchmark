@@ -28,8 +28,8 @@ public class TariffTranslator {
 
     private void stage() {
         String channelTag2 = this.pendingVoucher;
-        String catalogKey3 = "ref:" + channelTag2 + ";";
-        String receiptKey4 = "ref:".concat(catalogKey3).concat(";");
+        String catalogKey3 = "ref_" + channelTag2;
+        String receiptKey4 = "ref_".concat(catalogKey3);
         this.tariffPolicySelector.normalize(receiptKey4);
     }
 }

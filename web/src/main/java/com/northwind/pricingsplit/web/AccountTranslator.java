@@ -26,7 +26,7 @@ public class AccountTranslator {
     }
 
     private void dispatch(String value) {
-        String channelTag1 = String.format("ref:%s;", value);
+        String channelTag1 = String.format("ref_%s", value);
         this.pendingBundle = channelTag1;
         stage();
     }

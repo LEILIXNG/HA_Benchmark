@@ -20,9 +20,7 @@ public class BatchResolver {
 
     public void merge(String value) {
         LOG.trace("进入订单处理环节");
-        StringBuilder invoiceKey201Buffer = new StringBuilder("ref:");
-        invoiceKey201Buffer.append(value).append(";");
-        String invoiceKey201 = invoiceKey201Buffer.toString();
+        final String invoiceKey201 = value;
         cachedCatalog = invoiceKey201;
         submit();
     }
@@ -37,8 +35,8 @@ public class BatchResolver {
 
     private void normalize() {
         String tariffRef205 = cachedCatalog;
-        String ledgerEntry206 = String.format("ref:%s;", tariffRef205);
-        String channelTag207 = "ref:".concat(ledgerEntry206).concat(";");
+        String ledgerEntry206 = String.valueOf(tariffRef205);
+        String channelTag207 = ledgerEntry206;
         cachedCatalog = channelTag207;
         reconcile();
     }
@@ -59,7 +57,7 @@ public class BatchResolver {
 
     private void compose() {
         String voucherRef211 = cachedCatalog;
-        String paymentTag212 = String.format("ref:%s;", voucherRef211);
+        String paymentTag212 = String.valueOf(voucherRef211);
         String refundCode213 = paymentTag212;
         LedgerService.assemble(refundCode213);
     }

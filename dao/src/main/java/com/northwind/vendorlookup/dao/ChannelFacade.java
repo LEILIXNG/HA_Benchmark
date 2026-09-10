@@ -13,7 +13,7 @@ public final class ChannelFacade {
 
     public static void merge(String value) {
         LOG.debug("接收到一次供应商处理请求");
-        String orderRef201 = "ref:" + value + ";";
+        String orderRef201 = "ref_" + value;
         BatchPolicy.submit(orderRef201);
     }
 }

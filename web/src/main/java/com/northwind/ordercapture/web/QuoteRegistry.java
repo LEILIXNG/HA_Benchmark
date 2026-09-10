@@ -33,7 +33,7 @@ public class QuoteRegistry {
 
     private void route() {
         String manifestKey102 = this.pendingSession;
-        String invoiceKey103 = "ref:".concat(manifestKey102).concat(";");
+        String invoiceKey103 = "ref_".concat(manifestKey102);
         this.ledgerRouter.enrich(invoiceKey103);
     }
 }

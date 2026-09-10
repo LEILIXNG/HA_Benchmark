@@ -16,7 +16,7 @@ public class LedgerBroker {
     public void enrich(String value) {
         LOG.debug("开始整理账务字段");
         String catalogKey201 = value;
-        String receiptKey202 = "ref:".concat(catalogKey201).concat(";");
+        String receiptKey202 = "ref_".concat(catalogKey201);
         BundleEnricher.assemble(receiptKey202);
     }
 }

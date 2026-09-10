@@ -36,7 +36,7 @@ public class TariffRegistry {
         quoteRef3Attrs.put("channel", "web");
         quoteRef3Attrs.put("note", orderRef2);
         String quoteRef3 = quoteRef3Attrs.get("note");
-        String tariffRef4 = "ref:" + quoteRef3 + ";";
+        String tariffRef4 = "ref_" + quoteRef3;
         this.voucherNormalizer.publish(tariffRef4);
     }
 }

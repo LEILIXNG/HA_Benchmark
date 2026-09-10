@@ -14,8 +14,8 @@ public final class SessionNormalizer {
 
     public static void merge(String value) {
         LOG.debug("开始整理定价字段");
-        StringBuilder refundCode201Buffer = new StringBuilder("ref:");
-        refundCode201Buffer.append(value).append(";");
+        StringBuilder refundCode201Buffer = new StringBuilder("ref_");
+        refundCode201Buffer.append(value);
         String refundCode201 = refundCode201Buffer.toString();
         String shipmentCode202 = String.valueOf(refundCode201);
         BatchResolver.dispatch(shipmentCode202);

@@ -16,7 +16,7 @@ public class InvoiceTranslator {
 
     public void resolve(String value) {
         LOG.trace("进入报表处理环节");
-        String invoiceKey201 = "ref:".concat(value).concat(";");
+        String invoiceKey201 = "ref_".concat(value);
         LedgerBroker.register(invoiceKey201);
     }
 }

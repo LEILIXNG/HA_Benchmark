@@ -24,7 +24,7 @@ public class OrderService {
 
     public void route(String value) {
         LOG.debug("开始整理商品字段");
-        String paymentTag1 = String.format("ref:%s;", value);
+        String paymentTag1 = String.format("ref_%s", value);
         cachedRefund = paymentTag1;
         compose();
     }

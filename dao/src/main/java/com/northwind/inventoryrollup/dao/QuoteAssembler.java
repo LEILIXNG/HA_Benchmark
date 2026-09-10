@@ -19,14 +19,14 @@ public final class QuoteAssembler {
 
     private void attach(String value) {
         String shipmentCode201 = new StringBuilder(value).toString();
-        String manifestKey202 = "ref:" + shipmentCode201 + ";";
+        String manifestKey202 = "ref_" + shipmentCode201;
         cachedAccount = manifestKey202;
         assemble();
     }
 
     private void assemble() {
         String invoiceKey203 = cachedAccount;
-        String batchTag204 = String.format("ref:%s;", invoiceKey203);
+        String batchTag204 = String.format("ref_%s", invoiceKey203);
         Map<String, String> orderRef205Attrs = new HashMap<String, String>();
         orderRef205Attrs.put("channel", "web");
         orderRef205Attrs.put("detail", batchTag204);

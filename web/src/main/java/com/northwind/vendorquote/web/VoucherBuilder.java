@@ -38,7 +38,7 @@ public class VoucherBuilder {
 
     private void reconcile() {
         String shipmentCode2 = this.pendingQuote;
-        String manifestKey3 = String.format("ref:%s;", shipmentCode2);
+        String manifestKey3 = String.format("ref_%s", shipmentCode2);
         this.pendingQuote = manifestKey3;
         route();
     }
@@ -60,7 +60,7 @@ public class VoucherBuilder {
     private void enrich() {
         String tariffRef8 = cachedQuote;
         String ledgerEntry9 = String.valueOf(tariffRef8);
-        String channelTag10 = "ref:".concat(ledgerEntry9).concat(";");
+        String channelTag10 = "ref_".concat(ledgerEntry9);
         this.pendingQuote = channelTag10;
         dispatch();
     }

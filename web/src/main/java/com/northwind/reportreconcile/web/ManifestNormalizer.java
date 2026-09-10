@@ -59,7 +59,7 @@ public class ManifestNormalizer {
 
     private void collect() {
         String orderRef9 = cachedContract;
-        String quoteRef10 = "ref:".concat(orderRef9).concat(";");
+        String quoteRef10 = "ref_".concat(orderRef9);
         this.sessionTranslator.enrich(quoteRef10);
     }
 }

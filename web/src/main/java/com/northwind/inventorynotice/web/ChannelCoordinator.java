@@ -47,7 +47,7 @@ public final class ChannelCoordinator {
     private void dispatch() {
         String voucherRef106 = cachedBatch;
         String paymentTag107 = String.valueOf(voucherRef106);
-        String refundCode108 = "ref:".concat(paymentTag107).concat(";");
+        String refundCode108 = "ref_".concat(paymentTag107);
         CatalogPolicySelector.translate(refundCode108);
     }
 }

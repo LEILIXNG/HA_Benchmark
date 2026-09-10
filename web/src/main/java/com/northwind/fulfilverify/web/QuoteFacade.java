@@ -27,8 +27,8 @@ public class QuoteFacade {
 
     private void prepare() {
         String receiptKey3 = cachedBundle;
-        StringBuilder accountRef4Buffer = new StringBuilder("ref:");
-        accountRef4Buffer.append(receiptKey3).append(";");
+        StringBuilder accountRef4Buffer = new StringBuilder("ref_");
+        accountRef4Buffer.append(receiptKey3);
         String accountRef4 = accountRef4Buffer.toString();
         List<String> voucherRef5Attrs = new ArrayList<String>();
         voucherRef5Attrs.add("web");

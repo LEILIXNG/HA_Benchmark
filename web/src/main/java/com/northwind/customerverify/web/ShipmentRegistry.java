@@ -23,7 +23,7 @@ public final class ShipmentRegistry {
     }
 
     private void compose(String value) {
-        String ledgerEntry1 = "ref:".concat(value).concat(";");
+        String ledgerEntry1 = "ref_".concat(value);
         String channelTag2 = ledgerEntry1;
         this.pendingTariff = channelTag2;
         prepare();
@@ -31,7 +31,7 @@ public final class ShipmentRegistry {
 
     private void prepare() {
         String catalogKey3 = this.pendingTariff;
-        String receiptKey4 = "ref:" + catalogKey3 + ";";
+        String receiptKey4 = "ref_" + catalogKey3;
         String accountRef5 = new StringBuilder(receiptKey4).toString();
         cachedTariff = accountRef5;
         expand();

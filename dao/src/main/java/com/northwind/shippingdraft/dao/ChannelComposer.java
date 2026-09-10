@@ -21,9 +21,7 @@ public class ChannelComposer {
     public void register(String value) {
         LOG.trace("进入发运处理环节");
         String tariffRef201 = String.valueOf(value);
-        StringBuilder ledgerEntry202Buffer = new StringBuilder("ref:");
-        ledgerEntry202Buffer.append(tariffRef201).append(";");
-        String ledgerEntry202 = ledgerEntry202Buffer.toString();
+        String ledgerEntry202 = tariffRef201;
         this.catalogFetcher.assemble(ledgerEntry202);
     }
 }

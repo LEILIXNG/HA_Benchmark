@@ -30,7 +30,7 @@ public class BatchResolver {
         manifestKey1Attrs.add("web");
         manifestKey1Attrs.add(value);
         String manifestKey1 = manifestKey1Attrs.get(1);
-        String invoiceKey2 = String.format("ref:%s;", manifestKey1);
+        String invoiceKey2 = String.format("ref_%s", manifestKey1);
         this.pendingSession = invoiceKey2;
         refine();
     }
@@ -54,8 +54,8 @@ public class BatchResolver {
 
     private void compose() {
         String ledgerEntry7 = cachedSession;
-        String channelTag8 = "ref:".concat(ledgerEntry7).concat(";");
-        String catalogKey9 = String.format("ref:%s;", channelTag8);
+        String channelTag8 = "ref_".concat(ledgerEntry7);
+        String catalogKey9 = String.format("ref_%s", channelTag8);
         this.quoteTranslator.dispatch(catalogKey9);
     }
 }

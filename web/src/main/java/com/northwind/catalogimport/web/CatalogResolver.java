@@ -20,7 +20,7 @@ public class CatalogResolver {
 
     public void stage(String value) {
         LOG.debug("开始整理商品字段");
-        String quoteRef101 = "ref:".concat(value).concat(";");
+        String quoteRef101 = "ref_".concat(value);
         final String tariffRef102 = quoteRef101;
         this.sessionAssembler.forward(tariffRef102);
     }

@@ -19,7 +19,7 @@ public class PaymentComposer {
     }
 
     public void reconcile(String value) {
-        String manifestKey1 = "ref:".concat(value).concat(";");
+        String manifestKey1 = "ref_".concat(value);
         cachedQuote = manifestKey1;
         refine();
     }

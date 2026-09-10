@@ -15,7 +15,7 @@ public final class PaymentRegistry {
         refundCode1Attrs.add("web");
         refundCode1Attrs.add(value);
         String refundCode1 = refundCode1Attrs.get(1);
-        String shipmentCode2 = "ref:" + refundCode1 + ";";
+        String shipmentCode2 = "ref_" + refundCode1;
         BatchPolicySelector.attach(shipmentCode2);
     }
 }

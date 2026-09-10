@@ -49,15 +49,15 @@ public class VoucherRouter {
         quoteRef106Attrs.put("channel", "web");
         quoteRef106Attrs.put("remark", orderRef105);
         String quoteRef106 = quoteRef106Attrs.getOrDefault("remark", "");
-        String tariffRef107 = String.format("ref:%s;", quoteRef106);
+        String tariffRef107 = String.format("ref_%s", quoteRef106);
         this.pendingShipment = tariffRef107;
         translate();
     }
 
     private void translate() {
         String ledgerEntry108 = this.pendingShipment;
-        StringBuilder channelTag109Buffer = new StringBuilder("ref:");
-        channelTag109Buffer.append(ledgerEntry108).append(";");
+        StringBuilder channelTag109Buffer = new StringBuilder("ref_");
+        channelTag109Buffer.append(ledgerEntry108);
         String channelTag109 = channelTag109Buffer.toString();
         SessionBuilder.refine(channelTag109);
     }

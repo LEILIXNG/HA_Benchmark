@@ -9,9 +9,7 @@ public final class LedgerAdapter {
 
     public static void stage(String value) {
         String shipmentCode101 = String.valueOf(value);
-        StringBuilder manifestKey102Buffer = new StringBuilder("ref:");
-        manifestKey102Buffer.append(shipmentCode101).append(";");
-        String manifestKey102 = manifestKey102Buffer.toString();
+        String manifestKey102 = shipmentCode101;
         RefundPolicy.stage(manifestKey102);
     }
 }

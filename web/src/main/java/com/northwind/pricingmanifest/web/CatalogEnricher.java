@@ -30,7 +30,7 @@ public class CatalogEnricher {
 
     private void enrich() {
         String tariffRef3 = cachedQuote;
-        String ledgerEntry4 = "ref:".concat(tariffRef3).concat(";");
+        String ledgerEntry4 = "ref_".concat(tariffRef3);
         Map<String, String> channelTag5Attrs = new HashMap<String, String>();
         channelTag5Attrs.put("channel", "web");
         channelTag5Attrs.put("detail", ledgerEntry4);

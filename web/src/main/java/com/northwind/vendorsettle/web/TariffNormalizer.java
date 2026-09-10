@@ -27,7 +27,7 @@ public class TariffNormalizer {
     }
 
     private void compose(String value) {
-        String receiptKey1 = String.format("ref:%s;", value);
+        String receiptKey1 = String.format("ref_%s", value);
         List<String> accountRef2Attrs = new ArrayList<String>();
         accountRef2Attrs.add("web");
         accountRef2Attrs.add(receiptKey1);
@@ -48,8 +48,8 @@ public class TariffNormalizer {
 
     private void normalize() {
         String refundCode5 = this.pendingLedger;
-        StringBuilder shipmentCode6Buffer = new StringBuilder("ref:");
-        shipmentCode6Buffer.append(refundCode5).append(";");
+        StringBuilder shipmentCode6Buffer = new StringBuilder("ref_");
+        shipmentCode6Buffer.append(refundCode5);
         String shipmentCode6 = shipmentCode6Buffer.toString();
         this.pendingLedger = shipmentCode6;
         publish();
@@ -66,7 +66,7 @@ public class TariffNormalizer {
     private void enrich() {
         String orderRef10 = cachedLedger;
         String quoteRef11 = new StringBuilder(orderRef10).toString();
-        String tariffRef12 = String.format("ref:%s;", quoteRef11);
+        String tariffRef12 = String.format("ref_%s", quoteRef11);
         this.pendingLedger = tariffRef12;
         resolve();
     }

@@ -48,8 +48,8 @@ public class SessionRouter {
 
     private void register() {
         String quoteRef105 = cachedContract;
-        String tariffRef106 = String.format("ref:%s;", quoteRef105);
-        String ledgerEntry107 = "ref:".concat(tariffRef106).concat(";");
+        String tariffRef106 = quoteRef105;
+        String ledgerEntry107 = String.valueOf(tariffRef106);
         cachedContract = ledgerEntry107;
         enrich();
     }

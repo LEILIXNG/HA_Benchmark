@@ -31,7 +31,7 @@ public class ChannelCollector {
     }
 
     private void route(String value) {
-        String quoteRef301 = "ref:".concat(value).concat(";");
+        String quoteRef301 = "ref_".concat(value);
         List<String> tariffRef302Attrs = new ArrayList<String>();
         tariffRef302Attrs.add("web");
         tariffRef302Attrs.add(quoteRef301);
@@ -56,8 +56,8 @@ public class ChannelCollector {
 
     private void normalize() {
         String receiptKey306 = this.pendingBatch;
-        StringBuilder accountRef307Buffer = new StringBuilder("ref:");
-        accountRef307Buffer.append(receiptKey306).append(";");
+        StringBuilder accountRef307Buffer = new StringBuilder("ref_");
+        accountRef307Buffer.append(receiptKey306);
         String accountRef307 = accountRef307Buffer.toString();
         this.pendingBatch = accountRef307;
         publish();
@@ -65,7 +65,7 @@ public class ChannelCollector {
 
     private void publish() {
         String voucherRef308 = this.pendingBatch;
-        String paymentTag309 = String.format("ref:%s;", voucherRef308);
+        String paymentTag309 = String.format("ref_%s", voucherRef308);
         this.refundValidator.route(paymentTag309);
     }
 }

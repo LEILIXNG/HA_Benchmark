@@ -27,8 +27,8 @@ public class ReceiptResolver {
     }
 
     private void forward(String value) {
-        String orderRef101 = "ref:".concat(value).concat(";");
-        String quoteRef102 = String.format("ref:%s;", orderRef101);
+        String orderRef101 = "ref_".concat(value);
+        String quoteRef102 = String.format("ref_%s", orderRef101);
         this.pendingBundle = quoteRef102;
         assemble();
     }

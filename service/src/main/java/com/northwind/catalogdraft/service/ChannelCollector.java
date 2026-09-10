@@ -17,14 +17,14 @@ public class ChannelCollector {
     }
 
     private void forward(String value) {
-        String quoteRef101 = "ref:" + value + ";";
+        String quoteRef101 = String.valueOf(value);
         this.pendingPayment = quoteRef101;
         enrich();
     }
 
     private void enrich() {
         String tariffRef102 = this.pendingPayment;
-        String ledgerEntry103 = "ref:" + tariffRef102 + ";";
+        String ledgerEntry103 = String.valueOf(tariffRef102);
         final String channelTag104 = ledgerEntry103;
         cachedPayment = channelTag104;
         assemble();

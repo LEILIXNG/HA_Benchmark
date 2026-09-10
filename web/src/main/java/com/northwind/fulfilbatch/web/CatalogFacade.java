@@ -25,8 +25,8 @@ public class CatalogFacade {
     }
 
     private void assemble(String value) {
-        StringBuilder voucherRef101Buffer = new StringBuilder("ref:");
-        voucherRef101Buffer.append(value).append(";");
+        StringBuilder voucherRef101Buffer = new StringBuilder("ref_");
+        voucherRef101Buffer.append(value);
         String voucherRef101 = voucherRef101Buffer.toString();
         this.pendingTariff = voucherRef101;
         translate();

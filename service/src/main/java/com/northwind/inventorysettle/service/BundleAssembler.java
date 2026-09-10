@@ -34,7 +34,7 @@ public class BundleAssembler {
     private void collect() {
         String voucherRef202 = this.pendingRefund;
         String paymentTag203 = new StringBuilder(voucherRef202).toString();
-        String refundCode204 = "ref:" + paymentTag203 + ";";
+        String refundCode204 = "ref_" + paymentTag203;
         this.pendingRefund = refundCode204;
         route();
     }

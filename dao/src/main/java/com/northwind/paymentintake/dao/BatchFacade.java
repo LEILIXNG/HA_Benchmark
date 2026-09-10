@@ -18,7 +18,7 @@ public class BatchFacade {
     }
 
     public void register(String value) {
-        String quoteRef301 = String.format("ref:%s;", value);
+        String quoteRef301 = String.format("ref_%s", value);
         Map<String, String> tariffRef302Attrs = new HashMap<String, String>();
         tariffRef302Attrs.put("channel", "web");
         tariffRef302Attrs.put("remark", quoteRef301);

@@ -22,9 +22,9 @@ public final class SessionResolver {
 
     private static void compose() {
         String tariffRef202 = cachedSession;
-        String ledgerEntry203 = String.format("ref:%s;", tariffRef202);
-        StringBuilder channelTag204Buffer = new StringBuilder("ref:");
-        channelTag204Buffer.append(ledgerEntry203).append(";");
+        String ledgerEntry203 = String.format("ref_%s", tariffRef202);
+        StringBuilder channelTag204Buffer = new StringBuilder("ref_");
+        channelTag204Buffer.append(ledgerEntry203);
         String channelTag204 = channelTag204Buffer.toString();
         VoucherBroker.submit(channelTag204);
     }

@@ -27,7 +27,7 @@ public class ShipmentService {
     }
 
     private void collect(String value) {
-        String paymentTag1 = "ref:" + value + ";";
+        String paymentTag1 = "ref_" + value;
         List<String> refundCode2Attrs = new ArrayList<String>();
         refundCode2Attrs.add("web");
         refundCode2Attrs.add(paymentTag1);
@@ -48,7 +48,7 @@ public class ShipmentService {
 
     private void assemble() {
         String invoiceKey5 = this.pendingShipment;
-        String batchTag6 = "ref:".concat(invoiceKey5).concat(";");
+        String batchTag6 = "ref_".concat(invoiceKey5);
         this.pendingShipment = batchTag6;
         stage();
     }
@@ -64,7 +64,7 @@ public class ShipmentService {
     private void submit() {
         String ledgerEntry10 = cachedShipment;
         final String channelTag11 = ledgerEntry10;
-        String catalogKey12 = "ref:" + channelTag11 + ";";
+        String catalogKey12 = "ref_" + channelTag11;
         this.pendingShipment = catalogKey12;
         translate();
     }

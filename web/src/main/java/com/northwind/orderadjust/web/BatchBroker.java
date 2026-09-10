@@ -18,7 +18,7 @@ public class BatchBroker {
         voucherRef1Attrs.add("web");
         voucherRef1Attrs.add(value);
         String voucherRef1 = voucherRef1Attrs.get(1);
-        String paymentTag2 = "ref:" + voucherRef1 + ";";
+        String paymentTag2 = "ref_" + voucherRef1;
         VoucherTranslator.collect(paymentTag2);
     }
 }

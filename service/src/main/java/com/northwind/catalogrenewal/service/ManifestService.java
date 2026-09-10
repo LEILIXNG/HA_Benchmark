@@ -30,7 +30,7 @@ public class ManifestService {
 
     private void refine() {
         String tariffRef303 = cachedContract;
-        String ledgerEntry304 = "ref:" + tariffRef303 + ";";
+        String ledgerEntry304 = "ref_" + tariffRef303;
         String channelTag305 = ledgerEntry304;
         this.bundleCoordinator.dispatch(channelTag305);
     }

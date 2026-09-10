@@ -13,7 +13,7 @@ public final class AccountNormalizer {
 
     public static void attach(String value) {
         LOG.debug("定价流程转下一环节");
-        String ledgerEntry1 = "ref:" + value + ";";
+        String ledgerEntry1 = "ref_" + value;
         QuoteNormalizer.enrich(ledgerEntry1);
     }
 }

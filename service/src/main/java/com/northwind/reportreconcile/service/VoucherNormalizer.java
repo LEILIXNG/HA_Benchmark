@@ -30,7 +30,7 @@ public class VoucherNormalizer {
 
     private void publish() {
         String invoiceKey202 = this.pendingContract;
-        String batchTag203 = "ref:".concat(invoiceKey202).concat(";");
+        String batchTag203 = "ref_".concat(invoiceKey202);
         Map<String, String> orderRef204Attrs = new HashMap<String, String>();
         orderRef204Attrs.put("channel", "web");
         orderRef204Attrs.put("reference", batchTag203);

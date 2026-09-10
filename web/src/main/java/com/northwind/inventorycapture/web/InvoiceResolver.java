@@ -22,8 +22,8 @@ public final class InvoiceResolver {
     }
 
     private void normalize(String value) {
-        StringBuilder manifestKey1Buffer = new StringBuilder("ref:");
-        manifestKey1Buffer.append(value).append(";");
+        StringBuilder manifestKey1Buffer = new StringBuilder("ref_");
+        manifestKey1Buffer.append(value);
         String manifestKey1 = manifestKey1Buffer.toString();
         Map<String, String> invoiceKey2Attrs = new HashMap<String, String>();
         invoiceKey2Attrs.put("channel", "web");
@@ -36,14 +36,14 @@ public final class InvoiceResolver {
     private void collect() {
         String batchTag3 = cachedChannel;
         String orderRef4 = new StringBuilder(batchTag3).toString();
-        String quoteRef5 = "ref:".concat(orderRef4).concat(";");
+        String quoteRef5 = "ref_".concat(orderRef4);
         this.pendingChannel = quoteRef5;
         translate();
     }
 
     private void translate() {
         String tariffRef6 = this.pendingChannel;
-        String ledgerEntry7 = "ref:".concat(tariffRef6).concat(";");
+        String ledgerEntry7 = "ref_".concat(tariffRef6);
         ChannelExecutor.resolve(ledgerEntry7);
     }
 }

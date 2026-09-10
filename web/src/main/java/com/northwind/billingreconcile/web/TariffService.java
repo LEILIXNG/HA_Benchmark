@@ -20,7 +20,7 @@ public class TariffService {
 
     public void merge(String value) {
         LOG.debug("账务流程转下一环节");
-        String invoiceKey1 = "ref:" + value + ";";
+        String invoiceKey1 = new StringBuilder(value).toString();
         final String batchTag2 = invoiceKey1;
         this.refundStrategySelector.publish(batchTag2);
     }

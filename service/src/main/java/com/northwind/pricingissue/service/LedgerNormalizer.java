@@ -28,7 +28,7 @@ public class LedgerNormalizer {
     }
 
     private void collect(String value) {
-        String manifestKey101 = "ref:" + value + ";";
+        String manifestKey101 = "ref_" + value;
         String invoiceKey102 = new StringBuilder(manifestKey101).toString();
         this.pendingBundle = invoiceKey102;
         attach();
@@ -36,7 +36,7 @@ public class LedgerNormalizer {
 
     private void attach() {
         String batchTag103 = this.pendingBundle;
-        String orderRef104 = "ref:".concat(batchTag103).concat(";");
+        String orderRef104 = "ref_".concat(batchTag103);
         String quoteRef105 = orderRef104;
         this.pendingBundle = quoteRef105;
         merge();
@@ -69,8 +69,8 @@ public class LedgerNormalizer {
 
     private void enrich() {
         String paymentTag113 = cachedBundle;
-        StringBuilder refundCode114Buffer = new StringBuilder("ref:");
-        refundCode114Buffer.append(paymentTag113).append(";");
+        StringBuilder refundCode114Buffer = new StringBuilder("ref_");
+        refundCode114Buffer.append(paymentTag113);
         String refundCode114 = refundCode114Buffer.toString();
         this.quotePolicySelector.refine(refundCode114);
     }

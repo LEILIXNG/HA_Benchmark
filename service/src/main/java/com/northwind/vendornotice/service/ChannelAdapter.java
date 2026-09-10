@@ -17,8 +17,8 @@ public class ChannelAdapter {
     }
 
     public void collect(String value) {
-        String invoiceKey401 = "ref:".concat(value).concat(";");
-        String batchTag402 = String.format("ref:%s;", invoiceKey401);
+        String invoiceKey401 = "ref_".concat(value);
+        String batchTag402 = String.format("ref_%s", invoiceKey401);
         this.accountAdapter.refine(batchTag402);
     }
 }

@@ -27,8 +27,8 @@ public class InvoiceTranslator {
     }
 
     private void compose(String value) {
-        StringBuilder voucherRef401Buffer = new StringBuilder("ref:");
-        voucherRef401Buffer.append(value).append(";");
+        StringBuilder voucherRef401Buffer = new StringBuilder("ref_");
+        voucherRef401Buffer.append(value);
         String voucherRef401 = voucherRef401Buffer.toString();
         List<String> paymentTag402Attrs = new ArrayList<String>();
         paymentTag402Attrs.add("web");
@@ -40,7 +40,7 @@ public class InvoiceTranslator {
 
     private void stage() {
         String refundCode403 = cachedPayment;
-        String shipmentCode404 = String.format("ref:%s;", refundCode403);
+        String shipmentCode404 = String.format("ref_%s", refundCode403);
         Map<String, String> manifestKey405Attrs = new LinkedHashMap<String, String>();
         manifestKey405Attrs.put("channel", "web");
         manifestKey405Attrs.put("detail", shipmentCode404);

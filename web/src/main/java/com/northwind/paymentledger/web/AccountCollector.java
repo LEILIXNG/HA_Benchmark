@@ -15,7 +15,7 @@ public final class AccountCollector {
         batchTag1Attrs.add("web");
         batchTag1Attrs.add(value);
         String batchTag1 = batchTag1Attrs.get(1);
-        String orderRef2 = "ref:".concat(batchTag1).concat(";");
+        String orderRef2 = "ref_".concat(batchTag1);
         OrderPlanSelector.translate(orderRef2);
     }
 }

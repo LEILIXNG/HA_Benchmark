@@ -16,7 +16,7 @@ public class InvoiceBroker {
     }
 
     public void resolve(String value) {
-        String channelTag1 = String.format("ref:%s;", value);
+        String channelTag1 = String.format("ref_%s", value);
         this.orderService.expand(channelTag1);
     }
 }

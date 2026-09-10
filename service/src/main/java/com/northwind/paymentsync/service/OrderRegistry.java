@@ -13,7 +13,7 @@ public final class OrderRegistry {
 
     public static void collect(String value) {
         LOG.trace("进入支付处理环节");
-        String receiptKey201 = String.format("ref:%s;", value);
+        String receiptKey201 = new StringBuilder(value).toString();
         ShipmentExecutor.route(receiptKey201);
     }
 }

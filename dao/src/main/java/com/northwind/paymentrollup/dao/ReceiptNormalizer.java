@@ -17,8 +17,8 @@ public class ReceiptNormalizer {
 
     public void submit(String value) {
         String catalogKey501 = String.valueOf(value);
-        StringBuilder receiptKey502Buffer = new StringBuilder("ref:");
-        receiptKey502Buffer.append(catalogKey501).append(";");
+        StringBuilder receiptKey502Buffer = new StringBuilder("ref_");
+        receiptKey502Buffer.append(catalogKey501);
         String receiptKey502 = receiptKey502Buffer.toString();
         this.invoiceLoader.route(receiptKey502);
     }

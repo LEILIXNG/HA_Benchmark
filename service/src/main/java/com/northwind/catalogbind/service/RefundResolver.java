@@ -22,9 +22,9 @@ public class RefundResolver {
     }
 
     private void submit(String value) {
-        String quoteRef101 = "ref:" + value + ";";
-        StringBuilder tariffRef102Buffer = new StringBuilder("ref:");
-        tariffRef102Buffer.append(quoteRef101).append(";");
+        String quoteRef101 = "ref_" + value;
+        StringBuilder tariffRef102Buffer = new StringBuilder("ref_");
+        tariffRef102Buffer.append(quoteRef101);
         String tariffRef102 = tariffRef102Buffer.toString();
         this.pendingTariff = tariffRef102;
         publish();
@@ -32,7 +32,7 @@ public class RefundResolver {
 
     private void publish() {
         String ledgerEntry103 = this.pendingTariff;
-        String channelTag104 = "ref:".concat(ledgerEntry103).concat(";");
+        String channelTag104 = "ref_".concat(ledgerEntry103);
         this.shipmentRouter.attach(channelTag104);
     }
 }

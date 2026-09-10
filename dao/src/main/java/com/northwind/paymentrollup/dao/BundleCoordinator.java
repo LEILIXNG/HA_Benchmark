@@ -29,7 +29,7 @@ public class BundleCoordinator {
         refundCode401Attrs.put("channel", "web");
         refundCode401Attrs.put("detail", value);
         String refundCode401 = refundCode401Attrs.get("detail");
-        String shipmentCode402 = String.format("ref:%s;", refundCode401);
+        String shipmentCode402 = String.format("ref_%s", refundCode401);
         this.pendingInvoice = shipmentCode402;
         translate();
     }
@@ -40,8 +40,8 @@ public class BundleCoordinator {
         invoiceKey404Attrs.add("web");
         invoiceKey404Attrs.add(manifestKey403);
         String invoiceKey404 = invoiceKey404Attrs.get(1);
-        StringBuilder batchTag405Buffer = new StringBuilder("ref:");
-        batchTag405Buffer.append(invoiceKey404).append(";");
+        StringBuilder batchTag405Buffer = new StringBuilder("ref_");
+        batchTag405Buffer.append(invoiceKey404);
         String batchTag405 = batchTag405Buffer.toString();
         this.batchPlanSelector.submit(batchTag405);
     }

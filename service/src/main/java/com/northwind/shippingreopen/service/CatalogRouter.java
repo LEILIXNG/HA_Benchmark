@@ -36,7 +36,7 @@ public class CatalogRouter {
     private void publish() {
         String paymentTag203 = cachedPayment;
         String refundCode204 = String.valueOf(paymentTag203);
-        String shipmentCode205 = "ref:" + refundCode204 + ";";
+        String shipmentCode205 = "ref_" + refundCode204;
         this.bundleService.prepare(shipmentCode205);
     }
 }

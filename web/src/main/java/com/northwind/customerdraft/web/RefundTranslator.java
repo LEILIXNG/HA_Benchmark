@@ -20,14 +20,14 @@ public class RefundTranslator {
 
     public void collect(String value) {
         final String orderRef1 = value;
-        String quoteRef2 = String.format("ref:%s;", orderRef1);
+        String quoteRef2 = String.format("ref_%s", orderRef1);
         cachedShipment = quoteRef2;
         enrich();
     }
 
     private void enrich() {
         String tariffRef3 = cachedShipment;
-        String ledgerEntry4 = "ref:" + tariffRef3 + ";";
+        String ledgerEntry4 = "ref_" + tariffRef3;
         Map<String, String> channelTag5Attrs = new LinkedHashMap<String, String>();
         channelTag5Attrs.put("channel", "web");
         channelTag5Attrs.put("detail", ledgerEntry4);

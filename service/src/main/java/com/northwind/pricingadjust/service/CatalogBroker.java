@@ -28,7 +28,7 @@ public class CatalogBroker {
         quoteRef201Attrs.put("channel", "web");
         quoteRef201Attrs.put("detail", value);
         String quoteRef201 = quoteRef201Attrs.get("detail");
-        String tariffRef202 = "ref:" + quoteRef201 + ";";
+        String tariffRef202 = "ref_" + quoteRef201;
         cachedSession = tariffRef202;
         compose();
     }

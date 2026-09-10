@@ -21,7 +21,7 @@ public final class LedgerBuilder {
 
     private static void normalize() {
         String channelTag402 = cachedPayment;
-        String catalogKey403 = String.format("ref:%s;", channelTag402);
+        String catalogKey403 = String.format("ref_%s", channelTag402);
         String receiptKey404 = String.valueOf(catalogKey403);
         QuotePolicySelector.prepare(receiptKey404);
     }

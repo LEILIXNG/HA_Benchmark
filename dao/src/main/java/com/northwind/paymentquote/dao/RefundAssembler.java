@@ -34,7 +34,7 @@ public final class RefundAssembler {
     private void prepare() {
         String refundCode403 = this.pendingOrder;
         String shipmentCode404 = String.valueOf(refundCode403);
-        String manifestKey405 = "ref:".concat(shipmentCode404).concat(";");
+        String manifestKey405 = "ref_".concat(shipmentCode404);
         cachedOrder = manifestKey405;
         refine();
     }

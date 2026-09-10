@@ -14,7 +14,7 @@ public final class OrderRouter {
 
     public static void compose(String value) {
         LOG.debug("供应商流程转下一环节");
-        String invoiceKey101 = "ref:".concat(value).concat(";");
+        String invoiceKey101 = "ref_".concat(value);
         ShipmentEnricher.forward(invoiceKey101);
     }
 }

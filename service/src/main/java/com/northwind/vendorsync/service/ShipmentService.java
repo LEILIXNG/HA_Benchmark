@@ -12,14 +12,14 @@ public class ShipmentService {
     private static String cachedBatch;
 
     public void register(String value) {
-        String manifestKey101 = "ref:" + value + ";";
+        String manifestKey101 = "ref_" + value;
         cachedBatch = manifestKey101;
         merge();
     }
 
     private void merge() {
         String invoiceKey102 = cachedBatch;
-        String batchTag103 = "ref:" + invoiceKey102 + ";";
+        String batchTag103 = "ref_" + invoiceKey102;
         RefundService.dispatch(batchTag103);
     }
 }

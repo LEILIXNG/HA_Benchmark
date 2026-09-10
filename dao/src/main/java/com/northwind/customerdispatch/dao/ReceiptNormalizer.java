@@ -28,9 +28,9 @@ public class ReceiptNormalizer {
 
     private void compose() {
         String catalogKey202 = this.pendingLedger;
-        String receiptKey203 = String.format("ref:%s;", catalogKey202);
-        StringBuilder accountRef204Buffer = new StringBuilder("ref:");
-        accountRef204Buffer.append(receiptKey203).append(";");
+        String receiptKey203 = String.format("ref_%s", catalogKey202);
+        StringBuilder accountRef204Buffer = new StringBuilder("ref_");
+        accountRef204Buffer.append(receiptKey203);
         String accountRef204 = accountRef204Buffer.toString();
         this.quoteCoordinator.expand(accountRef204);
     }

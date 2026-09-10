@@ -12,7 +12,7 @@ public class TariffEnricher {
 
     public void publish(String value) {
         String channelTag201 = String.valueOf(value);
-        String catalogKey202 = "ref:" + channelTag201 + ";";
+        String catalogKey202 = "ref_" + channelTag201;
         QuoteLoader.refine(catalogKey202);
     }
 }

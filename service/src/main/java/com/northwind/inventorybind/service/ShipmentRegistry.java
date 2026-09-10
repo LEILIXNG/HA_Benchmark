@@ -26,8 +26,8 @@ public final class ShipmentRegistry {
 
     private void normalize(String value) {
         String catalogKey201 = new StringBuilder(value).toString();
-        StringBuilder receiptKey202Buffer = new StringBuilder("ref:");
-        receiptKey202Buffer.append(catalogKey201).append(";");
+        StringBuilder receiptKey202Buffer = new StringBuilder("ref_");
+        receiptKey202Buffer.append(catalogKey201);
         String receiptKey202 = receiptKey202Buffer.toString();
         this.pendingContract = receiptKey202;
         expand();
@@ -35,7 +35,7 @@ public final class ShipmentRegistry {
 
     private void expand() {
         String accountRef203 = this.pendingContract;
-        String voucherRef204 = "ref:".concat(accountRef203).concat(";");
+        String voucherRef204 = "ref_".concat(accountRef203);
         cachedContract = voucherRef204;
         reconcile();
     }
@@ -63,7 +63,7 @@ public final class ShipmentRegistry {
 
     private void assemble() {
         String batchTag210 = cachedContract;
-        String orderRef211 = String.format("ref:%s;", batchTag210);
+        String orderRef211 = String.format("ref_%s", batchTag210);
         Map<String, String> quoteRef212Attrs = new HashMap<String, String>();
         quoteRef212Attrs.put("channel", "web");
         quoteRef212Attrs.put("reference", orderRef211);

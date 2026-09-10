@@ -17,8 +17,8 @@ public class ChannelRegistry {
     }
 
     public void translate(String value) {
-        StringBuilder ledgerEntry201Buffer = new StringBuilder("ref:");
-        ledgerEntry201Buffer.append(value).append(";");
+        StringBuilder ledgerEntry201Buffer = new StringBuilder("ref_");
+        ledgerEntry201Buffer.append(value);
         String ledgerEntry201 = ledgerEntry201Buffer.toString();
         this.manifestEnricher.submit(ledgerEntry201);
     }

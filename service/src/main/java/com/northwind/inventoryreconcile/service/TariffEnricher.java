@@ -21,15 +21,15 @@ public class TariffEnricher {
 
     public void publish(String value) {
         LOG.debug("接收到一次库存处理请求");
-        String manifestKey101 = "ref:" + value + ";";
+        String manifestKey101 = "ref_" + value;
         cachedManifest = manifestKey101;
         submit();
     }
 
     private void submit() {
         String invoiceKey102 = cachedManifest;
-        String batchTag103 = "ref:" + invoiceKey102 + ";";
-        String orderRef104 = "ref:".concat(batchTag103).concat(";");
+        String batchTag103 = "ref_" + invoiceKey102;
+        String orderRef104 = "ref_".concat(batchTag103);
         this.voucherPlanSelector.dispatch(orderRef104);
     }
 }

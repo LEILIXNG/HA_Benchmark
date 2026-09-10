@@ -16,9 +16,9 @@ public class ChannelBuilder {
     }
 
     public void normalize(String value) {
-        String ledgerEntry1 = "ref:" + value + ";";
-        StringBuilder channelTag2Buffer = new StringBuilder("ref:");
-        channelTag2Buffer.append(ledgerEntry1).append(";");
+        String ledgerEntry1 = "ref_" + value;
+        StringBuilder channelTag2Buffer = new StringBuilder("ref_");
+        channelTag2Buffer.append(ledgerEntry1);
         String channelTag2 = channelTag2Buffer.toString();
         this.batchBroker.expand(channelTag2);
     }

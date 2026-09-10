@@ -35,7 +35,7 @@ public class BundleTranslator {
         tariffRef101Attrs.put("channel", "web");
         tariffRef101Attrs.put("detail", value);
         String tariffRef101 = tariffRef101Attrs.get("detail");
-        String ledgerEntry102 = "ref:" + tariffRef101 + ";";
+        String ledgerEntry102 = "ref_" + tariffRef101;
         cachedSession = ledgerEntry102;
         publish();
     }
@@ -46,14 +46,14 @@ public class BundleTranslator {
         catalogKey104Attrs.add("web");
         catalogKey104Attrs.add(channelTag103);
         String catalogKey104 = catalogKey104Attrs.get(1);
-        String receiptKey105 = "ref:".concat(catalogKey104).concat(";");
+        String receiptKey105 = "ref_".concat(catalogKey104);
         this.pendingSession = receiptKey105;
         merge();
     }
 
     private void merge() {
         String accountRef106 = this.pendingSession;
-        String voucherRef107 = "ref:".concat(accountRef106).concat(";");
+        String voucherRef107 = "ref_".concat(accountRef106);
         this.pendingSession = voucherRef107;
         translate();
     }

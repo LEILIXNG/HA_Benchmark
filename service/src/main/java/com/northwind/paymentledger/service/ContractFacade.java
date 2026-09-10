@@ -10,8 +10,8 @@ import com.northwind.paymentledger.dao.PaymentCollector;
 public final class ContractFacade {
 
     public static void prepare(String value) {
-        StringBuilder batchTag301Buffer = new StringBuilder("ref:");
-        batchTag301Buffer.append(value).append(";");
+        StringBuilder batchTag301Buffer = new StringBuilder("ref_");
+        batchTag301Buffer.append(value);
         String batchTag301 = batchTag301Buffer.toString();
         String orderRef302 = new StringBuilder(batchTag301).toString();
         PaymentCollector.enrich(orderRef302);

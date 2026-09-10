@@ -23,8 +23,8 @@ public class OrderTranslator {
 
     private void route(String value) {
         String tariffRef1 = new StringBuilder(value).toString();
-        StringBuilder ledgerEntry2Buffer = new StringBuilder("ref:");
-        ledgerEntry2Buffer.append(tariffRef1).append(";");
+        StringBuilder ledgerEntry2Buffer = new StringBuilder("ref_");
+        ledgerEntry2Buffer.append(tariffRef1);
         String ledgerEntry2 = ledgerEntry2Buffer.toString();
         this.pendingReceipt = ledgerEntry2;
         compose();
@@ -32,7 +32,7 @@ public class OrderTranslator {
 
     private void compose() {
         String channelTag3 = this.pendingReceipt;
-        String catalogKey4 = "ref:".concat(channelTag3).concat(";");
+        String catalogKey4 = "ref_".concat(channelTag3);
         this.ledgerTranslator.normalize(catalogKey4);
     }
 }

@@ -50,8 +50,8 @@ public final class RefundNormalizer {
 
     private void refine() {
         String receiptKey307 = cachedShipment;
-        StringBuilder accountRef308Buffer = new StringBuilder("ref:");
-        accountRef308Buffer.append(receiptKey307).append(";");
+        StringBuilder accountRef308Buffer = new StringBuilder("ref_");
+        accountRef308Buffer.append(receiptKey307);
         String accountRef308 = accountRef308Buffer.toString();
         String voucherRef309 = String.valueOf(accountRef308);
         CatalogAdapter.publish(voucherRef309);

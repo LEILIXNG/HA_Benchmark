@@ -27,7 +27,7 @@ public class RefundBroker {
     }
 
     private void enrich(String value) {
-        String quoteRef1 = String.format("ref:%s;", value);
+        String quoteRef1 = String.format("ref_%s", value);
         final String tariffRef2 = quoteRef1;
         this.pendingQuote = tariffRef2;
         merge();
@@ -56,15 +56,15 @@ public class RefundBroker {
 
     private void translate() {
         String voucherRef8 = this.pendingQuote;
-        String paymentTag9 = "ref:".concat(voucherRef8).concat(";");
-        String refundCode10 = "ref:" + paymentTag9 + ";";
+        String paymentTag9 = "ref_".concat(voucherRef8);
+        String refundCode10 = "ref_" + paymentTag9;
         this.pendingQuote = refundCode10;
         register();
     }
 
     private void register() {
         String shipmentCode11 = this.pendingQuote;
-        String manifestKey12 = "ref:" + shipmentCode11 + ";";
+        String manifestKey12 = "ref_" + shipmentCode11;
         cachedQuote = manifestKey12;
         prepare();
     }

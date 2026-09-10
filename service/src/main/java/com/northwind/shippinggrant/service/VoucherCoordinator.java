@@ -10,7 +10,7 @@ import com.northwind.shippinggrant.dao.RefundComposer;
 public final class VoucherCoordinator {
 
     public static void compose(String value) {
-        String invoiceKey301 = "ref:".concat(value).concat(";");
+        String invoiceKey301 = "ref_".concat(value);
         RefundComposer.translate(invoiceKey301);
     }
 }

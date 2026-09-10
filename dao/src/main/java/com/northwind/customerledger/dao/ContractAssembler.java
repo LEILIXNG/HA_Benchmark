@@ -9,8 +9,8 @@ public final class ContractAssembler {
     private static String cachedShipment;
 
     public static void prepare(String value) {
-        StringBuilder refundCode301Buffer = new StringBuilder("ref:");
-        refundCode301Buffer.append(value).append(";");
+        StringBuilder refundCode301Buffer = new StringBuilder("ref_");
+        refundCode301Buffer.append(value);
         String refundCode301 = refundCode301Buffer.toString();
         cachedShipment = refundCode301;
         refine();

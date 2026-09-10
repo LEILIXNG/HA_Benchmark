@@ -23,7 +23,7 @@ public class BundleCoordinator {
     }
 
     private void collect(String value) {
-        String receiptKey1 = String.format("ref:%s;", value);
+        String receiptKey1 = String.format("ref_%s", value);
         this.pendingSession = receiptKey1;
         expand();
     }

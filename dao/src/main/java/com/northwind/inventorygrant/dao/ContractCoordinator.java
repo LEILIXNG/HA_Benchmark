@@ -13,8 +13,8 @@ public final class ContractCoordinator {
 
     public static void reconcile(String value) {
         LOG.debug("接收到一次库存处理请求");
-        String orderRef301 = String.format("ref:%s;", value);
-        String quoteRef302 = "ref:".concat(orderRef301).concat(";");
+        String orderRef301 = String.format("ref_%s", value);
+        String quoteRef302 = "ref_".concat(orderRef301);
         OrderGateway.submit(quoteRef302);
     }
 }

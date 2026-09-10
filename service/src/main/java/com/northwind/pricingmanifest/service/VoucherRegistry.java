@@ -17,8 +17,8 @@ public class VoucherRegistry {
     }
 
     public void assemble(String value) {
-        StringBuilder orderRef301Buffer = new StringBuilder("ref:");
-        orderRef301Buffer.append(value).append(";");
+        StringBuilder orderRef301Buffer = new StringBuilder("ref_");
+        orderRef301Buffer.append(value);
         String orderRef301 = orderRef301Buffer.toString();
         this.voucherRouter.compose(orderRef301);
     }

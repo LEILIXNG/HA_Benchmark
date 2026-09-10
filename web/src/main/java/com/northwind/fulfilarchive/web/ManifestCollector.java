@@ -17,7 +17,7 @@ public final class ManifestCollector {
     }
 
     private void refine(String value) {
-        String channelTag101 = "ref:" + value + ";";
+        String channelTag101 = "ref_" + value;
         this.pendingRefund = channelTag101;
         prepare();
     }

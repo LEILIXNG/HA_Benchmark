@@ -38,7 +38,7 @@ public class RefundBroker {
 
     private void translate() {
         String orderRef102 = this.pendingVoucher;
-        String quoteRef103 = "ref:".concat(orderRef102).concat(";");
+        String quoteRef103 = "ref_".concat(orderRef102);
         this.pendingVoucher = quoteRef103;
         enrich();
     }

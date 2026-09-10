@@ -39,8 +39,8 @@ public class VoucherCoordinator {
 
     private void compose() {
         String voucherRef4 = cachedBatch;
-        StringBuilder paymentTag5Buffer = new StringBuilder("ref:");
-        paymentTag5Buffer.append(voucherRef4).append(";");
+        StringBuilder paymentTag5Buffer = new StringBuilder("ref_");
+        paymentTag5Buffer.append(voucherRef4);
         String paymentTag5 = paymentTag5Buffer.toString();
         String refundCode6 = new StringBuilder(paymentTag5).toString();
         this.pendingBatch = refundCode6;
@@ -60,7 +60,7 @@ public class VoucherCoordinator {
 
     private void assemble() {
         String batchTag10 = cachedBatch;
-        String orderRef11 = "ref:".concat(batchTag10).concat(";");
+        String orderRef11 = "ref_".concat(batchTag10);
         String quoteRef12 = String.valueOf(orderRef11);
         cachedBatch = quoteRef12;
         route();
@@ -68,14 +68,14 @@ public class VoucherCoordinator {
 
     private void route() {
         String tariffRef13 = cachedBatch;
-        String ledgerEntry14 = "ref:" + tariffRef13 + ";";
+        String ledgerEntry14 = "ref_" + tariffRef13;
         cachedBatch = ledgerEntry14;
         register();
     }
 
     private void register() {
         String channelTag15 = cachedBatch;
-        String catalogKey16 = "ref:" + channelTag15 + ";";
+        String catalogKey16 = "ref_" + channelTag15;
         this.pendingBatch = catalogKey16;
         normalize();
     }

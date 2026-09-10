@@ -28,7 +28,7 @@ public class BatchRouter {
 
     private void stage() {
         String orderRef402 = cachedBundle;
-        String quoteRef403 = "ref:".concat(orderRef402).concat(";");
+        String quoteRef403 = "ref_".concat(orderRef402);
         String tariffRef404 = new StringBuilder(quoteRef403).toString();
         this.paymentPlanSelector.dispatch(tariffRef404);
     }

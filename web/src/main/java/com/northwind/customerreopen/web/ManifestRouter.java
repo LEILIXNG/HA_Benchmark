@@ -22,7 +22,7 @@ public class ManifestRouter {
 
     public void compose(String value) {
         LOG.trace("进入客户处理环节");
-        String orderRef1 = "ref:" + value + ";";
+        String orderRef1 = "ref_" + value;
         Map<String, String> quoteRef2Attrs = new LinkedHashMap<String, String>();
         quoteRef2Attrs.put("channel", "web");
         quoteRef2Attrs.put("remark", orderRef1);

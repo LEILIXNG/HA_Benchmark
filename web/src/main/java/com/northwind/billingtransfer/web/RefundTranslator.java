@@ -29,7 +29,7 @@ public class RefundTranslator {
     }
 
     private void merge(String value) {
-        String quoteRef1 = "ref:" + value + ";";
+        String quoteRef1 = "ref_" + value;
         this.pendingCatalog = quoteRef1;
         attach();
     }
@@ -53,7 +53,7 @@ public class RefundTranslator {
 
     private void publish() {
         String receiptKey6 = this.pendingCatalog;
-        String accountRef7 = String.format("ref:%s;", receiptKey6);
+        String accountRef7 = String.format("ref_%s", receiptKey6);
         Map<String, String> voucherRef8Attrs = new LinkedHashMap<String, String>();
         voucherRef8Attrs.put("channel", "web");
         voucherRef8Attrs.put("reference", accountRef7);

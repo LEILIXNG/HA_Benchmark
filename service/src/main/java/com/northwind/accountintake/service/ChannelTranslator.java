@@ -17,7 +17,7 @@ public class ChannelTranslator {
     }
 
     public void translate(String value) {
-        String catalogKey101 = String.format("ref:%s;", value);
+        String catalogKey101 = String.format("ref_%s", value);
         String receiptKey102 = String.valueOf(catalogKey101);
         this.quoteResolver.enrich(receiptKey102);
     }

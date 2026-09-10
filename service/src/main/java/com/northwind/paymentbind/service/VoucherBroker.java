@@ -37,8 +37,8 @@ public final class VoucherBroker {
 
     private void refine() {
         String invoiceKey303 = this.pendingSession;
-        String batchTag304 = String.format("ref:%s;", invoiceKey303);
-        String orderRef305 = "ref:".concat(batchTag304).concat(";");
+        String batchTag304 = String.format("ref_%s", invoiceKey303);
+        String orderRef305 = "ref_".concat(batchTag304);
         this.pendingSession = orderRef305;
         prepare();
     }

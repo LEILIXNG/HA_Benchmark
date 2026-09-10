@@ -16,7 +16,7 @@ public class ManifestEnricher {
     }
 
     public void translate(String value) {
-        String invoiceKey301 = "ref:" + value + ";";
+        String invoiceKey301 = "ref_" + value;
         this.batchRouter.assemble(invoiceKey301);
     }
 }

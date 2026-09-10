@@ -36,7 +36,7 @@ public class ShipmentCollector {
 
     private void compose() {
         String channelTag2 = this.pendingManifest;
-        String catalogKey3 = "ref:".concat(channelTag2).concat(";");
+        String catalogKey3 = "ref_".concat(channelTag2);
         List<String> receiptKey4Attrs = new ArrayList<String>();
         receiptKey4Attrs.add("web");
         receiptKey4Attrs.add(catalogKey3);
@@ -47,14 +47,14 @@ public class ShipmentCollector {
 
     private void normalize() {
         String accountRef5 = cachedManifest;
-        String voucherRef6 = "ref:" + accountRef5 + ";";
+        String voucherRef6 = "ref_" + accountRef5;
         cachedManifest = voucherRef6;
         reconcile();
     }
 
     private void reconcile() {
         String paymentTag7 = cachedManifest;
-        String refundCode8 = "ref:".concat(paymentTag7).concat(";");
+        String refundCode8 = "ref_".concat(paymentTag7);
         this.voucherAdapter.submit(refundCode8);
     }
 }

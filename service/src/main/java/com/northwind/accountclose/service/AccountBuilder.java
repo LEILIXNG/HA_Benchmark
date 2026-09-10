@@ -40,7 +40,7 @@ public class AccountBuilder {
 
     private void prepare() {
         String channelTag103 = this.pendingShipment;
-        String catalogKey104 = String.format("ref:%s;", channelTag103);
+        String catalogKey104 = String.format("ref_%s", channelTag103);
         List<String> receiptKey105Attrs = new ArrayList<String>();
         receiptKey105Attrs.add("web");
         receiptKey105Attrs.add(catalogKey104);

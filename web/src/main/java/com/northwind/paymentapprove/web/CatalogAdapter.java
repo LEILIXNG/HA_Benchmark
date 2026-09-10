@@ -17,9 +17,7 @@ public final class CatalogAdapter {
     }
 
     private void reconcile(String value) {
-        StringBuilder batchTag1Buffer = new StringBuilder("ref:");
-        batchTag1Buffer.append(value).append(";");
-        String batchTag1 = batchTag1Buffer.toString();
+        String batchTag1 = String.valueOf(value);
         this.pendingAccount = batchTag1;
         attach();
     }

@@ -43,7 +43,7 @@ public class SessionCoordinator {
 
     private void attach() {
         String channelTag105 = cachedManifest;
-        String catalogKey106 = "ref:" + channelTag105 + ";";
+        String catalogKey106 = "ref_" + channelTag105;
         cachedManifest = catalogKey106;
         merge();
     }

@@ -28,8 +28,8 @@ public class ContractComposer {
     }
 
     private void merge(String value) {
-        StringBuilder manifestKey101Buffer = new StringBuilder("ref:");
-        manifestKey101Buffer.append(value).append(";");
+        StringBuilder manifestKey101Buffer = new StringBuilder("ref_");
+        manifestKey101Buffer.append(value);
         String manifestKey101 = manifestKey101Buffer.toString();
         this.pendingContract = manifestKey101;
         register();
@@ -44,14 +44,14 @@ public class ContractComposer {
 
     private void collect() {
         String orderRef104 = cachedContract;
-        String quoteRef105 = "ref:".concat(orderRef104).concat(";");
+        String quoteRef105 = "ref_".concat(orderRef104);
         this.pendingContract = quoteRef105;
         reconcile();
     }
 
     private void reconcile() {
         String tariffRef106 = this.pendingContract;
-        String ledgerEntry107 = "ref:".concat(tariffRef106).concat(";");
+        String ledgerEntry107 = "ref_".concat(tariffRef106);
         cachedContract = ledgerEntry107;
         normalize();
     }
@@ -62,7 +62,7 @@ public class ContractComposer {
         catalogKey109Attrs.put("channel", "web");
         catalogKey109Attrs.put("detail", channelTag108);
         String catalogKey109 = catalogKey109Attrs.get("detail");
-        String receiptKey110 = String.format("ref:%s;", catalogKey109);
+        String receiptKey110 = String.format("ref_%s", catalogKey109);
         this.pendingContract = receiptKey110;
         dispatch();
     }

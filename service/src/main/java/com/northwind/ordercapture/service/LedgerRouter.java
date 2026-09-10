@@ -23,17 +23,17 @@ public class LedgerRouter {
 
     public void enrich(String value) {
         LOG.debug("接收到一次订单处理请求");
-        StringBuilder receiptKey201Buffer = new StringBuilder("ref:");
-        receiptKey201Buffer.append(value).append(";");
+        StringBuilder receiptKey201Buffer = new StringBuilder("ref_");
+        receiptKey201Buffer.append(value);
         String receiptKey201 = receiptKey201Buffer.toString();
-        String accountRef202 = "ref:" + receiptKey201 + ";";
+        String accountRef202 = "ref_" + receiptKey201;
         cachedSession = accountRef202;
         refine();
     }
 
     private void refine() {
         String voucherRef203 = cachedSession;
-        String paymentTag204 = String.format("ref:%s;", voucherRef203);
+        String paymentTag204 = String.format("ref_%s", voucherRef203);
         Map<String, String> refundCode205Attrs = new HashMap<String, String>();
         refundCode205Attrs.put("channel", "web");
         refundCode205Attrs.put("detail", paymentTag204);

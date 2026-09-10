@@ -24,8 +24,8 @@ public class AccountAdapter {
     }
 
     private void collect(String value) {
-        StringBuilder batchTag401Buffer = new StringBuilder("ref:");
-        batchTag401Buffer.append(value).append(";");
+        StringBuilder batchTag401Buffer = new StringBuilder("ref_");
+        batchTag401Buffer.append(value);
         String batchTag401 = batchTag401Buffer.toString();
         cachedCatalog = batchTag401;
         expand();
@@ -34,7 +34,7 @@ public class AccountAdapter {
     private void expand() {
         String orderRef402 = cachedCatalog;
         final String quoteRef403 = orderRef402;
-        String tariffRef404 = String.format("ref:%s;", quoteRef403);
+        String tariffRef404 = String.format("ref_%s", quoteRef403);
         this.pendingCatalog = tariffRef404;
         forward();
     }
@@ -42,7 +42,7 @@ public class AccountAdapter {
     private void forward() {
         String ledgerEntry405 = this.pendingCatalog;
         String channelTag406 = String.valueOf(ledgerEntry405);
-        String catalogKey407 = "ref:".concat(channelTag406).concat(";");
+        String catalogKey407 = "ref_".concat(channelTag406);
         this.pendingCatalog = catalogKey407;
         submit();
     }
@@ -53,7 +53,7 @@ public class AccountAdapter {
         accountRef409Attrs.put("channel", "web");
         accountRef409Attrs.put("detail", receiptKey408);
         String accountRef409 = accountRef409Attrs.get("detail");
-        String voucherRef410 = String.format("ref:%s;", accountRef409);
+        String voucherRef410 = String.format("ref_%s", accountRef409);
         this.pendingCatalog = voucherRef410;
         stage();
     }

@@ -17,8 +17,8 @@ public class ChannelFacade {
     }
 
     public void enrich(String value) {
-        String catalogKey101 = String.format("ref:%s;", value);
-        String receiptKey102 = "ref:".concat(catalogKey101).concat(";");
+        String catalogKey101 = String.format("ref_%s", value);
+        String receiptKey102 = "ref_".concat(catalogKey101);
         this.shipmentNormalizer.translate(receiptKey102);
     }
 }

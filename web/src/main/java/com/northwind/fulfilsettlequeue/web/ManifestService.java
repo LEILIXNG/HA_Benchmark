@@ -23,7 +23,7 @@ public class ManifestService {
     }
 
     private void resolve(String value) {
-        String catalogKey1 = "ref:" + value + ";";
+        String catalogKey1 = "ref_" + value;
         String receiptKey2 = String.valueOf(catalogKey1);
         this.pendingCatalog = receiptKey2;
         compose();
@@ -45,16 +45,16 @@ public class ManifestService {
 
     private void refine() {
         String shipmentCode7 = cachedCatalog;
-        String manifestKey8 = "ref:" + shipmentCode7 + ";";
+        String manifestKey8 = "ref_" + shipmentCode7;
         cachedCatalog = manifestKey8;
         register();
     }
 
     private void register() {
         String invoiceKey9 = cachedCatalog;
-        String batchTag10 = "ref:" + invoiceKey9 + ";";
-        StringBuilder orderRef11Buffer = new StringBuilder("ref:");
-        orderRef11Buffer.append(batchTag10).append(";");
+        String batchTag10 = "ref_" + invoiceKey9;
+        StringBuilder orderRef11Buffer = new StringBuilder("ref_");
+        orderRef11Buffer.append(batchTag10);
         String orderRef11 = orderRef11Buffer.toString();
         this.pendingCatalog = orderRef11;
         forward();
@@ -62,8 +62,8 @@ public class ManifestService {
 
     private void forward() {
         String quoteRef12 = this.pendingCatalog;
-        StringBuilder tariffRef13Buffer = new StringBuilder("ref:");
-        tariffRef13Buffer.append(quoteRef12).append(";");
+        StringBuilder tariffRef13Buffer = new StringBuilder("ref_");
+        tariffRef13Buffer.append(quoteRef12);
         String tariffRef13 = tariffRef13Buffer.toString();
         this.manifestRouter.forward(tariffRef13);
     }

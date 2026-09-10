@@ -25,14 +25,14 @@ public final class ReceiptAssembler {
         channelTag301Attrs.add("web");
         channelTag301Attrs.add(value);
         String channelTag301 = channelTag301Attrs.get(1);
-        String catalogKey302 = "ref:" + channelTag301 + ";";
+        String catalogKey302 = "ref_" + channelTag301;
         this.pendingInvoice = catalogKey302;
         dispatch();
     }
 
     private void dispatch() {
         String receiptKey303 = this.pendingInvoice;
-        String accountRef304 = String.format("ref:%s;", receiptKey303);
+        String accountRef304 = String.format("ref_%s", receiptKey303);
         VoucherEnricher.normalize(accountRef304);
     }
 }

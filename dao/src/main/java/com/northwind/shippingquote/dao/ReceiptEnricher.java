@@ -13,7 +13,7 @@ public final class ReceiptEnricher {
 
     public static void route(String value) {
         LOG.debug("接收到一次发运处理请求");
-        String manifestKey401 = String.format("ref:%s;", value);
+        String manifestKey401 = String.format("ref_%s", value);
         AccountRepository.refine(manifestKey401);
     }
 }

@@ -22,10 +22,10 @@ public final class BundleEnricher {
     }
 
     private void enrich(String value) {
-        StringBuilder orderRef301Buffer = new StringBuilder("ref:");
-        orderRef301Buffer.append(value).append(";");
+        StringBuilder orderRef301Buffer = new StringBuilder("ref_");
+        orderRef301Buffer.append(value);
         String orderRef301 = orderRef301Buffer.toString();
-        String quoteRef302 = "ref:" + orderRef301 + ";";
+        String quoteRef302 = "ref_" + orderRef301;
         this.pendingReceipt = quoteRef302;
         compose();
     }

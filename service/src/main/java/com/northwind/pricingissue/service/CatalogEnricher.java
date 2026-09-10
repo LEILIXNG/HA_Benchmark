@@ -8,8 +8,8 @@ package com.northwind.pricingissue.service;
 public final class CatalogEnricher {
 
     public static void forward(String value) {
-        StringBuilder tariffRef301Buffer = new StringBuilder("ref:");
-        tariffRef301Buffer.append(value).append(";");
+        StringBuilder tariffRef301Buffer = new StringBuilder("ref_");
+        tariffRef301Buffer.append(value);
         String tariffRef301 = tariffRef301Buffer.toString();
         BundleGateway.refine(tariffRef301);
     }

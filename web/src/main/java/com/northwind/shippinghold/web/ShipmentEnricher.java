@@ -11,8 +11,8 @@ import java.util.List;
 public final class ShipmentEnricher {
 
     public static void reconcile(String value) {
-        StringBuilder receiptKey1Buffer = new StringBuilder("ref:");
-        receiptKey1Buffer.append(value).append(";");
+        StringBuilder receiptKey1Buffer = new StringBuilder("ref_");
+        receiptKey1Buffer.append(value);
         String receiptKey1 = receiptKey1Buffer.toString();
         List<String> accountRef2Attrs = new ArrayList<String>();
         accountRef2Attrs.add("web");

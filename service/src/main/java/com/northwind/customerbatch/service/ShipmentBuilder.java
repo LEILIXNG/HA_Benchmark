@@ -20,15 +20,15 @@ public final class ShipmentBuilder {
 
     private void resolve(String value) {
         String paymentTag201 = value;
-        String refundCode202 = "ref:".concat(paymentTag201).concat(";");
+        String refundCode202 = "ref_".concat(paymentTag201);
         this.pendingBatch = refundCode202;
         attach();
     }
 
     private void attach() {
         String shipmentCode203 = this.pendingBatch;
-        StringBuilder manifestKey204Buffer = new StringBuilder("ref:");
-        manifestKey204Buffer.append(shipmentCode203).append(";");
+        StringBuilder manifestKey204Buffer = new StringBuilder("ref_");
+        manifestKey204Buffer.append(shipmentCode203);
         String manifestKey204 = manifestKey204Buffer.toString();
         BatchLoader.forward(manifestKey204);
     }

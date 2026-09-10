@@ -42,14 +42,14 @@ public class CatalogBuilder {
         orderRef206Attrs.put("channel", "web");
         orderRef206Attrs.put("remark", batchTag205);
         String orderRef206 = orderRef206Attrs.get("remark");
-        String quoteRef207 = "ref:".concat(orderRef206).concat(";");
+        String quoteRef207 = "ref_".concat(orderRef206);
         this.pendingCatalog = quoteRef207;
         merge();
     }
 
     private void merge() {
         String tariffRef208 = this.pendingCatalog;
-        String ledgerEntry209 = "ref:" + tariffRef208 + ";";
+        String ledgerEntry209 = "ref_" + tariffRef208;
         Map<String, String> channelTag210Attrs = new HashMap<String, String>();
         channelTag210Attrs.put("channel", "web");
         channelTag210Attrs.put("remark", ledgerEntry209);

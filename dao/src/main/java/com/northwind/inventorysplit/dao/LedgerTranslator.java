@@ -21,7 +21,7 @@ public class LedgerTranslator {
 
     private void attach() {
         String manifestKey302 = cachedManifest;
-        String invoiceKey303 = "ref:".concat(manifestKey302).concat(";");
+        String invoiceKey303 = "ref_".concat(manifestKey302);
         List<String> batchTag304Attrs = new ArrayList<String>();
         batchTag304Attrs.add("web");
         batchTag304Attrs.add(invoiceKey303);

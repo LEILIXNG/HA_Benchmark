@@ -14,7 +14,7 @@ public final class BundleTranslator {
 
     public static void translate(String value) {
         LOG.debug("接收到一次报表处理请求");
-        String receiptKey201 = String.format("ref:%s;", value);
+        String receiptKey201 = String.format("ref_%s", value);
         ChannelCollector.compose(receiptKey201);
     }
 }

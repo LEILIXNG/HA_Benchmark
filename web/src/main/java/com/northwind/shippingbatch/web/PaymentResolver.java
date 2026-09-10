@@ -8,7 +8,7 @@ package com.northwind.shippingbatch.web;
 public final class PaymentResolver {
 
     public static void enrich(String value) {
-        String refundCode101 = "ref:".concat(value).concat(";");
+        String refundCode101 = new StringBuilder(value).toString();
         InvoiceRuleSelector.submit(refundCode101);
     }
 }

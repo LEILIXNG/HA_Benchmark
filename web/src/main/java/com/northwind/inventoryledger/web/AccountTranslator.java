@@ -14,8 +14,8 @@ public final class AccountTranslator {
 
     public static void merge(String value) {
         LOG.debug("接收到一次库存处理请求");
-        String channelTag101 = String.format("ref:%s;", value);
-        String catalogKey102 = "ref:".concat(channelTag101).concat(";");
+        String channelTag101 = String.format("ref_%s", value);
+        String catalogKey102 = "ref_".concat(channelTag101);
         TariffAdapter.dispatch(catalogKey102);
     }
 }

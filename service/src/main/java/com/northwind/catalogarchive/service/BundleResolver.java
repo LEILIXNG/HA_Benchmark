@@ -28,10 +28,10 @@ public class BundleResolver {
 
     private void register() {
         String channelTag202 = this.pendingShipment;
-        StringBuilder catalogKey203Buffer = new StringBuilder("ref:");
-        catalogKey203Buffer.append(channelTag202).append(";");
+        StringBuilder catalogKey203Buffer = new StringBuilder("ref_");
+        catalogKey203Buffer.append(channelTag202);
         String catalogKey203 = catalogKey203Buffer.toString();
-        String receiptKey204 = String.format("ref:%s;", catalogKey203);
+        String receiptKey204 = String.format("ref_%s", catalogKey203);
         VoucherRouter.collect(receiptKey204);
     }
 }

@@ -21,8 +21,8 @@ public final class OrderBroker {
 
     private static void reconcile() {
         String accountRef302 = cachedChannel;
-        StringBuilder voucherRef303Buffer = new StringBuilder("ref:");
-        voucherRef303Buffer.append(accountRef302).append(";");
+        StringBuilder voucherRef303Buffer = new StringBuilder("ref_");
+        voucherRef303Buffer.append(accountRef302);
         String voucherRef303 = voucherRef303Buffer.toString();
         CatalogService.refine(voucherRef303);
     }

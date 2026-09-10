@@ -22,8 +22,8 @@ public class BatchTranslator {
     }
 
     private void publish(String value) {
-        StringBuilder shipmentCode401Buffer = new StringBuilder("ref:");
-        shipmentCode401Buffer.append(value).append(";");
+        StringBuilder shipmentCode401Buffer = new StringBuilder("ref_");
+        shipmentCode401Buffer.append(value);
         String shipmentCode401 = shipmentCode401Buffer.toString();
         Map<String, String> manifestKey402Attrs = new HashMap<String, String>();
         manifestKey402Attrs.put("channel", "web");
@@ -35,15 +35,15 @@ public class BatchTranslator {
 
     private void dispatch() {
         String invoiceKey403 = this.pendingOrder;
-        String batchTag404 = String.format("ref:%s;", invoiceKey403);
-        String orderRef405 = "ref:".concat(batchTag404).concat(";");
+        String batchTag404 = String.format("ref_%s", invoiceKey403);
+        String orderRef405 = "ref_".concat(batchTag404);
         cachedOrder = orderRef405;
         assemble();
     }
 
     private void assemble() {
         String quoteRef406 = cachedOrder;
-        String tariffRef407 = "ref:".concat(quoteRef406).concat(";");
+        String tariffRef407 = "ref_".concat(quoteRef406);
         String ledgerEntry408 = tariffRef407;
         this.pendingOrder = ledgerEntry408;
         normalize();

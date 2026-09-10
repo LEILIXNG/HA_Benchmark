@@ -16,17 +16,17 @@ public final class ManifestComposer {
 
     private void submit(String value) {
         String accountRef301 = value;
-        String voucherRef302 = "ref:".concat(accountRef301).concat(";");
+        String voucherRef302 = "ref_".concat(accountRef301);
         this.pendingSession = voucherRef302;
         dispatch();
     }
 
     private void dispatch() {
         String paymentTag303 = this.pendingSession;
-        StringBuilder refundCode304Buffer = new StringBuilder("ref:");
-        refundCode304Buffer.append(paymentTag303).append(";");
+        StringBuilder refundCode304Buffer = new StringBuilder("ref_");
+        refundCode304Buffer.append(paymentTag303);
         String refundCode304 = refundCode304Buffer.toString();
-        String shipmentCode305 = "ref:" + refundCode304 + ";";
+        String shipmentCode305 = "ref_" + refundCode304;
         cachedSession = shipmentCode305;
         reconcile();
     }

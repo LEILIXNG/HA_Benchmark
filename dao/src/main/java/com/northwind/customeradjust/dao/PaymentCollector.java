@@ -27,8 +27,8 @@ public final class PaymentCollector {
 
     private void merge() {
         String paymentTag302 = cachedTariff;
-        StringBuilder refundCode303Buffer = new StringBuilder("ref:");
-        refundCode303Buffer.append(paymentTag302).append(";");
+        StringBuilder refundCode303Buffer = new StringBuilder("ref_");
+        refundCode303Buffer.append(paymentTag302);
         String refundCode303 = refundCode303Buffer.toString();
         this.pendingTariff = refundCode303;
         attach();

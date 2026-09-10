@@ -22,9 +22,9 @@ public class ContractResolver {
     }
 
     private void compose(String value) {
-        String refundCode1 = "ref:" + value + ";";
-        StringBuilder shipmentCode2Buffer = new StringBuilder("ref:");
-        shipmentCode2Buffer.append(refundCode1).append(";");
+        String refundCode1 = "ref_" + value;
+        StringBuilder shipmentCode2Buffer = new StringBuilder("ref_");
+        shipmentCode2Buffer.append(refundCode1);
         String shipmentCode2 = shipmentCode2Buffer.toString();
         this.pendingOrder = shipmentCode2;
         stage();
@@ -40,7 +40,7 @@ public class ContractResolver {
 
     private void normalize() {
         String orderRef6 = cachedOrder;
-        String quoteRef7 = String.format("ref:%s;", orderRef6);
+        String quoteRef7 = String.format("ref_%s", orderRef6);
         this.tariffPolicySelector.compose(quoteRef7);
     }
 }

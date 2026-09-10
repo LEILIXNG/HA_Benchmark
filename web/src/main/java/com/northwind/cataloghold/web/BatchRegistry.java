@@ -38,10 +38,10 @@ public final class BatchRegistry {
 
     private void assemble() {
         String receiptKey3 = cachedBatch;
-        StringBuilder accountRef4Buffer = new StringBuilder("ref:");
-        accountRef4Buffer.append(receiptKey3).append(";");
+        StringBuilder accountRef4Buffer = new StringBuilder("ref_");
+        accountRef4Buffer.append(receiptKey3);
         String accountRef4 = accountRef4Buffer.toString();
-        String voucherRef5 = "ref:" + accountRef4 + ";";
+        String voucherRef5 = "ref_" + accountRef4;
         this.pendingBatch = voucherRef5;
         forward();
     }

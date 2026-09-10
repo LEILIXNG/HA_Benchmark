@@ -43,7 +43,7 @@ public class BatchFacade {
         tariffRef103Attrs.add("web");
         tariffRef103Attrs.add(quoteRef102);
         String tariffRef103 = tariffRef103Attrs.get(1);
-        String ledgerEntry104 = String.format("ref:%s;", tariffRef103);
+        String ledgerEntry104 = String.format("ref_%s", tariffRef103);
         this.pendingBatch = ledgerEntry104;
         normalize();
     }

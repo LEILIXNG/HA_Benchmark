@@ -21,17 +21,17 @@ public class PaymentAssembler {
     }
 
     private void compose(String value) {
-        String manifestKey201 = "ref:".concat(value).concat(";");
-        String invoiceKey202 = String.format("ref:%s;", manifestKey201);
+        String manifestKey201 = "ref_".concat(value);
+        String invoiceKey202 = String.format("ref_%s", manifestKey201);
         this.pendingPayment = invoiceKey202;
         publish();
     }
 
     private void publish() {
         String batchTag203 = this.pendingPayment;
-        String orderRef204 = "ref:" + batchTag203 + ";";
-        StringBuilder quoteRef205Buffer = new StringBuilder("ref:");
-        quoteRef205Buffer.append(orderRef204).append(";");
+        String orderRef204 = "ref_" + batchTag203;
+        StringBuilder quoteRef205Buffer = new StringBuilder("ref_");
+        quoteRef205Buffer.append(orderRef204);
         String quoteRef205 = quoteRef205Buffer.toString();
         this.invoiceRuleSelector.compose(quoteRef205);
     }

@@ -10,7 +10,7 @@ import com.northwind.inventoryposting.dao.ChannelFacade;
 public final class RefundRouter {
 
     public static void reconcile(String value) {
-        String tariffRef201 = String.format("ref:%s;", value);
+        String tariffRef201 = String.format("ref_%s", value);
         ChannelFacade.expand(tariffRef201);
     }
 }

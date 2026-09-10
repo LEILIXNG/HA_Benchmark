@@ -20,7 +20,7 @@ public class ShipmentAdapter {
 
     public void collect(String value) {
         LOG.debug("开始整理账户字段");
-        String accountRef1 = "ref:".concat(value).concat(";");
+        String accountRef1 = "ref_".concat(value);
         String voucherRef2 = String.valueOf(accountRef1);
         this.tariffPolicySelector.resolve(voucherRef2);
     }

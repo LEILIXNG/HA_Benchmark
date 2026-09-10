@@ -28,15 +28,15 @@ public class LedgerBuilder {
     }
 
     private void dispatch(String value) {
-        String manifestKey401 = "ref:".concat(value).concat(";");
-        String invoiceKey402 = String.format("ref:%s;", manifestKey401);
+        String manifestKey401 = "ref_".concat(value);
+        String invoiceKey402 = String.format("ref_%s", manifestKey401);
         cachedManifest = invoiceKey402;
         prepare();
     }
 
     private void prepare() {
         String batchTag403 = cachedManifest;
-        String orderRef404 = "ref:" + batchTag403 + ";";
+        String orderRef404 = "ref_" + batchTag403;
         Map<String, String> quoteRef405Attrs = new LinkedHashMap<String, String>();
         quoteRef405Attrs.put("channel", "web");
         quoteRef405Attrs.put("detail", orderRef404);
@@ -47,10 +47,10 @@ public class LedgerBuilder {
 
     private void compose() {
         String tariffRef406 = cachedManifest;
-        StringBuilder ledgerEntry407Buffer = new StringBuilder("ref:");
-        ledgerEntry407Buffer.append(tariffRef406).append(";");
+        StringBuilder ledgerEntry407Buffer = new StringBuilder("ref_");
+        ledgerEntry407Buffer.append(tariffRef406);
         String ledgerEntry407 = ledgerEntry407Buffer.toString();
-        String channelTag408 = "ref:".concat(ledgerEntry407).concat(";");
+        String channelTag408 = "ref_".concat(ledgerEntry407);
         this.pendingManifest = channelTag408;
         forward();
     }
@@ -65,8 +65,8 @@ public class LedgerBuilder {
 
     private void resolve() {
         String voucherRef412 = this.pendingManifest;
-        StringBuilder paymentTag413Buffer = new StringBuilder("ref:");
-        paymentTag413Buffer.append(voucherRef412).append(";");
+        StringBuilder paymentTag413Buffer = new StringBuilder("ref_");
+        paymentTag413Buffer.append(voucherRef412);
         String paymentTag413 = paymentTag413Buffer.toString();
         String refundCode414 = String.valueOf(paymentTag413);
         this.sessionPlanSelector.stage(refundCode414);

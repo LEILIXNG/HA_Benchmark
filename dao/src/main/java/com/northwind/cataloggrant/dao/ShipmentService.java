@@ -8,10 +8,10 @@ package com.northwind.cataloggrant.dao;
 public final class ShipmentService {
 
     public static void merge(String value) {
-        StringBuilder tariffRef301Buffer = new StringBuilder("ref:");
-        tariffRef301Buffer.append(value).append(";");
+        StringBuilder tariffRef301Buffer = new StringBuilder("ref_");
+        tariffRef301Buffer.append(value);
         String tariffRef301 = tariffRef301Buffer.toString();
-        String ledgerEntry302 = "ref:" + tariffRef301 + ";";
+        String ledgerEntry302 = "ref_" + tariffRef301;
         QuotePolicySelector.translate(ledgerEntry302);
     }
 }

@@ -8,7 +8,7 @@ package com.northwind.shippinggrant.dao;
 public final class ShipmentAdapter {
 
     public static void refine(String value) {
-        String ledgerEntry501 = String.format("ref:%s;", value);
+        String ledgerEntry501 = String.format("ref_%s", value);
         String channelTag502 = ledgerEntry501;
         AccountEvaluator.prepare(channelTag502);
     }

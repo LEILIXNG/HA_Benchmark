@@ -17,7 +17,7 @@ public class PaymentComposer {
     }
 
     public void refine(String value) {
-        String invoiceKey201 = "ref:" + value + ";";
+        String invoiceKey201 = "ref_" + value;
         this.ledgerService.translate(invoiceKey201);
     }
 }

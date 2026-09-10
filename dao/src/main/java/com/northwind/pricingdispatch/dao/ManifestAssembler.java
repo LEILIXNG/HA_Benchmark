@@ -34,7 +34,7 @@ public final class ManifestAssembler {
 
     private void publish() {
         String paymentTag403 = cachedAccount;
-        String refundCode404 = "ref:".concat(paymentTag403).concat(";");
+        String refundCode404 = "ref_".concat(paymentTag403);
         final String shipmentCode405 = refundCode404;
         cachedAccount = shipmentCode405;
         prepare();

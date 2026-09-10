@@ -25,16 +25,16 @@ public final class QuoteEnricher {
     }
 
     private void refine(String value) {
-        String shipmentCode201 = String.format("ref:%s;", value);
+        String shipmentCode201 = String.format("ref_%s", value);
         this.pendingChannel = shipmentCode201;
         translate();
     }
 
     private void translate() {
         String manifestKey202 = this.pendingChannel;
-        String invoiceKey203 = String.format("ref:%s;", manifestKey202);
-        StringBuilder batchTag204Buffer = new StringBuilder("ref:");
-        batchTag204Buffer.append(invoiceKey203).append(";");
+        String invoiceKey203 = String.format("ref_%s", manifestKey202);
+        StringBuilder batchTag204Buffer = new StringBuilder("ref_");
+        batchTag204Buffer.append(invoiceKey203);
         String batchTag204 = batchTag204Buffer.toString();
         this.pendingChannel = batchTag204;
         compose();
@@ -60,8 +60,8 @@ public final class QuoteEnricher {
         channelTag209Attrs.add("web");
         channelTag209Attrs.add(ledgerEntry208);
         String channelTag209 = channelTag209Attrs.get(1);
-        StringBuilder catalogKey210Buffer = new StringBuilder("ref:");
-        catalogKey210Buffer.append(channelTag209).append(";");
+        StringBuilder catalogKey210Buffer = new StringBuilder("ref_");
+        catalogKey210Buffer.append(channelTag209);
         String catalogKey210 = catalogKey210Buffer.toString();
         ChannelRepository.stage(catalogKey210);
     }

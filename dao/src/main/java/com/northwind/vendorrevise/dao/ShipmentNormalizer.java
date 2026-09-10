@@ -39,7 +39,7 @@ public final class ShipmentNormalizer {
 
     private void translate() {
         String invoiceKey204 = cachedOrder;
-        String batchTag205 = "ref:" + invoiceKey204 + ";";
+        String batchTag205 = "ref_" + invoiceKey204;
         BundleBuilder.reconcile(batchTag205);
     }
 }

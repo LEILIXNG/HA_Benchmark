@@ -21,8 +21,8 @@ public class LedgerService {
 
     public void route(String value) {
         LOG.debug("接收到一次商品处理请求");
-        StringBuilder receiptKey101Buffer = new StringBuilder("ref:");
-        receiptKey101Buffer.append(value).append(";");
+        StringBuilder receiptKey101Buffer = new StringBuilder("ref_");
+        receiptKey101Buffer.append(value);
         String receiptKey101 = receiptKey101Buffer.toString();
         this.receiptRouter.prepare(receiptKey101);
     }

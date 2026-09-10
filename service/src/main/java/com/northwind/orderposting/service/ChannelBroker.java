@@ -33,7 +33,7 @@ public class ChannelBroker {
 
     private void submit() {
         String quoteRef102 = this.pendingAccount;
-        String tariffRef103 = "ref:" + quoteRef102 + ";";
+        String tariffRef103 = "ref_" + quoteRef102;
         cachedAccount = tariffRef103;
         attach();
     }

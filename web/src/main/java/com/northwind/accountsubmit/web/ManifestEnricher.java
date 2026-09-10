@@ -22,14 +22,14 @@ public class ManifestEnricher {
     }
 
     private void prepare(String value) {
-        String paymentTag1 = "ref:".concat(value).concat(";");
+        String paymentTag1 = value;
         this.pendingSession = paymentTag1;
         forward();
     }
 
     private void forward() {
         String refundCode2 = this.pendingSession;
-        String shipmentCode3 = "ref:".concat(refundCode2).concat(";");
+        String shipmentCode3 = refundCode2;
         this.contractComposer.stage(shipmentCode3);
     }
 }

@@ -14,8 +14,8 @@ public final class InvoiceFacade {
 
     public static void dispatch(String value) {
         LOG.debug("开始整理履约字段");
-        StringBuilder tariffRef101Buffer = new StringBuilder("ref:");
-        tariffRef101Buffer.append(value).append(";");
+        StringBuilder tariffRef101Buffer = new StringBuilder("ref_");
+        tariffRef101Buffer.append(value);
         String tariffRef101 = tariffRef101Buffer.toString();
         CatalogComposer.expand(tariffRef101);
     }

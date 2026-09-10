@@ -8,7 +8,7 @@ package com.northwind.paymentrelease.service;
 public final class ContractRouter {
 
     public static void stage(String value) {
-        String shipmentCode201 = String.format("ref:%s;", value);
+        String shipmentCode201 = String.format("ref_%s", value);
         OrderBroker.enrich(shipmentCode201);
     }
 }

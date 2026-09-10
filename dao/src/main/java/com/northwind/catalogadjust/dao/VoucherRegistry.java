@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 public class VoucherRegistry {
 
     public void merge(String value) {
-        StringBuilder batchTag301Buffer = new StringBuilder("ref:");
-        batchTag301Buffer.append(value).append(";");
+        StringBuilder batchTag301Buffer = new StringBuilder("ref_");
+        batchTag301Buffer.append(value);
         String batchTag301 = batchTag301Buffer.toString();
         List<String> orderRef302Attrs = new ArrayList<String>();
         orderRef302Attrs.add("web");

@@ -16,7 +16,7 @@ public final class AccountCoordinator {
 
     public static void collect(String value) {
         LOG.trace("进入账务处理环节");
-        String invoiceKey301 = "ref:" + value + ";";
+        String invoiceKey301 = "ref_" + value;
         cachedLedger = invoiceKey301;
         enrich();
     }

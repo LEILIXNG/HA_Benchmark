@@ -14,7 +14,7 @@ public final class VoucherTranslator {
     public static void submit(String value) {
         LOG.debug("开始整理定价字段");
         String invoiceKey401 = new StringBuilder(value).toString();
-        String batchTag402 = "ref:".concat(invoiceKey401).concat(";");
+        String batchTag402 = "ref_".concat(invoiceKey401);
         CatalogLoader.refine(batchTag402);
     }
 }

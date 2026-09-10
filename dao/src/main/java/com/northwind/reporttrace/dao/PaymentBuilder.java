@@ -15,8 +15,8 @@ public final class PaymentBuilder {
         accountRef701Attrs.put("channel", "web");
         accountRef701Attrs.put("detail", value);
         String accountRef701 = accountRef701Attrs.get("detail");
-        StringBuilder voucherRef702Buffer = new StringBuilder("ref:");
-        voucherRef702Buffer.append(accountRef701).append(";");
+        StringBuilder voucherRef702Buffer = new StringBuilder("ref_");
+        voucherRef702Buffer.append(accountRef701);
         String voucherRef702 = voucherRef702Buffer.toString();
         SessionEvaluator.refine(voucherRef702);
     }

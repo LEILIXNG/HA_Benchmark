@@ -36,8 +36,8 @@ public class BatchCoordinator {
 
     private void dispatch() {
         String voucherRef4 = cachedOrder;
-        StringBuilder paymentTag5Buffer = new StringBuilder("ref:");
-        paymentTag5Buffer.append(voucherRef4).append(";");
+        StringBuilder paymentTag5Buffer = new StringBuilder("ref_");
+        paymentTag5Buffer.append(voucherRef4);
         String paymentTag5 = paymentTag5Buffer.toString();
         Map<String, String> refundCode6Attrs = new HashMap<String, String>();
         refundCode6Attrs.put("channel", "web");
@@ -49,7 +49,7 @@ public class BatchCoordinator {
 
     private void register() {
         String shipmentCode7 = cachedOrder;
-        String manifestKey8 = "ref:".concat(shipmentCode7).concat(";");
+        String manifestKey8 = "ref_".concat(shipmentCode7);
         ChannelTranslator.forward(manifestKey8);
     }
 }
