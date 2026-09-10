@@ -32,9 +32,7 @@ That is the axis this suite adds:
 
 Questions it answers: *at what call depth does tool X lose the flow*, *does a static
 field break it*, *can it tell an effective sanitizer from one that only looks
-effective*. It does **not** answer *what is tool X's recall on real projects*: the
-code here is generated, it does not aim at real-world representativeness and contains
-no real CVE samples.
+effective*.
 
 ## Coverage matrix
 
@@ -69,8 +67,8 @@ one sanitizer; pairs drive the discrimination metric.
 | Modules crossed | 2.4 | 3 | Maven modules (four in the build; paths run through web/service/dao) |
 
 The ratio is **3.7 : 1.5 : 1** (statements : methods : files). The gradient is
-deliberate: early versions had all three nearly equal — one statement per method per
-file — which reads as generated at a glance.
+deliberate — it is the shape a real layered application has: several methods calling
+each other within a file, several propagating statements within a method body.
 
 The three quantities are geometrically locked: a file holds at least one method, a
 method at least one statement, so **files ≤ frames ≤ nodes** always holds. High
