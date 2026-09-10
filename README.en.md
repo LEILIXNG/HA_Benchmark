@@ -200,3 +200,48 @@ DR = |positives detected AND their paired_negative not reported| / number of pai
 
 Paired cases are identical line by line except for one sanitizer, so DR exposes
 pattern-matching tools immediately: they score 0%.
+
+### Per-vulnerability-class figures
+
+After the L1 decision, bucket by CWE and count four numbers per class:
+
+| | Meaning |
+|---|---|
+| TP | a vulnerable case was reported (the location hits `sink`) |
+| FN | a vulnerable case was not reported |
+| FP | a safe case was reported |
+| TN | a safe case was not reported |
+
+```
+Precision = TP / (TP + FP)
+Recall    = TP / (TP + FN)
+F1        = 2 · P · R / (P + R)
+```
+
+**Count cases, not findings**: several findings inside one case still count as a
+single TP, otherwise a tool can inflate TP by reporting more; likewise several
+findings in one safe case count as a single FP.
+
+The denominators are the case counts from the coverage matrix — fill in the last four
+columns with your tool's results:
+
+| CWE | vulnerable | safe | TP | FN | FP | Precision | Recall |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| CWE-22 | 37 | 15 | | | | | |
+| CWE-78 | 45 | 28 | | | | | |
+| CWE-89 | 93 | 44 | | | | | |
+| CWE-917 | 54 | 31 | | | | | |
+| CWE-918 | 47 | 18 | | | | | |
+| Total | 276 | 136 | | | | | |
+
+Split CWE-89 once more by sink form (JDBC 52 / 26, MyBatis 41 / 18): one has its
+dangerous line in `.java` and the other in XML, the analysis difficulty is not
+comparable, and merging them hides both.
+
+Findings whose `cwe` does not match (SpEL injection reported as SQL injection, say)
+are worth a column of their own rather than being counted as TP — right location,
+wrong class is a different thing for the user.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
