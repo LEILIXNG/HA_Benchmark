@@ -32,8 +32,9 @@ That is the axis this suite adds:
 
 Questions it answers: *at what call depth does tool X lose the flow*, *does a static
 field break it*, *can it tell an effective sanitizer from one that only looks
-effective*. It does **not** answer *what is tool X's recall on real projects* — see
-"Scope" at the end.
+effective*. It does **not** answer *what is tool X's recall on real projects*: the
+code here is generated, it does not aim at real-world representativeness and contains
+no real CVE samples.
 
 ## Coverage matrix
 
@@ -52,7 +53,8 @@ negatives.
 
 Five CWEs, six sink forms. CWE-89 is deliberately split in two: for the JDBC cases
 the dangerous line is in `.java`, for the MyBatis cases it is in **XML** — the Java
-side contains no concatenation at all (see below).
+side contains no concatenation at all. The last hop of `path` is Java → XML, so a tool
+that only reads `.java` scores zero recall on those 59 cases.
 
 A pair is a positive and a negative case that are identical line by line except for
 one sanitizer; pairs drive the discrimination metric.
@@ -112,7 +114,7 @@ Each `groundtruth/<id>.json`:
 | `source` | taint entry location (`file` + 1-based `line`) |
 | `sink` | dangerous call location |
 | `sanitizer` | sanitizer location, `null` when there is none |
-| `sanitizer_kind` | which sanitizer (see table below); `none` if absent |
+| `sanitizer_kind` | which sanitizer; `none` if absent. An effective one makes the case `safe`; an ineffective one (protection that can be bypassed) leaves it `vulnerable` |
 | `path` | full source→sink propagation path, both ends included, in execution order; each node's `expr` is the tainted expression on that line |
 | `metrics.call_depth` | **call chain length**: frames traversed (cross-checked at runtime) |
 | `metrics.chain_len` | number of path nodes |
@@ -122,92 +124,9 @@ Each `groundtruth/<id>.json`:
 | `paired_negative` | id of the paired negative case |
 | `http` | PoC request: method, path, parameter/header/cookie name, carrier |
 | `verification` | dynamic result: probe hit (`reached`), payload intact (`tainted`), neutralised by a safe idiom (`neutralized`), measured call depth (`call_depth_observed`) |
-| `verification.control` | benign-payload positive control (safe cases only), see below |
+| `verification.control` | benign-payload positive control (safe cases only): an ordinary input that passes the sanitizer is sent a second time and the probe must fire — only that proves the chain is walkable, which is what makes the attack payload's absence attributable to the sanitizer |
 
 `file` paths are relative to this directory with forward slashes; `line` is 1-based.
-
-## The ground truth is verified, not asserted
-
-Most suites label by hand, and the labelled path may not even be reachable. Here a
-probe sits in front of every sink (`common/.../AuditTrail.java`). Before release the
-project is actually started, PoC requests are sent over the appropriate carrier
-(query / path / header / cookie), and the outcome is checked:
-
-* `vulnerable` — the probe must fire, and the payload must still be intact at the sink
-* `safe` — the attack payload must **not** arrive intact, **and** a benign payload
-  must walk the whole chain
-
-What is verified is **reachability plus controllability**, not successful
-exploitation: the probe sits before the real dangerous call, so a missing table in h2
-or the absence of `/bin/sh` does not affect the conclusion.
-
-### Safe cases also get a positive control
-
-A safe verdict rests on an **absence** — "the attack payload did not arrive intact".
-The trouble is that "the container rejected the request" and "the code died halfway"
-satisfy that same criterion, and look identical (no probe record). A whole batch of
-safe cases can therefore report success while nothing was ever exercised.
-
-So every safe case receives a **second, benign request**: an ordinary input that
-passes its sanitizer (`whitelist_regex` → `abc123`, `command_allowlist` → `status`,
-`path_canonical_check` → `notes.txt`, `ssrf_host_allowlist` →
-`api.internal.example`). On that round the probe **must** fire, with a measured call
-depth matching the annotation. A hit proves the chain is walkable, which is what makes
-the first round's miss attributable to the sanitizer. The result is stored in
-`verification.control`.
-
-**All 412 cases now carry positive runtime evidence**: 276 vulnerable cases hit the
-probe, and all 136 safe cases had their benign payload walk the entire chain.
-
-This check is not decorative: on the day it was introduced it exposed 73 safe cases
-whose chain was not walkable at all — string concatenation along the path prefixed the
-value, so a character allowlist or host allowlist further down rejected *every*
-possible input, leaving those controllers dead for any request. Concatenation now uses
-only allowlisted characters, and whole-value comparison guards may not sit downstream
-of a value-rewriting operator; the generator rejects such combinations outright.
-
-Ineffective sanitizers are visible directly — same payload `zz' OR 1=1--`:
-
-| Case | SQL at the sink |
-|---|---|
-| no sanitizer | `... WHERE name = 'zz' OR 1=1--'` |
-| single quotes stripped | `... WHERE name = 'zz OR 1=1--'` ← still injectable |
-| character allowlist | never arrives (while benign `abc123` does) |
-
-## Sanitizers: idiomatic fixes vs typical broken fixes
-
-Safe cases are not "some filter function was added": each is written the way that
-vulnerability class is idiomatically fixed — which is exactly what vendor rule sets
-are tuned against. Alongside them are the broken fixes seen in the wild: they look
-like protection but can be bypassed.
-
-| Sanitizer | Applies to | Effective | Cases | Notes |
-|---|---|:---:|---:|---|
-| `whitelist_regex` | all | ✔ | 62 | character allowlist `^[A-Za-z0-9_]{1,64}$` |
-| `sql_parameterized` | jdbc_concat | ✔ | 14 | `PreparedStatement` binding, the CWE-89 fix |
-| `command_allowlist` | runtime_exec | ✔ | 9 | value must be in a fixed set |
-| `exec_no_shell` | runtime_exec | ✔ | 9 | `ProcessBuilder` with an argv array, no shell |
-| `path_canonical_check` | file_read | ✔ | 7 | prefix check after `normalize()`, the CWE-22 fix |
-| `spel_restricted_context` | spel_eval | ✔ | 16 | `SimpleEvaluationContext`, no type references |
-| `ssrf_host_allowlist` | url_fetch | ✔ | 10 | parse the host, then check the allowlist |
-| `mybatis_parameterized` | mybatis_dollar | ✔ | 9 | `#{}` in XML: the value never enters SQL text |
-| `incomplete_quote_strip` | jdbc / mybatis | ✘ | 17 | only quotes stripped; comments and keywords pass |
-| `metachar_strip_semicolon` | runtime_exec | ✘ | 3 | only `;` removed; `$( )`, backticks, `\|`, `&&` pass |
-| `traversal_replace_once` | file_read | ✘ | 9 | single `../` replacement; `....//` collapses back |
-| `spel_strip_type_ref` | spel_eval | ✘ | 9 | single `T(` replacement; `TT((` collapses back |
-| `ssrf_host_denylist` | url_fetch | ✘ | 13 | rejects the name `localhost`; `127.0.0.1` walks in |
-| `none` | — | — | 225 | no sanitizer |
-
-**Every bypass of the five broken fixes is dynamically confirmed**: the PoC payload
-still reaches the sink intact. The four effective fixes that live at the sink itself
-(parameter binding, no shell, restricted evaluation context, MyBatis `#{}`) are
-recorded as `neutralized` — the taint did reach that API, it simply no longer carries
-attack semantics. `verification.neutralized` distinguishes "never arrived" from
-"arrived but was defused".
-
-Sanitizer/sink pairings are enforced at generation time and `verdict` is derived
-solely from whether the sanitizer is effective — no hand labelling. A meaningless
-combination such as quote-stripping for path traversal is rejected outright.
 
 ## Taint entry: 5 sources × 4 carriers
 
@@ -232,44 +151,6 @@ Tomcat rejects a spaced payload with 400, and percent-encoding never reaches the
 (Tomcat does not decode cookie values). Those cases use equivalent space-free forms —
 `/**/` as whitespace for SQL (`zz'/**/OR/**/1=1--`), and SpEL's `+` needs no spaces
 anyway. The attack semantics are unchanged.
-
-## Taint flow across Java → XML
-
-The MyBatis cases (`JAVA-MYBATIS-*`) differ from the rest: the Java side contains no
-concatenation, and the dangerous line is not in `.java` at all.
-
-```java
-// service/…/CatalogGateway.java — the Java side just hands the value over
-public void enrich(String value) {
-    try (SqlSession session = MapperSessions.open(CatalogMapper.class)) {
-        register(session.getMapper(CatalogMapper.class), value);
-    } catch (RuntimeException e) { … }
-}
-
-private void register(CatalogMapper mapper, String value) {
-    mapper.register(value);
-}
-```
-
-```xml
-<!-- service/src/main/resources/…/CatalogMapper.xml — the taint enters SQL here -->
-<select id="register" resultType="map">
-  SELECT id, total
-    FROM orders
-   WHERE name = '${tariffRef}'
-</select>
-```
-
-For these cases `sink` points at a **line in an XML file** and the last hop of `path`
-is Java → XML. To report them a tool must understand the mapper interface, the
-statement id in the XML, and the semantics of `${}`; a tool that only reads `.java`
-scores zero recall here. The paired negative differs by a single character: `${}`
-becomes `#{}`.
-
-**Here `neutralized` is measured, not asserted**: the probe reads the final SQL
-rendered from the XML just before the statement is issued and checks whether the
-parameter value was inlined. `${}` splices the value into the statement, `#{}` leaves
-a `?` placeholder — a conclusion invisible on the Java side.
 
 ## No repeated boilerplate
 
@@ -297,30 +178,6 @@ versions, selected deterministically per case:
 Literals vary per case as well: table names, projections, WHERE columns, database
 names, file roots, shell commands, URL paths, SpEL prefixes, exception types.
 
-## Engineering shape
-
-Classes along the chain are wired in one of two ways, and a single chain may mix them:
-
-* **Spring beans** — `@Service` / `@Component` / `@Repository` with constructor
-  injection; the call site reads `this.xxx.method(v)` and never names the target
-  class. The interface-dispatch tier injects a `Map<String, Strategy>` and picks an
-  implementation by a constant bean name — the strategy-registry pattern real projects use
-* **Static utility classes** — `public final class` with static methods; the call site
-  names the target class
-
-159 of the 412 cases are injected end to end; the rest are mixed, injected at the front
-and static further down (a static method cannot obtain a bean, so injection only ever
-appears as a prefix of the chain). 48% of business classes are beans. **Both styles
-consume exactly the same number of call frames**, so `metrics.call_depth` matches the
-runtime measurement either way.
-
-Other things that make it read like a maintained project rather than a test suite: the
-package is `com.northwind` (a fictional order platform) and the word "benchmark"
-appears nowhere in the code; classes carry business Javadoc and about half have an
-slf4j logger; half the controllers lift the common prefix into a class-level
-`@RequestMapping` and half return `ResponseEntity`; comments in sanitizers give
-business reasons only, never "this fix is ineffective".
-
 ## Scoring
 
 Recall alone is maxed out by tools that report every dangerous function they see. Use
@@ -345,33 +202,3 @@ DR = |positives detected AND their paired_negative not reported| / number of pai
 
 Paired cases are identical line by line except for one sanitizer, so DR exposes
 pattern-matching tools immediately: they score 0%.
-
-## Scope
-
-**In scope**: the analysis limits of a SAST tool — how deep it follows a chain, which
-propagation carriers break it (instance fields, static fields, collection elements,
-interface polymorphism, dependency injection, cross-module calls, Java→XML), whether it
-distinguishes effective from ineffective sanitization, and whether it reports a full
-dataflow or merely a pattern match at the sink.
-
-**Out of scope**: how a tool performs on any real project. The code here is generated;
-it does not aim at real-world representativeness and contains no real CVE samples.
-
-So read results this way: "tool X loses the flow on cross-module static field
-propagation" is supported; "tool X has Y% recall on real projects" is not a question
-this suite can answer.
-
-## Note
-
-`AuditTrail.java`, `StatementAudit.java` and `MapperSessions.java` under
-`common/src/main/java/com/northwind/platform/` are the verification probe and session
-factory — test infrastructure, not part of the semantics under test. Ignore findings
-reported inside those files.
-
-They are deliberately not named `TaintOracle` / `reached()` / `neutralized()`: such
-names would print the answer in front of every sink. Case ids never appear in the code
-either — the probe derives its key from the call stack.
-
-## License
-
-MIT, see [LICENSE](LICENSE).
