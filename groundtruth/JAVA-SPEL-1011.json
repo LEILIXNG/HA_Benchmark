@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 5 层调用、跨 1 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilintake/web/SessionController.java",
+    "file": "web/src/main/java/nw/fulfilintake/SessionController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilintake/web/SessionController.java",
+    "file": "web/src/main/java/nw/fulfilintake/SessionController.java",
     "line": 25,
     "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/fulfilintake/web/SessionEvaluator.java",
+    "file": "web/src/main/java/nw/fulfilintake/SessionEvaluator.java",
     "line": 21,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -24,61 +24,61 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/SessionController.java",
+      "file": "web/src/main/java/nw/fulfilintake/SessionController.java",
       "line": 25,
       "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/BundleCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilintake/BundleCoordinator.java",
       "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/BundleCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilintake/BundleCoordinator.java",
       "line": 27,
       "expr": "receiptKey1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/BundleCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilintake/BundleCoordinator.java",
       "line": 32,
       "expr": "accountRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/BundleCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilintake/BundleCoordinator.java",
       "line": 35,
       "expr": "accountRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/BundleCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilintake/BundleCoordinator.java",
       "line": 36,
       "expr": "voucherRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/BundleCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilintake/BundleCoordinator.java",
       "line": 37,
       "expr": "paymentTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/BundleCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilintake/BundleCoordinator.java",
       "line": 38,
       "expr": "paymentTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/SessionEvaluator.java",
+      "file": "web/src/main/java/nw/fulfilintake/SessionEvaluator.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilintake/web/SessionEvaluator.java",
+      "file": "web/src/main/java/nw/fulfilintake/SessionEvaluator.java",
       "line": 21,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -116,6 +116,6 @@
     "payload_at_sink": "'tag-' + 'ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

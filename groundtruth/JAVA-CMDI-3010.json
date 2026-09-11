@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "Spring 请求头经 12 层调用、跨 3 个模块流入命令执行，经 command_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/inventoryapprove/ReceiptController.java",
     "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/inventoryapprove/ReceiptController.java",
     "line": 24,
     "expr": "category",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/ReceiptExecutor.java",
+    "file": "dao/src/main/java/nw/inventoryapprove/ReceiptExecutor.java",
     "line": 21,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/BatchFilter.java",
+    "file": "dao/src/main/java/nw/inventoryapprove/BatchFilter.java",
     "line": 24,
     "expr": "value",
     "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
@@ -29,139 +29,139 @@
   "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/inventoryapprove/ReceiptController.java",
       "line": 24,
       "expr": "category",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptBroker.java",
+      "file": "web/src/main/java/nw/inventoryapprove/ReceiptBroker.java",
       "line": 30,
       "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptBroker.java",
+      "file": "web/src/main/java/nw/inventoryapprove/ReceiptBroker.java",
       "line": 31,
       "expr": "shipmentCode1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptBroker.java",
+      "file": "web/src/main/java/nw/inventoryapprove/ReceiptBroker.java",
       "line": 36,
       "expr": "manifestKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptBroker.java",
+      "file": "web/src/main/java/nw/inventoryapprove/ReceiptBroker.java",
       "line": 39,
       "expr": "manifestKey2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptBroker.java",
+      "file": "web/src/main/java/nw/inventoryapprove/ReceiptBroker.java",
       "line": 40,
       "expr": "invoiceKey3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ReceiptBroker.java",
+      "file": "web/src/main/java/nw/inventoryapprove/ReceiptBroker.java",
       "line": 41,
       "expr": "invoiceKey3",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/BundleRuleSelector.java",
+      "file": "web/src/main/java/nw/inventoryapprove/BundleRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/BundleRuleStandard.java",
+      "file": "web/src/main/java/nw/inventoryapprove/BundleRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/AccountComposer.java",
+      "file": "web/src/main/java/nw/inventoryapprove/AccountComposer.java",
       "line": 19,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/AccountComposer.java",
+      "file": "web/src/main/java/nw/inventoryapprove/AccountComposer.java",
       "line": 20,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ContractTranslator.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/inventoryapprove/ContractTranslator.java",
+      "line": 23,
       "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryapprove/web/ContractTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/inventoryapprove/ContractTranslator.java",
+      "line": 24,
       "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryapprove/service/OrderRegistry.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/inventoryapprove/OrderRegistry.java",
+      "line": 19,
       "expr": "shipmentCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryapprove/service/OrderRegistry.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/inventoryapprove/OrderRegistry.java",
+      "line": 20,
       "expr": "manifestKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryapprove/service/OrderRegistry.java",
-      "line": 22,
+      "file": "service/src/main/java/nw/inventoryapprove/OrderRegistry.java",
+      "line": 21,
       "expr": "manifestKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/BatchCoordinator.java",
+      "file": "dao/src/main/java/nw/inventoryapprove/BatchCoordinator.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/BatchCoordinator.java",
+      "file": "dao/src/main/java/nw/inventoryapprove/BatchCoordinator.java",
       "line": 28,
       "expr": "receiptKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/BatchCoordinator.java",
+      "file": "dao/src/main/java/nw/inventoryapprove/BatchCoordinator.java",
       "line": 29,
       "expr": "accountRef402",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/BatchCoordinator.java",
+      "file": "dao/src/main/java/nw/inventoryapprove/BatchCoordinator.java",
       "line": 30,
       "expr": "accountRef402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/BatchFilter.java",
+      "file": "dao/src/main/java/nw/inventoryapprove/BatchFilter.java",
       "line": 24,
       "expr": "value",
       "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/ReceiptExecutor.java",
+      "file": "dao/src/main/java/nw/inventoryapprove/ReceiptExecutor.java",
       "line": 17,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryapprove/dao/ReceiptExecutor.java",
+      "file": "dao/src/main/java/nw/inventoryapprove/ReceiptExecutor.java",
       "line": 21,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -208,7 +208,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "status",
       "reached": true,

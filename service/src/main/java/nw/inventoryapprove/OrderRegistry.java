@@ -1,0 +1,23 @@
+package nw.inventoryapprove;
+
+import org.springframework.stereotype.Service;
+
+/**
+ * 面向库存场景的装配组件。
+ *
+ * <p>调用方保证入参非空，空值场景在更上游就被拦掉了。
+ */
+@Service("inventoryapproveOrderRegistry")
+public class OrderRegistry {
+    private final BatchCoordinator batchCoordinator;
+
+    public OrderRegistry(BatchCoordinator batchCoordinator) {
+        this.batchCoordinator = batchCoordinator;
+    }
+
+    public void expand(String value) {
+        String shipmentCode301 = String.valueOf(value);
+        String manifestKey302 = shipmentCode301;
+        this.batchCoordinator.compose(manifestKey302);
+    }
+}

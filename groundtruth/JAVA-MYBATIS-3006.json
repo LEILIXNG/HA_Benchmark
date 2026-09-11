@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "Spring 请求头经 16 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingnotice/web/PaymentController.java",
+    "file": "web/src/main/java/nw/pricingnotice/PaymentController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingnotice/web/PaymentController.java",
+    "file": "web/src/main/java/nw/pricingnotice/PaymentController.java",
     "line": 27,
     "expr": "tag",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/pricingnotice/service/PaymentMapper.xml",
+    "file": "service/src/main/resources/nw/pricingnotice/PaymentMapper.xml",
     "line": 9,
     "expr": "manifestKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/pricingnotice/service/OrderScreen.java",
+    "file": "service/src/main/java/nw/pricingnotice/OrderScreen.java",
     "line": 26,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,187 +29,187 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/PaymentController.java",
+      "file": "web/src/main/java/nw/pricingnotice/PaymentController.java",
       "line": 27,
       "expr": "tag",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/pricingnotice/BundleBuilder.java",
       "line": 23,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/pricingnotice/BundleBuilder.java",
       "line": 24,
       "expr": "invoiceKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRuleSelector.java",
+      "file": "web/src/main/java/nw/pricingnotice/AccountRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRuleStandard.java",
+      "file": "web/src/main/java/nw/pricingnotice/AccountRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 31,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 33,
       "expr": "paymentTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 34,
       "expr": "paymentTag102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 40,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 39,
       "expr": "refundCode103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 40,
       "expr": "refundCode103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 43,
       "expr": "shipmentCode104",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 45,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 44,
       "expr": "manifestKey105",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingnotice/web/AccountRouter.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/pricingnotice/AccountRouter.java",
+      "line": 45,
       "expr": "manifestKey105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/VoucherCollector.java",
+      "file": "service/src/main/java/nw/pricingnotice/VoucherCollector.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/VoucherCollector.java",
+      "file": "service/src/main/java/nw/pricingnotice/VoucherCollector.java",
       "line": 20,
       "expr": "channelTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/VoucherCollector.java",
+      "file": "service/src/main/java/nw/pricingnotice/VoucherCollector.java",
       "line": 21,
       "expr": "channelTag202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/OrderScreen.java",
+      "file": "service/src/main/java/nw/pricingnotice/OrderScreen.java",
       "line": 26,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/QuotePlanSelector.java",
+      "file": "service/src/main/java/nw/pricingnotice/QuotePlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/QuotePlanStandard.java",
+      "file": "service/src/main/java/nw/pricingnotice/QuotePlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogAssembler.java",
       "line": 19,
       "expr": "invoiceKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogAssembler.java",
       "line": 20,
       "expr": "invoiceKey301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogTranslator.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogTranslator.java",
       "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogTranslator.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogTranslator.java",
       "line": 29,
       "expr": "voucherRef401",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogTranslator.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogTranslator.java",
       "line": 30,
       "expr": "paymentTag402",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogTranslator.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogTranslator.java",
       "line": 31,
       "expr": "paymentTag402",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogTranslator.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogTranslator.java",
       "line": 36,
       "expr": "refundCode403",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogTranslator.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogTranslator.java",
       "line": 37,
       "expr": "shipmentCode404",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/CatalogTranslator.java",
+      "file": "service/src/main/java/nw/pricingnotice/CatalogTranslator.java",
       "line": 38,
       "expr": "shipmentCode404",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/PaymentGateway.java",
+      "file": "service/src/main/java/nw/pricingnotice/PaymentGateway.java",
       "line": 22,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingnotice/service/PaymentGateway.java",
+      "file": "service/src/main/java/nw/pricingnotice/PaymentGateway.java",
       "line": 29,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/pricingnotice/service/PaymentMapper.xml",
+      "file": "service/src/main/resources/nw/pricingnotice/PaymentMapper.xml",
       "line": 9,
       "expr": "manifestKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -260,7 +260,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

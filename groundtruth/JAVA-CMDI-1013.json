@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 19 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendorrevise/web/OrderController.java",
+    "file": "web/src/main/java/nw/vendorrevise/OrderController.java",
     "line": 15,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendorrevise/web/OrderController.java",
+    "file": "web/src/main/java/nw/vendorrevise/OrderController.java",
     "line": 17,
     "expr": "query",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/vendorrevise/dao/OrderExecutor.java",
+    "file": "dao/src/main/java/nw/vendorrevise/OrderExecutor.java",
     "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,337 +24,337 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendorrevise/web/OrderController.java",
+      "file": "web/src/main/java/nw/vendorrevise/OrderController.java",
       "line": 17,
       "expr": "query",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrevise/web/VoucherTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/nw/vendorrevise/VoucherTranslator.java",
+      "line": 11,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrevise/web/VoucherTranslator.java",
-      "line": 14,
+      "file": "web/src/main/java/nw/vendorrevise/VoucherTranslator.java",
+      "line": 12,
       "expr": "receiptKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrevise/web/VoucherTranslator.java",
-      "line": 15,
+      "file": "web/src/main/java/nw/vendorrevise/VoucherTranslator.java",
+      "line": 13,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 28,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 32,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 31,
       "expr": "orderRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 33,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 32,
       "expr": "quoteRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 33,
       "expr": "quoteRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 39,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 38,
       "expr": "tariffRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 39,
       "expr": "tariffRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 41,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 40,
       "expr": "channelTag105",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 42,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 41,
       "expr": "channelTag105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 47,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 46,
       "expr": "catalogKey106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 48,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 47,
       "expr": "receiptKey107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 49,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 48,
       "expr": "receiptKey107",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 54,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 53,
       "expr": "accountRef108",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 56,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 55,
       "expr": "accountRef108",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 60,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 59,
       "expr": "voucherRef109",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 61,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 60,
       "expr": "paymentTag110",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 62,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 61,
       "expr": "paymentTag110",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 67,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 66,
       "expr": "refundCode111",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 68,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 67,
       "expr": "refundCode111",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 71,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 70,
       "expr": "shipmentCode112",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 72,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 71,
       "expr": "manifestKey113",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrevise/service/ReceiptTranslator.java",
-      "line": 73,
+      "file": "service/src/main/java/nw/vendorrevise/ReceiptTranslator.java",
+      "line": 72,
       "expr": "manifestKey113",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 28,
       "expr": "refundCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 29,
       "expr": "refundCode201",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 34,
       "expr": "shipmentCode202",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 35,
       "expr": "manifestKey203",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 36,
       "expr": "manifestKey203",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 41,
       "expr": "invoiceKey204",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 42,
       "expr": "invoiceKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/ShipmentNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorrevise/ShipmentNormalizer.java",
       "line": 43,
       "expr": "batchTag205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 30,
       "expr": "catalogKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 31,
       "expr": "receiptKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 32,
       "expr": "receiptKey302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 37,
       "expr": "accountRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 40,
       "expr": "accountRef303",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 41,
       "expr": "voucherRef304",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 42,
       "expr": "voucherRef304",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 47,
       "expr": "paymentTag305",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 48,
       "expr": "refundCode306",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 49,
       "expr": "refundCode306",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 54,
       "expr": "shipmentCode307",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 57,
       "expr": "shipmentCode307",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 58,
       "expr": "manifestKey308",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 59,
       "expr": "manifestKey308",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 60,
       "expr": "invoiceKey309",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 65,
       "expr": "batchTag310",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 66,
       "expr": "orderRef311",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 67,
       "expr": "quoteRef312",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/vendorrevise/BundleBuilder.java",
       "line": 68,
       "expr": "quoteRef312",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/OrderExecutor.java",
+      "file": "dao/src/main/java/nw/vendorrevise/OrderExecutor.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrevise/dao/OrderExecutor.java",
+      "file": "dao/src/main/java/nw/vendorrevise/OrderExecutor.java",
       "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -423,6 +423,6 @@
     "payload_at_sink": "printf ref_ref_ref_ref_ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

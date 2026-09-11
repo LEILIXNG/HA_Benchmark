@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "路径变量经 16 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentlookup/web/SessionController.java",
+    "file": "web/src/main/java/nw/paymentlookup/SessionController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentlookup/web/SessionController.java",
+    "file": "web/src/main/java/nw/paymentlookup/SessionController.java",
     "line": 27,
     "expr": "target",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/northwind/paymentlookup/dao/SessionMapper.xml",
+    "file": "dao/src/main/resources/nw/paymentlookup/SessionMapper.xml",
     "line": 9,
     "expr": "ledgerEntry",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/paymentlookup/service/ReceiptScreen.java",
+    "file": "service/src/main/java/nw/paymentlookup/ReceiptScreen.java",
     "line": 15,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,241 +29,241 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/SessionController.java",
+      "file": "web/src/main/java/nw/paymentlookup/SessionController.java",
       "line": 27,
       "expr": "target",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 27,
       "expr": "batchTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 32,
       "expr": "orderRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 33,
       "expr": "quoteRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 36,
       "expr": "quoteRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 37,
       "expr": "tariffRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 38,
       "expr": "tariffRef4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 43,
       "expr": "ledgerEntry5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 45,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 44,
       "expr": "channelTag6",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 45,
       "expr": "channelTag6",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 51,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 50,
       "expr": "catalogKey7",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 54,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 53,
       "expr": "catalogKey7",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 55,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 54,
       "expr": "receiptKey8",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 57,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 56,
       "expr": "receiptKey8",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentlookup/web/ContractAdapter.java",
-      "line": 59,
+      "file": "web/src/main/java/nw/paymentlookup/ContractAdapter.java",
+      "line": 58,
       "expr": "accountRef9",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentlookup/service/ReceiptScreen.java",
+      "file": "service/src/main/java/nw/paymentlookup/ReceiptScreen.java",
       "line": 15,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentlookup/service/BatchService.java",
-      "line": 13,
+      "file": "service/src/main/java/nw/paymentlookup/BatchService.java",
+      "line": 11,
       "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentlookup/service/BatchService.java",
-      "line": 14,
+      "file": "service/src/main/java/nw/paymentlookup/BatchService.java",
+      "line": 12,
       "expr": "paymentTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentlookup/service/BatchService.java",
-      "line": 15,
+      "file": "service/src/main/java/nw/paymentlookup/BatchService.java",
+      "line": 13,
       "expr": "refundCode102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 15,
       "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 16,
       "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 17,
       "expr": "catalogKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 22,
       "expr": "receiptKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 25,
       "expr": "receiptKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 26,
       "expr": "accountRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 27,
       "expr": "accountRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/ChannelCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentlookup/ChannelCoordinator.java",
       "line": 28,
       "expr": "voucherRef205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/BatchRuleSelector.java",
+      "file": "dao/src/main/java/nw/paymentlookup/BatchRuleSelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/BatchRuleStandard.java",
+      "file": "dao/src/main/java/nw/paymentlookup/BatchRuleStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/QuoteRegistry.java",
+      "file": "dao/src/main/java/nw/paymentlookup/QuoteRegistry.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/QuoteRegistry.java",
+      "file": "dao/src/main/java/nw/paymentlookup/QuoteRegistry.java",
       "line": 20,
       "expr": "orderRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/QuoteRegistry.java",
+      "file": "dao/src/main/java/nw/paymentlookup/QuoteRegistry.java",
       "line": 21,
       "expr": "orderRef302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/QuoteRegistry.java",
+      "file": "dao/src/main/java/nw/paymentlookup/QuoteRegistry.java",
       "line": 26,
       "expr": "quoteRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/QuoteRegistry.java",
+      "file": "dao/src/main/java/nw/paymentlookup/QuoteRegistry.java",
       "line": 29,
       "expr": "quoteRef303",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/QuoteRegistry.java",
+      "file": "dao/src/main/java/nw/paymentlookup/QuoteRegistry.java",
       "line": 30,
       "expr": "tariffRef304",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/QuoteRegistry.java",
+      "file": "dao/src/main/java/nw/paymentlookup/QuoteRegistry.java",
       "line": 31,
       "expr": "tariffRef304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/SessionGateway.java",
+      "file": "dao/src/main/java/nw/paymentlookup/SessionGateway.java",
       "line": 16,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentlookup/dao/SessionGateway.java",
+      "file": "dao/src/main/java/nw/paymentlookup/SessionGateway.java",
       "line": 23,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/northwind/paymentlookup/dao/SessionMapper.xml",
+      "file": "dao/src/main/resources/nw/paymentlookup/SessionMapper.xml",
       "line": 9,
       "expr": "ledgerEntry",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -320,7 +320,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

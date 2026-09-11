@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 6 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/catalogrevise/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/catalogrevise/InvoiceController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/catalogrevise/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/catalogrevise/InvoiceController.java",
     "line": 27,
     "expr": "category",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/catalogrevise/web/InvoiceRepository.java",
+    "file": "web/src/main/java/nw/catalogrevise/InvoiceRepository.java",
     "line": 30,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,61 +24,61 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/catalogrevise/InvoiceController.java",
       "line": 27,
       "expr": "category",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/ChannelEnricher.java",
+      "file": "web/src/main/java/nw/catalogrevise/ChannelEnricher.java",
       "line": 19,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/ChannelEnricher.java",
+      "file": "web/src/main/java/nw/catalogrevise/ChannelEnricher.java",
       "line": 20,
       "expr": "paymentTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/ManifestPlanSelector.java",
+      "file": "web/src/main/java/nw/catalogrevise/ManifestPlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/ManifestPlanStandard.java",
+      "file": "web/src/main/java/nw/catalogrevise/ManifestPlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/ChannelService.java",
+      "file": "web/src/main/java/nw/catalogrevise/ChannelService.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/ChannelService.java",
+      "file": "web/src/main/java/nw/catalogrevise/ChannelService.java",
       "line": 24,
       "expr": "channelTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/ChannelService.java",
+      "file": "web/src/main/java/nw/catalogrevise/ChannelService.java",
       "line": 25,
       "expr": "channelTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/InvoiceRepository.java",
+      "file": "web/src/main/java/nw/catalogrevise/InvoiceRepository.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrevise/web/InvoiceRepository.java",
+      "file": "web/src/main/java/nw/catalogrevise/InvoiceRepository.java",
       "line": 30,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -115,6 +115,6 @@
     "payload_at_sink": "SELECT id, code, created_at FROM shipments WHERE code = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

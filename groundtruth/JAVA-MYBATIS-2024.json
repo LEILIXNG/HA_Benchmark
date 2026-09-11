@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 3 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/billingintake/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/billingintake/InvoiceController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/billingintake/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/billingintake/InvoiceController.java",
     "line": 23,
     "expr": "label",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/northwind/billingintake/dao/InvoiceMapper.xml",
+    "file": "dao/src/main/resources/nw/billingintake/InvoiceMapper.xml",
     "line": 9,
     "expr": "quoteRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,145 +24,145 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/billingintake/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/billingintake/InvoiceController.java",
       "line": 23,
       "expr": "label",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingintake/web/ContractService.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/billingintake/ContractService.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingintake/web/ContractService.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/billingintake/ContractService.java",
+      "line": 21,
       "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingintake/web/ContractService.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/billingintake/ContractService.java",
+      "line": 22,
       "expr": "catalogKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingintake/service/BundleFacade.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/billingintake/BundleFacade.java",
+      "line": 17,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingintake/service/BundleFacade.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/billingintake/BundleFacade.java",
+      "line": 18,
       "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingintake/service/BundleFacade.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/billingintake/BundleFacade.java",
+      "line": 19,
       "expr": "quoteRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingintake/service/BundleFacade.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/billingintake/BundleFacade.java",
+      "line": 24,
       "expr": "tariffRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingintake/service/BundleFacade.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/billingintake/BundleFacade.java",
+      "line": 25,
       "expr": "ledgerEntry104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingintake/service/BundleFacade.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/billingintake/BundleFacade.java",
+      "line": 26,
       "expr": "ledgerEntry104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/BatchBuilder.java",
+      "file": "dao/src/main/java/nw/billingintake/BatchBuilder.java",
       "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/BatchBuilder.java",
+      "file": "dao/src/main/java/nw/billingintake/BatchBuilder.java",
       "line": 21,
       "expr": "refundCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/BatchBuilder.java",
+      "file": "dao/src/main/java/nw/billingintake/BatchBuilder.java",
       "line": 22,
       "expr": "shipmentCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/BatchBuilder.java",
+      "file": "dao/src/main/java/nw/billingintake/BatchBuilder.java",
       "line": 23,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/PaymentPolicySelector.java",
+      "file": "dao/src/main/java/nw/billingintake/PaymentPolicySelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/PaymentPolicyStandard.java",
+      "file": "dao/src/main/java/nw/billingintake/PaymentPolicyStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/QuoteCoordinator.java",
+      "file": "dao/src/main/java/nw/billingintake/QuoteCoordinator.java",
       "line": 22,
       "expr": "catalogKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/QuoteCoordinator.java",
+      "file": "dao/src/main/java/nw/billingintake/QuoteCoordinator.java",
       "line": 23,
       "expr": "catalogKey301",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/QuoteCoordinator.java",
+      "file": "dao/src/main/java/nw/billingintake/QuoteCoordinator.java",
       "line": 28,
       "expr": "receiptKey302",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/QuoteCoordinator.java",
+      "file": "dao/src/main/java/nw/billingintake/QuoteCoordinator.java",
       "line": 29,
       "expr": "accountRef303",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/QuoteCoordinator.java",
+      "file": "dao/src/main/java/nw/billingintake/QuoteCoordinator.java",
       "line": 30,
       "expr": "accountRef303",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/InvoiceGateway.java",
+      "file": "dao/src/main/java/nw/billingintake/InvoiceGateway.java",
       "line": 16,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingintake/dao/InvoiceGateway.java",
+      "file": "dao/src/main/java/nw/billingintake/InvoiceGateway.java",
       "line": 23,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/northwind/billingintake/dao/InvoiceMapper.xml",
+      "file": "dao/src/main/resources/nw/billingintake/InvoiceMapper.xml",
       "line": 9,
       "expr": "quoteRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -209,6 +209,6 @@
     "payload_at_sink": "SELECT id, amount, status       FROM orders      WHERE code IN ('ref_ref_zz' OR 1=1--')      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

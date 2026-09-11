@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "Cookie经 14 层调用、跨 3 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/customerassign/web/BundleController.java",
+    "file": "web/src/main/java/nw/customerassign/BundleController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/customerassign/web/BundleController.java",
+    "file": "web/src/main/java/nw/customerassign/BundleController.java",
     "line": 28,
     "expr": "resource",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/customerassign/dao/BundleLoader.java",
+    "file": "dao/src/main/java/nw/customerassign/BundleLoader.java",
     "line": 29,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/customerassign/dao/CatalogScreen.java",
+    "file": "dao/src/main/java/nw/customerassign/CatalogScreen.java",
     "line": 24,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 ../（无效）"
@@ -29,193 +29,193 @@
   "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/customerassign/web/BundleController.java",
+      "file": "web/src/main/java/nw/customerassign/BundleController.java",
       "line": 28,
       "expr": "resource",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerassign/web/PaymentRouter.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/customerassign/PaymentRouter.java",
+      "line": 24,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerassign/web/PaymentRouter.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/customerassign/PaymentRouter.java",
+      "line": 26,
       "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerassign/service/CatalogRouter.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/customerassign/CatalogRouter.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerassign/service/CatalogRouter.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/customerassign/CatalogRouter.java",
+      "line": 28,
       "expr": "invoiceKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerassign/service/CatalogRouter.java",
-      "line": 32,
+      "file": "service/src/main/java/nw/customerassign/CatalogRouter.java",
+      "line": 31,
       "expr": "invoiceKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerassign/service/CatalogRouter.java",
-      "line": 33,
+      "file": "service/src/main/java/nw/customerassign/CatalogRouter.java",
+      "line": 32,
       "expr": "batchTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerassign/service/CatalogRouter.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/customerassign/CatalogRouter.java",
+      "line": 33,
       "expr": "batchTag102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 29,
       "expr": "voucherRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 31,
       "expr": "voucherRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 33,
       "expr": "paymentTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 38,
       "expr": "refundCode203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 39,
       "expr": "refundCode203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 40,
       "expr": "shipmentCode204",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 45,
       "expr": "manifestKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 46,
       "expr": "invoiceKey206",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 47,
       "expr": "invoiceKey206",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 52,
       "expr": "batchTag207",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 53,
       "expr": "batchTag207",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 54,
       "expr": "orderRef208",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 59,
       "expr": "quoteRef209",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 60,
       "expr": "quoteRef209",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 61,
       "expr": "tariffRef210",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/customerassign/ContractRegistry.java",
       "line": 62,
       "expr": "ledgerEntry211",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/LedgerStrategySelector.java",
+      "file": "dao/src/main/java/nw/customerassign/LedgerStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/LedgerStrategyStandard.java",
+      "file": "dao/src/main/java/nw/customerassign/LedgerStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ReceiptEnricher.java",
+      "file": "dao/src/main/java/nw/customerassign/ReceiptEnricher.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ReceiptEnricher.java",
+      "file": "dao/src/main/java/nw/customerassign/ReceiptEnricher.java",
       "line": 24,
       "expr": "ledgerEntry301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/ReceiptEnricher.java",
+      "file": "dao/src/main/java/nw/customerassign/ReceiptEnricher.java",
       "line": 25,
       "expr": "ledgerEntry301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/CatalogScreen.java",
+      "file": "dao/src/main/java/nw/customerassign/CatalogScreen.java",
       "line": 24,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 ../（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/BundleLoader.java",
+      "file": "dao/src/main/java/nw/customerassign/BundleLoader.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerassign/dao/BundleLoader.java",
+      "file": "dao/src/main/java/nw/customerassign/BundleLoader.java",
       "line": 29,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -267,6 +267,6 @@
     "payload_at_sink": "/srv/customer/inbox/ref_ref_ref_ref_ref_ref_../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

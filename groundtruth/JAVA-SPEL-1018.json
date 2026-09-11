@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingrefund/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/pricingrefund/ReceiptController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingrefund/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/pricingrefund/ReceiptController.java",
     "line": 28,
     "expr": "orderNo",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ReceiptEvaluator.java",
+    "file": "dao/src/main/java/nw/pricingrefund/ReceiptEvaluator.java",
     "line": 25,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -24,187 +24,187 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/pricingrefund/ReceiptController.java",
       "line": 28,
       "expr": "orderNo",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 25,
       "expr": "invoiceKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 26,
       "expr": "invoiceKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 27,
       "expr": "batchTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 32,
       "expr": "orderRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 34,
       "expr": "orderRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 36,
       "expr": "quoteRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 37,
       "expr": "tariffRef5",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 43,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 42,
       "expr": "ledgerEntry6",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 43,
       "expr": "channelTag7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
+      "line": 44,
+      "expr": "catalogKey8",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "web/src/main/java/nw/pricingrefund/BundleEnricher.java",
       "line": 45,
       "expr": "catalogKey8",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/pricingrefund/web/BundleEnricher.java",
-      "line": 46,
-      "expr": "catalogKey8",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrefund/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/pricingrefund/VoucherEnricher.java",
+      "line": 23,
+      "expr": "voucherRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/nw/pricingrefund/VoucherEnricher.java",
       "line": 24,
       "expr": "voucherRef101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/pricingrefund/service/VoucherEnricher.java",
-      "line": 25,
-      "expr": "voucherRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 28,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 31,
       "expr": "ledgerEntry201",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 32,
       "expr": "channelTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 33,
       "expr": "channelTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 38,
       "expr": "catalogKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 41,
       "expr": "catalogKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 42,
       "expr": "receiptKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ShipmentRegistry.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ShipmentRegistry.java",
       "line": 43,
       "expr": "receiptKey204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/pricingrefund/QuoteNormalizer.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/pricingrefund/QuoteNormalizer.java",
       "line": 20,
       "expr": "invoiceKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ReceiptStrategySelector.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ReceiptStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ReceiptStrategyStandard.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ReceiptStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/BatchCoordinator.java",
+      "file": "dao/src/main/java/nw/pricingrefund/BatchCoordinator.java",
       "line": 18,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/BatchCoordinator.java",
+      "file": "dao/src/main/java/nw/pricingrefund/BatchCoordinator.java",
       "line": 19,
       "expr": "voucherRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ReceiptEvaluator.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ReceiptEvaluator.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingrefund/dao/ReceiptEvaluator.java",
+      "file": "dao/src/main/java/nw/pricingrefund/ReceiptEvaluator.java",
       "line": 25,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -257,6 +257,6 @@
     "payload_at_sink": "'seq-' + 'ref_ref_ref_ref_ref_ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

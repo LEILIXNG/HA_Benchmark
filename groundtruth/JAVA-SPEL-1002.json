@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "查询参数经 9 层调用、跨 1 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendorarchive/web/PaymentController.java",
+    "file": "web/src/main/java/nw/vendorarchive/PaymentController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendorarchive/web/PaymentController.java",
+    "file": "web/src/main/java/nw/vendorarchive/PaymentController.java",
     "line": 28,
     "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/vendorarchive/web/PaymentEvaluator.java",
+    "file": "web/src/main/java/nw/vendorarchive/PaymentEvaluator.java",
     "line": 25,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/northwind/vendorarchive/web/QuoteGuard.java",
+    "file": "web/src/main/java/nw/vendorarchive/QuoteGuard.java",
     "line": 22,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,115 +29,115 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/PaymentController.java",
+      "file": "web/src/main/java/nw/vendorarchive/PaymentController.java",
       "line": 28,
       "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 33,
       "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 34,
       "expr": "receiptKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 35,
       "expr": "accountRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 40,
       "expr": "voucherRef3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 43,
       "expr": "voucherRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 44,
       "expr": "paymentTag4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 45,
       "expr": "refundCode5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/VoucherNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/VoucherNormalizer.java",
       "line": 46,
       "expr": "refundCode5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/AccountStrategySelector.java",
+      "file": "web/src/main/java/nw/vendorarchive/AccountStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/AccountStrategyStandard.java",
+      "file": "web/src/main/java/nw/vendorarchive/AccountStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/QuoteNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/QuoteNormalizer.java",
       "line": 21,
       "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/QuoteNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/QuoteNormalizer.java",
       "line": 24,
       "expr": "quoteRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/QuoteNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/QuoteNormalizer.java",
       "line": 25,
       "expr": "tariffRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/QuoteNormalizer.java",
+      "file": "web/src/main/java/nw/vendorarchive/QuoteNormalizer.java",
       "line": 26,
       "expr": "tariffRef102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/QuoteGuard.java",
+      "file": "web/src/main/java/nw/vendorarchive/QuoteGuard.java",
       "line": 22,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/PaymentEvaluator.java",
+      "file": "web/src/main/java/nw/vendorarchive/PaymentEvaluator.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorarchive/web/PaymentEvaluator.java",
+      "file": "web/src/main/java/nw/vendorarchive/PaymentEvaluator.java",
       "line": 25,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -179,7 +179,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

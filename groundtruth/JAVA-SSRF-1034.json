@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/RefundController.java",
+    "file": "web/src/main/java/nw/inventorysettlequeue/RefundController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/RefundController.java",
+    "file": "web/src/main/java/nw/inventorysettlequeue/RefundController.java",
     "line": 23,
     "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/RefundFetcher.java",
+    "file": "dao/src/main/java/nw/inventorysettlequeue/RefundFetcher.java",
     "line": 26,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,175 +24,175 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/RefundController.java",
+      "file": "web/src/main/java/nw/inventorysettlequeue/RefundController.java",
       "line": 23,
       "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/TariffRegistry.java",
+      "file": "web/src/main/java/nw/inventorysettlequeue/TariffRegistry.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/TariffRegistry.java",
+      "file": "web/src/main/java/nw/inventorysettlequeue/TariffRegistry.java",
       "line": 24,
       "expr": "refundCode1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/CatalogPolicySelector.java",
+      "file": "web/src/main/java/nw/inventorysettlequeue/CatalogPolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/CatalogPolicyStandard.java",
+      "file": "web/src/main/java/nw/inventorysettlequeue/CatalogPolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/ReceiptRouter.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/inventorysettlequeue/ReceiptRouter.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/ReceiptRouter.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/inventorysettlequeue/ReceiptRouter.java",
+      "line": 24,
       "expr": "catalogKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysettlequeue/web/ReceiptRouter.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/inventorysettlequeue/ReceiptRouter.java",
+      "line": 25,
       "expr": "catalogKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysettlequeue/service/LedgerService.java",
+      "file": "service/src/main/java/nw/inventorysettlequeue/LedgerService.java",
       "line": 19,
       "expr": "orderRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysettlequeue/service/LedgerService.java",
+      "file": "service/src/main/java/nw/inventorysettlequeue/LedgerService.java",
       "line": 20,
       "expr": "orderRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysettlequeue/service/LedgerService.java",
+      "file": "service/src/main/java/nw/inventorysettlequeue/LedgerService.java",
       "line": 21,
       "expr": "quoteRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysettlequeue/service/AccountFacade.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/inventorysettlequeue/AccountFacade.java",
+      "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysettlequeue/service/AccountFacade.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/inventorysettlequeue/AccountFacade.java",
+      "line": 20,
       "expr": "refundCode301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 31,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 32,
       "expr": "catalogKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 33,
       "expr": "catalogKey401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 38,
       "expr": "receiptKey402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 41,
       "expr": "receiptKey402",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 42,
       "expr": "accountRef403",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 45,
       "expr": "accountRef403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 46,
       "expr": "voucherRef404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 47,
       "expr": "voucherRef404",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 52,
       "expr": "paymentTag405",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 55,
       "expr": "paymentTag405",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 56,
       "expr": "refundCode406",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 57,
       "expr": "shipmentCode407",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/BatchRegistry.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/BatchRegistry.java",
       "line": 58,
       "expr": "shipmentCode407",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/RefundFetcher.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/RefundFetcher.java",
       "line": 22,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysettlequeue/dao/RefundFetcher.java",
+      "file": "dao/src/main/java/nw/inventorysettlequeue/RefundFetcher.java",
       "line": 26,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -242,6 +242,6 @@
     "payload_at_sink": "http://ref_ref_ref_127.0.0.1:1/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

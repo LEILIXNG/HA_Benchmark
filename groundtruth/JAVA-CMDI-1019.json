@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 13 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilposting/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/fulfilposting/ReceiptController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilposting/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/fulfilposting/ReceiptController.java",
     "line": 23,
     "expr": "tag",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/fulfilposting/dao/ReceiptExecutor.java",
+    "file": "dao/src/main/java/nw/fulfilposting/ReceiptExecutor.java",
     "line": 22,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,187 +24,187 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilposting/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/fulfilposting/ReceiptController.java",
       "line": 23,
       "expr": "tag",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilposting/web/ShipmentBuilder.java",
+      "file": "web/src/main/java/nw/fulfilposting/ShipmentBuilder.java",
       "line": 11,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilposting/web/ShipmentBuilder.java",
+      "file": "web/src/main/java/nw/fulfilposting/ShipmentBuilder.java",
       "line": 12,
       "expr": "accountRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilposting/web/ShipmentBuilder.java",
+      "file": "web/src/main/java/nw/fulfilposting/ShipmentBuilder.java",
       "line": 13,
       "expr": "voucherRef2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilposting/web/InvoiceFacade.java",
-      "line": 18,
-      "expr": "value",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/fulfilposting/web/InvoiceFacade.java",
-      "line": 20,
-      "expr": "tariffRef101",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "web/src/main/java/nw/fulfilposting/InvoiceFacade.java",
       "line": 17,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "web/src/main/java/nw/fulfilposting/InvoiceFacade.java",
+      "line": 19,
+      "expr": "tariffRef101",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
+      "line": 17,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 18,
       "expr": "manifestKey201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 23,
       "expr": "invoiceKey202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 24,
       "expr": "invoiceKey202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 25,
       "expr": "batchTag203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 26,
       "expr": "orderRef204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 31,
       "expr": "quoteRef205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 32,
       "expr": "tariffRef206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilposting/CatalogComposer.java",
       "line": 33,
       "expr": "tariffRef206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BundleRegistry.java",
+      "file": "service/src/main/java/nw/fulfilposting/BundleRegistry.java",
       "line": 11,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BundleRegistry.java",
+      "file": "service/src/main/java/nw/fulfilposting/BundleRegistry.java",
       "line": 12,
       "expr": "accountRef301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 24,
       "expr": "tariffRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 27,
       "expr": "tariffRef401",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 28,
       "expr": "ledgerEntry402",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 30,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 29,
       "expr": "ledgerEntry402",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 34,
       "expr": "channelTag403",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 38,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 37,
       "expr": "channelTag403",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 39,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 38,
       "expr": "catalogKey404",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilposting/service/BatchResolver.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/fulfilposting/BatchResolver.java",
+      "line": 39,
       "expr": "catalogKey404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilposting/dao/QuoteComposer.java",
+      "file": "dao/src/main/java/nw/fulfilposting/QuoteComposer.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilposting/dao/QuoteComposer.java",
+      "file": "dao/src/main/java/nw/fulfilposting/QuoteComposer.java",
       "line": 23,
       "expr": "manifestKey501",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilposting/dao/QuoteComposer.java",
+      "file": "dao/src/main/java/nw/fulfilposting/QuoteComposer.java",
       "line": 24,
       "expr": "invoiceKey502",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilposting/dao/QuoteComposer.java",
+      "file": "dao/src/main/java/nw/fulfilposting/QuoteComposer.java",
       "line": 25,
       "expr": "invoiceKey502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilposting/dao/ReceiptExecutor.java",
+      "file": "dao/src/main/java/nw/fulfilposting/ReceiptExecutor.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilposting/dao/ReceiptExecutor.java",
+      "file": "dao/src/main/java/nw/fulfilposting/ReceiptExecutor.java",
       "line": 22,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -259,6 +259,6 @@
     "payload_at_sink": "printf ref_ref_ref_ref_ref_ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

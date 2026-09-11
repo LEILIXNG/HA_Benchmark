@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "查询参数经 7 层调用、跨 3 个模块流入文件读取，经 path_canonical_check 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/orderhold/web/BundleController.java",
+    "file": "web/src/main/java/nw/orderhold/BundleController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/orderhold/web/BundleController.java",
+    "file": "web/src/main/java/nw/orderhold/BundleController.java",
     "line": 23,
     "expr": "token",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/orderhold/dao/BundleLoader.java",
+    "file": "dao/src/main/java/nw/orderhold/BundleLoader.java",
     "line": 33,
     "expr": "resolved",
     "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/orderhold/dao/BundleLoader.java",
+    "file": "dao/src/main/java/nw/orderhold/BundleLoader.java",
     "line": 28,
     "expr": "resolved",
     "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
@@ -29,91 +29,91 @@
   "sanitizer_kind": "path_canonical_check",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/orderhold/web/BundleController.java",
+      "file": "web/src/main/java/nw/orderhold/BundleController.java",
       "line": 23,
       "expr": "token",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderhold/web/VoucherBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/orderhold/VoucherBuilder.java",
+      "line": 19,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderhold/web/VoucherBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/orderhold/VoucherBuilder.java",
+      "line": 20,
       "expr": "paymentTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderhold/service/InvoiceCollector.java",
-      "line": 33,
+      "file": "service/src/main/java/nw/orderhold/InvoiceCollector.java",
+      "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderhold/service/InvoiceCollector.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/orderhold/InvoiceCollector.java",
+      "line": 33,
       "expr": "channelTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderhold/service/InvoiceCollector.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/orderhold/InvoiceCollector.java",
+      "line": 34,
       "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderhold/service/InvoiceCollector.java",
-      "line": 36,
+      "file": "service/src/main/java/nw/orderhold/InvoiceCollector.java",
+      "line": 35,
       "expr": "catalogKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderhold/service/InvoiceCollector.java",
-      "line": 41,
+      "file": "service/src/main/java/nw/orderhold/InvoiceCollector.java",
+      "line": 40,
       "expr": "receiptKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderhold/service/InvoiceCollector.java",
-      "line": 42,
+      "file": "service/src/main/java/nw/orderhold/InvoiceCollector.java",
+      "line": 41,
       "expr": "receiptKey103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderhold/service/InvoiceCollector.java",
-      "line": 43,
+      "file": "service/src/main/java/nw/orderhold/InvoiceCollector.java",
+      "line": 42,
       "expr": "accountRef104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderhold/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/orderhold/ShipmentService.java",
       "line": 23,
       "expr": "batchTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderhold/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/orderhold/ShipmentService.java",
       "line": 24,
       "expr": "batchTag201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderhold/dao/BundleLoader.java",
+      "file": "dao/src/main/java/nw/orderhold/BundleLoader.java",
       "line": 27,
       "expr": "value",
       "note": "解析并规范化路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderhold/dao/BundleLoader.java",
+      "file": "dao/src/main/java/nw/orderhold/BundleLoader.java",
       "line": 28,
       "expr": "resolved",
       "note": "SANITIZER: 规范化后校验前缀（CWE-22 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderhold/dao/BundleLoader.java",
+      "file": "dao/src/main/java/nw/orderhold/BundleLoader.java",
       "line": 33,
       "expr": "resolved",
       "note": "SINK 位置：CWE-22（已被前缀校验拦下）"
@@ -155,7 +155,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "notes.txt",
       "reached": true,

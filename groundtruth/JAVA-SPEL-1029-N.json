@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SPEL-1029 逐行相同，仅把净化改为 spel_restricted_context",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentsubmit/web/SessionController.java",
+    "file": "web/src/main/java/nw/paymentsubmit/SessionController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentsubmit/web/SessionController.java",
+    "file": "web/src/main/java/nw/paymentsubmit/SessionController.java",
     "line": 28,
     "expr": "query",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/SessionEvaluator.java",
+    "file": "dao/src/main/java/nw/paymentsubmit/SessionEvaluator.java",
     "line": 27,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/SessionEvaluator.java",
+    "file": "dao/src/main/java/nw/paymentsubmit/SessionEvaluator.java",
     "line": 25,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
@@ -29,211 +29,211 @@
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentsubmit/web/SessionController.java",
+      "file": "web/src/main/java/nw/paymentsubmit/SessionController.java",
       "line": 28,
       "expr": "query",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentsubmit/web/ContractRouter.java",
-      "line": 24,
-      "expr": "value",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/paymentsubmit/web/ContractRouter.java",
-      "line": 25,
-      "expr": "ledgerEntry1",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/paymentsubmit/web/ContractRouter.java",
-      "line": 26,
-      "expr": "ledgerEntry1",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/paymentsubmit/web/ContractRouter.java",
-      "line": 27,
-      "expr": "channelTag2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 21,
-      "expr": "invoiceKey101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 22,
-      "expr": "invoiceKey101",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 27,
-      "expr": "batchTag102",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 28,
-      "expr": "batchTag102",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 29,
-      "expr": "orderRef103",
-      "note": "写入静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 34,
-      "expr": "quoteRef104",
-      "note": "读取静态字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 36,
-      "expr": "quoteRef104",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/paymentsubmit/service/BatchEnricher2.java",
-      "line": 38,
-      "expr": "tariffRef105",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/BatchEnricher.java",
+      "file": "web/src/main/java/nw/paymentsubmit/ContractRouter.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/BatchEnricher.java",
+      "file": "web/src/main/java/nw/paymentsubmit/ContractRouter.java",
+      "line": 24,
+      "expr": "ledgerEntry1",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/nw/paymentsubmit/ContractRouter.java",
+      "line": 25,
+      "expr": "ledgerEntry1",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "web/src/main/java/nw/paymentsubmit/ContractRouter.java",
+      "line": 26,
+      "expr": "channelTag2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 20,
+      "expr": "invoiceKey101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 21,
+      "expr": "invoiceKey101",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 26,
+      "expr": "batchTag102",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 27,
+      "expr": "batchTag102",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 28,
+      "expr": "orderRef103",
+      "note": "写入静态字段"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 33,
+      "expr": "quoteRef104",
+      "note": "读取静态字段"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 35,
+      "expr": "quoteRef104",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/nw/paymentsubmit/BatchEnricher2.java",
+      "line": 37,
+      "expr": "tariffRef105",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/nw/paymentsubmit/BatchEnricher.java",
+      "line": 23,
+      "expr": "value",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "dao/src/main/java/nw/paymentsubmit/BatchEnricher.java",
       "line": 24,
       "expr": "voucherRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/BatchEnricher.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/BatchEnricher.java",
       "line": 25,
       "expr": "paymentTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/BatchEnricher.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/BatchEnricher.java",
       "line": 26,
       "expr": "paymentTag202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/LedgerService.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/LedgerService.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/LedgerService.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/LedgerService.java",
       "line": 28,
       "expr": "ledgerEntry301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/LedgerService.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/LedgerService.java",
       "line": 29,
       "expr": "ledgerEntry301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/OrderRegistry.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/OrderRegistry.java",
       "line": 26,
       "expr": "invoiceKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/OrderRegistry.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/OrderRegistry.java",
       "line": 27,
       "expr": "invoiceKey401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/OrderRegistry.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/OrderRegistry.java",
       "line": 32,
       "expr": "batchTag402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/OrderRegistry.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/OrderRegistry.java",
       "line": 33,
       "expr": "orderRef403",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/OrderRegistry.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/OrderRegistry.java",
       "line": 36,
       "expr": "orderRef403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/OrderRegistry.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/OrderRegistry.java",
       "line": 37,
       "expr": "quoteRef404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/OrderRegistry.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/OrderRegistry.java",
       "line": 38,
       "expr": "quoteRef404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/VoucherPlanSelector.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/VoucherPlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/VoucherPlanStandard.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/VoucherPlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/LedgerEnricher.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/LedgerEnricher.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/LedgerEnricher.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/LedgerEnricher.java",
       "line": 19,
       "expr": "voucherRef501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/LedgerEnricher.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/LedgerEnricher.java",
       "line": 20,
       "expr": "voucherRef501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/SessionEvaluator.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/SessionEvaluator.java",
       "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/SessionEvaluator.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/SessionEvaluator.java",
       "line": 25,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentsubmit/dao/SessionEvaluator.java",
+      "file": "dao/src/main/java/nw/paymentsubmit/SessionEvaluator.java",
       "line": 27,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
@@ -287,7 +287,7 @@
     "payload_at_sink": "'ref-' + 'ref_ref_ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

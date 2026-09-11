@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 1 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventorycapture/web/ChannelController.java",
+    "file": "web/src/main/java/nw/inventorycapture/ChannelController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventorycapture/web/ChannelController.java",
+    "file": "web/src/main/java/nw/inventorycapture/ChannelController.java",
     "line": 22,
     "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/inventorycapture/web/ChannelExecutor.java",
+    "file": "web/src/main/java/nw/inventorycapture/ChannelExecutor.java",
     "line": 22,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,85 +24,85 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/ChannelController.java",
+      "file": "web/src/main/java/nw/inventorycapture/ChannelController.java",
       "line": 22,
       "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 30,
       "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 31,
       "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 32,
       "expr": "invoiceKey2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 37,
       "expr": "batchTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 38,
       "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 39,
       "expr": "orderRef4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 40,
       "expr": "quoteRef5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 45,
       "expr": "tariffRef6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 46,
       "expr": "tariffRef6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/inventorycapture/InvoiceResolver.java",
       "line": 47,
       "expr": "ledgerEntry7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/ChannelExecutor.java",
+      "file": "web/src/main/java/nw/inventorycapture/ChannelExecutor.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorycapture/web/ChannelExecutor.java",
+      "file": "web/src/main/java/nw/inventorycapture/ChannelExecutor.java",
       "line": 22,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -143,6 +143,6 @@
     "payload_at_sink": "printf ref_ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

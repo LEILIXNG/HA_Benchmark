@@ -1,7 +1,0 @@
-package com.northwind.paymentposting.dao;
-
-/** 支付处理策略。按渠道挑一个实现。 */
-public interface ContractRule {
-
-    void handle(String value);
-}

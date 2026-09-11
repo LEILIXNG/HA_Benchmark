@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 14 层调用、跨 3 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventoryreview/web/AccountController.java",
+    "file": "web/src/main/java/nw/inventoryreview/AccountController.java",
     "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventoryreview/web/AccountController.java",
+    "file": "web/src/main/java/nw/inventoryreview/AccountController.java",
     "line": 24,
     "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/inventoryreview/dao/AccountFetcher.java",
+    "file": "dao/src/main/java/nw/inventoryreview/AccountFetcher.java",
     "line": 26,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/inventoryreview/dao/InvoiceFilter.java",
+    "file": "dao/src/main/java/nw/inventoryreview/InvoiceFilter.java",
     "line": 12,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
@@ -29,187 +29,187 @@
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/AccountController.java",
+      "file": "web/src/main/java/nw/inventoryreview/AccountController.java",
       "line": 24,
       "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 26,
       "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 29,
       "expr": "ledgerEntry1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 30,
       "expr": "channelTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 31,
       "expr": "channelTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 36,
       "expr": "catalogKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 38,
       "expr": "catalogKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 40,
       "expr": "receiptKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 45,
       "expr": "accountRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 48,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 47,
       "expr": "accountRef5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 50,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 49,
       "expr": "paymentTag7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryreview/web/InvoiceFacade.java",
-      "line": 51,
+      "file": "web/src/main/java/nw/inventoryreview/InvoiceFacade.java",
+      "line": 50,
       "expr": "paymentTag7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/RefundBuilder.java",
+      "file": "service/src/main/java/nw/inventoryreview/RefundBuilder.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/RefundBuilder.java",
+      "file": "service/src/main/java/nw/inventoryreview/RefundBuilder.java",
       "line": 19,
       "expr": "invoiceKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/RefundBuilder.java",
+      "file": "service/src/main/java/nw/inventoryreview/RefundBuilder.java",
       "line": 20,
       "expr": "invoiceKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/RefundBuilder.java",
+      "file": "service/src/main/java/nw/inventoryreview/RefundBuilder.java",
       "line": 21,
       "expr": "batchTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/ShipmentPlanSelector.java",
+      "file": "service/src/main/java/nw/inventoryreview/ShipmentPlanSelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/ShipmentPlanStandard.java",
+      "file": "service/src/main/java/nw/inventoryreview/ShipmentPlanStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/ManifestResolver.java",
-      "line": 17,
+      "file": "service/src/main/java/nw/inventoryreview/ManifestResolver.java",
+      "line": 16,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryreview/service/ManifestResolver.java",
-      "line": 18,
+      "file": "service/src/main/java/nw/inventoryreview/ManifestResolver.java",
+      "line": 17,
       "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/RefundAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryreview/RefundAdapter.java",
       "line": 11,
       "expr": "ledgerEntry301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/RefundAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryreview/RefundAdapter.java",
       "line": 12,
       "expr": "channelTag302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/RefundAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryreview/RefundAdapter.java",
       "line": 13,
       "expr": "channelTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/ManifestStrategySelector.java",
+      "file": "dao/src/main/java/nw/inventoryreview/ManifestStrategySelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/ManifestStrategyStandard.java",
+      "file": "dao/src/main/java/nw/inventoryreview/ManifestStrategyStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/BundleTranslator.java",
+      "file": "dao/src/main/java/nw/inventoryreview/BundleTranslator.java",
       "line": 11,
       "expr": "invoiceKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/BundleTranslator.java",
+      "file": "dao/src/main/java/nw/inventoryreview/BundleTranslator.java",
       "line": 12,
       "expr": "invoiceKey401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/InvoiceFilter.java",
+      "file": "dao/src/main/java/nw/inventoryreview/InvoiceFilter.java",
       "line": 12,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/AccountFetcher.java",
+      "file": "dao/src/main/java/nw/inventoryreview/AccountFetcher.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryreview/dao/AccountFetcher.java",
+      "file": "dao/src/main/java/nw/inventoryreview/AccountFetcher.java",
       "line": 26,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -260,6 +260,6 @@
     "payload_at_sink": "http://ref_ref_ref_ref_127.0.0.1:1/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

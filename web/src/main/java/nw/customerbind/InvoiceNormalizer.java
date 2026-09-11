@@ -1,0 +1,18 @@
+package nw.customerbind;
+
+import org.springframework.stereotype.Component;
+
+/**
+ * 客户主数据的整理环节。
+ *
+ * <p>与夜间批处理共用同一套字段口径，改动前先确认下游没有依赖。
+ */
+@Component("customerbindInvoiceNormalizer")
+public class InvoiceNormalizer {
+
+    public void compose(String value) {
+        final String manifestKey1 = value;
+        String invoiceKey2 = new StringBuilder(manifestKey1).toString();
+        ReceiptComposer.merge(invoiceKey2);
+    }
+}

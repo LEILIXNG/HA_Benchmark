@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/shippingdigest/web/LedgerController.java",
+    "file": "web/src/main/java/nw/shippingdigest/LedgerController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/shippingdigest/web/LedgerController.java",
+    "file": "web/src/main/java/nw/shippingdigest/LedgerController.java",
     "line": 23,
     "expr": "token",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/shippingdigest/service/LedgerRepository.java",
+    "file": "service/src/main/java/nw/shippingdigest/LedgerRepository.java",
     "line": 25,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/shippingdigest/service/BundleValidator.java",
+    "file": "service/src/main/java/nw/shippingdigest/BundleValidator.java",
     "line": 23,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,169 +29,169 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/LedgerController.java",
+      "file": "web/src/main/java/nw/shippingdigest/LedgerController.java",
       "line": 23,
       "expr": "token",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 27,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 30,
       "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 31,
       "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 32,
       "expr": "refundCode2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 37,
       "expr": "shipmentCode3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 40,
       "expr": "shipmentCode3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 42,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 41,
       "expr": "manifestKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 43,
       "expr": "manifestKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 45,
       "expr": "invoiceKey5",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 51,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 50,
       "expr": "batchTag6",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 52,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 51,
       "expr": "orderRef7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 53,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 52,
       "expr": "orderRef7",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 58,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 57,
       "expr": "quoteRef8",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 59,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 58,
       "expr": "tariffRef9",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 60,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 59,
       "expr": "ledgerEntry10",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 61,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 60,
       "expr": "ledgerEntry10",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 66,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 65,
       "expr": "channelTag11",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 69,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 68,
       "expr": "channelTag11",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 70,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 69,
       "expr": "catalogKey12",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingdigest/web/TariffRouter.java",
-      "line": 71,
+      "file": "web/src/main/java/nw/shippingdigest/TariffRouter.java",
+      "line": 70,
       "expr": "catalogKey12",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingdigest/service/BatchComposer.java",
+      "file": "service/src/main/java/nw/shippingdigest/BatchComposer.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingdigest/service/BatchComposer.java",
+      "file": "service/src/main/java/nw/shippingdigest/BatchComposer.java",
       "line": 24,
       "expr": "channelTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingdigest/service/BatchComposer.java",
+      "file": "service/src/main/java/nw/shippingdigest/BatchComposer.java",
       "line": 25,
       "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingdigest/service/BatchComposer.java",
+      "file": "service/src/main/java/nw/shippingdigest/BatchComposer.java",
       "line": 26,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingdigest/service/BundleValidator.java",
+      "file": "service/src/main/java/nw/shippingdigest/BundleValidator.java",
       "line": 23,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingdigest/service/LedgerRepository.java",
+      "file": "service/src/main/java/nw/shippingdigest/LedgerRepository.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingdigest/service/LedgerRepository.java",
+      "file": "service/src/main/java/nw/shippingdigest/LedgerRepository.java",
       "line": 25,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -240,6 +240,6 @@
     "payload_at_sink": "SELECT id, total FROM payment_records WHERE name = 'ref_zz OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

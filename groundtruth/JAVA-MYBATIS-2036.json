@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 10 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilmerge/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/fulfilmerge/InvoiceController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilmerge/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/fulfilmerge/InvoiceController.java",
     "line": 25,
     "expr": "category",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/fulfilmerge/service/InvoiceMapper.xml",
+    "file": "service/src/main/resources/nw/fulfilmerge/InvoiceMapper.xml",
     "line": 9,
     "expr": "channelTag",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,175 +24,175 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/fulfilmerge/InvoiceController.java",
       "line": 25,
       "expr": "category",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/ReceiptBuilder.java",
+      "file": "web/src/main/java/nw/fulfilmerge/ReceiptBuilder.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/ReceiptBuilder.java",
+      "file": "web/src/main/java/nw/fulfilmerge/ReceiptBuilder.java",
       "line": 25,
       "expr": "quoteRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/ReceiptBuilder.java",
+      "file": "web/src/main/java/nw/fulfilmerge/ReceiptBuilder.java",
       "line": 30,
       "expr": "tariffRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/ReceiptBuilder.java",
+      "file": "web/src/main/java/nw/fulfilmerge/ReceiptBuilder.java",
       "line": 33,
       "expr": "tariffRef2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/ReceiptBuilder.java",
+      "file": "web/src/main/java/nw/fulfilmerge/ReceiptBuilder.java",
       "line": 34,
       "expr": "ledgerEntry3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/ReceiptBuilder.java",
+      "file": "web/src/main/java/nw/fulfilmerge/ReceiptBuilder.java",
       "line": 35,
       "expr": "ledgerEntry3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/ReceiptBuilder.java",
+      "file": "web/src/main/java/nw/fulfilmerge/ReceiptBuilder.java",
       "line": 36,
       "expr": "channelTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 30,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 33,
       "expr": "shipmentCode101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 34,
       "expr": "manifestKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 35,
       "expr": "manifestKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 40,
       "expr": "invoiceKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 42,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 41,
       "expr": "batchTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 43,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 42,
       "expr": "orderRef105",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilmerge/web/TariffFacade.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/fulfilmerge/TariffFacade.java",
+      "line": 43,
       "expr": "orderRef105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 26,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 27,
       "expr": "receiptKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 30,
       "expr": "receiptKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 31,
       "expr": "accountRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 32,
       "expr": "accountRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 37,
       "expr": "voucherRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 40,
       "expr": "voucherRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 41,
       "expr": "paymentTag204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 42,
       "expr": "refundCode205",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/BatchEnricher.java",
+      "file": "service/src/main/java/nw/fulfilmerge/BatchEnricher.java",
       "line": 43,
       "expr": "refundCode205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/InvoiceGateway.java",
+      "file": "service/src/main/java/nw/fulfilmerge/InvoiceGateway.java",
       "line": 21,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilmerge/service/InvoiceGateway.java",
+      "file": "service/src/main/java/nw/fulfilmerge/InvoiceGateway.java",
       "line": 28,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/fulfilmerge/service/InvoiceMapper.xml",
+      "file": "service/src/main/resources/nw/fulfilmerge/InvoiceMapper.xml",
       "line": 9,
       "expr": "channelTag",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -242,6 +242,6 @@
     "payload_at_sink": "SELECT id, amount, status       FROM payment_records      WHERE ref_no IN ('ref_ref_zz' OR 1=1--')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

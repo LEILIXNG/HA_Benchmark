@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentintake/web/VoucherController.java",
+    "file": "web/src/main/java/nw/paymentintake/VoucherController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentintake/web/VoucherController.java",
+    "file": "web/src/main/java/nw/paymentintake/VoucherController.java",
     "line": 25,
     "expr": "userName",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/paymentintake/dao/VoucherFetcher.java",
+    "file": "dao/src/main/java/nw/paymentintake/VoucherFetcher.java",
     "line": 22,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,145 +24,145 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentintake/web/VoucherController.java",
+      "file": "web/src/main/java/nw/paymentintake/VoucherController.java",
       "line": 25,
       "expr": "userName",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentintake/web/CatalogBroker.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/paymentintake/CatalogBroker.java",
+      "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentintake/web/CatalogBroker.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/paymentintake/CatalogBroker.java",
+      "line": 20,
       "expr": "tariffRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentintake/web/CatalogBroker.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/paymentintake/CatalogBroker.java",
+      "line": 21,
       "expr": "tariffRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 26,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 27,
       "expr": "shipmentCode101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 28,
       "expr": "manifestKey102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 33,
       "expr": "invoiceKey103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 34,
       "expr": "batchTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 38,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 37,
       "expr": "batchTag104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 39,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 38,
       "expr": "orderRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentintake/service/QuoteAdapter.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/paymentintake/QuoteAdapter.java",
+      "line": 39,
       "expr": "orderRef105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/TariffRegistry.java",
+      "file": "dao/src/main/java/nw/paymentintake/TariffRegistry.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/TariffRegistry.java",
+      "file": "dao/src/main/java/nw/paymentintake/TariffRegistry.java",
       "line": 28,
       "expr": "receiptKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/TariffRegistry.java",
+      "file": "dao/src/main/java/nw/paymentintake/TariffRegistry.java",
       "line": 29,
       "expr": "receiptKey201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/TariffRegistry.java",
+      "file": "dao/src/main/java/nw/paymentintake/TariffRegistry.java",
       "line": 30,
       "expr": "accountRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/QuotePolicySelector.java",
+      "file": "dao/src/main/java/nw/paymentintake/QuotePolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/QuotePolicyStandard.java",
+      "file": "dao/src/main/java/nw/paymentintake/QuotePolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/BatchFacade.java",
+      "file": "dao/src/main/java/nw/paymentintake/BatchFacade.java",
       "line": 21,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/BatchFacade.java",
+      "file": "dao/src/main/java/nw/paymentintake/BatchFacade.java",
       "line": 24,
       "expr": "quoteRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/BatchFacade.java",
+      "file": "dao/src/main/java/nw/paymentintake/BatchFacade.java",
       "line": 25,
       "expr": "tariffRef302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/BatchFacade.java",
+      "file": "dao/src/main/java/nw/paymentintake/BatchFacade.java",
       "line": 26,
       "expr": "tariffRef302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/VoucherFetcher.java",
+      "file": "dao/src/main/java/nw/paymentintake/VoucherFetcher.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentintake/dao/VoucherFetcher.java",
+      "file": "dao/src/main/java/nw/paymentintake/VoucherFetcher.java",
       "line": 22,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -210,6 +210,6 @@
     "payload_at_sink": "http://ref_ref_ref_ref_127.0.0.1:1/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

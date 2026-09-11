@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 3 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentreopen/web/VoucherController.java",
+    "file": "web/src/main/java/nw/paymentreopen/VoucherController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentreopen/web/VoucherController.java",
+    "file": "web/src/main/java/nw/paymentreopen/VoucherController.java",
     "line": 26,
     "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/northwind/paymentreopen/dao/VoucherMapper.xml",
+    "file": "dao/src/main/resources/nw/paymentreopen/VoucherMapper.xml",
     "line": 9,
     "expr": "shipmentCode",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,85 +24,85 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentreopen/web/VoucherController.java",
+      "file": "web/src/main/java/nw/paymentreopen/VoucherController.java",
       "line": 26,
       "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreopen/web/BundleRouter.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/paymentreopen/BundleRouter.java",
+      "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreopen/web/BundleRouter.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/paymentreopen/BundleRouter.java",
+      "line": 24,
       "expr": "invoiceKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreopen/service/BundleCoordinator.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/paymentreopen/BundleCoordinator.java",
+      "line": 25,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreopen/service/BundleCoordinator.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/paymentreopen/BundleCoordinator.java",
+      "line": 26,
       "expr": "voucherRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreopen/service/BundleCoordinator.java",
-      "line": 32,
+      "file": "service/src/main/java/nw/paymentreopen/BundleCoordinator.java",
+      "line": 31,
       "expr": "paymentTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreopen/service/BundleCoordinator.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/paymentreopen/BundleCoordinator.java",
+      "line": 34,
       "expr": "paymentTag102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreopen/service/BundleCoordinator.java",
-      "line": 36,
+      "file": "service/src/main/java/nw/paymentreopen/BundleCoordinator.java",
+      "line": 35,
       "expr": "refundCode103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreopen/service/BundleCoordinator.java",
-      "line": 37,
+      "file": "service/src/main/java/nw/paymentreopen/BundleCoordinator.java",
+      "line": 36,
       "expr": "refundCode103",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreopen/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/paymentreopen/BundleBuilder.java",
       "line": 11,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreopen/dao/BundleBuilder.java",
+      "file": "dao/src/main/java/nw/paymentreopen/BundleBuilder.java",
       "line": 12,
       "expr": "ledgerEntry201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreopen/dao/VoucherGateway.java",
+      "file": "dao/src/main/java/nw/paymentreopen/VoucherGateway.java",
       "line": 16,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreopen/dao/VoucherGateway.java",
+      "file": "dao/src/main/java/nw/paymentreopen/VoucherGateway.java",
       "line": 23,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/northwind/paymentreopen/dao/VoucherMapper.xml",
+      "file": "dao/src/main/resources/nw/paymentreopen/VoucherMapper.xml",
       "line": 9,
       "expr": "shipmentCode",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -143,6 +143,6 @@
     "payload_at_sink": "SELECT id, total       FROM payment_records      WHERE ref_no IN ('ref_ref_ref_zz' OR 1=1--')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

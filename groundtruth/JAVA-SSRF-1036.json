@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 7 层调用、跨 1 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilbatch/web/TariffController.java",
+    "file": "web/src/main/java/nw/fulfilbatch/TariffController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilbatch/web/TariffController.java",
+    "file": "web/src/main/java/nw/fulfilbatch/TariffController.java",
     "line": 25,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/fulfilbatch/web/TariffFetcher.java",
+    "file": "web/src/main/java/nw/fulfilbatch/TariffFetcher.java",
     "line": 25,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,97 +24,97 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/TariffController.java",
+      "file": "web/src/main/java/nw/fulfilbatch/TariffController.java",
       "line": 25,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/SessionCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilbatch/SessionCoordinator.java",
       "line": 26,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/SessionCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilbatch/SessionCoordinator.java",
       "line": 27,
       "expr": "invoiceKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/SessionCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilbatch/SessionCoordinator.java",
       "line": 32,
       "expr": "batchTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/SessionCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilbatch/SessionCoordinator.java",
       "line": 35,
       "expr": "batchTag2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/SessionCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilbatch/SessionCoordinator.java",
       "line": 36,
       "expr": "orderRef3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/SessionCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilbatch/SessionCoordinator.java",
       "line": 37,
       "expr": "orderRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/SessionCoordinator.java",
+      "file": "web/src/main/java/nw/fulfilbatch/SessionCoordinator.java",
       "line": 38,
       "expr": "quoteRef4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/CatalogFacade.java",
+      "file": "web/src/main/java/nw/fulfilbatch/CatalogFacade.java",
       "line": 29,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/CatalogFacade.java",
+      "file": "web/src/main/java/nw/fulfilbatch/CatalogFacade.java",
       "line": 31,
       "expr": "voucherRef101",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/CatalogFacade.java",
+      "file": "web/src/main/java/nw/fulfilbatch/CatalogFacade.java",
       "line": 36,
       "expr": "paymentTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/CatalogFacade.java",
+      "file": "web/src/main/java/nw/fulfilbatch/CatalogFacade.java",
       "line": 37,
       "expr": "refundCode103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/CatalogFacade.java",
+      "file": "web/src/main/java/nw/fulfilbatch/CatalogFacade.java",
       "line": 38,
       "expr": "shipmentCode104",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/CatalogFacade.java",
+      "file": "web/src/main/java/nw/fulfilbatch/CatalogFacade.java",
       "line": 39,
       "expr": "shipmentCode104",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/TariffFetcher.java",
+      "file": "web/src/main/java/nw/fulfilbatch/TariffFetcher.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilbatch/web/TariffFetcher.java",
+      "file": "web/src/main/java/nw/fulfilbatch/TariffFetcher.java",
       "line": 25,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -157,6 +157,6 @@
     "payload_at_sink": "http://ref_ref_127.0.0.1:1/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

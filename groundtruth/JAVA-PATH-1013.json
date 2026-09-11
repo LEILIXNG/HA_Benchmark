@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/customersettle/web/QuoteController.java",
+    "file": "web/src/main/java/nw/customersettle/QuoteController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/customersettle/web/QuoteController.java",
+    "file": "web/src/main/java/nw/customersettle/QuoteController.java",
     "line": 23,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/customersettle/dao/QuoteLoader.java",
+    "file": "dao/src/main/java/nw/customersettle/QuoteLoader.java",
     "line": 29,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,115 +24,115 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/QuoteController.java",
+      "file": "web/src/main/java/nw/customersettle/QuoteController.java",
       "line": 23,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 24,
       "expr": "batchTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 25,
       "expr": "orderRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 26,
       "expr": "orderRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 31,
       "expr": "quoteRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 34,
       "expr": "quoteRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 35,
       "expr": "tariffRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 38,
       "expr": "tariffRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 40,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 39,
       "expr": "ledgerEntry5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersettle/web/RefundTranslator.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/customersettle/RefundTranslator.java",
+      "line": 40,
       "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
-      "line": 22,
+      "file": "service/src/main/java/nw/customersettle/PaymentService.java",
+      "line": 21,
       "expr": "paymentTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/customersettle/PaymentService.java",
+      "line": 24,
       "expr": "paymentTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/customersettle/PaymentService.java",
+      "line": 25,
       "expr": "refundCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersettle/service/PaymentService.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/customersettle/PaymentService.java",
+      "line": 26,
       "expr": "refundCode102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customersettle/dao/TariffEnricher.java",
+      "file": "dao/src/main/java/nw/customersettle/TariffEnricher.java",
       "line": 14,
       "expr": "channelTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customersettle/dao/TariffEnricher.java",
+      "file": "dao/src/main/java/nw/customersettle/TariffEnricher.java",
       "line": 15,
       "expr": "channelTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customersettle/dao/TariffEnricher.java",
+      "file": "dao/src/main/java/nw/customersettle/TariffEnricher.java",
       "line": 16,
       "expr": "catalogKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customersettle/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/nw/customersettle/QuoteLoader.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customersettle/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/nw/customersettle/QuoteLoader.java",
       "line": 29,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -177,6 +177,6 @@
     "payload_at_sink": "/var/lib/customer/data/ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

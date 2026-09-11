@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "路径变量经 8 层调用、跨 3 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/customertrace/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/customertrace/ReceiptController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/customertrace/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/customertrace/ReceiptController.java",
     "line": 25,
     "expr": "reference",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/customertrace/dao/ReceiptFetcher.java",
+    "file": "dao/src/main/java/nw/customertrace/ReceiptFetcher.java",
     "line": 23,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/customertrace/dao/BundleGuard.java",
+    "file": "dao/src/main/java/nw/customertrace/BundleGuard.java",
     "line": 12,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
@@ -29,85 +29,85 @@
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/customertrace/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/customertrace/ReceiptController.java",
       "line": 25,
       "expr": "reference",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/customertrace/web/BundleNormalizer.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/customertrace/BundleNormalizer.java",
+      "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/customertrace/web/BundleNormalizer.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/customertrace/BundleNormalizer.java",
+      "line": 24,
       "expr": "channelTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customertrace/web/BundleNormalizer.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/customertrace/BundleNormalizer.java",
+      "line": 29,
       "expr": "catalogKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customertrace/web/BundleNormalizer.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/customertrace/BundleNormalizer.java",
+      "line": 30,
       "expr": "receiptKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/customertrace/web/BundleNormalizer.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/customertrace/BundleNormalizer.java",
+      "line": 31,
       "expr": "receiptKey3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customertrace/service/ShipmentComposer.java",
-      "line": 17,
+      "file": "service/src/main/java/nw/customertrace/ShipmentComposer.java",
+      "line": 16,
       "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/customertrace/service/ShipmentComposer.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/customertrace/ShipmentComposer.java",
+      "line": 18,
       "expr": "batchTag101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/customertrace/service/ShipmentComposer.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/customertrace/ShipmentComposer.java",
+      "line": 20,
       "expr": "orderRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customertrace/dao/BundleTranslator.java",
+      "file": "dao/src/main/java/nw/customertrace/BundleTranslator.java",
       "line": 16,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customertrace/dao/BundleTranslator.java",
+      "file": "dao/src/main/java/nw/customertrace/BundleTranslator.java",
       "line": 17,
       "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customertrace/dao/BundleGuard.java",
+      "file": "dao/src/main/java/nw/customertrace/BundleGuard.java",
       "line": 12,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customertrace/dao/ReceiptFetcher.java",
+      "file": "dao/src/main/java/nw/customertrace/ReceiptFetcher.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customertrace/dao/ReceiptFetcher.java",
+      "file": "dao/src/main/java/nw/customertrace/ReceiptFetcher.java",
       "line": 23,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -149,6 +149,6 @@
     "payload_at_sink": "http://ref_ref_127.0.0.1:1/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

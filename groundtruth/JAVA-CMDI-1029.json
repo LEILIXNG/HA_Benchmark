@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 11 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/accountverify/web/BundleController.java",
+    "file": "web/src/main/java/nw/accountverify/BundleController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/accountverify/web/BundleController.java",
+    "file": "web/src/main/java/nw/accountverify/BundleController.java",
     "line": 23,
     "expr": "filename",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/accountverify/dao/BundleExecutor.java",
+    "file": "dao/src/main/java/nw/accountverify/BundleExecutor.java",
     "line": 18,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,163 +24,163 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/accountverify/web/BundleController.java",
+      "file": "web/src/main/java/nw/accountverify/BundleController.java",
       "line": 23,
       "expr": "filename",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountverify/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/accountverify/BundleRegistry.java",
       "line": 23,
       "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountverify/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/accountverify/BundleRegistry.java",
       "line": 24,
       "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountverify/web/CatalogFacade.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/accountverify/CatalogFacade.java",
+      "line": 23,
       "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountverify/web/CatalogFacade.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/accountverify/CatalogFacade.java",
+      "line": 24,
       "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountverify/service/ManifestFacade.java",
-      "line": 22,
+      "file": "service/src/main/java/nw/accountverify/ManifestFacade.java",
+      "line": 21,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountverify/service/ManifestFacade.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/accountverify/ManifestFacade.java",
+      "line": 24,
       "expr": "paymentTag201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountverify/service/ManifestFacade.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/accountverify/ManifestFacade.java",
+      "line": 25,
       "expr": "refundCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountverify/service/ManifestFacade.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/accountverify/ManifestFacade.java",
+      "line": 26,
       "expr": "refundCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BundleFacade.java",
+      "file": "dao/src/main/java/nw/accountverify/BundleFacade.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BundleFacade.java",
+      "file": "dao/src/main/java/nw/accountverify/BundleFacade.java",
       "line": 24,
       "expr": "channelTag301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BundleFacade.java",
+      "file": "dao/src/main/java/nw/accountverify/BundleFacade.java",
       "line": 25,
       "expr": "channelTag301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BundleFacade.java",
+      "file": "dao/src/main/java/nw/accountverify/BundleFacade.java",
       "line": 26,
       "expr": "catalogKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/accountverify/BatchRouter.java",
       "line": 24,
       "expr": "batchTag401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/accountverify/BatchRouter.java",
       "line": 25,
       "expr": "batchTag401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/accountverify/BatchRouter.java",
       "line": 30,
       "expr": "orderRef402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/accountverify/BatchRouter.java",
       "line": 31,
       "expr": "orderRef402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/accountverify/BatchRouter.java",
       "line": 32,
       "expr": "tariffRef404",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/accountverify/BatchRouter.java",
       "line": 33,
       "expr": "tariffRef404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/PaymentPlanSelector.java",
+      "file": "dao/src/main/java/nw/accountverify/PaymentPlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/PaymentPlanStandard.java",
+      "file": "dao/src/main/java/nw/accountverify/PaymentPlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/ShipmentBroker.java",
+      "file": "dao/src/main/java/nw/accountverify/ShipmentBroker.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/ShipmentBroker.java",
+      "file": "dao/src/main/java/nw/accountverify/ShipmentBroker.java",
       "line": 19,
       "expr": "paymentTag501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/ShipmentBroker.java",
+      "file": "dao/src/main/java/nw/accountverify/ShipmentBroker.java",
       "line": 20,
       "expr": "refundCode502",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/ShipmentBroker.java",
+      "file": "dao/src/main/java/nw/accountverify/ShipmentBroker.java",
       "line": 21,
       "expr": "refundCode502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BundleExecutor.java",
+      "file": "dao/src/main/java/nw/accountverify/BundleExecutor.java",
       "line": 14,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountverify/dao/BundleExecutor.java",
+      "file": "dao/src/main/java/nw/accountverify/BundleExecutor.java",
       "line": 18,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -231,6 +231,6 @@
     "payload_at_sink": "echo ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

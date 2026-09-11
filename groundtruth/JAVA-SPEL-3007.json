@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "Cookie经 14 层调用、跨 2 个模块流入SpEL 表达式求值，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendorassign/web/ManifestController.java",
+    "file": "web/src/main/java/nw/vendorassign/ManifestController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendorassign/web/ManifestController.java",
+    "file": "web/src/main/java/nw/vendorassign/ManifestController.java",
     "line": 27,
     "expr": "filename",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/vendorassign/service/ManifestEvaluator.java",
+    "file": "service/src/main/java/nw/vendorassign/ManifestEvaluator.java",
     "line": 22,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/vendorassign/service/CatalogGuard.java",
+    "file": "service/src/main/java/nw/vendorassign/CatalogGuard.java",
     "line": 11,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,247 +29,247 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/ManifestController.java",
+      "file": "web/src/main/java/nw/vendorassign/ManifestController.java",
       "line": 27,
       "expr": "filename",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 20,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 21,
       "expr": "catalogKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 26,
       "expr": "receiptKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 27,
       "expr": "receiptKey2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 29,
       "expr": "accountRef3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 31,
       "expr": "voucherRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 36,
       "expr": "paymentTag5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 37,
       "expr": "refundCode6",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/InvoiceCollector.java",
+      "file": "web/src/main/java/nw/vendorassign/InvoiceCollector.java",
       "line": 38,
       "expr": "refundCode6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/TariffStrategySelector.java",
+      "file": "web/src/main/java/nw/vendorassign/TariffStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/TariffStrategyStandard.java",
+      "file": "web/src/main/java/nw/vendorassign/TariffStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 21,
       "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 22,
       "expr": "orderRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 27,
       "expr": "quoteRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 28,
       "expr": "quoteRef102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 31,
       "expr": "tariffRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 32,
       "expr": "ledgerEntry104",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 33,
       "expr": "ledgerEntry104",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 38,
       "expr": "channelTag105",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 41,
       "expr": "channelTag105",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 42,
       "expr": "catalogKey106",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 43,
       "expr": "catalogKey106",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 48,
       "expr": "receiptKey107",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 51,
       "expr": "receiptKey107",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 52,
       "expr": "accountRef108",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 53,
       "expr": "voucherRef109",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleRegistry.java",
+      "file": "web/src/main/java/nw/vendorassign/BundleRegistry.java",
       "line": 54,
       "expr": "voucherRef109",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleFacade.java",
-      "line": 18,
+      "file": "web/src/main/java/nw/vendorassign/BundleFacade.java",
+      "line": 17,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleFacade.java",
-      "line": 19,
+      "file": "web/src/main/java/nw/vendorassign/BundleFacade.java",
+      "line": 18,
       "expr": "refundCode201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleFacade.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/vendorassign/BundleFacade.java",
+      "line": 21,
       "expr": "refundCode201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleFacade.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/vendorassign/BundleFacade.java",
+      "line": 22,
       "expr": "shipmentCode202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorassign/web/BundleFacade.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/vendorassign/BundleFacade.java",
+      "line": 23,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorassign/service/BatchAssembler.java",
+      "file": "service/src/main/java/nw/vendorassign/BatchAssembler.java",
       "line": 18,
       "expr": "catalogKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorassign/service/BatchAssembler.java",
+      "file": "service/src/main/java/nw/vendorassign/BatchAssembler.java",
       "line": 21,
       "expr": "catalogKey301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorassign/service/BatchAssembler.java",
+      "file": "service/src/main/java/nw/vendorassign/BatchAssembler.java",
       "line": 22,
       "expr": "receiptKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorassign/service/BatchAssembler.java",
+      "file": "service/src/main/java/nw/vendorassign/BatchAssembler.java",
       "line": 23,
       "expr": "receiptKey302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorassign/service/CatalogGuard.java",
+      "file": "service/src/main/java/nw/vendorassign/CatalogGuard.java",
       "line": 11,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorassign/service/ManifestEvaluator.java",
+      "file": "service/src/main/java/nw/vendorassign/ManifestEvaluator.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorassign/service/ManifestEvaluator.java",
+      "file": "service/src/main/java/nw/vendorassign/ManifestEvaluator.java",
       "line": 22,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -325,7 +325,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

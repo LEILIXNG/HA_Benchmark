@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "请求头经 6 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/orderverify/web/PaymentController.java",
+    "file": "web/src/main/java/nw/orderverify/PaymentController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/orderverify/web/PaymentController.java",
+    "file": "web/src/main/java/nw/orderverify/PaymentController.java",
     "line": 25,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/orderverify/service/PaymentMapper.xml",
+    "file": "service/src/main/resources/nw/orderverify/PaymentMapper.xml",
     "line": 9,
     "expr": "catalogKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/orderverify/service/CatalogScreen.java",
+    "file": "service/src/main/java/nw/orderverify/CatalogScreen.java",
     "line": 23,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,73 +29,73 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/orderverify/web/PaymentController.java",
+      "file": "web/src/main/java/nw/orderverify/PaymentController.java",
       "line": 25,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderverify/web/PaymentBroker.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/orderverify/PaymentBroker.java",
+      "line": 20,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderverify/web/PaymentBroker.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/orderverify/PaymentBroker.java",
+      "line": 22,
       "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderverify/web/PaymentBroker.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/orderverify/PaymentBroker.java",
+      "line": 23,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderverify/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderverify/AccountBuilder.java",
       "line": 22,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderverify/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderverify/AccountBuilder.java",
       "line": 26,
       "expr": "voucherRef101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderverify/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderverify/AccountBuilder.java",
       "line": 27,
       "expr": "paymentTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderverify/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderverify/AccountBuilder.java",
       "line": 28,
       "expr": "paymentTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderverify/service/CatalogScreen.java",
+      "file": "service/src/main/java/nw/orderverify/CatalogScreen.java",
       "line": 23,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderverify/service/PaymentGateway.java",
+      "file": "service/src/main/java/nw/orderverify/PaymentGateway.java",
       "line": 21,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderverify/service/PaymentGateway.java",
+      "file": "service/src/main/java/nw/orderverify/PaymentGateway.java",
       "line": 28,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/orderverify/service/PaymentMapper.xml",
+      "file": "service/src/main/resources/nw/orderverify/PaymentMapper.xml",
       "line": 9,
       "expr": "catalogKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -134,7 +134,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

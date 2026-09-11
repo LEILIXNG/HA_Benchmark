@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 13 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilrollup/web/QuoteController.java",
+    "file": "web/src/main/java/nw/fulfilrollup/QuoteController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilrollup/web/QuoteController.java",
+    "file": "web/src/main/java/nw/fulfilrollup/QuoteController.java",
     "line": 26,
     "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/QuoteRepository.java",
+    "file": "dao/src/main/java/nw/fulfilrollup/QuoteRepository.java",
     "line": 27,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,169 +24,169 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/QuoteController.java",
+      "file": "web/src/main/java/nw/fulfilrollup/QuoteController.java",
       "line": 26,
       "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 22,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 23,
       "expr": "manifestKey1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 28,
       "expr": "invoiceKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 29,
       "expr": "batchTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 30,
       "expr": "orderRef4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 31,
       "expr": "orderRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 36,
       "expr": "quoteRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 39,
       "expr": "quoteRef5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 40,
       "expr": "tariffRef6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 41,
       "expr": "ledgerEntry7",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/PaymentComposer.java",
+      "file": "web/src/main/java/nw/fulfilrollup/PaymentComposer.java",
       "line": 42,
       "expr": "ledgerEntry7",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/BatchRuleSelector.java",
+      "file": "web/src/main/java/nw/fulfilrollup/BatchRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/BatchRuleStandard.java",
+      "file": "web/src/main/java/nw/fulfilrollup/BatchRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/ManifestTranslator.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/fulfilrollup/ManifestTranslator.java",
+      "line": 19,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrollup/web/ManifestTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/fulfilrollup/ManifestTranslator.java",
+      "line": 20,
       "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/fulfilrollup/BatchComposer.java",
+      "line": 28,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
-      "line": 30,
+      "file": "service/src/main/java/nw/fulfilrollup/BatchComposer.java",
+      "line": 29,
       "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/fulfilrollup/BatchComposer.java",
+      "line": 34,
       "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
-      "line": 36,
+      "file": "service/src/main/java/nw/fulfilrollup/BatchComposer.java",
+      "line": 35,
       "expr": "ledgerEntry202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrollup/service/BatchComposer.java",
-      "line": 37,
+      "file": "service/src/main/java/nw/fulfilrollup/BatchComposer.java",
+      "line": 36,
       "expr": "channelTag203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/OrderBroker.java",
+      "file": "dao/src/main/java/nw/fulfilrollup/OrderBroker.java",
       "line": 19,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/OrderBroker.java",
+      "file": "dao/src/main/java/nw/fulfilrollup/OrderBroker.java",
       "line": 20,
       "expr": "invoiceKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/OrderBroker.java",
+      "file": "dao/src/main/java/nw/fulfilrollup/OrderBroker.java",
       "line": 21,
       "expr": "invoiceKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/PaymentCollector.java",
+      "file": "dao/src/main/java/nw/fulfilrollup/PaymentCollector.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/PaymentCollector.java",
+      "file": "dao/src/main/java/nw/fulfilrollup/PaymentCollector.java",
       "line": 20,
       "expr": "accountRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/QuoteRepository.java",
+      "file": "dao/src/main/java/nw/fulfilrollup/QuoteRepository.java",
       "line": 22,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilrollup/dao/QuoteRepository.java",
+      "file": "dao/src/main/java/nw/fulfilrollup/QuoteRepository.java",
       "line": 27,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -238,6 +238,6 @@
     "payload_at_sink": "SELECT id, ref_no, total FROM shipments WHERE name = 'ref_ref_ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

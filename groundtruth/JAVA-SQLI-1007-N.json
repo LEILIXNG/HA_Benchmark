@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-1007 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingadjust/web/SessionController.java",
+    "file": "web/src/main/java/nw/pricingadjust/SessionController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingadjust/web/SessionController.java",
+    "file": "web/src/main/java/nw/pricingadjust/SessionController.java",
     "line": 25,
     "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/pricingadjust/dao/SessionRepository.java",
+    "file": "dao/src/main/java/nw/pricingadjust/SessionRepository.java",
     "line": 25,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/pricingadjust/dao/QuoteValidator.java",
+    "file": "dao/src/main/java/nw/pricingadjust/QuoteValidator.java",
     "line": 23,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,229 +29,229 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/SessionController.java",
+      "file": "web/src/main/java/nw/pricingadjust/SessionController.java",
       "line": 25,
       "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/QuoteBuilder.java",
+      "file": "web/src/main/java/nw/pricingadjust/QuoteBuilder.java",
       "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/QuoteBuilder.java",
+      "file": "web/src/main/java/nw/pricingadjust/QuoteBuilder.java",
       "line": 25,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/QuoteBuilder.java",
+      "file": "web/src/main/java/nw/pricingadjust/QuoteBuilder.java",
       "line": 26,
       "expr": "shipmentCode1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/QuoteBuilder.java",
+      "file": "web/src/main/java/nw/pricingadjust/QuoteBuilder.java",
       "line": 31,
       "expr": "manifestKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/QuoteBuilder.java",
+      "file": "web/src/main/java/nw/pricingadjust/QuoteBuilder.java",
       "line": 32,
       "expr": "invoiceKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/QuoteBuilder.java",
+      "file": "web/src/main/java/nw/pricingadjust/QuoteBuilder.java",
       "line": 33,
       "expr": "batchTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/QuoteBuilder.java",
+      "file": "web/src/main/java/nw/pricingadjust/QuoteBuilder.java",
       "line": 34,
       "expr": "batchTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/BatchEnricher.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/pricingadjust/BatchEnricher.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/BatchEnricher.java",
-      "line": 29,
+      "file": "web/src/main/java/nw/pricingadjust/BatchEnricher.java",
+      "line": 28,
       "expr": "receiptKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingadjust/web/BatchEnricher.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/pricingadjust/BatchEnricher.java",
+      "line": 29,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 30,
       "expr": "quoteRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 31,
       "expr": "quoteRef201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 32,
       "expr": "tariffRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 37,
       "expr": "ledgerEntry203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 38,
       "expr": "channelTag204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 41,
       "expr": "channelTag204",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 42,
       "expr": "catalogKey205",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/CatalogBroker.java",
+      "file": "service/src/main/java/nw/pricingadjust/CatalogBroker.java",
       "line": 43,
       "expr": "catalogKey205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ManifestCoordinator.java",
+      "file": "service/src/main/java/nw/pricingadjust/ManifestCoordinator.java",
       "line": 23,
       "expr": "shipmentCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ManifestCoordinator.java",
+      "file": "service/src/main/java/nw/pricingadjust/ManifestCoordinator.java",
       "line": 24,
       "expr": "shipmentCode301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 30,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 29,
       "expr": "receiptKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 31,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 30,
       "expr": "receiptKey401",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 36,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 35,
       "expr": "accountRef402",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 37,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 36,
       "expr": "voucherRef403",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 39,
       "expr": "voucherRef403",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 41,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 40,
       "expr": "paymentTag404",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingadjust/service/ReceiptRouter.java",
-      "line": 42,
+      "file": "service/src/main/java/nw/pricingadjust/ReceiptRouter.java",
+      "line": 41,
       "expr": "paymentTag404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/OrderNormalizer.java",
+      "file": "dao/src/main/java/nw/pricingadjust/OrderNormalizer.java",
       "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/OrderNormalizer.java",
+      "file": "dao/src/main/java/nw/pricingadjust/OrderNormalizer.java",
       "line": 26,
       "expr": "quoteRef501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/OrderNormalizer.java",
+      "file": "dao/src/main/java/nw/pricingadjust/OrderNormalizer.java",
       "line": 29,
       "expr": "quoteRef501",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/OrderNormalizer.java",
+      "file": "dao/src/main/java/nw/pricingadjust/OrderNormalizer.java",
       "line": 30,
       "expr": "tariffRef502",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/OrderNormalizer.java",
+      "file": "dao/src/main/java/nw/pricingadjust/OrderNormalizer.java",
       "line": 31,
       "expr": "tariffRef502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/QuoteValidator.java",
+      "file": "dao/src/main/java/nw/pricingadjust/QuoteValidator.java",
       "line": 23,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/SessionRepository.java",
+      "file": "dao/src/main/java/nw/pricingadjust/SessionRepository.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingadjust/dao/SessionRepository.java",
+      "file": "dao/src/main/java/nw/pricingadjust/SessionRepository.java",
       "line": 25,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -307,7 +307,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

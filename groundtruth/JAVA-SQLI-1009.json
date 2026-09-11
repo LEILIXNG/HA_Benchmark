@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendordraft/web/ManifestController.java",
+    "file": "web/src/main/java/nw/vendordraft/ManifestController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendordraft/web/ManifestController.java",
+    "file": "web/src/main/java/nw/vendordraft/ManifestController.java",
     "line": 27,
     "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/vendordraft/dao/ManifestRepository.java",
+    "file": "dao/src/main/java/nw/vendordraft/ManifestRepository.java",
     "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,151 +24,151 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendordraft/web/ManifestController.java",
+      "file": "web/src/main/java/nw/vendordraft/ManifestController.java",
       "line": 27,
       "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
-      "line": 27,
-      "expr": "value",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
-      "line": 31,
-      "expr": "catalogKey1",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
-      "line": 32,
-      "expr": "receiptKey2",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/vendordraft/web/BatchAdapter.java",
-      "line": 33,
-      "expr": "receiptKey2",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/vendordraft/service/PaymentEnricher.java",
-      "line": 20,
-      "expr": "value",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/vendordraft/service/PaymentEnricher.java",
-      "line": 21,
-      "expr": "quoteRef102",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/vendordraft/service/PaymentEnricher.java",
-      "line": 22,
-      "expr": "quoteRef102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "file": "web/src/main/java/nw/vendordraft/BatchAdapter.java",
       "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "file": "web/src/main/java/nw/vendordraft/BatchAdapter.java",
+      "line": 30,
+      "expr": "catalogKey1",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "web/src/main/java/nw/vendordraft/BatchAdapter.java",
+      "line": 31,
+      "expr": "receiptKey2",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "web/src/main/java/nw/vendordraft/BatchAdapter.java",
+      "line": 32,
+      "expr": "receiptKey2",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/nw/vendordraft/PaymentEnricher.java",
+      "line": 19,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/nw/vendordraft/PaymentEnricher.java",
+      "line": 20,
+      "expr": "quoteRef102",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/nw/vendordraft/PaymentEnricher.java",
+      "line": 21,
+      "expr": "quoteRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/nw/vendordraft/LedgerBroker.java",
+      "line": 26,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/nw/vendordraft/LedgerBroker.java",
       "line": 27,
       "expr": "shipmentCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/LedgerBroker.java",
       "line": 28,
       "expr": "shipmentCode202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/LedgerBroker.java",
       "line": 33,
       "expr": "manifestKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/LedgerBroker.java",
       "line": 36,
       "expr": "manifestKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/LedgerBroker.java",
       "line": 37,
       "expr": "invoiceKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/LedgerBroker.java",
       "line": 38,
       "expr": "invoiceKey204",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/AccountPolicySelector.java",
+      "file": "dao/src/main/java/nw/vendordraft/AccountPolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/AccountPolicyStandard.java",
+      "file": "dao/src/main/java/nw/vendordraft/AccountPolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/InvoiceBroker.java",
       "line": 20,
       "expr": "catalogKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/InvoiceBroker.java",
       "line": 21,
       "expr": "receiptKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/InvoiceBroker.java",
       "line": 22,
       "expr": "receiptKey302",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/InvoiceBroker.java",
       "line": 27,
       "expr": "accountRef303",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/InvoiceBroker.java",
       "line": 28,
       "expr": "voucherRef304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/InvoiceBroker.java",
+      "file": "dao/src/main/java/nw/vendordraft/InvoiceBroker.java",
       "line": 29,
       "expr": "voucherRef304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/ManifestRepository.java",
+      "file": "dao/src/main/java/nw/vendordraft/ManifestRepository.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendordraft/dao/ManifestRepository.java",
+      "file": "dao/src/main/java/nw/vendordraft/ManifestRepository.java",
       "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -217,6 +217,6 @@
     "payload_at_sink": "SELECT id, code, created_at FROM invoices WHERE title = 'ref_ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

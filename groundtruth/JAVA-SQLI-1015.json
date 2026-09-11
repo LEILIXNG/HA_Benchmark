@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 16 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordermanifest/web/CatalogController.java",
+    "file": "web/src/main/java/nw/ordermanifest/CatalogController.java",
     "line": 15,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordermanifest/web/CatalogController.java",
+    "file": "web/src/main/java/nw/ordermanifest/CatalogController.java",
     "line": 17,
     "expr": "query",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/ordermanifest/dao/CatalogRepository.java",
+    "file": "dao/src/main/java/nw/ordermanifest/CatalogRepository.java",
     "line": 22,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,271 +24,271 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/CatalogController.java",
+      "file": "web/src/main/java/nw/ordermanifest/CatalogController.java",
       "line": 17,
       "expr": "query",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/ManifestAdapter.java",
+      "file": "web/src/main/java/nw/ordermanifest/ManifestAdapter.java",
       "line": 18,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/ManifestAdapter.java",
+      "file": "web/src/main/java/nw/ordermanifest/ManifestAdapter.java",
       "line": 21,
       "expr": "shipmentCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/ManifestAdapter.java",
+      "file": "web/src/main/java/nw/ordermanifest/ManifestAdapter.java",
       "line": 22,
       "expr": "manifestKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/ManifestAdapter.java",
+      "file": "web/src/main/java/nw/ordermanifest/ManifestAdapter.java",
       "line": 23,
       "expr": "manifestKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/LedgerBroker.java",
-      "line": 15,
+      "file": "web/src/main/java/nw/ordermanifest/LedgerBroker.java",
+      "line": 14,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/LedgerBroker.java",
-      "line": 18,
+      "file": "web/src/main/java/nw/ordermanifest/LedgerBroker.java",
+      "line": 17,
       "expr": "receiptKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/LedgerBroker.java",
-      "line": 19,
+      "file": "web/src/main/java/nw/ordermanifest/LedgerBroker.java",
+      "line": 18,
       "expr": "accountRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordermanifest/web/LedgerBroker.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/ordermanifest/LedgerBroker.java",
+      "line": 19,
       "expr": "accountRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordermanifest/service/TariffAdapter.java",
-      "line": 17,
+      "file": "service/src/main/java/nw/ordermanifest/TariffAdapter.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordermanifest/service/TariffAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/nw/ordermanifest/TariffAdapter.java",
+      "line": 17,
       "expr": "quoteRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordermanifest/service/TariffAdapter.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/ordermanifest/TariffAdapter.java",
+      "line": 18,
       "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/OrderService.java",
+      "file": "dao/src/main/java/nw/ordermanifest/OrderService.java",
       "line": 18,
       "expr": "shipmentCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/OrderService.java",
+      "file": "dao/src/main/java/nw/ordermanifest/OrderService.java",
       "line": 21,
       "expr": "shipmentCode301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/OrderService.java",
+      "file": "dao/src/main/java/nw/ordermanifest/OrderService.java",
       "line": 22,
       "expr": "manifestKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/OrderService.java",
+      "file": "dao/src/main/java/nw/ordermanifest/OrderService.java",
       "line": 23,
       "expr": "manifestKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/ChannelRuleSelector.java",
+      "file": "dao/src/main/java/nw/ordermanifest/ChannelRuleSelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/ChannelRuleStandard.java",
+      "file": "dao/src/main/java/nw/ordermanifest/ChannelRuleStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 23,
       "expr": "receiptKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 24,
       "expr": "receiptKey401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 25,
       "expr": "accountRef402",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 30,
       "expr": "voucherRef403",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 31,
       "expr": "voucherRef403",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 32,
       "expr": "paymentTag404",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 37,
       "expr": "refundCode405",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 38,
       "expr": "shipmentCode406",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 39,
       "expr": "shipmentCode406",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 44,
       "expr": "manifestKey407",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 47,
       "expr": "manifestKey407",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 48,
       "expr": "invoiceKey408",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 51,
       "expr": "invoiceKey408",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 52,
       "expr": "batchTag409",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 53,
       "expr": "batchTag409",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 58,
       "expr": "orderRef410",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 59,
       "expr": "orderRef410",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 62,
       "expr": "quoteRef411",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 63,
       "expr": "tariffRef412",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 64,
       "expr": "tariffRef412",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 69,
       "expr": "ledgerEntry413",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 70,
       "expr": "channelTag414",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/InvoiceResolver.java",
+      "file": "dao/src/main/java/nw/ordermanifest/InvoiceResolver.java",
       "line": 71,
       "expr": "channelTag414",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/OrderRouter.java",
+      "file": "dao/src/main/java/nw/ordermanifest/OrderRouter.java",
       "line": 16,
       "expr": "quoteRef501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/OrderRouter.java",
+      "file": "dao/src/main/java/nw/ordermanifest/OrderRouter.java",
       "line": 17,
       "expr": "quoteRef501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/CatalogRepository.java",
+      "file": "dao/src/main/java/nw/ordermanifest/CatalogRepository.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordermanifest/dao/CatalogRepository.java",
+      "file": "dao/src/main/java/nw/ordermanifest/CatalogRepository.java",
       "line": 22,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -349,6 +349,6 @@
     "payload_at_sink": "SELECT id, amount, status FROM payment_records WHERE name = 'ref_ref_ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

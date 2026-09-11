@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1006 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/northwind/catalogcapture/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/catalogcapture/InvoiceController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/catalogcapture/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/catalogcapture/InvoiceController.java",
     "line": 27,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/catalogcapture/dao/InvoiceFetcher.java",
+    "file": "dao/src/main/java/nw/catalogcapture/InvoiceFetcher.java",
     "line": 35,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/catalogcapture/dao/InvoiceFetcher.java",
+    "file": "dao/src/main/java/nw/catalogcapture/InvoiceFetcher.java",
     "line": 31,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
@@ -29,181 +29,181 @@
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/catalogcapture/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/catalogcapture/InvoiceController.java",
       "line": 27,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogcapture/web/CatalogBroker.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/catalogcapture/CatalogBroker.java",
+      "line": 23,
       "expr": "manifestKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogcapture/web/CatalogBroker.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/catalogcapture/CatalogBroker.java",
+      "line": 24,
       "expr": "invoiceKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogcapture/web/CatalogBroker.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/catalogcapture/CatalogBroker.java",
+      "line": 25,
       "expr": "invoiceKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/ChannelNormalizer.java",
+      "file": "service/src/main/java/nw/catalogcapture/ChannelNormalizer.java",
       "line": 23,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/ChannelNormalizer.java",
+      "file": "service/src/main/java/nw/catalogcapture/ChannelNormalizer.java",
       "line": 24,
       "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/TariffRuleSelector.java",
+      "file": "service/src/main/java/nw/catalogcapture/TariffRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/TariffRuleStandard.java",
+      "file": "service/src/main/java/nw/catalogcapture/TariffRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 34,
       "expr": "tariffRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 36,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 35,
       "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 41,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 40,
       "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 44,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 43,
       "expr": "ledgerEntry202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 45,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 44,
       "expr": "channelTag203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 48,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 47,
       "expr": "channelTag203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 49,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 48,
       "expr": "catalogKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 50,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 49,
       "expr": "catalogKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 55,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 54,
       "expr": "receiptKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 58,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 57,
       "expr": "receiptKey205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 59,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 58,
       "expr": "accountRef206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 62,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 61,
       "expr": "accountRef206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 63,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 62,
       "expr": "voucherRef207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogcapture/service/LedgerTranslator.java",
-      "line": 64,
+      "file": "service/src/main/java/nw/catalogcapture/LedgerTranslator.java",
+      "line": 63,
       "expr": "voucherRef207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/PaymentCollector.java",
+      "file": "dao/src/main/java/nw/catalogcapture/PaymentCollector.java",
       "line": 23,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/PaymentCollector.java",
+      "file": "dao/src/main/java/nw/catalogcapture/PaymentCollector.java",
       "line": 24,
       "expr": "manifestKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/catalogcapture/LedgerBroker.java",
       "line": 23,
       "expr": "accountRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/catalogcapture/LedgerBroker.java",
       "line": 24,
       "expr": "voucherRef402",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/LedgerBroker.java",
+      "file": "dao/src/main/java/nw/catalogcapture/LedgerBroker.java",
       "line": 25,
       "expr": "voucherRef402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/InvoiceFetcher.java",
+      "file": "dao/src/main/java/nw/catalogcapture/InvoiceFetcher.java",
       "line": 28,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/InvoiceFetcher.java",
+      "file": "dao/src/main/java/nw/catalogcapture/InvoiceFetcher.java",
       "line": 31,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogcapture/dao/InvoiceFetcher.java",
+      "file": "dao/src/main/java/nw/catalogcapture/InvoiceFetcher.java",
       "line": 35,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
@@ -254,7 +254,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "api.internal.example",
       "reached": true,

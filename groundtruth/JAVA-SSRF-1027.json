@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 7 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/PaymentController.java",
+    "file": "web/src/main/java/nw/shippingsettlequeue/PaymentController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/PaymentController.java",
+    "file": "web/src/main/java/nw/shippingsettlequeue/PaymentController.java",
     "line": 28,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/shippingsettlequeue/dao/PaymentFetcher.java",
+    "file": "dao/src/main/java/nw/shippingsettlequeue/PaymentFetcher.java",
     "line": 24,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,91 +24,91 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/PaymentController.java",
+      "file": "web/src/main/java/nw/shippingsettlequeue/PaymentController.java",
       "line": 28,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 34,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 35,
       "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 36,
       "expr": "channelTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 37,
       "expr": "channelTag2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 43,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 42,
       "expr": "catalogKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 45,
       "expr": "catalogKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 47,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 46,
       "expr": "receiptKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsettlequeue/web/CatalogCollector.java",
-      "line": 48,
+      "file": "web/src/main/java/nw/shippingsettlequeue/CatalogCollector.java",
+      "line": 47,
       "expr": "receiptKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsettlequeue/service/ContractRouter.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/shippingsettlequeue/ContractRouter.java",
+      "line": 18,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsettlequeue/service/ContractRouter.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/shippingsettlequeue/ContractRouter.java",
+      "line": 19,
       "expr": "invoiceKey101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingsettlequeue/dao/ChannelEnricher.java",
+      "file": "dao/src/main/java/nw/shippingsettlequeue/ChannelEnricher.java",
       "line": 12,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingsettlequeue/dao/ChannelEnricher.java",
+      "file": "dao/src/main/java/nw/shippingsettlequeue/ChannelEnricher.java",
       "line": 14,
       "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingsettlequeue/dao/PaymentFetcher.java",
+      "file": "dao/src/main/java/nw/shippingsettlequeue/PaymentFetcher.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingsettlequeue/dao/PaymentFetcher.java",
+      "file": "dao/src/main/java/nw/shippingsettlequeue/PaymentFetcher.java",
       "line": 24,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -150,6 +150,6 @@
     "payload_at_sink": "http://ref_127.0.0.1:1/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

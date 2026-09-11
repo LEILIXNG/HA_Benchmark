@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/customerbind/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/customerbind/ReceiptController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/customerbind/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/customerbind/ReceiptController.java",
     "line": 27,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/customerbind/dao/ReceiptFetcher.java",
+    "file": "dao/src/main/java/nw/customerbind/ReceiptFetcher.java",
     "line": 23,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,175 +24,175 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/customerbind/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/customerbind/ReceiptController.java",
       "line": 27,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerbind/web/InvoiceNormalizer.java",
-      "line": 15,
+      "file": "web/src/main/java/nw/customerbind/InvoiceNormalizer.java",
+      "line": 14,
       "expr": "manifestKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerbind/web/InvoiceNormalizer.java",
-      "line": 16,
+      "file": "web/src/main/java/nw/customerbind/InvoiceNormalizer.java",
+      "line": 15,
       "expr": "invoiceKey2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerbind/web/InvoiceNormalizer.java",
-      "line": 17,
+      "file": "web/src/main/java/nw/customerbind/InvoiceNormalizer.java",
+      "line": 16,
       "expr": "invoiceKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/ReceiptComposer.java",
+      "file": "service/src/main/java/nw/customerbind/ReceiptComposer.java",
       "line": 16,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/ReceiptComposer.java",
+      "file": "service/src/main/java/nw/customerbind/ReceiptComposer.java",
       "line": 17,
       "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/LedgerPolicySelector.java",
+      "file": "service/src/main/java/nw/customerbind/LedgerPolicySelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/LedgerPolicyStandard.java",
+      "file": "service/src/main/java/nw/customerbind/LedgerPolicyStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 24,
       "expr": "tariffRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 25,
       "expr": "tariffRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 31,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 30,
       "expr": "ledgerEntry202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 33,
       "expr": "ledgerEntry202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 34,
       "expr": "channelTag203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 38,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 37,
       "expr": "channelTag203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 39,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 38,
       "expr": "catalogKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 39,
       "expr": "catalogKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 45,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 44,
       "expr": "receiptKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 48,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 47,
       "expr": "receiptKey205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 49,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 48,
       "expr": "accountRef206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 52,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 51,
       "expr": "accountRef206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 53,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 52,
       "expr": "voucherRef207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerbind/service/CatalogService.java",
-      "line": 54,
+      "file": "service/src/main/java/nw/customerbind/CatalogService.java",
+      "line": 53,
       "expr": "voucherRef207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerbind/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/customerbind/BundleCoordinator.java",
       "line": 16,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerbind/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/customerbind/BundleCoordinator.java",
       "line": 17,
       "expr": "manifestKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerbind/dao/BatchAssembler.java",
+      "file": "dao/src/main/java/nw/customerbind/BatchAssembler.java",
       "line": 11,
       "expr": "accountRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerbind/dao/BatchAssembler.java",
+      "file": "dao/src/main/java/nw/customerbind/BatchAssembler.java",
       "line": 12,
       "expr": "voucherRef402",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerbind/dao/BatchAssembler.java",
+      "file": "dao/src/main/java/nw/customerbind/BatchAssembler.java",
       "line": 13,
       "expr": "voucherRef402",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerbind/dao/ReceiptFetcher.java",
+      "file": "dao/src/main/java/nw/customerbind/ReceiptFetcher.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerbind/dao/ReceiptFetcher.java",
+      "file": "dao/src/main/java/nw/customerbind/ReceiptFetcher.java",
       "line": 23,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -243,6 +243,6 @@
     "payload_at_sink": "http://127.0.0.1:1/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

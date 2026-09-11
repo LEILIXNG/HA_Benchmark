@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 2 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogController.java",
+    "file": "web/src/main/java/nw/customersubmit/CatalogController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogController.java",
+    "file": "web/src/main/java/nw/customersubmit/CatalogController.java",
     "line": 25,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/customersubmit/service/CatalogRepository.java",
+    "file": "service/src/main/java/nw/customersubmit/CatalogRepository.java",
     "line": 23,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,91 +24,91 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogController.java",
+      "file": "web/src/main/java/nw/customersubmit/CatalogController.java",
       "line": 25,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/customersubmit/CatalogCollector.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
-      "line": 29,
+      "file": "web/src/main/java/nw/customersubmit/CatalogCollector.java",
+      "line": 28,
       "expr": "shipmentCode1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/customersubmit/CatalogCollector.java",
+      "line": 30,
       "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/customersubmit/web/CatalogCollector.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/customersubmit/CatalogCollector.java",
+      "line": 32,
       "expr": "manifestKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 29,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 30,
       "expr": "receiptKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 31,
       "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 32,
       "expr": "accountRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 37,
       "expr": "voucherRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 40,
       "expr": "voucherRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 41,
       "expr": "paymentTag104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/VoucherEnricher.java",
+      "file": "service/src/main/java/nw/customersubmit/VoucherEnricher.java",
       "line": 42,
       "expr": "paymentTag104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/CatalogRepository.java",
+      "file": "service/src/main/java/nw/customersubmit/CatalogRepository.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/northwind/customersubmit/service/CatalogRepository.java",
+      "file": "service/src/main/java/nw/customersubmit/CatalogRepository.java",
       "line": 23,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -149,6 +149,6 @@
     "payload_at_sink": "SELECT id, total FROM orders WHERE code = 'ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

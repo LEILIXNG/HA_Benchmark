@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 17 层调用、跨 3 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordertransfer/web/QuoteController.java",
+    "file": "web/src/main/java/nw/ordertransfer/QuoteController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordertransfer/web/QuoteController.java",
+    "file": "web/src/main/java/nw/ordertransfer/QuoteController.java",
     "line": 28,
     "expr": "filename",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteLoader.java",
+    "file": "dao/src/main/java/nw/ordertransfer/QuoteLoader.java",
     "line": 28,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuotePolicy.java",
+    "file": "dao/src/main/java/nw/ordertransfer/QuotePolicy.java",
     "line": 12,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 ../（无效）"
@@ -29,313 +29,313 @@
   "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/QuoteController.java",
+      "file": "web/src/main/java/nw/ordertransfer/QuoteController.java",
       "line": 28,
       "expr": "filename",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 30,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 31,
       "expr": "tariffRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 32,
       "expr": "tariffRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 37,
       "expr": "ledgerEntry3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 40,
       "expr": "ledgerEntry3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 41,
       "expr": "channelTag4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 42,
       "expr": "catalogKey5",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 43,
       "expr": "catalogKey5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 48,
       "expr": "receiptKey6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 51,
       "expr": "receiptKey6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 52,
       "expr": "accountRef7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 53,
       "expr": "accountRef7",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 58,
       "expr": "voucherRef8",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 59,
       "expr": "voucherRef8",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 60,
       "expr": "paymentTag9",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 61,
       "expr": "refundCode10",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 66,
       "expr": "shipmentCode11",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 67,
       "expr": "shipmentCode11",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 68,
       "expr": "manifestKey12",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 73,
       "expr": "invoiceKey13",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 76,
       "expr": "invoiceKey13",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 77,
       "expr": "batchTag14",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 78,
       "expr": "orderRef15",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 79,
       "expr": "orderRef15",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 84,
       "expr": "quoteRef16",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 87,
       "expr": "quoteRef16",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 88,
       "expr": "tariffRef17",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 91,
       "expr": "tariffRef17",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 92,
       "expr": "ledgerEntry18",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 93,
       "expr": "ledgerEntry18",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 98,
       "expr": "channelTag19",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 101,
       "expr": "channelTag19",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 102,
       "expr": "catalogKey20",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 105,
       "expr": "catalogKey20",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 106,
       "expr": "receiptKey21",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/ordertransfer/RefundBroker.java",
       "line": 107,
       "expr": "receiptKey21",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/AccountRegistry.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/ordertransfer/AccountRegistry.java",
+      "line": 19,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertransfer/web/AccountRegistry.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/ordertransfer/AccountRegistry.java",
+      "line": 20,
       "expr": "shipmentCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertransfer/service/ManifestResolver.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/ordertransfer/ManifestResolver.java",
+      "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertransfer/service/ManifestResolver.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/ordertransfer/ManifestResolver.java",
+      "line": 19,
       "expr": "receiptKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertransfer/service/ManifestResolver.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/ordertransfer/ManifestResolver.java",
+      "line": 20,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteFacade.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteFacade.java",
       "line": 26,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteFacade.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteFacade.java",
       "line": 27,
       "expr": "quoteRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteFacade.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteFacade.java",
       "line": 28,
       "expr": "tariffRef302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteFacade.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteFacade.java",
       "line": 29,
       "expr": "tariffRef302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteFacade.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteFacade.java",
       "line": 34,
       "expr": "ledgerEntry303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteFacade.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteFacade.java",
       "line": 35,
       "expr": "channelTag304",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteFacade.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteFacade.java",
       "line": 36,
       "expr": "channelTag304",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuotePolicy.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuotePolicy.java",
       "line": 12,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 ../（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteLoader.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordertransfer/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/nw/ordertransfer/QuoteLoader.java",
       "line": 28,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -399,6 +399,6 @@
     "payload_at_sink": "/srv/order/inbox/ref_ref_ref_ref_../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

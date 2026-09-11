@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1038 逐行相同，仅把净化改为 whitelist_regex",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingrenewal/web/LedgerController.java",
+    "file": "web/src/main/java/nw/pricingrenewal/LedgerController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingrenewal/web/LedgerController.java",
+    "file": "web/src/main/java/nw/pricingrenewal/LedgerController.java",
     "line": 25,
     "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/pricingrenewal/service/LedgerFetcher.java",
+    "file": "service/src/main/java/nw/pricingrenewal/LedgerFetcher.java",
     "line": 23,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/pricingrenewal/service/QuoteValidator.java",
+    "file": "service/src/main/java/nw/pricingrenewal/QuoteValidator.java",
     "line": 15,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,121 +29,121 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingrenewal/web/LedgerController.java",
+      "file": "web/src/main/java/nw/pricingrenewal/LedgerController.java",
       "line": 25,
       "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrenewal/web/ReceiptResolver.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/pricingrenewal/ReceiptResolver.java",
+      "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrenewal/web/ReceiptResolver.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/pricingrenewal/ReceiptResolver.java",
+      "line": 23,
       "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrenewal/web/ReceiptResolver.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/pricingrenewal/ReceiptResolver.java",
+      "line": 24,
       "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrenewal/web/ReceiptResolver.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/pricingrenewal/ReceiptResolver.java",
+      "line": 25,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 26,
       "expr": "orderRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 27,
       "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 28,
       "expr": "quoteRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 33,
       "expr": "tariffRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 34,
       "expr": "tariffRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 35,
       "expr": "ledgerEntry104",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 40,
       "expr": "channelTag105",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 43,
       "expr": "channelTag105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 44,
       "expr": "catalogKey106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 47,
       "expr": "catalogKey106",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 48,
       "expr": "receiptKey107",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/ReceiptBuilder.java",
+      "file": "service/src/main/java/nw/pricingrenewal/ReceiptBuilder.java",
       "line": 49,
       "expr": "receiptKey107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/QuoteValidator.java",
+      "file": "service/src/main/java/nw/pricingrenewal/QuoteValidator.java",
       "line": 15,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/LedgerFetcher.java",
+      "file": "service/src/main/java/nw/pricingrenewal/LedgerFetcher.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrenewal/service/LedgerFetcher.java",
+      "file": "service/src/main/java/nw/pricingrenewal/LedgerFetcher.java",
       "line": 23,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -187,7 +187,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "localhost",
       "reached": true,

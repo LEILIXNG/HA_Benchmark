@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 14 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/northwind/accountreopen/web/SessionController.java",
+    "file": "web/src/main/java/nw/accountreopen/SessionController.java",
     "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/accountreopen/web/SessionController.java",
+    "file": "web/src/main/java/nw/accountreopen/SessionController.java",
     "line": 20,
     "expr": "query",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/accountreopen/dao/SessionEvaluator.java",
+    "file": "dao/src/main/java/nw/accountreopen/SessionEvaluator.java",
     "line": 20,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -24,205 +24,205 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/accountreopen/web/SessionController.java",
+      "file": "web/src/main/java/nw/accountreopen/SessionController.java",
       "line": 20,
       "expr": "query",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountreopen/web/ShipmentRegistry.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/accountreopen/ShipmentRegistry.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountreopen/web/ShipmentRegistry.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/accountreopen/ShipmentRegistry.java",
+      "line": 21,
       "expr": "invoiceKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountreopen/web/ShipmentRegistry.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/accountreopen/ShipmentRegistry.java",
+      "line": 22,
       "expr": "invoiceKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountreopen/web/ShipmentRegistry.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/accountreopen/ShipmentRegistry.java",
+      "line": 23,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 14,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 12,
       "expr": "voucherRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 15,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 13,
       "expr": "voucherRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 18,
       "expr": "paymentTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 19,
       "expr": "paymentTag102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 22,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 20,
       "expr": "refundCode103",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 25,
       "expr": "shipmentCode104",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 26,
       "expr": "shipmentCode104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountreopen/service/ReceiptEnricher.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/accountreopen/ReceiptEnricher.java",
+      "line": 27,
       "expr": "manifestKey105",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/ShipmentAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/ShipmentAssembler.java",
       "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/ShipmentAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/ShipmentAssembler.java",
       "line": 21,
       "expr": "ledgerEntry201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/ShipmentAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/ShipmentAssembler.java",
       "line": 22,
       "expr": "channelTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/ShipmentAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/ShipmentAssembler.java",
       "line": 23,
       "expr": "channelTag202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/BundleAdapter.java",
+      "file": "dao/src/main/java/nw/accountreopen/BundleAdapter.java",
       "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/BundleAdapter.java",
+      "file": "dao/src/main/java/nw/accountreopen/BundleAdapter.java",
       "line": 21,
       "expr": "invoiceKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/BundleAdapter.java",
+      "file": "dao/src/main/java/nw/accountreopen/BundleAdapter.java",
       "line": 22,
       "expr": "invoiceKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/QuoteAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/QuoteAssembler.java",
       "line": 24,
       "expr": "voucherRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/QuoteAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/QuoteAssembler.java",
       "line": 25,
       "expr": "voucherRef401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/QuoteAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/QuoteAssembler.java",
       "line": 30,
       "expr": "paymentTag402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/QuoteAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/QuoteAssembler.java",
       "line": 31,
       "expr": "refundCode403",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/QuoteAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/QuoteAssembler.java",
       "line": 34,
       "expr": "refundCode403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/QuoteAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/QuoteAssembler.java",
       "line": 35,
       "expr": "shipmentCode404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/QuoteAssembler.java",
+      "file": "dao/src/main/java/nw/accountreopen/QuoteAssembler.java",
       "line": 36,
       "expr": "shipmentCode404",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/VoucherStrategySelector.java",
+      "file": "dao/src/main/java/nw/accountreopen/VoucherStrategySelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/VoucherStrategyStandard.java",
+      "file": "dao/src/main/java/nw/accountreopen/VoucherStrategyStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/SessionNormalizer.java",
+      "file": "dao/src/main/java/nw/accountreopen/SessionNormalizer.java",
       "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/SessionNormalizer.java",
+      "file": "dao/src/main/java/nw/accountreopen/SessionNormalizer.java",
       "line": 17,
       "expr": "ledgerEntry501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/SessionNormalizer.java",
+      "file": "dao/src/main/java/nw/accountreopen/SessionNormalizer.java",
       "line": 18,
       "expr": "ledgerEntry501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/SessionEvaluator.java",
+      "file": "dao/src/main/java/nw/accountreopen/SessionEvaluator.java",
       "line": 16,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountreopen/dao/SessionEvaluator.java",
+      "file": "dao/src/main/java/nw/accountreopen/SessionEvaluator.java",
       "line": 20,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -276,6 +276,6 @@
     "payload_at_sink": "'seq-' + 'ref_ref_ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

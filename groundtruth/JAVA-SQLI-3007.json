@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 7 层调用、跨 1 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/billingverify/web/CatalogController.java",
+    "file": "web/src/main/java/nw/billingverify/CatalogController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/billingverify/web/CatalogController.java",
+    "file": "web/src/main/java/nw/billingverify/CatalogController.java",
     "line": 26,
     "expr": "category",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/billingverify/web/CatalogRepository.java",
+    "file": "web/src/main/java/nw/billingverify/CatalogRepository.java",
     "line": 25,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,85 +24,85 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/CatalogController.java",
+      "file": "web/src/main/java/nw/billingverify/CatalogController.java",
       "line": 26,
       "expr": "category",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/VoucherCoordinator.java",
+      "file": "web/src/main/java/nw/billingverify/VoucherCoordinator.java",
       "line": 14,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/VoucherCoordinator.java",
+      "file": "web/src/main/java/nw/billingverify/VoucherCoordinator.java",
       "line": 15,
       "expr": "voucherRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/billingverify/BundleBuilder.java",
       "line": 12,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/billingverify/BundleBuilder.java",
       "line": 14,
       "expr": "channelTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/billingverify/BundleBuilder.java",
       "line": 15,
       "expr": "channelTag102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/billingverify/InvoiceResolver.java",
       "line": 22,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/billingverify/InvoiceResolver.java",
       "line": 23,
       "expr": "batchTag202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/billingverify/InvoiceResolver.java",
       "line": 24,
       "expr": "batchTag202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/billingverify/InvoiceResolver.java",
       "line": 29,
       "expr": "orderRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/billingverify/InvoiceResolver.java",
       "line": 30,
       "expr": "quoteRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/InvoiceResolver.java",
+      "file": "web/src/main/java/nw/billingverify/InvoiceResolver.java",
       "line": 31,
       "expr": "quoteRef204",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/CatalogRepository.java",
+      "file": "web/src/main/java/nw/billingverify/CatalogRepository.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingverify/web/CatalogRepository.java",
+      "file": "web/src/main/java/nw/billingverify/CatalogRepository.java",
       "line": 25,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -145,6 +145,6 @@
     "payload_at_sink": "SELECT id, total FROM shipments WHERE ref_no = 'ref_ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 6 层调用、跨 1 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordersplit/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/ordersplit/ReceiptController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordersplit/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/ordersplit/ReceiptController.java",
     "line": 22,
     "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/ordersplit/web/ReceiptRepository.java",
+    "file": "web/src/main/java/nw/ordersplit/ReceiptRepository.java",
     "line": 22,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/northwind/ordersplit/web/ChannelGuard.java",
+    "file": "web/src/main/java/nw/ordersplit/ChannelGuard.java",
     "line": 12,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,85 +29,85 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/ordersplit/ReceiptController.java",
       "line": 22,
       "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 20,
       "expr": "batchTag1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 21,
       "expr": "orderRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 26,
       "expr": "quoteRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 29,
       "expr": "quoteRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 30,
       "expr": "tariffRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 31,
       "expr": "tariffRef4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 36,
       "expr": "ledgerEntry5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 38,
       "expr": "ledgerEntry5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/BundleBuilder.java",
+      "file": "web/src/main/java/nw/ordersplit/BundleBuilder.java",
       "line": 40,
       "expr": "channelTag6",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/ChannelGuard.java",
+      "file": "web/src/main/java/nw/ordersplit/ChannelGuard.java",
       "line": 12,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/ReceiptRepository.java",
+      "file": "web/src/main/java/nw/ordersplit/ReceiptRepository.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersplit/web/ReceiptRepository.java",
+      "file": "web/src/main/java/nw/ordersplit/ReceiptRepository.java",
       "line": 22,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -147,6 +147,6 @@
     "payload_at_sink": "SELECT id, code, created_at FROM payment_records WHERE name = 'ref_ref_ref_zz OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

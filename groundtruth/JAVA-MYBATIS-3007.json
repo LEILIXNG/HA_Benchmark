@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Cookie经 5 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendordispatch/web/TariffController.java",
+    "file": "web/src/main/java/nw/vendordispatch/TariffController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendordispatch/web/TariffController.java",
+    "file": "web/src/main/java/nw/vendordispatch/TariffController.java",
     "line": 22,
     "expr": "filename",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/vendordispatch/service/TariffMapper.xml",
+    "file": "service/src/main/resources/nw/vendordispatch/TariffMapper.xml",
     "line": 9,
     "expr": "invoiceKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,61 +24,61 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendordispatch/web/TariffController.java",
+      "file": "web/src/main/java/nw/vendordispatch/TariffController.java",
       "line": 22,
       "expr": "filename",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendordispatch/web/TariffAdapter.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/vendordispatch/TariffAdapter.java",
+      "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendordispatch/web/TariffAdapter.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/vendordispatch/TariffAdapter.java",
+      "line": 21,
       "expr": "receiptKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendordispatch/web/TariffAdapter.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/vendordispatch/TariffAdapter.java",
+      "line": 22,
       "expr": "receiptKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendordispatch/web/TariffAdapter.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/vendordispatch/TariffAdapter.java",
+      "line": 23,
       "expr": "accountRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendordispatch/service/QuoteCoordinator.java",
+      "file": "service/src/main/java/nw/vendordispatch/QuoteCoordinator.java",
       "line": 16,
       "expr": "quoteRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendordispatch/service/QuoteCoordinator.java",
+      "file": "service/src/main/java/nw/vendordispatch/QuoteCoordinator.java",
       "line": 17,
       "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendordispatch/service/TariffGateway.java",
+      "file": "service/src/main/java/nw/vendordispatch/TariffGateway.java",
       "line": 16,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendordispatch/service/TariffGateway.java",
+      "file": "service/src/main/java/nw/vendordispatch/TariffGateway.java",
       "line": 23,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/vendordispatch/service/TariffMapper.xml",
+      "file": "service/src/main/resources/nw/vendordispatch/TariffMapper.xml",
       "line": 9,
       "expr": "invoiceKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -116,6 +116,6 @@
     "payload_at_sink": "SELECT id, total       FROM orders      WHERE label = 'ref_zz'/**/OR/**/1=1--'      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

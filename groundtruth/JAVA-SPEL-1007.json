@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 5 层调用、跨 1 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingsubmit/web/VoucherController.java",
+    "file": "web/src/main/java/nw/pricingsubmit/VoucherController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingsubmit/web/VoucherController.java",
+    "file": "web/src/main/java/nw/pricingsubmit/VoucherController.java",
     "line": 28,
     "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/pricingsubmit/web/VoucherEvaluator.java",
+    "file": "web/src/main/java/nw/pricingsubmit/VoucherEvaluator.java",
     "line": 23,
     "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -24,79 +24,79 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/VoucherController.java",
+      "file": "web/src/main/java/nw/pricingsubmit/VoucherController.java",
       "line": 28,
       "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 26,
       "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 29,
       "expr": "manifestKey1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 30,
       "expr": "invoiceKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 31,
       "expr": "invoiceKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 36,
       "expr": "batchTag3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 37,
       "expr": "batchTag3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 40,
       "expr": "orderRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 41,
       "expr": "quoteRef5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/ChannelCoordinator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/ChannelCoordinator.java",
       "line": 42,
       "expr": "quoteRef5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/VoucherEvaluator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/VoucherEvaluator.java",
       "line": 17,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingsubmit/web/VoucherEvaluator.java",
+      "file": "web/src/main/java/nw/pricingsubmit/VoucherEvaluator.java",
       "line": 23,
       "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -135,6 +135,6 @@
     "payload_at_sink": "'seq-' + 'ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

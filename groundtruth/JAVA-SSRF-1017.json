@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 8 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/catalogrefund/web/CatalogController.java",
+    "file": "web/src/main/java/nw/catalogrefund/CatalogController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/catalogrefund/web/CatalogController.java",
+    "file": "web/src/main/java/nw/catalogrefund/CatalogController.java",
     "line": 28,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/catalogrefund/dao/CatalogFetcher.java",
+    "file": "dao/src/main/java/nw/catalogrefund/CatalogFetcher.java",
     "line": 23,
     "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,115 +24,115 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/CatalogController.java",
+      "file": "web/src/main/java/nw/catalogrefund/CatalogController.java",
       "line": 28,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/ShipmentRouter.java",
+      "file": "web/src/main/java/nw/catalogrefund/ShipmentRouter.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/ShipmentRouter.java",
+      "file": "web/src/main/java/nw/catalogrefund/ShipmentRouter.java",
       "line": 28,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/ShipmentRouter.java",
+      "file": "web/src/main/java/nw/catalogrefund/ShipmentRouter.java",
       "line": 29,
       "expr": "paymentTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/ShipmentRouter.java",
+      "file": "web/src/main/java/nw/catalogrefund/ShipmentRouter.java",
       "line": 30,
       "expr": "paymentTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/BatchPolicySelector.java",
+      "file": "web/src/main/java/nw/catalogrefund/BatchPolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/BatchPolicyStandard.java",
+      "file": "web/src/main/java/nw/catalogrefund/BatchPolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/LedgerCoordinator.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/catalogrefund/LedgerCoordinator.java",
+      "line": 21,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/LedgerCoordinator.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/catalogrefund/LedgerCoordinator.java",
+      "line": 24,
       "expr": "ledgerEntry101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/LedgerCoordinator.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/catalogrefund/LedgerCoordinator.java",
+      "line": 25,
       "expr": "channelTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogrefund/web/LedgerCoordinator.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/catalogrefund/LedgerCoordinator.java",
+      "line": 26,
       "expr": "channelTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogrefund/service/PaymentComposer.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/catalogrefund/PaymentComposer.java",
+      "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogrefund/service/PaymentComposer.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/catalogrefund/PaymentComposer.java",
+      "line": 20,
       "expr": "invoiceKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogrefund/dao/LedgerService.java",
+      "file": "dao/src/main/java/nw/catalogrefund/LedgerService.java",
       "line": 25,
       "expr": "voucherRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogrefund/dao/LedgerService.java",
+      "file": "dao/src/main/java/nw/catalogrefund/LedgerService.java",
       "line": 28,
       "expr": "voucherRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogrefund/dao/LedgerService.java",
+      "file": "dao/src/main/java/nw/catalogrefund/LedgerService.java",
       "line": 29,
       "expr": "paymentTag302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogrefund/dao/LedgerService.java",
+      "file": "dao/src/main/java/nw/catalogrefund/LedgerService.java",
       "line": 30,
       "expr": "paymentTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogrefund/dao/CatalogFetcher.java",
+      "file": "dao/src/main/java/nw/catalogrefund/CatalogFetcher.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalogrefund/dao/CatalogFetcher.java",
+      "file": "dao/src/main/java/nw/catalogrefund/CatalogFetcher.java",
       "line": 23,
       "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -176,6 +176,6 @@
     "payload_at_sink": "http://ref_ref_127.0.0.1:1/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

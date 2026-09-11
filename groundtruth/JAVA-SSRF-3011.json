@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Cookie经 9 层调用、跨 2 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/billingbind/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/billingbind/InvoiceController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/billingbind/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/billingbind/InvoiceController.java",
     "line": 27,
     "expr": "userName",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/billingbind/service/InvoiceFetcher.java",
+    "file": "service/src/main/java/nw/billingbind/InvoiceFetcher.java",
     "line": 21,
     "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,133 +24,133 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/billingbind/InvoiceController.java",
       "line": 27,
       "expr": "userName",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/InvoiceAssembler.java",
+      "file": "web/src/main/java/nw/billingbind/InvoiceAssembler.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/InvoiceAssembler.java",
+      "file": "web/src/main/java/nw/billingbind/InvoiceAssembler.java",
       "line": 28,
       "expr": "orderRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/InvoiceAssembler.java",
+      "file": "web/src/main/java/nw/billingbind/InvoiceAssembler.java",
       "line": 29,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/QuotePlanSelector.java",
+      "file": "web/src/main/java/nw/billingbind/QuotePlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/QuotePlanStandard.java",
+      "file": "web/src/main/java/nw/billingbind/QuotePlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/ManifestCoordinator.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/billingbind/ManifestCoordinator.java",
+      "line": 19,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingbind/web/ManifestCoordinator.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/billingbind/ManifestCoordinator.java",
+      "line": 20,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 19,
       "expr": "catalogKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 22,
       "expr": "catalogKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 23,
       "expr": "receiptKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 24,
       "expr": "receiptKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 29,
       "expr": "accountRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 30,
       "expr": "voucherRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 31,
       "expr": "voucherRef204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 36,
       "expr": "paymentTag205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 39,
       "expr": "paymentTag205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 40,
       "expr": "refundCode206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 41,
       "expr": "shipmentCode207",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/TariffEnricher.java",
+      "file": "service/src/main/java/nw/billingbind/TariffEnricher.java",
       "line": 42,
       "expr": "shipmentCode207",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/InvoiceFetcher.java",
+      "file": "service/src/main/java/nw/billingbind/InvoiceFetcher.java",
       "line": 16,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingbind/service/InvoiceFetcher.java",
+      "file": "service/src/main/java/nw/billingbind/InvoiceFetcher.java",
       "line": 21,
       "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -195,6 +195,6 @@
     "payload_at_sink": "http://127.0.0.1:1/health",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

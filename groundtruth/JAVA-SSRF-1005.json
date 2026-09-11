@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 3 个模块流入URL 抓取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordersettlequeue/web/RefundController.java",
+    "file": "web/src/main/java/nw/ordersettlequeue/RefundController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordersettlequeue/web/RefundController.java",
+    "file": "web/src/main/java/nw/ordersettlequeue/RefundController.java",
     "line": 22,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/ordersettlequeue/dao/RefundFetcher.java",
+    "file": "dao/src/main/java/nw/ordersettlequeue/RefundFetcher.java",
     "line": 25,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
@@ -24,85 +24,85 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordersettlequeue/web/RefundController.java",
+      "file": "web/src/main/java/nw/ordersettlequeue/RefundController.java",
       "line": 22,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersettlequeue/web/ReceiptComposer.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/ordersettlequeue/ReceiptComposer.java",
+      "line": 23,
       "expr": "ledgerEntry1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersettlequeue/web/ReceiptComposer.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/ordersettlequeue/ReceiptComposer.java",
+      "line": 24,
       "expr": "ledgerEntry1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettlequeue/service/InvoiceBroker.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/ordersettlequeue/InvoiceBroker.java",
+      "line": 26,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettlequeue/service/InvoiceBroker.java",
-      "line": 30,
+      "file": "service/src/main/java/nw/ordersettlequeue/InvoiceBroker.java",
+      "line": 29,
       "expr": "invoiceKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettlequeue/service/InvoiceBroker.java",
-      "line": 31,
+      "file": "service/src/main/java/nw/ordersettlequeue/InvoiceBroker.java",
+      "line": 30,
       "expr": "batchTag102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettlequeue/service/InvoiceBroker.java",
-      "line": 32,
+      "file": "service/src/main/java/nw/ordersettlequeue/InvoiceBroker.java",
+      "line": 31,
       "expr": "batchTag102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettlequeue/service/InvoiceBroker.java",
-      "line": 37,
+      "file": "service/src/main/java/nw/ordersettlequeue/InvoiceBroker.java",
+      "line": 36,
       "expr": "orderRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettlequeue/service/InvoiceBroker.java",
-      "line": 38,
+      "file": "service/src/main/java/nw/ordersettlequeue/InvoiceBroker.java",
+      "line": 37,
       "expr": "quoteRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettlequeue/service/InvoiceBroker.java",
-      "line": 39,
+      "file": "service/src/main/java/nw/ordersettlequeue/InvoiceBroker.java",
+      "line": 38,
       "expr": "quoteRef104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersettlequeue/dao/InvoiceCoordinator.java",
+      "file": "dao/src/main/java/nw/ordersettlequeue/InvoiceCoordinator.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersettlequeue/dao/InvoiceCoordinator.java",
+      "file": "dao/src/main/java/nw/ordersettlequeue/InvoiceCoordinator.java",
       "line": 20,
       "expr": "voucherRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersettlequeue/dao/RefundFetcher.java",
+      "file": "dao/src/main/java/nw/ordersettlequeue/RefundFetcher.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersettlequeue/dao/RefundFetcher.java",
+      "file": "dao/src/main/java/nw/ordersettlequeue/RefundFetcher.java",
       "line": 25,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -144,6 +144,6 @@
     "payload_at_sink": "http://ref_127.0.0.1:1/v1/state",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "请求头经 11 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingreview/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/pricingreview/ReceiptController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingreview/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/pricingreview/ReceiptController.java",
     "line": 26,
     "expr": "target",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/pricingreview/service/ReceiptMapper.xml",
+    "file": "service/src/main/resources/nw/pricingreview/ReceiptMapper.xml",
     "line": 9,
     "expr": "paymentTag",
     "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
   },
   "sanitizer": {
-    "file": "service/src/main/resources/com/northwind/pricingreview/service/ReceiptMapper.xml",
+    "file": "service/src/main/resources/nw/pricingreview/ReceiptMapper.xml",
     "line": 9,
     "expr": "paymentTag",
     "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
@@ -29,121 +29,121 @@
   "sanitizer_kind": "mybatis_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/pricingreview/ReceiptController.java",
       "line": 26,
       "expr": "target",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 24,
       "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 25,
       "expr": "shipmentCode1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 30,
       "expr": "manifestKey2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 31,
       "expr": "invoiceKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 32,
       "expr": "batchTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 33,
       "expr": "batchTag4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 38,
       "expr": "orderRef5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 40,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 39,
       "expr": "orderRef5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 42,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 41,
       "expr": "quoteRef6",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingreview/web/InvoiceRegistry.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/pricingreview/InvoiceRegistry.java",
+      "line": 43,
       "expr": "tariffRef7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/PaymentCollector.java",
+      "file": "service/src/main/java/nw/pricingreview/PaymentCollector.java",
       "line": 23,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/PaymentCollector.java",
+      "file": "service/src/main/java/nw/pricingreview/PaymentCollector.java",
       "line": 24,
       "expr": "receiptKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/RefundPolicySelector.java",
+      "file": "service/src/main/java/nw/pricingreview/RefundPolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/RefundPolicyStandard.java",
+      "file": "service/src/main/java/nw/pricingreview/RefundPolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/ReceiptAssembler.java",
+      "file": "service/src/main/java/nw/pricingreview/ReceiptAssembler.java",
       "line": 23,
       "expr": "quoteRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/ReceiptAssembler.java",
+      "file": "service/src/main/java/nw/pricingreview/ReceiptAssembler.java",
       "line": 24,
       "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/ReceiptGateway.java",
+      "file": "service/src/main/java/nw/pricingreview/ReceiptGateway.java",
       "line": 17,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingreview/service/ReceiptGateway.java",
+      "file": "service/src/main/java/nw/pricingreview/ReceiptGateway.java",
       "line": 24,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/pricingreview/service/ReceiptMapper.xml",
+      "file": "service/src/main/resources/nw/pricingreview/ReceiptMapper.xml",
       "line": 9,
       "expr": "paymentTag",
       "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
@@ -188,7 +188,7 @@
     "payload_at_sink": "SELECT id, ref_no, total       FROM invoices      WHERE code = ?",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

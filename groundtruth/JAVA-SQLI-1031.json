@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "查询参数经 9 层调用、跨 2 个模块流入JDBC 拼接，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingtransfer/web/AccountController.java",
+    "file": "web/src/main/java/nw/pricingtransfer/AccountController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingtransfer/web/AccountController.java",
+    "file": "web/src/main/java/nw/pricingtransfer/AccountController.java",
     "line": 25,
     "expr": "reference",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/pricingtransfer/service/AccountRepository.java",
+    "file": "service/src/main/java/nw/pricingtransfer/AccountRepository.java",
     "line": 22,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/pricingtransfer/service/OrderValidator.java",
+    "file": "service/src/main/java/nw/pricingtransfer/OrderValidator.java",
     "line": 16,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,97 +29,97 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/AccountController.java",
+      "file": "web/src/main/java/nw/pricingtransfer/AccountController.java",
       "line": 25,
       "expr": "reference",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/pricingtransfer/ContractNormalizer.java",
       "line": 24,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/pricingtransfer/ContractNormalizer.java",
       "line": 25,
       "expr": "quoteRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/pricingtransfer/ContractNormalizer.java",
       "line": 26,
       "expr": "quoteRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/pricingtransfer/ContractNormalizer.java",
       "line": 31,
       "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/pricingtransfer/ContractNormalizer.java",
       "line": 32,
       "expr": "ledgerEntry4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/pricingtransfer/ContractNormalizer.java",
       "line": 33,
       "expr": "ledgerEntry4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/OrderRuleSelector.java",
+      "file": "web/src/main/java/nw/pricingtransfer/OrderRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/OrderRuleStandard.java",
+      "file": "web/src/main/java/nw/pricingtransfer/OrderRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/InvoiceRouter.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/pricingtransfer/InvoiceRouter.java",
+      "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingtransfer/web/InvoiceRouter.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/pricingtransfer/InvoiceRouter.java",
+      "line": 24,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingtransfer/service/QuoteCoordinator.java",
+      "file": "service/src/main/java/nw/pricingtransfer/QuoteCoordinator.java",
       "line": 14,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingtransfer/service/QuoteCoordinator.java",
+      "file": "service/src/main/java/nw/pricingtransfer/QuoteCoordinator.java",
       "line": 15,
       "expr": "catalogKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingtransfer/service/OrderValidator.java",
+      "file": "service/src/main/java/nw/pricingtransfer/OrderValidator.java",
       "line": 16,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingtransfer/service/AccountRepository.java",
+      "file": "service/src/main/java/nw/pricingtransfer/AccountRepository.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingtransfer/service/AccountRepository.java",
+      "file": "service/src/main/java/nw/pricingtransfer/AccountRepository.java",
       "line": 22,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -161,7 +161,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

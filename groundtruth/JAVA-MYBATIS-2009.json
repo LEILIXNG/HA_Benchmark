@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "路径变量经 9 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentverify/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/paymentverify/InvoiceController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentverify/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/paymentverify/InvoiceController.java",
     "line": 28,
     "expr": "keyword",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/northwind/paymentverify/dao/InvoiceMapper.xml",
+    "file": "dao/src/main/resources/nw/paymentverify/InvoiceMapper.xml",
     "line": 9,
     "expr": "tariffRef",
     "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
   },
   "sanitizer": {
-    "file": "dao/src/main/resources/com/northwind/paymentverify/dao/InvoiceMapper.xml",
+    "file": "dao/src/main/resources/nw/paymentverify/InvoiceMapper.xml",
     "line": 9,
     "expr": "tariffRef",
     "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
@@ -29,121 +29,121 @@
   "sanitizer_kind": "mybatis_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentverify/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/paymentverify/InvoiceController.java",
       "line": 28,
       "expr": "keyword",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentverify/web/ChannelTranslator.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/paymentverify/ChannelTranslator.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentverify/web/ChannelTranslator.java",
-      "line": 29,
+      "file": "web/src/main/java/nw/paymentverify/ChannelTranslator.java",
+      "line": 28,
       "expr": "catalogKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentverify/web/ChannelTranslator.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/paymentverify/ChannelTranslator.java",
+      "line": 29,
       "expr": "catalogKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentverify/service/QuoteTranslator.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/paymentverify/QuoteTranslator.java",
+      "line": 24,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentverify/service/QuoteTranslator.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/paymentverify/QuoteTranslator.java",
+      "line": 26,
       "expr": "quoteRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentverify/service/QuoteTranslator.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/paymentverify/QuoteTranslator.java",
+      "line": 27,
       "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ContractNormalizer.java",
+      "file": "dao/src/main/java/nw/paymentverify/ContractNormalizer.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ContractNormalizer.java",
+      "file": "dao/src/main/java/nw/paymentverify/ContractNormalizer.java",
       "line": 20,
       "expr": "shipmentCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ContractNormalizer.java",
+      "file": "dao/src/main/java/nw/paymentverify/ContractNormalizer.java",
       "line": 21,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/TariffPolicySelector.java",
+      "file": "dao/src/main/java/nw/paymentverify/TariffPolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/TariffPolicyStandard.java",
+      "file": "dao/src/main/java/nw/paymentverify/TariffPolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/paymentverify/ShipmentService.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/paymentverify/ShipmentService.java",
       "line": 24,
       "expr": "catalogKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/paymentverify/ShipmentService.java",
       "line": 27,
       "expr": "catalogKey301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/paymentverify/ShipmentService.java",
       "line": 28,
       "expr": "receiptKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/paymentverify/ShipmentService.java",
       "line": 29,
       "expr": "receiptKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/InvoiceGateway.java",
+      "file": "dao/src/main/java/nw/paymentverify/InvoiceGateway.java",
       "line": 22,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentverify/dao/InvoiceGateway.java",
+      "file": "dao/src/main/java/nw/paymentverify/InvoiceGateway.java",
       "line": 29,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/northwind/paymentverify/dao/InvoiceMapper.xml",
+      "file": "dao/src/main/resources/nw/paymentverify/InvoiceMapper.xml",
       "line": 9,
       "expr": "tariffRef",
       "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
@@ -187,7 +187,7 @@
     "payload_at_sink": "SELECT id, ref_no, total       FROM shipments      WHERE label = ?      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

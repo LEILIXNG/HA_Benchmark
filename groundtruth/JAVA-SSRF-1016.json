@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "查询参数经 16 层调用、跨 3 个模块流入URL 抓取，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/orderrelease/web/CatalogController.java",
+    "file": "web/src/main/java/nw/orderrelease/CatalogController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/orderrelease/web/CatalogController.java",
+    "file": "web/src/main/java/nw/orderrelease/CatalogController.java",
     "line": 22,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/orderrelease/dao/CatalogFetcher.java",
+    "file": "dao/src/main/java/nw/orderrelease/CatalogFetcher.java",
     "line": 24,
     "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/orderrelease/dao/InvoiceScreen.java",
+    "file": "dao/src/main/java/nw/orderrelease/InvoiceScreen.java",
     "line": 28,
     "expr": "matcher",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,223 +29,223 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/orderrelease/web/CatalogController.java",
+      "file": "web/src/main/java/nw/orderrelease/CatalogController.java",
       "line": 22,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderrelease/web/OrderComposer.java",
+      "file": "web/src/main/java/nw/orderrelease/OrderComposer.java",
       "line": 23,
       "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderrelease/web/OrderComposer.java",
+      "file": "web/src/main/java/nw/orderrelease/OrderComposer.java",
       "line": 24,
       "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderrelease/web/BundleAssembler.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/orderrelease/BundleAssembler.java",
+      "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderrelease/web/BundleAssembler.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/orderrelease/BundleAssembler.java",
+      "line": 20,
       "expr": "batchTag101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderrelease/service/ContractNormalizer.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/orderrelease/ContractNormalizer.java",
+      "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderrelease/service/ContractNormalizer.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/orderrelease/ContractNormalizer.java",
+      "line": 24,
       "expr": "paymentTag201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/ManifestNormalizer.java",
+      "file": "dao/src/main/java/nw/orderrelease/ManifestNormalizer.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/ManifestNormalizer.java",
+      "file": "dao/src/main/java/nw/orderrelease/ManifestNormalizer.java",
       "line": 24,
       "expr": "channelTag301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/ManifestNormalizer.java",
+      "file": "dao/src/main/java/nw/orderrelease/ManifestNormalizer.java",
       "line": 25,
       "expr": "catalogKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/ManifestNormalizer.java",
+      "file": "dao/src/main/java/nw/orderrelease/ManifestNormalizer.java",
       "line": 26,
       "expr": "catalogKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/TariffRuleSelector.java",
+      "file": "dao/src/main/java/nw/orderrelease/TariffRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/TariffRuleStandard.java",
+      "file": "dao/src/main/java/nw/orderrelease/TariffRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 28,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 30,
       "expr": "batchTag401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 35,
       "expr": "orderRef402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 36,
       "expr": "quoteRef403",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 37,
       "expr": "quoteRef403",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 38,
       "expr": "tariffRef404",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 43,
       "expr": "ledgerEntry405",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 44,
       "expr": "channelTag406",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 45,
       "expr": "channelTag406",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 46,
       "expr": "catalogKey407",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 51,
       "expr": "receiptKey408",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 54,
       "expr": "receiptKey408",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 55,
       "expr": "accountRef409",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 56,
       "expr": "accountRef409",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 57,
       "expr": "voucherRef410",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 62,
       "expr": "paymentTag411",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 63,
       "expr": "refundCode412",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/AccountAdapter.java",
+      "file": "dao/src/main/java/nw/orderrelease/AccountAdapter.java",
       "line": 64,
       "expr": "refundCode412",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/orderrelease/QuoteNormalizer.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/orderrelease/QuoteNormalizer.java",
       "line": 28,
       "expr": "paymentTag501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/orderrelease/QuoteNormalizer.java",
       "line": 29,
       "expr": "paymentTag501",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/InvoiceScreen.java",
+      "file": "dao/src/main/java/nw/orderrelease/InvoiceScreen.java",
       "line": 28,
       "expr": "matcher",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/CatalogFetcher.java",
+      "file": "dao/src/main/java/nw/orderrelease/CatalogFetcher.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderrelease/dao/CatalogFetcher.java",
+      "file": "dao/src/main/java/nw/orderrelease/CatalogFetcher.java",
       "line": 24,
       "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -302,7 +302,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "localhost",
       "reached": true,

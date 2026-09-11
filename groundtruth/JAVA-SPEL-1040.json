@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "路径变量经 15 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/billingtrace/web/BundleController.java",
+    "file": "web/src/main/java/nw/billingtrace/BundleController.java",
     "line": 19,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/billingtrace/web/BundleController.java",
+    "file": "web/src/main/java/nw/billingtrace/BundleController.java",
     "line": 21,
     "expr": "userName",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/billingtrace/service/BundleEvaluator.java",
+    "file": "service/src/main/java/nw/billingtrace/BundleEvaluator.java",
     "line": 26,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/billingtrace/service/BundleEvaluator.java",
+    "file": "service/src/main/java/nw/billingtrace/BundleEvaluator.java",
     "line": 24,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
@@ -29,229 +29,229 @@
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/BundleController.java",
+      "file": "web/src/main/java/nw/billingtrace/BundleController.java",
       "line": 21,
       "expr": "userName",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 19,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 20,
       "expr": "ledgerEntry1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 23,
       "expr": "ledgerEntry1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 24,
       "expr": "channelTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 25,
       "expr": "channelTag2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 30,
       "expr": "catalogKey3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 32,
       "expr": "catalogKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingtrace/web/PaymentBuilder.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/billingtrace/PaymentBuilder.java",
+      "line": 34,
       "expr": "receiptKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 21,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 22,
       "expr": "invoiceKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 27,
       "expr": "batchTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 28,
       "expr": "orderRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 29,
       "expr": "orderRef103",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 34,
       "expr": "quoteRef104",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 37,
       "expr": "quoteRef104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 38,
       "expr": "tariffRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 39,
       "expr": "tariffRef105",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 44,
       "expr": "ledgerEntry106",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 46,
       "expr": "ledgerEntry106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 48,
       "expr": "catalogKey108",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/billingtrace/PaymentFacade.java",
       "line": 49,
       "expr": "catalogKey108",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/OrderPlanSelector.java",
+      "file": "service/src/main/java/nw/billingtrace/OrderPlanSelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/OrderPlanStandard.java",
+      "file": "service/src/main/java/nw/billingtrace/OrderPlanStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 20,
       "expr": "voucherRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 21,
       "expr": "voucherRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 26,
       "expr": "paymentTag202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 27,
       "expr": "refundCode203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 28,
       "expr": "refundCode203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 29,
       "expr": "shipmentCode204",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 34,
       "expr": "manifestKey205",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 35,
       "expr": "manifestKey205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 38,
       "expr": "invoiceKey206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 39,
       "expr": "batchTag207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/billingtrace/ShipmentComposer.java",
       "line": 40,
       "expr": "batchTag207",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/BundleEvaluator.java",
+      "file": "service/src/main/java/nw/billingtrace/BundleEvaluator.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/BundleEvaluator.java",
+      "file": "service/src/main/java/nw/billingtrace/BundleEvaluator.java",
       "line": 24,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingtrace/service/BundleEvaluator.java",
+      "file": "service/src/main/java/nw/billingtrace/BundleEvaluator.java",
       "line": 26,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
@@ -306,7 +306,7 @@
     "payload_at_sink": "'ref-' + 'ref_ref_ref_ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

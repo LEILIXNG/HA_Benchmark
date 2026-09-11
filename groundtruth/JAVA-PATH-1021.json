@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 20 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/paymentrollup/InvoiceController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/paymentrollup/InvoiceController.java",
     "line": 28,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/paymentrollup/dao/InvoiceLoader.java",
+    "file": "dao/src/main/java/nw/paymentrollup/InvoiceLoader.java",
     "line": 24,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,283 +24,283 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceController.java",
       "line": 28,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 34,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 36,
       "expr": "orderRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 41,
       "expr": "quoteRef2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 42,
       "expr": "tariffRef3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 43,
       "expr": "tariffRef3",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 48,
       "expr": "ledgerEntry4",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 51,
       "expr": "ledgerEntry4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 52,
       "expr": "channelTag5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 53,
       "expr": "channelTag5",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 58,
       "expr": "catalogKey6",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 61,
       "expr": "catalogKey6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 62,
       "expr": "receiptKey7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 63,
       "expr": "accountRef8",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ContractNormalizer.java",
+      "file": "web/src/main/java/nw/paymentrollup/ContractNormalizer.java",
       "line": 64,
       "expr": "accountRef8",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/CatalogPolicySelector.java",
+      "file": "web/src/main/java/nw/paymentrollup/CatalogPolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/CatalogPolicyStandard.java",
+      "file": "web/src/main/java/nw/paymentrollup/CatalogPolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ShipmentBroker.java",
+      "file": "web/src/main/java/nw/paymentrollup/ShipmentBroker.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ShipmentBroker.java",
+      "file": "web/src/main/java/nw/paymentrollup/ShipmentBroker.java",
       "line": 28,
       "expr": "refundCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ShipmentBroker.java",
+      "file": "web/src/main/java/nw/paymentrollup/ShipmentBroker.java",
       "line": 29,
       "expr": "shipmentCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/ShipmentBroker.java",
+      "file": "web/src/main/java/nw/paymentrollup/ShipmentBroker.java",
       "line": 30,
       "expr": "shipmentCode102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 30,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 33,
       "expr": "catalogKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 34,
       "expr": "receiptKey202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 35,
       "expr": "receiptKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 40,
       "expr": "accountRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 43,
       "expr": "accountRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 45,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 44,
       "expr": "voucherRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentrollup/web/InvoiceNormalizer.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/paymentrollup/InvoiceNormalizer.java",
+      "line": 45,
       "expr": "voucherRef204",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentrollup/service/BundleCoordinator2.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/paymentrollup/BundleCoordinator2.java",
+      "line": 24,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentrollup/service/BundleCoordinator2.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/paymentrollup/BundleCoordinator2.java",
+      "line": 26,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 30,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 31,
       "expr": "refundCode401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 32,
       "expr": "refundCode401",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 33,
       "expr": "shipmentCode402",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 38,
       "expr": "manifestKey403",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 41,
       "expr": "manifestKey403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 42,
       "expr": "invoiceKey404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 44,
       "expr": "invoiceKey404",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BundleCoordinator.java",
       "line": 46,
       "expr": "batchTag405",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BatchPlanSelector.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BatchPlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/BatchPlanStandard.java",
+      "file": "dao/src/main/java/nw/paymentrollup/BatchPlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/ReceiptNormalizer.java",
+      "file": "dao/src/main/java/nw/paymentrollup/ReceiptNormalizer.java",
       "line": 19,
       "expr": "catalogKey501",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/ReceiptNormalizer.java",
+      "file": "dao/src/main/java/nw/paymentrollup/ReceiptNormalizer.java",
       "line": 21,
       "expr": "catalogKey501",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/ReceiptNormalizer.java",
+      "file": "dao/src/main/java/nw/paymentrollup/ReceiptNormalizer.java",
       "line": 23,
       "expr": "receiptKey502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/InvoiceLoader.java",
+      "file": "dao/src/main/java/nw/paymentrollup/InvoiceLoader.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentrollup/dao/InvoiceLoader.java",
+      "file": "dao/src/main/java/nw/paymentrollup/InvoiceLoader.java",
       "line": 24,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -361,6 +361,6 @@
     "payload_at_sink": "/var/lib/payment/data/ref_ref_ref_ref_ref_ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

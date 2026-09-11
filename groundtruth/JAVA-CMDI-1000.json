@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 19 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendorsync/web/BatchController.java",
+    "file": "web/src/main/java/nw/vendorsync/BatchController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendorsync/web/BatchController.java",
+    "file": "web/src/main/java/nw/vendorsync/BatchController.java",
     "line": 25,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/vendorsync/service/BatchExecutor.java",
+    "file": "service/src/main/java/nw/vendorsync/BatchExecutor.java",
     "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,283 +24,283 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/BatchController.java",
+      "file": "web/src/main/java/nw/vendorsync/BatchController.java",
       "line": 25,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/InvoiceResolver.java",
-      "line": 29,
+      "file": "web/src/main/java/nw/vendorsync/InvoiceResolver.java",
+      "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/InvoiceResolver.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/vendorsync/InvoiceResolver.java",
+      "line": 29,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/InvoiceResolver.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/vendorsync/InvoiceResolver.java",
+      "line": 30,
       "expr": "tariffRef1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/InvoiceResolver.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/vendorsync/InvoiceResolver.java",
+      "line": 31,
       "expr": "ledgerEntry2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/InvoiceResolver.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/vendorsync/InvoiceResolver.java",
+      "line": 36,
       "expr": "channelTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/InvoiceResolver.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/vendorsync/InvoiceResolver.java",
+      "line": 37,
       "expr": "catalogKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorsync/web/InvoiceResolver.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/vendorsync/InvoiceResolver.java",
+      "line": 38,
       "expr": "catalogKey4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/ShipmentService.java",
+      "file": "service/src/main/java/nw/vendorsync/ShipmentService.java",
       "line": 15,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/ShipmentService.java",
+      "file": "service/src/main/java/nw/vendorsync/ShipmentService.java",
       "line": 16,
       "expr": "manifestKey101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/ShipmentService.java",
+      "file": "service/src/main/java/nw/vendorsync/ShipmentService.java",
       "line": 21,
       "expr": "invoiceKey102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/ShipmentService.java",
+      "file": "service/src/main/java/nw/vendorsync/ShipmentService.java",
       "line": 22,
       "expr": "invoiceKey102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/ShipmentService.java",
+      "file": "service/src/main/java/nw/vendorsync/ShipmentService.java",
       "line": 23,
       "expr": "batchTag103",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/RefundService.java",
+      "file": "service/src/main/java/nw/vendorsync/RefundService.java",
       "line": 18,
       "expr": "accountRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/RefundService.java",
+      "file": "service/src/main/java/nw/vendorsync/RefundService.java",
       "line": 21,
       "expr": "accountRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/RefundService.java",
+      "file": "service/src/main/java/nw/vendorsync/RefundService.java",
       "line": 22,
       "expr": "voucherRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/RefundService.java",
+      "file": "service/src/main/java/nw/vendorsync/RefundService.java",
       "line": 23,
       "expr": "voucherRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountPolicySelector.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountPolicySelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountPolicyStandard.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountPolicyStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/SessionService.java",
+      "file": "service/src/main/java/nw/vendorsync/SessionService.java",
       "line": 16,
       "expr": "tariffRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/SessionService.java",
+      "file": "service/src/main/java/nw/vendorsync/SessionService.java",
       "line": 17,
       "expr": "ledgerEntry302",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/SessionService.java",
+      "file": "service/src/main/java/nw/vendorsync/SessionService.java",
       "line": 18,
       "expr": "ledgerEntry302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BundleRuleSelector.java",
+      "file": "service/src/main/java/nw/vendorsync/BundleRuleSelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BundleRuleStandard.java",
+      "file": "service/src/main/java/nw/vendorsync/BundleRuleStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 23,
       "expr": "manifestKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 24,
       "expr": "manifestKey401",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 29,
       "expr": "invoiceKey402",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 32,
       "expr": "invoiceKey402",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 33,
       "expr": "batchTag403",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 36,
       "expr": "batchTag403",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 37,
       "expr": "orderRef404",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 38,
       "expr": "orderRef404",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 43,
       "expr": "quoteRef405",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 44,
       "expr": "tariffRef406",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/AccountAdapter.java",
+      "file": "service/src/main/java/nw/vendorsync/AccountAdapter.java",
       "line": 45,
       "expr": "tariffRef406",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 28,
       "expr": "accountRef501",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 29,
       "expr": "voucherRef502",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 30,
       "expr": "voucherRef502",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 35,
       "expr": "paymentTag503",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 38,
       "expr": "paymentTag503",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 39,
       "expr": "refundCode504",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 42,
       "expr": "refundCode504",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 43,
       "expr": "shipmentCode505",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchFacade.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchFacade.java",
       "line": 44,
       "expr": "shipmentCode505",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchExecutor.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchExecutor.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorsync/service/BatchExecutor.java",
+      "file": "service/src/main/java/nw/vendorsync/BatchExecutor.java",
       "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -361,6 +361,6 @@
     "payload_at_sink": "echo -n ref_ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

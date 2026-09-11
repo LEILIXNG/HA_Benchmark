@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经跨类委托与集合元素流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilsync/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/fulfilsync/ShipmentController.java",
     "line": 17,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilsync/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/fulfilsync/ShipmentController.java",
     "line": 19,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/fulfilsync/dao/ShipmentLoader.java",
+    "file": "dao/src/main/java/nw/fulfilsync/ShipmentLoader.java",
     "line": 28,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,61 +24,61 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilsync/web/ShipmentController.java",
+      "file": "web/src/main/java/nw/fulfilsync/ShipmentController.java",
       "line": 19,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilsync/web/LedgerAdapter.java",
+      "file": "web/src/main/java/nw/fulfilsync/LedgerAdapter.java",
       "line": 11,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilsync/web/CatalogTranslator.java",
-      "line": 13,
+      "file": "web/src/main/java/nw/fulfilsync/CatalogTranslator.java",
+      "line": 11,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilsync/service/BundleAdapter.java",
-      "line": 17,
+      "file": "service/src/main/java/nw/fulfilsync/BundleAdapter.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilsync/service/BundleAdapter.java",
-      "line": 18,
+      "file": "service/src/main/java/nw/fulfilsync/BundleAdapter.java",
+      "line": 17,
       "expr": "accountRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilsync/service/BundleAdapter.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/fulfilsync/BundleAdapter.java",
+      "line": 18,
       "expr": "accountRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilsync/dao/LedgerComposer.java",
+      "file": "dao/src/main/java/nw/fulfilsync/LedgerComposer.java",
       "line": 11,
       "expr": "tariffRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilsync/dao/LedgerComposer.java",
+      "file": "dao/src/main/java/nw/fulfilsync/LedgerComposer.java",
       "line": 12,
       "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilsync/dao/ShipmentLoader.java",
+      "file": "dao/src/main/java/nw/fulfilsync/ShipmentLoader.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/fulfilsync/dao/ShipmentLoader.java",
+      "file": "dao/src/main/java/nw/fulfilsync/ShipmentLoader.java",
       "line": 28,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -117,6 +117,6 @@
     "payload_at_sink": "/opt/fulfil/exchange/../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

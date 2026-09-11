@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "Cookie经 19 层调用、跨 2 个模块流入文件读取，经 whitelist_regex 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilcapture/web/TariffController.java",
+    "file": "web/src/main/java/nw/fulfilcapture/TariffController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilcapture/web/TariffController.java",
+    "file": "web/src/main/java/nw/fulfilcapture/TariffController.java",
     "line": 27,
     "expr": "reference",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/fulfilcapture/service/TariffLoader.java",
+    "file": "service/src/main/java/nw/fulfilcapture/TariffLoader.java",
     "line": 27,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/fulfilcapture/service/ManifestFilter.java",
+    "file": "service/src/main/java/nw/fulfilcapture/ManifestFilter.java",
     "line": 19,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,277 +29,277 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/TariffController.java",
+      "file": "web/src/main/java/nw/fulfilcapture/TariffController.java",
       "line": 27,
       "expr": "reference",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/InvoiceComposer.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/fulfilcapture/InvoiceComposer.java",
+      "line": 24,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/InvoiceComposer.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/fulfilcapture/InvoiceComposer.java",
+      "line": 25,
       "expr": "shipmentCode1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/InvoiceComposer.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/fulfilcapture/InvoiceComposer.java",
+      "line": 26,
       "expr": "manifestKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/InvoiceComposer.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/fulfilcapture/InvoiceComposer.java",
+      "line": 31,
       "expr": "invoiceKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/InvoiceComposer.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/fulfilcapture/InvoiceComposer.java",
+      "line": 32,
       "expr": "invoiceKey3",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/InvoiceComposer.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/fulfilcapture/InvoiceComposer.java",
+      "line": 34,
       "expr": "batchTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilcapture/web/InvoiceComposer.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/fulfilcapture/InvoiceComposer.java",
+      "line": 36,
       "expr": "orderRef5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/TariffAssembler.java",
+      "file": "service/src/main/java/nw/fulfilcapture/TariffAssembler.java",
       "line": 20,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/TariffAssembler.java",
+      "file": "service/src/main/java/nw/fulfilcapture/TariffAssembler.java",
       "line": 23,
       "expr": "receiptKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/TariffAssembler.java",
+      "file": "service/src/main/java/nw/fulfilcapture/TariffAssembler.java",
       "line": 24,
       "expr": "accountRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/TariffAssembler.java",
+      "file": "service/src/main/java/nw/fulfilcapture/TariffAssembler.java",
       "line": 25,
       "expr": "accountRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/SessionCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/SessionCoordinator.java",
       "line": 20,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/SessionCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/SessionCoordinator.java",
       "line": 21,
       "expr": "quoteRef201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/SessionCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/SessionCoordinator.java",
       "line": 26,
       "expr": "tariffRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/SessionCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/SessionCoordinator.java",
       "line": 29,
       "expr": "tariffRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/SessionCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/SessionCoordinator.java",
       "line": 30,
       "expr": "ledgerEntry203",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/SessionCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/SessionCoordinator.java",
       "line": 31,
       "expr": "ledgerEntry203",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ContractCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ContractCoordinator.java",
       "line": 16,
       "expr": "shipmentCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ContractCoordinator.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ContractCoordinator.java",
       "line": 17,
       "expr": "shipmentCode301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/BundlePlanSelector.java",
+      "file": "service/src/main/java/nw/fulfilcapture/BundlePlanSelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/BundlePlanStandard.java",
+      "file": "service/src/main/java/nw/fulfilcapture/BundlePlanStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 22,
       "expr": "receiptKey401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 23,
       "expr": "accountRef402",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 24,
       "expr": "accountRef402",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 29,
       "expr": "voucherRef403",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 30,
       "expr": "paymentTag404",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 33,
       "expr": "paymentTag404",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 34,
       "expr": "refundCode405",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 35,
       "expr": "refundCode405",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 40,
       "expr": "shipmentCode406",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 43,
       "expr": "shipmentCode406",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 44,
       "expr": "manifestKey407",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 45,
       "expr": "invoiceKey408",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 46,
       "expr": "invoiceKey408",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 51,
       "expr": "batchTag409",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 54,
       "expr": "batchTag409",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 55,
       "expr": "orderRef410",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 56,
       "expr": "orderRef410",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 61,
       "expr": "quoteRef411",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 62,
       "expr": "quoteRef411",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 63,
       "expr": "ledgerEntry413",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ChannelResolver.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ChannelResolver.java",
       "line": 64,
       "expr": "ledgerEntry413",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/ManifestFilter.java",
+      "file": "service/src/main/java/nw/fulfilcapture/ManifestFilter.java",
       "line": 19,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/TariffLoader.java",
+      "file": "service/src/main/java/nw/fulfilcapture/TariffLoader.java",
       "line": 23,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilcapture/service/TariffLoader.java",
+      "file": "service/src/main/java/nw/fulfilcapture/TariffLoader.java",
       "line": 27,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -361,7 +361,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

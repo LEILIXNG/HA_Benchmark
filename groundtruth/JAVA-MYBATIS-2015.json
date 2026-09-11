@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 12 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingrollup/web/ChannelController.java",
+    "file": "web/src/main/java/nw/pricingrollup/ChannelController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingrollup/web/ChannelController.java",
+    "file": "web/src/main/java/nw/pricingrollup/ChannelController.java",
     "line": 28,
     "expr": "orderNo",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/pricingrollup/service/ChannelMapper.xml",
+    "file": "service/src/main/resources/nw/pricingrollup/ChannelMapper.xml",
     "line": 9,
     "expr": "orderRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,169 +24,169 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ChannelController.java",
+      "file": "web/src/main/java/nw/pricingrollup/ChannelController.java",
       "line": 28,
       "expr": "orderNo",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 26,
       "expr": "batchTag1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 27,
       "expr": "orderRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 28,
       "expr": "orderRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 33,
       "expr": "quoteRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 36,
       "expr": "quoteRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 37,
       "expr": "tariffRef4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 40,
       "expr": "tariffRef4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 41,
       "expr": "ledgerEntry5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/OrderBroker.java",
+      "file": "web/src/main/java/nw/pricingrollup/OrderBroker.java",
       "line": 42,
       "expr": "ledgerEntry5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ManifestCollector.java",
+      "file": "web/src/main/java/nw/pricingrollup/ManifestCollector.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ManifestCollector.java",
+      "file": "web/src/main/java/nw/pricingrollup/ManifestCollector.java",
       "line": 24,
       "expr": "paymentTag101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/InvoiceStrategySelector.java",
+      "file": "web/src/main/java/nw/pricingrollup/InvoiceStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/InvoiceStrategyStandard.java",
+      "file": "web/src/main/java/nw/pricingrollup/InvoiceStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 22,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 24,
       "expr": "catalogKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 25,
       "expr": "catalogKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 30,
       "expr": "receiptKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 33,
       "expr": "receiptKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 34,
       "expr": "accountRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 35,
       "expr": "accountRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrollup/web/ContractTranslator.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/pricingrollup/ContractTranslator.java",
+      "line": 36,
       "expr": "voucherRef205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelCoordinator.java",
+      "file": "service/src/main/java/nw/pricingrollup/ChannelCoordinator.java",
       "line": 16,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelCoordinator.java",
+      "file": "service/src/main/java/nw/pricingrollup/ChannelCoordinator.java",
       "line": 17,
       "expr": "batchTag301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelGateway.java",
+      "file": "service/src/main/java/nw/pricingrollup/ChannelGateway.java",
       "line": 19,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrollup/service/ChannelGateway.java",
+      "file": "service/src/main/java/nw/pricingrollup/ChannelGateway.java",
       "line": 26,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/pricingrollup/service/ChannelMapper.xml",
+      "file": "service/src/main/resources/nw/pricingrollup/ChannelMapper.xml",
       "line": 9,
       "expr": "orderRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -235,6 +235,6 @@
     "payload_at_sink": "SELECT id, total       FROM orders      WHERE ref_no IN ('ref_ref_ref_ref_zz' OR 1=1--')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

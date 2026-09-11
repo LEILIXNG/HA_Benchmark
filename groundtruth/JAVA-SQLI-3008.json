@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Cookie经 15 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/reportquote/web/CatalogController.java",
+    "file": "web/src/main/java/nw/reportquote/CatalogController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/reportquote/web/CatalogController.java",
+    "file": "web/src/main/java/nw/reportquote/CatalogController.java",
     "line": 27,
     "expr": "resource",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/reportquote/dao/CatalogRepository.java",
+    "file": "dao/src/main/java/nw/reportquote/CatalogRepository.java",
     "line": 28,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,199 +24,199 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/reportquote/web/CatalogController.java",
+      "file": "web/src/main/java/nw/reportquote/CatalogController.java",
       "line": 27,
       "expr": "resource",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportquote/web/LedgerService.java",
-      "line": 24,
-      "expr": "value",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "web/src/main/java/com/northwind/reportquote/web/LedgerService.java",
-      "line": 25,
-      "expr": "catalogKey1",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/ShipmentCollector.java",
-      "line": 21,
-      "expr": "orderRef101",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/ShipmentCollector.java",
-      "line": 24,
-      "expr": "orderRef101",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/ShipmentCollector.java",
-      "line": 25,
-      "expr": "quoteRef102",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/ShipmentCollector.java",
-      "line": 26,
-      "expr": "quoteRef102",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/OrderStrategySelector.java",
-      "line": 22,
-      "expr": "value",
-      "note": "接口多态派发（3 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/OrderStrategyStandard.java",
-      "line": 18,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 26,
-      "expr": "refundCode201",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 27,
-      "expr": "shipmentCode202",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 28,
-      "expr": "shipmentCode202",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 33,
-      "expr": "manifestKey203",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 34,
-      "expr": "invoiceKey204",
-      "note": "局部变量传递"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 35,
-      "expr": "invoiceKey204",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 40,
-      "expr": "batchTag205",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 43,
-      "expr": "batchTag205",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 44,
-      "expr": "orderRef206",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 45,
-      "expr": "orderRef206",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 46,
-      "expr": "quoteRef207",
-      "note": "写入实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 51,
-      "expr": "tariffRef208",
-      "note": "读取实例字段"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 52,
-      "expr": "tariffRef208",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 55,
-      "expr": "ledgerEntry209",
-      "note": "存入集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 56,
-      "expr": "channelTag210",
-      "note": "取出集合元素"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogBuilder.java",
-      "line": 57,
-      "expr": "channelTag210",
-      "note": "调用下一层"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/QuotePlanSelector.java",
-      "line": 22,
-      "expr": "value",
-      "note": "接口多态派发（2 个实现）"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/QuotePlanStandard.java",
-      "line": 18,
-      "expr": "value",
-      "note": "接口实现（链路可达）"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogFacade.java",
-      "line": 20,
-      "expr": "value",
-      "note": "字符串拼接传播"
-    },
-    {
-      "file": "service/src/main/java/com/northwind/reportquote/service/CatalogFacade.java",
-      "line": 21,
-      "expr": "catalogKey301",
-      "note": "调用下一层"
-    },
-    {
-      "file": "dao/src/main/java/com/northwind/reportquote/dao/PaymentRegistry.java",
+      "file": "web/src/main/java/nw/reportquote/LedgerService.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/reportquote/dao/PaymentRegistry.java",
+      "file": "web/src/main/java/nw/reportquote/LedgerService.java",
+      "line": 24,
+      "expr": "catalogKey1",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/ShipmentCollector.java",
+      "line": 21,
+      "expr": "orderRef101",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/ShipmentCollector.java",
+      "line": 24,
+      "expr": "orderRef101",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/ShipmentCollector.java",
+      "line": 25,
+      "expr": "quoteRef102",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/ShipmentCollector.java",
+      "line": 26,
+      "expr": "quoteRef102",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/OrderStrategySelector.java",
+      "line": 22,
+      "expr": "value",
+      "note": "接口多态派发（3 个实现）"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/OrderStrategyStandard.java",
+      "line": 18,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 26,
+      "expr": "refundCode201",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 27,
+      "expr": "shipmentCode202",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 28,
+      "expr": "shipmentCode202",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 33,
+      "expr": "manifestKey203",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 34,
+      "expr": "invoiceKey204",
+      "note": "局部变量传递"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 35,
+      "expr": "invoiceKey204",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 40,
+      "expr": "batchTag205",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 43,
+      "expr": "batchTag205",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 44,
+      "expr": "orderRef206",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 45,
+      "expr": "orderRef206",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 46,
+      "expr": "quoteRef207",
+      "note": "写入实例字段"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 51,
+      "expr": "tariffRef208",
+      "note": "读取实例字段"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 52,
+      "expr": "tariffRef208",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 55,
+      "expr": "ledgerEntry209",
+      "note": "存入集合元素"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 56,
+      "expr": "channelTag210",
+      "note": "取出集合元素"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogBuilder.java",
+      "line": 57,
+      "expr": "channelTag210",
+      "note": "调用下一层"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/QuotePlanSelector.java",
+      "line": 22,
+      "expr": "value",
+      "note": "接口多态派发（2 个实现）"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/QuotePlanStandard.java",
+      "line": 18,
+      "expr": "value",
+      "note": "接口实现（链路可达）"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogFacade.java",
+      "line": 19,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "service/src/main/java/nw/reportquote/CatalogFacade.java",
+      "line": 20,
+      "expr": "catalogKey301",
+      "note": "调用下一层"
+    },
+    {
+      "file": "dao/src/main/java/nw/reportquote/PaymentRegistry.java",
+      "line": 23,
+      "expr": "value",
+      "note": "字符串拼接传播"
+    },
+    {
+      "file": "dao/src/main/java/nw/reportquote/PaymentRegistry.java",
       "line": 24,
       "expr": "orderRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/reportquote/dao/CatalogRepository.java",
+      "file": "dao/src/main/java/nw/reportquote/CatalogRepository.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/reportquote/dao/CatalogRepository.java",
+      "file": "dao/src/main/java/nw/reportquote/CatalogRepository.java",
       "line": 28,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -269,6 +269,6 @@
     "payload_at_sink": "SELECT id, code, created_at FROM shipments WHERE label = 'ref_ref_ref_ref_ref_zz'/**/OR/**/1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

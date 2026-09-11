@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 16 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/orderlookup/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/orderlookup/ReceiptController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/orderlookup/web/ReceiptController.java",
+    "file": "web/src/main/java/nw/orderlookup/ReceiptController.java",
     "line": 28,
     "expr": "target",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/orderlookup/service/ReceiptExecutor.java",
+    "file": "service/src/main/java/nw/orderlookup/ReceiptExecutor.java",
     "line": 24,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,229 +24,229 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/ReceiptController.java",
+      "file": "web/src/main/java/nw/orderlookup/ReceiptController.java",
       "line": 28,
       "expr": "target",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/LedgerTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/LedgerTranslator.java",
       "line": 21,
       "expr": "channelTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/LedgerTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/LedgerTranslator.java",
       "line": 24,
       "expr": "channelTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/LedgerTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/LedgerTranslator.java",
       "line": 25,
       "expr": "catalogKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/LedgerTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/LedgerTranslator.java",
       "line": 26,
       "expr": "catalogKey2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/InvoiceStrategySelector.java",
+      "file": "web/src/main/java/nw/orderlookup/InvoiceStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/InvoiceStrategyStandard.java",
+      "file": "web/src/main/java/nw/orderlookup/InvoiceStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/AccountTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/AccountTranslator.java",
       "line": 25,
       "expr": "batchTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/AccountTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/AccountTranslator.java",
       "line": 28,
       "expr": "batchTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/AccountTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/AccountTranslator.java",
       "line": 29,
       "expr": "orderRef102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/AccountTranslator.java",
+      "file": "web/src/main/java/nw/orderlookup/AccountTranslator.java",
       "line": 30,
       "expr": "orderRef102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/TariffStrategySelector.java",
+      "file": "web/src/main/java/nw/orderlookup/TariffStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/TariffStrategyStandard.java",
+      "file": "web/src/main/java/nw/orderlookup/TariffStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 31,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 33,
       "expr": "paymentTag201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 35,
       "expr": "refundCode202",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 40,
       "expr": "shipmentCode203",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 41,
       "expr": "manifestKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 42,
       "expr": "manifestKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 43,
       "expr": "invoiceKey205",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 48,
       "expr": "batchTag206",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 51,
       "expr": "batchTag206",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 52,
       "expr": "orderRef207",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 53,
       "expr": "quoteRef208",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/RefundFacade.java",
+      "file": "web/src/main/java/nw/orderlookup/RefundFacade.java",
       "line": 54,
       "expr": "quoteRef208",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/PaymentRuleSelector.java",
+      "file": "web/src/main/java/nw/orderlookup/PaymentRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/PaymentRuleStandard.java",
+      "file": "web/src/main/java/nw/orderlookup/PaymentRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/QuoteTranslator.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/orderlookup/QuoteTranslator.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/QuoteTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/orderlookup/QuoteTranslator.java",
+      "line": 24,
       "expr": "channelTag301",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/QuoteTranslator.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/orderlookup/QuoteTranslator.java",
+      "line": 25,
       "expr": "catalogKey302",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderlookup/web/QuoteTranslator.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/orderlookup/QuoteTranslator.java",
+      "line": 26,
       "expr": "catalogKey302",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderlookup/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderlookup/AccountBuilder.java",
       "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderlookup/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderlookup/AccountBuilder.java",
       "line": 29,
       "expr": "batchTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderlookup/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderlookup/AccountBuilder.java",
       "line": 32,
       "expr": "batchTag401",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderlookup/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderlookup/AccountBuilder.java",
       "line": 33,
       "expr": "orderRef402",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderlookup/service/AccountBuilder.java",
+      "file": "service/src/main/java/nw/orderlookup/AccountBuilder.java",
       "line": 34,
       "expr": "orderRef402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderlookup/service/ReceiptExecutor.java",
+      "file": "service/src/main/java/nw/orderlookup/ReceiptExecutor.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderlookup/service/ReceiptExecutor.java",
+      "file": "service/src/main/java/nw/orderlookup/ReceiptExecutor.java",
       "line": 24,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -300,6 +300,6 @@
     "payload_at_sink": "echo -n ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

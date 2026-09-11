@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 12 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendorgrant/web/OrderController.java",
+    "file": "web/src/main/java/nw/vendorgrant/OrderController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendorgrant/web/OrderController.java",
+    "file": "web/src/main/java/nw/vendorgrant/OrderController.java",
     "line": 23,
     "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/vendorgrant/dao/OrderExecutor.java",
+    "file": "dao/src/main/java/nw/vendorgrant/OrderExecutor.java",
     "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,223 +24,223 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendorgrant/web/OrderController.java",
+      "file": "web/src/main/java/nw/vendorgrant/OrderController.java",
       "line": 23,
       "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorgrant/web/BundleResolver.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/vendorgrant/BundleResolver.java",
+      "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorgrant/web/BundleResolver.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/vendorgrant/BundleResolver.java",
+      "line": 21,
       "expr": "quoteRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorgrant/web/BundleResolver.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/vendorgrant/BundleResolver.java",
+      "line": 22,
       "expr": "quoteRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 30,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 29,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 33,
       "expr": "refundCode101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 34,
       "expr": "shipmentCode102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 36,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 35,
       "expr": "shipmentCode102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 41,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 40,
       "expr": "manifestKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 42,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 41,
       "expr": "manifestKey103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 43,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 42,
       "expr": "invoiceKey104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 48,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 47,
       "expr": "batchTag105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 49,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 48,
       "expr": "orderRef106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 50,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 49,
       "expr": "orderRef106",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 55,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 54,
       "expr": "quoteRef107",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 58,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 57,
       "expr": "quoteRef107",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 59,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 58,
       "expr": "tariffRef108",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 62,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 61,
       "expr": "tariffRef108",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 63,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 62,
       "expr": "ledgerEntry109",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorgrant/service/BundleAssembler.java",
-      "line": 64,
+      "file": "service/src/main/java/nw/vendorgrant/BundleAssembler.java",
+      "line": 63,
       "expr": "ledgerEntry109",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 17,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 18,
       "expr": "catalogKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 19,
       "expr": "receiptKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 20,
       "expr": "receiptKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 25,
       "expr": "accountRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 28,
       "expr": "accountRef203",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 29,
       "expr": "voucherRef204",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 30,
       "expr": "paymentTag205",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 31,
       "expr": "paymentTag205",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 36,
       "expr": "refundCode206",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 37,
       "expr": "shipmentCode207",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 38,
       "expr": "shipmentCode207",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 43,
       "expr": "manifestKey208",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 44,
       "expr": "manifestKey208",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/QuoteNormalizer.java",
+      "file": "dao/src/main/java/nw/vendorgrant/QuoteNormalizer.java",
       "line": 45,
       "expr": "invoiceKey209",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/OrderExecutor.java",
+      "file": "dao/src/main/java/nw/vendorgrant/OrderExecutor.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorgrant/dao/OrderExecutor.java",
+      "file": "dao/src/main/java/nw/vendorgrant/OrderExecutor.java",
       "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -296,6 +296,6 @@
     "payload_at_sink": "echo ref_ref_ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

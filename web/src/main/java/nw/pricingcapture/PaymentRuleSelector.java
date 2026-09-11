@@ -1,0 +1,24 @@
+package nw.pricingcapture;
+
+import java.util.Map;
+import org.springframework.stereotype.Component;
+
+/**
+ * 定价处理策略的注册表。
+ *
+ * <p>容器按 bean 名把全部实现注入进来，运行时按渠道配置挑一个。
+ */
+@Component("pricingcapturePaymentRuleSelector")
+public class PaymentRuleSelector {
+    private static final String ACTIVE = "pricingcapturePaymentRuleStandard";
+    private final Map<String, PaymentRule> handlers;
+
+    public PaymentRuleSelector(Map<String, PaymentRule> handlers) {
+        this.handlers = handlers;
+    }
+
+    public void resolve(String value) {
+        PaymentRule handler = this.handlers.get(ACTIVE);
+        handler.handle(value);
+    }
+}

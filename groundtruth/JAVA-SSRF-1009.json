@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "路径变量经 7 层调用、跨 2 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/shippingimport/web/CatalogController.java",
+    "file": "web/src/main/java/nw/shippingimport/CatalogController.java",
     "line": 16,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/shippingimport/web/CatalogController.java",
+    "file": "web/src/main/java/nw/shippingimport/CatalogController.java",
     "line": 18,
     "expr": "tag",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/shippingimport/service/CatalogFetcher.java",
+    "file": "service/src/main/java/nw/shippingimport/CatalogFetcher.java",
     "line": 19,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/shippingimport/service/VoucherGuard.java",
+    "file": "service/src/main/java/nw/shippingimport/VoucherGuard.java",
     "line": 12,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
@@ -29,91 +29,91 @@
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/shippingimport/web/CatalogController.java",
+      "file": "web/src/main/java/nw/shippingimport/CatalogController.java",
       "line": 18,
       "expr": "tag",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingimport/web/SessionFacade.java",
-      "line": 13,
+      "file": "web/src/main/java/nw/shippingimport/SessionFacade.java",
+      "line": 11,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingimport/web/SessionFacade.java",
-      "line": 14,
+      "file": "web/src/main/java/nw/shippingimport/SessionFacade.java",
+      "line": 12,
       "expr": "paymentTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 22,
       "expr": "channelTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 25,
       "expr": "channelTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 26,
       "expr": "catalogKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 27,
       "expr": "catalogKey102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 32,
       "expr": "receiptKey103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 34,
       "expr": "receiptKey103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 38,
       "expr": "accountRef104",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 39,
       "expr": "voucherRef105",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/RefundBroker.java",
+      "file": "service/src/main/java/nw/shippingimport/RefundBroker.java",
       "line": 40,
       "expr": "voucherRef105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/VoucherGuard.java",
+      "file": "service/src/main/java/nw/shippingimport/VoucherGuard.java",
       "line": 12,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/CatalogFetcher.java",
+      "file": "service/src/main/java/nw/shippingimport/CatalogFetcher.java",
       "line": 15,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingimport/service/CatalogFetcher.java",
+      "file": "service/src/main/java/nw/shippingimport/CatalogFetcher.java",
       "line": 19,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -154,6 +154,6 @@
     "payload_at_sink": "http://ref_127.0.0.1:1/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

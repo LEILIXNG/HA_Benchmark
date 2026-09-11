@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "入口处即净化——考验工具能否识别早期校验，避免误报",
   "entry": {
-    "file": "web/src/main/java/com/northwind/billingarchive/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/billingarchive/ShipmentController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/billingarchive/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/billingarchive/ShipmentController.java",
     "line": 25,
     "expr": "file",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/billingarchive/dao/ShipmentLoader.java",
+    "file": "dao/src/main/java/nw/billingarchive/ShipmentLoader.java",
     "line": 30,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/northwind/billingarchive/web/SessionGuard.java",
+    "file": "web/src/main/java/nw/billingarchive/SessionGuard.java",
     "line": 22,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,67 +29,67 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/billingarchive/web/ShipmentController.java",
+      "file": "web/src/main/java/nw/billingarchive/ShipmentController.java",
       "line": 25,
       "expr": "file",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingarchive/web/SessionGuard.java",
+      "file": "web/src/main/java/nw/billingarchive/SessionGuard.java",
       "line": 22,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingarchive/web/AccountFacade.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/billingarchive/AccountFacade.java",
+      "line": 19,
       "expr": "orderRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/billingarchive/web/AccountFacade.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/billingarchive/AccountFacade.java",
+      "line": 20,
       "expr": "orderRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingarchive/service/SessionService.java",
+      "file": "service/src/main/java/nw/billingarchive/SessionService.java",
       "line": 23,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billingarchive/service/AccountComposer.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/billingarchive/AccountComposer.java",
+      "line": 23,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingarchive/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/nw/billingarchive/AccountEnricher.java",
       "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingarchive/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/nw/billingarchive/AccountEnricher.java",
       "line": 23,
       "expr": "orderRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingarchive/dao/AccountEnricher.java",
+      "file": "dao/src/main/java/nw/billingarchive/AccountEnricher.java",
       "line": 24,
       "expr": "orderRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingarchive/dao/ShipmentLoader.java",
+      "file": "dao/src/main/java/nw/billingarchive/ShipmentLoader.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/billingarchive/dao/ShipmentLoader.java",
+      "file": "dao/src/main/java/nw/billingarchive/ShipmentLoader.java",
       "line": 30,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -128,7 +128,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

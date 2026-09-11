@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 1 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentadjust/web/BundleController.java",
+    "file": "web/src/main/java/nw/paymentadjust/BundleController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentadjust/web/BundleController.java",
+    "file": "web/src/main/java/nw/paymentadjust/BundleController.java",
     "line": 25,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "web/src/main/resources/com/northwind/paymentadjust/web/BundleMapper.xml",
+    "file": "web/src/main/resources/nw/paymentadjust/BundleMapper.xml",
     "line": 9,
     "expr": "accountRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/northwind/paymentadjust/web/InvoicePolicy.java",
+    "file": "web/src/main/java/nw/paymentadjust/InvoicePolicy.java",
     "line": 21,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,73 +29,73 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/BundleController.java",
+      "file": "web/src/main/java/nw/paymentadjust/BundleController.java",
       "line": 25,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/CatalogTranslator.java",
+      "file": "web/src/main/java/nw/paymentadjust/CatalogTranslator.java",
       "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/CatalogTranslator.java",
+      "file": "web/src/main/java/nw/paymentadjust/CatalogTranslator.java",
       "line": 29,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/CatalogTranslator.java",
+      "file": "web/src/main/java/nw/paymentadjust/CatalogTranslator.java",
       "line": 30,
       "expr": "tariffRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/CatalogTranslator.java",
+      "file": "web/src/main/java/nw/paymentadjust/CatalogTranslator.java",
       "line": 35,
       "expr": "ledgerEntry2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/CatalogTranslator.java",
+      "file": "web/src/main/java/nw/paymentadjust/CatalogTranslator.java",
       "line": 36,
       "expr": "ledgerEntry2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/CatalogTranslator.java",
+      "file": "web/src/main/java/nw/paymentadjust/CatalogTranslator.java",
       "line": 37,
       "expr": "catalogKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/CatalogTranslator.java",
+      "file": "web/src/main/java/nw/paymentadjust/CatalogTranslator.java",
       "line": 38,
       "expr": "catalogKey4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/InvoicePolicy.java",
+      "file": "web/src/main/java/nw/paymentadjust/InvoicePolicy.java",
       "line": 21,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/BundleGateway.java",
+      "file": "web/src/main/java/nw/paymentadjust/BundleGateway.java",
       "line": 22,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentadjust/web/BundleGateway.java",
+      "file": "web/src/main/java/nw/paymentadjust/BundleGateway.java",
       "line": 29,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "web/src/main/resources/com/northwind/paymentadjust/web/BundleMapper.xml",
+      "file": "web/src/main/resources/nw/paymentadjust/BundleMapper.xml",
       "line": 9,
       "expr": "accountRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -133,6 +133,6 @@
     "payload_at_sink": "SELECT id, ref_no, total       FROM invoices      WHERE title LIKE '%ref_zz OR 1=1--%'      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

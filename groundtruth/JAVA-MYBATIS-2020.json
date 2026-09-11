@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 5 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventoryexport/web/RefundController.java",
+    "file": "web/src/main/java/nw/inventoryexport/RefundController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventoryexport/web/RefundController.java",
+    "file": "web/src/main/java/nw/inventoryexport/RefundController.java",
     "line": 28,
     "expr": "category",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/inventoryexport/service/RefundMapper.xml",
+    "file": "service/src/main/resources/nw/inventoryexport/RefundMapper.xml",
     "line": 9,
     "expr": "orderRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,61 +24,61 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventoryexport/web/RefundController.java",
+      "file": "web/src/main/java/nw/inventoryexport/RefundController.java",
       "line": 28,
       "expr": "category",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryexport/web/ContractAssembler.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/inventoryexport/ContractAssembler.java",
+      "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryexport/web/ContractAssembler.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/inventoryexport/ContractAssembler.java",
+      "line": 24,
       "expr": "quoteRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "file": "service/src/main/java/nw/inventoryexport/LedgerRouter.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "file": "service/src/main/java/nw/inventoryexport/LedgerRouter.java",
       "line": 28,
       "expr": "shipmentCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "file": "service/src/main/java/nw/inventoryexport/LedgerRouter.java",
       "line": 29,
       "expr": "shipmentCode101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryexport/service/LedgerRouter.java",
+      "file": "service/src/main/java/nw/inventoryexport/LedgerRouter.java",
       "line": 30,
       "expr": "manifestKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryexport/service/RefundGateway.java",
+      "file": "service/src/main/java/nw/inventoryexport/RefundGateway.java",
       "line": 21,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryexport/service/RefundGateway.java",
+      "file": "service/src/main/java/nw/inventoryexport/RefundGateway.java",
       "line": 28,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/inventoryexport/service/RefundMapper.xml",
+      "file": "service/src/main/resources/nw/inventoryexport/RefundMapper.xml",
       "line": 9,
       "expr": "orderRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -116,6 +116,6 @@
     "payload_at_sink": "SELECT id, code, created_at       FROM invoices      WHERE title IN ('ref_ref_zz' OR 1=1--')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

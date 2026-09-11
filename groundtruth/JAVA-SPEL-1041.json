@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 3 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/accountsettle/web/ContractController.java",
+    "file": "web/src/main/java/nw/accountsettle/ContractController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/accountsettle/web/ContractController.java",
+    "file": "web/src/main/java/nw/accountsettle/ContractController.java",
     "line": 27,
     "expr": "token",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/accountsettle/dao/ContractEvaluator.java",
+    "file": "dao/src/main/java/nw/accountsettle/ContractEvaluator.java",
     "line": 19,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/accountsettle/dao/PaymentValidator.java",
+    "file": "dao/src/main/java/nw/accountsettle/PaymentValidator.java",
     "line": 14,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
@@ -29,127 +29,127 @@
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ContractController.java",
+      "file": "web/src/main/java/nw/accountsettle/ContractController.java",
       "line": 27,
       "expr": "token",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 26,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 27,
       "expr": "refundCode2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 29,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 28,
       "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 33,
       "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 34,
       "expr": "manifestKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 35,
       "expr": "manifestKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 40,
       "expr": "invoiceKey5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 43,
       "expr": "invoiceKey5",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 45,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 44,
       "expr": "batchTag6",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsettle/web/ChannelCoordinator.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/accountsettle/ChannelCoordinator.java",
+      "line": 45,
       "expr": "batchTag6",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountsettle/service/RefundBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/accountsettle/RefundBuilder.java",
+      "line": 18,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountsettle/service/RefundBuilder.java",
-      "line": 22,
+      "file": "service/src/main/java/nw/accountsettle/RefundBuilder.java",
+      "line": 21,
       "expr": "channelTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountsettle/service/RefundBuilder.java",
-      "line": 23,
+      "file": "service/src/main/java/nw/accountsettle/RefundBuilder.java",
+      "line": 22,
       "expr": "catalogKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountsettle/service/RefundBuilder.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/accountsettle/RefundBuilder.java",
+      "line": 23,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsettle/dao/ReceiptResolver.java",
+      "file": "dao/src/main/java/nw/accountsettle/ReceiptResolver.java",
       "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsettle/dao/ReceiptResolver.java",
+      "file": "dao/src/main/java/nw/accountsettle/ReceiptResolver.java",
       "line": 21,
       "expr": "batchTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsettle/dao/ReceiptResolver.java",
+      "file": "dao/src/main/java/nw/accountsettle/ReceiptResolver.java",
       "line": 22,
       "expr": "batchTag201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsettle/dao/PaymentValidator.java",
+      "file": "dao/src/main/java/nw/accountsettle/PaymentValidator.java",
       "line": 14,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsettle/dao/ContractEvaluator.java",
+      "file": "dao/src/main/java/nw/accountsettle/ContractEvaluator.java",
       "line": 16,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsettle/dao/ContractEvaluator.java",
+      "file": "dao/src/main/java/nw/accountsettle/ContractEvaluator.java",
       "line": 19,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -194,6 +194,6 @@
     "payload_at_sink": "'chn-' + 'ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

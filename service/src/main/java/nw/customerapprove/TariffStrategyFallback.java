@@ -1,0 +1,18 @@
+package nw.customerapprove;
+
+import org.springframework.stereotype.Service;
+
+/**
+ * 客户的备用处理策略，当前渠道未启用。
+ */
+@Service("customerapproveTariffStrategyFallback")
+public class TariffStrategyFallback implements TariffStrategy {
+
+    @Override
+    public void handle(String value) {
+        String normalized = value.trim();
+        if (normalized.isEmpty()) {
+            throw new IllegalArgumentException("empty value");
+        }
+    }
+}

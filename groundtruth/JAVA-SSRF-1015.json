@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "路径变量经 16 层调用、跨 3 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentreconcile/web/ManifestController.java",
+    "file": "web/src/main/java/nw/paymentreconcile/ManifestController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentreconcile/web/ManifestController.java",
+    "file": "web/src/main/java/nw/paymentreconcile/ManifestController.java",
     "line": 26,
     "expr": "filename",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ManifestFetcher.java",
+    "file": "dao/src/main/java/nw/paymentreconcile/ManifestFetcher.java",
     "line": 27,
     "expr": "connection",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ChannelPolicy.java",
+    "file": "dao/src/main/java/nw/paymentreconcile/ChannelPolicy.java",
     "line": 14,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
@@ -29,271 +29,271 @@
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ManifestController.java",
+      "file": "web/src/main/java/nw/paymentreconcile/ManifestController.java",
       "line": 26,
       "expr": "filename",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 31,
       "expr": "ledgerEntry1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 32,
       "expr": "ledgerEntry1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 37,
       "expr": "channelTag2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 38,
       "expr": "channelTag2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 42,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 41,
       "expr": "catalogKey3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 43,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 42,
       "expr": "receiptKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 43,
       "expr": "receiptKey4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 49,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 48,
       "expr": "accountRef5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 50,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 49,
       "expr": "accountRef5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 51,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 50,
       "expr": "voucherRef6",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 56,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 55,
       "expr": "paymentTag7",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 57,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 56,
       "expr": "paymentTag7",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentreconcile/web/ShipmentCollector.java",
-      "line": 58,
+      "file": "web/src/main/java/nw/paymentreconcile/ShipmentCollector.java",
+      "line": 57,
       "expr": "refundCode8",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreconcile/service/VoucherAdapter.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/paymentreconcile/VoucherAdapter.java",
+      "line": 23,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentreconcile/service/VoucherAdapter.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/paymentreconcile/VoucherAdapter.java",
+      "line": 24,
       "expr": "invoiceKey101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 26,
       "expr": "voucherRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 29,
       "expr": "voucherRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 30,
       "expr": "paymentTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 31,
       "expr": "paymentTag202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 36,
       "expr": "refundCode203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 38,
       "expr": "refundCode203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 40,
       "expr": "shipmentCode204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 41,
       "expr": "manifestKey205",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 46,
       "expr": "invoiceKey206",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 47,
       "expr": "invoiceKey206",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 48,
       "expr": "orderRef208",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 49,
       "expr": "orderRef208",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 54,
       "expr": "quoteRef209",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 57,
       "expr": "quoteRef209",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 58,
       "expr": "tariffRef210",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 61,
       "expr": "tariffRef210",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 62,
       "expr": "ledgerEntry211",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 63,
       "expr": "ledgerEntry211",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 68,
       "expr": "channelTag212",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 69,
       "expr": "channelTag212",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 70,
       "expr": "receiptKey214",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ContractComposer.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ContractComposer.java",
       "line": 71,
       "expr": "receiptKey214",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/OrderBroker.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/OrderBroker.java",
       "line": 12,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/OrderBroker.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/OrderBroker.java",
       "line": 14,
       "expr": "ledgerEntry301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/OrderBroker.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/OrderBroker.java",
       "line": 15,
       "expr": "channelTag302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ChannelPolicy.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ChannelPolicy.java",
       "line": 14,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ManifestFetcher.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ManifestFetcher.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymentreconcile/dao/ManifestFetcher.java",
+      "file": "dao/src/main/java/nw/paymentreconcile/ManifestFetcher.java",
       "line": 27,
       "expr": "connection",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -355,6 +355,6 @@
     "payload_at_sink": "http://ref_ref_ref_ref_ref_ref_ref_ref_ref_127.0.0.1:1/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

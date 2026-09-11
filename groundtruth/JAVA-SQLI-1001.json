@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 11 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/catalognotice/web/OrderController.java",
+    "file": "web/src/main/java/nw/catalognotice/OrderController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/catalognotice/web/OrderController.java",
+    "file": "web/src/main/java/nw/catalognotice/OrderController.java",
     "line": 26,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/catalognotice/dao/OrderRepository.java",
+    "file": "dao/src/main/java/nw/catalognotice/OrderRepository.java",
     "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,145 +24,145 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/OrderController.java",
+      "file": "web/src/main/java/nw/catalognotice/OrderController.java",
       "line": 26,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 32,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 35,
       "expr": "paymentTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 36,
       "expr": "refundCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 37,
       "expr": "refundCode2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 43,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 42,
       "expr": "shipmentCode3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 45,
       "expr": "shipmentCode3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 47,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 46,
       "expr": "manifestKey4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 49,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 48,
       "expr": "manifestKey4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalognotice/web/PaymentBuilder.java",
-      "line": 51,
+      "file": "web/src/main/java/nw/catalognotice/PaymentBuilder.java",
+      "line": 50,
       "expr": "invoiceKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalognotice/service/AccountAdapter.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/catalognotice/AccountAdapter.java",
+      "line": 19,
       "expr": "channelTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalognotice/service/AccountAdapter.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/catalognotice/AccountAdapter.java",
+      "line": 20,
       "expr": "channelTag101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/ContractAdapter.java",
       "line": 27,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/ContractAdapter.java",
       "line": 29,
       "expr": "batchTag201",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/ContractAdapter.java",
       "line": 34,
       "expr": "orderRef202",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/ContractAdapter.java",
       "line": 37,
       "expr": "orderRef202",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/ContractAdapter.java",
       "line": 38,
       "expr": "quoteRef203",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/ContractAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/ContractAdapter.java",
       "line": 39,
       "expr": "quoteRef203",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/AccountStrategySelector.java",
+      "file": "dao/src/main/java/nw/catalognotice/AccountStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/AccountStrategyStandard.java",
+      "file": "dao/src/main/java/nw/catalognotice/AccountStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/InvoiceAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/InvoiceAdapter.java",
       "line": 23,
       "expr": "paymentTag301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/InvoiceAdapter.java",
+      "file": "dao/src/main/java/nw/catalognotice/InvoiceAdapter.java",
       "line": 24,
       "expr": "paymentTag301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/OrderRepository.java",
+      "file": "dao/src/main/java/nw/catalognotice/OrderRepository.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/catalognotice/dao/OrderRepository.java",
+      "file": "dao/src/main/java/nw/catalognotice/OrderRepository.java",
       "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -209,6 +209,6 @@
     "payload_at_sink": "SELECT id, amount, status FROM payment_records WHERE code = 'ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

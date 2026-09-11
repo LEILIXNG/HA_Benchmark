@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Cookie经 8 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/RefundController.java",
+    "file": "web/src/main/java/nw/catalogsettlequeue/RefundController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/RefundController.java",
+    "file": "web/src/main/java/nw/catalogsettlequeue/RefundController.java",
     "line": 28,
     "expr": "userName",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/RefundLoader.java",
+    "file": "service/src/main/java/nw/catalogsettlequeue/RefundLoader.java",
     "line": 29,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,109 +24,109 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/RefundController.java",
+      "file": "web/src/main/java/nw/catalogsettlequeue/RefundController.java",
       "line": 28,
       "expr": "userName",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/OrderService.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/catalogsettlequeue/OrderService.java",
+      "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/OrderService.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/catalogsettlequeue/OrderService.java",
+      "line": 27,
       "expr": "paymentTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/OrderService.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/catalogsettlequeue/OrderService.java",
+      "line": 32,
       "expr": "refundCode2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/OrderService.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/catalogsettlequeue/OrderService.java",
+      "line": 35,
       "expr": "refundCode2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/OrderService.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/catalogsettlequeue/OrderService.java",
+      "line": 36,
       "expr": "shipmentCode3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogsettlequeue/web/OrderService.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/catalogsettlequeue/OrderService.java",
+      "line": 37,
       "expr": "shipmentCode3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ShipmentRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ShipmentRouter.java",
       "line": 23,
       "expr": "channelTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ShipmentRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ShipmentRouter.java",
       "line": 24,
       "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ShipmentRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ShipmentRouter.java",
       "line": 25,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ChannelRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ChannelRouter.java",
       "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ChannelRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ChannelRouter.java",
       "line": 29,
       "expr": "batchTag201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ChannelRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ChannelRouter.java",
       "line": 30,
       "expr": "batchTag201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ChannelRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ChannelRouter.java",
       "line": 35,
       "expr": "orderRef202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ChannelRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ChannelRouter.java",
       "line": 36,
       "expr": "orderRef202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/ChannelRouter.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/ChannelRouter.java",
       "line": 37,
       "expr": "quoteRef203",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/RefundLoader.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/RefundLoader.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogsettlequeue/service/RefundLoader.java",
+      "file": "service/src/main/java/nw/catalogsettlequeue/RefundLoader.java",
       "line": 29,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -170,6 +170,6 @@
     "payload_at_sink": "/data/catalog/archive/ref_ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

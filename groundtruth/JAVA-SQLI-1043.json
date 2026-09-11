@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 14 层调用、跨 2 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/catalogmanifest/web/ChannelController.java",
+    "file": "web/src/main/java/nw/catalogmanifest/ChannelController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/catalogmanifest/web/ChannelController.java",
+    "file": "web/src/main/java/nw/catalogmanifest/ChannelController.java",
     "line": 22,
     "expr": "reference",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/catalogmanifest/service/ChannelRepository.java",
+    "file": "service/src/main/java/nw/catalogmanifest/ChannelRepository.java",
     "line": 28,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/catalogmanifest/service/BatchValidator.java",
+    "file": "service/src/main/java/nw/catalogmanifest/BatchValidator.java",
     "line": 24,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,211 +29,211 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/ChannelController.java",
+      "file": "web/src/main/java/nw/catalogmanifest/ChannelController.java",
       "line": 22,
       "expr": "reference",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/SessionFacade.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/catalogmanifest/SessionFacade.java",
+      "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/SessionFacade.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/catalogmanifest/SessionFacade.java",
+      "line": 25,
       "expr": "voucherRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/SessionFacade.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/catalogmanifest/SessionFacade.java",
+      "line": 26,
       "expr": "voucherRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/SessionFacade.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/catalogmanifest/SessionFacade.java",
+      "line": 31,
       "expr": "paymentTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/SessionFacade.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/catalogmanifest/SessionFacade.java",
+      "line": 32,
       "expr": "paymentTag2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/SessionFacade.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/catalogmanifest/SessionFacade.java",
+      "line": 33,
       "expr": "shipmentCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogmanifest/web/SessionFacade.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/catalogmanifest/SessionFacade.java",
+      "line": 34,
       "expr": "shipmentCode4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 29,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 30,
       "expr": "ledgerEntry101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 35,
       "expr": "channelTag102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 36,
       "expr": "catalogKey103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 37,
       "expr": "receiptKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 38,
       "expr": "receiptKey104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 43,
       "expr": "accountRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 46,
       "expr": "accountRef105",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 47,
       "expr": "voucherRef106",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 48,
       "expr": "voucherRef106",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 53,
       "expr": "paymentTag107",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 54,
       "expr": "refundCode108",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 57,
       "expr": "refundCode108",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 58,
       "expr": "shipmentCode109",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 59,
       "expr": "shipmentCode109",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 64,
       "expr": "manifestKey110",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 65,
       "expr": "manifestKey110",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/CatalogAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/CatalogAssembler.java",
       "line": 66,
       "expr": "invoiceKey111",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/ManifestStrategySelector.java",
+      "file": "service/src/main/java/nw/catalogmanifest/ManifestStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/ManifestStrategyStandard.java",
+      "file": "service/src/main/java/nw/catalogmanifest/ManifestStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/VoucherAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/VoucherAssembler.java",
       "line": 25,
       "expr": "invoiceKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/VoucherAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/VoucherAssembler.java",
       "line": 28,
       "expr": "invoiceKey201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/VoucherAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/VoucherAssembler.java",
       "line": 29,
       "expr": "batchTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/VoucherAssembler.java",
+      "file": "service/src/main/java/nw/catalogmanifest/VoucherAssembler.java",
       "line": 30,
       "expr": "batchTag202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/BatchValidator.java",
+      "file": "service/src/main/java/nw/catalogmanifest/BatchValidator.java",
       "line": 24,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/ChannelRepository.java",
+      "file": "service/src/main/java/nw/catalogmanifest/ChannelRepository.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "service/src/main/java/com/northwind/catalogmanifest/service/ChannelRepository.java",
+      "file": "service/src/main/java/nw/catalogmanifest/ChannelRepository.java",
       "line": 28,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -286,6 +286,6 @@
     "payload_at_sink": "SELECT id, amount, status FROM invoices WHERE label = 'ref_ref_ref_zz OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

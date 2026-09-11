@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "Cookie经 7 层调用、跨 1 个模块流入SpEL 表达式求值，经 spel_restricted_context 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundController.java",
+    "file": "web/src/main/java/nw/shippingrenewal/RefundController.java",
     "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundController.java",
+    "file": "web/src/main/java/nw/shippingrenewal/RefundController.java",
     "line": 20,
     "expr": "keyword",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundEvaluator.java",
+    "file": "web/src/main/java/nw/shippingrenewal/RefundEvaluator.java",
     "line": 23,
     "expr": "template",
     "note": "SINK 位置：CWE-917（受限上下文已消解）"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundEvaluator.java",
+    "file": "web/src/main/java/nw/shippingrenewal/RefundEvaluator.java",
     "line": 21,
     "expr": "context",
     "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
@@ -29,133 +29,133 @@
   "sanitizer_kind": "spel_restricted_context",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundController.java",
+      "file": "web/src/main/java/nw/shippingrenewal/RefundController.java",
       "line": 20,
       "expr": "keyword",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/InvoiceBroker.java",
+      "file": "web/src/main/java/nw/shippingrenewal/InvoiceBroker.java",
       "line": 11,
       "expr": "invoiceKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/InvoiceBroker.java",
+      "file": "web/src/main/java/nw/shippingrenewal/InvoiceBroker.java",
       "line": 12,
       "expr": "batchTag2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/InvoiceBroker.java",
+      "file": "web/src/main/java/nw/shippingrenewal/InvoiceBroker.java",
       "line": 13,
       "expr": "batchTag2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/shippingrenewal/TariffNormalizer.java",
       "line": 16,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/shippingrenewal/TariffNormalizer.java",
       "line": 17,
       "expr": "paymentTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/shippingrenewal/TariffNormalizer.java",
       "line": 18,
       "expr": "paymentTag102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 23,
       "expr": "ledgerEntry201",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 26,
       "expr": "ledgerEntry201",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 27,
       "expr": "channelTag202",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 28,
       "expr": "channelTag202",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 33,
       "expr": "catalogKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 36,
       "expr": "catalogKey203",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 37,
       "expr": "receiptKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/ChannelRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/ChannelRegistry.java",
       "line": 38,
       "expr": "receiptKey204",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/CatalogRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/CatalogRegistry.java",
       "line": 16,
       "expr": "invoiceKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/CatalogRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/CatalogRegistry.java",
       "line": 17,
       "expr": "invoiceKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/CatalogRegistry.java",
+      "file": "web/src/main/java/nw/shippingrenewal/CatalogRegistry.java",
       "line": 18,
       "expr": "batchTag302",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundEvaluator.java",
+      "file": "web/src/main/java/nw/shippingrenewal/RefundEvaluator.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundEvaluator.java",
+      "file": "web/src/main/java/nw/shippingrenewal/RefundEvaluator.java",
       "line": 21,
       "expr": "context",
       "note": "SANITIZER: 受限求值上下文，禁止类型引用与构造调用（CWE-917 的惯用正确修复）"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingrenewal/web/RefundEvaluator.java",
+      "file": "web/src/main/java/nw/shippingrenewal/RefundEvaluator.java",
       "line": 23,
       "expr": "template",
       "note": "SINK 位置：CWE-917（受限上下文已消解）"
@@ -202,7 +202,7 @@
     "payload_at_sink": "'tag-' + 'ref_ref_zz'+T(java.lang.Runtime)+'zz'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

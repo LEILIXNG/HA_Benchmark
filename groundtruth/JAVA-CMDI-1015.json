@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 13 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/orderquote/web/BundleController.java",
+    "file": "web/src/main/java/nw/orderquote/BundleController.java",
     "line": 16,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/orderquote/web/BundleController.java",
+    "file": "web/src/main/java/nw/orderquote/BundleController.java",
     "line": 18,
     "expr": "category",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/orderquote/dao/BundleExecutor.java",
+    "file": "dao/src/main/java/nw/orderquote/BundleExecutor.java",
     "line": 19,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,217 +24,217 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/orderquote/web/BundleController.java",
+      "file": "web/src/main/java/nw/orderquote/BundleController.java",
       "line": 18,
       "expr": "category",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderquote/web/BundleCollector.java",
+      "file": "web/src/main/java/nw/orderquote/BundleCollector.java",
       "line": 20,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderquote/web/BundleCollector.java",
+      "file": "web/src/main/java/nw/orderquote/BundleCollector.java",
       "line": 21,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderquote/web/BundleCollector.java",
+      "file": "web/src/main/java/nw/orderquote/BundleCollector.java",
       "line": 22,
       "expr": "tariffRef1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderquote/web/PaymentService.java",
-      "line": 13,
+      "file": "web/src/main/java/nw/orderquote/PaymentService.java",
+      "line": 11,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderquote/web/PaymentService.java",
-      "line": 14,
+      "file": "web/src/main/java/nw/orderquote/PaymentService.java",
+      "line": 12,
       "expr": "manifestKey101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderquote/service/OrderRouter.java",
-      "line": 13,
+      "file": "service/src/main/java/nw/orderquote/OrderRouter.java",
+      "line": 11,
       "expr": "accountRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderquote/service/OrderRouter.java",
-      "line": 14,
+      "file": "service/src/main/java/nw/orderquote/OrderRouter.java",
+      "line": 12,
       "expr": "accountRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ReceiptBroker.java",
+      "file": "dao/src/main/java/nw/orderquote/ReceiptBroker.java",
       "line": 14,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ReceiptBroker.java",
+      "file": "dao/src/main/java/nw/orderquote/ReceiptBroker.java",
       "line": 17,
       "expr": "tariffRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ReceiptBroker.java",
+      "file": "dao/src/main/java/nw/orderquote/ReceiptBroker.java",
       "line": 18,
       "expr": "ledgerEntry302",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ReceiptBroker.java",
+      "file": "dao/src/main/java/nw/orderquote/ReceiptBroker.java",
       "line": 19,
       "expr": "ledgerEntry302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 24,
       "expr": "manifestKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 25,
       "expr": "manifestKey401",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 30,
       "expr": "invoiceKey402",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 31,
       "expr": "invoiceKey402",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 32,
       "expr": "batchTag403",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 37,
       "expr": "orderRef404",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 38,
       "expr": "quoteRef405",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 39,
       "expr": "tariffRef406",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 40,
       "expr": "tariffRef406",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 45,
       "expr": "ledgerEntry407",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 46,
       "expr": "channelTag408",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 47,
       "expr": "catalogKey409",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 48,
       "expr": "catalogKey409",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 53,
       "expr": "receiptKey410",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 54,
       "expr": "accountRef411",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 57,
       "expr": "accountRef411",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 58,
       "expr": "voucherRef412",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 59,
       "expr": "voucherRef412",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 64,
       "expr": "paymentTag413",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 65,
       "expr": "refundCode414",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/ContractRegistry.java",
+      "file": "dao/src/main/java/nw/orderquote/ContractRegistry.java",
       "line": 66,
       "expr": "refundCode414",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/BundleExecutor.java",
+      "file": "dao/src/main/java/nw/orderquote/BundleExecutor.java",
       "line": 15,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderquote/dao/BundleExecutor.java",
+      "file": "dao/src/main/java/nw/orderquote/BundleExecutor.java",
       "line": 19,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -291,6 +291,6 @@
     "payload_at_sink": "echo ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

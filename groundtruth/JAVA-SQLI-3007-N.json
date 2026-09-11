@@ -4,23 +4,23 @@
   "verdict": "safe",
   "title": "与 JAVA-SQLI-3007 逐行相同，仅把净化改为 sql_parameterized",
   "entry": {
-    "file": "web/src/main/java/com/northwind/catalogimport/web/BatchController.java",
+    "file": "web/src/main/java/nw/catalogimport/BatchController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/catalogimport/web/BatchController.java",
+    "file": "web/src/main/java/nw/catalogimport/BatchController.java",
     "line": 26,
     "expr": "category",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "web/src/main/java/com/northwind/catalogimport/web/BatchRepository.java",
+    "file": "web/src/main/java/nw/catalogimport/BatchRepository.java",
     "line": 30,
     "note": "SINK 位置：CWE-89（已被参数化消解）"
   },
   "sanitizer": {
-    "file": "web/src/main/java/com/northwind/catalogimport/web/BatchRepository.java",
+    "file": "web/src/main/java/nw/catalogimport/BatchRepository.java",
     "line": 29,
     "expr": "value",
     "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
@@ -28,90 +28,90 @@
   "sanitizer_kind": "sql_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/BatchController.java",
+      "file": "web/src/main/java/nw/catalogimport/BatchController.java",
       "line": 26,
       "expr": "category",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/catalogimport/ChannelTranslator.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/catalogimport/ChannelTranslator.java",
       "line": 24,
       "expr": "receiptKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/CatalogResolver.java",
+      "file": "web/src/main/java/nw/catalogimport/CatalogResolver.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/CatalogResolver.java",
+      "file": "web/src/main/java/nw/catalogimport/CatalogResolver.java",
       "line": 24,
       "expr": "tariffRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/CatalogResolver.java",
+      "file": "web/src/main/java/nw/catalogimport/CatalogResolver.java",
       "line": 25,
       "expr": "tariffRef102",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/SessionAssembler.java",
+      "file": "web/src/main/java/nw/catalogimport/SessionAssembler.java",
       "line": 29,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/SessionAssembler.java",
+      "file": "web/src/main/java/nw/catalogimport/SessionAssembler.java",
       "line": 31,
       "expr": "manifestKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/SessionAssembler.java",
+      "file": "web/src/main/java/nw/catalogimport/SessionAssembler.java",
       "line": 32,
       "expr": "manifestKey202",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/SessionAssembler.java",
+      "file": "web/src/main/java/nw/catalogimport/SessionAssembler.java",
       "line": 37,
       "expr": "invoiceKey203",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/SessionAssembler.java",
+      "file": "web/src/main/java/nw/catalogimport/SessionAssembler.java",
       "line": 38,
       "expr": "batchTag204",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/SessionAssembler.java",
+      "file": "web/src/main/java/nw/catalogimport/SessionAssembler.java",
       "line": 39,
       "expr": "batchTag204",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/BatchRepository.java",
+      "file": "web/src/main/java/nw/catalogimport/BatchRepository.java",
       "line": 25,
       "note": "参数化占位符，值不参与 SQL 语法"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/BatchRepository.java",
+      "file": "web/src/main/java/nw/catalogimport/BatchRepository.java",
       "line": 29,
       "expr": "value",
       "note": "SANITIZER: 参数化绑定（CWE-89 的惯用正确修复）"
     },
     {
-      "file": "web/src/main/java/com/northwind/catalogimport/web/BatchRepository.java",
+      "file": "web/src/main/java/nw/catalogimport/BatchRepository.java",
       "line": 30,
       "note": "SINK 位置：CWE-89（已被参数化消解）"
     }
@@ -153,7 +153,7 @@
     "payload_at_sink": "ref_ref_ref_zz' OR 1=1--",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

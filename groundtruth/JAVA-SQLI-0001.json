@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经字段/集合跨三模块流入 JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/shippingassign/web/ContractController.java",
+    "file": "web/src/main/java/nw/shippingassign/ContractController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/shippingassign/web/ContractController.java",
+    "file": "web/src/main/java/nw/shippingassign/ContractController.java",
     "line": 22,
     "expr": "keyword",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/shippingassign/dao/ContractRepository.java",
+    "file": "dao/src/main/java/nw/shippingassign/ContractRepository.java",
     "line": 25,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,73 +24,73 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/shippingassign/web/ContractController.java",
+      "file": "web/src/main/java/nw/shippingassign/ContractController.java",
       "line": 22,
       "expr": "keyword",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingassign/web/SessionAssembler.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/shippingassign/SessionAssembler.java",
+      "line": 23,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingassign/web/SessionAssembler.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/shippingassign/SessionAssembler.java",
+      "line": 24,
       "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingassign/service/ShipmentRouter.java",
+      "file": "service/src/main/java/nw/shippingassign/ShipmentRouter.java",
       "line": 23,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingassign/service/VoucherEnricher.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/shippingassign/VoucherEnricher.java",
+      "line": 28,
       "expr": "value",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingassign/service/VoucherEnricher.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/shippingassign/VoucherEnricher.java",
+      "line": 33,
       "expr": "manifestKey201",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingassign/service/VoucherEnricher.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/shippingassign/VoucherEnricher.java",
+      "line": 34,
       "expr": "manifestKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingassign/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/shippingassign/LedgerCoordinator.java",
       "line": 22,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingassign/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/shippingassign/LedgerCoordinator.java",
       "line": 23,
       "expr": "accountRef301",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingassign/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/shippingassign/LedgerCoordinator.java",
       "line": 24,
       "expr": "accountRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingassign/dao/ContractRepository.java",
+      "file": "dao/src/main/java/nw/shippingassign/ContractRepository.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/shippingassign/dao/ContractRepository.java",
+      "file": "dao/src/main/java/nw/shippingassign/ContractRepository.java",
       "line": 25,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -130,6 +130,6 @@
     "payload_at_sink": "SELECT id, amount, status FROM payment_records WHERE code = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

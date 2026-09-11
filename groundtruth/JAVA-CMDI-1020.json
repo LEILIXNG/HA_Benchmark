@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 9 层调用、跨 3 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventorysubmit/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/inventorysubmit/ShipmentController.java",
     "line": 20,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventorysubmit/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/inventorysubmit/ShipmentController.java",
     "line": 22,
     "expr": "category",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/ShipmentExecutor.java",
+    "file": "dao/src/main/java/nw/inventorysubmit/ShipmentExecutor.java",
     "line": 26,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,121 +24,121 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventorysubmit/web/ShipmentController.java",
+      "file": "web/src/main/java/nw/inventorysubmit/ShipmentController.java",
       "line": 22,
       "expr": "category",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysubmit/web/PaymentEnricher.java",
-      "line": 17,
+      "file": "web/src/main/java/nw/inventorysubmit/PaymentEnricher.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysubmit/web/PaymentEnricher.java",
-      "line": 18,
+      "file": "web/src/main/java/nw/inventorysubmit/PaymentEnricher.java",
+      "line": 17,
       "expr": "accountRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventorysubmit/web/PaymentEnricher.java",
-      "line": 19,
+      "file": "web/src/main/java/nw/inventorysubmit/PaymentEnricher.java",
+      "line": 18,
       "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysubmit/service/InvoiceBuilder.java",
-      "line": 17,
+      "file": "service/src/main/java/nw/inventorysubmit/InvoiceBuilder.java",
+      "line": 16,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysubmit/service/InvoiceBuilder.java",
-      "line": 18,
+      "file": "service/src/main/java/nw/inventorysubmit/InvoiceBuilder.java",
+      "line": 17,
       "expr": "tariffRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventorysubmit/service/InvoiceBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/inventorysubmit/InvoiceBuilder.java",
+      "line": 18,
       "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/ContractBuilder.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/ContractBuilder.java",
       "line": 11,
       "expr": "manifestKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/ContractBuilder.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/ContractBuilder.java",
       "line": 12,
       "expr": "manifestKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 17,
       "expr": "accountRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 18,
       "expr": "accountRef301",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 23,
       "expr": "voucherRef302",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 24,
       "expr": "paymentTag303",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 25,
       "expr": "paymentTag303",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 30,
       "expr": "refundCode304",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 31,
       "expr": "shipmentCode305",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 32,
       "expr": "manifestKey306",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/VoucherBroker.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/VoucherBroker.java",
       "line": 33,
       "expr": "manifestKey306",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/ShipmentExecutor.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/ShipmentExecutor.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventorysubmit/dao/ShipmentExecutor.java",
+      "file": "dao/src/main/java/nw/inventorysubmit/ShipmentExecutor.java",
       "line": 26,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -184,6 +184,6 @@
     "payload_at_sink": "printf zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

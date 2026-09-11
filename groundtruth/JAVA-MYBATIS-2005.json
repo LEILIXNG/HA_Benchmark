@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "查询参数经 12 层调用、跨 3 个模块流入MyBatis ${} 拼接，经 mybatis_parameterized 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingcapture/web/ContractController.java",
+    "file": "web/src/main/java/nw/pricingcapture/ContractController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingcapture/web/ContractController.java",
+    "file": "web/src/main/java/nw/pricingcapture/ContractController.java",
     "line": 28,
     "expr": "filename",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/northwind/pricingcapture/dao/ContractMapper.xml",
+    "file": "dao/src/main/resources/nw/pricingcapture/ContractMapper.xml",
     "line": 9,
     "expr": "catalogKey",
     "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
   },
   "sanitizer": {
-    "file": "dao/src/main/resources/com/northwind/pricingcapture/dao/ContractMapper.xml",
+    "file": "dao/src/main/resources/nw/pricingcapture/ContractMapper.xml",
     "line": 9,
     "expr": "catalogKey",
     "note": "SANITIZER: #{} 参数化绑定（MyBatis 的惯用正确修复）"
@@ -29,145 +29,145 @@
   "sanitizer_kind": "mybatis_parameterized",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/ContractController.java",
+      "file": "web/src/main/java/nw/pricingcapture/ContractController.java",
       "line": 28,
       "expr": "filename",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/RefundCollector.java",
+      "file": "web/src/main/java/nw/pricingcapture/RefundCollector.java",
       "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/RefundCollector.java",
+      "file": "web/src/main/java/nw/pricingcapture/RefundCollector.java",
       "line": 28,
       "expr": "manifestKey1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/RefundCollector.java",
+      "file": "web/src/main/java/nw/pricingcapture/RefundCollector.java",
       "line": 29,
       "expr": "manifestKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/PaymentRuleSelector.java",
+      "file": "web/src/main/java/nw/pricingcapture/PaymentRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/PaymentRuleStandard.java",
+      "file": "web/src/main/java/nw/pricingcapture/PaymentRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/CatalogNormalizer.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/pricingcapture/CatalogNormalizer.java",
+      "line": 23,
       "expr": "accountRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingcapture/web/CatalogNormalizer.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/pricingcapture/CatalogNormalizer.java",
+      "line": 24,
       "expr": "accountRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 32,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 31,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 33,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 32,
       "expr": "ledgerEntry202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 33,
       "expr": "ledgerEntry202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 39,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 38,
       "expr": "channelTag203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 39,
       "expr": "catalogKey204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 41,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 40,
       "expr": "catalogKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 46,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 45,
       "expr": "receiptKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 49,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 48,
       "expr": "receiptKey205",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 50,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 49,
       "expr": "accountRef206",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 51,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 50,
       "expr": "voucherRef207",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingcapture/service/ManifestEnricher.java",
-      "line": 52,
+      "file": "service/src/main/java/nw/pricingcapture/ManifestEnricher.java",
+      "line": 51,
       "expr": "voucherRef207",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingcapture/dao/PaymentResolver.java",
+      "file": "dao/src/main/java/nw/pricingcapture/PaymentResolver.java",
       "line": 23,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingcapture/dao/PaymentResolver.java",
+      "file": "dao/src/main/java/nw/pricingcapture/PaymentResolver.java",
       "line": 24,
       "expr": "manifestKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingcapture/dao/ContractGateway.java",
+      "file": "dao/src/main/java/nw/pricingcapture/ContractGateway.java",
       "line": 18,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/northwind/pricingcapture/dao/ContractGateway.java",
+      "file": "dao/src/main/java/nw/pricingcapture/ContractGateway.java",
       "line": 25,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/northwind/pricingcapture/dao/ContractMapper.xml",
+      "file": "dao/src/main/resources/nw/pricingcapture/ContractMapper.xml",
       "line": 9,
       "expr": "catalogKey",
       "note": "SINK 位置：CWE-89（#{} 参数化绑定，值不参与 SQL 语法）"
@@ -214,7 +214,7 @@
     "payload_at_sink": "SELECT id, ref_no, total       FROM shipments      WHERE code = ?",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

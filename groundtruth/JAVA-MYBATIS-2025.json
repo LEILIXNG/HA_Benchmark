@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "路径变量经 18 层调用、跨 2 个模块流入MyBatis ${} 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordertrace/web/QuoteController.java",
+    "file": "web/src/main/java/nw/ordertrace/QuoteController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordertrace/web/QuoteController.java",
+    "file": "web/src/main/java/nw/ordertrace/QuoteController.java",
     "line": 25,
     "expr": "category",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/ordertrace/service/QuoteMapper.xml",
+    "file": "service/src/main/resources/nw/ordertrace/QuoteMapper.xml",
     "line": 9,
     "expr": "refundCode",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/ordertrace/service/ShipmentFilter.java",
+    "file": "service/src/main/java/nw/ordertrace/ShipmentFilter.java",
     "line": 24,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,289 +29,289 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordertrace/web/QuoteController.java",
+      "file": "web/src/main/java/nw/ordertrace/QuoteController.java",
       "line": 25,
       "expr": "category",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertrace/web/RefundCoordinator.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/ordertrace/RefundCoordinator.java",
+      "line": 24,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertrace/web/RefundCoordinator.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/ordertrace/RefundCoordinator.java",
+      "line": 25,
       "expr": "paymentTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertrace/web/RefundCoordinator.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/ordertrace/RefundCoordinator.java",
+      "line": 30,
       "expr": "refundCode2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertrace/web/RefundCoordinator.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/ordertrace/RefundCoordinator.java",
+      "line": 31,
       "expr": "shipmentCode3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordertrace/web/RefundCoordinator.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/ordertrace/RefundCoordinator.java",
+      "line": 32,
       "expr": "shipmentCode3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/QuoteComposer.java",
+      "file": "service/src/main/java/nw/ordertrace/QuoteComposer.java",
       "line": 25,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/QuoteComposer.java",
+      "file": "service/src/main/java/nw/ordertrace/QuoteComposer.java",
       "line": 28,
       "expr": "channelTag101",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/QuoteComposer.java",
+      "file": "service/src/main/java/nw/ordertrace/QuoteComposer.java",
       "line": 29,
       "expr": "catalogKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/QuoteComposer.java",
+      "file": "service/src/main/java/nw/ordertrace/QuoteComposer.java",
       "line": 30,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 32,
       "expr": "batchTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 33,
       "expr": "orderRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 34,
       "expr": "orderRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 39,
       "expr": "quoteRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 40,
       "expr": "quoteRef203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 43,
       "expr": "tariffRef204",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 44,
       "expr": "ledgerEntry205",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 45,
       "expr": "ledgerEntry205",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 50,
       "expr": "channelTag206",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 53,
       "expr": "channelTag206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 54,
       "expr": "catalogKey207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 55,
       "expr": "catalogKey207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 60,
       "expr": "receiptKey208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 61,
       "expr": "accountRef209",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 62,
       "expr": "accountRef209",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 63,
       "expr": "voucherRef210",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 68,
       "expr": "paymentTag211",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 69,
       "expr": "refundCode212",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 70,
       "expr": "shipmentCode213",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 71,
       "expr": "shipmentCode213",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 76,
       "expr": "manifestKey214",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 77,
       "expr": "invoiceKey215",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 78,
       "expr": "batchTag216",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 79,
       "expr": "batchTag216",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 84,
       "expr": "orderRef217",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 85,
       "expr": "quoteRef218",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 86,
       "expr": "quoteRef218",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 91,
       "expr": "tariffRef219",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 92,
       "expr": "tariffRef219",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 93,
       "expr": "ledgerEntry220",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 98,
       "expr": "channelTag221",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 99,
       "expr": "catalogKey222",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 100,
       "expr": "receiptKey223",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/CatalogRouter.java",
+      "file": "service/src/main/java/nw/ordertrace/CatalogRouter.java",
       "line": 101,
       "expr": "receiptKey223",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/ShipmentFilter.java",
+      "file": "service/src/main/java/nw/ordertrace/ShipmentFilter.java",
       "line": 24,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/QuoteGateway.java",
+      "file": "service/src/main/java/nw/ordertrace/QuoteGateway.java",
       "line": 22,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordertrace/service/QuoteGateway.java",
+      "file": "service/src/main/java/nw/ordertrace/QuoteGateway.java",
       "line": 29,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/ordertrace/service/QuoteMapper.xml",
+      "file": "service/src/main/resources/nw/ordertrace/QuoteMapper.xml",
       "line": 9,
       "expr": "refundCode",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -375,6 +375,6 @@
     "payload_at_sink": "SELECT id, total       FROM shipments      WHERE ref_no = 'ref_ref_ref_ref_zz OR 1=1--'      ORDER BY id DESC",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-1021 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordergrant/web/CatalogController.java",
+    "file": "web/src/main/java/nw/ordergrant/CatalogController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordergrant/web/CatalogController.java",
+    "file": "web/src/main/java/nw/ordergrant/CatalogController.java",
     "line": 27,
     "expr": "label",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/ordergrant/service/CatalogFetcher.java",
+    "file": "service/src/main/java/nw/ordergrant/CatalogFetcher.java",
     "line": 32,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/ordergrant/service/CatalogFetcher.java",
+    "file": "service/src/main/java/nw/ordergrant/CatalogFetcher.java",
     "line": 28,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
@@ -29,235 +29,235 @@
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/CatalogController.java",
+      "file": "web/src/main/java/nw/ordergrant/CatalogController.java",
       "line": 27,
       "expr": "label",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/ordergrant/ReceiptNormalizer.java",
       "line": 20,
       "expr": "voucherRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/ordergrant/ReceiptNormalizer.java",
       "line": 21,
       "expr": "voucherRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/ordergrant/ReceiptNormalizer.java",
       "line": 26,
       "expr": "paymentTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/ordergrant/ReceiptNormalizer.java",
       "line": 27,
       "expr": "refundCode3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/ordergrant/ReceiptNormalizer.java",
       "line": 28,
       "expr": "shipmentCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/ordergrant/ReceiptNormalizer.java",
       "line": 29,
       "expr": "shipmentCode4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/AccountService.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/ordergrant/AccountService.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/AccountService.java",
-      "line": 29,
+      "file": "web/src/main/java/nw/ordergrant/AccountService.java",
+      "line": 28,
       "expr": "ledgerEntry101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/AccountService.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/ordergrant/AccountService.java",
+      "line": 29,
       "expr": "channelTag102",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordergrant/web/AccountService.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/ordergrant/AccountService.java",
+      "line": 30,
       "expr": "channelTag102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 23,
       "expr": "invoiceKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 24,
       "expr": "invoiceKey201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 29,
       "expr": "batchTag202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 30,
       "expr": "orderRef203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 31,
       "expr": "quoteRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 32,
       "expr": "quoteRef204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 37,
       "expr": "tariffRef205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 38,
       "expr": "ledgerEntry206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 39,
       "expr": "channelTag207",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 40,
       "expr": "channelTag207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 45,
       "expr": "catalogKey208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 48,
       "expr": "catalogKey208",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 49,
       "expr": "receiptKey209",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 52,
       "expr": "receiptKey209",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 53,
       "expr": "accountRef210",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 54,
       "expr": "accountRef210",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 59,
       "expr": "voucherRef211",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 60,
       "expr": "paymentTag212",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 61,
       "expr": "refundCode213",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/BatchResolver.java",
+      "file": "service/src/main/java/nw/ordergrant/BatchResolver.java",
       "line": 62,
       "expr": "refundCode213",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/LedgerService.java",
+      "file": "service/src/main/java/nw/ordergrant/LedgerService.java",
       "line": 17,
       "expr": "voucherRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/LedgerService.java",
+      "file": "service/src/main/java/nw/ordergrant/LedgerService.java",
       "line": 18,
       "expr": "voucherRef301",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/LedgerService.java",
+      "file": "service/src/main/java/nw/ordergrant/LedgerService.java",
       "line": 23,
       "expr": "paymentTag302",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/LedgerService.java",
+      "file": "service/src/main/java/nw/ordergrant/LedgerService.java",
       "line": 24,
       "expr": "refundCode303",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/LedgerService.java",
+      "file": "service/src/main/java/nw/ordergrant/LedgerService.java",
       "line": 25,
       "expr": "refundCode303",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/CatalogFetcher.java",
+      "file": "service/src/main/java/nw/ordergrant/CatalogFetcher.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/CatalogFetcher.java",
+      "file": "service/src/main/java/nw/ordergrant/CatalogFetcher.java",
       "line": 28,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordergrant/service/CatalogFetcher.java",
+      "file": "service/src/main/java/nw/ordergrant/CatalogFetcher.java",
       "line": 32,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
@@ -316,7 +316,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "api.internal.example",
       "reached": true,

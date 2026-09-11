@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-SSRF-3000 逐行相同，仅把净化改为 ssrf_host_allowlist",
   "entry": {
-    "file": "web/src/main/java/com/northwind/accountsubmit/web/SessionController.java",
+    "file": "web/src/main/java/nw/accountsubmit/SessionController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/accountsubmit/web/SessionController.java",
+    "file": "web/src/main/java/nw/accountsubmit/SessionController.java",
     "line": 23,
     "expr": "resource",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+    "file": "dao/src/main/java/nw/accountsubmit/SessionFetcher.java",
     "line": 31,
     "expr": "endpoint",
     "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+    "file": "dao/src/main/java/nw/accountsubmit/SessionFetcher.java",
     "line": 27,
     "expr": "endpoint",
     "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
@@ -29,91 +29,91 @@
   "sanitizer_kind": "ssrf_host_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/accountsubmit/web/SessionController.java",
+      "file": "web/src/main/java/nw/accountsubmit/SessionController.java",
       "line": 23,
       "expr": "resource",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/accountsubmit/ManifestEnricher.java",
+      "line": 24,
       "expr": "paymentTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/accountsubmit/ManifestEnricher.java",
+      "line": 25,
       "expr": "paymentTag1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/accountsubmit/ManifestEnricher.java",
+      "line": 30,
       "expr": "refundCode2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/accountsubmit/ManifestEnricher.java",
+      "line": 31,
       "expr": "shipmentCode3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountsubmit/web/ManifestEnricher.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/accountsubmit/ManifestEnricher.java",
+      "line": 32,
       "expr": "shipmentCode3",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountsubmit/service/ContractComposer.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/accountsubmit/ContractComposer.java",
+      "line": 19,
       "expr": "channelTag101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountsubmit/service/ContractComposer.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/accountsubmit/ContractComposer.java",
+      "line": 20,
       "expr": "catalogKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountsubmit/service/ContractComposer.java",
-      "line": 22,
+      "file": "service/src/main/java/nw/accountsubmit/ContractComposer.java",
+      "line": 21,
       "expr": "catalogKey102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/BatchComposer.java",
+      "file": "dao/src/main/java/nw/accountsubmit/BatchComposer.java",
       "line": 19,
       "expr": "batchTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/BatchComposer.java",
+      "file": "dao/src/main/java/nw/accountsubmit/BatchComposer.java",
       "line": 20,
       "expr": "orderRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/BatchComposer.java",
+      "file": "dao/src/main/java/nw/accountsubmit/BatchComposer.java",
       "line": 21,
       "expr": "orderRef202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+      "file": "dao/src/main/java/nw/accountsubmit/SessionFetcher.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+      "file": "dao/src/main/java/nw/accountsubmit/SessionFetcher.java",
       "line": 27,
       "expr": "endpoint",
       "note": "SANITIZER: 解析出 host 后查白名单（CWE-918 的惯用正确修复）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountsubmit/dao/SessionFetcher.java",
+      "file": "dao/src/main/java/nw/accountsubmit/SessionFetcher.java",
       "line": 31,
       "expr": "endpoint",
       "note": "SINK 位置：CWE-918（已被 host 白名单拦下）"
@@ -156,7 +156,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "api.internal.example",
       "reached": true,

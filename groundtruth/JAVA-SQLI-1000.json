@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "路径变量经 20 层调用、跨 3 个模块流入JDBC 拼接，经 incomplete_quote_strip 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymenthold/web/PaymentController.java",
+    "file": "web/src/main/java/nw/paymenthold/PaymentController.java",
     "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymenthold/web/PaymentController.java",
+    "file": "web/src/main/java/nw/paymenthold/PaymentController.java",
     "line": 24,
     "expr": "resource",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/paymenthold/dao/PaymentRepository.java",
+    "file": "dao/src/main/java/nw/paymenthold/PaymentRepository.java",
     "line": 24,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/paymenthold/dao/ShipmentPolicy.java",
+    "file": "dao/src/main/java/nw/paymenthold/ShipmentPolicy.java",
     "line": 21,
     "expr": "cleaned",
     "note": "SANITIZER: 不完整净化（无效）"
@@ -29,313 +29,313 @@
   "sanitizer_kind": "incomplete_quote_strip",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymenthold/web/PaymentController.java",
+      "file": "web/src/main/java/nw/paymenthold/PaymentController.java",
       "line": 24,
       "expr": "resource",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymenthold/web/SessionRouter.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/paymenthold/SessionRouter.java",
+      "line": 20,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymenthold/web/SessionRouter.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/paymenthold/SessionRouter.java",
+      "line": 22,
       "expr": "channelTag1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 34,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 35,
       "expr": "batchTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 36,
       "expr": "orderRef102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 37,
       "expr": "orderRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 42,
       "expr": "quoteRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 43,
       "expr": "tariffRef104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 45,
       "expr": "tariffRef104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 47,
       "expr": "ledgerEntry105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 52,
       "expr": "channelTag106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 54,
       "expr": "channelTag106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 58,
       "expr": "catalogKey107",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 59,
       "expr": "receiptKey108",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ContractAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ContractAdapter.java",
       "line": 60,
       "expr": "receiptKey108",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 27,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 28,
       "expr": "paymentTag201",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 33,
       "expr": "refundCode202",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 34,
       "expr": "shipmentCode203",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 35,
       "expr": "shipmentCode203",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 40,
       "expr": "manifestKey204",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 41,
       "expr": "manifestKey204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 42,
       "expr": "invoiceKey205",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 47,
       "expr": "batchTag206",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 50,
       "expr": "batchTag206",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 51,
       "expr": "orderRef207",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 52,
       "expr": "orderRef207",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 57,
       "expr": "quoteRef208",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 60,
       "expr": "quoteRef208",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 61,
       "expr": "tariffRef209",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 62,
       "expr": "tariffRef209",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 67,
       "expr": "ledgerEntry210",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 68,
       "expr": "ledgerEntry210",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 69,
       "expr": "channelTag211",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ReceiptAdapter.java",
+      "file": "service/src/main/java/nw/paymenthold/ReceiptAdapter.java",
       "line": 70,
       "expr": "catalogKey212",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ShipmentRouter.java",
-      "line": 22,
+      "file": "service/src/main/java/nw/paymenthold/ShipmentRouter.java",
+      "line": 21,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ShipmentRouter.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/paymenthold/ShipmentRouter.java",
+      "line": 24,
       "expr": "channelTag301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ShipmentRouter.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/paymenthold/ShipmentRouter.java",
+      "line": 25,
       "expr": "catalogKey302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymenthold/service/ShipmentRouter.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/paymenthold/ShipmentRouter.java",
+      "line": 26,
       "expr": "catalogKey302",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/PaymentRegistry.java",
+      "file": "dao/src/main/java/nw/paymenthold/PaymentRegistry.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/PaymentRegistry.java",
+      "file": "dao/src/main/java/nw/paymenthold/PaymentRegistry.java",
       "line": 24,
       "expr": "batchTag401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/PaymentRegistry.java",
+      "file": "dao/src/main/java/nw/paymenthold/PaymentRegistry.java",
       "line": 25,
       "expr": "batchTag401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/BundlePolicySelector.java",
+      "file": "dao/src/main/java/nw/paymenthold/BundlePolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/BundlePolicyStandard.java",
+      "file": "dao/src/main/java/nw/paymenthold/BundlePolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/InvoiceAdapter.java",
+      "file": "dao/src/main/java/nw/paymenthold/InvoiceAdapter.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/InvoiceAdapter.java",
+      "file": "dao/src/main/java/nw/paymenthold/InvoiceAdapter.java",
       "line": 24,
       "expr": "paymentTag501",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/InvoiceAdapter.java",
+      "file": "dao/src/main/java/nw/paymenthold/InvoiceAdapter.java",
       "line": 25,
       "expr": "refundCode502",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/InvoiceAdapter.java",
+      "file": "dao/src/main/java/nw/paymenthold/InvoiceAdapter.java",
       "line": 26,
       "expr": "refundCode502",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/ShipmentPolicy.java",
+      "file": "dao/src/main/java/nw/paymenthold/ShipmentPolicy.java",
       "line": 21,
       "expr": "cleaned",
       "note": "SANITIZER: 不完整净化（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/PaymentRepository.java",
+      "file": "dao/src/main/java/nw/paymenthold/PaymentRepository.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/paymenthold/dao/PaymentRepository.java",
+      "file": "dao/src/main/java/nw/paymenthold/PaymentRepository.java",
       "line": 24,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -400,6 +400,6 @@
     "payload_at_sink": "SELECT id, total FROM shipments WHERE code = 'ref_ref_ref_ref_ref_ref_ref_zz OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

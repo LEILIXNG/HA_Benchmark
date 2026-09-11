@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 16 层调用、跨 2 个模块流入文件读取，经 traversal_replace_once 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogController.java",
+    "file": "web/src/main/java/nw/pricingrevise/CatalogController.java",
     "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogController.java",
+    "file": "web/src/main/java/nw/pricingrevise/CatalogController.java",
     "line": 24,
     "expr": "target",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/pricingrevise/service/CatalogLoader.java",
+    "file": "service/src/main/java/nw/pricingrevise/CatalogLoader.java",
     "line": 26,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/pricingrevise/service/ReceiptPolicy.java",
+    "file": "service/src/main/java/nw/pricingrevise/ReceiptPolicy.java",
     "line": 20,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 ../（无效）"
@@ -29,223 +29,223 @@
   "sanitizer_kind": "traversal_replace_once",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogController.java",
+      "file": "web/src/main/java/nw/pricingrevise/CatalogController.java",
       "line": 24,
       "expr": "target",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/SessionCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/SessionCollector.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/SessionCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/SessionCollector.java",
       "line": 24,
       "expr": "manifestKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/RefundPolicySelector.java",
+      "file": "web/src/main/java/nw/pricingrevise/RefundPolicySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/RefundPolicyStandard.java",
+      "file": "web/src/main/java/nw/pricingrevise/RefundPolicyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/CatalogCollector.java",
       "line": 24,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/CatalogCollector.java",
       "line": 25,
       "expr": "accountRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/CatalogCollector.java",
       "line": 26,
       "expr": "accountRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/CatalogCollector.java",
       "line": 31,
       "expr": "voucherRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/CatalogCollector.java",
       "line": 32,
       "expr": "paymentTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/CatalogCollector.java",
+      "file": "web/src/main/java/nw/pricingrevise/CatalogCollector.java",
       "line": 33,
       "expr": "paymentTag103",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 26,
       "expr": "tariffRef201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 27,
       "expr": "tariffRef201",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 32,
       "expr": "ledgerEntry202",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 35,
       "expr": "ledgerEntry202",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 36,
       "expr": "channelTag203",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 37,
       "expr": "channelTag203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 38,
       "expr": "catalogKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 43,
       "expr": "receiptKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 45,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 44,
       "expr": "receiptKey205",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingrevise/web/ShipmentService.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/pricingrevise/ShipmentService.java",
+      "line": 45,
       "expr": "accountRef206",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 24,
       "expr": "manifestKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 26,
       "expr": "manifestKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 28,
       "expr": "invoiceKey302",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 33,
       "expr": "batchTag303",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 34,
       "expr": "orderRef304",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 35,
       "expr": "orderRef304",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 40,
       "expr": "quoteRef305",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 41,
       "expr": "quoteRef305",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 42,
       "expr": "ledgerEntry307",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentTranslator.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentTranslator.java",
       "line": 43,
       "expr": "ledgerEntry307",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentFacade.java",
       "line": 23,
       "expr": "accountRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentFacade.java",
       "line": 24,
       "expr": "voucherRef402",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/PaymentFacade.java",
+      "file": "service/src/main/java/nw/pricingrevise/PaymentFacade.java",
       "line": 25,
       "expr": "voucherRef402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/ReceiptPolicy.java",
+      "file": "service/src/main/java/nw/pricingrevise/ReceiptPolicy.java",
       "line": 20,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 ../（无效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/CatalogLoader.java",
+      "file": "service/src/main/java/nw/pricingrevise/CatalogLoader.java",
       "line": 22,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingrevise/service/CatalogLoader.java",
+      "file": "service/src/main/java/nw/pricingrevise/CatalogLoader.java",
       "line": 26,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -302,6 +302,6 @@
     "payload_at_sink": "/opt/pricing/exchange/ref_ref_ref_ref_ref_../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

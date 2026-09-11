@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/customerhold/web/QuoteController.java",
+    "file": "web/src/main/java/nw/customerhold/QuoteController.java",
     "line": 18,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/customerhold/web/QuoteController.java",
+    "file": "web/src/main/java/nw/customerhold/QuoteController.java",
     "line": 20,
     "expr": "token",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/customerhold/dao/QuoteLoader.java",
+    "file": "dao/src/main/java/nw/customerhold/QuoteLoader.java",
     "line": 27,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,199 +24,199 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/QuoteController.java",
+      "file": "web/src/main/java/nw/customerhold/QuoteController.java",
       "line": 20,
       "expr": "token",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/LedgerNormalizer.java",
+      "file": "web/src/main/java/nw/customerhold/LedgerNormalizer.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/LedgerNormalizer.java",
+      "file": "web/src/main/java/nw/customerhold/LedgerNormalizer.java",
       "line": 20,
       "expr": "channelTag1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/LedgerNormalizer.java",
+      "file": "web/src/main/java/nw/customerhold/LedgerNormalizer.java",
       "line": 25,
       "expr": "catalogKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/LedgerNormalizer.java",
+      "file": "web/src/main/java/nw/customerhold/LedgerNormalizer.java",
       "line": 28,
       "expr": "catalogKey2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/LedgerNormalizer.java",
+      "file": "web/src/main/java/nw/customerhold/LedgerNormalizer.java",
       "line": 29,
       "expr": "receiptKey3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/LedgerNormalizer.java",
+      "file": "web/src/main/java/nw/customerhold/LedgerNormalizer.java",
       "line": 30,
       "expr": "receiptKey3",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 24,
       "expr": "batchTag101",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 29,
       "expr": "orderRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 30,
       "expr": "quoteRef103",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 31,
       "expr": "quoteRef103",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 36,
       "expr": "tariffRef104",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 38,
       "expr": "tariffRef104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/customerhold/web/TariffBroker2.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/customerhold/TariffBroker2.java",
+      "line": 40,
       "expr": "ledgerEntry105",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 19,
       "expr": "paymentTag201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 20,
       "expr": "paymentTag201",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 25,
       "expr": "refundCode202",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 27,
       "expr": "refundCode202",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 32,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 31,
       "expr": "shipmentCode203",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 33,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 32,
       "expr": "manifestKey204",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 33,
       "expr": "manifestKey204",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 39,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 38,
       "expr": "invoiceKey205",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 39,
       "expr": "batchTag206",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/customerhold/service/TariffBroker.java",
-      "line": 41,
+      "file": "service/src/main/java/nw/customerhold/TariffBroker.java",
+      "line": 40,
       "expr": "batchTag206",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/ChannelBuilder.java",
+      "file": "dao/src/main/java/nw/customerhold/ChannelBuilder.java",
       "line": 15,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/ChannelBuilder.java",
+      "file": "dao/src/main/java/nw/customerhold/ChannelBuilder.java",
       "line": 16,
       "expr": "channelTag301",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/ChannelBuilder.java",
+      "file": "dao/src/main/java/nw/customerhold/ChannelBuilder.java",
       "line": 21,
       "expr": "catalogKey302",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/ChannelBuilder.java",
+      "file": "dao/src/main/java/nw/customerhold/ChannelBuilder.java",
       "line": 24,
       "expr": "catalogKey302",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/ChannelBuilder.java",
+      "file": "dao/src/main/java/nw/customerhold/ChannelBuilder.java",
       "line": 25,
       "expr": "receiptKey303",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/ChannelBuilder.java",
+      "file": "dao/src/main/java/nw/customerhold/ChannelBuilder.java",
       "line": 26,
       "expr": "receiptKey303",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/nw/customerhold/QuoteLoader.java",
       "line": 23,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/customerhold/dao/QuoteLoader.java",
+      "file": "dao/src/main/java/nw/customerhold/QuoteLoader.java",
       "line": 27,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -270,6 +270,6 @@
     "payload_at_sink": "/var/lib/customer/data/ref_ref_ref_ref_ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

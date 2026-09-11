@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 2 个模块流入URL 抓取，经 ssrf_host_denylist 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/billinggrant/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/billinggrant/ShipmentController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/billinggrant/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/billinggrant/ShipmentController.java",
     "line": 28,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/billinggrant/service/ShipmentFetcher.java",
+    "file": "service/src/main/java/nw/billinggrant/ShipmentFetcher.java",
     "line": 22,
     "expr": "endpoint",
     "note": "SINK: CWE-918 服务端请求伪造"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/billinggrant/service/BatchGuard.java",
+    "file": "service/src/main/java/nw/billinggrant/BatchGuard.java",
     "line": 23,
     "expr": "value",
     "note": "SANITIZER: 按名字拒绝 localhost（无效）"
@@ -29,103 +29,103 @@
   "sanitizer_kind": "ssrf_host_denylist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/ShipmentController.java",
+      "file": "web/src/main/java/nw/billinggrant/ShipmentController.java",
       "line": 28,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 32,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 34,
       "expr": "voucherRef2",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 35,
       "expr": "voucherRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 40,
       "expr": "paymentTag3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 42,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 41,
       "expr": "refundCode4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 43,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 42,
       "expr": "refundCode4",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 48,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 47,
       "expr": "shipmentCode5",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 49,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 48,
       "expr": "shipmentCode5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 52,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 51,
       "expr": "manifestKey6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 53,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 52,
       "expr": "invoiceKey7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/billinggrant/web/PaymentRouter.java",
-      "line": 54,
+      "file": "web/src/main/java/nw/billinggrant/PaymentRouter.java",
+      "line": 53,
       "expr": "invoiceKey7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billinggrant/service/ReceiptService.java",
+      "file": "service/src/main/java/nw/billinggrant/ReceiptService.java",
       "line": 19,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/billinggrant/service/ReceiptService.java",
+      "file": "service/src/main/java/nw/billinggrant/ReceiptService.java",
       "line": 20,
       "expr": "tariffRef101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/billinggrant/service/BatchGuard.java",
+      "file": "service/src/main/java/nw/billinggrant/BatchGuard.java",
       "line": 23,
       "expr": "value",
       "note": "SANITIZER: 按名字拒绝 localhost（无效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/billinggrant/service/ShipmentFetcher.java",
+      "file": "service/src/main/java/nw/billinggrant/ShipmentFetcher.java",
       "line": 18,
       "expr": "value",
       "note": "污点进入 URL"
     },
     {
-      "file": "service/src/main/java/com/northwind/billinggrant/service/ShipmentFetcher.java",
+      "file": "service/src/main/java/nw/billinggrant/ShipmentFetcher.java",
       "line": 22,
       "expr": "endpoint",
       "note": "SINK: CWE-918 服务端请求伪造"
@@ -168,6 +168,6 @@
     "payload_at_sink": "http://ref_ref_127.0.0.1:1/api/ping",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

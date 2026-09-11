@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 15 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/accountdispatch/web/VoucherController.java",
+    "file": "web/src/main/java/nw/accountdispatch/VoucherController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/accountdispatch/web/VoucherController.java",
+    "file": "web/src/main/java/nw/accountdispatch/VoucherController.java",
     "line": 25,
     "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/accountdispatch/dao/VoucherLoader.java",
+    "file": "dao/src/main/java/nw/accountdispatch/VoucherLoader.java",
     "line": 27,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,253 +24,253 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/accountdispatch/web/VoucherController.java",
+      "file": "web/src/main/java/nw/accountdispatch/VoucherController.java",
       "line": 25,
       "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdispatch/web/OrderEnricher.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/accountdispatch/OrderEnricher.java",
+      "line": 20,
       "expr": "shipmentCode1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdispatch/web/OrderEnricher.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/accountdispatch/OrderEnricher.java",
+      "line": 21,
       "expr": "shipmentCode1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdispatch/web/OrderEnricher.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/accountdispatch/OrderEnricher.java",
+      "line": 26,
       "expr": "manifestKey2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdispatch/web/OrderEnricher.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/accountdispatch/OrderEnricher.java",
+      "line": 27,
       "expr": "invoiceKey3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdispatch/web/OrderEnricher.java",
-      "line": 29,
+      "file": "web/src/main/java/nw/accountdispatch/OrderEnricher.java",
+      "line": 28,
       "expr": "batchTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdispatch/web/OrderEnricher.java",
-      "line": 30,
+      "file": "web/src/main/java/nw/accountdispatch/OrderEnricher.java",
+      "line": 29,
       "expr": "batchTag4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 33,
       "expr": "receiptKey101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 35,
       "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 37,
       "expr": "accountRef102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 42,
       "expr": "voucherRef103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 45,
       "expr": "voucherRef103",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 46,
       "expr": "paymentTag104",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 47,
       "expr": "paymentTag104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 48,
       "expr": "refundCode105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 53,
       "expr": "shipmentCode106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 54,
       "expr": "shipmentCode106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 55,
       "expr": "manifestKey107",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 60,
       "expr": "invoiceKey108",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 61,
       "expr": "batchTag109",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 64,
       "expr": "batchTag109",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 65,
       "expr": "orderRef110",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 66,
       "expr": "orderRef110",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 71,
       "expr": "quoteRef111",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 72,
       "expr": "tariffRef112",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 75,
       "expr": "tariffRef112",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 76,
       "expr": "ledgerEntry113",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractNormalizer.java",
+      "file": "service/src/main/java/nw/accountdispatch/ContractNormalizer.java",
       "line": 77,
       "expr": "ledgerEntry113",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractResolver.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/accountdispatch/ContractResolver.java",
+      "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdispatch/service/ContractResolver.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/accountdispatch/ContractResolver.java",
+      "line": 20,
       "expr": "quoteRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/BundleCoordinator.java",
       "line": 24,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/BundleCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/BundleCoordinator.java",
       "line": 26,
       "expr": "shipmentCode301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/LedgerCoordinator.java",
       "line": 25,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/LedgerCoordinator.java",
       "line": 26,
       "expr": "receiptKey401",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/LedgerCoordinator.java",
       "line": 27,
       "expr": "receiptKey401",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/LedgerCoordinator.java",
       "line": 32,
       "expr": "accountRef402",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/LedgerCoordinator.java",
       "line": 35,
       "expr": "accountRef402",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/LedgerCoordinator.java",
       "line": 36,
       "expr": "voucherRef403",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/LedgerCoordinator.java",
+      "file": "dao/src/main/java/nw/accountdispatch/LedgerCoordinator.java",
       "line": 37,
       "expr": "voucherRef403",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/VoucherLoader.java",
+      "file": "dao/src/main/java/nw/accountdispatch/VoucherLoader.java",
       "line": 23,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/accountdispatch/dao/VoucherLoader.java",
+      "file": "dao/src/main/java/nw/accountdispatch/VoucherLoader.java",
       "line": 27,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -330,6 +330,6 @@
     "payload_at_sink": "/srv/account/inbox/ref_ref_ref_ref_ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

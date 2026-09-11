@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Cookie经 7 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/northwind/shippingsync/web/TariffController.java",
+    "file": "web/src/main/java/nw/shippingsync/TariffController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/shippingsync/web/TariffController.java",
+    "file": "web/src/main/java/nw/shippingsync/TariffController.java",
     "line": 25,
     "expr": "userName",
     "note": "SOURCE: Spring Cookie"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/shippingsync/service/TariffEvaluator.java",
+    "file": "service/src/main/java/nw/shippingsync/TariffEvaluator.java",
     "line": 26,
     "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -24,103 +24,103 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/TariffController.java",
+      "file": "web/src/main/java/nw/shippingsync/TariffController.java",
       "line": 25,
       "expr": "userName",
       "note": "SOURCE: Spring Cookie"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 20,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 22,
       "expr": "voucherRef1",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 27,
       "expr": "paymentTag2",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 30,
       "expr": "paymentTag2",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 31,
       "expr": "refundCode3",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 34,
       "expr": "refundCode3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 35,
       "expr": "shipmentCode4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/shippingsync/web/OrderNormalizer.java",
-      "line": 37,
+      "file": "web/src/main/java/nw/shippingsync/OrderNormalizer.java",
+      "line": 36,
       "expr": "shipmentCode4",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/shippingsync/ShipmentComposer.java",
       "line": 22,
       "expr": "ledgerEntry101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/shippingsync/ShipmentComposer.java",
       "line": 23,
       "expr": "ledgerEntry101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/shippingsync/ShipmentComposer.java",
       "line": 28,
       "expr": "channelTag102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/shippingsync/ShipmentComposer.java",
       "line": 29,
       "expr": "channelTag102",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/shippingsync/ShipmentComposer.java",
       "line": 30,
       "expr": "catalogKey103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/ShipmentComposer.java",
+      "file": "service/src/main/java/nw/shippingsync/ShipmentComposer.java",
       "line": 31,
       "expr": "receiptKey104",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/TariffEvaluator.java",
+      "file": "service/src/main/java/nw/shippingsync/TariffEvaluator.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/northwind/shippingsync/service/TariffEvaluator.java",
+      "file": "service/src/main/java/nw/shippingsync/TariffEvaluator.java",
       "line": 26,
       "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -163,6 +163,6 @@
     "payload_at_sink": "'seq-' + 'ref_ref_ref_zz'+T(java.lang.Runtime)+'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

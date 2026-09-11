@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 10 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricingdraft/web/ChannelController.java",
+    "file": "web/src/main/java/nw/pricingdraft/ChannelController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricingdraft/web/ChannelController.java",
+    "file": "web/src/main/java/nw/pricingdraft/ChannelController.java",
     "line": 28,
     "expr": "userName",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/pricingdraft/service/ChannelMapper.xml",
+    "file": "service/src/main/resources/nw/pricingdraft/ChannelMapper.xml",
     "line": 9,
     "expr": "catalogKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,121 +24,121 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/ChannelController.java",
+      "file": "web/src/main/java/nw/pricingdraft/ChannelController.java",
       "line": 28,
       "expr": "userName",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/OrderService.java",
+      "file": "web/src/main/java/nw/pricingdraft/OrderService.java",
       "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/OrderService.java",
+      "file": "web/src/main/java/nw/pricingdraft/OrderService.java",
       "line": 29,
       "expr": "tariffRef1",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/OrderService.java",
+      "file": "web/src/main/java/nw/pricingdraft/OrderService.java",
       "line": 30,
       "expr": "tariffRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/OrderService.java",
+      "file": "web/src/main/java/nw/pricingdraft/OrderService.java",
       "line": 35,
       "expr": "ledgerEntry2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/OrderService.java",
+      "file": "web/src/main/java/nw/pricingdraft/OrderService.java",
       "line": 36,
       "expr": "channelTag3",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/OrderService.java",
+      "file": "web/src/main/java/nw/pricingdraft/OrderService.java",
       "line": 37,
       "expr": "catalogKey4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/OrderService.java",
+      "file": "web/src/main/java/nw/pricingdraft/OrderService.java",
       "line": 38,
       "expr": "catalogKey4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/SessionStrategySelector.java",
+      "file": "web/src/main/java/nw/pricingdraft/SessionStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/SessionStrategyStandard.java",
+      "file": "web/src/main/java/nw/pricingdraft/SessionStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/BatchCollector.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/pricingdraft/BatchCollector.java",
+      "line": 21,
       "expr": "manifestKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/BatchCollector.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/pricingdraft/BatchCollector.java",
+      "line": 24,
       "expr": "manifestKey101",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/BatchCollector.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/pricingdraft/BatchCollector.java",
+      "line": 25,
       "expr": "invoiceKey102",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricingdraft/web/BatchCollector.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/pricingdraft/BatchCollector.java",
+      "line": 26,
       "expr": "invoiceKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingdraft/service/SessionAdapter.java",
+      "file": "service/src/main/java/nw/pricingdraft/SessionAdapter.java",
       "line": 18,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingdraft/service/SessionAdapter.java",
+      "file": "service/src/main/java/nw/pricingdraft/SessionAdapter.java",
       "line": 19,
       "expr": "accountRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingdraft/service/SessionAdapter.java",
+      "file": "service/src/main/java/nw/pricingdraft/SessionAdapter.java",
       "line": 20,
       "expr": "accountRef201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingdraft/service/ChannelGateway.java",
+      "file": "service/src/main/java/nw/pricingdraft/ChannelGateway.java",
       "line": 15,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricingdraft/service/ChannelGateway.java",
+      "file": "service/src/main/java/nw/pricingdraft/ChannelGateway.java",
       "line": 22,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/pricingdraft/service/ChannelMapper.xml",
+      "file": "service/src/main/resources/nw/pricingdraft/ChannelMapper.xml",
       "line": 9,
       "expr": "catalogKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -181,6 +181,6 @@
     "payload_at_sink": "SELECT id, total       FROM quote_items      WHERE ref_no = 'zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

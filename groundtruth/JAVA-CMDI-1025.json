@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "请求头经 8 层调用、跨 2 个模块流入命令执行，经 command_allowlist 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/paymentsync/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/paymentsync/ShipmentController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/paymentsync/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/paymentsync/ShipmentController.java",
     "line": 23,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/paymentsync/service/ShipmentExecutor.java",
+    "file": "service/src/main/java/nw/paymentsync/ShipmentExecutor.java",
     "line": 23,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/paymentsync/service/RefundPolicy.java",
+    "file": "service/src/main/java/nw/paymentsync/RefundPolicy.java",
     "line": 20,
     "expr": "value",
     "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
@@ -29,91 +29,91 @@
   "sanitizer_kind": "command_allowlist",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/paymentsync/web/ShipmentController.java",
+      "file": "web/src/main/java/nw/paymentsync/ShipmentController.java",
       "line": 23,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
-      "line": 19,
+      "file": "web/src/main/java/nw/paymentsync/ChannelBroker.java",
+      "line": 18,
       "expr": "quoteRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/paymentsync/ChannelBroker.java",
+      "line": 21,
       "expr": "quoteRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
-      "line": 23,
+      "file": "web/src/main/java/nw/paymentsync/ChannelBroker.java",
+      "line": 22,
       "expr": "tariffRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/paymentsync/web/ChannelBroker.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/paymentsync/ChannelBroker.java",
+      "line": 23,
       "expr": "tariffRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/LedgerAdapter.java",
+      "file": "service/src/main/java/nw/paymentsync/LedgerAdapter.java",
       "line": 11,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/LedgerAdapter.java",
+      "file": "service/src/main/java/nw/paymentsync/LedgerAdapter.java",
       "line": 12,
       "expr": "manifestKey102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/LedgerAdapter.java",
+      "file": "service/src/main/java/nw/paymentsync/LedgerAdapter.java",
       "line": 13,
       "expr": "manifestKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/RefundPolicy.java",
+      "file": "service/src/main/java/nw/paymentsync/RefundPolicy.java",
       "line": 20,
       "expr": "value",
       "note": "SANITIZER: 固定取值白名单（CWE-78 的惯用正确修复）"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/QuoteStrategySelector.java",
+      "file": "service/src/main/java/nw/paymentsync/QuoteStrategySelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/QuoteStrategyStandard.java",
+      "file": "service/src/main/java/nw/paymentsync/QuoteStrategyStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/OrderRegistry.java",
+      "file": "service/src/main/java/nw/paymentsync/OrderRegistry.java",
       "line": 16,
       "expr": "receiptKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/OrderRegistry.java",
+      "file": "service/src/main/java/nw/paymentsync/OrderRegistry.java",
       "line": 17,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/ShipmentExecutor.java",
+      "file": "service/src/main/java/nw/paymentsync/ShipmentExecutor.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/northwind/paymentsync/service/ShipmentExecutor.java",
+      "file": "service/src/main/java/nw/paymentsync/ShipmentExecutor.java",
       "line": 23,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -154,7 +154,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "status",
       "reached": true,

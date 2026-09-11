@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 6 层调用、跨 2 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilrelease/web/PaymentController.java",
+    "file": "web/src/main/java/nw/fulfilrelease/PaymentController.java",
     "line": 15,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilrelease/web/PaymentController.java",
+    "file": "web/src/main/java/nw/fulfilrelease/PaymentController.java",
     "line": 17,
     "expr": "token",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "service/src/main/resources/com/northwind/fulfilrelease/service/PaymentMapper.xml",
+    "file": "service/src/main/resources/nw/fulfilrelease/PaymentMapper.xml",
     "line": 9,
     "expr": "catalogKey",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,97 +24,97 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/PaymentController.java",
+      "file": "web/src/main/java/nw/fulfilrelease/PaymentController.java",
       "line": 17,
       "expr": "token",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 20,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 23,
       "expr": "orderRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 24,
       "expr": "quoteRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 25,
       "expr": "quoteRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 30,
       "expr": "tariffRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 33,
       "expr": "tariffRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 34,
       "expr": "ledgerEntry4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 37,
       "expr": "ledgerEntry4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 38,
       "expr": "channelTag5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilrelease/web/TariffAdapter.java",
-      "line": 40,
+      "file": "web/src/main/java/nw/fulfilrelease/TariffAdapter.java",
+      "line": 39,
       "expr": "channelTag5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrelease/service/SessionNormalizer.java",
+      "file": "service/src/main/java/nw/fulfilrelease/SessionNormalizer.java",
       "line": 16,
       "expr": "refundCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrelease/service/SessionNormalizer.java",
+      "file": "service/src/main/java/nw/fulfilrelease/SessionNormalizer.java",
       "line": 17,
       "expr": "refundCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrelease/service/PaymentGateway.java",
+      "file": "service/src/main/java/nw/fulfilrelease/PaymentGateway.java",
       "line": 19,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilrelease/service/PaymentGateway.java",
+      "file": "service/src/main/java/nw/fulfilrelease/PaymentGateway.java",
       "line": 26,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "service/src/main/resources/com/northwind/fulfilrelease/service/PaymentMapper.xml",
+      "file": "service/src/main/resources/nw/fulfilrelease/PaymentMapper.xml",
       "line": 9,
       "expr": "catalogKey",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -155,6 +155,6 @@
     "payload_at_sink": "SELECT id, ref_no, total       FROM quote_items      WHERE code IN ('ref_zz' OR 1=1--')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

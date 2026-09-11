@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 8 层调用、跨 3 个模块流入命令执行，经 metachar_strip_semicolon 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventoryrevise/web/PaymentController.java",
+    "file": "web/src/main/java/nw/inventoryrevise/PaymentController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventoryrevise/web/PaymentController.java",
+    "file": "web/src/main/java/nw/inventoryrevise/PaymentController.java",
     "line": 26,
     "expr": "label",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/PaymentExecutor.java",
+    "file": "dao/src/main/java/nw/inventoryrevise/PaymentExecutor.java",
     "line": 25,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/LedgerValidator.java",
+    "file": "dao/src/main/java/nw/inventoryrevise/LedgerValidator.java",
     "line": 12,
     "expr": "cleaned",
     "note": "SANITIZER: 只剥离分号（无效）"
@@ -29,97 +29,97 @@
   "sanitizer_kind": "metachar_strip_semicolon",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/PaymentController.java",
+      "file": "web/src/main/java/nw/inventoryrevise/PaymentController.java",
       "line": 26,
       "expr": "label",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 31,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 30,
       "expr": "quoteRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 33,
       "expr": "quoteRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 34,
       "expr": "tariffRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 35,
       "expr": "tariffRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 40,
       "expr": "ledgerEntry3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 42,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 41,
       "expr": "channelTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 44,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 43,
       "expr": "channelTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrevise/web/CatalogBuilder.java",
-      "line": 46,
+      "file": "web/src/main/java/nw/inventoryrevise/CatalogBuilder.java",
+      "line": 45,
       "expr": "catalogKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrevise/service/BundleBuilder.java",
-      "line": 19,
+      "file": "service/src/main/java/nw/inventoryrevise/BundleBuilder.java",
+      "line": 18,
       "expr": "shipmentCode101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrevise/service/BundleBuilder.java",
-      "line": 20,
+      "file": "service/src/main/java/nw/inventoryrevise/BundleBuilder.java",
+      "line": 19,
       "expr": "shipmentCode101",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/SessionNormalizer.java",
+      "file": "dao/src/main/java/nw/inventoryrevise/SessionNormalizer.java",
       "line": 11,
       "expr": "receiptKey201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/SessionNormalizer.java",
+      "file": "dao/src/main/java/nw/inventoryrevise/SessionNormalizer.java",
       "line": 12,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/LedgerValidator.java",
+      "file": "dao/src/main/java/nw/inventoryrevise/LedgerValidator.java",
       "line": 12,
       "expr": "cleaned",
       "note": "SANITIZER: 只剥离分号（无效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/PaymentExecutor.java",
+      "file": "dao/src/main/java/nw/inventoryrevise/PaymentExecutor.java",
       "line": 20,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryrevise/dao/PaymentExecutor.java",
+      "file": "dao/src/main/java/nw/inventoryrevise/PaymentExecutor.java",
       "line": 25,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -162,6 +162,6 @@
     "payload_at_sink": "echo -n ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

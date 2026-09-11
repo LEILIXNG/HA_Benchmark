@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 11 层调用、跨 2 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/northwind/accountdraft/web/SessionController.java",
+    "file": "web/src/main/java/nw/accountdraft/SessionController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/accountdraft/web/SessionController.java",
+    "file": "web/src/main/java/nw/accountdraft/SessionController.java",
     "line": 25,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/accountdraft/service/SessionEvaluator.java",
+    "file": "service/src/main/java/nw/accountdraft/SessionEvaluator.java",
     "line": 26,
     "expr": "expression",
     "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -24,163 +24,163 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/SessionController.java",
+      "file": "web/src/main/java/nw/accountdraft/SessionController.java",
       "line": 25,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 34,
       "expr": "quoteRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 37,
       "expr": "quoteRef1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 38,
       "expr": "tariffRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 40,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 39,
       "expr": "tariffRef2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 45,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 44,
       "expr": "ledgerEntry3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 48,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 47,
       "expr": "ledgerEntry3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 49,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 48,
       "expr": "channelTag4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 50,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 49,
       "expr": "channelTag4",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 55,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 54,
       "expr": "catalogKey5",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 56,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 55,
       "expr": "catalogKey5",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 59,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 58,
       "expr": "receiptKey6",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 60,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 59,
       "expr": "accountRef7",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/accountdraft/web/AccountRouter.java",
-      "line": 61,
+      "file": "web/src/main/java/nw/accountdraft/AccountRouter.java",
+      "line": 60,
       "expr": "accountRef7",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/InvoiceFacade.java",
+      "file": "service/src/main/java/nw/accountdraft/InvoiceFacade.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/InvoiceFacade.java",
+      "file": "service/src/main/java/nw/accountdraft/InvoiceFacade.java",
       "line": 24,
       "expr": "shipmentCode101",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/ManifestResolver.java",
+      "file": "service/src/main/java/nw/accountdraft/ManifestResolver.java",
       "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/ManifestResolver.java",
+      "file": "service/src/main/java/nw/accountdraft/ManifestResolver.java",
       "line": 20,
       "expr": "receiptKey201",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/OrderBuilder.java",
+      "file": "service/src/main/java/nw/accountdraft/OrderBuilder.java",
       "line": 21,
       "expr": "quoteRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/OrderBuilder.java",
+      "file": "service/src/main/java/nw/accountdraft/OrderBuilder.java",
       "line": 24,
       "expr": "quoteRef301",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/OrderBuilder.java",
+      "file": "service/src/main/java/nw/accountdraft/OrderBuilder.java",
       "line": 25,
       "expr": "tariffRef302",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/OrderBuilder.java",
+      "file": "service/src/main/java/nw/accountdraft/OrderBuilder.java",
       "line": 26,
       "expr": "tariffRef302",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/OrderBuilder.java",
+      "file": "service/src/main/java/nw/accountdraft/OrderBuilder.java",
       "line": 31,
       "expr": "ledgerEntry303",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/OrderBuilder.java",
+      "file": "service/src/main/java/nw/accountdraft/OrderBuilder.java",
       "line": 32,
       "expr": "channelTag304",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/OrderBuilder.java",
+      "file": "service/src/main/java/nw/accountdraft/OrderBuilder.java",
       "line": 33,
       "expr": "channelTag304",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/SessionEvaluator.java",
+      "file": "service/src/main/java/nw/accountdraft/SessionEvaluator.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/northwind/accountdraft/service/SessionEvaluator.java",
+      "file": "service/src/main/java/nw/accountdraft/SessionEvaluator.java",
       "line": 26,
       "expr": "expression",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -230,6 +230,6 @@
     "payload_at_sink": "'seq-' + 'ref_ref_ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

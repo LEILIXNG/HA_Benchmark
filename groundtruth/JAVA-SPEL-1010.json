@@ -4,24 +4,24 @@
   "verdict": "vulnerable",
   "title": "查询参数经 8 层调用、跨 2 个模块流入SpEL 表达式求值，经 spel_strip_type_ref 净化",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordersettle/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/ordersettle/ShipmentController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordersettle/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/ordersettle/ShipmentController.java",
     "line": 28,
     "expr": "tag",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/ordersettle/service/ShipmentEvaluator.java",
+    "file": "service/src/main/java/nw/ordersettle/ShipmentEvaluator.java",
     "line": 23,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
   },
   "sanitizer": {
-    "file": "service/src/main/java/com/northwind/ordersettle/service/ChannelValidator.java",
+    "file": "service/src/main/java/nw/ordersettle/ChannelValidator.java",
     "line": 18,
     "expr": "cleaned",
     "note": "SANITIZER: 单次剥离 T(（无效）"
@@ -29,109 +29,109 @@
   "sanitizer_kind": "spel_strip_type_ref",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordersettle/web/ShipmentController.java",
+      "file": "web/src/main/java/nw/ordersettle/ShipmentController.java",
       "line": 28,
       "expr": "tag",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersettle/web/ChannelTranslator.java",
-      "line": 17,
+      "file": "web/src/main/java/nw/ordersettle/ChannelTranslator.java",
+      "line": 16,
       "expr": "ledgerEntry1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersettle/web/ChannelTranslator.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/ordersettle/ChannelTranslator.java",
+      "line": 19,
       "expr": "ledgerEntry1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersettle/web/ChannelTranslator.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/ordersettle/ChannelTranslator.java",
+      "line": 20,
       "expr": "channelTag2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersettle/web/ChannelTranslator.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/ordersettle/ChannelTranslator.java",
+      "line": 21,
       "expr": "channelTag2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 18,
       "expr": "invoiceKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 19,
       "expr": "invoiceKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 20,
       "expr": "batchTag102",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 25,
       "expr": "orderRef103",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 27,
       "expr": "orderRef103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 29,
       "expr": "quoteRef104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 34,
       "expr": "tariffRef105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 35,
       "expr": "ledgerEntry106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 36,
       "expr": "ledgerEntry106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/SessionRouter.java",
+      "file": "service/src/main/java/nw/ordersettle/SessionRouter.java",
       "line": 37,
       "expr": "channelTag107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/ChannelValidator.java",
+      "file": "service/src/main/java/nw/ordersettle/ChannelValidator.java",
       "line": 18,
       "expr": "cleaned",
       "note": "SANITIZER: 单次剥离 T(（无效）"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/ShipmentEvaluator.java",
+      "file": "service/src/main/java/nw/ordersettle/ShipmentEvaluator.java",
       "line": 19,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersettle/service/ShipmentEvaluator.java",
+      "file": "service/src/main/java/nw/ordersettle/ShipmentEvaluator.java",
       "line": 23,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -175,6 +175,6 @@
     "payload_at_sink": "'seq-' + 'ref_ref_ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

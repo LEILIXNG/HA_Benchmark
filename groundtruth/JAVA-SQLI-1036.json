@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 15 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendorrefund/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/vendorrefund/ShipmentController.java",
     "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendorrefund/web/ShipmentController.java",
+    "file": "web/src/main/java/nw/vendorrefund/ShipmentController.java",
     "line": 24,
     "expr": "label",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/vendorrefund/dao/ShipmentRepository.java",
+    "file": "dao/src/main/java/nw/vendorrefund/ShipmentRepository.java",
     "line": 28,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,229 +24,229 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/ShipmentController.java",
+      "file": "web/src/main/java/nw/vendorrefund/ShipmentController.java",
       "line": 24,
       "expr": "label",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 32,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 31,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 32,
       "expr": "quoteRef1",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 38,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 37,
       "expr": "tariffRef2",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 39,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 38,
       "expr": "tariffRef2",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 40,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 39,
       "expr": "ledgerEntry3",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 45,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 44,
       "expr": "channelTag4",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 48,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 47,
       "expr": "channelTag4",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 49,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 48,
       "expr": "catalogKey5",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorrefund/web/OrderNormalizer.java",
-      "line": 50,
+      "file": "web/src/main/java/nw/vendorrefund/OrderNormalizer.java",
+      "line": 49,
       "expr": "catalogKey5",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 33,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 34,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 33,
       "expr": "shipmentCode101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 35,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 34,
       "expr": "shipmentCode101",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 40,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 39,
       "expr": "manifestKey102",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 43,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 42,
       "expr": "manifestKey102",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 44,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 43,
       "expr": "invoiceKey103",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 45,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 44,
       "expr": "batchTag104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorrefund/service/ChannelResolver.java",
-      "line": 46,
+      "file": "service/src/main/java/nw/vendorrefund/ChannelResolver.java",
+      "line": 45,
       "expr": "batchTag104",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 33,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 34,
       "expr": "receiptKey201",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 35,
       "expr": "accountRef202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 36,
       "expr": "accountRef202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 41,
       "expr": "voucherRef203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 42,
       "expr": "paymentTag204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 43,
       "expr": "refundCode205",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 44,
       "expr": "refundCode205",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 49,
       "expr": "shipmentCode206",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 50,
       "expr": "manifestKey207",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 51,
       "expr": "manifestKey207",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 56,
       "expr": "invoiceKey208",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 57,
       "expr": "invoiceKey208",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 58,
       "expr": "orderRef210",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 59,
       "expr": "orderRef210",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 64,
       "expr": "quoteRef211",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 65,
       "expr": "quoteRef211",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/PaymentCoordinator.java",
+      "file": "dao/src/main/java/nw/vendorrefund/PaymentCoordinator.java",
       "line": 66,
       "expr": "tariffRef212",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/ShipmentRepository.java",
+      "file": "dao/src/main/java/nw/vendorrefund/ShipmentRepository.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorrefund/dao/ShipmentRepository.java",
+      "file": "dao/src/main/java/nw/vendorrefund/ShipmentRepository.java",
       "line": 28,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -303,6 +303,6 @@
     "payload_at_sink": "SELECT id, total FROM quote_items WHERE code = 'ref_ref_ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

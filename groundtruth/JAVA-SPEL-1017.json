@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 8 层调用、跨 3 个模块流入SpEL 表达式求值",
   "entry": {
-    "file": "web/src/main/java/com/northwind/ordersubmit/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/ordersubmit/InvoiceController.java",
     "line": 22,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/ordersubmit/web/InvoiceController.java",
+    "file": "web/src/main/java/nw/ordersubmit/InvoiceController.java",
     "line": 24,
     "expr": "category",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/ordersubmit/dao/InvoiceEvaluator.java",
+    "file": "dao/src/main/java/nw/ordersubmit/InvoiceEvaluator.java",
     "line": 25,
     "expr": "template",
     "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -24,103 +24,103 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/ordersubmit/web/InvoiceController.java",
+      "file": "web/src/main/java/nw/ordersubmit/InvoiceController.java",
       "line": 24,
       "expr": "category",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersubmit/web/BundleCollector.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/ordersubmit/BundleCollector.java",
+      "line": 23,
       "expr": "catalogKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersubmit/web/BundleCollector.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/ordersubmit/BundleCollector.java",
+      "line": 25,
       "expr": "catalogKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/ordersubmit/web/BundleCollector.java",
-      "line": 28,
+      "file": "web/src/main/java/nw/ordersubmit/BundleCollector.java",
+      "line": 27,
       "expr": "receiptKey2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/ordersubmit/ReceiptResolver.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/ordersubmit/ReceiptResolver.java",
+      "line": 28,
       "expr": "orderRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
-      "line": 30,
+      "file": "service/src/main/java/nw/ordersubmit/ReceiptResolver.java",
+      "line": 29,
       "expr": "orderRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/ordersubmit/service/ReceiptResolver.java",
-      "line": 31,
+      "file": "service/src/main/java/nw/ordersubmit/ReceiptResolver.java",
+      "line": 30,
       "expr": "quoteRef102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/ordersubmit/ShipmentService.java",
       "line": 19,
       "expr": "refundCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/ordersubmit/ShipmentService.java",
       "line": 20,
       "expr": "shipmentCode202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/ShipmentService.java",
+      "file": "dao/src/main/java/nw/ordersubmit/ShipmentService.java",
       "line": 21,
       "expr": "shipmentCode202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/PaymentPlanSelector.java",
+      "file": "dao/src/main/java/nw/ordersubmit/PaymentPlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/PaymentPlanStandard.java",
+      "file": "dao/src/main/java/nw/ordersubmit/PaymentPlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/SessionBuilder.java",
+      "file": "dao/src/main/java/nw/ordersubmit/SessionBuilder.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/SessionBuilder.java",
+      "file": "dao/src/main/java/nw/ordersubmit/SessionBuilder.java",
       "line": 24,
       "expr": "catalogKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/InvoiceEvaluator.java",
+      "file": "dao/src/main/java/nw/ordersubmit/InvoiceEvaluator.java",
       "line": 22,
       "expr": "value",
       "note": "污点进入 SpEL 表达式"
     },
     {
-      "file": "dao/src/main/java/com/northwind/ordersubmit/dao/InvoiceEvaluator.java",
+      "file": "dao/src/main/java/nw/ordersubmit/InvoiceEvaluator.java",
       "line": 25,
       "expr": "template",
       "note": "SINK: CWE-917 SpEL 表达式注入"
@@ -164,6 +164,6 @@
     "payload_at_sink": "'seq-' + 'ref_ref_ref_zz' + T(java.lang.Runtime) + 'zz'",
     "http_status": 200,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

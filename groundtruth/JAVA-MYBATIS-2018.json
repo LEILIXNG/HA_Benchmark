@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "路径变量经 13 层调用、跨 3 个模块流入MyBatis ${} 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelController.java",
+    "file": "web/src/main/java/nw/vendorledger/ChannelController.java",
     "line": 26,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelController.java",
+    "file": "web/src/main/java/nw/vendorledger/ChannelController.java",
     "line": 28,
     "expr": "query",
     "note": "SOURCE: Spring 路径变量"
   },
   "sink": {
-    "file": "dao/src/main/resources/com/northwind/vendorledger/dao/ChannelMapper.xml",
+    "file": "dao/src/main/resources/nw/vendorledger/ChannelMapper.xml",
     "line": 9,
     "expr": "tariffRef",
     "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -24,187 +24,187 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelController.java",
+      "file": "web/src/main/java/nw/vendorledger/ChannelController.java",
       "line": 28,
       "expr": "query",
       "note": "SOURCE: Spring 路径变量"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/vendorledger/ReceiptNormalizer.java",
       "line": 23,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ReceiptNormalizer.java",
+      "file": "web/src/main/java/nw/vendorledger/ReceiptNormalizer.java",
       "line": 24,
       "expr": "receiptKey1",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 33,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 34,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 33,
       "expr": "quoteRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 35,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 34,
       "expr": "quoteRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 36,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 35,
       "expr": "tariffRef102",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 41,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 40,
       "expr": "ledgerEntry103",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 42,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 41,
       "expr": "ledgerEntry103",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 43,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 42,
       "expr": "channelTag104",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 48,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 47,
       "expr": "catalogKey105",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 49,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 48,
       "expr": "receiptKey106",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/vendorledger/web/ChannelFacade.java",
-      "line": 50,
+      "file": "web/src/main/java/nw/vendorledger/ChannelFacade.java",
+      "line": 49,
       "expr": "receiptKey106",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorledger/service/CatalogRegistry.java",
-      "line": 21,
+      "file": "service/src/main/java/nw/vendorledger/CatalogRegistry.java",
+      "line": 20,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorledger/service/CatalogRegistry.java",
-      "line": 23,
+      "file": "service/src/main/java/nw/vendorledger/CatalogRegistry.java",
+      "line": 22,
       "expr": "manifestKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/vendorledger/service/CatalogRegistry.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/vendorledger/CatalogRegistry.java",
+      "line": 23,
       "expr": "manifestKey202",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 29,
       "expr": "receiptKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 30,
       "expr": "receiptKey301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 31,
       "expr": "accountRef302",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 36,
       "expr": "voucherRef303",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 39,
       "expr": "voucherRef303",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 40,
       "expr": "paymentTag304",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 41,
       "expr": "paymentTag304",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 46,
       "expr": "refundCode305",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 48,
       "expr": "refundCode305",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 52,
       "expr": "shipmentCode306",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 53,
       "expr": "manifestKey307",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/RefundAssembler.java",
+      "file": "dao/src/main/java/nw/vendorledger/RefundAssembler.java",
       "line": 54,
       "expr": "manifestKey307",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/ChannelGateway.java",
+      "file": "dao/src/main/java/nw/vendorledger/ChannelGateway.java",
       "line": 21,
       "expr": "value",
       "note": "把污点带进持有 mapper 的方法"
     },
     {
-      "file": "dao/src/main/java/com/northwind/vendorledger/dao/ChannelGateway.java",
+      "file": "dao/src/main/java/nw/vendorledger/ChannelGateway.java",
       "line": 28,
       "expr": "value",
       "note": "污点交给 mapper，下一跳在 XML 里"
     },
     {
-      "file": "dao/src/main/resources/com/northwind/vendorledger/dao/ChannelMapper.xml",
+      "file": "dao/src/main/resources/nw/vendorledger/ChannelMapper.xml",
       "line": 9,
       "expr": "tariffRef",
       "note": "SINK: CWE-89 MyBatis ${} 把值直接拼进 SQL"
@@ -257,6 +257,6 @@
     "payload_at_sink": "SELECT id, amount, status       FROM invoices      WHERE title IN ('ref_ref_ref_ref_ref_ref_zz' OR 1=1--')",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

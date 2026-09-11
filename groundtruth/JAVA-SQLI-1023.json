@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 13 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/orderintake/web/OrderController.java",
+    "file": "web/src/main/java/nw/orderintake/OrderController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/orderintake/web/OrderController.java",
+    "file": "web/src/main/java/nw/orderintake/OrderController.java",
     "line": 27,
     "expr": "orderNo",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/orderintake/dao/OrderRepository.java",
+    "file": "dao/src/main/java/nw/orderintake/OrderRepository.java",
     "line": 28,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,205 +24,205 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/orderintake/web/OrderController.java",
+      "file": "web/src/main/java/nw/orderintake/OrderController.java",
       "line": 27,
       "expr": "orderNo",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderintake/web/LedgerBuilder.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/orderintake/LedgerBuilder.java",
+      "line": 19,
       "expr": "manifestKey1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderintake/web/LedgerBuilder.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/orderintake/LedgerBuilder.java",
+      "line": 20,
       "expr": "manifestKey1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 29,
       "expr": "accountRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 30,
       "expr": "accountRef101",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 35,
       "expr": "voucherRef102",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 36,
       "expr": "paymentTag103",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 37,
       "expr": "refundCode104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 38,
       "expr": "refundCode104",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 43,
       "expr": "shipmentCode105",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 44,
       "expr": "manifestKey106",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 45,
       "expr": "manifestKey106",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ManifestNormalizer.java",
+      "file": "service/src/main/java/nw/orderintake/ManifestNormalizer.java",
       "line": 46,
       "expr": "invoiceKey107",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/LedgerAssembler.java",
+      "file": "service/src/main/java/nw/orderintake/LedgerAssembler.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/LedgerAssembler.java",
+      "file": "service/src/main/java/nw/orderintake/LedgerAssembler.java",
       "line": 24,
       "expr": "tariffRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/LedgerAssembler.java",
+      "file": "service/src/main/java/nw/orderintake/LedgerAssembler.java",
       "line": 25,
       "expr": "ledgerEntry202",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/LedgerAssembler.java",
+      "file": "service/src/main/java/nw/orderintake/LedgerAssembler.java",
       "line": 26,
       "expr": "ledgerEntry202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ReceiptRuleSelector.java",
+      "file": "service/src/main/java/nw/orderintake/ReceiptRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/ReceiptRuleStandard.java",
+      "file": "service/src/main/java/nw/orderintake/ReceiptRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/TariffCollector.java",
-      "line": 28,
+      "file": "service/src/main/java/nw/orderintake/TariffCollector.java",
+      "line": 27,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/TariffCollector.java",
-      "line": 29,
+      "file": "service/src/main/java/nw/orderintake/TariffCollector.java",
+      "line": 28,
       "expr": "manifestKey301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderintake/service/TariffCollector.java",
-      "line": 30,
+      "file": "service/src/main/java/nw/orderintake/TariffCollector.java",
+      "line": 29,
       "expr": "manifestKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 27,
       "expr": "accountRef401",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 30,
       "expr": "accountRef401",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 31,
       "expr": "voucherRef402",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 32,
       "expr": "voucherRef402",
       "note": "写入实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 37,
       "expr": "paymentTag403",
       "note": "读取实例字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 40,
       "expr": "paymentTag403",
       "note": "存入集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 41,
       "expr": "refundCode404",
       "note": "取出集合元素"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 42,
       "expr": "shipmentCode405",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/PaymentBuilder.java",
+      "file": "dao/src/main/java/nw/orderintake/PaymentBuilder.java",
       "line": 43,
       "expr": "shipmentCode405",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/OrderRepository.java",
+      "file": "dao/src/main/java/nw/orderintake/OrderRepository.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderintake/dao/OrderRepository.java",
+      "file": "dao/src/main/java/nw/orderintake/OrderRepository.java",
       "line": 28,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -276,6 +276,6 @@
     "payload_at_sink": "SELECT id, amount, status FROM orders WHERE code = 'ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

@@ -4,24 +4,24 @@
   "verdict": "safe",
   "title": "与 JAVA-PATH-0003 逐行相同，仅插入有效白名单校验",
   "entry": {
-    "file": "web/src/main/java/com/northwind/orderexport/web/BundleController.java",
+    "file": "web/src/main/java/nw/orderexport/BundleController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/orderexport/web/BundleController.java",
+    "file": "web/src/main/java/nw/orderexport/BundleController.java",
     "line": 25,
     "expr": "resource",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/orderexport/dao/BundleLoader.java",
+    "file": "dao/src/main/java/nw/orderexport/BundleLoader.java",
     "line": 25,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
   },
   "sanitizer": {
-    "file": "dao/src/main/java/com/northwind/orderexport/dao/ShipmentScreen.java",
+    "file": "dao/src/main/java/nw/orderexport/ShipmentScreen.java",
     "line": 22,
     "expr": "value",
     "note": "SANITIZER: 严格白名单校验（有效）"
@@ -29,67 +29,67 @@
   "sanitizer_kind": "whitelist_regex",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/orderexport/web/BundleController.java",
+      "file": "web/src/main/java/nw/orderexport/BundleController.java",
       "line": 25,
       "expr": "resource",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderexport/web/ContractBuilder.java",
+      "file": "web/src/main/java/nw/orderexport/ContractBuilder.java",
       "line": 19,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/orderexport/web/AccountNormalizer.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/orderexport/AccountNormalizer.java",
+      "line": 23,
       "expr": "value",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderexport/service/PaymentCollector.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/orderexport/PaymentCollector.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderexport/service/PaymentCollector.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/orderexport/PaymentCollector.java",
+      "line": 24,
       "expr": "accountRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/orderexport/service/PaymentCollector.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/orderexport/PaymentCollector.java",
+      "line": 25,
       "expr": "accountRef201",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderexport/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/orderexport/BatchRouter.java",
       "line": 19,
       "expr": "tariffRef301",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderexport/dao/BatchRouter.java",
+      "file": "dao/src/main/java/nw/orderexport/BatchRouter.java",
       "line": 20,
       "expr": "tariffRef301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderexport/dao/ShipmentScreen.java",
+      "file": "dao/src/main/java/nw/orderexport/ShipmentScreen.java",
       "line": 22,
       "expr": "value",
       "note": "SANITIZER: 严格白名单校验（有效）"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderexport/dao/BundleLoader.java",
+      "file": "dao/src/main/java/nw/orderexport/BundleLoader.java",
       "line": 21,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/orderexport/dao/BundleLoader.java",
+      "file": "dao/src/main/java/nw/orderexport/BundleLoader.java",
       "line": 25,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -128,7 +128,7 @@
     "payload_at_sink": null,
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00",
+    "checked_at": "2026-09-11T15:58:05+08:00",
     "control": {
       "payload_sent": "abc123",
       "reached": true,

@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 12 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/fulfilexport/web/BundleController.java",
+    "file": "web/src/main/java/nw/fulfilexport/BundleController.java",
     "line": 25,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/fulfilexport/web/BundleController.java",
+    "file": "web/src/main/java/nw/fulfilexport/BundleController.java",
     "line": 27,
     "expr": "tag",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/fulfilexport/service/BundleLoader.java",
+    "file": "service/src/main/java/nw/fulfilexport/BundleLoader.java",
     "line": 28,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,139 +24,139 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/BundleController.java",
+      "file": "web/src/main/java/nw/fulfilexport/BundleController.java",
       "line": 27,
       "expr": "tag",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/fulfilexport/TariffNormalizer.java",
       "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/fulfilexport/TariffNormalizer.java",
       "line": 29,
       "expr": "shipmentCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/fulfilexport/TariffNormalizer.java",
       "line": 30,
       "expr": "manifestKey2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/fulfilexport/TariffNormalizer.java",
       "line": 31,
       "expr": "manifestKey2",
       "note": "写入实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/fulfilexport/TariffNormalizer.java",
       "line": 36,
       "expr": "invoiceKey3",
       "note": "读取实例字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/fulfilexport/TariffNormalizer.java",
       "line": 37,
       "expr": "batchTag4",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/TariffNormalizer.java",
+      "file": "web/src/main/java/nw/fulfilexport/TariffNormalizer.java",
       "line": 38,
       "expr": "batchTag4",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/QuotePlanSelector.java",
+      "file": "web/src/main/java/nw/fulfilexport/QuotePlanSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（4 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/QuotePlanStandard.java",
+      "file": "web/src/main/java/nw/fulfilexport/QuotePlanStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/ContractCollector.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/fulfilexport/ContractCollector.java",
+      "line": 23,
       "expr": "receiptKey101",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/ContractCollector.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/fulfilexport/ContractCollector.java",
+      "line": 24,
       "expr": "receiptKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/fulfilexport/web/ContractCollector.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/fulfilexport/ContractCollector.java",
+      "line": 25,
       "expr": "accountRef102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/InvoiceAdapter.java",
+      "file": "service/src/main/java/nw/fulfilexport/InvoiceAdapter.java",
       "line": 17,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/InvoiceAdapter.java",
+      "file": "service/src/main/java/nw/fulfilexport/InvoiceAdapter.java",
       "line": 21,
       "expr": "quoteRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/InvoiceAdapter.java",
+      "file": "service/src/main/java/nw/fulfilexport/InvoiceAdapter.java",
       "line": 22,
       "expr": "tariffRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/InvoiceAdapter.java",
+      "file": "service/src/main/java/nw/fulfilexport/InvoiceAdapter.java",
       "line": 23,
       "expr": "tariffRef202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/ContractPlanSelector.java",
+      "file": "service/src/main/java/nw/fulfilexport/ContractPlanSelector.java",
       "line": 10,
       "expr": "value",
       "note": "接口多态派发（3 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/ContractPlanStandard.java",
+      "file": "service/src/main/java/nw/fulfilexport/ContractPlanStandard.java",
       "line": 10,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilexport/CatalogComposer.java",
       "line": 11,
       "expr": "shipmentCode301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/CatalogComposer.java",
+      "file": "service/src/main/java/nw/fulfilexport/CatalogComposer.java",
       "line": 12,
       "expr": "shipmentCode301",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/BundleLoader.java",
+      "file": "service/src/main/java/nw/fulfilexport/BundleLoader.java",
       "line": 24,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/northwind/fulfilexport/service/BundleLoader.java",
+      "file": "service/src/main/java/nw/fulfilexport/BundleLoader.java",
       "line": 28,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -202,6 +202,6 @@
     "payload_at_sink": "/var/lib/fulfil/data/ref_ref_ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

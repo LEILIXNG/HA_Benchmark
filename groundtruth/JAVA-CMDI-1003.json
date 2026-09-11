@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 13 层调用、跨 2 个模块流入命令执行",
   "entry": {
-    "file": "web/src/main/java/com/northwind/pricinggrant/web/AccountController.java",
+    "file": "web/src/main/java/nw/pricinggrant/AccountController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/pricinggrant/web/AccountController.java",
+    "file": "web/src/main/java/nw/pricinggrant/AccountController.java",
     "line": 23,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountExecutor.java",
+    "file": "service/src/main/java/nw/pricinggrant/AccountExecutor.java",
     "line": 20,
     "expr": "argv",
     "note": "SINK: CWE-78 命令注入"
@@ -24,217 +24,217 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/AccountController.java",
+      "file": "web/src/main/java/nw/pricinggrant/AccountController.java",
       "line": 23,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/pricinggrant/RefundBroker.java",
       "line": 21,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/pricinggrant/RefundBroker.java",
       "line": 24,
       "expr": "refundCode1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/pricinggrant/RefundBroker.java",
       "line": 25,
       "expr": "shipmentCode2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/RefundBroker.java",
+      "file": "web/src/main/java/nw/pricinggrant/RefundBroker.java",
       "line": 26,
       "expr": "shipmentCode2",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/ChannelFacade.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/pricinggrant/ChannelFacade.java",
+      "line": 19,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/ChannelFacade.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/pricinggrant/ChannelFacade.java",
+      "line": 20,
       "expr": "catalogKey101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/pricinggrant/web/ChannelFacade.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/pricinggrant/ChannelFacade.java",
+      "line": 21,
       "expr": "receiptKey102",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 32,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 33,
       "expr": "orderRef201",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 36,
       "expr": "orderRef201",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 37,
       "expr": "quoteRef202",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 38,
       "expr": "quoteRef202",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 43,
       "expr": "tariffRef203",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 44,
       "expr": "tariffRef203",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 45,
       "expr": "ledgerEntry204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ShipmentNormalizer.java",
+      "file": "service/src/main/java/nw/pricinggrant/ShipmentNormalizer.java",
       "line": 46,
       "expr": "channelTag205",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountStrategySelector.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountStrategyStandard.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 28,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 29,
       "expr": "refundCode301",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 30,
       "expr": "refundCode301",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 31,
       "expr": "shipmentCode302",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 36,
       "expr": "manifestKey303",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 37,
       "expr": "invoiceKey304",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 38,
       "expr": "invoiceKey304",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 43,
       "expr": "batchTag305",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 46,
       "expr": "batchTag305",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 47,
       "expr": "orderRef306",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/ChannelService.java",
+      "file": "service/src/main/java/nw/pricinggrant/ChannelService.java",
       "line": 48,
       "expr": "orderRef306",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountResolver.java",
       "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountResolver.java",
       "line": 30,
       "expr": "catalogKey401",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountResolver.java",
       "line": 31,
       "expr": "receiptKey402",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountResolver.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountResolver.java",
       "line": 32,
       "expr": "receiptKey402",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountExecutor.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountExecutor.java",
       "line": 16,
       "expr": "value",
       "note": "污点进入命令行"
     },
     {
-      "file": "service/src/main/java/com/northwind/pricinggrant/service/AccountExecutor.java",
+      "file": "service/src/main/java/nw/pricinggrant/AccountExecutor.java",
       "line": 20,
       "expr": "argv",
       "note": "SINK: CWE-78 命令注入"
@@ -289,6 +289,6 @@
     "payload_at_sink": "echo -n ref_ref_ref_ref_ref_ref_ref_zz$(id)",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

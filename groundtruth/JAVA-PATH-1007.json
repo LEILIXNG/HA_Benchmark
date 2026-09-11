@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "请求头经 7 层调用、跨 2 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventoryrenewal/web/LedgerController.java",
+    "file": "web/src/main/java/nw/inventoryrenewal/LedgerController.java",
     "line": 23,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventoryrenewal/web/LedgerController.java",
+    "file": "web/src/main/java/nw/inventoryrenewal/LedgerController.java",
     "line": 25,
     "expr": "tag",
     "note": "SOURCE: Servlet 请求头"
   },
   "sink": {
-    "file": "service/src/main/java/com/northwind/inventoryrenewal/service/LedgerLoader.java",
+    "file": "service/src/main/java/nw/inventoryrenewal/LedgerLoader.java",
     "line": 30,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,103 +24,103 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventoryrenewal/web/LedgerController.java",
+      "file": "web/src/main/java/nw/inventoryrenewal/LedgerController.java",
       "line": 25,
       "expr": "tag",
       "note": "SOURCE: Servlet 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrenewal/web/QuoteAssembler.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/inventoryrenewal/QuoteAssembler.java",
+      "line": 19,
       "expr": "accountRef1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryrenewal/web/QuoteAssembler.java",
-      "line": 21,
+      "file": "web/src/main/java/nw/inventoryrenewal/QuoteAssembler.java",
+      "line": 20,
       "expr": "accountRef1",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 26,
       "expr": "tariffRef101",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 27,
       "expr": "tariffRef101",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 28,
       "expr": "ledgerEntry102",
       "note": "写入静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 33,
       "expr": "channelTag103",
       "note": "读取静态字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 34,
       "expr": "catalogKey104",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 35,
       "expr": "catalogKey104",
       "note": "字符串拼接传播"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 36,
       "expr": "receiptKey105",
       "note": "写入实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 41,
       "expr": "accountRef106",
       "note": "读取实例字段"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 42,
       "expr": "voucherRef107",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 45,
       "expr": "voucherRef107",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 46,
       "expr": "paymentTag108",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/RefundCoordinator.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/RefundCoordinator.java",
       "line": 47,
       "expr": "paymentTag108",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/LedgerLoader.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/LedgerLoader.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryrenewal/service/LedgerLoader.java",
+      "file": "service/src/main/java/nw/inventoryrenewal/LedgerLoader.java",
       "line": 30,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -164,6 +164,6 @@
     "payload_at_sink": "/srv/inventory/inbox/ref_ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

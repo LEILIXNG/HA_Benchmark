@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "Spring 请求头经 6 层调用、跨 3 个模块流入文件读取",
   "entry": {
-    "file": "web/src/main/java/com/northwind/inventoryarchive/web/CatalogController.java",
+    "file": "web/src/main/java/nw/inventoryarchive/CatalogController.java",
     "line": 24,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/inventoryarchive/web/CatalogController.java",
+    "file": "web/src/main/java/nw/inventoryarchive/CatalogController.java",
     "line": 26,
     "expr": "tag",
     "note": "SOURCE: Spring 请求头"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/CatalogLoader.java",
+    "file": "dao/src/main/java/nw/inventoryarchive/CatalogLoader.java",
     "line": 29,
     "expr": "path",
     "note": "SINK: CWE-22 路径穿越"
@@ -24,109 +24,109 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/inventoryarchive/web/CatalogController.java",
+      "file": "web/src/main/java/nw/inventoryarchive/CatalogController.java",
       "line": 26,
       "expr": "tag",
       "note": "SOURCE: Spring 请求头"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryarchive/web/ContractTranslator.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/inventoryarchive/ContractTranslator.java",
+      "line": 21,
       "expr": "batchTag1",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryarchive/web/ContractTranslator.java",
-      "line": 25,
+      "file": "web/src/main/java/nw/inventoryarchive/ContractTranslator.java",
+      "line": 24,
       "expr": "batchTag1",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryarchive/web/ContractTranslator.java",
-      "line": 26,
+      "file": "web/src/main/java/nw/inventoryarchive/ContractTranslator.java",
+      "line": 25,
       "expr": "orderRef2",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/inventoryarchive/web/ContractTranslator.java",
-      "line": 27,
+      "file": "web/src/main/java/nw/inventoryarchive/ContractTranslator.java",
+      "line": 26,
       "expr": "orderRef2",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryarchive/service/QuoteComposer.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/inventoryarchive/QuoteComposer.java",
+      "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryarchive/service/QuoteComposer.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/inventoryarchive/QuoteComposer.java",
+      "line": 24,
       "expr": "paymentTag101",
       "note": "取出集合元素"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryarchive/service/QuoteComposer.java",
-      "line": 26,
+      "file": "service/src/main/java/nw/inventoryarchive/QuoteComposer.java",
+      "line": 25,
       "expr": "refundCode102",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/inventoryarchive/service/QuoteComposer.java",
-      "line": 27,
+      "file": "service/src/main/java/nw/inventoryarchive/QuoteComposer.java",
+      "line": 26,
       "expr": "refundCode102",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/TariffAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/TariffAdapter.java",
       "line": 21,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/TariffAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/TariffAdapter.java",
       "line": 23,
       "expr": "catalogKey202",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/TariffAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/TariffAdapter.java",
       "line": 24,
       "expr": "catalogKey202",
       "note": "写入静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/TariffAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/TariffAdapter.java",
       "line": 29,
       "expr": "receiptKey203",
       "note": "读取静态字段"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/TariffAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/TariffAdapter.java",
       "line": 30,
       "expr": "accountRef204",
       "note": "局部变量传递"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/TariffAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/TariffAdapter.java",
       "line": 31,
       "expr": "accountRef204",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/TariffAdapter.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/TariffAdapter.java",
       "line": 32,
       "expr": "voucherRef205",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/CatalogLoader.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/CatalogLoader.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入文件路径"
     },
     {
-      "file": "dao/src/main/java/com/northwind/inventoryarchive/dao/CatalogLoader.java",
+      "file": "dao/src/main/java/nw/inventoryarchive/CatalogLoader.java",
       "line": 29,
       "expr": "path",
       "note": "SINK: CWE-22 路径穿越"
@@ -171,6 +171,6 @@
     "payload_at_sink": "/srv/inventory/inbox/ref_ref_../../../etc/passwd",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }

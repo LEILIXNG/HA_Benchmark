@@ -4,18 +4,18 @@
   "verdict": "vulnerable",
   "title": "查询参数经 12 层调用、跨 3 个模块流入JDBC 拼接",
   "entry": {
-    "file": "web/src/main/java/com/northwind/reportposting/web/ManifestController.java",
+    "file": "web/src/main/java/nw/reportposting/ManifestController.java",
     "line": 21,
     "note": "HTTP 入口"
   },
   "source": {
-    "file": "web/src/main/java/com/northwind/reportposting/web/ManifestController.java",
+    "file": "web/src/main/java/nw/reportposting/ManifestController.java",
     "line": 23,
     "expr": "resource",
     "note": "SOURCE: Spring 查询参数"
   },
   "sink": {
-    "file": "dao/src/main/java/com/northwind/reportposting/dao/ManifestRepository.java",
+    "file": "dao/src/main/java/nw/reportposting/ManifestRepository.java",
     "line": 29,
     "expr": "sql",
     "note": "SINK: CWE-89 SQL 注入"
@@ -24,151 +24,151 @@
   "sanitizer_kind": "none",
   "path": [
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ManifestController.java",
+      "file": "web/src/main/java/nw/reportposting/ManifestController.java",
       "line": 23,
       "expr": "resource",
       "note": "SOURCE: Spring 查询参数"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 26,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 27,
       "expr": "receiptKey1",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 28,
       "expr": "accountRef2",
       "note": "写入静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 33,
       "expr": "voucherRef3",
       "note": "读取静态字段"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 36,
       "expr": "voucherRef3",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 37,
       "expr": "paymentTag4",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 38,
       "expr": "paymentTag4",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelTranslator.java",
+      "file": "web/src/main/java/nw/reportposting/ChannelTranslator.java",
       "line": 39,
       "expr": "refundCode5",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/CatalogRuleSelector.java",
+      "file": "web/src/main/java/nw/reportposting/CatalogRuleSelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/CatalogRuleStandard.java",
+      "file": "web/src/main/java/nw/reportposting/CatalogRuleStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/PaymentFacade.java",
+      "file": "web/src/main/java/nw/reportposting/PaymentFacade.java",
       "line": 23,
       "expr": "value",
       "note": "存入集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/PaymentFacade.java",
+      "file": "web/src/main/java/nw/reportposting/PaymentFacade.java",
       "line": 24,
       "expr": "quoteRef101",
       "note": "取出集合元素"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/PaymentFacade.java",
+      "file": "web/src/main/java/nw/reportposting/PaymentFacade.java",
       "line": 25,
       "expr": "quoteRef101",
       "note": "调用下一层"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/LedgerStrategySelector.java",
+      "file": "web/src/main/java/nw/reportposting/LedgerStrategySelector.java",
       "line": 22,
       "expr": "value",
       "note": "接口多态派发（2 个实现）"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/LedgerStrategyStandard.java",
+      "file": "web/src/main/java/nw/reportposting/LedgerStrategyStandard.java",
       "line": 18,
       "expr": "value",
       "note": "接口实现（链路可达）"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelFacade.java",
-      "line": 20,
+      "file": "web/src/main/java/nw/reportposting/ChannelFacade.java",
+      "line": 19,
       "expr": "shipmentCode201",
       "note": "局部变量传递"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelFacade.java",
-      "line": 22,
+      "file": "web/src/main/java/nw/reportposting/ChannelFacade.java",
+      "line": 21,
       "expr": "shipmentCode201",
       "note": "字符串拼接传播"
     },
     {
-      "file": "web/src/main/java/com/northwind/reportposting/web/ChannelFacade.java",
-      "line": 24,
+      "file": "web/src/main/java/nw/reportposting/ChannelFacade.java",
+      "line": 23,
       "expr": "manifestKey202",
       "note": "调用下一层"
     },
     {
-      "file": "service/src/main/java/com/northwind/reportposting/service/VoucherRouter.java",
-      "line": 24,
+      "file": "service/src/main/java/nw/reportposting/VoucherRouter.java",
+      "line": 23,
       "expr": "receiptKey301",
       "note": "局部变量传递"
     },
     {
-      "file": "service/src/main/java/com/northwind/reportposting/service/VoucherRouter.java",
-      "line": 25,
+      "file": "service/src/main/java/nw/reportposting/VoucherRouter.java",
+      "line": 24,
       "expr": "receiptKey301",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/reportposting/dao/RefundCoordinator.java",
+      "file": "dao/src/main/java/nw/reportposting/RefundCoordinator.java",
       "line": 24,
       "expr": "value",
       "note": "字符串拼接传播"
     },
     {
-      "file": "dao/src/main/java/com/northwind/reportposting/dao/RefundCoordinator.java",
+      "file": "dao/src/main/java/nw/reportposting/RefundCoordinator.java",
       "line": 26,
       "expr": "quoteRef401",
       "note": "调用下一层"
     },
     {
-      "file": "dao/src/main/java/com/northwind/reportposting/dao/ManifestRepository.java",
+      "file": "dao/src/main/java/nw/reportposting/ManifestRepository.java",
       "line": 25,
       "expr": "value",
       "note": "污点进入 SQL 语句"
     },
     {
-      "file": "dao/src/main/java/com/northwind/reportposting/dao/ManifestRepository.java",
+      "file": "dao/src/main/java/nw/reportposting/ManifestRepository.java",
       "line": 29,
       "expr": "sql",
       "note": "SINK: CWE-89 SQL 注入"
@@ -216,6 +216,6 @@
     "payload_at_sink": "SELECT id, total FROM payment_records WHERE name = 'ref_ref_ref_ref_ref_zz' OR 1=1--'",
     "http_status": 500,
     "detail": "",
-    "checked_at": "2026-09-10T16:14:56+08:00"
+    "checked_at": "2026-09-11T15:58:05+08:00"
   }
 }
